@@ -20,7 +20,7 @@
 				},1000);
       },
       login( data ){
-      	window.location = '/#/dashboard/clinic'
+      	this.$router.push( { name: 'Clinic' } );
       }
     }
 	}

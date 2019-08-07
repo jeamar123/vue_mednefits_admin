@@ -18,7 +18,7 @@
         },
         submitAddClinic(){
             this.activeStep = 1;
-            window.location = '/#/dashboard/clinic';
+            this.$router.push( 'Clinic' );
         }
     }
   }
