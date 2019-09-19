@@ -9,13 +9,13 @@
 	  		<ul class="nav-ul">
 
 	  			<li><router-link tag="a" :to="{ name : 'Clinic' }">Clinic</router-link></li>
-	  			<li><router-link tag="a" :to="{ name : 'Corporates' }">Doctor</router-link></li>
-	  			<li><router-link tag="a" :to="{ name : 'Corporates' }">Accounts</router-link></li>
-	  			<li><router-link tag="a" :to="{ name : 'Corporates' }">Public</router-link></li>
-	  			<li><router-link tag="a" :to="{ name : 'Corporates' }">Individual</router-link></li>
+	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Doctor</router-link></li>
+	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Accounts</router-link></li>
+	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Public</router-link></li>
+	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Individual</router-link></li>
 	  			<li><router-link tag="a" :to="{ name : 'Corporates' }">Corporate</router-link></li>
 	  			<li>
-		  			<router-link tag="a" :to="{ name : 'Corporates' }">
+		  			<router-link tag="a" :to="{ name : 'Analytics' }">
 		  				Transaction
 		  				<div class="drop-wrapper transaction-drop">
 		  					<ul class="nav-ul">
@@ -25,8 +25,8 @@
 		  				</div>
 		  			</router-link>
 		  		</li>
-	  			<li><router-link tag="a" :to="{ name : 'Corporates' }">Analytics</router-link></li>
-	  			<li><router-link tag="a" :to="{ name : 'Corporates' }">Admin</router-link></li>
+	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Analytics</router-link></li>
+	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Admin</router-link></li>
 	  		</ul>
 	  	</div>
 

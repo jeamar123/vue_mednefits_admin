@@ -28,6 +28,8 @@ import CorporateMemberList from './views/corporates/CorporateMemberList.vue'
 import CorporateEmployeeMenu from './views/corporates/employee/CorporateEmployeeMenu.vue'
 import EmployeeInformation from './views/corporates/employee/EmployeeInformation.vue'
 
+import Analytics from './views/Analytics.vue'
+
 
 Vue.use(Router)
 Vue.use(axios)
@@ -87,6 +89,9 @@ export default new Router({
           ]
         },
         { name: 'AddCorporate', path: '/dashboard/corporates/add', component: AddCorporate },
+
+
+        { name: 'Analytics', path: '/dashboard/analytics', component: Analytics },
       ]
     },
     
