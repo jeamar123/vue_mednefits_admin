@@ -8,9 +8,9 @@
 			</div>
 		</div>
 
-		<div class="member-list-container">
+		<div v-if="false" class="member-list-container">
 			
-			<div class="member-wrapper" v-for="list in [1,2,3,4,5]">
+			<div  class="member-wrapper" v-for="list in [1,2,3,4,5]">
 				<router-link tag="div" :to="{ name: 'CorporateEmployeeMenu' }" class="header">
 					<i class="fa fa-user"></i>
 					<label>Lorem Ipsum</label>
@@ -78,6 +78,103 @@
 				</div>
 			</div>
 
+		</div>
+
+		<div v-if="true" class="member-list-table-wrapper">
+			<div class="member-list-table">
+				<table>
+					<thead>
+						<tr>
+							<th class="name-title">Name</th>
+							<th class="status-title">Status</th>
+							<th class="mobile-number-title">Mobile number</th>
+							<th class="family-coverage-title">Family coverage</th>
+							<th class="spending-account-medical-title">Spending account <span>(medical)</span></th>
+							<th class="spending-account-wellness-title">Spending account <span>(wellness)</span></th>
+							<th class="date-title">Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+							<tr>
+								<td class="name-data">
+									<router-link :to="{ name: 'CorporateEmployeeMenu' }">
+										<strong>Noelou Jan Nagac</strong>
+									</router-link>
+									<button class="btn-transfer-account">Transfer Account</button>
+								</td>
+								<router-link :to="{ name: 'CorporateEmployeeMenu' }">
+									<td class="status-data">
+										<div>
+											<span class="status-color active"></span>
+											<span>Active</span>
+										</div>
+										<div class="status-expired-details">
+											<span>Last Day of Coverage/End Date 04/10/2019</span>
+										</div>
+									</td>
+									<td class="mobile-number-data"><span>9064317892</span></td>
+									<td class="family-coverage-data">
+										<div class="dependent-details">
+											<strong>Dependent: </strong>
+											<span>1</span>
+										</div>
+									</td>
+									<td class="spending-account-medical-data">
+										<div class="medical-details">
+											<strong>Allocation:</strong>
+											<span>S$ <span>1000</span></span>
+										</div>
+										<div class="plan-details">
+											<strong>Usage:</strong>
+											<span>S$ <span>979.4</span></span>
+										</div>
+									</td>
+									<td class="spending-account-wellness-data">
+										<div class="medical-details">
+											<strong>Allocation:</strong>
+											<span>S$ <span>1000</span></span>
+										</div>
+										<div class="plan-details">
+											<strong>Usage:</strong>
+											<span>S$ <span>979.4</span></span>
+										</div>
+									</td>
+									<td class="date-data">
+										<div class="start-date-details">
+											<strong>Start date:</strong>
+											<span>July 05, 2019</span>
+										</div>
+										<div class="end-date-details">
+											<strong>End date:</strong>
+											<span>December 05, 2019</span>
+										</div>
+									</td>
+								</router-link>
+							</tr>
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="member-list-pagination">
+			<div class="global-pagination">
+				<div class="prev-pagination">
+					<i class="fa fa-angle-left"></i>
+				</div>
+				<div class="next-pagination">
+					<i class="fa fa-angle-right"></i>
+				</div><div class="total-item">
+					<span>1 - 10 of 100</span>
+				</div>
+				<div class="per-page-pagination">
+					<span>
+						<span>5</span> per page
+        	</span>
+        	<i class="fa fa-angle-down"></i>
+        </div>
+      </div>
 		</div>
 
   </div>
