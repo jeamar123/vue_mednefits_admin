@@ -165,7 +165,8 @@
 				</div>
 				<div class="next-pagination">
 					<i class="fa fa-angle-right"></i>
-				</div><div class="total-item">
+				</div>
+				<div class="total-item">
 					<span>1 - 10 of 100</span>
 				</div>
 				<div class="per-page-pagination">

@@ -605,15 +605,21 @@ $font-gray: #888;
     border-radius: 2px;
   }
 }
+
 /* EMPLOYEE INFO*/
 .employee-menu-container{
   min-height: calc( 100vh - 60px );
   display: flex;
   width: 100%;
 
+  .close-btn {
+    color: #fff;
+  }
+
   .left-box-wrapper{
-    flex: 1.4;
+    // flex: 1.4;
     /*background: $bg-blue;*/
+    width: 25%;
     background: #FFF;
     box-shadow: 0px 1px 5px #b3b3b3;
     padding-bottom: 50px;
@@ -703,10 +709,477 @@ $font-gray: #888;
   }
 
   .right-box-wrapper{
-    flex: 4;
-    margin: 10px;
+    // flex: 4;
+    margin: 0 0 0 10px;
+    width: 75%;
+    background: #fff;
+    box-shadow: 0px 1px 5px #b3b3b3;
+  }
+
+  .employee-information-container {
+    tr th {
+      font-family: 'Helvetica Light';
+    }
+
+    .btn {
+      background-color: transparent;
+      border: 2px solid #e8e8e8;
+      border-radius: 4px;
+      padding: 7px 14px;
+      font-weight: 700;
+    }
+
+    .emp-information-container-details,
+    .dependent-details,
+    .claim-submission-details,
+    .settings-details {
+      padding: 20px 40px 0;
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 15px 0;
+    }
+
+    .btn-edit img,
+    .btn-add img {
+      height: 18px;
+      margin: 0 10px 0 0;
+    }
+
+    .btn-remove {
+      margin: 0 10px;
+    }
+
+    .btn-remove-employee {
+      color: #ea4b4b;
+      border: 2px solid #e26f6f;
+      border-radius: 2px;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .btn-remove-employee i {
+      font-size: 16px;
+    }
+
+    .btn-settings {
+      color: #666666;
+      font-size: 16px;
+      margin: 10px 0 0;
+      padding: 10px 20px;
+      text-align: left;
+      height: 55px;
+      width: 250px;
+    }
+
+    .btn-settings i {
+      font-size: 22px;
+      width: 30px;
+    }
+
+    .btn-submit {
+      width: 120px;
+      height: 40px;
+      background-color: #076086;
+      border-radius: 2px;
+      border: 0;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .btn-medical {
+      background-color: transparent;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      color: #777;
+      width: 48%;
+      font-weight: 700;
+      margin: 0 5px 0 0;
+      padding: 10px 0;
+    }
+
+    .btn-medical.active {
+      border-color: #36aaec;
+    }
+  }
+
+  .emp-tab-wrapper {
+    background-color: #215e86;
+    color: #fff;
+    display: flex;
+    font-size: 16px;
+    margin: 20px 0 0;
+    padding: 10px 0 0 40px;
+    position: relative;
+
+    >div {
+      cursor: pointer;
+      font-weight: 700;
+      margin: 0 40px 0 0;
+      padding: 0 0 10px;
+    }
+
+    >div.active {
+      border-bottom: 2px solid #fff;
+    }
+  }
+
+  .emp-info-header {
+    position: relative;
+    margin: 0 0 30px;
+
+    .right-btn-container {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+
+  .emp-information-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 2em;
+    margin-bottom: 50px;
+    font-weight: 700;
+  }
+
+  .col-1-emp-info-details >div,
+  .col-2-emp-info-details >div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid #cbcbcb;
+    padding: 0 0 10px;
+    margin: 0 0 10px;
+
+    strong {
+      font-family: 'Helvetica Medium';
+    }
+
+    .emp-username-type-container label {
+      margin: 0 10px 0 0;
+      display: inline-block;
+    }
+
+    .emp-username-type-container input {
+      margin: 0 5px 0 0;
+    }
+  }
+
+  .emp-info-btn-footer {
+    position: relative;
+  }
+
+  .emp-info-btn-footer >div:nth-child(1) {
+    display: flex;
+
+    h3 {
+      margin: 0 20px 0 0;
+    }
   }
 }
+
+
+.btn-network {
+  background-color: #076086;
+  border: 0;
+  border-radius: 2px;
+  color: #fff;
+  width: 150px;
+  padding: 10px 0;
+}
+
+.claim-submission-details {
+  .btn-network-container button {
+    margin: 0 10px 0 0;
+  }
+
+  .emp-info-header {
+    margin: 0;
+  }
+
+  .network-header-container {
+    position: relative;
+
+    .fa-times {
+      position: absolute;
+      top: 2px;
+      right: 0;
+      font-size: 16px;
+    }
+  }
+
+  .in-network-table-container {
+    margin: 20px 0 40px;
+
+    input {
+      background: #eee;
+      border: 0;
+      border-radius: 2px;
+      padding: 10px;
+      width: 100%;
+      height: 38px;
+      font-size: 12px; 
+      font-weight: 700;
+    }
+
+    input::placeholder {
+      font-weight: 500;
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+
+    table thead,
+    table tbody {
+      tr th,
+      tr td {
+        padding: 20px 10px 10px 0;
+      }
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 2px;
+      color: #888;
+      width: 100%;
+      padding: 5px 10px;
+    }
+
+    .dropdown-menu li {
+      padding: 5px 0;
+    }
+
+    .visit-date-container {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+    }
+
+    .visit-time-container {
+      position: absolute;
+      top: 9px;
+      left: 10px;
+    }
+  }
+
+ .in-network-input-wrapper {
+    position: relative;
+  }
+
+  .visit-date-input-wrapper input {
+    padding: 10px 30px 10px 10px;
+  }
+
+  .visit-time-input-wrapper input {
+    width: 134px;
+    padding: 10px 34px 10px 35px;
+  }
+
+  .payment-type-input-wrapper {
+
+    input {
+      padding: 10px 20px 10px 10px;
+    }
+
+    .fa-caret-down {
+      position: absolute;
+      top: 14px;
+      right: 10px;
+      color: #888;
+    }
+  } 
+
+  
+
+  .am-pm-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 35px;
+    text-align: center;
+    padding: 5px 0 0;
+    color: #888;
+    border-left: 1px solid #ccc;
+
+    span {
+      display: block;
+      font-size: 10px;
+    }
+  }
+
+  .caret-down-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .in-network-btn-footer {
+    text-align: right;
+  }
+}
+
+.time-wrapper {
+  display: flex;
+  text-align: center;
+  color: #333;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 0 0 3px;
+
+  .hour,
+  .minute {
+    flex: 1;
+  }
+
+  .middle {
+    width: 10px;
+  }
+
+  .hour-value {
+    margin: 10px 0;
+  }
+
+  i {
+    cursor: pointer;
+  }
+}
+
+.out-of-network-form-wrapper {
+  width: 60%;
+  max-width: 550px;
+
+  .next-btn-footer {
+    text-align: right;
+  }
+}
+
+.out-of-network-form {
+  box-shadow: 0px 0px 18px #bbb;
+  padding: 25px 30px;
+  margin: 20px 0;
+
+  .step-one img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .input-group {
+    display: flex;
+    margin: 0 0 30px;
+    
+    >label {
+      width: 40%;
+    }
+
+    >div {
+      width: 60%;
+      display: inline-block;
+    }
+
+    .required {
+      color: #ea4b4b;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper >.fa-caret-down {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      color: #888;
+    }
+  }
+
+  .visit-date-input-wrapper input,
+  .currency-input-wrapper input {
+    padding: 6px 50px 6px 18px;
+  }
+
+  .time-input-wrapper input {
+    padding: 6px 50px 6px;
+  }
+
+  input {
+    background-color: #fff;
+    border: 1px solid #e9e9e9;
+    border-radius: 4px;
+    color: #888;
+    height: 34px;
+    width: 100%;
+    padding: 6px 18px;
+  }
+
+  .visit-date-container,
+  .currency-container {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 47px;
+    height: 100%;
+    text-align: center;
+    border-left: 1px solid #ccc;
+    padding: 6px;
+    color: #36aaec;
+  }
+
+  .am-pm-container {
+    width: 47px;
+  }
+
+  .time-input-wrapper {
+
+    .visit-time-container {
+      position: absolute;
+      top: 5px;
+      left: 10px;
+    }
+
+    .fa-caret-down {
+      position: relative;
+      bottom: 5px;
+    }
+  }  
+}
+
+.out-of-network-table-container {
+
+  h4 {
+    font-size: 16px;
+    margin: 15px 0;
+  }
+
+  tr th {
+    background: #eee;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  tr th,
+  tr td {
+    &:first-child {
+      padding: 10px;
+    }
+  }
+
+  button {
+    background-color: #076086;
+    color: #fff;
+    border-radius: 2px;
+    padding: 5px 10px;
+  }
+}
+
 
 @media (max-width: 1400px) {
   .member-list-table-wrapper {

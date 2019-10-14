@@ -117,7 +117,7 @@
 		<div class="right-box-wrapper">
 			<router-view name="child"></router-view>
 		</div>
-
+		
   </div>
 </template>
 

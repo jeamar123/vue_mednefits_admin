@@ -2,14 +2,20 @@
   let corporateInformation = {
     data() {
       return {
-        
+        empSelectorActive: {
+          value: 0,
+          text: ""
+        }
       };
     },
     created(){
 
     },
     methods: {
-      
+      showEmpSelectorInfo(value, text) {
+        this.empSelectorActive.value = value;
+        this.empSelectorActive.text = text;
+      }
     }
   }
   
