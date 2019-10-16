@@ -27,6 +27,7 @@ import CorporateInformation from './views/corporates/CorporateInformation.vue'
 import CorporateMemberList from './views/corporates/CorporateMemberList.vue'
 import CorporateEmployeeMenu from './views/corporates/employee/CorporateEmployeeMenu.vue'
 import EmployeeInformation from './views/corporates/employee/EmployeeInformation.vue'
+import HealthPartnerAccess from './views/corporates/HealthPartnerAccess.vue'
 
 import Analytics from './views/Analytics.vue'
 
@@ -68,6 +69,7 @@ export default new Router({
         { name: 'AddClinic', path: '/dashboard/clinic/add', component: AddClinic },
         //corporates
         { name: 'Corporates', path: '/dashboard/corporates', component: Corporates },
+        { name: 'HealthPartnerAccess', path: '/dashboard/health-partner-access', component: HealthPartnerAccess },
         { 
           name: 'CorporateMenu', 
           path: '/dashboard/corporates/menu', 

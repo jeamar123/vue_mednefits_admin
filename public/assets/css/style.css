@@ -689,7 +689,7 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
     width: 400px;
     margin: 50px auto;
     background-color: #fff;
-    border-radius: 2px;
+    border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
     transition: all .3s ease;
   }
