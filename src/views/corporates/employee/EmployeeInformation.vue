@@ -8,123 +8,419 @@
 		</div>
 
 		<div v-if="empSelectorActive.value === 0" class="emp-information-container-details">
-			<div class="emp-info-header">
-				<h3>Employee Information</h3>
-				<div class="right-btn-container">
-					<button class="btn btn-edit"><img :src="'../assets/img/icons/edit.png'">Edit Profile</button>
+			<div v-if="!editEmployeeProfile">
+				<div class="emp-info-header">
+					<h3>Employee Information</h3>
+					<div class="right-btn-container">
+						<button @click="showEditEmp()" class="btn btn-edit"><img :src="'../assets/img/icons/edit.png'">Edit Profile</button>
+					</div>	
+				</div>
+				<div class="emp-information-details">
+					<div class="col-1-emp-info-details">
+						<div>
+							<strong>Full Name</strong>
+							<span>Honglay Rose Lim</span>
+						</div>
+						<div>
+							<strong>Date of Birth</strong>
+							<span>2019-03-04</span>
+						</div>
+						<div>
+							<strong>Postal Code</strong>
+							<span>12345</span>
+						</div>
+						<div>
+							<strong>Job Title</strong>
+							<span>Other</span>
+						</div>
+						<div>
+							<strong>Mobile Country Code</strong>
+							<span>+65</span>
+						</div>
+						<div>
+							<strong>Mobile Number</strong>
+							<span>+639064317892</span>
+						</div>
+					</div>
+
+					<div class="col-2-emp-info-details">
+						<div>
+							<strong>Member ID</strong>
+							<span>023735</span>
+						</div>
+						<div>
+							<strong>Work Email</strong>
+							<span>honglay@mednefits.com</span>
+						</div>
+						<div>
+							<strong>Bank Account Number</strong>
+							<span></span>
+						</div>
+						<div>
+							<strong>Bank Code</strong>
+							<span></span>
+						</div>
+						<div>
+							<strong>Bank BRH</strong>
+							<span></span>
+						</div>
+						<div>
+							<strong>For Cummunication</strong>
+							<span class="emp-username-type-container">
+								<label><input type="radio" name="emp-username-type"> Email</label>
+								<label><input type="radio" name="emp-username-type"> SMS</label>
+							</span>
+						</div>
+					</div>
+
+				</div>
+
+
+				<div class="emp-info-btn-footer">
+					<div>
+						<h3>Add a Dependent?</h3>
+						<button class="btn btn-add"><img :src="'../assets/img/icons/add-employee.svg'">Add</button>
+					</div>
+					<div>
+						<button class="btn btn-remove-employee">Remove Employee <i class="fa fa-trash"></i></button>
+					</div>
+				</div>
+			</div>
+
+			<div v-if="editEmployeeProfile" class="edit-emp-profile-wrapper">
+				<div class="edit-emp-details-header">
+					<div>
+						<h3>Edit Employee Details <span class="emp-name-text">Kynn Rodriguez</span></h3>
+					</div>
+					<i @click="showEditEmp()" class="fa fa-times"></i>
+				</div>
+				<div class="edit-emp-details-body">
+					<form>
+						<div class="edit-dependent-row">
+							<div class="employee-details-input-wrapper">
+								<label>Full Name</label>
+								<input type="text">
+							</div>
+							<div class="employee-details-input-wrapper">
+								<label>Mobile Number</label>
+								<div class="country-code-mobile-container">
+									<div class="country-code-container">
+										<input type="text">
+										<i class="fa fa-caret-down"></i>
+									</div>
+									<input type="text">
+								</div>	
+							</div>
+						</div>
+
+						<div class="edit-dependent-row">
+							<div class="employee-details-input-wrapper">
+								<label>Member ID</label>
+								<input type="number">
+							</div>
+							<div class="employee-details-input-wrapper">
+								<label>Job Title</label>
+								<div class="date-container">
+									<input type="text">
+								</div>	
+							</div>
+						</div>
+
+						<div class="edit-dependent-row">
+							<div class="employee-details-input-wrapper">
+								<label>Date of Birth</label>
+								<div class="date-container">
+									<v-date-picker
+		                popoverDirection="bottom"
+		                v-model="starDateDetails.null"
+		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                popover-visibility="focus"
+		              ></v-date-picker>
+		              <i class="fa fa-caret-down"></i>
+              	</div>
+							</div>
+							<div class="employee-details-input-wrapper">
+								<label>Bank Account Number</label>
+								<input type="number">
+							</div>
+						</div>
+
+						<div class="edit-dependent-row">
+							<div class="employee-details-input-wrapper">
+								<label>Postal Code</label>
+								<input type="number">
+							</div>
+							<div class="employee-details-input-wrapper">
+								<label>Bank Code</label>
+								<input type="number">
+							</div>
+						</div>
+
+						<div class="edit-dependent-row">
+							<div class="employee-details-input-wrapper">
+								<label>Work Email</label>
+								<input type="text">
+							</div>
+							<div class="employee-details-input-wrapper">
+								<label>Bank BRH</label>
+								<input type="number">
+							</div>
+						</div>
+
+					</form>
+					<div class="package-plan-container">
+						<h4>Package Plan</h4>
+						<div>
+							<button class="btn-primary">Bundle Pro (Health Wallet)</button>
+						</div>
+						<div class="package-details-wrapper">
+							<div class="package-item-container">
+                <div class="package-img-name-wrapper">
+                  <div>
+                    <i class="fa fa-bookmark"></i>
+                  </div>
+                  <div>
+                    <span class="ng-binding">Outpatient GP</span>
+                  </div>
+                </div>
+                <div>
+                  <h6 ng-bind="list.package_description" class="ng-binding">Consultation: S$0, covered by us. Medicine &amp; Treatment: Pay using Mednefits Credits.</h6>
+                </div>
+              </div>
+              <div class="package-item-container">
+                <div class="package-img-name-wrapper">
+                  <div>
+                    <i class="fa fa-bookmark"></i>
+                  </div>
+                  <div>
+                    <span class="ng-binding">Dental Care</span>
+                  </div>
+                </div>
+                <div>
+                  <h6 ng-bind="list.package_description" class="ng-binding">Up to 30% off dental services.</h6>
+                </div>
+              </div>
+              <div class="package-item-container">
+                <div class="package-img-name-wrapper">
+                  <div>
+                    <i class="fa fa-bookmark"></i>
+                  </div>
+                  <div>
+                    <span class="ng-binding">TCM</span>
+                  </div>
+                </div>
+                <div>
+                  <h6 ng-bind="list.package_description" class="ng-binding">100% consultation covered by Mednefits. You only need to pay for medicine.</h6>
+                </div>
+              </div>
+              <div class="package-item-container">
+                <div class="package-img-name-wrapper">
+                  <div>
+                    <i class="fa fa-bookmark"></i>
+                  </div>
+                  <div>
+                    <span class="ng-binding">Health Screening</span>
+                  </div>
+                </div>
+                <div>
+                  <h6 ng-bind="list.package_description" class="ng-binding">1 complimentary basic health screening per year.</h6>
+                </div>
+              </div>
+              <div class="package-item-container">
+                <div class="package-img-name-wrapper">
+                  <div>
+                    <i class="fa fa-bookmark"></i>
+                  </div>
+                  <div>
+                    <span class="ng-binding">Health Specialist</span>
+                  </div>
+                </div>
+                <div>
+                  <h6 ng-bind="list.package_description" class="ng-binding">$70 per consultation (Advanced booking as a Mednefits member is required).</h6>
+                </div>
+              </div>
+              <div class="package-item-container">
+                <div class="package-img-name-wrapper">
+                  <div>
+                    <i class="fa fa-bookmark"></i>
+                  </div>
+                  <div>
+                    <span class="ng-binding">Wellness Benefits</span>
+                  </div>
+                </div>
+                <div>
+                  <h6 ng-bind="list.package_description" class="ng-binding">Save up to 40% on wellness services.</h6>
+                </div>
+              </div>
+						</div>
+					</div>
+				</div>
+				<div class="save-btn-footer">
+					<button class="btn-primary">SAVE & CONTINUE</button>
 				</div>	
-			</div>
-			<div class="emp-information-details">
-				<div class="col-1-emp-info-details">
-					<div>
-						<strong>Full Name</strong>
-						<span>Honglay Rose Lim</span>
-					</div>
-					<div>
-						<strong>Date of Birth</strong>
-						<span>2019-03-04</span>
-					</div>
-					<div>
-						<strong>Postal Code</strong>
-						<span>12345</span>
-					</div>
-					<div>
-						<strong>Job Title</strong>
-						<span>Other</span>
-					</div>
-					<div>
-						<strong>Mobile Country Code</strong>
-						<span>+65</span>
-					</div>
-					<div>
-						<strong>Mobile Number</strong>
-						<span>+639064317892</span>
-					</div>
-				</div>
-
-				<div class="col-2-emp-info-details">
-					<div>
-						<strong>Member ID</strong>
-						<span>023735</span>
-					</div>
-					<div>
-						<strong>Work Email</strong>
-						<span>honglay@mednefits.com</span>
-					</div>
-					<div>
-						<strong>Bank Account Number</strong>
-						<span></span>
-					</div>
-					<div>
-						<strong>Bank Code</strong>
-						<span></span>
-					</div>
-					<div>
-						<strong>Bank BRH</strong>
-						<span></span>
-					</div>
-					<div>
-						<strong>For Cummunication</strong>
-						<span class="emp-username-type-container">
-							<label><input type="radio" name="emp-username-type"> Email</label>
-							<label><input type="radio" name="emp-username-type"> SMS</label>
-						</span>
-					</div>
-				</div>
-
-			</div>
-
-			<div class="emp-info-btn-footer">
-				<div>
-					<h3>Add a Dependent?</h3>
-					<button class="btn btn-add"><img :src="'../assets/img/icons/add-employee.svg'">Add</button>
-				</div>
-				<div>
-					<button class="btn btn-remove-employee">Remove Employee <i class="fa fa-trash"></i></button>
-				</div>
-			</div>
+			</div>	
 		</div>
 
 		<div v-if="empSelectorActive.value === 1" class="dependent-details">
-			<div class="emp-info-header">
-				<h3>Dependent Information</h3>
-				<div class="right-btn-container">
-					<button class="btn btn-edit"><img :src="'../assets/img/replace.png'">Replace</button>
-					<button class="btn btn-edit btn-remove"><img :src="'../assets/img/icons/dustbin.png'">Remove</button>
-					<button class="btn btn-edit"><img :src="'../assets/img/icons/edit.png'">Edit</button>
+			<div v-if="!editDependentInfo && !editReplaceDependentInfo">
+				<div class="emp-info-header">
+					<h3>Dependent Information</h3>
+					<div class="right-btn-container">
+						<button @click="showReplaceDependent()" class="btn btn-edit"><img :src="'../assets/img/replace.png'">Replace</button>
+						<button @click="showRemoveDependent()" class="btn btn-edit btn-remove"><img :src="'../assets/img/icons/dustbin.png'">Remove</button>
+						<button @click="showEditDependent()" class="btn btn-edit"><img :src="'../assets/img/icons/edit.png'">Edit</button>
+					</div>
+				</div>
+				<div class="emp-information-details">
+					<div class="col-1-emp-info-details">
+						<div>
+							<strong>Full Name</strong>
+							<span>Kevin Aton</span>
+						</div>
+						<div>
+							<strong>Plan Start</strong>
+							<span>August 03,2019</span>
+						</div>
+						<div>
+							<strong>Plan End</strong>
+							<span>August 02,2020</span>
+						</div>
+					</div>
+
+					<div class="col-2-emp-info-details">
+						<div>
+							<strong>Date of Birth</strong>
+							<span>04/03/2019</span>
+						</div>
+						<div>
+							<strong>Relationship</strong>
+							<span>Child</span>
+						</div>
+						<div>
+							<strong>Member ID</strong>
+							<span>023736</span>
+						</div>
+					</div>
+
 				</div>
 			</div>
-			<div class="emp-information-details">
-				<div class="col-1-emp-info-details">
-					<div>
-						<strong>Full Name</strong>
-						<span>Kevin Aton</span>
-					</div>
-					<div>
-						<strong>Plan Start</strong>
-						<span>August 03,2019</span>
-					</div>
-					<div>
-						<strong>Plan End</strong>
-						<span>August 02,2020</span>
-					</div>
+			<!-- Replace dependent container -->
+			<div v-if="editReplaceDependentInfo" class="edit-employee-info-container">
+				<i @click="showReplaceDependent()" class="fa fa-times"></i>
+				<div class="edit-dependent-details-text">
+					<h3>Replace Dependent</h3>
 				</div>
+				<form>
+					<div class="edit-dependent-row">
+						<div class="employee-details-input-wrapper">
+							<label>Full Name</label>
+							<input type="text">
+						</div>
+						<div class="employee-details-input-wrapper">
+							<label>Relationship</label>
+							<select>
+								<option>Spouse</option>
+								<option>Child</option>
+								<option>Family</option>
+								<option>Parent</option>
+							</select>
+						</div>
+					</div>
 
-				<div class="col-2-emp-info-details">
-					<div>
-						<strong>Date of Birth</strong>
-						<span>04/03/2019</span>
+					<div class="edit-dependent-row">
+						<div class="employee-details-input-wrapper">
+							<label>Date of Birth</label>
+							<div class="date-container">
+								<v-date-picker
+	                popoverDirection="bottom"
+	                v-model="starDateDetails.null"
+	                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+	                popover-visibility="focus"
+	              ></v-date-picker>
+	              <i class="fa fa-caret-down"></i>
+              </div>
+						</div>
+						<div class="employee-details-input-wrapper">
+							<label>Plan Start</label>
+							<div class="date-container">
+								<v-date-picker
+	                popoverDirection="bottom"
+	                v-model="starDateDetails.null"
+	                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+	                popover-visibility="focus"
+	              ></v-date-picker>
+	              <i class="fa fa-caret-down"></i>
+              </div>
+						</div>
 					</div>
-					<div>
-						<strong>Relationship</strong>
-						<span>Child</span>
+
+					<div class="save-btn-footer">
+						<button class="btn-primary">SAVE & CONTINUE</button>
 					</div>
-					<div>
-						<strong>Member ID</strong>
-						<span>023736</span>
-					</div>
+				</form>
+			</div>
+			<!-- Edit dependent container -->
+			<div v-if="editDependentInfo" class="edit-employee-info-container">
+				<i @click="showEditDependent()" class="fa fa-times"></i>
+				<div class="edit-dependent-details-text">
+					<h3>Edit Dependent Details</h3>
 				</div>
+				<form>
+					<div class="edit-dependent-row">
+						<div class="employee-details-input-wrapper">
+							<label>Full Name</label>
+							<input type="text">
+						</div>
+						<div class="employee-details-input-wrapper">
+							<label>Relationship</label>
+							<select>
+								<option>Spouse</option>
+								<option>Child</option>
+								<option>Family</option>
+								<option>Parent</option>
+							</select>
+						</div>
+					</div>
 
+					<div class="edit-dependent-row">
+						<div class="employee-details-input-wrapper">
+							<label>Date of Birth</label>
+							<div class="date-container">
+								<v-date-picker
+	                popoverDirection="bottom"
+	                v-model="starDateDetails.null"
+	                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+	                popover-visibility="focus"
+	              ></v-date-picker>
+	              <i class="fa fa-caret-down"></i>
+              </div>
+						</div>
+						<div class="employee-details-input-wrapper">
+							<label>Member ID</label>
+							<input type="number">
+						</div>
+					</div>
+
+					<div class="edit-dependent-row">
+						<div class="employee-details-input-wrapper">
+							<label>Plan Start</label>
+							<div class="date-container">
+								<v-date-picker
+	                popoverDirection="bottom"
+	                v-model="starDateDetails.null"
+	                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+	                popover-visibility="focus"
+	              ></v-date-picker>
+	              <i class="fa fa-caret-down"></i>
+              </div>
+						</div>
+						<div class="employee-details-input-wrapper"></div>
+					</div>
+
+					<div class="save-btn-footer">
+						<button class="btn-primary">SAVE & CONTINUE</button>
+					</div>
+				</form>
 			</div>
 		</div>
 
@@ -176,7 +472,7 @@
 								</td>
 								<td>
 									<span>
-										<button>Edit</button>
+										<button @click="editInNetworkOpt()">Edit</button>
 									</span>
 								</td>
 							</tr>
@@ -221,7 +517,12 @@
 								</td>
 								<td>
 									<div class="in-network-input-wrapper visit-date-input-wrapper">
-										<input type="text">
+										<v-date-picker
+		                  popoverDirection="bottom"
+		                  v-model="starDateDetails.starDate"
+		                  :input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                  popover-visibility="focus"
+		                ></v-date-picker>
 										<div class="visit-date-container">
 											<img :src="'../assets/img/coverage/Submit-E-Claim---Visit-Date.png'">
 										</div>
@@ -232,13 +533,13 @@
 										<div class="visit-time-container">
 											<img :src="'../assets/img/coverage/Submit-E-Claim---Visit-Time.png'">
 										</div>
-										<input type="text">
+										<input @click="clickedTimeVisitDropdown()" type="text">
 										<div class="am-pm-container">
 											<span>AM</span>
 											<i class="fa fa-caret-down"></i>
 										</div>
 
-										<div v-if="false" class="dropdown-menu">
+										<div v-if="showTimeVisitDropdown" class="dropdown-menu">
 											<div class="time-wrapper">
 												<div class="hour">
 													<div class="hour-up-now">
@@ -309,19 +610,38 @@
 				</div>
 				<div class="out-of-network-form-wrapper">
 					<div class="out-of-network-form">
-						<div v-if="true" class="step-one">
+						<div v-if="step_active == 1" class="step-one">
 							<div class="input-group">
 								<label>Spending Account <span class="required">*</span></label>
 								<div class="input-wrapper">
-									<button class="btn-medical active">Medical</button>
-									<button class="btn-medical">Wellness</button>
+									<button @click="setSpendingType('medical')" v-bind:class="{'active': spendingTypeOpt == 'medical' }" 
+									class="btn-medical">Medical</button>
+									<button @click="setSpendingType('wellness')" v-bind:class="{'active': spendingTypeOpt == 'wellness' }" 
+									class="btn-medical">Wellness</button>
 								</div>
 							</div>
 							<div class="input-group">
 								<label>Claim Type <span class="required">*</span></label>
 								<div class="input-wrapper">
-									<input type="text">
+									<input @click="claimTypeListOption()" type="text">
 									<i class="fa fa-caret-down"></i>
+									<ul v-if="showClaimTypeListOption" class="dropdown-menu">
+										<li>
+											<a>General Practice</a>
+										</li>
+										<li>
+											<a>Health Screening</a>
+										</li>
+										<li>
+											<a>Traditional Chinese Medicine</a>
+										</li>
+										<li>
+											<a>Medical Specialist</a>
+										</li>
+										<li>
+											<a>Other</a>
+										</li>
+									</ul>
 								</div>
 							</div>
 							<div class="input-group">
@@ -333,7 +653,12 @@
 							<div class="input-group">
 								<label>Visit Date <span class="required">*</span></label>
 								<div class="input-wrapper visit-date-input-wrapper">
-									<input type="text">
+									<v-date-picker
+		                  popoverDirection="bottom"
+		                  v-model="starDateDetails.starDate"
+		                  :input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                  popover-visibility="focus"
+		                ></v-date-picker>
 									<div class="visit-date-container">
 										<img :src="'../assets/img/coverage/Submit-E-Claim---Visit-Date.png'">
 									</div>
@@ -345,11 +670,52 @@
 									<div class="visit-time-container">
 										<img :src="'../assets/img/coverage/Submit-E-Claim---Visit-Time.png'">
 									</div>
-									<input type="text">
-									<div class="am-pm-container">
+									<input @click="clickedTimeOption()" type="text">
+									<div @click="clickedDaytimeOption()" class="am-pm-container">
 										<span>AM</span>
 										<i class="fa fa-caret-down"></i>
 									</div>
+
+									<div v-if="showTimeOption" class="time-opt-wrapper">
+										<div class="time-wrapper">
+											<div class="hour">
+												<div class="hour-up-arrow">
+													<i class="fa fa-chevron-up"></i>
+												</div>
+												<div class="hour-value">
+													<span>0</span>
+													<span>5</span>
+												</div>
+												<div class="hour-down-arrow">
+													<i class="fa fa-chevron-down"></i>
+												</div>
+											</div>
+											<div class="middle">
+												<span>:</span>
+											</div>
+											<div class="minute">
+												<div class="hour-up-arrow">
+													<i class="fa fa-chevron-up"></i>
+												</div>
+												<div class="hour-value">
+													<span>0</span>
+													<span>5</span>
+												</div>
+												<div class="hour-down-arrow">
+													<i class="fa fa-chevron-down"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<ul v-if="showDaytimeOption" class="daytime-opt">
+										<li>
+											<a>AM</a>
+										</li>
+										<li>
+											<a>PM</a>
+										</li>
+									</ul>
 								</div>
 							</div>
 							<div class="input-group">
@@ -364,12 +730,21 @@
 							<div class="input-group">
 								<label>Member <span class="required">*</span></label>
 								<div class="input-wrapper">
-									<input type="text">
+									<input @click="memberListOption()" type="text">
 									<i class="fa fa-caret-down"></i>
+
+									<ul v-if="showMemberListOption" class="dropdown-menu">
+										<li>
+											<a>Kynn Rodriguez</a>
+										</li>
+										<li>
+											<a>Mike Vega</a>
+										</li>
+									</ul>
 								</div>
 							</div>
 						</div>
-						<div v-if="false" class="step-two">
+						<div v-if="step_active == 2" class="step-two">
 							<div class="drop-box">
 								<input type="file">
 								<div class="drop-box-content">
@@ -407,7 +782,7 @@
 								</div>
 							</div>	
 						</div>
-						<div v-if="false" class="step-three">
+						<div v-if="step_active == 3" class="step-three">
 							<div class="summary-list">
 								<div class="summary-list-row">
 									<div class="summary-label">
@@ -480,7 +855,9 @@
 
 					</div>
 					<div class="next-btn-footer">
-						<button class="btn-submit">Next</button>
+						<button v-if="step_active == 2 || step_active == 3" @click="empDetailsOutNetworkNextBackBtn('back')" class="btn-submit btn-back">BACK</button>
+						<button v-if="step_active == 1 || step_active == 2" @click="empDetailsOutNetworkNextBackBtn('next')" class="btn-submit">Next</button>
+						<button v-if="step_active == 3" @click="empDetailsOutNetworkNextBackBtn()" class="btn-submit">SUBMIT</button>
 					</div>
 				</div>
 			</div>		
@@ -521,8 +898,10 @@
 						<div>
 							<h3>Credit Allocation</h3>
 							<div class="credit-type-selector">
-								<button class="btn-primary active">MEDICAL</button>
-								<button class="btn-primary">WELLNESS</button>
+								<button @click="creditAllocationOption('medical')" 
+								v-bind:class="{active: editCreditAllocationOpt == 'medical'}" class="btn-primary">MEDICAL</button>
+								<button @click="creditAllocationOption('wellness')" 
+								v-bind:class="{active: editCreditAllocationOpt == 'wellness'}" class="btn-primary">WELLNESS</button>
 							</div>
 							<div class="credit-details-container">
 								<div class="credit-item-container">
@@ -541,12 +920,13 @@
 										<span>Usage</span>
 									</div>
 									<div class="credit-input-wrapper">
-										<input type="number" placeholder="Credits Add*">
+										<input v-if="editCreditAllocationTypeOpt == 'add'" type="number" placeholder="Credits Add*">
+										<input v-if="editCreditAllocationTypeOpt == 'deduct'" type="number" placeholder="Credits Deduct*">
 									</div>
 								</div>
 								<div class="add-deduct-btn-container">
-									<button class="btn-primary active">ADD</button>
-									<button class="btn-primary">DEDUCT</button>
+									<button @click="creditAllocationTypeFunction('add')" v-bind:class="{active: editCreditAllocationTypeOpt == 'add'}" class="btn-primary">ADD</button>
+									<button @click="creditAllocationTypeFunction('deduct')" v-bind:class="{active: editCreditAllocationTypeOpt == 'deduct'}" class="btn-primary">DEDUCT</button>
 								</div>
 							</div>
 							<div class="btn-update-credits">
@@ -597,6 +977,37 @@
 		</div>
 
 		<div>
+
+			<Modal v-if="withdrawEmployeeModal" class="employee-details-options remove-dependent-container">
+				<div slot="header">
+					<h1>Withdraw Employee</h1>
+					<i @click="showRemoveDependent()" class="fa fa-times"></i>
+				</div>
+				<div slot="body" class="edit-employee-info-container">
+					<div class="edit-dependent-row">
+						<div class="employee-details-input-wrapper">
+							<label>Name</label>
+							<div class="name-text-value">Mike Vega</div>
+						</div>
+						<div class="employee-details-input-wrapper">
+							<label>Effective Date</label>
+							<div class="date-container">
+								<v-date-picker
+	                popoverDirection="bottom"
+	                v-model="starDateDetails.null"
+	                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+	                popover-visibility="focus"
+	              ></v-date-picker>
+	              <i class="fa fa-caret-down"></i>
+              </div>
+						</div>
+					</div>
+				</div>
+				<div slot="footer">
+					<button class="btn-primary btn-delete">DELETE</button>
+				</div>
+			</Modal>
+
 	  	<Modal v-if="showSetupAccountModal" class="employee-details-options">
 	  		<div slot="header">
 	  			<h1>Employee Details Options</h1>

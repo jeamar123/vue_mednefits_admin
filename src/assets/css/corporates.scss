@@ -717,6 +717,12 @@ $font-gray: #888;
   }
 
   .employee-information-container {
+
+    .fa-times {
+      cursor: pointer;
+      font-size: 16px;
+    }
+
     tr th {
       font-family: 'Helvetica Light';
     }
@@ -788,6 +794,7 @@ $font-gray: #888;
       border: 0;
       color: #fff;
       font-weight: 700;
+      margin: 0
     }
 
     .btn-medical {
@@ -884,6 +891,125 @@ $font-gray: #888;
   }
 }
 
+.edit-emp-profile-wrapper {
+  .save-btn-footer {
+    text-align: right;
+    margin: 30px 0 0;
+  }
+}
+
+.edit-emp-details-header {
+  position: relative;
+
+  .emp-name-text {
+    font-size: 16px;
+  }
+
+  .fa-times {
+    position: absolute;
+    top: 10px;
+    right: 0px;
+  }
+}
+
+.edit-emp-details-body {
+  clear: both;
+  display: flex;
+
+  form {
+    width: 75%;
+    padding: 0 40px 0 0;
+  }
+
+  .package-plan-container {
+    width: 25%;
+
+    h4 {
+      font-size: 18px;
+      margin: 0 0 20px;
+    }
+  }
+
+  .package-details-wrapper {
+    margin: 20px 0 0;
+  }
+
+  .package-img-name-wrapper {
+    display: flex;
+
+    i {
+      margin: 0 10px 0 0;
+      color: #757575;
+      font-size: 22px;
+    }
+  }
+
+  h6 {
+    font-size: 11px;
+  }
+}
+
+
+.edit-employee-info-container {
+
+  >.fa-times {
+    float: right;
+  }
+
+  .edit-dependent-details-text {
+    text-align: center;
+    clear: both;
+
+    h3 {
+      font-size: 24px;
+      margin: 15px 0 30px;
+    }
+  }
+
+  form {
+    width: 570px;
+    margin: 0 auto;
+  }
+  .save-btn-footer {
+    text-align: right;
+  }
+}
+
+.edit-dependent-row {
+  display: flex;
+
+  >div:nth-child(1) { margin: 0 10px 0 0; }
+  >div:nth-child(2) { margin: 0 0 0 10px; }
+
+  .employee-details-input-wrapper {
+    width: 100%;
+  }
+
+  .date-container {
+    position: relative;
+
+    .fa-caret-down {
+      position: absolute;
+      top: 7px;
+      right: 0;
+    }
+  }
+}
+
+.country-code-mobile-container {
+  display: flex;
+
+  .country-code-container {
+    position: relative;
+    margin: 0 10px 0 0;
+  }
+
+  .fa-caret-down {
+    position: absolute;
+    top: 7px;
+    right: 0;
+  }
+}
 
 .btn-network {
   background-color: #076086;
@@ -910,7 +1036,6 @@ $font-gray: #888;
       position: absolute;
       top: 2px;
       right: 0;
-      font-size: 16px;
     }
   }
 
@@ -1010,7 +1135,7 @@ $font-gray: #888;
     text-align: center;
     padding: 5px 0 0;
     color: #888;
-    border-left: 1px solid #ccc;
+    border-left: 1px solid #e9e9e9;
 
     span {
       display: block;
@@ -1031,6 +1156,7 @@ $font-gray: #888;
 
 .time-wrapper {
   display: flex;
+  align-items: center;
   text-align: center;
   color: #333;
   font-size: 16px;
@@ -1061,6 +1187,10 @@ $font-gray: #888;
 
   .next-btn-footer {
     text-align: right;
+
+    .btn-back {
+      margin: 0 10px 0 0;
+    }
   }
 }
 
@@ -1112,6 +1242,54 @@ $font-gray: #888;
     padding: 6px 50px 6px;
   }
 
+  .dropdown-menu {
+    position: absolute;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.15);
+    z-index: 1;
+    padding: 5px 0;
+
+    a:hover {
+      background: #ddd;
+    }
+
+    a {
+      color: #333;
+      font-weight: 400;
+      display: block;
+      padding: 3px 20px;
+    }
+  }
+
+  .time-opt-wrapper {
+    position: absolute;
+    left: 39px;
+    z-index: 1;
+    background-color: #fff;
+    width: 71%;
+    padding: 15px 5px;
+    border: 1px solid #ddd;
+    text-align: center;
+    border-radius: 0 0 4px 4px;
+  }
+
+  .daytime-opt {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    width: 46px;
+    text-align: center;
+    padding: 10px;
+
+    li {
+      font-size: 12px;
+      padding: 5px;
+    }
+  }
+
   input {
     background-color: #fff;
     border: 1px solid #e9e9e9;
@@ -1130,7 +1308,7 @@ $font-gray: #888;
     width: 47px;
     height: 100%;
     text-align: center;
-    border-left: 1px solid #ccc;
+    border-left: 1px solid #e9e9e9;
     padding: 6px;
     color: #36aaec;
   }
@@ -1143,8 +1321,12 @@ $font-gray: #888;
 
     .visit-time-container {
       position: absolute;
-      top: 5px;
-      left: 10px;
+      align-items: center;
+      border-right: 1px solid #e9e9e9;
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      width: 40px;
     }
 
     .fa-caret-down {
@@ -1219,7 +1401,7 @@ $font-gray: #888;
 
   .fa-times {
     float: right;
-    cursor: pointer;
+    font-size: 14px;
   }
 
   .file-name {
@@ -1309,7 +1491,7 @@ $font-gray: #888;
     font-weight: 500;
 
     h1 {
-      font-size: 20px;
+      font-size: 18px;
     }
   }
   
@@ -1349,23 +1531,6 @@ $font-gray: #888;
 
     .fa-times {
       float: right;
-      cursor: pointer;
-    }
-  }
-
-  .employee-details-input-wrapper {
-    label {
-      display: block;
-      color: rgba(0,0,0,0.54);
-      font-size: 12px;
-    }
-
-    input {
-      border: 0;
-      border-bottom: 1px solid rgba(0,0,0,0.12);
-      width: 100%;
-      height: 30px;
-      margin: 0 0 20px;
     }
   }
 
@@ -1458,6 +1623,47 @@ $font-gray: #888;
   }
 }
 
+.remove-dependent-container {
+  .modal-header {
+    background-color: #FF6763;
+    position: relative;
+
+    .fa-times {
+      position: absolute;
+      top: 20px;
+      right: 15px;
+    }
+  }
+
+  .name-text-value {
+    margin: 5px 0 0;
+  }
+
+  .modal-footer {
+    padding: 10px 20px;
+  }
+
+  .btn-delete {
+    background-color: #FF6763;
+  }
+}
+
+.employee-details-input-wrapper {
+  label {
+    display: block;
+    color: rgba(0,0,0,0.54);
+    font-size: 12px;
+  }
+
+  input, select {
+    border: 0;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+    width: 100%;
+    height: 30px;
+    margin: 0 0 20px;
+  }
+}
+
 .credits-plans-wrapper{
   h1 {
     font-size: 24px;
@@ -1465,8 +1671,6 @@ $font-gray: #888;
 
   .fa-times {
     float: right;
-    font-size: 16px;
-    cursor: pointer;
   }
 
   .credit-plan-container {

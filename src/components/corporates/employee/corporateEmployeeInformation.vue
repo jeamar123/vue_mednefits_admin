@@ -12,13 +12,26 @@ import Modal from "../../../views/corporates/modal/Modal.vue";
           value: 0,
           text: ""
         },
+        editEmployeeProfile: false,
+        editReplaceDependentInfo: false,
+        withdrawEmployeeModal: false,
+        editDependentInfo: false,
         showInNetwork: false,
         showOutNetwork: false,
+        spendingTypeOpt: 'medical',
+        step_active: 1,
+        showTimeVisitDropdown: false,
+        showDaytimeOption: false,
+        showTimeOption: false,
         showSetupAccountModal: false,
+        showClaimTypeListOption: false,
+        showMemberListOption: false,
         showRenewModal: false,
         showManageCapPerVisit: false,
         showSmsUpdateNotify: false,
         selected_emp_details_opt: 0,
+        editCreditAllocationOpt: 'medical',
+        editCreditAllocationTypeOpt: 'add',
         showEmpCreditsPlan: false,
         starDateDetails: {
           startDate: undefined,
@@ -38,6 +51,19 @@ import Modal from "../../../views/corporates/modal/Modal.vue";
         this.empSelectorActive.value = value;
         this.empSelectorActive.text = text;
       },
+      showEditEmp() {
+        console.log('Edit Profile');
+        this.editEmployeeProfile = this.editEmployeeProfile == false ? true : false;
+      },
+      showReplaceDependent() {
+        this.editReplaceDependentInfo = this.editReplaceDependentInfo == false ? true : false;
+      },
+      showRemoveDependent() {
+        this.withdrawEmployeeModal = this.withdrawEmployeeModal == false ? true : false;
+      },
+      showEditDependent() {
+        this.editDependentInfo = this.editDependentInfo == false ? true : false;
+      },
       toggleShowInNetwork(data) {
         let x = data;
         if ( x === "in-network" ) {
@@ -52,6 +78,44 @@ import Modal from "../../../views/corporates/modal/Modal.vue";
           this.showOutNetwork = true;
         } else if ( x === "cancel" ) {
           this.showOutNetwork = false;
+        }
+      },
+      editInNetworkOpt() {
+        this.showOutNetwork = true;
+      },
+      claimTypeListOption() {
+        this.showClaimTypeListOption = this.showClaimTypeListOption == false ? true : false;
+      },
+      memberListOption() {
+        this.showMemberListOption = this.showMemberListOption == false ? true : false;
+      },
+      setSpendingType(opt) {
+        this.spendingTypeOpt = opt;
+      },
+      clickedTimeVisitDropdown() {
+        this.showTimeVisitDropdown = this.showTimeVisitDropdown == false ? true : false;
+      },
+      clickedTimeOption() {
+        this.showTimeOption = this.showTimeOption == false ? true : false;
+      },
+      clickedDaytimeOption() {
+        this.showDaytimeOption = this.showDaytimeOption == false ? true : false;
+      },
+      empDetailsOutNetworkNextBackBtn( data ) {
+        let x = data;
+        if (x === "next") {
+          if (this.step_active == 1) {
+            this.step_active = 2;
+          } else if (this.step_active == 2) {
+            this.step_active = 3;
+          }
+        }
+        if (x === "back") {
+          if (this.step_active == 2 ) {
+            this.step_active = 1;
+          } else if (this.step_active == 3) {
+            this.step_active = 2;
+          }
         }
       },
       //SETTINGS BUTTON FOR SHOWING MODAL
@@ -94,6 +158,12 @@ import Modal from "../../../views/corporates/modal/Modal.vue";
       },
       selectedEmpDetailsToggleOpt(opt) {
         this.selected_emp_details_opt = opt;
+      },
+      creditAllocationOption(opt) {
+        this.editCreditAllocationOpt = opt;
+      },
+      creditAllocationTypeFunction(opt) {
+        this.editCreditAllocationTypeOpt = opt;
       },
       openEmpCreditsPlan( data ) {
         let x = data;
