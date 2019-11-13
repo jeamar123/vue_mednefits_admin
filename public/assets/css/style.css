@@ -810,20 +810,20 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
 
 /*----------- Forms -------------*/
   form button{
-    display: inline-block;
+    /*display: inline-block;
     border: none;
     line-height: 1;
     padding: 10px 15px;
     font-size: 12px;
     color: inherit;
-    /*color: rgba(255,255,255,0.87);*/
-    background-color: inherit;
+*/    /*color: rgba(255,255,255,0.87);*/
+   /* background-color: inherit;
     border-radius: 2px;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
     transition: all .3s ease-in;
     font-family: inherit;
     text-align: center;
-    font-weight: 700;
+    font-weight: 700;*/
   }
 
   .form-div{

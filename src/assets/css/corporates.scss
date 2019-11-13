@@ -113,7 +113,7 @@ $font-gray: #888;
       flex: 2;
     }
     .menu-item .oi{
-      flex: 1;
+      flex: 0;
       vertical-align: middle;
       margin-right: 10px;
       position: relative;
@@ -771,6 +771,11 @@ $font-gray: #888;
       font-size: 16px;
     }
 
+    .btn-restore {
+      border: 2px solid #7864e4;
+      color: #6248f1;
+    }
+
     .btn-settings {
       color: #666666;
       font-size: 16px;
@@ -891,13 +896,6 @@ $font-gray: #888;
   }
 }
 
-.edit-emp-profile-wrapper {
-  .save-btn-footer {
-    text-align: right;
-    margin: 30px 0 0;
-  }
-}
-
 .edit-emp-details-header {
   position: relative;
 
@@ -949,6 +947,18 @@ $font-gray: #888;
   }
 }
 
+.save-btn-footer {
+  margin: 30px 0 0;
+  overflow: hidden;
+
+  .btn-edit {
+    float: left;
+  }
+  .btn-primary {
+    float: right;
+  }
+}
+
 
 .edit-employee-info-container {
 
@@ -956,7 +966,7 @@ $font-gray: #888;
     float: right;
   }
 
-  .edit-dependent-details-text {
+  .emp-header-text {
     text-align: center;
     clear: both;
 
@@ -969,9 +979,6 @@ $font-gray: #888;
   form {
     width: 570px;
     margin: 0 auto;
-  }
-  .save-btn-footer {
-    text-align: right;
   }
 }
 
@@ -992,6 +999,160 @@ $font-gray: #888;
       position: absolute;
       top: 7px;
       right: 0;
+    }
+  }
+}
+
+.remove-employee-wrapper {
+
+  .save-btn-footer {
+    padding: 0 40px;
+  }
+  .btn.btn-back {
+    padding: 8px 30px;
+  }
+  .btn-next {
+    padding: 10px 30px;
+  }
+
+  .employee-outcome-container {
+    width: 530px;
+    margin: 0 auto;
+  }
+
+  .outcome-title {
+    display: block;
+    margin: 0 0 20px;
+  }
+
+  .review-prepare-template-text {
+    font-size: 10px;
+    line-height: 1;
+    display: block;
+    margin-top: 5px;
+  }
+
+  .input-checkbox .input-checkmark {
+    height: 20px;
+    width: 20px;
+
+    &:after {
+      left: 5px;
+      height: 10px;
+    }
+  }
+
+  .replacement-text {
+    color: #9c9c9c;
+  }
+
+  .medical-subtext {
+    font-size: 10px;
+  }
+}
+
+.health-spending-account-summary-container {
+  .bold-text {
+    font-family: 'Helvetica Medium';
+  }
+
+  .account-summary-date {
+    text-decoration: underline;
+  }
+}
+
+.account-summary-pro-rated {
+  text-align: center;
+  display: inline-block;
+
+  .health-spending-dpicker {
+    display: inline-flex;
+    align-items: center;
+    border: 2px solid #cbcbcb;
+    padding: 2px 8px;
+
+    input {
+      border: 0;
+      width: 100px;
+      text-align: center;
+    }
+
+    input::placeholder {
+      font-size: 12px;
+    }
+  }
+
+  .btn-calculate {
+    height: 29px;
+    padding: 0 15px;
+    margin: 0 0 0 10px;
+  }
+}
+
+.medical-wellness-container {
+  border: 1px solid #cbcbcb;
+  background-color: #f9f9f9;
+  display: flex;
+  width: auto;
+  max-width: 900px;
+  margin: 40px auto 0;
+  padding: 20px 40px;
+
+  .spending-account-text {
+    margin: 0 0 15px;
+    font-family: 'Helvetica Medium';
+  }
+
+  .spending-account-details >div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0 0 10px;
+
+    &.current-usage-container,
+    &.spent-container,
+    &.pending-claim-container {
+      margin: 0 0 5px;
+    }
+
+    >span {
+      text-align: right;
+      display: block;
+    }
+  }
+
+  .separator {
+    display: inline-block;
+    content: "";
+    border: .5px solid #cbcbcb;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .spending-account-status {
+    display: flex;
+    align-items: center;
+
+    &:before {
+      display: inline-block;
+      content: "";
+      border: 0;
+      border-radius: 50%;
+      height: 12px;
+      width: 12px;
+      margin: 0 10px 0 0;
+    }
+
+    &.exceed {
+      color: #FF5757;
+    }
+    &.exceed:before {
+      background-color: #FF5757;
+    }
+    &.on-track {
+      color: #33cccb;
+    }
+    &.on-track:before {
+      background-color: #33cccb;
     }
   }
 }
@@ -1151,6 +1312,32 @@ $font-gray: #888;
 
   .in-network-btn-footer {
     text-align: right;
+  }
+}
+
+.health-spending-body {
+  text-align: center;
+
+  .members-wallet-text {
+    width: 450px;
+    margin: 40px auto 0;
+  }
+
+  .members-wallet-note {
+    color: #9c9c9c;
+    margin: 15px 0;
+  }
+
+  .btn:nth-child(1) {
+    margin: 0 5px 0 0;
+  }
+
+  .btn:nth-child(2) {
+    margin: 0 0 0 5px;
+  }
+
+  .btn.active {
+    border: 2px solid #0392cf;
   }
 }
 
@@ -1510,6 +1697,7 @@ $font-gray: #888;
 
   .modal-footer {
     padding: 0 10px;
+    position: relative;
     text-align: right;
 
     .btn-close {
@@ -1519,6 +1707,12 @@ $font-gray: #888;
       border: 0;
       min-height: 36px;
       min-width: 88px;
+    }
+
+    label {
+      position: absolute;
+      left: 15px;
+      top: 20px;
     }
   }
 }
@@ -1645,6 +1839,65 @@ $font-gray: #888;
 
   .btn-delete {
     background-color: #FF6763;
+  }
+}
+
+.in-network-claim-container {
+  .network-summary-row {
+    display: flex;
+    margin: 0 0 15px;
+
+    >label {
+      color: #999;
+      width: 50%;
+    }
+
+    >span {
+      width: 50%;
+    }
+  }
+}
+
+.fill-corporate-pass-container {
+  .modal-container {
+    width: 480px;
+    margin: 350px auto;
+  }
+  .modal-body {
+    padding: 24px;
+  }
+
+  h4 {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0 0 30px;
+  }
+
+  input {
+    width: 100%;
+    height: 30px;
+    font-weight: 700;
+    border: 0;
+    border-bottom: 1px solid #cbcbcb;
+  }
+
+  .modal-footer {
+    text-align: right;
+    padding: 0px;  
+  }
+
+  button {
+    margin: 8px 0 8px 8px;
+    height: 36px;
+    min-width: 88px;
+    color: rgb(63,81,181);
+    background-color: transparent;
+    border: 0;
+    border-radius: 2px;
+
+    &:hover {
+      background-color: rgba(158,158,158,0.2);
+    }
   }
 }
 
@@ -1936,6 +2189,221 @@ $font-gray: #888;
   }
 }
 
+// Corporate Plan 
+
+.corporate-plan-wrapper {
+  background-color: #fff;
+  height: 100%;
+  padding: 20px;
+
+  .plan-header ul {
+    display: flex;
+    border-bottom: 1px solid #eee;
+    margin: 0 0 20px;
+
+    a {
+      color: #222;
+      padding: 10px;
+      display: block;
+    }
+
+    a.active {
+      border-bottom: 2px solid #6b8be4;
+    }
+  }
+
+  .plan-body {
+    h3 {
+      font-size: 18px;
+      margin: 0 0 30px;
+    }
+
+    input {
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .employee-details-input-wrapper label:after {
+    content: " *";
+    font-size: 13px;
+    vertical-align: top;
+  }
+
+  .business-row-1,
+  .business-row-2 {
+    display: flex;
+    margin: 0 0 30px;
+
+    >div {
+      padding: 0 40px 0 0;
+      width: 30%;
+    }
+  }
+
+  .switch-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    height: 14px;
+    width: 34px;
+    margin: 0 10px 0 0;
+
+    input { 
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(158,158,158);
+    -webkit-transition: .4s;
+    transition: .4s;
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      top: -3px;
+      left: 0;
+      right: 0;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+  }
+
+  input:checked + .slider {
+    background-color: #1667AC;
+
+    &:before {
+      transform: translateX(18px);
+      background-color: #1667AC;
+    }
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+    
+    &:before {
+      border-radius: 50%;
+      box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .clinic-peak-status-container {
+    margin: 0 0 50px;
+  }
+
+  .hr-status-container {
+    margin: 0 0 50px;
+  }
+
+  .btn-deactive {
+    width: 150px;
+  }
+
+  .btn-remove-contacts {
+    width: 100px;
+    height: 36px;
+    background: #d63129a6;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+    border-radius: 2px;
+    border: 0;
+    color: #FFF;
+  }
+
+  .input-checkbox span.input-text {
+    font-size: 12px;
+  }
+
+  .company-contacts-card-wrapper {
+    border: 1px solid #e5e5e5;
+    background: #fafafa;
+    padding: 20px;
+    display: flex;
+    margin: 0 0 30px;
+
+    >div {
+      width: 30%;
+      padding: 0 40px 0 0;
+    }
+
+    >div:nth-child(3) {
+      text-align: center;
+    }
+  }
+
+  .plan-btn-footer {
+    text-align: right;
+
+    button {
+      width: 150px;
+    }
+
+    button:nth-child(1) {
+      margin: 0 40px 0 0;
+    }
+  }
+}
+
+.current-plan-text {
+  margin: 0 0 10px;
+}
+
+.active-cards-wrapper {
+  margin: 20px 0 0 0;
+  display: inline-block;
+  width: 100%;
+
+  .plan-header-container {
+    margin: 0 0 20px;
+  }
+
+  .account-container {
+    margin: 0 0 20px;
+  }
+
+  .active-plans-info {
+    padding: 10px;
+    margin: 0 10px 0 0;
+    box-shadow: 1px 1px 10px #8c8989;
+    display: inline-block;
+  }
+
+  .account-title {
+    font-family: 'Helvetica Medium';
+    margin: 0 0 10px;
+  }
+
+  button {
+    display: block;
+    font-size: 12px;
+    width: 200px;
+    margin: 0 0 10px;
+  }
+}
+
+
 @media (max-width: 1400px) {
   .member-list-table-wrapper {
     overflow-x: auto; 
@@ -1949,7 +2417,7 @@ $font-gray: #888;
     }
     
     .member-list-table {
-      width: 1053px;
+      width: 1010px;
     }
 
   }

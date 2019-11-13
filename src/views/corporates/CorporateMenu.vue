@@ -19,23 +19,23 @@
 					<label>Member List</label>
 					<span class="oi" data-glyph="caret-right" aria-hidden="true"></span>
 				</div>
-				<div class="menu-item" v-bind:class="{ 'active' : corporateViewStatus == 'xxxx' }" v-on:click="selectCorporateView( 'xxxx' )">
+				<div class="menu-item" v-bind:class="{ 'active' : corporateViewStatus == 'CorporatePlan' }" v-on:click="selectCorporateView( 'CorporatePlan' )">
 					<label>Corporate Plan</label>
 					<span class="oi" data-glyph="caret-right" aria-hidden="true"></span>
 				</div>
-				<div class="menu-item" v-bind:class="{ 'active' : corporateViewStatus == 'xxxx' }" v-on:click="selectCorporateView( 'xxxx' )">
+				<div class="menu-item" v-bind:class="{ 'active' : corporateViewStatus == 'SpendingInvoice' }" v-on:click="selectCorporateView( 'SpendingInvoice' )">
 					<label>Spending Invoice</label>
 					<span class="oi" data-glyph="caret-right" aria-hidden="true"></span>
 				</div>
-				<div class="menu-item" v-bind:class="{ 'active' : corporateViewStatus == 'xxxx' }" v-on:click="selectCorporateView( 'xxxx' )">
+				<div class="menu-item" v-bind:class="{ 'active' : corporateViewStatus == 'CorporateEnrollment' }" v-on:click="selectCorporateView( 'CorporateEnrollment' )">
 					<label>Enrollment</label>
 					<span class="oi" data-glyph="caret-right" aria-hidden="true"></span>
 				</div>
-				<div class="menu-item" v-bind:class="{ 'active' : corporateViewStatus == 'xxxx' }" v-on:click="selectCorporateView( 'xxxx' )">
+				<div class="menu-item" v-bind:class="{ 'active' : corporateViewStatus == 'BulkCreditAllocation' }" v-on:click="selectCorporateView( 'BulkCreditAllocation' )">
 					<label>Bulk Credit Allocation</label>
 					<span class="oi" data-glyph="caret-right" aria-hidden="true"></span>
 				</div>
-				<div class="menu-item" v-bind:class="{ 'active' : corporateViewStatus == 'xxxx' }" v-on:click="selectCorporateView( 'xxxx' )">
+				<div class="menu-item" v-bind:class="{ 'active' : corporateViewStatus == 'CorporateSettings' }" v-on:click="selectCorporateView( 'CorporateSettings' )">
 					<label>Settings</label>
 					<span class="oi" data-glyph="caret-right" aria-hidden="true"></span>
 				</div>

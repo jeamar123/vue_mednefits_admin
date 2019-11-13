@@ -26,6 +26,11 @@ import CorporateMenu from './views/corporates/CorporateMenu.vue'
 import CorporateInformation from './views/corporates/CorporateInformation.vue'
 import CorporateMemberList from './views/corporates/CorporateMemberList.vue'
 import CorporateEmployeeMenu from './views/corporates/employee/CorporateEmployeeMenu.vue'
+import CorporatePlan from './views/corporates/CorporatePlan.vue'
+import SpendingInvoice from './views/corporates/SpendingInvoice.vue'
+import CorporateEnrollment from './views/corporates/CorporateEnrollment.vue'
+import BulkCreditAllocation from './views/corporates/BulkCreditAllocation.vue'
+import CorporateSettings from './views/corporates/CorporateSettings.vue'
 import EmployeeInformation from './views/corporates/employee/EmployeeInformation.vue'
 import HealthPartnerAccess from './views/corporates/HealthPartnerAccess.vue'
 
@@ -78,7 +83,11 @@ export default new Router({
           children: [
             { name: 'CorporateInformation', path: '/dashboard/corporates/menu/info', components: { child : CorporateInformation }  },
             { name: 'CorporateMemberList', path: '/dashboard/corporates/menu/member-list', components: { child : CorporateMemberList }  },
-            
+            { name: 'CorporatePlan', path: '/dashboard/corporates/menu/corporate-plan', components: { child : CorporatePlan }  },
+            { name: 'SpendingInvoice', path: '/dashboard/corporates/menu/spending-invoice', components: { child : SpendingInvoice }  },
+            { name: 'CorporateEnrollment', path: '/dashboard/corporates/menu/enrollment', components: { child : CorporateEnrollment }  },
+            { name: 'BulkCreditAllocation', path: '/dashboard/corporates/menu/bulk-credit-allocation', components: { child : BulkCreditAllocation }  },
+            { name: 'CorporateSettings', path: '/dashboard/corporates/menu/settings', components: { child : CorporateSettings }  },
           ] 
         },
         { 

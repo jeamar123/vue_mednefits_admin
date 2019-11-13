@@ -13,8 +13,13 @@ import Modal from "../../../views/corporates/modal/Modal.vue";
           text: ""
         },
         editEmployeeProfile: false,
+        addDependentInfo: false,
+        editRemoveEmpInfo: false,
+        remove_step_active: 'remove-emp',
+        removeBackBtn: false,
         editReplaceDependentInfo: false,
         withdrawEmployeeModal: false,
+        inNetworkClaimSummaryModal: false,
         editDependentInfo: false,
         showInNetwork: false,
         showOutNetwork: false,
@@ -52,8 +57,13 @@ import Modal from "../../../views/corporates/modal/Modal.vue";
         this.empSelectorActive.text = text;
       },
       showEditEmp() {
-        console.log('Edit Profile');
         this.editEmployeeProfile = this.editEmployeeProfile == false ? true : false;
+      },
+      showAddDependent() {
+        this.addDependentInfo = this.addDependentInfo == false ? true : false;
+      },
+      showRemoveEmp() {
+        this.editRemoveEmpInfo = this.editRemoveEmpInfo == false ? true : false; 
       },
       showReplaceDependent() {
         this.editReplaceDependentInfo = this.editReplaceDependentInfo == false ? true : false;
@@ -63,6 +73,79 @@ import Modal from "../../../views/corporates/modal/Modal.vue";
       },
       showEditDependent() {
         this.editDependentInfo = this.editDependentInfo == false ? true : false;
+      },
+      removeEmployeeBtn( data ) {
+        let x = data;
+
+        if(x === "back") {
+          if (this.remove_step_active == 'remove-opt' ) {
+            this.removeBackBtn = false;
+            this.remove_step_active = 'remove-emp';
+          }
+
+          if (this.remove_step_active == 'replace-emp') {
+            this.remove_step_active = 'remove-opt';
+          }
+
+          if (this.remove_step_active == 'health-spending-summary') {
+            this.remove_step_active = 'remove-opt';
+          }
+
+          if (this.remove_step_active == 'health-spending-account') {
+            this.remove_step_active = 'health-spending-summary';
+          }
+        }
+
+        if(x === "next") {
+         
+          if (this.remove_step_active == 'remove-emp' ) {
+            this.removeBackBtn = true;
+            this.remove_step_active = 'remove-opt';
+
+          } else if (this.remove_step_active == 'remove-opt') {
+
+            if ( this.emp_details_replace ) {
+              this.remove_step_active = 'replace-emp';          
+            } 
+
+            if ( this.emp_details_reserve ) {
+              this.remove_step_active = 'health-spending-summary';
+            }
+
+            if ( this.emp_details_remove ) {
+              this.remove_step_active = 'health-spending-summary';
+            }
+              
+          } else if (this.remove_step_active == 'replace-emp') {
+            this.remove_step_active = 'health-spending-summary';  
+
+          } else if (this.remove_step_active == 'health-spending-summary') {
+            this.remove_step_active = 'health-spending-account';
+          }
+            
+        }
+
+        
+      },
+      changeRemoveOption ( opt ) {
+        this.emp_details_replace = false;
+        this.emp_details_reserve = false;
+        this.emp_details_remove = false;
+
+        if ( opt === 1 ) {
+          this.emp_details_replace = true;
+        }
+        if ( opt === 2 ) {
+          this.emp_details_reserve = true;
+          console.log('2 ni siya');
+        }
+        if ( opt === 3 ) {
+          this.emp_details_remove = true;
+          console.log('3 ni siya');
+        }
+      },
+      inNetworkSubmit() { 
+        this.inNetworkClaimSummaryModal = this.inNetworkClaimSummaryModal == false ? true : false;
       },
       toggleShowInNetwork(data) {
         let x = data;
