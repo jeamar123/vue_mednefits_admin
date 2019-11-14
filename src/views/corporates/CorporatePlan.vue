@@ -240,6 +240,9 @@
 							<div>
 								<span>Active Pan ID #1</span>
 							</div>
+							<div class="cog-container">
+								<i @click="showAccountPlanType()" class="fa fa-cog"></i>
+							</div>
 						</div>
 						<div class="account-container employee-account-container">
 							<div class="account-title">Employee Account</div>
@@ -278,37 +281,75 @@
 						</div>
 						<div class="account-container dependent-account-container">
 							<div class="account-title">Dependent Accounts</div>
-							<div>
-								<span>Plan Type: </span>
-								<span>Pro Plan</span>
-							</div>
-							<div>
-								<span>Start Date: </span>
-								<span>2018-01-03</span>
-							</div>
-							<div>
-								<span>Plan Duration: </span>
-								<span>12 months</span>
-							</div>
-							<div>
-								<span>Total Seats: </span>
-								<span>4</span>
-							</div>
-							<div>
-								<span>Occupied Seats: </span>
-								<span>0</span>
-							</div>
-							<div>
-								<span>Vacant Seats: </span>
-								<span>0</span>
-							</div>
-							<div>
-								<span>Plan Amount: </span>
-								<span><span>SGD </span> <span>360.00</span></span>
-							</div>
-							<div>
-								<span>Payment Status: </span>
-								<span>PENDING</span>
+							<div class="dependent-list-info-wrapper">
+								<div class="dependent-list-info">
+									<div>
+										<span>Plan Type: </span>
+										<span>Pro Plan</span>
+									</div>
+									<div>
+										<span>Start Date: </span>
+										<span>2018-01-03</span>
+									</div>
+									<div>
+										<span>Plan Duration: </span>
+										<span>12 months</span>
+									</div>
+									<div>
+										<span>Total Seats: </span>
+										<span>4</span>
+									</div>
+									<div>
+										<span>Occupied Seats: </span>
+										<span>0</span>
+									</div>
+									<div>
+										<span>Vacant Seats: </span>
+										<span>0</span>
+									</div>
+									<div>
+										<span>Plan Amount: </span>
+										<span><span>SGD </span> <span>360.00</span></span>
+									</div>
+									<div>
+										<span>Payment Status: </span>
+										<span>PENDING</span>
+									</div>
+								</div>
+								<div class="dependent-list-info">
+									<div>
+										<span>Plan Type: </span>
+										<span>Pro Plan</span>
+									</div>
+									<div>
+										<span>Start Date: </span>
+										<span>2018-01-03</span>
+									</div>
+									<div>
+										<span>Plan Duration: </span>
+										<span>12 months</span>
+									</div>
+									<div>
+										<span>Total Seats: </span>
+										<span>4</span>
+									</div>
+									<div>
+										<span>Occupied Seats: </span>
+										<span>0</span>
+									</div>
+									<div>
+										<span>Vacant Seats: </span>
+										<span>0</span>
+									</div>
+									<div>
+										<span>Plan Amount: </span>
+										<span><span>SGD </span> <span>360.00</span></span>
+									</div>
+									<div>
+										<span>Payment Status: </span>
+										<span>PENDING</span>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="account-container plan-extension-container">
@@ -383,6 +424,49 @@
 				Credentials
 			</div>
 		</div>
+
+		<!-- Modal -->
+		<div>
+			<Modal v-if="accountPlanTypeModal" class="employee-details-options select-account-plan-type">
+				<div slot="header">
+					<h1>Select Account/Plan Type</h1>
+					<i @click="showAccountPlanType()" class="fa fa-times"></i>
+				</div>
+				<div slot="body">
+					<div class="plan-type-selector">
+						<label class="container">
+							<span>Trial</span>
+							<input type="radio" name="radio">
+							<span class="plan-type-checkmark"></span>
+						</label>
+						<label class="container">
+							<span>Insurance Bundle</span>
+							<input type="radio" name="radio">
+							<span class="plan-type-checkmark"></span>
+						</label>
+						<label class="container">
+							<span>Pro Plan</span>
+							<input type="radio" name="radio">
+							<span class="plan-type-checkmark"></span>
+						</label>
+						<label class="container">
+							<span>Lite Plan</span>
+							<input type="radio" name="radio">
+							<span class="plan-type-checkmark"></span>
+						</label>
+						<label class="container">
+							<span>Enterprise Plan</span>
+							<input type="radio" name="radio">
+							<span class="plan-type-checkmark"></span>
+						</label>
+					</div>
+				</div>
+				<div slot="footer">
+					<button class="btn-primary">UPDATE ACCOUNT/PLAN TYPE</button>
+				</div>
+			</Modal>
+		</div>
+
 	</div>
 </template>
 

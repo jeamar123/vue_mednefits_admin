@@ -1,5 +1,5 @@
 <script>
-import Modal from "../../../views/corporates/modal/Modal.vue";
+import Modal from "../../../views/modal/Modal.vue";
 
 
   let corporateEmployeeInformation = {

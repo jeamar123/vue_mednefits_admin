@@ -1977,48 +1977,6 @@ $font-gray: #888;
     }
   }
 
-  .plan-type-selector .container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 16px;
-
-    input {
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-    }
-
-    input:checked ~ .plan-type-checkmark:after  {
-      display: block;
-    }
-
-    .plan-type-checkmark  {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 18px;
-      width: 18px;
-      background-color: transparent;
-      border: 2px solid rgba(0,0,0,0.54);
-      border-radius: 50%;
-    }
-
-    .plan-type-checkmark:after {
-      display: none;
-      content: "";
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background-color: #076086;
-    }
-  }
-
   .plan-type-selector {
     min-height: 125px;
 
@@ -2042,6 +2000,48 @@ $font-gray: #888;
       padding: 5px 0;
       font-weight: 700;
     }
+  }
+}
+
+.plan-type-selector .container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 16px;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  input:checked ~ .plan-type-checkmark:after  {
+    display: block;
+  }
+
+  .plan-type-checkmark  {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: transparent;
+    border: 2px solid rgba(0,0,0,0.54);
+    border-radius: 50%;
+  }
+
+  .plan-type-checkmark:after {
+    display: none;
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #076086;
   }
 }
 
@@ -2376,7 +2376,20 @@ $font-gray: #888;
   width: 100%;
 
   .plan-header-container {
+    position: relative;
     margin: 0 0 20px;
+
+    .cog-container {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    .cog-container i {
+      font-size: 24px;
+      color: rgba(0,0,0,0.54);
+      cursor: pointer;
+    }
   }
 
   .account-container {
@@ -2400,6 +2413,32 @@ $font-gray: #888;
     font-size: 12px;
     width: 200px;
     margin: 0 0 10px;
+  }
+}
+
+.select-account-plan-type {
+
+  .modal-container {
+    width: 300px;
+  }
+
+  .modal-header {
+    position: relative;
+
+    .fa-times {
+      position: absolute;
+      right: 20px;
+      top: 22px;
+    }
+  }
+
+  .modal-body {
+    padding: 20px 32px;
+  }
+
+  .modal-footer {
+    text-align: center;
+    padding: 0 0 20px;
   }
 }
 
