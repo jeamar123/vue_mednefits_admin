@@ -18,7 +18,7 @@
     "v-click-outside": "^2.0.2",
     "vue": "^2.6.10",
     "vue-json-excel": "^0.2.98",
-    "vue-moment": "^4.0.0",
+    "vue-moment": "^4.1.0",
     "vue-router": "^3.0.2",
     "vue-slider-component": "^3.0.16",
     "vue-sweetalert2": "^1.6.4"
