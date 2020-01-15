@@ -49,7 +49,7 @@
               <th>
                 <div class="corporate-list-checkbox-container">
                   <label class="checkbox-input">
-                  <input type="checkbox">
+                  <input v-on:click="selectAllCorporatesList( allCorporatesSelected )" v-model="allCorporatesSelected" value="true" type="checkbox">
                   <span class="checkbox-mark"></span>
                   </label>
                 </div>
@@ -65,7 +65,7 @@
               <!-- <th></th> -->
             </tr>
           </thead>
-          <thead>
+          <thead ng-if="corporate_id_arr.length > 0">
             <tr>
               <th>
                 <div class="corporate-list-checkbox-container">
@@ -97,7 +97,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="selected-companies-container">
+            <tr v-if="allCorporatesSelected == true" class="selected-companies-container">
               <td colspan="9">
                 <span>All 
                   <span>12</span>
@@ -108,7 +108,7 @@
                 </span>
               </td>
             </tr>
-            <tr>
+            <tr v-for="list in corporate_list_arr">
               <td>
                 <div class="corporate-list-checkbox-container">
                   <label class="checkbox-input">
@@ -117,26 +117,26 @@
                   </label>
                 </div>
               </td>
-              <td>1</td>
-              <td>Mednefits</td>
+              <td> {{ list.corporate_id }}</td>
+              <td>{{ list.company_name }}</td>
               <td>
-                <span>20/11/2019</span>
+                <span>{{ list.expiry_date }}</span>
               </td>
               <td>
-                <span>Active</span>
+                <span>{{ list.active }}</span>
                 <!-- <span>Deactivated</span> -->
               </td>
               <td>
-                <span>110</span>
+                <span>{{ list.total_employee_seat }}</span>
               </td>
               <td>
-                <span>42</span>
+                <span>{{ list.total_dependent_seat }}</span>
               </td>
               <td>
-                <span>100.000.00</span>
+                <span>{{ list.total_medical_credits }}</span>
               </td>
               <td>
-                <span>Pro Plan</span>
+                <span>{{ list.account_type }}</span>
                 <!-- <span>Insurance Bundle</span>
                 <span>Trial Plan</span>
                 <span>Lite Plan</span>
