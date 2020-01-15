@@ -1,7 +1,7 @@
 <template>
 	<div class="corporate-info-container">
 		
-		<div class="info-row">
+		<!-- <div class="info-row">
 			<div class="info-col">
 				<div class="info-div">
 					<label>Company Name</label>
@@ -26,7 +26,7 @@
 					<p>24</p>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<div class="info-row">
 			<div class="info-col">
@@ -67,7 +67,7 @@
 			<div class="info-col">
 				<p>Company Credits</p>
 				<div class="white-space-20"></div>
-				<label>Medical Spending Account</label>
+				<label class="label-type">Medical Spending Account</label>
 				<div class="white-space-20"></div>
 				<div class="info-div-inline">
 					<label>Total :</label>
@@ -93,7 +93,7 @@
 			<div class="info-col">
 				<p>Latest Credit Reset Date : <span>May 06, 2019</span></p>
 				<div class="white-space-20"></div>
-				<label>Wellness Spending Account</label>
+				<label class="label-type">Wellness Spending Account</label>
 				<div class="white-space-20"></div>
 				<div class="info-div-inline">
 					<label>Total :</label>

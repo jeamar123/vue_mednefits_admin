@@ -8,6 +8,25 @@
 				<p class="corporate-name">
 					Allan Company
 				</p>
+
+				<div class="company-basic-details">
+					<div class="info-div">
+						<label>Company Name</label>
+						<p>MednefitsTech Inc.</p>
+					</div>
+					<div class="info-div">
+						<label>Plan Start Date</label>
+						<p>August 4, 2018</p>
+					</div>
+					<div class="info-div">
+						<label>Plan End Date</label>
+						<p>August 3, 2019</p>
+					</div>
+					<div class="info-div">
+						<label>Days to Expire Plan</label>
+						<p>24</p>
+					</div>
+				</div>
 			</div>
 
 			<div class="details-menu-wrapper">
@@ -20,7 +39,7 @@
 					<span class="oi" data-glyph="caret-right" aria-hidden="true"></span>
 				</div>
 				<div class="menu-item" v-bind:class="{ 'active' : corporateViewStatus == 'CorporatePlan' }" v-on:click="selectCorporateView( 'CorporatePlan' )">
-					<label>Corporate Plan</label>
+					<label>Corporate Details</label>
 					<span class="oi" data-glyph="caret-right" aria-hidden="true"></span>
 				</div>
 				<div class="menu-item" v-bind:class="{ 'active' : corporateViewStatus == 'SpendingInvoice' }" v-on:click="selectCorporateView( 'SpendingInvoice' )">

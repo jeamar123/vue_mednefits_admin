@@ -179,57 +179,79 @@ $font-gray: #888;
     // flex: 1.2;
     // max-width: 300px;
     width: 20%;
-    background: #fdfdfd;
+    // background: #fdfdfd;
     /*background: $bg-blue;*/
-    box-shadow: 0px 1px 5px #ddd;
+    // box-shadow: 0px 1px 5px #ddd;
     padding-bottom: 50px;
     position: relative;
     color: $font-gray;
     margin: 10px;
   }
   .corporate-details-box{
-    padding: 40px 20px;
+    padding: 30px 20px 10px 20px;
     text-align: left;
-    /*background: #4395ca;*/
-    /*background: #f1f1f1;*/
-    border-bottom: 5px solid #E9EAEC;
+    background: #fdfdfd;
+    // border-bottom: 5px solid #E9EAEC;
+    box-shadow: 0px 1px 5px #ddd;
+    border-radius: 4px;
 
     img{
-      width: 50px;
-      height: 50px;
-      display: inline-block;
+      width: 70px;
+      height: 70px;
+      display: block;
       border-radius: 50%;
-      border: 2px solid #fff;
-      margin-right: 20px;
+      // margin-right: 20px;
+      margin: 0px auto 10px auto;
       background: #FFF;
-      border: 1px solid #ccc;
+      // border: 1px solid #ccc;
     }
-    p{
+    p.corporate-name{
       font-size: 18px;
-      display: inline-block;
+      // display: inline-block;
       vertical-align: middle;
       font-family: 'Open Sans';
       font-weight: 700;
-      color: #444;
+      color: #777;
+      text-align: center;
+    }
+
+    .company-basic-details{
+      margin-top: 20px;
+    }
+    .info-div{
+      margin-bottom: 15px;
+
+      label{
+        font-size: 12px;
+        color: #999;
+      }
+      p{
+        font-size: 14px;
+        color: #444;
+      }
     }
   }
   .details-menu-wrapper{
+    margin-top: 5px;
     display: inline-block;
     width: 100%;
 
     .menu-item{
       display: flex;
-      padding: 20px;
-      /*color: #eee;*/
+      padding: 10px 0px 10px 20px;
       font-size: 14px;
       cursor: pointer;
-      transition: all .3s ease-in-out;
+      // transition: all .3s ease-in-out;
       flex: 2;
+      border: 2px solid transparent;
+      margin-bottom: 5px;
+      border-radius: 4px;
+      background: #fff;
+      opacity: .55;
 
       &:hover,
       &.active{
-        background: #e8e8e8;
-        /*background: #256a98;*/
+        opacity: 1;
       }
     }
     .menu-item label{
@@ -242,6 +264,12 @@ $font-gray: #888;
       position: relative;
       top: 1px;
       text-align: right;
+    }
+    .menu-item:hover label,
+    .menu-item.active label,
+    .menu-item:hover .oi,
+    .menu-item.active .oi{
+      color: #444;
     }
   }
   .right-box-wrapper{
@@ -271,8 +299,13 @@ $font-gray: #888;
         display: block;
         color: $font-gray;
       }
+      .label-type{
+        font-size: 18px;
+        color: #444;
+      }
       p{
-        font-size: 14px;
+        font-size: 16px;
+        margin-bottom: 10px;
       }
       .info-div-inline{
         display: flex;
@@ -283,6 +316,7 @@ $font-gray: #888;
         }
         p{
           flex: 1;
+          font-size: 14px;
         }
       }
     }
