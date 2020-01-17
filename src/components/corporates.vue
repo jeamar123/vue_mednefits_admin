@@ -45,14 +45,16 @@
       },
       selectAllCorporatesList( opt ) {
       	this.allCorporatesSelected = opt;
+      	console.log(this.allCorporatesSelected);
       	console.log(this.corporate_list_arr);
+      	// console.log(this.allCorporatesSelected);
 
-      	if ( this.allCorporatesSelected == true ) {
-      		console.log('sulod');
-      		$.each( this.corporate_list_arr, function (value) {
-      			console.log(value);
-      		});
-      	}
+      	// if ( this.allCorporatesSelected == true ) {
+      		
+      	// 	$.each( this.corporate_list_arr, function (value) {
+      	// 		this.corporate_id_arr.push( value.corporate_id );
+      	// 	});
+      	// }
       	
 
       }

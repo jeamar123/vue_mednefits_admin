@@ -65,12 +65,12 @@
               <!-- <th></th> -->
             </tr>
           </thead>
-          <thead ng-if="corporate_id_arr.length > 0">
+          <thead v-if="corporate_id_arr.length > 0">
             <tr>
               <th>
                 <div class="corporate-list-checkbox-container">
                   <label class="checkbox-input">
-                  <input ng-model="allCorporatesSelected" value="true" type="checkbox">
+                  <input v-model="allCorporatesSelected" value="true" type="checkbox">
                   <span class="checkbox-mark"></span>
                   </label>
                 </div>
@@ -108,7 +108,7 @@
                 </span>
               </td>
             </tr>
-            <tr v-for="list in corporate_list_arr">
+            <tr v-for="list of corporate_list_arr">
               <td>
                 <div class="corporate-list-checkbox-container">
                   <label class="checkbox-input">
@@ -117,7 +117,7 @@
                   </label>
                 </div>
               </td>
-              <td> {{ list.corporate_id }}</td>
+              <td>{{ list.corporate_id }}</td>
               <td>{{ list.company_name }}</td>
               <td>
                 <span>{{ list.expiry_date }}</span>
