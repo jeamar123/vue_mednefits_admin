@@ -107,6 +107,10 @@ $font-gray: #888;
 .corporates-container table {
   border: 0.5px solid #d0d0d0;
 
+  .corporate-data {
+    cursor: pointer;
+  }
+
   th:nth-child(1),
   td:nth-child(1) {
     padding: 10px;
@@ -125,6 +129,11 @@ $font-gray: #888;
 
   tbody tr {
     border-top: 0.5px solid #d0d0d0;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #e5f4fd;
+    }
 
     td {
       font-size: 14px;
@@ -207,6 +216,65 @@ $font-gray: #888;
       -ms-transform: rotate(45deg);
       transform: rotate(45deg);
       border-radius: 2px;
+    }
+  }
+}
+
+.corporate-pagination {
+  display: flex;
+  color: #777;
+  padding: 40px 0 150px;
+  justify-content: center;
+
+  span {
+    font-size: 12px;
+  }
+
+  .prev-next-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .fa-angle-left {
+    margin: 0 10px 0 0;
+    font-size: 25px;
+  }
+
+  .fa-angle-right {
+    margin: 0 0 0 10px;
+    font-size: 25px;
+  }
+
+  .page-scroll-container {
+    display: flex;
+    margin: 0 70px 0 0;
+
+    >div {
+      margin: 0 10px;
+    }
+  }
+
+  .page-num {
+    border-radius: 2px;
+    margin: 0 10px 0 0;
+    padding: 5px 8px;
+    cursor: pointer;
+
+    &.active {
+      background-color: #e8e8e8;
+    }
+  }
+
+  .corporate-list-per-page {
+    position: relative;
+    cursor: pointer;
+
+    >span:first-child {
+      margin: 0 5px 0 0;
+    }
+
+    i {
+      font-size: 14px;
     }
   }
 }

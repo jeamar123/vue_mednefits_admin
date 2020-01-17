@@ -117,32 +117,44 @@
                   </label>
                 </div>
               </td>
-              <td>{{ list.corporate_id }}</td>
-              <td>{{ list.company_name }}</td>
-              <td>
+              <router-link tag="td" class="corporate-data" :to="{ name: 'CorporateMenu' }">
+                <span>{{ list.corporate_id }}</span>
+              </router-link>
+ 
+              <router-link tag="td" class="corporate-data" :to="{ name: 'CorporateMenu' }">
+                <span>{{ list.company_name }}</span>
+              </router-link>
+            
+              <router-link tag="td" class="corporate-data" :to="{ name: 'CorporateMenu' }">
                 <span>{{ list.expiry_date }}</span>
-              </td>
-              <td>
+              </router-link>
+            
+              <router-link tag="td" class="corporate-data" :to="{ name: 'CorporateMenu' }">
                 <span>{{ list.active }}</span>
-                <!-- <span>Deactivated</span> -->
-              </td>
-              <td>
+                 <!-- <span>Deactivated</span> -->
+              </router-link>
+            
+              <router-link tag="td" class="corporate-data" :to="{ name: 'CorporateMenu' }">
                 <span>{{ list.total_employee_seat }}</span>
-              </td>
-              <td>
+              </router-link>
+            
+              <router-link tag="td" class="corporate-data" :to="{ name: 'CorporateMenu' }">
                 <span>{{ list.total_dependent_seat }}</span>
-              </td>
-              <td>
+              </router-link>
+            
+              <router-link tag="td" class="corporate-data" :to="{ name: 'CorporateMenu' }">
                 <span>{{ list.total_medical_credits }}</span>
-              </td>
-              <td>
+              </router-link>
+            
+              <router-link tag="td" class="corporate-data" :to="{ name: 'CorporateMenu' }">
                 <span>{{ list.account_type }}</span>
                 <!-- <span>Insurance Bundle</span>
                 <span>Trial Plan</span>
                 <span>Lite Plan</span>
                 <span>Super Pro Plan</span>
                 <span>Enterprise Plan</span> -->
-              </td>
+              </router-link>
+              
               
             </tr>
           </tbody>
@@ -150,7 +162,39 @@
       </div>
     </div>
 
-
+    <div class="corporate-pagination">
+      <div class="page-wrapper">
+        <div class="page-scroll-container">
+          <span class="prev-next-container">  
+            <i class="fa fa-angle-left"></i> 
+            <span>Prev</span>
+          </span>
+          <div>
+            <span class="page-num active">1</span>
+            <span class="page-num">2</span>
+            <span class="page-num">3</span>
+            <span class="page-num">4</span>
+            <span class="page-num">5</span>
+          </div>
+          <span class="prev-next-container">  
+            <span>Next</span>
+            <i class="fa fa-angle-right"></i> 
+          </span>
+        </div>
+      </div>
+      <div class="corporate-list-per-page">
+        <span><span>10</span> per page</span>
+        <span>  
+          <i class="fa fa-caret-down"></i>
+        </span>
+        <div class="opened-per-page-scroll" v-if="false">
+          <span>10 per page</span>
+          <span>25 per page</span>
+          <span>50 per page</span>
+          <span>100 per page</span>
+        </div>
+      </div>
+    </div>
 
 		<!-- <div class="tbl-wrapper">
 			<table class="table">
@@ -187,7 +231,7 @@
 			</table>
 		</div> -->
 
-		<div class="pagination-container">
+		<!-- <div class="pagination-container">
 			<div class="pagination-wrapper">
 				<div class="page">
 					<span class="page-text">Page:</span>
@@ -222,7 +266,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
   </div>
 </template>
 
