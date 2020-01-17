@@ -1,11 +1,10 @@
 <template>
 	<div class="corporates-container">
-		<div v-if="!isSearchShow" class="page-toolbar">
+		<div class="header-corporate-list">
 			<div class="page-title">
-				<p>List of Corporate Clients</p>
+				<h3>List of Corporate Clients</h3>
 			</div>
-
-			<div class="page-options">
+			<!-- <div class="page-options">
 				<div class="btn-page-options data-transfer-upload">
 					<span class="oi" data-glyph="data-transfer-upload" aria-hidden="true"></span>
 				</div>
@@ -18,22 +17,142 @@
 				<div class="btn-page-options">
 					<span class="oi" data-glyph="reload" aria-hidden="true"></span>
 				</div>
-			</div>
+			</div> -->
+			<div class="search-container">
+        <form class="search-input-wrapper">
+          <i class="fa fa-search"></i>
+          <input type="text" placeholder="Search">
+        </form>
+        <div>
+          <button><i class="fa fa-plus"></i>Add filter</button>
+        </div>
+      </div>
+
+      <div class="right-icon-header">
+        <div>
+          <img :src="'../assets/img/download_emp.png'">
+        </div>
+        <div>
+          <img :src="'../assets/img/plus_add.png'">
+        </div>
+        <div>
+          <img :src="'../assets/img/refresh.png'">
+        </div>
+      </div>
 		</div>
 
-		<div v-if="isSearchShow" class="search-toolbar-container">
-			<div class="input-icon">
-				<span class="oi" data-glyph="magnifying-glass" aria-hidden="true"></span>
-			</div>
-			<div class="form-div">
-				<input type="text" placeholder="Search Corporate and hit Enter" autofocus>
-			</div>
-			<div class="close-icon" v-on:click="hideSearch()">
-				<span class="oi" data-glyph="x" aria-hidden="true"></span>
-			</div>
-		</div>
+		<div class="corporate-tbl-list-wrapper">
+      <div class="corporate-tbl-list-container">
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <div class="corporate-list-checkbox-container">
+                  <label class="checkbox-input">
+                  <input v-on:click="selectAllCorporatesList( allCorporatesSelected )" v-model="allCorporatesSelected" value="true" type="checkbox">
+                  <span class="checkbox-mark"></span>
+                  </label>
+                </div>
+              </th>
+              <th>Company ID</th>
+              <th>Company Name</th>
+              <th>Expiry Date</th>
+              <th>HR Account Status</th>
+              <th>Total Employee Seats</th>
+              <th>Total Dependent Seats</th>
+              <th>Total Medical Credits</th>
+              <th>Account/Plan Type</th>
+              <!-- <th></th> -->
+            </tr>
+          </thead>
+          <thead ng-if="corporate_id_arr.length > 0">
+            <tr>
+              <th>
+                <div class="corporate-list-checkbox-container">
+                  <label class="checkbox-input">
+                  <input ng-model="allCorporatesSelected" value="true" type="checkbox">
+                  <span class="checkbox-mark"></span>
+                  </label>
+                </div>
+              </th>
+              <th>
+                <span>
+                  <span></span>
+                  <span>1</span>
+                   selected
+                </span>
+              </th>
+              <th>
+                <span class="export-text">
+                  <img :src="'assets/img/download_emp.png'" /> 
+                  <span>Export</span>
+                </span>
+              </th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-if="allCorporatesSelected == true" class="selected-companies-container">
+              <td colspan="9">
+                <span>All 
+                  <span>12</span>
+                  <span>15</span>
+                   companies are selected. 
+                  <span class="select-btn-text">Select all 95 companies.</span>
+                  <span class="select-btn-text">Clear selection.</span>
+                </span>
+              </td>
+            </tr>
+            <tr v-for="list in corporate_list_arr">
+              <td>
+                <div class="corporate-list-checkbox-container">
+                  <label class="checkbox-input">
+                  <input type="checkbox">
+                  <span class="checkbox-mark"></span>
+                  </label>
+                </div>
+              </td>
+              <td> {{ list.corporate_id }}</td>
+              <td>{{ list.company_name }}</td>
+              <td>
+                <span>{{ list.expiry_date }}</span>
+              </td>
+              <td>
+                <span>{{ list.active }}</span>
+                <!-- <span>Deactivated</span> -->
+              </td>
+              <td>
+                <span>{{ list.total_employee_seat }}</span>
+              </td>
+              <td>
+                <span>{{ list.total_dependent_seat }}</span>
+              </td>
+              <td>
+                <span>{{ list.total_medical_credits }}</span>
+              </td>
+              <td>
+                <span>{{ list.account_type }}</span>
+                <!-- <span>Insurance Bundle</span>
+                <span>Trial Plan</span>
+                <span>Lite Plan</span>
+                <span>Super Pro Plan</span>
+                <span>Enterprise Plan</span> -->
+              </td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-		<div class="tbl-wrapper">
+
+
+		<!-- <div class="tbl-wrapper">
 			<table class="table">
 				<thead>
 					<tr>
@@ -66,7 +185,7 @@
 					</tr>
 				</tbody>
 			</table>
-		</div>
+		</div> -->
 
 		<div class="pagination-container">
 			<div class="pagination-wrapper">
