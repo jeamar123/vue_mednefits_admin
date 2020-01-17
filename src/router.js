@@ -33,6 +33,8 @@ import BulkCreditAllocation from './views/corporates/BulkCreditAllocation.vue'
 import CorporateSettings from './views/corporates/CorporateSettings.vue'
 import EmployeeInformation from './views/corporates/employee/EmployeeInformation.vue'
 import HealthPartnerAccess from './views/corporates/HealthPartnerAccess.vue'
+import EclaimTypeService from './views/corporates/EclaimTypeService.vue'
+import GcapPerVisit from './views/corporates/GcapPerVisit.vue'
 
 import Analytics from './views/Analytics.vue'
 
@@ -74,7 +76,7 @@ export default new Router({
         { name: 'AddClinic', path: '/dashboard/clinic/add', component: AddClinic },
         //corporates
         { name: 'Corporates', path: '/dashboard/corporates', component: Corporates },
-        { name: 'HealthPartnerAccess', path: '/dashboard/health-partner-access', component: HealthPartnerAccess },
+        // { name: 'HealthPartnerAccess', path: '/dashboard/health-partner-access', component: HealthPartnerAccess },
         { 
           name: 'CorporateMenu', 
           path: '/dashboard/corporates/menu', 
@@ -87,6 +89,9 @@ export default new Router({
             { name: 'SpendingInvoice', path: '/dashboard/corporates/menu/spending-invoice', components: { child : SpendingInvoice }  },
             { name: 'CorporateEnrollment', path: '/dashboard/corporates/menu/enrollment', components: { child : CorporateEnrollment }  },
             { name: 'BulkCreditAllocation', path: '/dashboard/corporates/menu/bulk-credit-allocation', components: { child : BulkCreditAllocation }  },
+            { name: 'HealthPartnerAccess', path: '/dashboard/corporates/menu/health-partner-access', components: { child : HealthPartnerAccess} },
+            { name: 'EclaimTypeService', path: '/dashboard/corporates/menu/Eclaim-Type-Service', components: { child : EclaimTypeService} },
+            { name: 'GcapPerVisit', path: '/dashboard/corporates/menu/GP-Cap-Per-Visit', components: { child : GcapPerVisit} },
             { name: 'CorporateSettings', path: '/dashboard/corporates/menu/settings', components: { child : CorporateSettings }  },
           ] 
         },

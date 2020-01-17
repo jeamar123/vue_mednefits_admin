@@ -54,6 +54,18 @@
 					<label>Bulk Credit Allocation</label>
 					<span class="oi" data-glyph="caret-right" aria-hidden="true"></span>
 				</div>
+				<div class="menu-item" v-bind:class="{ 'active' : corporateViewStatus == 'EclaimTypeService' }" v-on:click="selectCorporateView( 'EclaimTypeService' )">
+					<label>E-Claim - Claim Type Services</label>
+					<span class="oi" data-glyph="caret-right" aria-hidden="true"></span>
+				</div>
+				<div class="menu-item" v-bind:class="{ 'active' : corporateViewStatus == 'HealthPartnerAccess' }" v-on:click="selectCorporateView( 'HealthPartnerAccess' )">
+					<label>Health Partnner Access</label>
+					<span class="oi" data-glyph="caret-right" aria-hidden="true"></span>
+				</div>
+				<div class="menu-item" v-bind:class="{ 'active' : corporateViewStatus == 'GcapPerVisit' }" v-on:click="selectCorporateView( 'GcapPerVisit' )">
+					<label>GP - Cap per Visit</label>
+					<span class="oi" data-glyph="caret-right" aria-hidden="true"></span>
+				</div>
 				<div class="menu-item" v-bind:class="{ 'active' : corporateViewStatus == 'CorporateSettings' }" v-on:click="selectCorporateView( 'CorporateSettings' )">
 					<label>Settings</label>
 					<span class="oi" data-glyph="caret-right" aria-hidden="true"></span>
