@@ -155,8 +155,8 @@ $font-gray: #888;
     margin: 10px 10px 10px 0;
   }
   .corporate-info-container{
-    /*width: 80%;*/
-    max-width: 800px;
+    width: 100%;
+    // max-width: 800px;
 
     .info-row{
       display: flex;
@@ -2081,7 +2081,7 @@ $font-gray: #888;
 
 .health-partner-access-wrapper {
   background-color: #fff;
-  height: 100vh;
+  height: auto;
   padding: 20px;
 
   .health-partner-access-container {

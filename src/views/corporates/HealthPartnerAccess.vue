@@ -1,6 +1,6 @@
 <template>
 	<div class="health-partner-access-wrapper">
-		<button @click="selectCorporatesView( 'CorporateMenu' )" class="btn-primary">BACK</button>
+		<!-- <button @click="selectCorporatesView( 'CorporateMenu' )" class="btn-primary">BACK</button> -->
 		<div>
 			<h2 class="corporate-text">Corporate</h2>
 		</div>
