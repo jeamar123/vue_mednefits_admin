@@ -10,6 +10,7 @@ axios.defaults.user_id = null;
 import Auth from './views/Auth.vue'
 import Dashboard from './views/Dashboard.vue'
 
+//Clinic
 import Clinic from './views/Clinic.vue'
 import ClinicMenu from './views/clinic/ClinicMenu.vue'
 import AddClinic from './views/clinic/AddClinic.vue'
@@ -19,7 +20,9 @@ import ClinicDoctors from './views/clinic/ClinicDoctors.vue'
 import ClinicHours from './views/clinic/ClinicHours.vue'
 import ClinicPayment from './views/clinic/ClinicPayment.vue'
 import ClinicSettings from './views/clinic/ClinicSettings.vue'
+// End Clinic
 
+// Corporates
 import Corporates from './views/Corporates.vue'
 import AddCorporate from './views/corporates/AddCorporate.vue'
 import CorporateMenu from './views/corporates/CorporateMenu.vue'
@@ -35,6 +38,11 @@ import EmployeeInformation from './views/corporates/employee/EmployeeInformation
 import HealthPartnerAccess from './views/corporates/HealthPartnerAccess.vue'
 import EclaimTypeService from './views/corporates/EclaimTypeService.vue'
 import GcapPerVisit from './views/corporates/GcapPerVisit.vue'
+import PlanRenewal from './views/corporates/PlanRenewal.vue'
+import PlanDetails from './views/corporates/plan-renwal/PlanDetails.vue'
+import MemberDetails from './views/corporates/plan-renwal/MemberDetails.vue'
+import SpendingRenewalDetails from './views/corporates/plan-renwal/SpendingRenewalDetails.vue'
+// End Corporates
 
 import Analytics from './views/Analytics.vue'
 
@@ -90,8 +98,15 @@ export default new Router({
             { name: 'CorporateEnrollment', path: '/dashboard/corporates/menu/enrollment', components: { child : CorporateEnrollment }  },
             { name: 'BulkCreditAllocation', path: '/dashboard/corporates/menu/bulk-credit-allocation', components: { child : BulkCreditAllocation }  },
             { name: 'HealthPartnerAccess', path: '/dashboard/corporates/menu/health-partner-access', components: { child : HealthPartnerAccess} },
-            { name: 'EclaimTypeService', path: '/dashboard/corporates/menu/Eclaim-Type-Service', components: { child : EclaimTypeService} },
-            { name: 'GcapPerVisit', path: '/dashboard/corporates/menu/GP-Cap-Per-Visit', components: { child : GcapPerVisit} },
+            { name: 'EclaimTypeService', path: '/dashboard/corporates/menu/eclaim-type-service', components: { child : EclaimTypeService} },
+            { name: 'GcapPerVisit', path: '/dashboard/corporates/menu/gp-cap-per-visit', components: { child : GcapPerVisit} },
+            { name: 'PlanRenewal', path: '/dashboard/corporates/menu/plan-renewal', components: { child : PlanRenewal},
+              children : [
+                { name: 'GcapPerVisit', path: '/dashboard/corporates/menu/plan-renewal/details', components: { planRenewal : PlanDetails} },
+                { name: 'GcapPerVisit', path: '/dashboard/corporates/menu/plan-renewal/member', components: { planRenewal : MemberDetails} },
+                { name: 'GcapPerVisit', path: '/dashboard/corporates/menu/plan-renewal/spending-account', components: { planRenewal : SpendingRenewalDetails} },
+              ]
+            },
             { name: 'CorporateSettings', path: '/dashboard/corporates/menu/settings', components: { child : CorporateSettings }  },
           ] 
         },
