@@ -4,7 +4,7 @@ $font-gray: #888;
 
 .corporates-container{
   // margin: 10px;
-  padding: 20px 40px;
+  padding: 30px 40px;
   min-height: 100vh;
   background: #FFF;
   box-shadow: 0px 1px 5px #ddd;
@@ -15,7 +15,7 @@ $font-gray: #888;
 .header-corporate-list {
   display: flex;
   align-items: center;
-  margin: 0 0 30px;
+  margin: 0 0 40px;
 
   .search-container,
   .right-icon-header {
@@ -57,7 +57,7 @@ $font-gray: #888;
 
     input {
       height: 40px;
-      width: 400px;
+      width: 440px;
       padding: 4px 5px 5px 35px;
       border: 0;
       border-radius: 4px;
@@ -97,10 +97,13 @@ $font-gray: #888;
 
   &::-webkit-scrollbar-thumb {
     border-radius: 6px;
+    background-color: #aaa;
+    border: 2px solid #ddd;
   }
 
   &::-webkit-scrollbar-track {
-    background-color: transparent;
+    /*background-color: transparent;*/
+    background-color: #ddd;
   }
 }
 
@@ -1187,7 +1190,7 @@ $font-gray: #888;
   .left-box-wrapper{
     // flex: 1.4;
     /*background: $bg-blue;*/
-    width: 25%;
+    width: 20%;
     background: #FFF;
     box-shadow: 0px 1px 5px #b3b3b3;
     padding-bottom: 50px;
@@ -1196,7 +1199,8 @@ $font-gray: #888;
   .corporate-details-box{
     padding: 25px 20px;
     text-align: center;
-    background: #215e86;
+    background: #1383b3;
+    /*background: #215e86;*/
     /* border-top: 2px solid $bg-blue; */
 
     img{
@@ -1238,14 +1242,14 @@ $font-gray: #888;
     border-bottom: 1px solid #e2e2e2;
   }
   .p-label{
-    font-size: 18px;
+    font-size: 16px;
     color: #555;
     font-family: 'Helvetica Medium';
   }
   .label-text{
     flex: 1;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 14px;
     color: #555;
     font-family: 'Helvetica Medium';
   }
@@ -1253,7 +1257,7 @@ $font-gray: #888;
     flex: 2;
     text-align: right;
     color: #555;
-    font-size: 16px;
+    font-size: 14px;
     
     .oi{
       position: relative;
@@ -1279,7 +1283,7 @@ $font-gray: #888;
   .right-box-wrapper{
     // flex: 4;
     margin: 0 0 0 10px;
-    width: 75%;
+    width: 80%;
     background: #fff;
     box-shadow: 0px 1px 5px #b3b3b3;
   }
@@ -1391,7 +1395,8 @@ $font-gray: #888;
   }
 
   .emp-tab-wrapper {
-    background-color: #215e86;
+    background-color: #1383b3;
+    /*background-color: #215e86;*/
     color: #fff;
     display: flex;
     margin: 20px 0 0;

@@ -29,7 +29,7 @@
       </div>
 
       <div class="right-icon-header">
-        <div>
+        <div v-on:click="exportModal()">
           <img :src="'../assets/img/download_emp.png'">
         </div>
         <router-link tag="div" to="/dashboard/corporates/add">
@@ -175,6 +175,8 @@
             <span class="page-num">3</span>
             <span class="page-num">4</span>
             <span class="page-num">5</span>
+            ..
+            <span class="page-num">11</span>
           </div>
           <span class="prev-next-container">  
             <span>Next</span>
@@ -269,7 +271,7 @@
 		</div> -->
 
 
-  <div>
+  <div v-click-outside="closeAllModals">
     <!-- Add Filter -->
     <Modal v-if="isFilterModalShow" class="add-filter-wrapper">
       <div slot="header">
