@@ -93,28 +93,35 @@
 		@media (max-width: 768px) { 
 
 		}
+		/* Mobile max */
+		@media (max-width: 992px) { 
+			.header-corporate-list {
+				.search-input-wrapper input{
+					width: 200px;
+				}
+			}
+		}
 		/* Large (lg) */
 		@media (max-width: 1024px) { 
 			.header-corporate-list {
-				.page-title{
+				.search-container{
 					flex: 1;
+				}
+			}
+		}
+		/* Extra Large (xl) */
+		@media (max-width: 1260px) { 
+			.header-corporate-list {
+				.page-title{
+					width: 220px;
 				}
 				.search-container{
 					flex: 1;
 				}
-				.search-input-wrapper input{
-					width: 300px;
-				}
 				.right-icon-header{
-					flex: 1;
-    			justify-content: flex-end;
+			    width: 90px;
 				}
 			}
-			
-		}
-		/* Extra Large (xl) */
-		@media (max-width: 1280px) { 
-
 		}
 
 
