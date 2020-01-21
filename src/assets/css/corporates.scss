@@ -972,6 +972,7 @@ $font-gray: #888;
     background: #fff;
     padding-left: 10px;
     border-color: #dedede;
+    -webkit-appearance: none;
   }
   .close-btn{
     position: absolute;
@@ -1166,13 +1167,64 @@ $font-gray: #888;
   .send-welcome-email-toggle {
     display: flex;
 
+    .form-toggle {
+      margin: 0;
+    }
+  }
+
+  .welcome-email-account-selector {
+    display: flex;
+
     >label {
       width: 100px;
       margin: 0 10px;
     }
+  }
 
-    .form-toggle {
-      margin: 0;
+  .add-bcc-input-wrapper {
+    display: flex;
+
+    input {
+      margin: 0 10px 0 0;
+    }
+
+    .btn-primary {
+      height: 35px;
+    }
+  }
+
+  .bcc-emails-container {
+    display: inline-block;
+
+    .bcc-email {
+      font-size: 12px;
+      margin: 10px 10px 10px 0;
+      padding: 10px;
+      background: #eee;
+      border-radius: 4px;
+      float: left;
+    }
+
+    span {
+      margin: 0 10px 0 0;
+    }
+
+    img {
+      cursor: pointer;
+      height: 12px;
+      width: 12px;
+    }
+  }
+
+  .selector-container {
+    position: relative;
+
+    img {
+      height: 12px;
+      width: 12px;
+      position: absolute;
+      top: 12px;
+      right: 10px;
     }
   }
 }
