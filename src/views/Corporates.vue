@@ -83,7 +83,7 @@
                 </span>
               </th>
               <th>
-                <span class="export-text">
+                <span v-on:click="exportModal()" class="export-text">
                   <img :src="'assets/img/download_emp.png'" /> 
                   <span>Export</span>
                 </span>
@@ -310,10 +310,10 @@
     </Modal>
 
     <!-- Export Modal -->
-    <Modal v-if="false" class="export-modal-wrapper">
+    <Modal v-if="isExportModalShow" class="export-modal-wrapper">
       <div slot="header">
         <h3 class="sm:bg-green">Choose which columns you see</h3>
-        <img class="cancel-icon" :src="'../assets/img/close.svg'"></i>
+        <img v-on:click="exportModal()" class="cancel-icon" :src="'../assets/img/close.svg'"></i>
       </div>
       <div slot="body">
         <div class="dl-corp-content-wrapper">

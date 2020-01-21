@@ -124,6 +124,7 @@ $font-gray: #888;
       font-size: 14px;
       font-family: 'Helvetica Light';
       padding: 10px 5px;
+      border-bottom: 0.5px solid #d0d0d0;
     }
 
     .selected-companies {
@@ -1111,6 +1112,65 @@ $font-gray: #888;
     font-size: 13px;
     font-family: 'Helvetica Light';
     border-radius: 2px;
+  }
+
+  .duration-input-wrapper {
+    display: flex;
+
+    >div:nth-child(1) {
+      width: 40%;
+    }
+
+    >div:nth-child(2) {
+      width: 60%;
+    }
+  }
+
+  .date-container {
+    position: relative;
+
+    img {
+      height: 14px;
+      width: 14px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+  }
+
+  .invoice-date-container .date-container {
+    width: 226px;
+  }
+
+  .change-plan-toggle {
+    margin: 20px 0 0;
+  }
+
+  .med-date-container,
+  .well-date-container {
+    margin: 34px 0 0;
+    width: 150px;
+
+    .date-container img {
+      left: 10px;
+    }
+
+    .date-container input {
+      padding: 5px 5px 5px 28px
+    }
+  }
+
+  .send-welcome-email-toggle {
+    display: flex;
+
+    >label {
+      width: 100px;
+      margin: 0 10px;
+    }
+
+    .form-toggle {
+      margin: 0;
+    }
   }
 }
 

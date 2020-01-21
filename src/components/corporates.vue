@@ -15,6 +15,7 @@
         	endDate: undefined,
         },
         isFilterModalShow : false,
+        isExportModalShow : false,
 				user_id : null,
 				isSearchShow : false,
 				allCorporatesSelected : false,
@@ -54,8 +55,11 @@
       hideSearch(){
       	this.isSearchShow = false;
       },
-      addFilterModal() {
+      addFilterModal(){
       	this.isFilterModalShow = this.isFilterModalShow == false ? true : false;
+      },
+      exportModal(){
+      	this.isExportModalShow = this.isExportModalShow == false ? true : false;
       },
       selectAllCorporatesList( opt ) {
       	this.allCorporatesSelected = opt;
