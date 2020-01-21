@@ -86,19 +86,34 @@
 
 
 		/* Small (sm) */
-		@media (min-width: 640px) { 
+		@media (max-width: 640px) { 
 
 		}
 		/* Medium (md) */
-		@media (min-width: 768px) { 
+		@media (max-width: 768px) { 
 
 		}
 		/* Large (lg) */
-		@media (min-width: 1024px) { 
-
+		@media (max-width: 1024px) { 
+			.header-corporate-list {
+				.page-title{
+					flex: 1;
+				}
+				.search-container{
+					flex: 1;
+				}
+				.search-input-wrapper input{
+					width: 300px;
+				}
+				.right-icon-header{
+					flex: 1;
+    			justify-content: flex-end;
+				}
+			}
+			
 		}
 		/* Extra Large (xl) */
-		@media (min-width: 1280px) { 
+		@media (max-width: 1280px) { 
 
 		}
 
