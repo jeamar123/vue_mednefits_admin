@@ -55,6 +55,14 @@
       hideSearch(){
       	this.isSearchShow = false;
       },
+      closeAllModals(){
+      	// if( this.isFilterModalShow == true ){
+      	// 	this.isFilterModalShow = false;
+      	// }
+      	// if( this.isExportModalShow == true ){
+      	// 	this.isExportModalShow = false;
+      	// }
+      },
       addFilterModal(){
       	this.isFilterModalShow = this.isFilterModalShow == false ? true : false;
       },

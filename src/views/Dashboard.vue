@@ -1,6 +1,6 @@
 <template>
 	<div id="main-content" >
-		<div class="navbar-line"></div>
+		<!-- <div class="navbar-line"></div> -->
 	  <div class="navbar">
 	  	<div class="nav-logo">
 	  		<img :src="'../assets/img/logo_white.png'">
@@ -14,6 +14,7 @@
 	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Public</router-link></li>
 	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Individual</router-link></li>
 	  			<li><router-link tag="a" :to="{ name : 'Corporates' }">Corporate</router-link></li>
+	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Booking</router-link></li>
 	  			<li>
 		  			<router-link tag="a" :to="{ name : 'Analytics' }">
 		  				Transaction
@@ -26,14 +27,8 @@
 		  			</router-link>
 		  		</li>
 	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Analytics</router-link></li>
-	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Admin</router-link></li>
-	  		</ul>
-	  	</div>
-
-	  	<div class="nav-items-right">
-	  		<ul class="nav-ul">
 	  			<li>
-	  				<a href="#"><span class="oi" data-glyph="cog" aria-hidden="true"></span></a>
+	  				<a href="#">Settings</span></a>
 
 	  				<div class="drop-wrapper settings-drop">
 	  					<ul class="nav-ul">
@@ -50,6 +45,7 @@
 	  					</ul>
 	  				</div>
 	  			</li>
+	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Admin</router-link></li>
 	  		</ul>
 	  	</div>
 	  </div>

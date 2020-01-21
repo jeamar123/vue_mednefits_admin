@@ -40,14 +40,17 @@ button:hover {
   line-height: 1;
   padding: 10px 15px;
   font-size: 14px;
-  color: rgba(255,255,255,0.87);
-  background-color: #076086;
+  /*color: rgba(255,255,255,0.87);
+  background-color: #076086;*/
   border-radius: 2px;
+  color: #fff;
+  background-color: #4154AF;
   height: 36px;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
   /*text-transform: uppercase;*/
   transition: all .3s ease-in;
   font-family: inherit;
+  font-weight: 700;
 }
 .btn-primary:hover{
   background-color: #3593CF;
@@ -90,25 +93,20 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 0 15px;
-    height: 55px;
-    position: fixed;
-    top: 5px;
-    left: 0;
+    padding: 0 16px;
+    height: 50px;
     z-index: 50;
-    background: #0392cf;
-    /*box-shadow: 0px 1px 5px #ddd;*/
+    background: #1667AC;
   }
   .navbar .nav-logo{
-    width: 140px;
-    margin-left: 5px;
+    width: 130px;
+    margin-right: 20px;
   }
   .navbar .nav-logo img{
     width: 100%;
   }
   .navbar .nav-items{
   	flex: 1;
-    text-align: right;
   }
   .navbar .nav-items-right{
     width: 40px;
@@ -128,18 +126,16 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
   }
   .navbar .nav-items > ul > li > a{
     color: #eee;
-    /*color: #797979; */
     text-transform: uppercase;
     font-weight: 700;
-    padding: 0 15px;
-    font-size: 12px;
-    height: 52px;
-    line-height: 50px;
+    padding: 0 12px;
+    font-size: 13px;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 2px;
     display: inline-block;
-    font-family: 'Helvetica Medium'; 
-    margin: 0 5px;
+    margin: 0 8px;
     transition: all .1s ease-in-out;
-    border-bottom: 3px solid transparent;
   }
   .navbar .nav-items-right > ul > li > a,
   .navbar .nav-items-right > ul > li > a span{
@@ -152,7 +148,8 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
   .navbar .nav-items > ul > li > a:hover,
   .navbar .nav-items > ul > li > a.active ,
   .navbar .nav-items > ul > li > a.router-active{
-    border-bottom: 3px solid #eee;
+    background: white;
+    color: #1667AC!important;
   }
   .navbar .settings-drop{
     top: 25px;
@@ -182,7 +179,7 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
   }
 
   .child-content{
-    padding-top: 60px;
+    /*padding-top: 60px;*/
     min-height: 100vh;
   }
 
@@ -687,7 +684,7 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
 
   .modal-container {
     width: 400px;
-    margin: 50px auto;
+    margin: 35px auto;
     background-color: #fff;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
@@ -1084,7 +1081,8 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
   }
 
   *::-webkit-scrollbar-thumb{
-    background-color: #0392cf;
+    background-color: #1667AC;
+    /*background-color: #0392cf;*/
     /*background-image: -webkit-gradient(linear, 0 0, 0 100%,*/
                        /*color-stop(.5, rgba(255, 255, 255, .2)),*/
                        /*color-stop(.5, transparent), to(transparent));*/
