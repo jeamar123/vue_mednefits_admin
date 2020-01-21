@@ -83,4 +83,42 @@
 	</script>
 	<style lang="scss" scoped>
 		@import "./src/assets/css/corporates.scss";
+
+
+		/* Small (sm) */
+		@media (max-width: 640px) { 
+
+		}
+		/* Medium (md) */
+		@media (max-width: 768px) { 
+
+		}
+		/* Large (lg) */
+		@media (max-width: 1024px) { 
+			.header-corporate-list {
+				.page-title{
+					flex: 1;
+				}
+				.search-container{
+					flex: 1;
+				}
+				.search-input-wrapper input{
+					width: 300px;
+				}
+				.right-icon-header{
+					flex: 1;
+    			justify-content: flex-end;
+				}
+			}
+			
+		}
+		/* Extra Large (xl) */
+		@media (max-width: 1280px) { 
+
+		}
+
+
+
 	</style>
+
+
