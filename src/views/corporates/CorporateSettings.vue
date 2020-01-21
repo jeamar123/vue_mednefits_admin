@@ -6,8 +6,9 @@
 			<li>Access Account</li>
 			<li>Reset Company Credits Allocation</li>
 			<li>Resend Employee Welcome Email</li>
+			<li>Send Plan Expiration Notification</li>
 			<li>Download E-Claim Receipts</li>
-			<li> Download Employee List and Credits Left</li>
+			<li>Download Employee List and Credits Left</li>
 		</ul>
 	</div>
 </template>
