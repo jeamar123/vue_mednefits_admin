@@ -21,10 +21,13 @@
 					<div class="form-col">
 						<div class="form-div country-input-wrapper">
 							<label>Country</label>
-							<select>
-								<option>Singapore</option>
-								<option>Malaysia</option>
-							</select>
+							<div class="selector-container">
+								<select>
+									<option>Singapore</option>
+									<option>Malaysia</option>
+								</select>
+								<img :src="'../assets/img/down-arrow.svg'">
+							</div>
 						</div>
 					</div>
 				</div>
@@ -63,12 +66,15 @@
 					<div class="form-col mr-20">
 						<div class="form-div">
 							<label>Job Title</label>
-							<select>
-								<option></option>
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-							</select>
+							<div class="selector-container">
+								<select>
+									<option></option>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+								</select>
+								<img :src="'../assets/img/down-arrow.svg'">
+							</div>
 						</div>
 					</div>
 					<div class="form-col mr-20">
@@ -210,12 +216,15 @@
 						<div class="form-col mr-20">
 							<div class="form-div">
 								<label>Job Title</label>
-								<select>
-									<option></option>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-								</select>
+								<div class="selector-container">
+									<select>
+										<option></option>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+									</select>
+									<img :src="'../assets/img/down-arrow.svg'">
+								</div>
 							</div>
 						</div>
 						<div class="form-col mr-20">
@@ -348,19 +357,20 @@
               </div>
 						</div>
 					</div>
-					<div class="form-col mr-20">
+					<div class="form-col mr-20 duration-container">
 						<div class="form-div">
 							<label>Duration</label>
 							<div class="duration-input-wrapper">
 								<div>
 									<input type="text">
 								</div>
-								<div>
+								<div class="selector-container">
 									<select>
 										<option>days</option>
 										<option>months</option>
 										<option>year</option>
 									</select>
+									<img :src="'../assets/img/down-arrow.svg'">
 								</div>
 							</div>
 						</div>
@@ -368,10 +378,13 @@
 					<div class="form-col">
 						<div class="form-div">
 							<label>Currency</label>
-							<select>
-								<option>Singapore Dollar</option>
-								<option>Malaysian Ringgit</option>
-							</select>
+							<div class="selector-container">
+								<select>
+									<option>Singapore Dollar</option>
+									<option>Malaysian Ringgit</option>
+								</select>
+								<img :src="'../assets/img/down-arrow.svg'">
+							</div>
 						</div>	
 					</div>
 				</div>
@@ -418,19 +431,20 @@
 	              </div>
 							</div>
 						</div>
-						<div class="form-col mr-20">
+						<div class="form-col mr-20 duration-container">
 							<div class="form-div">
 								<label>Duration</label>
 								<div class="duration-input-wrapper">
 									<div>
 										<input type="text">
 									</div>
-									<div>
+									<div class="selector-container">
 										<select>
 											<option>days</option>
 											<option>months</option>
 											<option>year</option>
 										</select>
+										<img :src="'../assets/img/down-arrow.svg'">
 									</div>
 								</div>
 							</div>
@@ -451,12 +465,16 @@
 					<div class="form-col mr-20">
 						<div class="form-div">
 							<label>Plan Type</label>
-							<select>
-								<option></option>
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-							</select>
+							<div class="selector-container">
+								<select>
+									<option>Trial Plan</option>
+									<option>Insurance Bundle</option>
+									<option>Pro Plan</option>
+									<option>Lite Plan</option>
+									<option>Enterprise Plan</option>
+								</select>
+								<img :src="'../assets/img/down-arrow.svg'">
+							</div>
 						</div>
 					</div>
 					<div class="form-col">
@@ -568,52 +586,59 @@
 				<div class="form-toggle">
 					<div class="toggle-wrapper">
 						<div class="toggle-btns">
-							<div class="toggle on active">Yes</div>
-							<div class="toggle off">No</div>
+							<div v-on:click="toggleDependentsAddCorporate(true)" v-bind:class="{ active : dependents == true }" class="toggle on">Yes</div>
+							<div v-on:click="toggleDependentsAddCorporate(false)" v-bind:class="{ active : dependents == false }" class="toggle off">No</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="form-row">
-					<div class="form-col mr-20">
-						<div class="form-div">
-							<label>Total Number of Eligible Employees</label>
-							<input type="number">
-						</div>
-					</div>
-					<div class="form-col mr-20">
-						<div class="form-div">
-							<label>Plan Type</label>
-							<select>
-								<option></option>
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-col">
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-col mr-20">
-						<div class="form-div">
-							<label>Plan Price</label>
-							<input type="number">
-						</div>
-					</div>
-					<div class="form-toggle form-col-toggle">
-						<label>Payment Status?</label>
-						<div class="toggle-wrapper">
-							<div class="toggle-btns">
-								<div class="toggle on active">Paid</div>
-								<div class="toggle off">Pending</div>
+				<div v-if="dependents">
+					<div class="form-row">
+						<div class="form-col mr-20">
+							<div class="form-div">
+								<label>Total Number of Eligible Employees</label>
+								<input type="number">
 							</div>
 						</div>
+						<div class="form-col mr-20">
+							<div class="form-div">
+								<label>Plan Type</label>
+								<div class="selector-container">
+									<select>
+										<option>Trial Plan</option>
+										<option>Insurance Bundle</option>
+										<option>Pro Plan</option>
+										<option>Lite Plan</option>
+										<option>Enterprise Plan</option>
+									</select>
+									<img :src="'../assets/img/down-arrow.svg'">
+								</div>
+							</div>
+						</div>
+						<div class="form-col">
+						</div>
 					</div>
-					<div class="form-col">
+					<div class="form-row">
+						<div class="form-col mr-20">
+							<div class="form-div">
+								<label>Plan Price</label>
+								<input type="number">
+							</div>
+						</div>
+						<div class="form-toggle form-col-toggle">
+							<label>Payment Status?</label>
+							<div class="toggle-wrapper">
+								<div class="toggle-btns">
+									<div class="toggle on active">Paid</div>
+									<div class="toggle off">Pending</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-col">
+						</div>
 					</div>
 				</div>
+
 			</div>
 
 			<div class="white-box">
@@ -629,7 +654,7 @@
 					</div>
 				</div>
 
-				<div v-if="health_spending_account">
+				<div v-if="health_spending_account" class="med-well-spending-wrapper">
 					<div class="form-row">
 						<div class="form-col">
 							<p class="box-title-black">Medical Spending Account</p>
@@ -761,8 +786,8 @@
 									<div class="form-toggle form-col-toggle">
 										<div class="toggle-wrapper">
 											<div class="toggle-btns">
-												<div class="toggle on active">Yes</div>
-												<div class="toggle off">No</div>
+												<div v-on:click="toggleScheduleEmailSend(true)" v-bind:class="{ active : schedule_email == true }" class="toggle on">Yes</div>
+												<div v-on:click="toggleScheduleEmailSend(false)" v-bind:class="{ active : schedule_email == false }" class="toggle off">No</div>
 											</div>
 										</div>
 									</div>
@@ -770,8 +795,31 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
+
+				<div v-if="schedule_email">
+					<div class="form-row">
+						<div class="form-col flex-2">
+							<div class="form-div">
+								<label>Add BCC to email</label>
+								<div class="add-bcc-input-wrapper">
+									<input type="number">
+									<button class="btn-primary">Add</button>
+								</div>
+							</div>
+						</div>
+						<div class="form-col"></div>
+						<div class="form-col"></div>
+					</div>
+
+					<div class="bcc-emails-container">
+						<div class="bcc-email">
+							<span>noelounagac@gmial.com</span>
+							<img :src="'../assets/img/cancel.png'">
+						</div>
+					</div>
+				</div>
+
 			</div>
 
 			<div class="white-box">
