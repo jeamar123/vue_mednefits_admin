@@ -31,9 +31,16 @@
 export default {
   data() {
     return {
-      sampleData : false
+      sampleData : false,
     };
   },
+  methods : {
+    // hideContainer() {
+    //   let overlay = document.getElementById('modal_wrapper_body');
+    //   let container = document.getElementById('modal_container_body');
+    //   console.log(overlay);
+    // },
+  }
 };
 </script>
 

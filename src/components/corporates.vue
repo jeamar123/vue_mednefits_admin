@@ -1,9 +1,20 @@
 <script>
-	import axios from 'axios'
+	import axios from 'axios';
+	import Modal from "../views/modal/Modal.vue";
 
 	var corporates = {
+		components: {
+      Modal
+    },
 		data() {
 			return {
+				startDateDetails: {
+          startDate: undefined,
+        },
+        endDateDetails: {
+        	endDate: undefined,
+        },
+        isFilterModalShow : false,
 				user_id : null,
 				isSearchShow : false,
 				allCorporatesSelected : false,
@@ -43,26 +54,21 @@
       hideSearch(){
       	this.isSearchShow = false;
       },
+      addFilterModal() {
+      	this.isFilterModalShow = this.isFilterModalShow == false ? true : false;
+      },
       selectAllCorporatesList( opt ) {
       	this.allCorporatesSelected = opt;
       	console.log(this.allCorporatesSelected);
-      	console.log(this.corporate_list_arr);
-      	// console.log(this.allCorporatesSelected);
-
-      	// if ( this.allCorporatesSelected == true ) {
-      		
-      	// 	$.each( this.corporate_list_arr, function (value) {
-      	// 		this.corporate_id_arr.push( value.corporate_id );
-      	// 	});
-      	// }
-      	
-
-      }
+      	console.log(this.corporate_list_arr);     	
+      },
     }
 	}
 
+
+
 	export default corporates;
-</script>
-<style lang="scss" scoped>
-	@import "./src/assets/css/corporates.scss";
-</style>
+	</script>
+	<style lang="scss" scoped>
+		@import "./src/assets/css/corporates.scss";
+	</style>

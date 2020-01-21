@@ -24,7 +24,7 @@
           <input type="text" placeholder="Search">
         </form>
         <div>
-          <button><i class="fa fa-plus"></i>Add filter</button>
+          <button v-on:click="addFilterModal()" ><i class="fa fa-plus"></i>Add filter</button>
         </div>
       </div>
 
@@ -32,9 +32,9 @@
         <div>
           <img :src="'../assets/img/download_emp.png'">
         </div>
-        <div>
+        <router-link tag="div" to="/dashboard/corporates/add">
           <img :src="'../assets/img/plus_add.png'">
-        </div>
+        </router-link>
         <div>
           <img :src="'../assets/img/refresh.png'">
         </div>
@@ -44,7 +44,7 @@
 		<div class="corporate-tbl-list-wrapper">
       <div class="corporate-tbl-list-container">
         <table>
-          <thead>
+          <thead v-if="allCorporatesSelected == false">
             <tr>
               <th>
                 <div class="corporate-list-checkbox-container">
@@ -65,7 +65,7 @@
               <!-- <th></th> -->
             </tr>
           </thead>
-          <thead v-if="corporate_id_arr.length > 0">
+          <thead v-if="allCorporatesSelected == true">
             <tr>
               <th>
                 <div class="corporate-list-checkbox-container">
@@ -75,7 +75,7 @@
                   </label>
                 </div>
               </th>
-              <th>
+              <th class="selected-companies">
                 <span>
                   <span></span>
                   <span>1</span>
@@ -101,10 +101,10 @@
               <td colspan="9">
                 <span>All 
                   <span>12</span>
-                  <span>15</span>
+                  <span v-if="false">15</span>
                    companies are selected. 
-                  <span class="select-btn-text">Select all 95 companies.</span>
-                  <span class="select-btn-text">Clear selection.</span>
+                  <span class="select-btn-text">Select all 12 companies.</span>
+                  <span v-if="false" class="select-btn-text">Clear selection.</span>
                 </span>
               </td>
             </tr>
@@ -267,6 +267,87 @@
 				</div>
 			</div>
 		</div> -->
+
+
+  <div>
+    <!-- Add Filter -->
+    <Modal v-if="isFilterModalShow" class="add-filter-wrapper">
+      <div slot="header">
+        <h3>Period of expiry</h3>
+        <img v-on:click="addFilterModal()" class="cancel-icon" :src="'../assets/img/cancel.png'"></i>
+      </div>
+      <div slot="body" class="edit-employee-info-container">
+        <div>
+          <div class="expiry-input-wrapper">
+            <label>From</label>
+            <div class="date-container">
+              <v-date-picker
+                popoverDirection="bottom"
+                v-model="startDateDetails.null"
+                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+                popover-visibility="focus"
+              ></v-date-picker>
+              <img class="calendar-icon" :src="'../assets/img/calendar-gray.png'"></i>
+            </div>
+          </div>
+          <div class="expiry-input-wrapper">
+            <label>to</label>
+            <div class="date-container">
+              <v-date-picker
+                popoverDirection="bottom"
+                v-model="endDateDetails.null"
+                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+                popover-visibility="focus"
+              ></v-date-picker>
+              <img class="calendar-icon" :src="'../assets/img/calendar-gray.png'"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div slot="footer">
+        <button class="btn-primary">Apply Filter</button>
+      </div>
+    </Modal>
+
+    <!-- Export Modal -->
+    <Modal v-if="false" class="export-modal-wrapper">
+      <div slot="header">
+        <h3 class="sm:bg-green">Choose which columns you see</h3>
+        <img class="cancel-icon" :src="'../assets/img/close.svg'"></i>
+      </div>
+      <div slot="body">
+        <div class="dl-corp-content-wrapper">
+          <div class="properties-container">
+            <div class="properties-search-container">
+              <input type="text" placeholder="Search properties...">
+              <i class="fa fa-search"></i>
+            </div>
+            <div class="properties-title">Properties</div>
+            <div class="column-check-box">
+              <div class="corporate-list-checkbox-container">
+                <label class="checkbox-input">
+                  <span class="checkbox-label">Company Name</span>
+                  <input type="checkbox">
+                  <span class="checkbox-mark"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="selected-columns-container">
+            <div class="data-column-header-title">SELECTED COLUMNS<span>(1)</span></div>
+            <div class="selected-col-box-container">
+              <span>Company Name</span>
+              <i class="fa fa-times"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div slot="footer">
+        <button class="btn-primary">Download</button>
+      </div>
+    </Modal>
+  </div>
+
   </div>
 </template>
 
