@@ -271,6 +271,6 @@ import Modal from "../../../views/modal/Modal.vue";
   export default corporateEmployeeInformation
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	@import "./src/assets/css/corporates.scss";
 </style>

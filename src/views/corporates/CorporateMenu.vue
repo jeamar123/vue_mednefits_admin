@@ -3,7 +3,7 @@
 
 		<div class="left-box-wrapper">
 			<div class="corporate-details-box">
-				<router-link tag="a" :to="{ name: 'Clinic' }" class="close-btn"><span class="oi" data-glyph="x" aria-hidden="true"></span></router-link>
+				<router-link tag="a" :to="{ name: 'Corporates' }" class="close-btn"><span class="oi" data-glyph="x" aria-hidden="true"></span></router-link>
 				<img :src="'../assets/img/user-group.png'">
 				<p class="corporate-name">
 					Allan Company

@@ -4,6 +4,17 @@
 			<div class="page-title">
 				<h3>List of Corporate Clients</h3>
 			</div>
+      <div class="xxs-show right-icon-header ">
+        <div v-on:click="exportModal()">
+          <img :src="'../assets/img/download_emp.png'">
+        </div>
+        <router-link tag="div" to="/dashboard/corporates/add">
+          <img :src="'../assets/img/plus_add.png'">
+        </router-link>
+        <div>
+          <img :src="'../assets/img/refresh.png'">
+        </div>
+      </div>
 			<!-- <div class="page-options">
 				<div class="btn-page-options data-transfer-upload">
 					<span class="oi" data-glyph="data-transfer-upload" aria-hidden="true"></span>
@@ -28,7 +39,7 @@
         </div>
       </div>
 
-      <div class="right-icon-header">
+      <div class="xxs-hide right-icon-header">
         <div v-on:click="exportModal()">
           <img :src="'../assets/img/download_emp.png'">
         </div>

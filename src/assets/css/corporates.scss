@@ -233,6 +233,7 @@ $font-gray: #888;
   color: #777;
   padding: 40px 0 150px;
   justify-content: center;
+  align-items: center;
 
   span {
     font-size: 12px;
@@ -270,6 +271,10 @@ $font-gray: #888;
 
     &.active {
       background-color: #e8e8e8;
+    }
+
+    &:last-child{
+      margin: 0;
     }
   }
 
@@ -3069,6 +3074,19 @@ $font-gray: #888;
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media (max-width: 1400px) {
   .member-list-table-wrapper {
     overflow-x: auto; 
@@ -3087,3 +3105,127 @@ $font-gray: #888;
 
   }
 }
+/* Extra Large (xl) */
+@media (max-width: 1260px) { 
+  .header-corporate-list {
+    .page-title{
+      width: 220px;
+    }
+    .search-container{
+      flex: 1;
+    }
+    .right-icon-header{
+      width: 90px;
+    }
+  }
+}
+/* Large (lg) */
+@media (max-width: 1024px) { 
+  .header-corporate-list {
+    .search-container{
+      flex: 1;
+    }
+  }
+}
+/* Mobile max */
+@media (max-width: 992px) { 
+  .header-corporate-list {
+    .search-input-wrapper input{
+      width: 250px;
+    }
+  }
+  .corporates-container{
+    padding: 15px;
+  }
+}
+/* Medium (md) */
+@media (max-width: 768px) { 
+  .header-corporate-list {
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+
+    .page-title{
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  }
+}
+/* Small (sm) */
+@media (min-width: 641px) { 
+  .xxs-show{
+    display: none !important;
+  }
+}
+@media (max-width: 640px) { 
+  .header-corporate-list {
+    .page-title{
+      width: calc( 100% - 100px );
+
+      h3{
+        font-size: 14px;
+      }
+    }
+    .xxs-hide.right-icon-header{
+      display: none;
+    }
+    .xxs-show.right-icon-header{
+      width: 100px;
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 15px;
+    }
+    .search-input-wrapper{
+      width: calc( 100% - 85px );
+
+      input{
+        width: 100%;
+      }
+    }
+  }
+  .prev-next-container {
+    span{
+      display: none;
+    }
+  }
+}
+@media (max-width: 500px) { 
+  .corporate-pagination{
+    .page-scroll-container{
+      margin: 0 15px 0 0;
+    }
+  }
+}
+@media (max-width: 450px) { 
+  .corporate-pagination{
+    flex-wrap: wrap;
+
+    .page-wrapper{
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    .page-scroll-container{
+      margin: 0;
+      justify-content: center;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
