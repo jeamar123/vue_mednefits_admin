@@ -15,16 +15,16 @@
 					<div class="form-col flex-2 mr-20">
 						<div class="form-div">
 							<label>Company Name</label>
-							<input type="text">
+							<input v-model="create_company.company" type="text">
 						</div>
 					</div>
 					<div class="form-col">
 						<div class="form-div country-input-wrapper">
 							<label>Country</label>
 							<div class="selector-container">
-								<select>
-									<option>Singapore</option>
-									<option>Malaysia</option>
+								<select v-model="create_company.company_currency">
+									<option value="sgd">Singapore</option>
+									<option value="myr">Malaysia</option>
 								</select>
 								<img :src="'../assets/img/down-arrow.svg'">
 							</div>
@@ -35,13 +35,13 @@
 					<div class="form-col flex-2 mr-20">
 						<div class="form-div">
 							<label>Company Address</label>
-							<input type="text">
+							<input v-model="create_company.company_address" type="text">
 						</div>
 					</div>
 					<div class="form-col">
 						<div class="form-div">
 							<label>Postal Code</label>
-							<input type="text">
+							<input v-model="create_company.company_postal_code" type="text">
 						</div>
 					</div>
 				</div>
@@ -52,13 +52,13 @@
 					<div class="form-col mr-20">
 						<div class="form-div">
 							<label>First Name</label>
-							<input type="text">
+							<input v-model="create_company.contact_first_name" type="text">
 						</div>
 					</div>
 					<div class="form-col">
 						<div class="form-div">
 							<label>Last Name</label>
-							<input type="text">
+							<input v-model="create_company.contact_last_name" type="text">
 						</div>
 					</div>
 				</div>
@@ -67,11 +67,11 @@
 						<div class="form-div">
 							<label>Job Title</label>
 							<div class="selector-container">
-								<select>
-									<option></option>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
+								<select v-model="create_company.job_title">
+									<option>Accounting,Audit,Finance</option>
+									<option>Education</option>
+									<option>Engineering</option>
+									<option>Healthcare</option>
 								</select>
 								<img :src="'../assets/img/down-arrow.svg'">
 							</div>
@@ -80,13 +80,13 @@
 					<div class="form-col mr-20">
 						<div class="form-div">
 							<label>Email Address</label>
-							<input type="text">
+							<input v-model="create_company.contact_email" type="text">
 						</div>
 					</div>
 					<div class="form-col">
 						<div class="form-div">
 							<label>Phone Number</label>
-							<input type="text">
+							<input v-model="create_company.phone" type="text">
 						</div>
 					</div>
 				</div>
@@ -122,7 +122,7 @@
 					<div class="form-col">
 						<div class="form-div">
 							<label>Billing Name</label>
-							<input type="text">
+							<input v-model="create_company.billing_name" type="text">
 						</div>
 					</div>
 				</div>
@@ -130,13 +130,13 @@
 					<div class="form-col flex-2 mr-20">
 						<div class="form-div">
 							<label>Billing Address</label>
-							<input type="text">
+							<input v-model="create_company.billing_address" type="text">
 						</div>
 					</div>
 					<div class="form-col">
 						<div class="form-div">
 							<label>Postal Code</label>
-							<input type="text">
+							<input v-model="create_company.billing_postal_code" type="text">
 						</div>
 					</div>
 				</div>
@@ -144,13 +144,13 @@
 					<div class="form-col mr-20">
 						<div class="form-div">
 							<label>First Name (Billing Contact)</label>
-							<input type="text">
+							<input v-model="create_company.billing_first_name" type="text">
 						</div>
 					</div>
 					<div class="form-col">
 						<div class="form-div">
 							<label>Last name (Billing Contact)</label>
-							<input type="text">
+							<input v-model="create_company.billing_last_name" type="text">
 						</div>
 					</div>
 				</div>
@@ -158,13 +158,13 @@
 					<div class="form-col mr-20">
 						<div class="form-div">
 							<label>Email Address (Billing Contact)</label>
-							<input type="text">
+							<input v-model="create_company.billing_email" type="text">
 						</div>
 					</div>
 					<div class="form-col">
 						<div class="form-div">
 							<label>Phone Number (Billing Contact)</label>
-							<input type="text">
+							<input v-model="create_company.billing_phone" type="text">
 						</div>
 					</div>
 					<div class="form-col">
@@ -174,14 +174,14 @@
 				<div class="form-row">
 					<div class="form-div">
 						<label class="input-checkbox">
-						  <input type="checkbox">
+						  <input v-model="create_company.bill_send_email_comm_related" type="checkbox">
 						  <span class="input-text">Send Email for Communication related</span>
 						  <span class="input-checkmark"></span>
 						</label>
 					</div>
 					<div class="form-div">
 						<label class="input-checkbox">
-						  <input type="checkbox">
+						  <input v-model="create_company.bill_send_email_bill_related" type="checkbox">
 						  <span class="input-text">Send Email for Billing related</span>
 						  <span class="input-checkmark"></span>
 						</label>
@@ -197,18 +197,18 @@
 						</div>
 					</div>
 				</div>
-				<div v-if="add_contacts">
+				<div v-if="add_contacts" v-for="(list, index) of company_contacts" class="add-more-contact-container">
 					<div class="form-row">
 						<div class="form-col mr-20">
 							<div class="form-div">
 								<label>First Name</label>
-								<input type="text">
+								<input v-model="list.first_name" type="text">
 							</div>
 						</div>
 						<div class="form-col">
 							<div class="form-div">
 								<label>Last Name</label>
-								<input type="text">
+								<input v-model="list.last_name" type="text">
 							</div>
 						</div>
 					</div>
@@ -217,7 +217,7 @@
 							<div class="form-div">
 								<label>Job Title</label>
 								<div class="selector-container">
-									<select>
+									<select v-model="list.job_title">
 										<option></option>
 										<option>1</option>
 										<option>2</option>
@@ -230,13 +230,13 @@
 						<div class="form-col mr-20">
 							<div class="form-div">
 								<label>Email Address</label>
-								<input type="text">
+								<input v-model="list.email" type="text">
 							</div>
 						</div>
 						<div class="form-col">
 							<div class="form-div">
 								<label>Phone Number</label>
-								<input type="text">
+								<input v-model="list.phone" type="text">
 							</div>
 						</div>
 					</div>
@@ -244,14 +244,14 @@
 					<div class="form-row">
 						<div class="form-div">
 							<label class="input-checkbox">
-							  <input type="checkbox">
+							  <input v-model="list.send_email_comm_related" type="checkbox">
 							  <span class="input-text">Send Email for Communication related</span>
 							  <span class="input-checkmark"></span>
 							</label>
 						</div>
 						<div class="form-div">
 							<label class="input-checkbox">
-							  <input type="checkbox">
+							  <input v-model="list.send_email_bill_related" type="checkbox">
 							  <span class="input-text">Send Email for Billing related</span>
 							  <span class="input-checkmark"></span>
 							</label>
@@ -260,10 +260,10 @@
 
 					<div class="btn-option-row">
 						<div class="btn-container">
-							<button class="btn btn-primary btn-add-contact">ADD MORE CONTACT</button>
+							<button v-on:click="addCompanyContact()" :disabled="company_contacts[index + 1]" class="btn btn-primary btn-add-contact">ADD MORE CONTACT</button>
 						</div>
-						<div class="rm-container">
-							<span class="oi" data-glyph="minus" aria-hidden="true"></span>
+						<div v-if="company_contacts[index + 1]" class="rm-container">
+							<span v-on:click="removeCompanyContact(index + 1)" class="oi" data-glyph="minus" aria-hidden="true"></span>
 						</div>
 					</div>
 				</div>
@@ -349,7 +349,8 @@
 							<div class="date-container">
 								<v-date-picker
 	                popoverDirection="bottom"
-	                v-model="accountStartDate.null"
+	                v-model="create_company.plan_start"
+	                :formats='formats'
 	                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 	                popover-visibility="focus"
 	              ></v-date-picker>
@@ -362,13 +363,13 @@
 							<label>Duration</label>
 							<div class="duration-input-wrapper">
 								<div>
-									<input type="text">
+									<input v-model="create_company.duration_value" min="0" type="number" v-on:input="startDateChanged()">
 								</div>
 								<div class="selector-container">
-									<select>
-										<option>days</option>
-										<option>months</option>
-										<option>year</option>
+									<select v-model="create_company.duration_type" v-on:change="startDateChanged()">
+										<option value="days">days</option>
+										<option value="months">months</option>
+										<option value="years">year</option>
 									</select>
 									<img :src="'../assets/img/down-arrow.svg'">
 								</div>
@@ -379,9 +380,9 @@
 						<div class="form-div">
 							<label>Currency</label>
 							<div class="selector-container">
-								<select>
-									<option>Singapore Dollar</option>
-									<option>Malaysian Ringgit</option>
+								<select v-model="create_company.plan_currency">
+									<option value="sgd">Singapore Dollar</option>
+									<option value="myr">Malaysian Ringgit</option>
 								</select>
 								<img :src="'../assets/img/down-arrow.svg'">
 							</div>
@@ -395,7 +396,7 @@
 							<div class="date-container">
 								<v-date-picker
 	                popoverDirection="bottom"
-	                v-model="invoiceStartDate.null"
+	                v-model="create_company.main_plan_invoice_date"
 	                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 	                popover-visibility="focus"
 	              ></v-date-picker>
@@ -423,8 +424,9 @@
 								<div class="date-container">
 									<v-date-picker
 		                popoverDirection="bottom"
-		                v-model="planExtensionStartDate.null"
+		                v-model="create_company.plan_start_extension"
 		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :formats = 'formats'
 		                popover-visibility="focus"
 		              ></v-date-picker>
 		              <img :src="'../assets/img/calendar-gray.png'">
@@ -466,25 +468,47 @@
 						<div class="form-div">
 							<label>Plan Type</label>
 							<div class="selector-container">
-								<select>
-									<option>Trial Plan</option>
-									<option>Insurance Bundle</option>
-									<option>Pro Plan</option>
-									<option>Lite Plan</option>
-									<option>Enterprise Plan</option>
+								<select v-model="create_company.account_type" v-on:change="accountTypeChanged( create_company.account_type )">
+									<option></option>
+									<option value="trial_plan">Trial Plan</option>
+									<option value="insurance_bundle">Insurance Bundle</option>
+									<option value="stand_alone_plan">Pro Plan</option>
+									<option value="lite_plan">Lite Plan</option>
+									<option value="enterprise_plan">Enterprise Plan</option>
 								</select>
 								<img :src="'../assets/img/down-arrow.svg'">
 							</div>
 						</div>
 					</div>
 					<div class="form-col">
+						<div 
+						v-if="create_company.account_type && create_company.account_type != 'stand_alone_plan' && create_company.account_type != 'lite_plan' && create_company.account_type != 'enterprise_plan' " 
+						class="form-div">
+							<label>Secondary Plan Type</label>
+							<div class="selector-container">
+								<select v-model="create_company.secondary_account_type">
+									<option v-if="create_company.account_type == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
+									<option v-if="create_company.account_type == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
+
+	                <option v-if="create_company.account_type == 'insurance_bundle'" value="pro_plan_bundle">Pro Plan Bundle</option>
+	                <option v-if="create_company.account_type == 'insurance_bundle'" value="insurance_bundle_lite">Insurance Bundle Lite</option>
+								</select>
+								<img :src="'../assets/img/down-arrow.svg'">
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-col mr-20">
 						<div class="form-div">
 							<label>Plan Price</label>
-							<input type="number">
+							<div class="account-plan-input-wrapper">
+								<div>
+									<span v-if="create_company.plan_currency == 'sgd'">SGD</span>
+									<span v-if="create_company.plan_currency == 'myr'">MYR</span>
+								</div>
+								<input v-model="create_company.plan_price" type="number">
+							</div>
 						</div>
 					</div>
 					<div class="form-toggle form-col-toggle">
@@ -509,32 +533,39 @@
 						</div>
 					</div>
 				</div>
-
+				<!-- Plan extension change plan -->
 				<div v-if="plan_extension_change_plan">
 					<div class="white-space-20"></div>
 					<div class="form-row">
 						<div class="form-col mr-20">
 							<div class="form-div">
 								<label>Plan Type</label>
-								<select>
-									<option>Trial Plan</option>
-									<option>Insurance Bundle</option>
-									<option>Pro Plan</option>
-									<option>Lite Plan</option>
-									<option>Enterprise Plan</option>
-								</select>
+								<div class="selector-container">
+									<select v-model="create_company.account_type_extension" v-on:change="accountTypeExtensionChanged( create_company.account_type_extension )">
+										<option value="trial_plan">Trial Plan</option>
+										<option value="insurance_bundle">Insurance Bundle</option>
+										<option value="stand_alone_plan">Pro Plan</option>
+										<option value="lite_plan">Lite Plan</option>
+										<option value="enterprise_plan">Enterprise Plan</option>
+									</select>
+									<img :src="'../assets/img/down-arrow.svg'">
+								</div>
 							</div>
 						</div>
 						<div class="form-col">
-							<div class="form-div">
+							<div v-if="create_company.account_type_extension && create_company.account_type_extension != 'stand_alone_plan' && create_company.account_type_extension != 'lite_plan' && create_company.account_type_extension != 'enterprise_plan'" 
+							class="form-div">
 								<label>Secondary Plan Type</label>
-								<select>
-									<option>Trial Plan</option>
-									<option>Insurance Bundle</option>
-									<option>Pro Plan</option>
-									<option>Lite Plan</option>
-									<option>Enterprise Plan</option>
-								</select>
+								<div class="selector-container">
+									<select v-model="create_company.secondary_account_type_extension">
+										<option v-if="create_company.account_type_extension == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
+										<option v-if="create_company.account_type_extension == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
+
+										<option v-if="create_company.account_type_extension == 'insurance_bundle'" value="pro_plan_bundle">Pro Plan Bundle</option>
+										<option v-if="create_company.account_type_extension == 'insurance_bundle'" value="insurance_bundle_lite">Insurance Bundle Lite</option>
+									</select>
+									<img :src="'../assets/img/down-arrow.svg'">
+								</div>
 							</div>
 						</div>
 						<div class="form-col">
@@ -544,7 +575,13 @@
 						<div class="form-col mr-20">
 							<div class="form-div">
 								<label>Plan Price</label>
-								<input type="number">
+								<div class="account-plan-input-wrapper">
+									<div>
+										<span v-if="create_company.plan_currency == 'sgd'">SGD</span>
+										<span v-if="create_company.plan_currency == 'myr'">MYR</span>
+									</div>
+									<input v-model="create_company.plan_price_extension" type="number">
+								</div>
 							</div>
 						</div>
 						<div class="form-toggle form-col-toggle">
@@ -566,8 +603,9 @@
 								<div class="date-container">
 									<v-date-picker
 		                popoverDirection="bottom"
-		                v-model="changePlanInvoiceStartDate.null"
+		                v-model="create_company.plan_invoice_date"
 		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :formats = 'formats'
 		                popover-visibility="focus"
 		              ></v-date-picker>
 		              <img :src="'../assets/img/calendar-gray.png'">
@@ -604,25 +642,46 @@
 							<div class="form-div">
 								<label>Plan Type</label>
 								<div class="selector-container">
-									<select>
-										<option>Trial Plan</option>
-										<option>Insurance Bundle</option>
-										<option>Pro Plan</option>
-										<option>Lite Plan</option>
-										<option>Enterprise Plan</option>
+									<select v-model="create_company.account_type_dependents" v-on:change="accountDependentsTypeChanged( create_company.account_type_dependents )">
+										<option value="trial_plan">Trial Plan</option>
+										<option value="insurance_bundle">Insurance Bundle</option>
+										<option value="stand_alone_plan">Pro Plan</option>
+										<option value="lite_plan">Lite Plan</option>
+										<option value="enterprise_plan">Enterprise Plan</option>
 									</select>
 									<img :src="'../assets/img/down-arrow.svg'">
 								</div>
 							</div>
 						</div>
 						<div class="form-col">
+							<div 
+								v-if="create_company.account_type_dependents && create_company.account_type_dependents != 'stand_alone_plan' && create_company.account_type_dependents != 'lite_plan' && create_company.account_type_dependents != 'enterprise_plan' " 
+								class="form-div">
+								<label>Secondary Plan Type</label>
+								<div class="selector-container">
+									<select v-model="create_company.secondary_account_type_dependents">
+										<option v-if="create_company.account_type_dependents == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
+										<option v-if="create_company.account_type_dependents == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
+
+		                <option v-if="create_company.account_type_dependents == 'insurance_bundle'" value="pro_plan_bundle">Pro Plan Bundle</option>
+		                <option v-if="create_company.account_type_dependents == 'insurance_bundle'" value="insurance_bundle_lite">Insurance Bundle Lite</option>
+									</select>
+									<img :src="'../assets/img/down-arrow.svg'">
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="form-row">
 						<div class="form-col mr-20">
 							<div class="form-div">
 								<label>Plan Price</label>
-								<input type="number">
+								<div class="account-plan-input-wrapper">
+									<div>
+										<span v-if="create_company.plan_currency == 'sgd'">SGD</span>
+									<span v-if="create_company.plan_currency == 'myr'">MYR</span>
+									</div>
+									<input v-model="create_company.plan_price_dependents" type="number">
+								</div>
 							</div>
 						</div>
 						<div class="form-toggle form-col-toggle">
@@ -635,6 +694,102 @@
 							</div>
 						</div>
 						<div class="form-col">
+						</div>
+					</div>
+
+					<!-- Plan extension dependent -->
+					<div v-if="plan_extension" class="form-toggle change-plan-toggle">
+						<label>Plan Extension? Change Plan Type?</label>
+						<div class="toggle-wrapper">
+							<div class="toggle-btns">
+								<div v-on:click="togglePlanExtensionDependentsAddCorporate(true)" v-bind:class="{ active : plan_extension_dependents == true }" class="toggle on">Yes</div>
+								<div v-on:click="togglePlanExtensionDependentsAddCorporate(false)" v-bind:class="{ active : plan_extension_dependents == false }" class="toggle off">No</div>
+							</div>
+						</div>
+					</div>
+
+					<div v-if="plan_extension_dependents">
+						<div class="white-space-20"></div>
+						<div class="form-row">
+							<div class="form-col mr-20">
+								<div class="form-div">
+									<label>Plan Type</label>
+									<div class="selector-container">
+										<select v-model="create_company.account_type_extension_dependents" v-on:change="accountTypeExtensionDependentsChanged( create_company.account_type_extension_dependents )">
+											<option value="trial_plan">Trial Plan</option>
+											<option value="insurance_bundle">Insurance Bundle</option>
+											<option value="stand_alone_plan">Pro Plan</option>
+											<option value="lite_plan">Lite Plan</option>
+											<option value="enterprise_plan">Enterprise Plan</option>
+										</select>
+										<img :src="'../assets/img/down-arrow.svg'">
+									</div>
+								</div>
+							</div>
+							<div class="form-col">
+								<div 
+									v-if="create_company.account_type_extension_dependents && create_company.account_type_extension_dependents != 'stand_alone_plan' && create_company.account_type_extension_dependents != 'lite_plan' && create_company.account_type_extension_dependents != 'enterprise_plan' "
+									class="form-div">
+									<label>Secondary Plan Type</label>
+									<div class="selector-container">
+										<select v-model="create_company.secondary_account_type_extension_dependents">
+											<option v-if="create_company.account_type_extension_dependents == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
+											<option v-if="create_company.account_type_extension_dependents == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
+
+											<option v-if="create_company.account_type_extension_dependents == 'insurance_bundle'" value="pro_plan_bundle">Pro Plan Bundle</option>
+											<option v-if="create_company.account_type_extension_dependents == 'insurance_bundle'" value="insurance_bundle_lite">Insurance Bundle Lite</option>
+										</select>
+										<img :src="'../assets/img/down-arrow.svg'">
+									</div>
+								</div>
+							</div>
+							<div class="form-col">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-col mr-20">
+								<div class="form-div">
+									<label>Plan Price</label>
+									<div class="account-plan-input-wrapper">
+										<div>
+											<span v-if="create_company.plan_currency == 'sgd'">SGD</span>
+											<span v-if="create_company.plan_currency == 'myr'">MYR</span>
+										</div>
+										<input v-model="create_company.plan_price_extension_dependents" type="number">
+									</div>
+								</div>
+							</div>
+							<div class="form-toggle form-col-toggle">
+								<label>Payment Status?</label>
+								<div class="toggle-wrapper">
+									<div class="toggle-btns">
+										<div class="toggle on active">Paid</div>
+										<div class="toggle off">Pending</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-col flex-2">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-col mr-20">
+								<div class="form-div">
+									<label>Invoice Date</label>
+									<div class="date-container">
+										<v-date-picker
+			                popoverDirection="bottom"
+			                v-model="changePlanInvoiceStartDate.null"
+			                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+			                popover-visibility="focus"
+			              ></v-date-picker>
+			              <img :src="'../assets/img/calendar-gray.png'">
+		              </div>
+								</div>
+							</div>
+							<div class="form-col">
+							</div>
+							<div class="form-col">
+							</div>
 						</div>
 					</div>
 				</div>
@@ -673,10 +828,13 @@
 								<div class="date-container">
 									<v-date-picker
 		                popoverDirection="bottom"
-		                v-model="changePlanInvoiceStartDate.null"
+		                v-model="create_company.medical_spending_start_date"
 		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :formats='formats'
 		                popover-visibility="focus"
-		              ></v-date-picker>
+		                v-bind:class="{ noSpending : medical_spending_account == false }"
+		              >
+		              </v-date-picker>
 		              <img :src="'../assets/img/calendar-gray.png'">
 	              </div>
 							</div>
@@ -687,9 +845,11 @@
 								<div class="date-container">
 									<v-date-picker
 		                popoverDirection="bottom"
-		                v-model="changePlanInvoiceStartDate.null"
+		                v-model="create_company.medical_spending_end_date"
 		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :formats = 'formats'
 		                popover-visibility="focus"
+		                v-bind:class="{ noSpending : medical_spending_account == false }"
 		              ></v-date-picker>
 		              <img :src="'../assets/img/calendar-gray.png'">
 	              </div>
@@ -715,9 +875,11 @@
 								<div class="date-container">
 									<v-date-picker
 		                popoverDirection="bottom"
-		                v-model="changePlanInvoiceStartDate.null"
+		                v-model="create_company.wellness_spending_start_date"
 		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :formats='formats'
 		                popover-visibility="focus"
+		                v-bind:class="{ noSpending : wellness_spending_account == false }"
 		              ></v-date-picker>
 		              <img :src="'../assets/img/calendar-gray.png'">
 	              </div>
@@ -729,9 +891,11 @@
 								<div class="date-container">
 									<v-date-picker
 		                popoverDirection="bottom"
-		                v-model="changePlanInvoiceStartDate.null"
+		                v-model="create_company.wellness_spending_end_date"
 		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :formats='formats'
 		                popover-visibility="focus"
+		                v-bind:class="{ noSpending : wellness_spending_account == false }"
 		              ></v-date-picker>
 		              <img :src="'../assets/img/calendar-gray.png'">
 	              </div>
@@ -801,10 +965,33 @@
 					<div class="form-row">
 						<div class="form-col flex-2">
 							<div class="form-div">
+								<label>Send Date</label>
+								<div class="date-container">
+									<v-date-picker
+		                popoverDirection="bottom"
+		                v-model="create_company.email_send_date"
+		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :formats='formats'
+		                popover-visibility="focus"
+		                v-bind:class="{ noSpending : wellness_spending_account == false }"
+		              ></v-date-picker>
+		              <img :src="'../assets/img/calendar-gray.png'">
+	              </div>
+							</div>
+						</div>
+						<div class="form-col"></div>
+						<div class="form-col"></div>
+					</div>
+				</div>
+
+				<div v-if="add_cc">
+					<div class="form-row">
+						<div class="form-col flex-2">
+							<div class="form-div">
 								<label>Add BCC to email</label>
 								<div class="add-bcc-input-wrapper">
-									<input type="number">
-									<button class="btn-primary">Add</button>
+									<input type="text" v-model="add_cc_create_data">
+									<button v-on:click="addCreateCompanyCCEmail(add_cc_create_data)" class="btn-primary">Add</button>
 								</div>
 							</div>
 						</div>
@@ -813,8 +1000,11 @@
 					</div>
 
 					<div class="bcc-emails-container">
-						<div class="bcc-email">
-							<span>noelounagac@gmial.com</span>
+						<p v-if="cc_email_err" class="text-error">Invalid Email.</p>
+          	<p v-if="cc_email_repeat" class="text-error">Email already added.</p>
+
+						<div v-for="list of create_company.cc_emails" class="bcc-email">
+							<span>{{ list }}</span>
 							<img :src="'../assets/img/cancel.png'">
 						</div>
 					</div>

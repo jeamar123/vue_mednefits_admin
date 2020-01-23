@@ -117,11 +117,11 @@
 
 					<div class="white-space-50"></div>
 					<div class="btn-container">
-						<button class="w-full btn-primary txt-transform-uppercase">Plan Renewal Details</button>
-						<button class="w-full btn-primary txt-transform-uppercase">Spending Account Renewal Details</button>
-						<button class="w-full btn-primary txt-transform-uppercase">Send Plan Expiration Notification</button>
-						<button class="w-full btn-primary txt-transform-uppercase">Corporate Details</button>
-						<button class="w-full btn-primary txt-transform-uppercase">Settings</button>
+						<button class="btn btn-primary txt-transform-uppercase">Plan Renewal Details</button>
+						<button class="btn btn-primary txt-transform-uppercase">Spending Account Renewal Details</button>
+						<button class="btn btn-primary txt-transform-uppercase">Send Plan Expiration Notification</button>
+						<button class="btn btn-primary txt-transform-uppercase">Corporate Details</button>
+						<button class="btn btn-primary txt-transform-uppercase">Settings</button>
 					</div>
 					
 				</div>	
