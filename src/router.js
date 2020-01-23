@@ -89,7 +89,7 @@ export default new Router({
           name: 'CorporateMenu', 
           path: '/dashboard/corporates/menu', 
           component: CorporateMenu,
-          redirect: '/dashboard/corporates/menu/info',
+          redirect: '/dashboard/corporates/menu/member-list',
           children: [
             { name: 'CorporateInformation', path: '/dashboard/corporates/menu/info', components: { child : CorporateInformation }  },
             { name: 'CorporateMemberList', path: '/dashboard/corporates/menu/member-list', components: { child : CorporateMemberList }  },
