@@ -917,16 +917,16 @@
 						</div>
 					</div>
 					<div class="form-col mr-20">
-						<div class="form-div">
+						<div class="form-div password-input-wrapper">
 							<label>Password</label>
-							<input type="password">
+							<input type="password" v-model="create_company.reg_password" :disabled="create_company.disable_password_input">
 						</div>
 					</div>
 					<div class="form-col">
 						<div class="white-space-20"></div>
 						<div class="form-div">
 							<label class="input-checkbox">
-							  <input type="checkbox">
+							  <input v-model="create_company.generate_password" v-on:click="watchPasswordInput(create_company.generate_password)" type="checkbox">
 							  <span class="input-text">Auto Generate Password</span>
 							  <span class="input-checkmark"></span>
 							</label>
@@ -991,7 +991,7 @@
 								<label>Add BCC to email</label>
 								<div class="add-bcc-input-wrapper">
 									<input type="text" v-model="add_cc_create_data">
-									<button v-on:click="addCreateCompanyCCEmail(add_cc_create_data)" class="btn-primary">Add</button>
+									<button v-on:click="addCreateCompanyCCEmail( add_cc_create_data )" class="btn-primary">Add</button>
 								</div>
 							</div>
 						</div>
@@ -1005,7 +1005,7 @@
 
 						<div v-for="list of create_company.cc_emails" class="bcc-email">
 							<span>{{ list }}</span>
-							<img :src="'../assets/img/cancel.png'">
+							<img v-on:click="removeCreateCompanyCCEmail( add_cc_create_data )" :src="'../assets/img/cancel.png'">
 						</div>
 					</div>
 				</div>

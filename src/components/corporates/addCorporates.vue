@@ -26,6 +26,7 @@
           wellness_spending_end_date: new Date(),
           email_send_date: new Date(),
           cc_emails: [],
+          generate_password: false,
         },
         company_contacts : [
           {
@@ -245,14 +246,16 @@
         if ( email != "" || email != null ) {
           var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
           if ( regex.test(email) == true ) {
-            console.log('add');
-            // var getIndex = this.create_company.cc_emails;
+            this.cc_email_err = false;  
             var check = this.create_company.cc_emails.indexOf( email );
-
             if ( check < 0 ) {
-              console.log('less than 0');
+              // console.log('less than 0');
+              this.create_company.cc_emails.push( email );
+              this.cc_email_repeat = false;
+              this.add_cc_create_data = "";
             } else {
-              console.log('greater than 0');
+              // console.log('greater than 0');
+              this.cc_email_repeat = true;
             }
 
           } else{
@@ -261,7 +264,21 @@
           }
 
         }
-      }
+      },
+      removeCreateCompanyCCEmail( email ) {
+        var check = this.create_company.cc_emails.indexOf( email );
+        this.create_company.cc_emails.splice( email );
+      },
+      watchPasswordInput( data ) {
+        data = !data;
+        // console.log(data);
+        if ( data == true ) {
+          this.create_company.disable_password_input = true;
+          this.create_company.reg_password = "";
+        } else {
+          this.create_company.disable_password_input = false;
+        }
+      },
     }
   }
   
