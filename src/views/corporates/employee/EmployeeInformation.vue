@@ -1267,12 +1267,15 @@
 								<div class="start-date-container">
 									<h4>Start Date:</h4>
 									<div class="start-date-input-wrapper">
+										<img :src="'../assets/img/calendar-gray.png'">
 										<v-date-picker
 		                  popoverDirection="bottom"
 		                  v-model="starDateDetails.starDate"
 		                  :input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                  :formats = 'formats'
 		                  popover-visibility="focus"
 		                ></v-date-picker>
+		                <i class="fa fa-caret-down"></i>
 									</div>
 								</div>
 								<div class="end-date-container">
