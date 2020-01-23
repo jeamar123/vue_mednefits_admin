@@ -539,56 +539,96 @@ $font-gray: #888;
   .left-box-wrapper{
     // flex: 1.2;
     // max-width: 300px;
-    width: 20%;
+    width: 25%;
     // background: #fdfdfd;
     /*background: $bg-blue;*/
     // box-shadow: 0px 1px 5px #ddd;
     padding-bottom: 50px;
     position: relative;
     color: $font-gray;
-    margin: 10px;
+    margin: 16px 8px 16px 16px;
   }
   .corporate-details-box{
     padding: 30px 20px 10px 20px;
     text-align: left;
     background: #fdfdfd;
-    // border-bottom: 5px solid #E9EAEC;
-    box-shadow: 0px 1px 5px #ddd;
-    border-radius: 4px;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+    border-radius: 2px;
 
     img{
-      width: 70px;
-      height: 70px;
+      width: 100px;
+      height: 100px;
       display: block;
       border-radius: 50%;
-      // margin-right: 20px;
-      margin: 0px auto 10px auto;
+      margin: 0px auto;
       background: #FFF;
-      // border: 1px solid #ccc;
-    }
-    p.corporate-name{
-      font-size: 18px;
-      // display: inline-block;
-      vertical-align: middle;
-      font-family: 'Open Sans';
-      font-weight: 700;
-      color: #777;
-      text-align: center;
     }
 
     .company-basic-details{
-      margin-top: 20px;
+      margin: 20px -20px;
+      padding: 0 20px;
+      border-bottom: 1px solid #dfdfdf;
     }
     .info-div{
       margin-bottom: 15px;
 
       label{
-        font-size: 12px;
-        color: #999;
+        font-size: 14px;
+        color: #222;
+        font-family: 'Roboto';
       }
       p{
-        font-size: 14px;
+        font-size: 15px;
         color: #444;
+      }
+    }
+    p.info-title{
+      color: #222;
+      margin-bottom: 15px;
+      font-family: 'Roboto';
+      font-size: 13px;
+    }
+    .info-div-inline{
+      margin-bottom: 8px;
+
+      label{
+        font-size: 14px;
+        color: #222;
+        display: inline-block;
+        margin-right: 10px;
+        font-family: 'Roboto';
+      }
+      p{
+        font-size: 15px;
+        color: #444;
+        display: inline-block;
+      }
+    }
+
+    .enrollment-status{
+      label, p{
+        font-size: 13px;
+      }
+    }
+    .company-credits{
+      border: none;
+      
+      p{
+        margin: 0;
+      }
+      .info-div-inline{
+        margin: 0;
+
+        label, p{
+          color: #888;
+          font-family: 'Helvetica Light';
+        }
+      }
+    }
+    .credit-reset{
+      p{
+        color: #888;
+        font-family: 'Helvetica Light';
       }
     }
   }
@@ -635,8 +675,9 @@ $font-gray: #888;
   }
   .right-box-wrapper{
     // flex: 4;
-    width: 80%;
-    margin: 10px 10px 10px 0;
+    /*width: 80%;*/
+    flex: 1;
+    margin: 16px 16px 16px 8px;
   }
   .corporate-info-container{
     width: 100%;
@@ -1251,7 +1292,7 @@ $font-gray: #888;
     width: 20%;
     background: #FFF;
     box-shadow: 0px 1px 5px #b3b3b3;
-    padding-bottom: 50px;
+    /*padding-bottom: 50px;*/
     position: relative;
   }
   .corporate-details-box{
