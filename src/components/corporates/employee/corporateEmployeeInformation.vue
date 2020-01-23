@@ -277,4 +277,26 @@ import Modal from "../../../views/modal/Modal.vue";
 
 <style lang="scss" scoped>
 	@import "./src/assets/css/corporates.scss";
+
+  @media ( max-width: 1120px ) {
+    .credits-plans-wrapper .credit-plan-container {
+      display: block;
+
+      >div {
+        width: 100%;
+      }
+    }
+  }
+
+  @media ( max-width: 570px ) {
+    .credits-plans-wrapper .credit-details-container {
+      display: block;
+    }
+
+    .credit-item-container {
+      width: 150px;
+      margin: 0 0 20px;
+    }
+  }
+
 </style>

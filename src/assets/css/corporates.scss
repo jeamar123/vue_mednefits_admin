@@ -1849,13 +1849,13 @@ $font-gray: #888;
   .add-deduct-btn-container {
     button {
       background-color: #fff;
-      color: #076086;
+      color: #4154AF;
       width: 100px;
       margin: 0 10px 0 0;
     }
 
     button.active {
-      background-color: #076086;
+      background-color: #4154AF;
       color: #fff;
     }
   }
@@ -1900,6 +1900,20 @@ $font-gray: #888;
       border-bottom: 1px solid #cbcbcb;
       padding: 5px 0;
       font-weight: 700;
+    }
+  }
+
+  .start-date-input-wrapper {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 23px;
+      height: 23px;
+    }
+
+    .vDatepicker.start-date-input {
+      border: 0;
     }
   }
 }
