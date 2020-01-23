@@ -20,5 +20,17 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "./src/assets/css/corporates.scss";
+  @import "./src/assets/css/corporates.scss";
+
+  //global css
+  .w-auto	{
+    width: auto;
+  }
+  .w-50 {
+    width: 50%;
+  }	
+  .w-full {
+    width: 100%;
+  }
+
 </style>
