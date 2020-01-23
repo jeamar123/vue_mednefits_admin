@@ -1170,9 +1170,20 @@ $font-gray: #888;
     }
 
     .date-container input {
-      padding: 5px 5px 5px 28px
+      padding: 5px 5px 5px 28px;
+      background-color: transparent;
+
+      &::placeholder {
+        color: transparent;
+      }
     }
   }
+
+  .noSpending {
+    background-color: #b4b4b4;
+    pointer-events: none;
+  }
+
 
   .send-welcome-email-toggle {
     display: flex;

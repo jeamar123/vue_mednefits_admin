@@ -350,6 +350,7 @@
 								<v-date-picker
 	                popoverDirection="bottom"
 	                v-model="create_company.plan_start"
+	                :formats='formats'
 	                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 	                popover-visibility="focus"
 	              ></v-date-picker>
@@ -425,6 +426,7 @@
 		                popoverDirection="bottom"
 		                v-model="create_company.plan_start_extension"
 		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :formats = 'formats'
 		                popover-visibility="focus"
 		              ></v-date-picker>
 		              <img :src="'../assets/img/calendar-gray.png'">
@@ -601,8 +603,9 @@
 								<div class="date-container">
 									<v-date-picker
 		                popoverDirection="bottom"
-		                v-model="changePlanInvoiceStartDate.null"
+		                v-model="create_company.plan_invoice_date"
 		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :formats = 'formats'
 		                popover-visibility="focus"
 		              ></v-date-picker>
 		              <img :src="'../assets/img/calendar-gray.png'">
@@ -825,10 +828,13 @@
 								<div class="date-container">
 									<v-date-picker
 		                popoverDirection="bottom"
-		                v-model="changePlanInvoiceStartDate.null"
+		                v-model="create_company.medical_spending_start_date"
 		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :formats='formats'
 		                popover-visibility="focus"
-		              ></v-date-picker>
+		                v-bind:class="{ noSpending : medical_spending_account == false }"
+		              >
+		              </v-date-picker>
 		              <img :src="'../assets/img/calendar-gray.png'">
 	              </div>
 							</div>
@@ -839,9 +845,11 @@
 								<div class="date-container">
 									<v-date-picker
 		                popoverDirection="bottom"
-		                v-model="changePlanInvoiceStartDate.null"
+		                v-model="create_company.medical_spending_end_date"
 		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :formats = 'formats'
 		                popover-visibility="focus"
+		                v-bind:class="{ noSpending : medical_spending_account == false }"
 		              ></v-date-picker>
 		              <img :src="'../assets/img/calendar-gray.png'">
 	              </div>
@@ -867,9 +875,11 @@
 								<div class="date-container">
 									<v-date-picker
 		                popoverDirection="bottom"
-		                v-model="changePlanInvoiceStartDate.null"
+		                v-model="create_company.wellness_spending_start_date"
 		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :formats='formats'
 		                popover-visibility="focus"
+		                v-bind:class="{ noSpending : wellness_spending_account == false }"
 		              ></v-date-picker>
 		              <img :src="'../assets/img/calendar-gray.png'">
 	              </div>
@@ -881,9 +891,11 @@
 								<div class="date-container">
 									<v-date-picker
 		                popoverDirection="bottom"
-		                v-model="changePlanInvoiceStartDate.null"
+		                v-model="create_company.wellness_spending_end_date"
 		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :formats='formats'
 		                popover-visibility="focus"
+		                v-bind:class="{ noSpending : wellness_spending_account == false }"
 		              ></v-date-picker>
 		              <img :src="'../assets/img/calendar-gray.png'">
 	              </div>
@@ -953,10 +965,33 @@
 					<div class="form-row">
 						<div class="form-col flex-2">
 							<div class="form-div">
+								<label>Send Date</label>
+								<div class="date-container">
+									<v-date-picker
+		                popoverDirection="bottom"
+		                v-model="create_company.email_send_date"
+		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :formats='formats'
+		                popover-visibility="focus"
+		                v-bind:class="{ noSpending : wellness_spending_account == false }"
+		              ></v-date-picker>
+		              <img :src="'../assets/img/calendar-gray.png'">
+	              </div>
+							</div>
+						</div>
+						<div class="form-col"></div>
+						<div class="form-col"></div>
+					</div>
+				</div>
+
+				<div v-if="add_cc">
+					<div class="form-row">
+						<div class="form-col flex-2">
+							<div class="form-div">
 								<label>Add BCC to email</label>
 								<div class="add-bcc-input-wrapper">
-									<input type="number">
-									<button class="btn-primary">Add</button>
+									<input type="text" v-model="add_cc_create_data">
+									<button v-on:click="addCreateCompanyCCEmail(add_cc_create_data)" class="btn-primary">Add</button>
 								</div>
 							</div>
 						</div>
@@ -965,8 +1000,11 @@
 					</div>
 
 					<div class="bcc-emails-container">
-						<div class="bcc-email">
-							<span>noelounagac@gmial.com</span>
+						<p v-if="cc_email_err" class="text-error">Invalid Email.</p>
+          	<p v-if="cc_email_repeat" class="text-error">Email already added.</p>
+
+						<div v-for="list of create_company.cc_emails" class="bcc-email">
+							<span>{{ list }}</span>
 							<img :src="'../assets/img/cancel.png'">
 						</div>
 					</div>

@@ -18,12 +18,15 @@
         create_company : {
           plan_start: undefined,
           main_plan_invoice_date: undefined,
-          plan_start_extension: new Date(this.plan_start_extension),
+          plan_start_extension: new Date(),
+          plan_invoice_date: undefined,
+          medical_spending_start_date: new Date(),
+          medical_spending_end_date: new Date(),
+          wellness_spending_start_date: new Date(),
+          wellness_spending_end_date: new Date(),
+          email_send_date: new Date(),
+          cc_emails: [],
         },
-        changePlanInvoiceStartDate : {
-          startDate: undefined,
-        },
-        create_company : {},
         company_contacts : [
           {
             first_name : "",
@@ -35,10 +38,17 @@
             send_email_bill_related : false,
           }
         ],
+        formats: {
+          input: ["DD/MM/YYYY"],
+          data: ["DD/MM/YYYY"]
+        },
+        cc_email_err: false,
+        cc_email_repeat: false,
+        add_cc_create_data : '',
       };
     },
     created(){
-      this.getCreateCompany();
+      console.log(this.create_company.medical_spending_start_date);
     },
     methods: {
       toggleBusinessInfoAddCorporate( opt ) {
@@ -79,12 +89,35 @@
       },
       toggleHealthSpendingAddCorporate( opt ) {
         this.health_spending_account = opt;
+
+        this.create_company.medical_spending_start_date = '';
+        this.create_company.medical_spending_end_date = '';
+        this.create_company.wellness_spending_start_date = '';
+        this.create_company.wellness_spending_end_date = '';
       },
       toggleMedicalSpendingAccount( opt ) {
         this.medical_spending_account = opt;
+        console.log(moment(this.create_company.medical_spending_start_date).format('YYYY-MM-DD'));
+
+        if ( opt == true ) {
+          this.create_company.medical_spending_start_date = new Date(this.create_company.medical_spending_start_date);
+          this.create_company.medical_spending_end_date = new Date(this.create_company.medical_spending_end_date);
+        } else {
+          this.create_company.medical_spending_start_date = '';
+          this.create_company.medical_spending_end_date = '';
+        }
       },
       toggleWellnessSpendingAccount( opt ) {
         this.wellness_spending_account = opt;
+
+        if ( opt == true ) {
+          this.create_company.wellness_spending_start_date = new Date(this.create_company.wellness_spending_start_date);
+          this.create_company.wellness_spending_end_date = new Date(this.create_company.wellness_spending_end_date);
+        } else {
+          this.create_company.wellness_spending_start_date = '';
+          this.create_company.wellness_spending_end_date = '';
+        }
+
       },
       toggleSendWelcomeEmailAddCorporate ( opt ) {
         this.add_cc = opt;
@@ -187,14 +220,48 @@
           this.create_company.plan_price_extension_dependents = 300;
         }
       },
-      getCreateCompany() {
-        console.log(this.create_company.plan_start_extension);
-      },
       startDateChanged() {
-        console.log(this.create_company.duration_value);
-        this.create_company.plan_start_extension = new Date(moment( this.create_company.plan_start_extension ).add(this.create_company.duration_value ,this.create_company.duration_type).subtract(1,'days').format('MM/DD/YYYY'));
+        // console.log( moment( this.create_company.plan_start_extension ).add(this.create_company.duration_value ,this.create_company.duration_type).subtract(1,'days') );
+        this.create_company.plan_start_extension = new Date(moment( this.create_company.plan_start_extension ).add(this.create_company.duration_value ,this.create_company.duration_type).subtract(1,'days'));
+
+        this.create_company.medical_spending_start_date = new Date(moment(this.create_company.plan_start));
+        this.create_company.medical_spending_end_date = new Date(moment( this.create_company.plan_start ).add( this.create_company.duration_value, this.create_company.duration_type ).subtract(1, 'days'));
+        this.create_company.wellness_spending_start_date = new Date(moment(this.create_company.plan_start));
+        this.create_company.wellness_spending_end_date = new Date(moment( this.create_company.plan_start ).add( this.create_company.duration_value, this.create_company.duration_type ).subtract(1, 'days'));
         this.$forceUpdate();  
+
+
+        if ( this.medical_spending_account == false && this.medical_spending_account == false ) {
+          console.log('check');
+          this.create_company.medical_spending_start_date = '';
+          this.create_company.medical_spending_end_date = '';
+          this.create_company.wellness_spending_start_date = '';
+          this.create_company.wellness_spending_end_date = '';
+        }
       },
+      addCreateCompanyCCEmail( email ) {
+        this.cc_email_err = false;
+
+        if ( email != "" || email != null ) {
+          var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+          if ( regex.test(email) == true ) {
+            console.log('add');
+            // var getIndex = this.create_company.cc_emails;
+            var check = this.create_company.cc_emails.indexOf( email );
+
+            if ( check < 0 ) {
+              console.log('less than 0');
+            } else {
+              console.log('greater than 0');
+            }
+
+          } else{
+            this.cc_email_repeat = false;
+            this.cc_email_err = true;
+          }
+
+        }
+      }
     }
   }
   
