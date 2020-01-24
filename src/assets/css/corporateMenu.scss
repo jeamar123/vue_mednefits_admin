@@ -2,12 +2,12 @@ $bg-blue: #3a85b7;
 
 $font-gray: #888;
 
-.close-btn {
+.close-btn.summary {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  font-size: 10px;
-  /*color: #eee;*/
+  top: 10px;
+  right: 15px;
+  font-size: 12px;
+  z-index: 2;
 }
 
 .corporate-menu-container {
@@ -64,6 +64,10 @@ $font-gray: #888;
     background: #fdfdfd;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
     border-radius: 2px;
+
+    .close-btn.summary {
+      display: none;
+    }
 
     img {
       width: 100px;
@@ -191,6 +195,28 @@ $font-gray: #888;
     /*width: 80%;*/
     flex: 1;
     margin: 16px 16px 16px 8px;
+
+    .corporate-main-container {
+      width: 100%;
+      padding: 10px 20px;
+      background: #fff;
+      height: 100%;
+      position: relative;
+
+      .toggleResponsive-closeCorporate {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        font-size: 14px;
+
+        .btn-menu {
+          display: none;
+        }
+
+        .col-2 {
+          text-align: right;
+        }
+      }
+    }
   }
   .corporate-info-container {
     width: 100%;
@@ -233,122 +259,6 @@ $font-gray: #888;
           flex: 1;
           font-size: 14px;
         }
-      }
-    }
-  }
-  
-  .corporate-members-container {
-    width: 100%;
-    padding: 10px 20px;
-    background: #fff;
-    height: 100%;
-    position: relative;
-
-    .search-member-wrapper {
-      position: relative;
-      width: 400px;
-
-      .oi {
-        position: absolute;
-        top: 12px;
-        left: 5px;
-        font-size: 16px;
-        color: #666;
-      }
-      input {
-        padding-left: 35px;
-        background: transparent;
-        border-width: 0 0 1px 0;
-        border-color: #888;
-        font-weight: 700;
-        color: #666;
-        border-radius: 0;
-      }
-      input::placeholder {
-        opacity: 0.6;
-      }
-    }
-  }
-  .member-list-container {
-    // margin: 20px 0;
-    // display: grid;
-    // grid-template-columns: 1fr 1fr 1fr 1fr;
-    // grid-column-gap: 20px;
-    // grid-row-gap: 20px;
-  }
-  .member-wrapper {
-    p {
-      font-size: 13px;
-      word-wrap: break-word;
-    }
-    label {
-      font-size: 12px;
-      font-weight: 700;
-      color: $font-gray;
-    }
-    .info-div {
-      margin-bottom: 10px;
-    }
-    .info-row {
-      display: flex;
-
-      .info-col {
-        /*width: 33%;*/
-        flex: 1;
-        padding-right: 10px;
-      }
-      .flex-2 {
-        flex: 2;
-      }
-    }
-    .header {
-      background: #3f93c7;
-      padding: 10px 15px;
-      display: flex;
-      color: #f7fcff;
-      cursor: pointer;
-      align-items: center;
-
-      label {
-        flex: 2;
-        font-size: 14px;
-        font-weight: 700;
-        color: #f7fcff;
-        cursor: pointer;
-      }
-      .fa-user {
-        width: 28px;
-        height: 28px;
-        line-height: 25px;
-        font-size: 16px;
-        border-radius: 50%;
-        border: 1px solid #fff;
-        text-align: center;
-        margin-right: 10px;
-      }
-      .oi {
-        flex: 1;
-        text-align: right;
-        position: relative;
-        top: 3px;
-      }
-    }
-    .body {
-      background: #fdfdfd;
-      padding: 10px 15px 20px 15px;
-      border: 1px solid #4295cc;
-      border-width: 0 1px 1px 1px;
-    }
-    .btn-container {
-      margin-top: 20px;
-
-      button {
-        background: transparent;
-        border: 2px solid #d5d5d5;
-        font-weight: 700;
-        box-shadow: none;
-        color: #999;
-        width: 100%;
       }
     }
   }
