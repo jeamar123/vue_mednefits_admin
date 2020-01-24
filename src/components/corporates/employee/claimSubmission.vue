@@ -2,7 +2,7 @@
 import Modal from "../../../views/modal/Modal.vue";
 
 
-  let corporateEmployeeInformation = {
+  let claimSubmission = {
     components: {
       Modal
     },
@@ -268,7 +268,7 @@ import Modal from "../../../views/modal/Modal.vue";
     }
   }
   
-  export default corporateEmployeeInformation
+  export default claimSubmission
 </script>
 
 <style lang="scss" scoped>

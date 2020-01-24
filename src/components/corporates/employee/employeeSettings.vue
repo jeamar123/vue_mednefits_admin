@@ -2,7 +2,7 @@
 import Modal from "../../../views/modal/Modal.vue";
 
 
-  let corporateEmployeeInformation = {
+  let employeeSettings = {
     components: {
       Modal
     },
@@ -268,7 +268,7 @@ import Modal from "../../../views/modal/Modal.vue";
     }
   }
   
-  export default corporateEmployeeInformation
+  export default employeeSettings
 </script>
 
 <style lang="scss" scoped>
