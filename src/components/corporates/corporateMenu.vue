@@ -107,12 +107,12 @@ export default corporateMenu;
 }
 
 /* Medium (md) */
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   /* ... */
 }
 
 /* Small (sm) */
-@media (min-width: 640px) {
+@media (max-width: 640px) {
   /* ... */
 }
 </style>
