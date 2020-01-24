@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import axios from 'axios'
 
 axios.defaults.baseURL = process.env.BASE_URL;
-axios.defaults.serverUrl = 'http://mednefits.local';
+// axios.defaults.serverUrl = 'http://mednefits.local';
+axios.defaults.serverUrl = 'http://localhost:3000';
 axios.defaults.user_id = null;
 
 

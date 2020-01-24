@@ -16,7 +16,13 @@ import router from './router';
 
 Vue.use(VCalendar);
 Vue.use(vClickOutside);
-Vue.use(VueSweetalert2);
+
+const options = {
+    confirmButtonColor: '#0392CF',
+    cancelButtonColor: '#FF5959',
+};
+
+Vue.use(VueSweetalert2,options);
 Vue.use(VueMoment);
 Vue.component('VueSlider', VueSlider);
 Vue.component('downloadExcel', JsonExcel)

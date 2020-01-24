@@ -1,5 +1,5 @@
 <script>
-	import axios from 'axios'
+	import axios from 'axios';
 
 	var dashboard = {
 		data() {
@@ -9,6 +9,7 @@
 			}
 		},
 		created() {
+			axios.defaults.headers.common['Authorization'] = localStorage.getItem('vue_admin_session');
 		},
 		methods: {
       showLoading() {
