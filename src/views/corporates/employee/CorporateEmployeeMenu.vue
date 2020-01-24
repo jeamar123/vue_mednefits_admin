@@ -115,9 +115,17 @@
 		</div>
 
 		<div class="right-box-wrapper">
-			<router-view name="child"></router-view>
+			<div class="employee-information-container">
+				<div class="emp-tab-wrapper">
+					<div class="" @click="showEmpSelectorInfo(0, 'employee')" v-bind:class="{'active': empSelectorActive.value === 0}">Employee</div>
+					<div @click="showEmpSelectorInfo(1, 'dependent')" v-bind:class="{'active': empSelectorActive.value === 1}">Dependent</div>
+					<div @click="showEmpSelectorInfo(2, 'claim-submission')" v-bind:class="{'active': empSelectorActive.value === 2}">Claim Submission</div>
+					<div @click="showEmpSelectorInfo(3, 'settings')" v-bind:class="{'active': empSelectorActive.value === 3}">Settings</div>
+				</div>
+
+				<router-view name="child"></router-view>
+			</div>
 		</div>
-		
   </div>
 </template>
 

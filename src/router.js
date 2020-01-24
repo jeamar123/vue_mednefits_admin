@@ -28,13 +28,20 @@ import AddCorporate from './views/corporates/AddCorporate.vue'
 import CorporateMenu from './views/corporates/CorporateMenu.vue'
 import CorporateInformation from './views/corporates/CorporateInformation.vue'
 import CorporateMemberList from './views/corporates/CorporateMemberList.vue'
-import CorporateEmployeeMenu from './views/corporates/employee/CorporateEmployeeMenu.vue'
+
 import CorporatePlan from './views/corporates/CorporatePlan.vue'
 import SpendingInvoice from './views/corporates/SpendingInvoice.vue'
 import CorporateEnrollment from './views/corporates/CorporateEnrollment.vue'
 import BulkCreditAllocation from './views/corporates/BulkCreditAllocation.vue'
 import CorporateSettings from './views/corporates/CorporateSettings.vue'
+
+// Employee Information
+import CorporateEmployeeMenu from './views/corporates/employee/CorporateEmployeeMenu.vue'
 import EmployeeInformation from './views/corporates/employee/EmployeeInformation.vue'
+import DependentInformation from './views/corporates/employee/DependentInformation.vue'
+import ClaimSubmission from './views/corporates/employee/ClaimSubmission.vue'
+import EmployeeSettings from './views/corporates/employee/EmployeeSettings.vue'
+
 import HealthPartnerAccess from './views/corporates/HealthPartnerAccess.vue'
 import EclaimTypeService from './views/corporates/EclaimTypeService.vue'
 import GcapPerVisit from './views/corporates/GcapPerVisit.vue'
@@ -117,6 +124,9 @@ export default new Router({
           redirect: '/dashboard/corporates/employee/info',
           children: [
             { name: 'EmployeeInformation', path: '/dashboard/corporates/employee/info', components: { child : EmployeeInformation }  },
+            { name: 'DependentInformation', path: '/dashboard/corporates/employee/dependent', components: { child : DependentInformation }  },
+            { name: 'ClaimSubmission', path: '/dashboard/corporates/employee/claim_submission', components: { child : ClaimSubmission }  },
+            { name: 'EmployeeSettings', path: '/dashboard/corporates/employee/settings', components: { child : EmployeeSettings }  },
           ]
         },
         { name: 'AddCorporate', path: '/dashboard/corporates/add', component: AddCorporate },
