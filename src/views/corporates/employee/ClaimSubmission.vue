@@ -91,7 +91,7 @@
 								</div>
 							</td>
 							<td>
-								<div class="in-network-input-wrapper visit-date-input-wrapper">
+								<div class="in-network-input-wrapper visit-date-input-wrapper in-network-visit">
 									<v-date-picker
 	                  popoverDirection="bottom"
 	                  v-model="starDateDetails.starDate"

@@ -593,12 +593,11 @@
     }
   }
 
-  .popover-container{
+  .visit-date-input-wrapper.in-network-visit .popover-container{
     background: #eee;
     border: 0;
     border-radius: 2px;
     padding: 10px;
-    width: 100%;
     height: 38px;
     font-size: 12px; 
     font-weight: 700;
@@ -1432,6 +1431,34 @@
 }
 
 
+
+
+
+
+
+
+/* -------------- RESPONSIVE AREA ----------------*/
+  /* Extra Large (xl) */
+  @media (max-width: 1280px) { 
+
+  }
+
+  /* Large (lg) */
+  @media (max-width: 1024px) { 
+
+  }
+
+  /* Medium (md) */
+  @media (max-width: 768px) { 
+
+  }
+
+  /* Small (sm) */
+  @media (max-width: 640px) {
+
+  }
+
+/* -----------------------------------------------*/
 
 
 
