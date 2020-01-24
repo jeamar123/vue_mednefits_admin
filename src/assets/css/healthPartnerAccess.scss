@@ -1,0 +1,288 @@
+.health-partner-access-wrapper {
+  /*background-color: #fff;*/
+  height: auto;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+
+  .close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 10px;
+    /*color: #eee;*/
+  }
+
+  .health-partner-access-container {
+    display: grid;
+    grid-template-columns: 45% 10% 45%;
+    min-height: 540px;
+  }
+
+  .corporate-text {
+    font-size: 20px;
+    text-align: center;
+    margin: 0 0 20px 0;
+  }
+
+  .sort-container {
+    text-align: center;
+
+    img {
+      transform: translate(0, 22rem) rotate(90deg);
+      height: 50px;
+    }
+  }
+
+  .health-partner-access-blocked,
+  .health-partner-access-opened {
+    background-color: #fff;
+    padding: 20px 0 40px;
+    box-shadow: 0 0px 3px 0 rgba(0,0,0,.2), 0 4px 6px 0 rgba(0,0,0,.14), 0 0px 4px 2px rgba(0,0,0,0.12);
+  }
+
+  .blocked-opened-header {
+    padding: 0 20px;
+    position: relative;
+
+    h3 {
+      font-size: 16px;
+      color: #333;
+    }
+
+    i {
+      font-size: 18px;
+      color: #777;
+      position: absolute;
+      top: 0;
+      right: 20px;
+    }
+  }
+
+  .health-partner-search{
+    padding: 0 20px;
+    position: relative;
+    display: flex;
+    width: 100%;
+
+    input{
+      width: 100%;
+      padding: 0 20px 10px 25px;
+      border-width: 0 0 1px 0;
+      border-bottom: 1px solid #ecebeb;
+    }
+    i {
+      font-size: 18px;
+      color: #777;
+    }
+    i.left{
+      position: absolute;
+      top: 0;
+      left: 20px;
+    }
+    i.right{
+      position: absolute;
+      top: 0;
+      right: 20px;
+    }
+  }
+
+  .clinic-name-header {
+    align-items: center;
+    display: flex;
+    border-bottom: 1px solid #cbcbcb;
+    padding: 20px;
+   
+
+    span {
+      display: block;
+      color: #777;
+    }
+
+    .btn-primary {
+      height: 32px;
+    }
+  }
+
+  .health-checkmark {
+    background-color: #fff;
+    border: 1px solid #cbcbcb;
+    border-radius: 2px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: #fff;
+    border: 1px solid #cbcbcb;
+    border-radius: 2px;
+
+    &:after {
+      display: none;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 8px;
+      height: 8px;
+      background-color: #4154AF;
+      border-radius: 2px;
+      content: "";
+    }
+  }
+
+  .health-checkbox-container {
+    position: relative;
+    padding: 0 0 0 35px;
+    flex: 1;
+
+    input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    .input:checked ~ .health-checkmark {
+      background-color: #fff;
+      border: 1px solid #cbcbcb;
+      border-radius: 2px;
+    }
+
+    input:checked ~ .health-checkmark:after {
+      display: block;
+    }
+  }
+
+  .select-filter-div select {
+    background: #fafafa;
+    border-radius: 0;
+    border: 1px solid #eee;
+    border-width: 0 0 1px 0;
+    color: #888;
+    flex: 1;
+    height: 32px;
+    width: 112px;
+    margin: 0 10px;
+    padding: 5px 8px;
+    font-weight: 700;
+  }
+     
+  .clinic-name-wrapper {
+    overflow-y: auto;
+    height: 500px;
+
+    .clinic-name-container {
+      border-bottom: 1px solid #cbcbcb;
+      color: #333;
+      padding: 20px 20px;
+      display: flex;
+
+      .country{
+        width: 150px;
+        text-align: right;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+/* -------------- RESPONSIVE AREA ----------------*/
+  /* Extra Large (xl) */
+  @media (max-width: 1280px) { 
+
+  }
+  /* Extra Large (xl) */
+  @media (max-width: 1190px) { 
+    .health-partner-access-wrapper{
+
+      .health-partner-access-container {
+        grid-template-columns: auto 40px auto;
+      }
+      .sort-container{
+        img{
+          height: 30px;
+        }
+      } 
+    } 
+  }
+
+  /* Large (lg) */
+  @media (max-width: 1050px) { 
+    .health-partner-access-wrapper{
+
+      .health-partner-access-container {
+        grid-template-columns: 47.5% 5% 47.5%;
+      }
+      .sort-container{
+        img{
+          height: 30px;
+        }
+      } 
+    } 
+
+  }
+
+  /* Large (lg) */
+  @media (max-width: 1024px) { 
+
+  }
+
+  /* Mobile max */
+  @media (min-width: 993px) { 
+    .xs-show{
+      display: none;
+    }
+    .xs-hide{
+      display: inherit;
+    }
+  }
+
+  /* Mobile max */
+  @media (max-width: 992px) { 
+    .xs-show{
+      display: inherit;
+    }
+    .xs-hide{
+      display: none;
+    }
+
+    .health-partner-access-wrapper{
+      .health-partner-access-container {
+        grid-template-columns: 100%;
+
+        .sort-container img{
+          transform: none;
+          margin: 10px 0;
+        }
+      }
+
+      .select-filter-div{
+        select{
+          width: 95px;
+          font-size: 12px;
+          margin: 0 6px 0 0px;
+        }
+      }
+    } 
+  }
+
+  /* Medium (md) */
+  @media (max-width: 768px) { 
+
+  }
+
+  /* Small (sm) */
+  @media (max-width: 640px) {
+
+  }
+
+/* -----------------------------------------------*/

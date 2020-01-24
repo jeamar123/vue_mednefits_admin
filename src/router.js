@@ -91,7 +91,6 @@ export default new Router({
         { name: 'AddClinic', path: '/dashboard/clinic/add', component: AddClinic },
         //corporates
         { name: 'Corporates', path: '/dashboard/corporates', component: Corporates },
-        // { name: 'HealthPartnerAccess', path: '/dashboard/health-partner-access', component: HealthPartnerAccess },
         { 
           name: 'CorporateMenu', 
           path: '/dashboard/corporates/menu', 
@@ -104,7 +103,7 @@ export default new Router({
             { name: 'SpendingInvoice', path: '/dashboard/corporates/menu/spending-invoice', components: { child : SpendingInvoice }  },
             { name: 'CorporateEnrollment', path: '/dashboard/corporates/menu/enrollment', components: { child : CorporateEnrollment }  },
             { name: 'BulkCreditAllocation', path: '/dashboard/corporates/menu/bulk-credit-allocation', components: { child : BulkCreditAllocation }  },
-            { name: 'HealthPartnerAccess', path: '/dashboard/corporates/menu/health-partner-access', components: { child : HealthPartnerAccess} },
+            // { name: 'HealthPartnerAccess', path: '/dashboard/corporates/menu/health-partner-access', components: { child : HealthPartnerAccess} },
             { name: 'EclaimTypeService', path: '/dashboard/corporates/menu/eclaim-type-service', components: { child : EclaimTypeService} },
             { name: 'GcapPerVisit', path: '/dashboard/corporates/menu/gp-cap-per-visit', components: { child : GcapPerVisit} },
             { name: 'PlanRenewal', path: '/dashboard/corporates/menu/plan-renewal', components: { child : PlanRenewal},
@@ -130,7 +129,7 @@ export default new Router({
           ]
         },
         { name: 'AddCorporate', path: '/dashboard/corporates/add', component: AddCorporate },
-
+        { name: 'HealthPartnerAccess', path: '/dashboard/health-partner-access', component: HealthPartnerAccess },
 
         { name: 'Analytics', path: '/dashboard/analytics', component: Analytics },
       ]
