@@ -274,3 +274,10 @@ import Modal from "../../../views/modal/Modal.vue";
 <style lang="scss" scoped>
 	@import "./src/assets/css/corporateEmployee.scss";
 </style>
+
+<style type="text/css">
+  .in-network-input-wrapper .vDatepicker{
+    background: transparent;
+    border: none;
+  }
+</style>
