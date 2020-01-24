@@ -42,6 +42,10 @@ import Modal from "../../../views/modal/Modal.vue";
           startDate: undefined,
         },
         showShortTermSelector: false,
+        formats: {
+          input: ["DD/MM/YYYY"],
+          data: ["DD/MM/YYYY"]
+        },
       };
     },
     created(){
