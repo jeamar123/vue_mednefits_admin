@@ -35,13 +35,26 @@ export default corporateMenu;
 }
 
 /* Extra Large (xl) */
-@media (min-width: 1280px) {
+@media (max-width: 1280px) {
   /* ... */
 }
 
 /* Large (lg) */
-@media (min-width: 1024px) {
+@media (max-width: 1024px) {
   /* ... */
+  .corporate-menu-container {
+    grid-template-columns: 1fr 100%;
+
+    .left-box-wrapper {
+      position: relative;
+      left: -336px;
+    }
+
+    .right-box-wrapper {
+      position: relative;
+      left: -292px;
+    }
+  }
 }
 
 /* Medium (md) */

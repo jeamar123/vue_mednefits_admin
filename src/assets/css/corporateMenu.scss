@@ -2,7 +2,7 @@ $bg-blue: #3a85b7;
 
 $font-gray: #888;
 
-.close-btn{
+.close-btn {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -10,40 +10,41 @@ $font-gray: #888;
   /*color: #eee;*/
 }
 
-.corporate-menu-container{
-  min-height: calc( 100vh - 60px );
-  display: flex;
-  width: 100%;
+.corporate-menu-container {
+  min-height: calc(100vh - 60px);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
 
-  th{
+  th {
     border-bottom: 1px solid #d9d9d9;
   }
-  td{
+  td {
     border-bottom: 1px solid #f0f0f0;
     padding-top: 20px;
     padding-bottom: 20px;
     vertical-align: top;
   }
-  td:nth-child(4){
+  td:nth-child(4) {
     text-align: center;
   }
-  td:last-child{
+  td:last-child {
     text-align: right;
   }
-  td .btn{
+  td .btn {
     margin: 0 5px;
   }
-  input{
+  input {
     height: 40px;
     background: #f0f0f0;
     padding-left: 10px;
   }
-  .box-title{
+  .box-title {
     font-size: 18px;
     font-weight: 300;
-    font-family: 'Helvetica Medium';
+    font-family: "Helvetica Medium";
   }
-  .left-box-wrapper{
+  .left-box-wrapper {
     // flex: 1.2;
     // max-width: 300px;
     /*width: 25%;*/
@@ -57,97 +58,99 @@ $font-gray: #888;
     color: $font-gray;
     margin: 16px 8px 16px 16px;
   }
-  .corporate-details-box{
+  .corporate-details-box {
     padding: 30px 20px 10px 20px;
     text-align: left;
     background: #fdfdfd;
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
     border-radius: 2px;
 
-    img{
+    img {
       width: 100px;
       height: 100px;
       display: block;
       border-radius: 50%;
       margin: 0px auto;
-      background: #FFF;
+      background: #fff;
     }
 
-    .company-basic-details{
+    .company-basic-details {
       margin: 20px -20px;
       padding: 0 20px;
       border-bottom: 1px solid #dfdfdf;
     }
-    .info-div{
+    .info-div {
       margin-bottom: 15px;
 
-      label{
+      label {
         font-size: 14px;
         color: #222;
-        font-family: 'Roboto';
+        font-family: "Roboto";
       }
-      p{
+      p {
         font-size: 15px;
         color: #444;
       }
     }
-    p.info-title{
+    p.info-title {
       color: #222;
       margin-bottom: 15px;
-      font-family: 'Roboto';
+      font-family: "Roboto";
       font-size: 13px;
     }
-    .info-div-inline{
+    .info-div-inline {
       margin-bottom: 8px;
 
-      label{
+      label {
         font-size: 14px;
         color: #222;
         display: inline-block;
         margin-right: 10px;
-        font-family: 'Roboto';
+        font-family: "Roboto";
       }
-      p{
+      p {
         font-size: 15px;
         color: #444;
         display: inline-block;
       }
     }
 
-    .enrollment-status{
-      label, p{
+    .enrollment-status {
+      label,
+      p {
         font-size: 13px;
       }
     }
-    .company-credits{
+    .company-credits {
       border: none;
 
-      p{
+      p {
         margin: 0;
       }
-      .info-div-inline{
+      .info-div-inline {
         margin: 0;
 
-        label, p{
+        label,
+        p {
           color: #888;
-          font-family: 'Helvetica Light';
+          font-family: "Helvetica Light";
           font-size: 14px;
         }
       }
     }
-    .credit-reset{
-      p{
+    .credit-reset {
+      p {
         color: #888;
-        font-family: 'Helvetica Light';
+        font-family: "Helvetica Light";
       }
     }
   }
-  .details-menu-wrapper{
+  .details-menu-wrapper {
     margin-top: 5px;
     display: inline-block;
     width: 100%;
 
-    .menu-item{
+    .menu-item {
       display: flex;
       padding: 10px 0px 10px 20px;
       font-size: 14px;
@@ -158,17 +161,17 @@ $font-gray: #888;
       margin-bottom: 5px;
       border-radius: 4px;
       background: #fff;
-      opacity: .55;
+      opacity: 0.55;
 
       &:hover,
-      &.active{
+      &.active {
         opacity: 1;
       }
     }
-    .menu-item label{
+    .menu-item label {
       flex: 2;
     }
-    .menu-item .oi{
+    .menu-item .oi {
       flex: 0;
       vertical-align: middle;
       margin-right: 10px;
@@ -179,21 +182,21 @@ $font-gray: #888;
     .menu-item:hover label,
     .menu-item.active label,
     .menu-item:hover .oi,
-    .menu-item.active .oi{
+    .menu-item.active .oi {
       color: #444;
     }
   }
-  .right-box-wrapper{
+  .right-box-wrapper {
     // flex: 4;
     /*width: 80%;*/
     flex: 1;
     margin: 16px 16px 16px 8px;
   }
-  .corporate-info-container{
+  .corporate-info-container {
     width: 100%;
     // max-width: 800px;
 
-    .info-row{
+    .info-row {
       display: flex;
       border-bottom: 1px solid #f4f4f4;
       padding: 20px 20px 30px 20px;
@@ -201,57 +204,57 @@ $font-gray: #888;
       background: #fdfdfd;
       margin-bottom: 10px;
 
-      .info-col{
+      .info-col {
         flex: 1;
       }
-      label{
+      label {
         font-size: 14px;
         font-weight: 700;
         margin-bottom: 5px;
         display: block;
         color: $font-gray;
       }
-      .label-type{
+      .label-type {
         font-size: 18px;
         color: #444;
       }
-      p{
+      p {
         font-size: 16px;
         margin-bottom: 10px;
       }
-      .info-div-inline{
+      .info-div-inline {
         display: flex;
         margin-bottom: 5px;
 
-        label{
+        label {
           flex: 1;
         }
-        p{
+        p {
           flex: 1;
           font-size: 14px;
         }
       }
     }
   }
-  .corporate-members-container{
+  .corporate-members-container {
     width: 100%;
     padding: 10px 20px;
     background: #fff;
     height: 100%;
     position: relative;
 
-    .search-member-wrapper{
+    .search-member-wrapper {
       position: relative;
       width: 400px;
 
-      .oi{
+      .oi {
         position: absolute;
         top: 12px;
         left: 5px;
         font-size: 16px;
         color: #666;
       }
-      input{
+      input {
         padding-left: 35px;
         background: transparent;
         border-width: 0 0 1px 0;
@@ -260,45 +263,44 @@ $font-gray: #888;
         color: #666;
         border-radius: 0;
       }
-      input::placeholder{
-        opacity: .6;
+      input::placeholder {
+        opacity: 0.6;
       }
     }
   }
-  .member-list-container{
+  .member-list-container {
     // margin: 20px 0;
     // display: grid;
     // grid-template-columns: 1fr 1fr 1fr 1fr;
     // grid-column-gap: 20px;
     // grid-row-gap: 20px;
   }
-  .member-wrapper{
-
-    p{
+  .member-wrapper {
+    p {
       font-size: 13px;
       word-wrap: break-word;
     }
-    label{
+    label {
       font-size: 12px;
       font-weight: 700;
       color: $font-gray;
     }
-    .info-div{
+    .info-div {
       margin-bottom: 10px;
     }
-    .info-row{
+    .info-row {
       display: flex;
 
-      .info-col{
+      .info-col {
         /*width: 33%;*/
         flex: 1;
         padding-right: 10px;
       }
-      .flex-2{
+      .flex-2 {
         flex: 2;
       }
     }
-    .header{
+    .header {
       background: #3f93c7;
       padding: 10px 15px;
       display: flex;
@@ -306,14 +308,14 @@ $font-gray: #888;
       cursor: pointer;
       align-items: center;
 
-      label{
+      label {
         flex: 2;
         font-size: 14px;
         font-weight: 700;
         color: #f7fcff;
         cursor: pointer;
       }
-      .fa-user{
+      .fa-user {
         width: 28px;
         height: 28px;
         line-height: 25px;
@@ -323,23 +325,23 @@ $font-gray: #888;
         text-align: center;
         margin-right: 10px;
       }
-      .oi{
+      .oi {
         flex: 1;
         text-align: right;
         position: relative;
         top: 3px;
       }
     }
-    .body{
+    .body {
       background: #fdfdfd;
       padding: 10px 15px 20px 15px;
       border: 1px solid #4295cc;
       border-width: 0 1px 1px 1px;
     }
-    .btn-container{
+    .btn-container {
       margin-top: 20px;
 
-      button{
+      button {
         background: transparent;
         border: 2px solid #d5d5d5;
         font-weight: 700;
