@@ -3,7 +3,6 @@
 
 		<div class="left-box-wrapper">
 			<div class="corporate-details-box">
-				<router-link tag="a" :to="{ name: 'CorporateMemberList' }" class="close-btn"><span class="oi" data-glyph="x" aria-hidden="true"></span></router-link>
 				<img :src="'../assets/img/admin_user.png'">
 				<p class="corporate-name">
 					Allan Cheams Alzulas
@@ -116,11 +115,13 @@
 
 		<div class="right-box-wrapper">
 			<div class="employee-information-container">
+				
 				<div class="emp-tab-wrapper">
 					<div class="" @click="showEmpSelectorInfo('EmployeeInformation')" v-bind:class="{'active': $route.name == 'EmployeeInformation'}">Employee</div>
 					<div @click="showEmpSelectorInfo('DependentInformation')" v-bind:class="{'active': $route.name == 'DependentInformation'}">Dependent</div>
 					<div @click="showEmpSelectorInfo('ClaimSubmission')" v-bind:class="{'active': $route.name == 'ClaimSubmission'}">Claim Submission</div>
 					<div @click="showEmpSelectorInfo('EmployeeSettings')" v-bind:class="{'active': $route.name == 'EmployeeSettings'}">Settings</div>
+					<router-link tag="a" :to="{ name: 'CorporateMemberList' }" class="close-btn"><span class="oi" data-glyph="x" aria-hidden="true"></span></router-link>
 				</div>
 
 				<router-view name="child"></router-view>

@@ -1,14 +1,18 @@
 /* EMPLOYEE INFO*/
 .close-btn{
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 14px;
+  right: 15px;
   font-size: 10px;
 }
 .employee-menu-container{
   min-height: calc( 100vh - 60px );
-  display: flex;
-  width: 100%;
+  // display: flex;
+  // width: 100%;
+
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
 
   .left-box-wrapper{
     width: 270px;
@@ -112,9 +116,9 @@
   }
 
   .right-box-wrapper{
-    // flex: 4;
+    flex: 1;
     margin: 16px 16px 16px 8px;
-    width: 80%;
+    // width: 80%;
     background: #fff;
     border: 1px solid rgb(203, 203, 203);
   }
@@ -155,6 +159,7 @@
     .btn-add img {
       height: 18px;
       margin: 0 10px 0 0;
+      display: inline-block;
     }
 
     .btn-remove {
@@ -214,6 +219,7 @@
       font-weight: 700;
       margin: 0 5px 0 0;
       padding: 10px 0;
+      outline: none;
     }
 
     .btn-medical.active {
@@ -593,7 +599,12 @@
     }
   }
 
-  .visit-date-input-wrapper.in-network-visit .popover-container{
+  .out-network-box .network-header-container{
+    max-width: 550px;
+  }
+
+  .visit-date-input-wrapper.in-network-visit .popover-container,
+  .xs-in-network-form .popover-container{
     background: #eee;
     border: 0;
     border-radius: 2px;
@@ -658,6 +669,26 @@
       position: absolute;
       top: 9px;
       left: 10px;
+    }
+  }
+
+  .xs-in-network-form{
+    display: none;
+    flex-wrap: wrap;
+    margin-right: -25px;
+
+    .claim-form-div{
+      width: 33%;
+      padding-right: 20px;
+      margin-bottom: 30px;
+
+      label{
+        width: 100%;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        display: inline-block;
+      }
     }
   }
 
@@ -768,7 +799,7 @@
   }
 }
 .out-of-network-form-wrapper {
-  width: 60%;
+  // width: 60%;
   max-width: 550px;
 
   .next-btn-footer {
@@ -780,13 +811,15 @@
   }
 }
 .out-of-network-form {
-  box-shadow: 0px 0px 18px #bbb;
+  box-shadow: 0px 0px 6px #888;
   padding: 25px 30px;
   margin: 20px 0;
+  border: 1px solid #cbcbcb;
 
   .step-one img {
     width: 20px;
     height: 20px;
+    display: inline-block;
   }
 
   .input-group {
@@ -816,6 +849,7 @@
       right: 20px;
       color: #888;
     }
+    
   }
 
   .visit-date-input-wrapper input,
@@ -1055,6 +1089,26 @@
     padding: 5px 10px;
     border: none;
   }
+
+  .tbl-scroll-wrapper{
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      height: 10px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      border-radius: 6px;
+      background-color: #aaa;
+      border: 2px solid #ddd;
+    }
+  
+    &::-webkit-scrollbar-track {
+      /*background-color: transparent;*/
+      background-color: #ddd;
+    }
+  }
+  
 }
 .employee-details-options {
 
@@ -1446,7 +1500,29 @@
 
   /* Large (lg) */
   @media (max-width: 1024px) { 
-
+    .employee-menu-container {
+      grid-template-columns: 1fr 100%;
+  
+      .left-box-wrapper {
+        position: relative;
+        left: -292px;
+        // left: -336px;
+      }
+  
+      .right-box-wrapper {
+        position: relative;
+        left: -292px;
+  
+        .corporate-main-container {
+          .toggleResponsive-closeCorporate {
+            // grid-template-columns: 1fr;
+            .btn-menu {
+              display: unset;
+            }
+          }
+        }
+      }
+    }
   }
 
   /* Medium (md) */
@@ -1457,6 +1533,12 @@
     .xs-hide{
       display: inherit;
     }
+    .xs-show-tbl-cell{
+      display: none;
+    }
+    .xs-hide-tbl-cell{
+      display: table-cell;
+    }
   }
   @media (max-width: 768px) { 
     .xs-show{
@@ -1465,11 +1547,86 @@
     .xs-hide{
       display: none;
     }
+    .xs-show-tbl-cell{
+      display: table-cell;
+    }
+    .xs-hide-tbl-cell{
+      display: none;
+    }
+    .claim-submission-details{
+      .xs-in-network-form{
+        display: flex;
+      }
+    }
   }
 
   /* Small (sm) */
   @media (max-width: 640px) {
+    .claim-submission-details{
+      .xs-in-network-form{
+        .claim-form-div{
+          width: 50%;
+        }
+      }
 
+      .btn-network-container{
+        margin: 0 -10px;
+        display: flex;
+        
+        .btn-network{
+          margin: 0 10px;
+          flex: 1;
+        }
+      }
+    }
+    .employee-menu-container{
+      .employee-information-container{
+        .emp-information-container-details,
+        .dependent-details,
+        .claim-submission-details,
+        .settings-details {
+          padding: 20px;
+        }
+
+        .emp-tab-wrapper{
+          padding-left: 20px;
+        }
+      }
+    }
+    .out-of-network-form {
+      padding: 10px 0;
+      box-shadow: none;
+      border: none;
+
+      .input-group {
+        flex-wrap: wrap;
+        
+        .spending-type-box{
+          display: flex;
+
+          button{
+            margin: 0 5px;
+            flex: 1;
+          }
+        }
+        >label {
+          width: 100%;
+          margin-bottom: 8px;
+        }
+        >div {
+          width: 100%;
+        }
+      }
+    }
+  }
+  @media (max-width: 460px) {
+    .claim-submission-details{
+      .xs-in-network-form{
+        .claim-form-div{
+          width: 100%;
+        }
+      }
+    }
   }
 
 /* -----------------------------------------------*/

@@ -276,8 +276,18 @@ import Modal from "../../../views/modal/Modal.vue";
 </style>
 
 <style type="text/css">
-  .in-network-input-wrapper .vDatepicker{
+  .in-network-input-wrapper .vDatepicker,
+  .xs-in-network-form .vDatepicker{
     background: transparent;
-    border: none;
+    border: none !important;
+  }
+  .out-of-network-form .visit-date-input-wrapper input{
+    background-color: #fff;
+    border: 1px solid #e9e9e9;
+    border-radius: 4px;
+    color: #888;
+    height: 34px;
+    width: 100%;
+    padding: 6px 18px;
   }
 </style>
