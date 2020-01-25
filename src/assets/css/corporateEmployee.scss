@@ -1044,15 +1044,16 @@
   tr th,
   tr td {
     &:first-child {
-      padding: 10px;
+      padding: 20px 15px 10px 15px;
     }
   }
 
   button {
     background-color: rgb(63, 81, 181);
     color: #fff;
-    /*border-radius: 4px;*/
+    border-radius: 2px;
     padding: 5px 10px;
+    border: none;
   }
 }
 .employee-details-options {
@@ -1449,8 +1450,21 @@
   }
 
   /* Medium (md) */
+  @media (min-width: 769px) { 
+    .xs-show{
+      display: none;
+    }
+    .xs-hide{
+      display: inherit;
+    }
+  }
   @media (max-width: 768px) { 
-
+    .xs-show{
+      display: inherit;
+    }
+    .xs-hide{
+      display: none;
+    }
   }
 
   /* Small (sm) */

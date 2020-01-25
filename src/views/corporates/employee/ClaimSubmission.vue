@@ -16,17 +16,23 @@
 				<table>
 					<thead>
 						<tr>
+							<th class="xs-show">Options</th>
 							<th>ID</th>
 							<th>Provider</th>
 							<th>Service</th>
 							<th>Amount</th>
 							<th>Spending type</th>
 							<th>Status</th>
-							<th>Options</th>
+							<th class="xs-hide">Options</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
+							<td class="xs-show">
+								<span>
+									<button @click="editInNetworkOpt()">Edit</button>
+								</span>
+							</td>
 							<td>
 								<span>MNF003978</span>
 							</td>
@@ -45,7 +51,7 @@
 							<td>
 								<span>Pending</span>
 							</td>
-							<td>
+							<td class="xs-hide">
 								<span>
 									<button @click="editInNetworkOpt()">Edit</button>
 								</span>
