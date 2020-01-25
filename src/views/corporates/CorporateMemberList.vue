@@ -1,21 +1,21 @@
 <template>
 	<div class="corporate-members-container">
-		<div class="search-member-wrapper">
+		<div class="search-member-wrapper mb-10">
 			<span class="oi" data-glyph="magnifying-glass" aria-hidden="true"></span>
 			<div class="form-div">
 				<input type="text" placeholder="Search employee" />
 			</div>
 		</div>
 
-		<div class="member-list-container">
-			<div class="member-wrapper"
+		<div class="member-list-container flex flex-wrap">
+			<div class="member-wrapper w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/4 my-3 mx-3" v-for="x in 4"
 				ng-repeat="list in corprorate_details.corporate_members | orderBy: list.member.created_at">
 				<template ng-if="list.emp_main_details">
 					<div class="header">
 						<h3 ng-click="showHideEmployeeDetail(list, $index)">
 							<span ng-bind="list.member.Name">
 								Jazer
-								Zayas
+								Zayas {{x}}
 							</span>
 						</h3>
 					</div>
@@ -24,7 +24,7 @@
 						<!-- start div info-div -->
 						<div class="info-div">
 							<div class="info-details" ng-if="list.member.Email">
-								<label>Email Address:</label>
+								<label class="block">Email Address:</label>
 								<span class="info-bind" ng-if="list.member.Email" ng-bind="list.member.Email">jazer.zayas10@gmail.com</span>
 							</div>
 							<div class="info-details" ng-if="!list.member.Email">
