@@ -222,8 +222,12 @@ $font-gray: #888;
     color: $font-gray;
   }
   .info-div {
-    margin-bottom: 10px;
     font-size: 12px;
+
+    .info-details {
+      margin: 10px 0;
+      color: #555;
+    }
   }
   .info-row {
     display: flex;
@@ -270,11 +274,25 @@ $font-gray: #888;
   .body {
     padding: 10px 15px 20px 15px;
 
+    .btn-transfer-company {
+      width: 100%;
+      border: 2px solid #777;
+      color: #777;
+      font-weight: 700;
+      background: transparent;
+      padding: 10px;
+      border-radius: 4px;
+      margin-top: 50px;
+      font-size: 14px;
+    }
+
     .info-details {
 
-      .info-bind{
-        font-size: 16px;
-        padding-left: 5px;
+      label {
+        @apply pr-2;
+      }
+      .info-bind {
+        @apply text-lg;
       }
     }
   }
