@@ -1,7 +1,7 @@
 <template>
   <div class="corporate-menu-container">
     <div class="left-box-wrapper transition-easeInOutCubic-400ms" :class="[sideBar.trigger ? sideBar.sideStyle : '']">
-      <div class="corporate-details-box">
+      <div class="corporate-details-box h-full">
         <a
           href="#"
           class="close-btn summary"
@@ -156,8 +156,8 @@
     </div>
 
     <div class="right-box-wrapper transition-easeInOutCubic-400ms" :class="[sideBar.trigger ? sideBar.sideStyle : '']">
-      <div class="corporate-main-container">
-        <div class="toggleResponsive-closeCorporate">
+      <div class="corporate-main-container sm:px-2">
+        <div class="toggleResponsive-closeCorporate sm:px-3">
           <div class="col-1">
             <a href="#"
               :class="[sideBar.trigger ? 'hide' : '']"
