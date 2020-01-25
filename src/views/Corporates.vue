@@ -32,7 +32,7 @@
 			<div class="search-container">
         <form class="search-input-wrapper">
           <i class="fa fa-search"></i>
-          <input type="text" placeholder="Search">
+          <input type="text" placeholder="Search" v-model="search_text">
         </form>
         <div>
           <button v-on:click="addFilterModal()" ><i class="fa fa-plus"></i>Add filter</button>

@@ -18,6 +18,7 @@
         isExportModalShow : false,
 				user_id : null,
 				isSearchShow : false,
+				search_text : '',
 				allCorporatesSelected : false,
 				corporate_id_arr : [],
 				corporate_list_arr : [ 
