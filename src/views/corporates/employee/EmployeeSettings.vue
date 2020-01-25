@@ -110,6 +110,27 @@
 				</div>
 			</div>
 		</div>
+
+		<Modal v-if="showManageCapPerVisit" class="employee-details-options manage-cap-modal-wrapper">
+  		<div slot="header">
+  			<h1>Manage Cap Per Visit</h1>
+  		</div>
+  		<div slot="body">
+  			<div>
+  				<label>GP cap per visit</label>
+  				<div class="gp-cap-input-wrapper">
+  					<input type="number">
+  					<div class="icon-right">
+  						<span>SGD</span>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  		<div slot="footer">
+  			<button @click="selectedEmpDetailsSettingsClicked(2, 'cancel')" class="btn-close">CANCEL</button>
+  			<button class="btn-primary settings-btn-submit">SUBMIT</button>
+  		</div>
+  	</Modal>
 	</div>
 </template>
 
