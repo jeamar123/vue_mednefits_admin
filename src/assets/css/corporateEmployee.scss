@@ -972,6 +972,7 @@
 
   img {
     width: 55px;
+    display:inline-block;
   }
 
   .drop-box-content {
@@ -1593,10 +1594,14 @@
         }
       }
     }
+    .out-of-network-form-wrapper{
+      max-width: unset;
+      padding-top: 20px;
+    }
     .out-of-network-form {
-      padding: 10px 0;
+      padding: 20px 0;
       box-shadow: none;
-      border: none;
+      border-width: 1px 0 0 0;
 
       .input-group {
         flex-wrap: wrap;

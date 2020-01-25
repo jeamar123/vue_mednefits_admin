@@ -556,6 +556,52 @@
 				</div>
 			</div>
 		</div>		
+
+
+
+
+		<div>
+			<Modal v-if="inNetworkClaimSummaryModal" class="employee-details-options in-network-claim-container">
+				<div slot="header">
+					<h1>In Network Claim Summary</h1>
+				</div>
+				<div slot="body">
+					<div class="network-summary-row">
+						<label>Health Partner</label>
+						<span>Malaysia Ringgit Mednefits Test Clinic</span>
+					</div>
+					<div class="network-summary-row">
+						<label>Services</label>
+						<span>Medicine & Treatment</span>
+					</div>
+					<div class="network-summary-row">
+						<label>Date of Visit</label>
+						<span>28 October, 2019</span>
+					</div>
+					<div class="network-summary-row">
+						<label>Time of Visit</label>
+						<span>04 : 56 AM</span>
+					</div>
+					<div class="network-summary-row">
+						<label>Payment Type</label>
+						<span>Credit</span>
+					</div>
+					<div class="network-summary-row">
+						<label>Amount</label>
+						<span><span>SGD </span><span>11</span></span>
+					</div>
+				</div>
+				<div slot="footer">
+					<label>
+	          <input type="checkbox"> Send Email Receipt
+	        </label>
+
+					<button @click="inNetworkSubmit()" class="btn-close">CANCEL</button>
+	  			<button class="btn-primary settings-btn-submit">CONFIRM</button>
+				</div>
+			</Modal>
+
+		</div>
 	</div>
 </template>
 

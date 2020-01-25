@@ -19,7 +19,7 @@ import Modal from "../../../views/modal/Modal.vue";
         removeBackBtn: false,
         editReplaceDependentInfo: false,
         withdrawEmployeeModal: false,
-        inNetworkClaimSummaryModal: false,
+        inNetworkClaimSummaryModal: true,
         editDependentInfo: false,
         showInNetwork: false,
         showOutNetwork: false,

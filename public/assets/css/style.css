@@ -30,6 +30,7 @@ html{
 
 button{
   font-family: 'Helvetica Light';
+  outline: none !important;
 }
 button:hover {
   transition: all .3s ease-in-out;
