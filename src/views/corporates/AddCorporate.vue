@@ -68,10 +68,7 @@
 							<label>Job Title</label>
 							<div class="selector-container">
 								<select v-model="create_company.business_job_title">
-									<option>Accounting,Audit,Finance</option>
-									<option>Education</option>
-									<option>Engineering</option>
-									<option>Healthcare</option>
+									<option v-for="jobs of job_title">{{ jobs }}</option>
 								</select>
 								<img :src="'../assets/img/down-arrow.svg'">
 							</div>
@@ -218,10 +215,7 @@
 								<label>Job Title</label>
 								<div class="selector-container">
 									<select v-model="list.job_title">
-										<option></option>
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
+										<option v-for="jobs of job_title">{{ jobs }}</option>
 									</select>
 									<img :src="'../assets/img/down-arrow.svg'">
 								</div>
@@ -268,75 +262,6 @@
 					</div>
 				</div>
 				<div class="white-space-20"></div>
-
-				<div v-if="false">
-					<div class="form-row">
-						<div class="form-col mr-20">
-							<div class="form-div">
-								<label>First Name</label>
-								<input type="text">
-							</div>
-						</div>
-						<div class="form-col">
-							<div class="form-div">
-								<label>Last Name</label>
-								<input type="text">
-							</div>
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-col mr-20">
-							<div class="form-div">
-								<label>Job Title</label>
-								<select>
-									<option></option>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-								</select>
-							</div>
-						</div>
-						<div class="form-col mr-20">
-							<div class="form-div">
-								<label>Email Address</label>
-								<input type="text">
-							</div>
-						</div>
-						<div class="form-col">
-							<div class="form-div">
-								<label>Phone Number</label>
-								<input type="text">
-							</div>
-						</div>
-					</div>
-					<div class="white-space-20"></div>
-					<div class="form-row">
-						<div class="form-div">
-							<label class="input-checkbox">
-							  <input type="checkbox">
-							  <span class="input-text">Send Email for Communication related</span>
-							  <span class="input-checkmark"></span>
-							</label>
-						</div>
-						<div class="form-div">
-							<label class="input-checkbox">
-							  <input type="checkbox">
-							  <span class="input-text">Send Email for Billing related</span>
-							  <span class="input-checkmark"></span>
-							</label>
-						</div>
-					</div>
-
-					<div class="btn-option-row">
-						<div class="btn-container">
-							<button class="btn btn-primary btn-add-contact">ADD MORE CONTACT</button>
-						</div>
-						<div class="rm-container">
-							<span class="oi" data-glyph="minus" aria-hidden="true"></span>
-						</div>
-					</div>
-					<div class="white-space-20"></div>
-				</div>
 			</div>
 
 			<div class="white-box">

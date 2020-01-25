@@ -56,6 +56,38 @@
         cc_email_err: false,
         cc_email_repeat: false,
         add_cc_create_data : '',
+        job_title : [
+          'Accounting, Audit, Finance',
+          'Administration Support',
+          'Arts/Cultural/Heritage',
+          'Building and Estate Management',
+          'Conciliation/Mediation',
+          'Corporate Strategy/Top Management',
+          'Customer Service',
+          'Economics/Statistics',
+          'Education',
+          'Engineering',
+          'Healthcare',
+          'Human Resources',
+          'InfoComm, Technology, New Media Communications',
+          'International Relations',
+          'Landscape/Horticulture',
+          'Law/Legal Services',
+          'Logistics/Supply Chain',
+          'Marketing/Business Development',
+          'Orgnisation Development',
+          'Policy Formulation',
+          'Public Relations/Corporate Communications/Psychology',
+          'Research and Analysis',
+          'Sales/Telesales/Telemarketing',
+          'Self-Employed',
+          'Sciences (e.g. life sciences, bio-technology etc.)',
+          'Social and Community Development',
+          'Statistics',
+          'Training and Development',
+          'Translators/Interpreters',
+          'Others',
+        ],
       };
     },
     created(){
@@ -324,7 +356,7 @@
         }
       },
       createCorporateDashboard( create_data ) {
-        console.log(create_data);
+        // console.log(create_data);
         if( this.checkAddCorpForm( create_data ) == false ){
           return false;
         }
@@ -393,17 +425,36 @@
           this.$swal( "Error!", "Please input your Billing Phone Number", "error" );
           return false;
         }
-        this.create_company.company_contacts.forEach(( value ) =>{ 
-          console.log(value);
-          if ( !value.first_name ) {
-            console.log('wala sulod')
+        if( data.add_contacts ){
+          if( this.create_company.company_contacts.length > 0 ){
+            for( let value of this.create_company.company_contacts ){
+              console.log( value );
+              if ( !value.first_name ) {
+                this.$swal( "Error!", "Please input your Contact First Name", "error" );
+                return false;
+              }
+              if ( !value.last_name ) {
+                this.$swal( "Error!", "Please input your Contact Last Name", "error" );
+                return false;
+              }
+              if ( !value.job_title ) {
+                this.$swal( "Error!", "Please select your Contact Job Title", "error" );
+                return false;
+              }
+              if ( !value.email ) {
+                this.$swal( "Error!", "Please input your Contact Email", "error" );
+                return false;
+              }
+              if ( !value.phone ) {
+                this.$swal( "Error!", "Please input your Contact Phone Number", "error" );
+                return false;
+              }
+            }
+          }else{
+            this.$swal( "Error!", "Company Contact First Name is required.", "error" );
+            return false;
           }
-          // if( !value.first_name ){
-          //   this.$swal( "Error!", "Please input your Contact First Name", "error" );
-          //   console.log('error first_name');
-          //   return false;
-          // }
-        });
+        }
         if( !data.employee_plan_start ){
           this.$swal( "Error!", "Please select Plan Start date", "error" );
           return false;
