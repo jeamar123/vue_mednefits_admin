@@ -103,6 +103,10 @@
         padding: 0 15px 0 0;
         border-right: 2px solid #e9e9e9;
         width: 50%;
+
+        .column-check-box{
+          margin-bottom: 12px;;
+        }
       }
 
       .selected-columns-container {
@@ -141,7 +145,7 @@
       }
 
       .checkbox-mark {
-        top: 2px;
+        top: 3px !important;
       }
     }
 
@@ -157,6 +161,7 @@
       display: flex;
       align-items: center;
       padding: 0 10px;
+      margin-bottom: 10px;
 
       span {
         flex: 1;
