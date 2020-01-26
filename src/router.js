@@ -40,6 +40,7 @@ import CorporateEmployeeMenu from './views/corporates/employee/CorporateEmployee
 import EmployeeInformation from './views/corporates/employee/EmployeeInformation.vue'
 import DependentInformation from './views/corporates/employee/DependentInformation.vue'
 import ClaimSubmission from './views/corporates/employee/ClaimSubmission.vue'
+import Entitlement from './views/corporates/employee/Entitlement.vue'
 import EmployeeSettings from './views/corporates/employee/EmployeeSettings.vue'
 
 import HealthPartnerAccess from './views/corporates/HealthPartnerAccess.vue'
@@ -125,6 +126,7 @@ export default new Router({
             { name: 'EmployeeInformation', path: '/dashboard/corporates/employee/info', components: { child : EmployeeInformation }  },
             { name: 'DependentInformation', path: '/dashboard/corporates/employee/dependent', components: { child : DependentInformation }  },
             { name: 'ClaimSubmission', path: '/dashboard/corporates/employee/claim_submission', components: { child : ClaimSubmission }  },
+            { name: 'Entitlement', path: '/dashboard/corporates/employee/entitlement', components: { child : Entitlement }  },
             { name: 'EmployeeSettings', path: '/dashboard/corporates/employee/settings', components: { child : EmployeeSettings }  },
           ]
         },

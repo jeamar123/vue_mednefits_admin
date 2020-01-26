@@ -120,6 +120,9 @@
 					<div class="" @click="showEmpSelectorInfo('EmployeeInformation')" v-bind:class="{'active': $route.name == 'EmployeeInformation'}">Employee</div>
 					<div @click="showEmpSelectorInfo('DependentInformation')" v-bind:class="{'active': $route.name == 'DependentInformation'}">Dependent</div>
 					<div @click="showEmpSelectorInfo('ClaimSubmission')" v-bind:class="{'active': $route.name == 'ClaimSubmission'}">Claim Submission</div>
+					<div @click="showEmpSelectorInfo('Entitlement')" v-bind:class="{'active': $route.name == 'Entitlement'}">
+						Entitlement
+					</div>
 					<div @click="showEmpSelectorInfo('EmployeeSettings')" v-bind:class="{'active': $route.name == 'EmployeeSettings'}">Settings</div>
 					<router-link tag="a" :to="{ name: 'CorporateMemberList' }" class="close-btn"><span class="oi" data-glyph="x" aria-hidden="true"></span></router-link>
 				</div>
