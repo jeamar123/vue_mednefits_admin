@@ -1,21 +1,24 @@
 <template>
+	<!-- corporate-members-container -->
 	<div class="corporate-members-container pb-24">
+		<!-- Search-member Start -->
 		<div class="search-member-wrapper mb-10">
 			<span class="oi" data-glyph="magnifying-glass" aria-hidden="true"></span>
 			<div class="form-div">
 				<input type="text" placeholder="Search employee" />
 			</div>
 		</div>
+		<!-- Search-member End -->
 
 		<div class="member-list-container flex flex-wrap">
-			<div class="member-wrapper w-1/4 xl:w-1/3 lg:w-1/3 md:w-1/2 sm:w-full my-3 mx-3" v-for="x in 4"
+			<div class="member-wrapper w-1/4 xl:w-1/3 lg:w-1/3 md:w-1/2 sm:w-full my-3 mx-3" v-for="list in 4"
 				ng-repeat="list in corprorate_details.corporate_members | orderBy: list.member.created_at">
 				<template ng-if="list.emp_main_details">
 					<div class="header">
 						<h3 ng-click="showHideEmployeeDetail(list, $index)">
 							<span ng-bind="list.member.Name">
 								Jazer
-								Zayas {{x}}
+								Zayas {{list}}
 							</span>
 						</h3>
 					</div>
@@ -102,7 +105,7 @@
 							<span class="text-red-600 text-base">Account Deleted/Deactivated</span>
 						</div>
 						<button ng-if="!list.deletion && !list.schedule && list.member.Active == 1"
-							class="btn btn-transfer-company " ng-click="showTransferModal(list, $event)">Transfer Account</button>
+							class="btn btn-transfer-company " @click="toggleTransferAccountModal(list)">Transfer Account</button>
 
 						<template ng-if="list.emp_padd_reset_wrapper">
 							<div class="emp_padd_reset_wrapper text-center w-full">
@@ -130,15 +133,18 @@
 								<div class="white-space-50"></div>
 								<div class="input-container-padding py-1">
 									<label class="block pr-2">Email</label>
-									<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2" type="text" ng-model="list.member.Email" disabled />
+									<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
+										type="text" ng-model="list.member.Email" disabled />
 								</div>
 								<div class="input-container-padding py-1">
 									<label>Password <span class="text-red-700">*</span></label>
-									<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2" type="password" ng-model="list.password" required />
+									<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
+										type="password" ng-model="list.password" required />
 								</div>
 								<div class="input-container-padding py-1">
 									<label>Re-Type Password <span class="text-red-700">*</span></label>
-									<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2" type="text" ng-model="list.password2" required />
+									<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
+										type="text" ng-model="list.password2" required />
 								</div>
 
 								<button class="btn-primary re-send-btn w-full my-5"
@@ -154,11 +160,15 @@
 								<div class="white-space-50"></div>
 								<div class="input-container-padding py-1">
 									<label>Pin <span class="text-red-700">*</span></label>
-									<input type="text" ng-model="list.pin" class="number-only bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2" required />
+									<input type="text" ng-model="list.pin"
+										class="number-only bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
+										required />
 								</div>
 								<div class="input-container-padding py-1">
 									<label>Re-Type Pin <span class="text-red-700">*</span></label>
-									<input type="text" ng-model="list.re_pin" class="number-only bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2" required />
+									<input type="text" ng-model="list.re_pin"
+										class="number-only bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
+										required />
 								</div>
 
 								<button class="btn-primary re-send-btn w-full my-5" ng-click="updatePinEmp($event,list)">Update</button>
@@ -170,6 +180,7 @@
 			</div>
 		</div>
 
+		<!-- Pagination Start -->
 		<div class="member-list-pagination">
 			<div class="global-pagination">
 				<div class="prev-pagination">
@@ -189,7 +200,63 @@
 				</div>
 			</div>
 		</div>
+		<!-- Pagination End -->
+
+		<!-- Modal Start -->
+		<Modal v-if="showTransferAccountModal" class="transfer-account">
+			<div slot="header" class="h-20 flex items-center px-6 text-2xl">
+				<h1>Transfer Account</h1>
+			</div>
+			<div slot="body" class="p-6 pb-12 text-xl">
+				<div class="trans-comp-container">
+					<div v-if="true" ng-if="!showTransferCompanySummary">
+
+						<div>User: <span class="text-gray-600" ng-bind="selected_user_data.member.Name">Jazer</span></div>
+						<div>ID: <span class="text-gray-600" ng-bind="selected_user_data.member.UserID">0010</span></div>
+						<div>Company: <span class="text-gray-600" ng-bind="corprorate_details.corporate.company_name">Mednefits Tech.</span>
+						</div>
+
+						<div class="pt-8 pb-3">Transfer Date/Start Date</div>
+						<input type="date">
+						<!-- <md-datepicker ng-model="selected_user_data.transfer_start_date" md-hide-icons="calendar"></md-datepicker> -->
+
+						<div class="pb-3 pt-4">Transfer to:</div>
+
+						<div class="transfer-to-wrapper">
+							<input class="border border-gray-400 w-full h-10 rounded-sm" type="text" ng-model="selected_user_data.company" ng-change="companyTransferTyping( selected_user_data.company )">
+							<div v-if="false" ng-if="showCompanyDrop" class="company-list-drop">
+								<div class="company" v-for="list in 3" :key="list.index" ng-repeat="list in agentsCompany | filter : selected_user_data.company"
+									ng-click="setCustomerId( list )">
+									<span ng-bind="list.company_name">Mednefits Tech. {{list}}</span>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div v-if="true" ng-if="showTransferCompanySummary">
+						<div>Summary</div>
+						<div>Name: <span class="text-gray-600" ng-bind="selected_user_data.member.Name">Allan Cheams</span></div>
+						<div>ID: <span class="text-gray-600" ng-bind="selected_user_data.member.UserID">123</span></div>
+						<div>Current Company: <span class="text-gray-600" ng-bind="corprorate_details.corporate.company_name">StackGecko</span></div>
+						<div>Transfer date/Start date: <span class="text-gray-600" ng-bind="selected_user_data.transfer_start_date">Allan Cheams</span></div>
+						<div>Transfer to: <span class="text-gray-600" ng-bind="selected_user_data.company">Allan Cheams</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div slot="footer" class="flex justify-end items-center px-3 pb-3">
+					<h3 ng-bind="text_status.error">Status Error</h3>
+					<button class="btn-primary bg-white text-black mx-1" @click="toggleTransferAccountModal()">Cancel</button>
+					<button ng-if="!showTransferCompanySummary" class="btn-primary mx-1" aria-label="s" ng-click="toggleTransferCompSummary( )"><span>Proceed</span></button>
+					<button ng-if="showTransferCompanySummary" class="btn-primary mx-1" ng-click="toggleTransferCompSummary()">Back</button>
+					<button ng-if="showTransferCompanySummary" class="btn-primary mx-1"  aria-label="s" ng-click="updateTransferCompanyBtn( selected_user_data )"><span>Submit</span></button>
+			</div>
+		</Modal>
+		<!-- Modal End -->
 	</div>
+	<!-- End corporate-members-container -->
+
 </template>
 
 <script>
