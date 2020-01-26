@@ -1,189 +1,184 @@
+// ------ CORPORATE LIST ADD FILTER ------ //
+.add-filter-wrapper {
+  .modal-container {
+    width: 270px;
+    padding: 30px 20px;
+    font-size: 16px;
+    margin: 150px auto 0;
+  }
+
+  .modal-header > div {
+    display: flex;
+    align-items: center;
+    margin: 0 0 20px;
+
+    h3 {
+      flex: 1;
+    }
+  }
+
+  .cancel-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .calendar-icon {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  input {
+    background-color: #eff2f4;
+    border-radius: 2px;
+    border: 1px solid #e0e0e0;
+    color: #949494;
+    height: 38px;
+    width: 100%;
+    padding: 0 0 0 35px;
+    font-size: 14px;
+  }
+
+  .expiry-input-wrapper {
+    margin: 0 0 20px;
+
+    .date-container {
+      position: relative;
+      margin: 10px 0 0;
+    }
+  }
+
+  .modal-footer {
+    margin: 40px 0 0;
+  }
+}
+// --------------------------------------- //
 
 // ------ CORPORATE LIST ADD FILTER ------ //
-  .add-filter-wrapper {
+.export-modal-wrapper {
+  font-size: 16px;
 
-    .modal-container {
-      width: 270px;
-      padding: 30px 20px;
-      font-size: 16px;
-      margin: 150px auto 0;
+  .modal-container {
+    border-radius: 0;
+    width: 700px;
+  }
+
+  .modal-header > div {
+    background-color: #4657cc;
+    /*background-color: rgb(63,81,181);*/
+    color: #fff;
+    display: flex;
+    align-items: center;
+    height: 64px;
+    padding: 0 16px;
+
+    h3 {
+      flex: 1;
     }
 
-    .modal-header >div {
-      display: flex;
-      align-items: center;
-      margin: 0 0 20px;
+    img {
+      width: 15px;
+      height: 15px;
+    }
+  }
 
-      h3 {
-        flex: 1;
+  .modal-body {
+    padding: 25px 25px 40px;
+
+    .dl-corp-content-wrapper {
+      display: flex;
+      min-height: 600px;
+    }
+
+    .properties-container {
+      padding: 0 15px 0 0;
+      border-right: 2px solid #e9e9e9;
+      width: 50%;
+
+      .column-check-box{
+        margin-bottom: 12px;;
       }
     }
 
-    .cancel-icon {
-      width: 14px;
-      height: 14px;
+    .selected-columns-container {
+      padding: 0 0 0 15px;
+      width: 50%;
     }
+  }
 
-    .calendar-icon {
-      width: 16px;
-      height: 16px;
-      position: absolute;
-      top: 10px;
-      left: 10px;
-    }
-
-    button {
-      width: 100%;
-    }
+  .properties-search-container {
+    position: relative;
+    border: 1px solid #cecece;
+    padding: 6px 8px;
+    border-radius: 3px;
+    display: flex;
+    background: #fbfbfb;
 
     input {
-      background-color: #EFF2F4;
-      border-radius: 2px;
-      border: 1px solid #E0E0E0;
-      color: #949494;
-      height: 38px;
-      width: 100%;
+      background-color: transparent;
+      border: 0;
+      flex: 1;
+      font-weight: 700;
+    }
+
+    i {
+      color: #999;
+    }
+  }
+
+  .properties-title {
+    margin: 25px 0 18px 0;
+  }
+
+  .corporate-list-checkbox-container .checkbox-input {
+    .checkbox-label {
       padding: 0 0 0 35px;
-      font-size: 14px;
     }
 
-    .expiry-input-wrapper {
-      margin: 0 0 20px;
-
-      .date-container {
-        position: relative;
-        margin: 10px 0 0;
-      }
-    }
-
-    .modal-footer {
-      margin: 40px 0 0;
+    .checkbox-mark {
+      top: 3px !important;
     }
   }
-// --------------------------------------- //
 
+  .data-column-header-title {
+    margin: 15px 0;
+  }
 
-// ------ CORPORATE LIST ADD FILTER ------ //
-  .export-modal-wrapper {
-    font-size: 16px;
+  .selected-col-box-container {
+    border: 1px solid #4154af;
+    width: 220px;
+    height: 30px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    margin-bottom: 10px;
 
-    .modal-container {
-      border-radius: 0;
-      width: 700px;
+    span {
+      flex: 1;
     }
 
-    .modal-header >div {
-      background-color: #4657cc;
-      /*background-color: rgb(63,81,181);*/
-      color: #fff;
-      display: flex;
-      align-items: center;
-      height: 64px;
-      padding: 0 16px;
-
-      h3 {
-        flex: 1;
-      }
-
-      img {
-        width: 15px;
-        height: 15px;
-      }
-    }
-
-    .modal-body {
-      padding: 25px 25px 40px;
-
-      .dl-corp-content-wrapper {
-        display: flex;
-        min-height: 600px;
-      }
-
-      .properties-container {
-        padding: 0 15px 0 0;
-        border-right: 2px solid #e9e9e9;
-        width: 50%;
-
-        .column-check-box{
-          margin-bottom: 12px;;
-        }
-      }
-
-      .selected-columns-container {
-        padding: 0 0 0 15px;
-        width: 50%;
-      }
-    }
-
-    .properties-search-container {
-      position: relative;
-      border: 1px solid #cecece;
-      padding: 6px 8px;
-      border-radius: 3px;
-      display: flex;
-      background: #fbfbfb;
-
-      input {
-        background-color: transparent;
-        border: 0;
-        flex: 1;
-        font-weight: 700;
-      }
-
-      i {
-        color: #999;
-      }
-    }
-
-    .properties-title {
-      margin: 25px 0 18px 0;
-    }
-
-    .corporate-list-checkbox-container .checkbox-input {
-      .checkbox-label {
-        padding: 0 0 0 35px;
-      }
-
-      .checkbox-mark {
-        top: 3px !important;
-      }
-    }
-
-    .data-column-header-title {
-      margin: 15px 0;
-    }
-
-    .selected-col-box-container {
-      border: 1px solid #4154AF;
-      width: 220px;
-      height: 30px;
-      border-radius: 3px;
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-      margin-bottom: 10px;
-
-      span {
-        flex: 1;
-      }
-
-      i {
-        cursor: pointer;
-        color: #999;
-      }
-    }
-
-    .modal-footer {
-      padding: 25px;
+    i {
+      cursor: pointer;
+      color: #999;
     }
   }
-// --------------------------------------- //
 
+  .modal-footer {
+    padding: 25px;
+  }
+}
+// --------------------------------------- //
 
 // ------ EMPLOYEE INFO SETTINGS MANAGE CAP PER VISIT MODAL ------ //
 
 .manage-cap-modal-wrapper {
-
   .modal-wrapper {
     display: flex;
     align-items: center;
@@ -229,7 +224,6 @@
   .modal-footer {
     text-align: right;
   }
-
 }
 
 @media (max-width: 450px) {
@@ -241,10 +235,42 @@
 
 // -------------------------------------------------------------- //
 
+// ------MEMBER LIST MODAL ------ //
+.transfer-account {
+  .modal-container {
+    width: 450px;
+    font-size: 16px;
+    margin: 70px auto;
+  }
+  .modal-header {
+    background: rgb(63, 81, 181);
+    color: #fff;
+  }
 
+  .modal-body {
 
-
-
-
-
-
+    .transfer-to-wrapper{
+      position: relative;
+      .company-list-drop {
+        z-index: 99;
+        position: absolute;
+        top: 40px;
+        left: 0;
+        background: #eee;
+        max-height: 146px;
+        width: 100%;
+        overflow-y: auto;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  
+        .company {
+          border-bottom: 1px solid #e9e9e9;
+          cursor: pointer;
+          display: block;
+          padding: 5px 10px;
+        }
+      }
+    }
+    
+  }
+}
+// ------------------------------ //
