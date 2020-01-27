@@ -36,7 +36,7 @@
 <style type="text/css">
   @media( max-width: 400px ) {
     .entitlement-date-picker  .popover-origin .popover-content-wrapper .popover-content {
-      left: -70px;
+      left: -63px;
     }
 
     .entitlement-date-picker  .popover-origin .popover-content-wrapper .popover-content.align-left:after {
