@@ -89,14 +89,14 @@
 					</div>
 					<i @click="showEditEmp()" class="fa fa-times"></i>
 				</div>
-				<div class="edit-emp-details-body">
-					<form>
-						<div class="edit-dependent-row">
-							<div class="employee-details-input-wrapper">
+				<div class="edit-emp-details-body sm:flex sm:flex-wrap">
+					<form class="md:w-full sm:pr-0">
+						<div class="edit-dependent-row flex md:flex-wrap">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Full Name</label>
 								<input type="text">
 							</div>
-							<div class="employee-details-input-wrapper">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Mobile Number</label>
 								<div class="country-code-mobile-container">
 									<div class="country-code-container">
@@ -108,12 +108,12 @@
 							</div>
 						</div>
 
-						<div class="edit-dependent-row">
-							<div class="employee-details-input-wrapper">
+						<div class="edit-dependent-row flex md:flex-wrap">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Member ID</label>
 								<input type="number">
 							</div>
-							<div class="employee-details-input-wrapper">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Job Title</label>
 								<div class="date-container">
 									<input type="text">
@@ -121,8 +121,8 @@
 							</div>
 						</div>
 
-						<div class="edit-dependent-row">
-							<div class="employee-details-input-wrapper">
+						<div class="edit-dependent-row flex md:flex-wrap">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Date of Birth</label>
 								<div class="date-container">
 									<v-date-picker
@@ -134,36 +134,36 @@
 		              <i class="fa fa-caret-down"></i>
 	            	</div>
 							</div>
-							<div class="employee-details-input-wrapper">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Bank Account Number</label>
 								<input type="number">
 							</div>
 						</div>
 
-						<div class="edit-dependent-row">
-							<div class="employee-details-input-wrapper">
+						<div class="edit-dependent-row flex md:flex-wrap">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Postal Code</label>
 								<input type="number">
 							</div>
-							<div class="employee-details-input-wrapper">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Bank Code</label>
 								<input type="number">
 							</div>
 						</div>
 
-						<div class="edit-dependent-row">
-							<div class="employee-details-input-wrapper">
+						<div class="edit-dependent-row flex md:flex-wrap">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Work Email</label>
 								<input type="text">
 							</div>
-							<div class="employee-details-input-wrapper">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Bank BRH</label>
 								<input type="number">
 							</div>
 						</div>
 
 					</form>
-					<div class="package-plan-container">
+					<div class="package-plan-container md:w-1/2 sm:w-full">
 						<h4>Package Plan</h4>
 						<div>
 							<button class="btn-primary">Bundle Pro (Health Wallet)</button>
