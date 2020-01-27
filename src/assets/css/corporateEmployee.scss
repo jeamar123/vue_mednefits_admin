@@ -1254,15 +1254,20 @@
   .add-deduct-btn-container {
     button {
       background-color: #fff;
-      color: #076086;
+      color: #4154AF;
       width: 100px;
       margin: 0 10px 0 0;
     }
 
     button.active {
-      background-color: #076086;
+      background-color: #4154AF;
       color: #fff;
     }
+  }
+
+  .credit-btn-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 
   .credit-item-detail {
@@ -1300,11 +1305,21 @@
       margin: 0 0 30px;
     }
 
-    .start-date-input {
-      border: 0;
+    .date-container {
+      display: flex;
+      align-items: center;
+
+      img {
+        height: 20px;
+        width: 20px;
+        margin: 0 10px 0 0;
+      }
+    }
+
+    .start-date-input-wrapper {
+      display: flex;
       border-bottom: 1px solid #cbcbcb;
       padding: 5px 0;
-      font-weight: 700;
     }
   }
 }
@@ -1346,7 +1361,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: #076086;
+    background-color: rgba(63,81,181,0.87);
   }
 }
 
@@ -1536,6 +1551,16 @@
 
   }
 
+  @media (max-width: 1285px) {
+    .credits-plans-wrapper .credit-btn-wrapper {
+      grid-template-columns: 1fr;
+
+      .add-deduct-btn-container {
+        margin: 10px 0 0;
+      }
+    }
+  }
+
   /* Large (lg) */
   @media (max-width: 1023px) { 
     .employee-menu-container {
@@ -1559,6 +1584,16 @@
             }
           }
         }
+      }
+    }
+
+    .credits-plans-wrapper {
+      .credit-btn-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .credit-btn-wrapper .add-deduct-btn-container {
+        margin: 10px 0 0;
       }
     }
   }
@@ -1693,6 +1728,26 @@
     }
   }
 
+
+  @media (max-width: 575px) {
+    .credits-plans-wrapper {
+      position: relative;
+
+      .fa-times {
+        position: absolute;
+        top: 8px;
+        right: 0;
+      }
+
+      .credit-plan-container {
+        display: block;
+
+        >div {
+          width: 100%;
+        }
+      }
+    } 
+  }
   @media (max-width: 560px) { 
     .entitlement-wrapper {
       padding: 20px;
