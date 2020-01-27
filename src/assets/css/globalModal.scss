@@ -1,7 +1,5 @@
-
 // ------ CORPORATE LIST ADD FILTER ------ //
   .add-filter-wrapper {
-
     .modal-container {
       width: 270px;
       padding: 30px 20px;
@@ -9,7 +7,7 @@
       margin: 150px auto 0;
     }
 
-    .modal-header >div {
+    .modal-header > div {
       display: flex;
       align-items: center;
       margin: 0 0 20px;
@@ -37,9 +35,9 @@
     }
 
     input {
-      background-color: #EFF2F4;
+      background-color: #eff2f4;
       border-radius: 2px;
-      border: 1px solid #E0E0E0;
+      border: 1px solid #e0e0e0;
       color: #949494;
       height: 38px;
       width: 100%;
@@ -62,7 +60,6 @@
   }
 // --------------------------------------- //
 
-
 // ------ CORPORATE LIST ADD FILTER ------ //
   .export-modal-wrapper {
     font-size: 16px;
@@ -72,7 +69,7 @@
       width: 700px;
     }
 
-    .modal-header >div {
+    .modal-header > div {
       background-color: #4657cc;
       /*background-color: rgb(63,81,181);*/
       color: #fff;
@@ -103,6 +100,10 @@
         padding: 0 15px 0 0;
         border-right: 2px solid #e9e9e9;
         width: 50%;
+
+        .column-check-box{
+          margin-bottom: 12px;;
+        }
       }
 
       .selected-columns-container {
@@ -141,7 +142,7 @@
       }
 
       .checkbox-mark {
-        top: 2px;
+        top: 3px !important;
       }
     }
 
@@ -150,13 +151,14 @@
     }
 
     .selected-col-box-container {
-      border: 1px solid #4154AF;
+      border: 1px solid #4154af;
       width: 220px;
       height: 30px;
       border-radius: 3px;
       display: flex;
       align-items: center;
       padding: 0 10px;
+      margin-bottom: 10px;
 
       span {
         flex: 1;
@@ -172,13 +174,19 @@
       padding: 25px;
     }
   }
-// --------------------------------------- //
 
+  @media (max-width: 768px) {
+    .export-modal-wrapper{
+      .modal-container {
+        width: 95%;
+      }
+    }   
+  }
+// --------------------------------------- //
 
 // ------ EMPLOYEE INFO SETTINGS MANAGE CAP PER VISIT MODAL ------ //
 
 .manage-cap-modal-wrapper {
-
   .modal-wrapper {
     display: flex;
     align-items: center;
@@ -224,7 +232,6 @@
   .modal-footer {
     text-align: right;
   }
-
 }
 
 @media (max-width: 450px) {
@@ -236,10 +243,187 @@
 
 // -------------------------------------------------------------- //
 
+// ------MEMBER LIST MODAL ------ //
+  .transfer-account {
+    .modal-container {
+      width: 450px;
+      font-size: 16px;
+      margin: 70px auto;
+    }
+    .modal-header {
+      background: rgb(63, 81, 181);
+      color: #fff;
+    }
+
+    .modal-body {
+
+      .transfer-to-wrapper{
+        position: relative;
+        .company-list-drop {
+          z-index: 99;
+          position: absolute;
+          top: 40px;
+          left: 0;
+          background: #eee;
+          max-height: 146px;
+          width: 100%;
+          overflow-y: auto;
+          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+    
+          .company {
+            border-bottom: 1px solid #e9e9e9;
+            cursor: pointer;
+            display: block;
+            padding: 5px 10px;
+          }
+        }
+      }
+      
+    }
+  }
+// ------------------------------ //
 
 
+// ------------ CLAIM SUBMISSION IN NETWORK CLAIM SUMMARY MODAL ----------- //
+  .in-network-claim-container {
+    .network-summary-row {
+      display: flex;
+      margin: 0 0 15px;
 
+      >label {
+        color: #999;
+        width: 50%;
+      }
 
+      >span {
+        width: 50%;
+      }
+    }
+  }
+  .employee-details-options {
 
+    .modal-container {
+      width: 400px;
+      // margin: 300px auto;
+    }
 
+    .modal-header {
 
+      background-color: #4657cc;
+      /*background-color: rgb(63,81,181);*/
+      color: #fff;
+      display: flex;
+      align-items: center;
+      height: 64px;
+      padding: 0 16px;
+      font-size: 18px;
+    }
+    
+
+    .modal-body {
+      padding: 20px;
+      
+    
+      .btn-options-container button {
+        display: block;
+        width: 200px;
+        margin: 0 auto 20px;
+        padding: 10px;
+      }
+    }
+
+    .modal-footer {
+      padding: 0 10px;
+      position: relative;
+      text-align: right;
+
+      .btn-close {
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+        background-color: transparent;
+        margin: 10px 0;
+        border: 0;
+        min-height: 36px;
+        min-width: 88px;
+      }
+
+      label {
+        position: absolute;
+        left: 15px;
+        top: 20px;
+      }
+    }
+
+    .update-pass-header {
+      overflow: hidden;
+      margin: 0 0 30px;
+
+      .fa-times {
+        float: right;
+      }
+    }
+
+    .btn-update {
+      width: 100%;
+    }
+
+    .renew-plan-row {
+      margin: 0 0 10px;
+
+      >span {
+        color: #777;
+        margin: 0 0 0 5px;
+        display: inline-block;
+      }
+    }
+    .new-plan-start-container { margin: 30px 0 0; }
+    .new-plan-start-container >div {
+      position: relative;
+      width: 147px;
+
+      input {
+        border: 0;
+        border-bottom: 1px solid #cbcbcb;
+        padding: 5px 0px;
+        font-weight: 700;
+      }
+
+      .fa-caret-down {
+        position: absolute;
+        top: 7px;
+        right: 0px;
+      }
+    }
+
+    .sms-form {
+      display: flex;
+
+      .country-mobile-input-wrapper {
+        position: relative;
+        margin: 10px 0 0;
+      }
+
+      >div:nth-child(1) {
+        flex: 1;
+      }
+
+      >div:nth-child(2) {
+        flex: 2;
+        margin: 0 0 0 20px;
+      }
+
+      input {
+        width: 100%;
+        border: 0;
+        border-bottom: 1px solid #cbcbcb;
+        padding: 5px 0px;
+        font-weight: 700;
+      }
+
+      .fa-caret-down {
+        position: absolute;
+        top: 6px;
+        right: 0;
+      }
+    }
+  }
+// ----------------------------------------------------------------------- //
