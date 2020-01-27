@@ -121,7 +121,7 @@
 			</div>
 		</div>
 
-		<Modal v-if="showManageCapPerVisit" class="employee-details-options manage-cap-modal-wrapper">
+		<Modal v-if="showManageCapPerVisit" class="manage-cap-modal-wrapper">
   		<div slot="header">
   			<h1>Manage Cap Per Visit</h1>
   		</div>

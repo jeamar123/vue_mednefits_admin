@@ -1372,6 +1372,16 @@
 
   }
 
+  @media (max-width: 1285px) {
+    .credits-plans-wrapper .credit-btn-wrapper {
+      grid-template-columns: 1fr;
+
+      .add-deduct-btn-container {
+        margin: 10px 0 0;
+      }
+    }
+  }
+
   /* Large (lg) */
   @media (max-width: 1023px) { 
     .employee-menu-container {
@@ -1407,18 +1417,6 @@
         margin: 10px 0 0;
       }
     }
-  }
-
-
-  
-  @media (max-width: 950px) {
-  // --------- Credits & Plans -------- //
-
-  .credits-plans-wrapper {
-
-  }
-
-  // --------------------------------- //
   }
 
   /* Medium (md) */
@@ -1519,6 +1517,27 @@
       }
     }
   }
+
+  @media (max-width: 575px) {
+    .credits-plans-wrapper {
+      position: relative;
+
+      .fa-times {
+        position: absolute;
+        top: 8px;
+        right: 0;
+      }
+
+      .credit-plan-container {
+        display: block;
+
+        >div {
+          width: 100%;
+        }
+      }
+    }
+  }
+
   @media (max-width: 460px) {
     .claim-submission-details{
       .xs-in-network-form{
