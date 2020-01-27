@@ -1,16 +1,16 @@
 <template>
 	<div class="dependent-details">
 		<div v-if="!editDependentInfo && !editReplaceDependentInfo">
-			<div class="emp-info-header">
+			<div class="emp-info-header md:text-center">
 				<h3>Dependent Information</h3>
-				<div class="right-btn-container">
-					<button @click="showReplaceDependent()" class="btn btn-edit"><img :src="'../assets/img/replace.png'">Replace</button>
-					<button @click="showRemoveDependent()" class="btn btn-edit btn-remove"><img :src="'../assets/img/icons/dustbin.png'">Remove</button>
-					<button @click="showEditDependent()" class="btn btn-edit"><img :src="'../assets/img/icons/edit.png'">Edit</button>
+				<div class="right-btn-container md:relative md:text-right">
+					<button @click="showReplaceDependent()" class="btn btn-edit xs:w-full xs:m-1"><img :src="'../assets/img/replace.png'">Replace</button>
+					<button @click="showRemoveDependent()" class="btn btn-edit btn-remove xs:w-full xs:m-1"><img :src="'../assets/img/icons/dustbin.png'">Remove</button>
+					<button @click="showEditDependent()" class="btn btn-edit xs:w-full xs:m-1"><img :src="'../assets/img/icons/edit.png'">Edit</button>
 				</div>
 			</div>
-			<div class="emp-information-details">
-				<div class="col-1-emp-info-details">
+			<div class="emp-information-details sm:flex sm:flex-wrap">
+				<div class="col-1-emp-info-details sm:w-full">
 					<div>
 						<strong>Full Name</strong>
 						<span>Kevin Aton</span>
@@ -25,7 +25,7 @@
 					</div>
 				</div>
 
-				<div class="col-2-emp-info-details">
+				<div class="col-2-emp-info-details sm:w-full">
 					<div>
 						<strong>Date of Birth</strong>
 						<span>04/03/2019</span>
