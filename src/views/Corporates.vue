@@ -11,14 +11,14 @@
         <router-link tag="div" to="/dashboard/corporates/add">
           <img :src="'../assets/img/plus_add.png'">
         </router-link>
-        <div>
+        <div v-on:click="refreshData()">
           <img :src="'../assets/img/refresh.png'">
         </div>
       </div>
 			<div class="search-container">
-        <form class="search-input-wrapper">
+        <form class="search-input-wrapper" v-on:submit.prevent="getCompanyList()">
           <i class="fa fa-search"></i>
-          <input type="text" placeholder="Search" v-model="search_text">
+          <input type="text" placeholder="Search" v-model="search_text" v-on:input="searchCompanyChanged( search_text )">
         </form>
         <div>
           <button v-on:click="addFilterModal()" ><i class="fa fa-plus"></i>Add filter</button>
@@ -32,7 +32,7 @@
         <router-link tag="div" to="/dashboard/corporates/add">
           <img :src="'../assets/img/plus_add.png'">
         </router-link>
-        <div>
+        <div v-on:click="refreshData()">
           <img :src="'../assets/img/refresh.png'">
         </div>
       </div>
@@ -142,7 +142,7 @@
       </div>
     </div>
 
-    <div class="corporate-pagination">
+    <div v-show="corporate_pagination.last_page > 0" class="corporate-pagination">
       <div class="page-wrapper">
         <div class="page-scroll-container">
           <span class="prev-next-container" v-on:click="prevPage()">  
