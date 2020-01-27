@@ -21,7 +21,7 @@
       hideLoading() {
       	setTimeout(()=>{
 				  this.showLoader = false;
-				},1000);
+				},100);
 			},
 			toggleMenu(){
 				this.isMenuShow = this.isMenuShow == true ? false : true;
