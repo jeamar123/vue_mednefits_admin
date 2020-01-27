@@ -6,17 +6,17 @@
 		</div>
 
 		<div class="login-wrapper">
-			<form>
+			<form v-on:submit.prevent="login( formData )">
 				<div class="form-div">
 					<label>Email</label>
-					<input type="text" class="form-input">
+					<input type="text" class="form-input" v-model="formData.username">
 				</div>
 				<div class="form-div">
 					<label>Password</label>
-					<input type="password" class="form-input">
+					<input type="password" class="form-input" v-model="formData.password">
 				</div>
 				
-				<button class="btn login-btn" v-on:click="login()">LOGIN</button>
+				<button class="btn login-btn" type="submit">LOGIN</button>
 			</form>
 		</div>
   </div>

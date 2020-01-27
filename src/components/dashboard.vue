@@ -1,7 +1,6 @@
 <script>
-	import axios from 'axios'
-
-	axios.defaults.headers.common['Authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjVlMmIyZjUwZWY5ODcxMTc1NWVhNDU1NCIsInVzZXJuYW1lIjoiYWRtaW5AbWVkbmVmaXRzLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTU3OTg4ODQ4NSwiZXhwIjoxNTgyNDgwNDg1fQ.Wv1VsLF9mECVF5VwmdSx6xLmGW9Ot06AA0lgBvGIMcM';
+	import axios from 'axios';
+	axios.defaults.headers.common['Authorization'] = localStorage.getItem('vue_admin_session');
 
 	var dashboard = {
 		data() {
@@ -12,7 +11,11 @@
 			}
 		},
 		created() {
-			axios.defaults.headers.common['Authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjVlMmIyZjUwZWY5ODcxMTc1NWVhNDU1NCIsInVzZXJuYW1lIjoiYWRtaW5AbWVkbmVmaXRzLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTU3OTg4ODQ4NSwiZXhwIjoxNTgyNDgwNDg1fQ.Wv1VsLF9mECVF5VwmdSx6xLmGW9Ot06AA0lgBvGIMcM';
+			if( localStorage.getItem('vue_admin_session') == 'null' || localStorage.getItem('vue_admin_session') == null || localStorage.getItem('vue_admin_session') == '' || localStorage.getItem('vue_admin_session') == undefined ){
+				this.$router.replace({ name: 'Auth' });
+			}else{
+				axios.defaults.headers.common['Authorization'] = localStorage.getItem('vue_admin_session');
+			}
 		},
 		methods: {
       showLoading() {

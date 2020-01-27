@@ -124,7 +124,6 @@
 
 		<div class="right-box-wrapper transition-easeInOutCubic-300ms" :class="[sideBar.trigger ? 'sideBar-hide' : '']">
 			<div class="employee-information-container">
-
 				<div class="emp-tab-wrapper lg:pl-20">
 					<div class="" @click="showEmpSelectorInfo('EmployeeInformation')"
 						v-bind:class="{'active': $route.name == 'EmployeeInformation'}">Employee</div>
@@ -132,6 +131,9 @@
 						v-bind:class="{'active': $route.name == 'DependentInformation'}">Dependent</div>
 					<div @click="showEmpSelectorInfo('ClaimSubmission')"
 						v-bind:class="{'active': $route.name == 'ClaimSubmission'}">Claim Submission</div>
+          <div @click="showEmpSelectorInfo('Entitlement')" v-bind:class="{'active': $route.name == 'Entitlement'}">
+						Entitlement
+					</div>
 					<div @click="showEmpSelectorInfo('EmployeeSettings')"
 						v-bind:class="{'active': $route.name == 'EmployeeSettings'}">Settings</div>
 					<router-link tag="a" :to="{ name: 'CorporateMemberList' }" class="close-btn"><span class="oi" data-glyph="x"

@@ -247,6 +247,11 @@ $font-gray: #888;
     pointer-events: none;
   }
 
+  .password-input-wrapper input[disabled] {
+    cursor: not-allowed;
+    background-color: rgb(235, 235, 228);
+  }
+
 
   .send-welcome-email-toggle {
     display: flex;
@@ -287,6 +292,8 @@ $font-gray: #888;
       background: #eee;
       border-radius: 4px;
       float: left;
+      display: flex;
+      align-items: center;
     }
 
     span {
@@ -1468,35 +1475,7 @@ $font-gray: #888;
   .btn-update {
     width: 100%;
   }
-
-  .renew-plan-row {
-    margin: 0 0 10px;
-
-    >span {
-      color: #777;
-      margin: 0 0 0 5px;
-      display: inline-block;
-    }
-  }
-  .new-plan-start-container { margin: 30px 0 0; }
-  .new-plan-start-container >div {
-    position: relative;
-    width: 147px;
-
-    input {
-      border: 0;
-      border-bottom: 1px solid #cbcbcb;
-      padding: 5px 0px;
-      font-weight: 700;
-    }
-
-    .fa-caret-down {
-      position: absolute;
-      top: 7px;
-      right: 0px;
-    }
-  }
-
+  
   .gp-cap-input-wrapper {
     position: relative;
     width: 200px;

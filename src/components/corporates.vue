@@ -185,12 +185,15 @@
 				// console.log('so refreshing...');
 			},
 			removeExportKey( index ){
-				console.log( index );
 				this.export_data_key_index[ index ] = false;
 				this.$forceUpdate();
 			},
-
-
+			searchCompanyChanged( data ){
+				console.log( data );
+				if( data == '' ){
+					// this.getCompanyList();
+				}
+			},
 
 
 			exportData(){
@@ -220,9 +223,13 @@
 			getCompanyList(){
 				this.$parent.showLoading();
 				this.isFilterModalShow = false;
-				var url = axios.defaults.serverUrl + '/company/corporate?page=' + this.page_active + '&limit' + this.page_limit;
+				// + '&limit=' + this.page_limit
+				var url = axios.defaults.serverUrl + '/company/corporate?page=' + this.page_active ;
 				if( this.filterData.start != null && this.filterData.end != null ){
 					url += "&start=" + moment( this.filterData.start ).format('YYYY-MM-DD') + "&end=" + moment( this.filterData.end ).format('YYYY-MM-DD');
+				}
+				if( this.search_text != null && this.search_text != '' ){
+					url += '&search=' + this.search_text;
 				}
 				//  ?page=' + this.page_active + '&limit' + this.page_limit
 				console.log( url );
