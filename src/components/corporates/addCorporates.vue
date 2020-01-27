@@ -308,13 +308,13 @@
         this.$forceUpdate();  
 
 
-        // if ( this.create_company.medical_spending_account == false && this.create_company.medical_spending_account == false ) {
-        //   console.log('check');
-        //   this.create_company.medical_spending_start_date = '';
-        //   this.create_company.medical_spending_end_date = '';
-        //   this.create_company.wellness_spending_start_date = '';
-        //   this.create_company.wellness_spending_end_date = '';
-        // }
+        if ( this.create_company.medical_spending_account == false || this.create_company.wellness_spending_account == false ) {
+          console.log('check');
+          this.create_company.medical_spending_start_date = '';
+          this.create_company.medical_spending_end_date = '';
+          this.create_company.wellness_spending_start_date = '';
+          this.create_company.wellness_spending_end_date = '';
+        }
       },
       addCreateCompanyCCEmail( email ) {
         this.cc_email_err = false;
