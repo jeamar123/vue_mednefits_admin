@@ -111,6 +111,49 @@
 			</div>
 		</div>
 
+		<Modal v-if="showRenewModal" class="employee-details-options show-renewal-modal">
+  		<div slot="header">
+  			<h1>Re-new Plan</h1>
+  		</div>
+  		<div slot="body">
+  			<div>
+  				<div class="renew-plan-row">
+  					<label>User: </label> 
+  					<span>niknik san</span>
+  				</div>
+  				<div class="renew-plan-row">
+  					<label>ID: </label> 
+  					<span>29467</span>
+  				</div>
+  				<div class="renew-plan-row">
+  					<label>Old Plan Start: </label> 
+  					<span>September 15, 2019</span>
+  				</div>
+
+  				<div class="new-plan-start-container">
+  					<h4>New Plan Start:</h4>
+  					<div class="date-container">
+  						<img :src="'../assets/img/calendar.png'">
+	  					<div class="start-date-input-wrapper">
+								<v-date-picker
+	                popoverDirection="bottom"
+	                v-model="starDateDetails.null"
+	                :input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
+	                :formats = 'formats'
+	                popover-visibility="focus"
+	              ></v-date-picker>
+	              <i class="fa fa-caret-down"></i>
+							</div>
+						</div>
+  				</div>
+  			</div>
+  		</div>
+  		<div slot="footer">
+  			<button @click="selectedEmpDetailsSettingsClicked(1, 'cancel')" class="btn-close">CANCEL</button>
+  			<button class="btn-primary settings-btn-submit">PROCEED</button>
+  		</div>
+  	</Modal>
+
 		<Modal v-if="showManageCapPerVisit" class="employee-details-options manage-cap-modal-wrapper">
   		<div slot="header">
   			<h1>Manage Cap Per Visit</h1>

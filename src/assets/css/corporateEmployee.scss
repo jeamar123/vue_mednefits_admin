@@ -1340,7 +1340,7 @@
   .plan-type-checkmark:after {
     display: none;
     content: "";
-    position: absolute;
+    position: absolute; 
     top: 2px;
     left: 2px;
     width: 10px;
@@ -1742,6 +1742,20 @@
       }
     }
   }
+
+  // -------------- EMPLOYEE INFO SETTINGS ---------------- //
+
+  @media (max-width: 450px) {
+
+    .employee-menu-container .employee-information-container .btn-settings {
+       width: 100%;
+       font-size: 14px;
+       padding: 10px;
+    }
+  }
+
+
+  // ------------------------------------------------------ //
 
 /* -----------------------------------------------*/
 
