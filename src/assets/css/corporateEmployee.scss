@@ -1140,130 +1140,7 @@
   }
   
 }
-.employee-details-options {
 
-  .modal-container {
-    width: 400px;
-    margin: 300px auto;
-  }
-
-  .modal-header {
-    background-color: #215e86;
-    border-radius: 4px 4px 0px 0px;
-    color: #fff;
-    padding: 17px 15px;
-    font-weight: 500;
-  }
-  
-
-  .modal-body {
-    padding: 20px;
-    
-   
-    .btn-options-container button {
-      display: block;
-      width: 200px;
-      margin: 0 auto 20px;
-      padding: 10px;
-    }
-  }
-
-  .modal-footer {
-    padding: 0 10px;
-    position: relative;
-    text-align: right;
-
-    .btn-close {
-      box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
-      background-color: transparent;
-      margin: 10px 0;
-      border: 0;
-      min-height: 36px;
-      min-width: 88px;
-    }
-
-    label {
-      position: absolute;
-      left: 15px;
-      top: 20px;
-    }
-  }
-}
-.employee-details-options {
-
-  .update-pass-header {
-    overflow: hidden;
-    margin: 0 0 30px;
-
-    .fa-times {
-      float: right;
-    }
-  }
-
-  .btn-update {
-    width: 100%;
-  }
-
-  .renew-plan-row {
-    margin: 0 0 10px;
-
-    >span {
-      color: #777;
-      margin: 0 0 0 5px;
-      display: inline-block;
-    }
-  }
-  .new-plan-start-container { margin: 30px 0 0; }
-  .new-plan-start-container >div {
-    position: relative;
-    width: 147px;
-
-    input {
-      border: 0;
-      border-bottom: 1px solid #cbcbcb;
-      padding: 5px 0px;
-      font-weight: 700;
-    }
-
-    .fa-caret-down {
-      position: absolute;
-      top: 7px;
-      right: 0px;
-    }
-  }
-
-  .sms-form {
-    display: flex;
-
-    .country-mobile-input-wrapper {
-      position: relative;
-      margin: 10px 0 0;
-    }
-
-    >div:nth-child(1) {
-      flex: 1;
-    }
-
-    >div:nth-child(2) {
-      flex: 2;
-      margin: 0 0 0 20px;
-    }
-
-    input {
-      width: 100%;
-      border: 0;
-      border-bottom: 1px solid #cbcbcb;
-      padding: 5px 0px;
-      font-weight: 700;
-    }
-
-    .fa-caret-down {
-      position: absolute;
-      top: 6px;
-      right: 0;
-    }
-  }
-}
 .remove-dependent-container {
   .modal-header {
     background-color: #FF6763;
@@ -1288,21 +1165,7 @@
     background-color: #FF6763;
   }
 }
-.in-network-claim-container {
-  .network-summary-row {
-    display: flex;
-    margin: 0 0 15px;
 
-    >label {
-      color: #999;
-      width: 50%;
-    }
-
-    >span {
-      width: 50%;
-    }
-  }
-}
 .fill-corporate-pass-container {
   .modal-container {
     width: 480px;
