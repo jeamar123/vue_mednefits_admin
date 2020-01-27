@@ -229,7 +229,6 @@
 					console.log( res );
 					this.corporate_list_arr = res.data.data;
 					this.corporate_pagination = res.data;
-					this.corporate_pagination.last_page = 15;
 					// console.log(this.corporate_list_arr);
 					// console.log(this.corporate_pagination);
 
