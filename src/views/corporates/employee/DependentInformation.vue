@@ -103,13 +103,13 @@
 			<div class="emp-header-text">
 				<h3>Edit Dependent Details</h3>
 			</div>
-			<form>
-				<div class="edit-dependent-row">
-					<div class="employee-details-input-wrapper">
+			<form class="md:w-full">
+				<div class="edit-dependent-row sm:flex sm:flex-wrap">
+					<div class="employee-details-input-wrapper sm:m-0">
 						<label>Full Name</label>
 						<input type="text">
 					</div>
-					<div class="employee-details-input-wrapper">
+					<div class="employee-details-input-wrapper sm:m-0">
 						<label>Relationship</label>
 						<select>
 							<option>Spouse</option>
@@ -120,8 +120,8 @@
 					</div>
 				</div>
 
-				<div class="edit-dependent-row">
-					<div class="employee-details-input-wrapper">
+				<div class="edit-dependent-row sm:flex sm:flex-wrap">
+					<div class="employee-details-input-wrapper sm:m-0">
 						<label>Date of Birth</label>
 						<div class="date-container">
 							<v-date-picker
@@ -133,7 +133,7 @@
               <i class="fa fa-caret-down"></i>
             </div>
 					</div>
-					<div class="employee-details-input-wrapper">
+					<div class="employee-details-input-wrapper sm:m-0">
 						<label>Member ID</label>
 						<input type="number">
 					</div>
