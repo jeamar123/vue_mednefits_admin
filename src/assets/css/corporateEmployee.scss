@@ -1175,33 +1175,33 @@
     width: 100%;
   }
 
-  .renew-plan-row {
-    margin: 0 0 10px;
+  // .renew-plan-row {
+  //   margin: 0 0 10px;
 
-    >span {
-      color: #777;
-      margin: 0 0 0 5px;
-      display: inline-block;
-    }
-  }
-  .new-plan-start-container { margin: 30px 0 0; }
-  .new-plan-start-container >div {
-    position: relative;
-    width: 147px;
+  //   >span {
+  //     color: #777;
+  //     margin: 0 0 0 5px;
+  //     display: inline-block;
+  //   }
+  // }
+  // .new-plan-start-container { margin: 30px 0 0; }
+  // .new-plan-start-container >div {
+  //   position: relative;
+  //   width: 147px;
 
-    input {
-      border: 0;
-      border-bottom: 1px solid #cbcbcb;
-      padding: 5px 0px;
-      font-weight: 700;
-    }
+  //   input {
+  //     border: 0;
+  //     border-bottom: 1px solid #cbcbcb;
+  //     padding: 5px 0px;
+  //     font-weight: 700;
+  //   }
 
-    .fa-caret-down {
-      position: absolute;
-      top: 7px;
-      right: 0px;
-    }
-  }
+  //   .fa-caret-down {
+  //     position: absolute;
+  //     top: 7px;
+  //     right: 0px;
+  //   }
+  // }
 
   .sms-form {
     display: flex;
@@ -1448,7 +1448,7 @@
   .plan-type-checkmark:after {
     display: none;
     content: "";
-    position: absolute;
+    position: absolute; 
     top: 2px;
     left: 2px;
     width: 10px;
@@ -1457,13 +1457,6 @@
     background-color: #076086;
   }
 }
-
-
-
-
-
-
-
 
 /* -------------- RESPONSIVE AREA ----------------*/
   /* Extra Large (xl) */
@@ -1605,6 +1598,20 @@
       }
     }
   }
+
+  // -------------- EMPLOYEE INFO SETTINGS ---------------- //
+
+  @media (max-width: 450px) {
+
+    .employee-menu-container .employee-information-container .btn-settings {
+       width: 100%;
+       font-size: 14px;
+       padding: 10px;
+    }
+  }
+
+
+  // ------------------------------------------------------ //
 
 /* -----------------------------------------------*/
 
