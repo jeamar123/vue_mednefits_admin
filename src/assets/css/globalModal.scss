@@ -230,42 +230,43 @@
 
 // -------------------------------------------------------------- //
 
+
 // ------MEMBER LIST MODAL ------ //
-.transfer-account {
-  .modal-container {
-    width: 450px;
-    font-size: 16px;
-    margin: 70px auto;
-  }
-  .modal-header {
-    background: rgb(63, 81, 181);
-    color: #fff;
-  }
+  .transfer-account {
+    .modal-container {
+      width: 450px;
+      font-size: 16px;
+      margin: 70px auto;
+    }
+    .modal-header {
+      background: rgb(63, 81, 181);
+      color: #fff;
+    }
 
-  .modal-body {
+    .modal-body {
 
-    .transfer-to-wrapper{
-      position: relative;
-      .company-list-drop {
-        z-index: 99;
-        position: absolute;
-        top: 40px;
-        left: 0;
-        background: #eee;
-        max-height: 146px;
-        width: 100%;
-        overflow-y: auto;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
-  
-        .company {
-          border-bottom: 1px solid #e9e9e9;
-          cursor: pointer;
-          display: block;
-          padding: 5px 10px;
+      .transfer-to-wrapper{
+        position: relative;
+        .company-list-drop {
+          z-index: 99;
+          position: absolute;
+          top: 40px;
+          left: 0;
+          background: #eee;
+          max-height: 146px;
+          width: 100%;
+          overflow-y: auto;
+          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+    
+          .company {
+            border-bottom: 1px solid #e9e9e9;
+            cursor: pointer;
+            display: block;
+            padding: 5px 10px;
+          }
         }
       }
+      
     }
-    
   }
-}
 // ------------------------------ //

@@ -1,7 +1,7 @@
 <template>
 	<div class="employee-menu-container">
 
-		<div class="left-box-wrapper" :class="[sideBar.trigger ? 'sideBar-hide' : '']">
+		<div class="left-box-wrapper transition-easeInOutCubic-300ms" :class="[sideBar.trigger ? 'sideBar-hide' : '']">
 			<div class="corporate-details-box">
 				<div class="menu-responsive hidden lg:flex transition-easeInOutCubic-100ms"
 					:class="[sideBar.trigger ? 'lg:hidden' : '']" @click="toggleSideInfoBar()">
@@ -122,7 +122,7 @@
 			</div>
 		</div>
 
-		<div class="right-box-wrapper" :class="[sideBar.trigger ? 'sideBar-hide' : '']">
+		<div class="right-box-wrapper transition-easeInOutCubic-300ms" :class="[sideBar.trigger ? 'sideBar-hide' : '']">
 			<div class="employee-information-container">
 
 				<div class="emp-tab-wrapper lg:pl-20">
