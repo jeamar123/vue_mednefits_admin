@@ -1,10 +1,19 @@
 <template>
 	<div class="employee-menu-container">
 
-		<div class="left-box-wrapper">
+		<div class="left-box-wrapper transition-easeInOutCubic-300ms" :class="[sideBar.trigger ? 'sideBar-hide' : '']">
 			<div class="corporate-details-box">
+				<div class="menu-responsive hidden lg:flex transition-easeInOutCubic-100ms"
+					:class="[sideBar.trigger ? 'lg:hidden' : '']" @click="toggleSideInfoBar()">
+					<img :src="'../assets/img/admin_user.png'" />
+					<span class="oi text-xs text-white" data-glyph="caret-right" aria-hidden="true"></span>
+				</div>
+				<a href="#" class="close-btn summary" :class="[sideBar.trigger == false ? 'hide' : '']"
+					@click="toggleSideInfoBar()">
+					<span class="oi" data-glyph="x" aria-hidden="true"></span>
+				</a>
 				<img :src="'../assets/img/admin_user.png'">
-				<p class="corporate-name">
+				<p class="corporate-name mt-6">
 					Allan Cheams Alzulas
 				</p>
 			</div>
@@ -113,21 +122,26 @@
 			</div>
 		</div>
 
-		<div class="right-box-wrapper">
+		<div class="right-box-wrapper transition-easeInOutCubic-300ms" :class="[sideBar.trigger ? 'sideBar-hide' : '']">
 			<div class="employee-information-container">
-				
-				<div class="emp-tab-wrapper">
-					<div class="" @click="showEmpSelectorInfo('EmployeeInformation')" v-bind:class="{'active': $route.name == 'EmployeeInformation'}">Employee</div>
-					<div @click="showEmpSelectorInfo('DependentInformation')" v-bind:class="{'active': $route.name == 'DependentInformation'}">Dependent</div>
-					<div @click="showEmpSelectorInfo('ClaimSubmission')" v-bind:class="{'active': $route.name == 'ClaimSubmission'}">Claim Submission</div>
-					<div @click="showEmpSelectorInfo('EmployeeSettings')" v-bind:class="{'active': $route.name == 'EmployeeSettings'}">Settings</div>
-					<router-link tag="a" :to="{ name: 'CorporateMemberList' }" class="close-btn"><span class="oi" data-glyph="x" aria-hidden="true"></span></router-link>
+
+				<div class="emp-tab-wrapper lg:pl-20">
+					<div class="" @click="showEmpSelectorInfo('EmployeeInformation')"
+						v-bind:class="{'active': $route.name == 'EmployeeInformation'}">Employee</div>
+					<div @click="showEmpSelectorInfo('DependentInformation')"
+						v-bind:class="{'active': $route.name == 'DependentInformation'}">Dependent</div>
+					<div @click="showEmpSelectorInfo('ClaimSubmission')"
+						v-bind:class="{'active': $route.name == 'ClaimSubmission'}">Claim Submission</div>
+					<div @click="showEmpSelectorInfo('EmployeeSettings')"
+						v-bind:class="{'active': $route.name == 'EmployeeSettings'}">Settings</div>
+					<router-link tag="a" :to="{ name: 'CorporateMemberList' }" class="close-btn"><span class="oi" data-glyph="x"
+							aria-hidden="true"></span></router-link>
 				</div>
 
 				<router-view name="child"></router-view>
 			</div>
 		</div>
-  </div>
+	</div>
 </template>
 
 <script>
