@@ -41,28 +41,33 @@
 						</div>
 						<div class="credit-details-container">
 							<div class="credit-item-container">
-								<div class="credit-item-detail">
-									<span>
-										<span>S$ </span> 
-										<span>0.00</span>
-									</span>
-									<span>Allocation</span>
-								</div>
-								<div class="credit-item-detail">
-									<span>
-										<span>S$ </span> 
-										<span>0.00</span>
-									</span>
-									<span>Usage</span>
+								<div class="credit-btn-wrapper">
+									<div>
+										<div class="credit-item-detail">
+											<span>
+												<span>S$ </span> 
+												<span>0.00</span>
+											</span>
+											<span>Allocation</span>
+										</div>
+										<div class="credit-item-detail">
+											<span>
+												<span>S$ </span> 
+												<span>0.00</span>
+											</span>
+											<span>Usage</span>
+										</div>
+									</div>
+
+									<div class="add-deduct-btn-container">
+										<button @click="creditAllocationTypeFunction('add')" v-bind:class="{active: editCreditAllocationTypeOpt == 'add'}" class="btn-primary">ADD</button>
+										<button @click="creditAllocationTypeFunction('deduct')" v-bind:class="{active: editCreditAllocationTypeOpt == 'deduct'}" class="btn-primary">DEDUCT</button>
+									</div>
 								</div>
 								<div class="credit-input-wrapper">
 									<input v-if="editCreditAllocationTypeOpt == 'add'" type="number" placeholder="Credits Add*">
 									<input v-if="editCreditAllocationTypeOpt == 'deduct'" type="number" placeholder="Credits Deduct*">
 								</div>
-							</div>
-							<div class="add-deduct-btn-container">
-								<button @click="creditAllocationTypeFunction('add')" v-bind:class="{active: editCreditAllocationTypeOpt == 'add'}" class="btn-primary">ADD</button>
-								<button @click="creditAllocationTypeFunction('deduct')" v-bind:class="{active: editCreditAllocationTypeOpt == 'deduct'}" class="btn-primary">DEDUCT</button>
 							</div>
 						</div>
 						<div class="btn-update-credits">
@@ -90,13 +95,18 @@
 						<div class="plan-date-container">
 							<div class="start-date-container">
 								<h4>Start Date:</h4>
-								<div class="start-date-input-wrapper">
-									<v-date-picker
-	                  popoverDirection="bottom"
-	                  v-model="starDateDetails.starDate"
-	                  :input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
-	                  popover-visibility="focus"
-	                ></v-date-picker>
+								<div class="date-container">
+									<img :src="'../assets/img/calendar.png'">
+									<div class="start-date-input-wrapper">
+										<v-date-picker
+		                  popoverDirection="bottom"
+		                  v-model="starDateDetails.starDate"
+		                  :input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                  :formats = 'formats'
+		                  popover-visibility="focus"
+		                ></v-date-picker>
+		                <i class="fa fa-caret-down"></i>
+									</div>
 								</div>
 							</div>
 							<div class="end-date-container">
