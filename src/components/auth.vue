@@ -6,6 +6,10 @@
 			return {
 				showLoader : false,
 				user_id : null,
+				formData : {
+					username : null,
+					password : null,
+				}
 			}
 		},
 		created() {
@@ -17,10 +21,32 @@
       hideLoading() {
       	setTimeout(()=>{
 				  this.showLoader = false;
-				},1000);
+				},100);
       },
-      login( data ){
-      	this.$router.push( { name: 'Clinic' } );
+      login( formData ){
+				if( !formData.username ){
+					this.$swal('Error!', 'Email is required.', 'error');
+					return false;
+				}
+				if( !formData.password ){
+					this.$swal('Error!', 'Password is required.', 'error');
+					return false;
+				}
+				this.showLoading();
+				axios.post( axios.defaults.serverUrl + '/login/signin' , formData )
+				.then(res => {
+					console.log( res );
+					if( res.data.status ){
+						localStorage.setItem('vue_admin_session', res.data.token);
+						this.$router.push( { name: 'Corporates' } );
+					}
+					this.hideLoading();
+				})
+				.catch(err => {
+					console.log(  err.response  );
+					this.hideLoading();
+					this.$swal('Error!', err.response.data.message, 'error');
+				});
       }
     }
 	}

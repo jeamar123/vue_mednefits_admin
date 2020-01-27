@@ -223,7 +223,8 @@
 			getCompanyList(){
 				this.$parent.showLoading();
 				this.isFilterModalShow = false;
-				var url = axios.defaults.serverUrl + '/company/corporate?page=' + this.page_active + '&limit' + this.page_limit;
+				// + '&limit=' + this.page_limit
+				var url = axios.defaults.serverUrl + '/company/corporate?page=' + this.page_active ;
 				if( this.filterData.start != null && this.filterData.end != null ){
 					url += "&start=" + moment( this.filterData.start ).format('YYYY-MM-DD') + "&end=" + moment( this.filterData.end ).format('YYYY-MM-DD');
 				}

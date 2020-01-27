@@ -12,7 +12,11 @@
 			}
 		},
 		created() {
-			axios.defaults.headers.common['Authorization'] = localStorage.getItem('vue_admin_session');
+			if( localStorage.getItem('vue_admin_session') == 'null' || localStorage.getItem('vue_admin_session') == null || localStorage.getItem('vue_admin_session') == '' || localStorage.getItem('vue_admin_session') == undefined ){
+				this.$router.replace({ name: 'Auth' });
+			}else{
+				axios.defaults.headers.common['Authorization'] = localStorage.getItem('vue_admin_session');
+			}
 		},
 		methods: {
       showLoading() {
