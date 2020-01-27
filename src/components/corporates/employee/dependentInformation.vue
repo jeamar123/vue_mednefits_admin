@@ -2,7 +2,7 @@
 import Modal from "../../../views/modal/Modal.vue";
 
 
-  let corporateEmployeeInformation = {
+  let dependentInformation = {
     components: {
       Modal
     },
@@ -42,10 +42,6 @@ import Modal from "../../../views/modal/Modal.vue";
           startDate: undefined,
         },
         showShortTermSelector: false,
-        formats: {
-          input: ["DD/MM/YYYY"],
-          data: ["DD/MM/YYYY"]
-        },
       };
     },
     created(){
@@ -272,7 +268,7 @@ import Modal from "../../../views/modal/Modal.vue";
     }
   }
   
-  export default corporateEmployeeInformation
+  export default dependentInformation
 </script>
 
 <style lang="scss" scoped>

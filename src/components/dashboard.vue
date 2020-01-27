@@ -1,11 +1,14 @@
 <script>
 	import axios from 'axios';
 
+	axios.defaults.headers.common['Authorization'] = localStorage.getItem('vue_admin_session');
+
 	var dashboard = {
 		data() {
 			return {
 				showLoader : false,
 				user_id : null,
+				isMenuShow: false,
 			}
 		},
 		created() {
@@ -18,8 +21,11 @@
       hideLoading() {
       	setTimeout(()=>{
 				  this.showLoader = false;
-				},1000);
-      },
+				},100);
+			},
+			toggleMenu(){
+				this.isMenuShow = this.isMenuShow == true ? false : true;
+			}
     }
 	}
 

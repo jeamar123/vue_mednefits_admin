@@ -11,9 +11,10 @@
     "axios": "^0.18.0",
     "core-js": "^2.6.5",
     "jquery": "^3.4.1",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "plotly.js": "^1.47.4",
     "sass-loader": "^7.1.0",
+    "tailwindcss": "^1.1.4",
     "v-calendar": "^0.9.7",
     "v-click-outside": "^2.0.2",
     "vue": "^2.6.10",
@@ -50,7 +51,8 @@
   },
   "postcss": {
     "plugins": {
-      "autoprefixer": {}
+      "autoprefixer": {},
+      "tailwindcss": {}
     }
   },
   "browserslist": [

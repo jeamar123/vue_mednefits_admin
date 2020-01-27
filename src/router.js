@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import axios from 'axios'
 
 axios.defaults.baseURL = process.env.BASE_URL;
-// axios.defaults.serverUrl = 'http://mednefits.local';
 axios.defaults.serverUrl = 'http://localhost:3000';
 axios.defaults.user_id = null;
 
@@ -29,13 +28,21 @@ import AddCorporate from './views/corporates/AddCorporate.vue'
 import CorporateMenu from './views/corporates/CorporateMenu.vue'
 import CorporateInformation from './views/corporates/CorporateInformation.vue'
 import CorporateMemberList from './views/corporates/CorporateMemberList.vue'
-import CorporateEmployeeMenu from './views/corporates/employee/CorporateEmployeeMenu.vue'
+
 import CorporatePlan from './views/corporates/CorporatePlan.vue'
 import SpendingInvoice from './views/corporates/SpendingInvoice.vue'
 import CorporateEnrollment from './views/corporates/CorporateEnrollment.vue'
 import BulkCreditAllocation from './views/corporates/BulkCreditAllocation.vue'
 import CorporateSettings from './views/corporates/CorporateSettings.vue'
+
+// Employee Information
+import CorporateEmployeeMenu from './views/corporates/employee/CorporateEmployeeMenu.vue'
 import EmployeeInformation from './views/corporates/employee/EmployeeInformation.vue'
+import DependentInformation from './views/corporates/employee/DependentInformation.vue'
+import ClaimSubmission from './views/corporates/employee/ClaimSubmission.vue'
+import Entitlement from './views/corporates/employee/Entitlement.vue'
+import EmployeeSettings from './views/corporates/employee/EmployeeSettings.vue'
+
 import HealthPartnerAccess from './views/corporates/HealthPartnerAccess.vue'
 import EclaimTypeService from './views/corporates/EclaimTypeService.vue'
 import GcapPerVisit from './views/corporates/GcapPerVisit.vue'
@@ -85,12 +92,11 @@ export default new Router({
         { name: 'AddClinic', path: '/dashboard/clinic/add', component: AddClinic },
         //corporates
         { name: 'Corporates', path: '/dashboard/corporates', component: Corporates },
-        // { name: 'HealthPartnerAccess', path: '/dashboard/health-partner-access', component: HealthPartnerAccess },
         { 
           name: 'CorporateMenu', 
           path: '/dashboard/corporates/menu', 
           component: CorporateMenu,
-          redirect: '/dashboard/corporates/menu/info',
+          redirect: '/dashboard/corporates/menu/member-list',
           children: [
             { name: 'CorporateInformation', path: '/dashboard/corporates/menu/info', components: { child : CorporateInformation }  },
             { name: 'CorporateMemberList', path: '/dashboard/corporates/menu/member-list', components: { child : CorporateMemberList }  },
@@ -98,7 +104,7 @@ export default new Router({
             { name: 'SpendingInvoice', path: '/dashboard/corporates/menu/spending-invoice', components: { child : SpendingInvoice }  },
             { name: 'CorporateEnrollment', path: '/dashboard/corporates/menu/enrollment', components: { child : CorporateEnrollment }  },
             { name: 'BulkCreditAllocation', path: '/dashboard/corporates/menu/bulk-credit-allocation', components: { child : BulkCreditAllocation }  },
-            { name: 'HealthPartnerAccess', path: '/dashboard/corporates/menu/health-partner-access', components: { child : HealthPartnerAccess} },
+            // { name: 'HealthPartnerAccess', path: '/dashboard/corporates/menu/health-partner-access', components: { child : HealthPartnerAccess} },
             { name: 'EclaimTypeService', path: '/dashboard/corporates/menu/eclaim-type-service', components: { child : EclaimTypeService} },
             { name: 'GcapPerVisit', path: '/dashboard/corporates/menu/gp-cap-per-visit', components: { child : GcapPerVisit} },
             { name: 'PlanRenewal', path: '/dashboard/corporates/menu/plan-renewal', components: { child : PlanRenewal},
@@ -118,10 +124,14 @@ export default new Router({
           redirect: '/dashboard/corporates/employee/info',
           children: [
             { name: 'EmployeeInformation', path: '/dashboard/corporates/employee/info', components: { child : EmployeeInformation }  },
+            { name: 'DependentInformation', path: '/dashboard/corporates/employee/dependent', components: { child : DependentInformation }  },
+            { name: 'ClaimSubmission', path: '/dashboard/corporates/employee/claim_submission', components: { child : ClaimSubmission }  },
+            { name: 'Entitlement', path: '/dashboard/corporates/employee/entitlement', components: { child : Entitlement }  },
+            { name: 'EmployeeSettings', path: '/dashboard/corporates/employee/settings', components: { child : EmployeeSettings }  },
           ]
         },
         { name: 'AddCorporate', path: '/dashboard/corporates/add', component: AddCorporate },
-
+        { name: 'HealthPartnerAccess', path: '/dashboard/health-partner-access', component: HealthPartnerAccess },
 
         { name: 'Analytics', path: '/dashboard/analytics', component: Analytics },
       ]

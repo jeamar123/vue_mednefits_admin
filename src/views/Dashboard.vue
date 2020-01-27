@@ -7,7 +7,6 @@
 	  	</div>
 	  	<div class="nav-items">
 	  		<ul class="nav-ul">
-
 	  			<li><router-link tag="a" :to="{ name : 'Clinic' }">Clinic</router-link></li>
 	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Doctor</router-link></li>
 	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Accounts</router-link></li>
@@ -48,7 +47,36 @@
 	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Admin</router-link></li>
 	  		</ul>
 	  	</div>
+			<div class="xs-nav-btn" v-on:click="toggleMenu()">
+				<span class="oi" data-glyph="menu" aria-hidden="true"></span>
+			</div>
 	  </div>
+
+		<div v-show="isMenuShow" class="xs-menu-container">
+			<ul class="nav-ul">
+				<li><router-link tag="a" :to="{ name : 'Clinic' }">Clinic</router-link></li>
+				<li><router-link tag="a" :to="{ name : 'Analytics' }">Doctor</router-link></li>
+				<li><router-link tag="a" :to="{ name : 'Analytics' }">Accounts</router-link></li>
+				<li><router-link tag="a" :to="{ name : 'Analytics' }">Public</router-link></li>
+				<li><router-link tag="a" :to="{ name : 'Analytics' }">Individual</router-link></li>
+				<li><router-link tag="a" :to="{ name : 'Corporates' }">Corporate</router-link></li>
+				<li><router-link tag="a" :to="{ name : 'Analytics' }">Booking</router-link></li>
+				<li><router-link tag="a" to="/dashboard/clinic">Transaction History</router-link></li>
+				<li><router-link tag="a" to="/dashboard/clinic">Download E-Claim List</router-link></li>
+				<li><router-link tag="a" :to="{ name : 'Analytics' }">Analytics</router-link></li>
+				<li><router-link tag="a" to="/dashboard/clinic">Mednefits Agents</router-link></li>
+				<li><router-link tag="a" to="/dashboard/clinic">Download E-Claim List</router-link></li>
+				<li><router-link tag="a" to="/dashboard/clinic">Clinic Types</router-link></li>
+				<li><router-link tag="a" to="/dashboard/clinic">Clinic QR Code</router-link></li>
+				<li><router-link tag="a" to="/dashboard/clinic">SMS</router-link></li>
+				<li><router-link tag="a" to="/dashboard/clinic">Care Plan List</router-link></li>
+				<li><router-link tag="a" to="/dashboard/clinic">Care Plan Type Packages</router-link></li>
+				<li><router-link tag="a" to="/dashboard/clinic">Search Users</router-link></li>
+				<li><router-link tag="a" to="/dashboard/clinic">Local Network Clinic</router-link></li>
+				<li><a href="#">Logout</a></li>
+				<li><router-link tag="a" :to="{ name : 'Analytics' }">Admin</router-link></li>
+			</ul>
+		</div>
 
 	  <div class="child-content">
 	  	<router-view></router-view>

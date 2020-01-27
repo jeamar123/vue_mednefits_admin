@@ -1,389 +1,72 @@
-$bg-blue: #3a85b7;
-
-$font-gray: #888;
-
-.corporates-container{
-  // margin: 10px;
-  padding: 30px 40px;
-  min-height: 100vh;
-  background: #FFF;
-  box-shadow: 0px 1px 5px #ddd;
-  position: relative;
-  overflow-y: auto;
-}
-
+/* EMPLOYEE INFO*/
 .close-btn{
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 14px;
+  right: 15px;
   font-size: 10px;
-  /*color: #eee;*/
 }
-/* CORPORATE DETAILS */
 
+.menu-responsive {
+  cursor: pointer;
+  position: absolute;
+  z-index: 999;
+  top: 12px;
+  right: -70.5px;
+  width: 70px;
+  height: 55px;
+  padding: 10px;
+  background: #1667AC;
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  // border-radius: 2px;
 
-/* ADD CORPORATE */
-.add-corporate-container{
-  margin: 50px auto 20px auto;
-  width: 50%;
-  min-width: 720px;
-  min-height: 50vh;
-  position: relative;
+  border-radius: 0 50% 50% 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px 5px;
+  // display:none;
 
-
-  input, select{
-    height: 34px;
-    background: #fff;
-    padding-left: 10px;
-    border-color: #dedede;
-    -webkit-appearance: none;
-  }
-  .close-btn{
-    position: absolute;
-    top: 6px;
-    right: 8px;
-    color: #666;
-    font-size: 12px;
-  }
-  .on{
-    border-radius: 3px 0 0 3px;
-  }
-  .off{
-    border-radius: 0 3px 3px 0;
-  }
-  .mr-20{
-    margin-right: 20px;
-  }
-  .form-row{
-    display: flex;
-  }
-  .form-col{
-    flex: 1;
-  }
-  .flex-2{
-    flex: 2;
-  }
-  .flex-3{
-    flex: 3;
-  }
-  .flex-4{
-    flex: 4;
-  }
-  .flex-5{
-    flex: 5;
-  }
-  .form-div label{
-    font-size: 11px;
-    color: #949494;
-  }
-  .margin-030{
-    margin: 0 -30px;
-  }
-  .box-title-blue{
-    margin: 15px 0;
-    color: #6DA9D4;
-    font-family: 'Myriad';
-    font-size: 15px;
-    font-weight: 700;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 15px;
-  }
-  .box-title-black{
-    margin: 15px 0;
-    color: #333;
-    font-family: 'Myriad';
-    font-size: 14px;
-    font-weight: 700;
-  }
-  .form-toggle{
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-
-    label{
-      /*flex: 2;*/
-      margin-right: 20px;
-      font-size: 11px;
-      color: #949494;
-      font-weight: 700;
-    }
-    .toggle-wrapper{
-      flex: 1;
-    }
-    .toggle-btns{
-      display: flex;
-      width: 120px;
-      border: 1px solid #dedede;
-      border-radius: 3px;
-    }
-    .toggle{
-      flex: 1;
-      padding: 8px;
-      font-size: 12px;
-      color: #969696;
-      text-align: center;
-      cursor: pointer;
-    }
-    .toggle.active{
-      background: #0392CF;
-      color: #fff;
-    }
-  }
-  .form-col-toggle{
-    margin: 5px 0 0 0;
-  }
-  .header-wrapper{
-    position: relative;
-    font-family: 'Myriad';
-    font-weight: 700;
-    color: #666;
-    font-size: 18px;
-    margin-bottom: 20px;
-  }
-  .white-box{
-    box-shadow: 0px 1px 5px #ddd;
-    background: #fff;
-    margin: 0 -30px;
-    padding: 5px 30px 30px 30px;
-    margin-bottom: 50px;
-  }
-  .btn-option-row{
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-
-    .btn-container{
-      flex: 1;
-    }
-    .rm-container{
-      flex: 1;
-      text-align: right;
-
-      span{
-        display: inline-block;
-        height: 25px;
-        width: 25px;
-        line-height: 28px;
-        text-align: center;
-        border-radius: 50%;
-        background: #FF5959;
-        color: #FFF;
-      }
-    }
-  }
-  .btn-add-contact{
-    background: #0392CF;
-    color: #FFF;
-    border: none;
-    padding: 12px 30px;
-    text-transform: uppercase;
-    font-size: 13px;
-    font-family: 'Helvetica Light';
-    border-radius: 2px;
-
-    &[disabled] {
-      opacity: .5;
-      cursor: not-allowed;
-    }
-  }
-
-  .add-more-contact-container {
-    margin: 15px 0 0;
-  }
-
-  .duration-input-wrapper {
-    display: flex;
-
-    >div:nth-child(1) {
-      width: 40%;
-    }
-
-    >div:nth-child(2) {
-      width: 60%;
-    }
-  }
-
-  .date-container {
-    position: relative;
-
-    img {
-      height: 14px;
-      width: 14px;
-      position: absolute;
-      top: 10px;
-      right: 10px;
-    }
-  }
-
-  .invoice-date-container .date-container {
-    width: 226px;
-  }
-
-  .change-plan-toggle {
-    margin: 20px 0 0;
-  }
-
-  .med-date-container,
-  .well-date-container {
-    margin: 34px 0 0;
-    width: 150px;
-
-    .date-container img {
-      left: 10px;
-    }
-
-    .date-container input {
-      padding: 5px 5px 5px 28px;
-      background-color: transparent;
-
-      &::placeholder {
-        color: transparent;
-      }
-    }
-  }
-
-  .noSpending {
-    background-color: #b4b4b4;
-    pointer-events: none;
-  }
-
-  .password-input-wrapper input[disabled] {
-    cursor: not-allowed;
-    background-color: rgb(235, 235, 228);
-  }
-
-
-  .send-welcome-email-toggle {
-    display: flex;
-
-    .form-toggle {
-      margin: 0;
-    }
-  }
-
-  .welcome-email-account-selector {
-    display: flex;
-
-    >label {
-      width: 100px;
-      margin: 0 10px;
-    }
-  }
-
-  .add-bcc-input-wrapper {
-    display: flex;
-
-    input {
-      margin: 0 10px 0 0;
-    }
-
-    .btn-primary {
-      height: 35px;
-    }
-  }
-
-  .bcc-emails-container {
-    display: inline-block;
-
-    .bcc-email {
-      font-size: 12px;
-      margin: 10px 10px 10px 0;
-      padding: 10px;
-      background: #eee;
-      border-radius: 4px;
-      float: left;
-    }
-
-    span {
-      margin: 0 10px 0 0;
-    }
-
-    img {
-      cursor: pointer;
-      height: 12px;
-      width: 12px;
-    }
-  }
-
-  .selector-container {
-    position: relative;
-
-    img {
-      height: 12px;
-      width: 12px;
-      position: absolute;
-      top: 12px;
-      right: 10px;
-    }
-  }
-
-  .account-plan-input-wrapper {
-    width: 100%;
-    border: 1px solid #dedede;
-    border-radius: 2px;
-    height: 34px;
-    min-height: unset;
-    padding: 5px 10px 5px;
-    color: #222;
-    font-size: 14px;
-    display: flex;
-
-    >div{
-      line-height: 1.7;
-    }
-
-    span {
-      margin: 0 5px 0 0;      
-    }
-
-    input {
-      border: 0;
-      padding: 0;
-      height: auto;
-    }
+  img {
+    height: 30px !important;
+    width: 30px !important;
   }
 }
 
-/* EMPLOYEE INFO*/
 .employee-menu-container{
   min-height: calc( 100vh - 60px );
-  display: flex;
-  width: 100%;
+  // display: flex;
+  // width: 100%;
 
-  .close-btn {
-    color: #fff;
-  }
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
 
   .left-box-wrapper{
-    // flex: 1.4;
-    /*background: $bg-blue;*/
-    /*width: 20%;*/
     width: 270px;
     min-width: 270px;
     background: #FFF;
-    box-shadow: 0px 1px 5px #b3b3b3;
-    /*padding-bottom: 50px;*/
+    border: 1px solid rgb(203, 203, 203);
     position: relative;
+    margin: 16px 8px 16px 16px;
   }
   .corporate-details-box{
     padding: 25px 20px;
     text-align: center;
-    background: #1383b3;
-    /*background: #215e86;*/
-    /* border-top: 2px solid $bg-blue; */
+    /*background: #1383b3;*/
 
     img{
-      width: 80px;
-      height: 80px;
-      display: inline-block;
+      width: 100px;
+      height: 100px;
+      display: block;
       border-radius: 50%;
-      border: 4px solid #fff;
-      margin-bottom: 15px;
+      margin: 0px auto;
       background: #FFF;
     }
     p{
-      color: #eee;
-      font-size: 16px;
+      color: #444;
+      font-size: 28px;
     }
   }
   .emp-status-wrapper{
@@ -410,16 +93,28 @@ $font-gray: #888;
     padding-bottom: 10px;
     border-bottom: 1px solid #e2e2e2;
   }
+  .row-div.plan-info{
+    flex-wrap: wrap;
+
+    .label-text{
+      width: 100%;
+      flex: none;
+    }
+    .status-div{
+      margin: 10px 0;
+      text-align: left;
+    }
+  }
   .p-label{
     font-size: 16px;
-    color: #555;
+    color: #000;
     font-family: 'Helvetica Medium';
   }
   .label-text{
     flex: 1;
     font-weight: 700;
     font-size: 14px;
-    color: #555;
+    color: #000;
     font-family: 'Helvetica Medium';
   }
   .status-div{
@@ -450,11 +145,11 @@ $font-gray: #888;
   }
 
   .right-box-wrapper{
-    // flex: 4;
-    margin: 0 0 0 10px;
-    width: 80%;
+    flex: 1;
+    margin: 16px 16px 16px 8px;
+    // width: 80%;
     background: #fff;
-    box-shadow: 0px 1px 5px #b3b3b3;
+    border: 1px solid rgb(203, 203, 203);
   }
 
   .employee-information-container {
@@ -493,6 +188,7 @@ $font-gray: #888;
     .btn-add img {
       height: 18px;
       margin: 0 10px 0 0;
+      display: inline-block;
     }
 
     .btn-remove {
@@ -552,6 +248,7 @@ $font-gray: #888;
       font-weight: 700;
       margin: 0 5px 0 0;
       padding: 10px 0;
+      outline: none;
     }
 
     .btn-medical.active {
@@ -564,15 +261,16 @@ $font-gray: #888;
   }
 
   .emp-tab-wrapper {
-    background-color: #1383b3;
-    /*background-color: #215e86;*/
-    color: #fff;
+    background-color: rgb(236, 240, 241);
+    border: 1px solid rgb(203, 203, 203);
+    border-width: 1px 0;
     display: flex;
     margin: 20px 0 0;
     padding: 10px 0 0 40px;
     position: relative;
 
     >div {
+      color: rgb(156, 156, 156);
       cursor: pointer;
       font-weight: 700;
       margin: 0 40px 0 0;
@@ -580,7 +278,8 @@ $font-gray: #888;
     }
 
     >div.active {
-      border-bottom: 2px solid #fff;
+      color: rgb(40, 62, 82);
+      border-bottom: 2px solid rgb(40, 62, 82);
     }
   }
 
@@ -637,7 +336,6 @@ $font-gray: #888;
     }
   }
 }
-
 .edit-emp-details-header {
   position: relative;
 
@@ -651,7 +349,6 @@ $font-gray: #888;
     right: 0px;
   }
 }
-
 .edit-emp-details-body {
   clear: both;
   display: flex;
@@ -688,7 +385,6 @@ $font-gray: #888;
     font-size: 11px;
   }
 }
-
 .save-btn-footer {
   margin: 30px 0 0;
   overflow: hidden;
@@ -700,8 +396,6 @@ $font-gray: #888;
     float: right;
   }
 }
-
-
 .edit-employee-info-container {
 
   >.fa-times {
@@ -723,7 +417,6 @@ $font-gray: #888;
     margin: 0 auto;
   }
 }
-
 .edit-dependent-row {
   display: flex;
 
@@ -744,7 +437,6 @@ $font-gray: #888;
     }
   }
 }
-
 .remove-employee-wrapper {
 
   .save-btn-footer {
@@ -792,7 +484,6 @@ $font-gray: #888;
     font-size: 10px;
   }
 }
-
 .health-spending-account-summary-container {
   .bold-text {
     font-family: 'Helvetica Medium';
@@ -802,7 +493,6 @@ $font-gray: #888;
     text-decoration: underline;
   }
 }
-
 .account-summary-pro-rated {
   text-align: center;
   display: inline-block;
@@ -830,7 +520,6 @@ $font-gray: #888;
     margin: 0 0 0 10px;
   }
 }
-
 .medical-wellness-container {
   border: 1px solid #cbcbcb;
   background-color: #f9f9f9;
@@ -898,7 +587,6 @@ $font-gray: #888;
     }
   }
 }
-
 .country-code-mobile-container {
   display: flex;
 
@@ -913,16 +601,14 @@ $font-gray: #888;
     right: 0;
   }
 }
-
 .btn-network {
-  background-color: #076086;
+  background-color: rgb(63, 81, 181);
   border: 0;
   border-radius: 2px;
   color: #fff;
   width: 150px;
   padding: 10px 0;
 }
-
 .claim-submission-details {
   .btn-network-container button {
     margin: 0 10px 0 0;
@@ -940,6 +626,21 @@ $font-gray: #888;
       top: 2px;
       right: 0;
     }
+  }
+
+  .out-network-box .network-header-container{
+    max-width: 550px;
+  }
+
+  .visit-date-input-wrapper.in-network-visit .popover-container,
+  .xs-in-network-form .popover-container{
+    background: #eee;
+    border: 0;
+    border-radius: 2px;
+    padding: 10px;
+    height: 38px;
+    font-size: 12px; 
+    font-weight: 700;
   }
 
   .in-network-table-container {
@@ -1000,7 +701,27 @@ $font-gray: #888;
     }
   }
 
- .in-network-input-wrapper {
+  .xs-in-network-form{
+    display: none;
+    flex-wrap: wrap;
+    margin-right: -25px;
+
+    .claim-form-div{
+      width: 33%;
+      padding-right: 20px;
+      margin-bottom: 30px;
+
+      label{
+        width: 100%;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        display: inline-block;
+      }
+    }
+  }
+
+  .in-network-input-wrapper {
     position: relative;
   }
 
@@ -1009,7 +730,6 @@ $font-gray: #888;
   }
 
   .visit-time-input-wrapper input {
-    width: 134px;
     padding: 10px 34px 10px 35px;
   }
 
@@ -1056,7 +776,6 @@ $font-gray: #888;
     text-align: right;
   }
 }
-
 .health-spending-body {
   text-align: center;
 
@@ -1082,7 +801,6 @@ $font-gray: #888;
     border: 2px solid #0392cf;
   }
 }
-
 .time-wrapper {
   display: flex;
   align-items: center;
@@ -1109,9 +827,8 @@ $font-gray: #888;
     cursor: pointer;
   }
 }
-
 .out-of-network-form-wrapper {
-  width: 60%;
+  // width: 60%;
   max-width: 550px;
 
   .next-btn-footer {
@@ -1122,15 +839,16 @@ $font-gray: #888;
     }
   }
 }
-
 .out-of-network-form {
-  box-shadow: 0px 0px 18px #bbb;
+  box-shadow: 0px 0px 6px #888;
   padding: 25px 30px;
   margin: 20px 0;
+  border: 1px solid #cbcbcb;
 
   .step-one img {
     width: 20px;
     height: 20px;
+    display: inline-block;
   }
 
   .input-group {
@@ -1160,6 +878,7 @@ $font-gray: #888;
       right: 20px;
       color: #888;
     }
+    
   }
 
   .visit-date-input-wrapper input,
@@ -1264,7 +983,6 @@ $font-gray: #888;
     }
   }  
 }
-
 .drop-box {
   background-color: #F8F8F8;
   border: 3px dashed #DDD;
@@ -1283,6 +1001,7 @@ $font-gray: #888;
 
   img {
     width: 55px;
+    display:inline-block;
   }
 
   .drop-box-content {
@@ -1306,7 +1025,6 @@ $font-gray: #888;
     }
   }
 }
-
 .uploaded-list {
   border-bottom: 1px solid #ddd;
   padding: 0 0 10px;
@@ -1315,7 +1033,6 @@ $font-gray: #888;
     margin: 0 0 20px;
   } 
 }
-
 .progress-wrapper {
   display: flex;
 
@@ -1356,7 +1073,6 @@ $font-gray: #888;
     color: #aaa;
   }
 }
-
 .summary-list-row {
   display: flex;
   margin: 0 0 30px;
@@ -1375,7 +1091,6 @@ $font-gray: #888;
     }
   }
 }
-
 .out-of-network-table-container {
 
   h4 {
@@ -1393,142 +1108,37 @@ $font-gray: #888;
   tr th,
   tr td {
     &:first-child {
-      padding: 10px;
+      padding: 20px 15px 10px 15px;
     }
   }
 
   button {
-    background-color: #076086;
+    background-color: rgb(63, 81, 181);
     color: #fff;
-    border-radius: 4px;
+    border-radius: 2px;
     padding: 5px 10px;
-  }
-}
-
-.employee-details-options {
-
-  .modal-container {
-    width: 400px;
-    margin: 300px auto;
+    border: none;
   }
 
-  .modal-header {
-    background-color: #215e86;
-    border-radius: 4px 4px 0px 0px;
-    color: #fff;
-    padding: 17px 15px;
-    font-weight: 500;
+  .tbl-scroll-wrapper{
+    overflow-y: auto;
 
-    h1 {
-      font-size: 18px;
+    &::-webkit-scrollbar {
+      height: 10px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      border-radius: 6px;
+      background-color: #aaa;
+      border: 2px solid #ddd;
+    }
+  
+    &::-webkit-scrollbar-track {
+      /*background-color: transparent;*/
+      background-color: #ddd;
     }
   }
   
-
-  .modal-body {
-    padding: 20px;
-    
-   
-    .btn-options-container button {
-      display: block;
-      width: 200px;
-      margin: 0 auto 20px;
-      padding: 10px;
-    }
-  }
-
-  .modal-footer {
-    padding: 0 10px;
-    position: relative;
-    text-align: right;
-
-    .btn-close {
-      box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
-      background-color: transparent;
-      margin: 10px 0;
-      border: 0;
-      min-height: 36px;
-      min-width: 88px;
-    }
-
-    label {
-      position: absolute;
-      left: 15px;
-      top: 20px;
-    }
-  }
-}
-
-.employee-details-options {
-
-  .update-pass-header {
-    overflow: hidden;
-    margin: 0 0 30px;
-
-    .fa-times {
-      float: right;
-    }
-  }
-
-  .btn-update {
-    width: 100%;
-  }
-  
-  .gp-cap-input-wrapper {
-    position: relative;
-    width: 200px;
-    margin: 20px 0 0;
-
-    input {
-      width: 100%;
-      height: 35px;
-      padding: 0 40px 0 10px;
-    }
-
-    .icon-right {
-      position: absolute;
-      top: 0;
-      right: 0;
-      color: #3f77b5;
-      height: 100%;
-      width: 35px;
-      text-align: center;
-      line-height: 34px;
-      border-left: 1px solid #ccc;
-    }
-  }
-
-  .sms-form {
-    display: flex;
-
-    .country-mobile-input-wrapper {
-      position: relative;
-      margin: 10px 0 0;
-    }
-
-    >div:nth-child(1) {
-      flex: 1;
-    }
-
-    >div:nth-child(2) {
-      flex: 2;
-      margin: 0 0 0 20px;
-    }
-
-    input {
-      width: 100%;
-      border: 0;
-      border-bottom: 1px solid #cbcbcb;
-      padding: 5px 0px;
-      font-weight: 700;
-    }
-
-    .fa-caret-down {
-      position: absolute;
-      top: 6px;
-      right: 0;
-    }
-  }
 }
 
 .remove-dependent-container {
@@ -1553,22 +1163,6 @@ $font-gray: #888;
 
   .btn-delete {
     background-color: #FF6763;
-  }
-}
-
-.in-network-claim-container {
-  .network-summary-row {
-    display: flex;
-    margin: 0 0 15px;
-
-    >label {
-      color: #999;
-      width: 50%;
-    }
-
-    >span {
-      width: 50%;
-    }
   }
 }
 
@@ -1614,7 +1208,6 @@ $font-gray: #888;
     }
   }
 }
-
 .employee-details-input-wrapper {
   label {
     display: block;
@@ -1630,7 +1223,6 @@ $font-gray: #888;
     margin: 0 0 20px;
   }
 }
-
 .credits-plans-wrapper{
   h1 {
     font-size: 24px;
@@ -1662,13 +1254,13 @@ $font-gray: #888;
   .add-deduct-btn-container {
     button {
       background-color: #fff;
-      color: #4154AF;
+      color: #076086;
       width: 100px;
       margin: 0 10px 0 0;
     }
 
     button.active {
-      background-color: #4154AF;
+      background-color: #076086;
       color: #fff;
     }
   }
@@ -1715,22 +1307,7 @@ $font-gray: #888;
       font-weight: 700;
     }
   }
-
-  .start-date-input-wrapper {
-    display: flex;
-    align-items: center;
-
-    img {
-      width: 23px;
-      height: 23px;
-    }
-
-    .vDatepicker.start-date-input {
-      border: 0;
-    }
-  }
 }
-
 .plan-type-selector .container {
   display: block;
   position: relative;
@@ -1763,7 +1340,7 @@ $font-gray: #888;
   .plan-type-checkmark:after {
     display: none;
     content: "";
-    position: absolute;
+    position: absolute; 
     top: 2px;
     left: 2px;
     width: 10px;
@@ -1773,304 +1350,414 @@ $font-gray: #888;
   }
 }
 
-// Corporate Plan 
+/* -------------- Entitlement Information ----------------*/
 
-.corporate-plan-wrapper {
-  background-color: #fff;
-  height: 100%;
-  padding: 20px;
+.entitlement-wrapper {
+  padding: 20px 40px;
 
-  .plan-header ul {
-    display: flex;
-    border-bottom: 1px solid #eee;
-    margin: 0 0 20px;
-
-    a {
-      color: #222;
-      padding: 10px;
-      display: block;
-    }
-
-    a.active {
-      border-bottom: 2px solid #6b8be4;
-    }
-  }
-
-  .plan-body {
-    h3 {
-      font-size: 18px;
-      margin: 0 0 30px;
-    }
-
-    input {
-      background-color: transparent;
-      padding: 0;
-    }
-  }
-
-  .employee-details-input-wrapper label:after {
-    content: " *";
-    font-size: 13px;
-    vertical-align: top;
-  }
-
-  .business-row-1,
-  .business-row-2 {
-    display: flex;
-    margin: 0 0 30px;
-
-    >div {
-      padding: 0 40px 0 0;
-      width: 30%;
-    }
-  }
-
-  .switch-container {
+  .entitlement-btn-edit-wrapper {
     display: flex;
     align-items: center;
-  }
+    margin: 0 0 70px;
 
-  .switch {
-    position: relative;
-    display: inline-block;
-    height: 14px;
-    width: 34px;
-    margin: 0 10px 0 0;
-
-    input { 
-      opacity: 0;
-      width: 0;
-      height: 0;
+    h3 {
+      flex: 1;
     }
   }
 
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgb(158,158,158);
-    -webkit-transition: .4s;
-    transition: .4s;
-
-    &:before {
-      position: absolute;
-      content: "";
-      height: 26px;
-      width: 26px;
-      top: -3px;
-      left: 0;
-      right: 0;
-      background-color: white;
-      -webkit-transition: .4s;
-      transition: .4s;
-    }
-  }
-
-  input:checked + .slider {
-    background-color: #1667AC;
-
-    &:before {
-      transform: translateX(18px);
-      background-color: #1667AC;
-    }
-  }
-
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-    
-    &:before {
-      border-radius: 50%;
-      box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
-      width: 20px;
-      height: 20px;
-    }
-  }
-
-  .clinic-peak-status-container {
-    margin: 0 0 50px;
-  }
-
-  .hr-status-container {
-    margin: 0 0 50px;
-  }
-
-  .btn-deactive {
-    width: 150px;
-  }
-
-  .btn-remove-contacts {
-    width: 100px;
-    height: 36px;
-    background: #d63129a6;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+  .btn-update {
+    background-color: #0392cf;
+    color: #fff;
+    border: 2px solid #0392cf;
     border-radius: 2px;
-    border: 0;
-    color: #FFF;
+    padding: 5px 25px;
+    font-weight: 700;
+    height: 38px;
   }
 
-  .input-checkbox span.input-text {
-    font-size: 12px;
+  .entitlement-information-details {
+    h4 {
+      font-size: 16px;
+      margin: 15px 0;
+    }
   }
 
-  .company-contacts-card-wrapper {
-    border: 1px solid #e5e5e5;
-    background: #fafafa;
-    padding: 20px;
+  .medical-entitlement-container,
+  .wellness-entitlement-container {
     display: flex;
-    margin: 0 0 30px;
+    padding: 10px 0 0 0;
 
-    >div {
-      width: 30%;
-      padding: 0 40px 0 0;
+    
+    .col-md-2 {
+      // width: 16.6%;
+      // padding: 0 40px 0 0;
     }
 
-    >div:nth-child(3) {
-      text-align: center;
+    .col-md-3 {
+      // width: 25%;
+      // padding: 0 15px 0 0;
+      // padding: 0 40px 0 0;
+    }
+
+    .entitlement-input-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-column-gap: 2em;
+      margin: 0 20px 0 0;
+
+      >div {
+        margin: 20px 0 0;
+      }
     }
   }
 
-  .plan-btn-footer {
-    text-align: right;
+  .entitlement-input-container {
+    h5 {
+      margin: 15px 0;
+    }
+
+    .small {
+      padding-top: 10px;
+      color: #0392cf;
+      font-size: 65%;
+      line-height: 1.5;
+    }
+
+    &.allocation {
+      background-color: #f5f5f5;
+      margin: 0 0 10px;
+      padding: 20px;
+
+      h5 {
+        margin: 10px 0;
+      }
+    }
+  }
+
+  .entitlement-input-label {
+    display: flex;
+    align-items: center;
+
+    label {
+      font-size: 12px;
+      padding: 0 10px 0 0;
+    }
+
+    input,select,.entitlement-date-picker {
+      width: 100%;
+      height: 34px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+      padding: 6px 12px;
+      font-size: 14px;
+      position: relative;
+    }
+
+    .entitlement-date-picker {
+      width: auto;
+      padding: 0 0 0 30px;
+      display: flex;
+      align-items: center;
+
+      .fa-calendar-o {
+        position: absolute;
+        left: 9px;
+        top: 8px;
+      }
+    }
+  
+    .original-input {
+      background-color: #eee;
+    }
+  }
+
+  .new-allocation-wrapper {
+    width: 175px;
+  }
+
+  .entitlement-calculation {
+    h4 {
+      font-size: 18px;
+    }
 
     button {
-      width: 150px;
-    }
-
-    button:nth-child(1) {
-      margin: 0 40px 0 0;
+      margin: 35px 0 0 0;
     }
   }
-}
 
-.current-plan-text {
-  margin: 0 0 10px;
-}
+  .see-more {
+    font-size: 14px;
 
-.active-cards-wrapper {
-  margin: 20px 0 0 0;
-  display: inline-block;
-  width: 100%;
-
-  .plan-header-container {
-    position: relative;
-    margin: 0 0 20px;
-
-    .cog-container {
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-
-    .cog-container i {
-      font-size: 24px;
-      color: rgba(0,0,0,0.54);
+    >div {
+      color: #0392cf;
       cursor: pointer;
+      font-weight: 500;
+      font-size: 13.5px;
     }
-  }
 
-  .account-container {
-    margin: 0 0 20px;
-  }
-
-  .active-plans-info {
-    padding: 10px;
-    margin: 0 10px 0 0;
-    box-shadow: 1px 1px 10px #8c8989;
-    display: inline-block;
-  }
-
-  .account-title {
-    font-family: 'Helvetica Medium';
-    margin: 0 0 10px;
-  }
-
-  button {
-    display: block;
-    font-size: 12px;
-    width: 200px;
-    margin: 0 0 10px;
+    p {
+      line-height: 1.2;
+      border-top: 1px solid #5555554a;
+      padding: 10px 0 0;
+      margin: 15px 0;
+      font-weight: 500;
+    }
   }
 }
 
-.select-account-plan-type {
+/* -------------------------------------------------------*/
 
-  .modal-container {
-    width: 300px;
-  }
+/* -------------- RESPONSIVE AREA ----------------*/
 
-  .modal-header {
-    position: relative;
+  @media (max-width: 1253px) {
 
-    .fa-times {
-      position: absolute;
-      right: 20px;
-      top: 22px;
+    .entitlement-wrapper {
+
+      .medical-entitlement-container,
+      .wellness-entitlement-container, {
+
+        .entitlement-input-wrapper {
+          grid-template-columns: 1fr 1fr;
+          margin: 0 70px 0 0;
+
+          >div {
+            margin: 0;
+          }
+        }
+      }
     }
   }
 
-  .modal-body {
-    padding: 20px 32px;
-  }
-
-  .modal-footer {
-    text-align: center;
-    padding: 0 0 20px;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-@media (max-width: 1400px) {
-  .member-list-table-wrapper {
-    overflow-x: auto; 
-
-    &::-webkit-scrollbar {
-      height: 3px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: #aaa;
-    }
-    
-    .member-list-table {
-      width: 1010px;
-    }
+  /* Extra Large (xl) */
+  @media (max-width: 1279px) { 
 
   }
-}
+
+  /* Large (lg) */
+  @media (max-width: 1023px) { 
+    .employee-menu-container {
+      grid-template-columns: 1fr 100%;
+  
+      .left-box-wrapper {
+        position: relative;
+        left: -292px;
+        // left: -336px;
+      }
+  
+      .right-box-wrapper {
+        position: relative;
+        left: -292px;
+  
+        .corporate-main-container {
+          .toggleResponsive-closeCorporate {
+            // grid-template-columns: 1fr;
+            .btn-menu {
+              display: unset;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* Medium (md) */
+  @media (min-width: 767px) { 
+    .xs-show{
+      display: none;
+    }
+    .xs-hide{
+      display: inherit;
+    }
+    .xs-show-tbl-cell{
+      display: none;
+    }
+    .xs-hide-tbl-cell{
+      display: table-cell;
+    }
+  }
+  @media (max-width: 768px) { 
+    .xs-show{
+      display: inherit;
+    }
+    .xs-hide{
+      display: none;
+    }
+    .xs-show-tbl-cell{
+      display: table-cell;
+    }
+    .xs-hide-tbl-cell{
+      display: none;
+    }
+    .claim-submission-details{
+      .xs-in-network-form{
+        display: flex;
+      }
+    }
+  }
+
+  @media (max-width: 752px) {
+     .entitlement-wrapper {
+      padding: 20px;
+
+      .medical-entitlement-container,
+      .wellness-entitlement-container, {
+
+        .entitlement-input-wrapper {
+          grid-template-columns: 1fr 1fr;
+          margin: 0 20px 0 0;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 670px) { 
+    .entitlement-wrapper {
+      padding: 20px;
+
+      .medical-entitlement-container,
+      .wellness-entitlement-container, {
+        margin: 0 0 50px;
+
+        .entitlement-input-wrapper {
+          grid-template-columns: 1fr;
+          margin: 0 100px 0 0;
+        }
+      }
+    }
+  }
+
+  /* Small (sm) */
+  @media (max-width: 640px) {
+    .claim-submission-details{
+      .xs-in-network-form{
+        .claim-form-div{
+          width: 50%;
+        }
+      }
+
+      .btn-network-container{
+        margin: 0 -10px;
+        display: flex;
+        
+        .btn-network{
+          margin: 0 10px;
+          flex: 1;
+        }
+      }
+    }
+    .employee-menu-container{
+      .employee-information-container{
+        .emp-information-container-details,
+        .dependent-details,
+        .claim-submission-details,
+        .settings-details {
+          padding: 20px;
+        }
+
+        .emp-tab-wrapper{
+          padding-left: 20px;
+        }
+      }
+    }
+    .out-of-network-form-wrapper{
+      max-width: unset;
+      padding-top: 20px;
+    }
+    .out-of-network-form {
+      padding: 20px 0;
+      box-shadow: none;
+      border-width: 1px 0 0 0;
+
+      .input-group {
+        flex-wrap: wrap;
+        
+        .spending-type-box{
+          display: flex;
+
+          button{
+            margin: 0 5px;
+            flex: 1;
+          }
+        }
+        >label {
+          width: 100%;
+          margin-bottom: 8px;
+        }
+        >div {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 560px) { 
+    .entitlement-wrapper {
+      padding: 20px;
+
+      .medical-entitlement-container,
+      .wellness-entitlement-container, {
+        margin: 0 0 50px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        .entitlement-input-wrapper {
+          grid-template-columns: 1fr;
+          margin: 0 40px 0 0;
+        }
+      }
+    }
+  }
+
+   @media (max-width: 500px) { 
+    .entitlement-wrapper {
+      padding: 20px;
+
+      .medical-entitlement-container,
+      .wellness-entitlement-container, {
+        margin: 0 0 50px;
+        display: grid;
+        grid-template-columns: 1fr;
+
+        .entitlement-input-wrapper {
+          grid-template-columns: 1fr;
+          margin: 0 0 20px;
+        }
+      }
+
+      .entitlement-input-label .entitlement-date-picker {
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 460px) {
+    .claim-submission-details{
+      .xs-in-network-form{
+        .claim-form-div{
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  // -------------- EMPLOYEE INFO SETTINGS ---------------- //
+
+  @media (max-width: 450px) {
+
+    .employee-menu-container .employee-information-container .btn-settings {
+       width: 100%;
+       font-size: 14px;
+       padding: 10px;
+    }
+  }
 
 
+  // ------------------------------------------------------ //
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* -----------------------------------------------*/
 
 
 

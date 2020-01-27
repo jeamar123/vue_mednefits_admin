@@ -1,163 +1,186 @@
 <template>
-	<div class="corporate-members-container">
-		
-		<div class="search-member-wrapper">
+	<!-- corporate-members-container -->
+	<div class="corporate-members-container pb-24">
+		<!-- Search-member Start -->
+		<div class="search-member-wrapper sm:pl-8  lg:ml-6 mb-10">
 			<span class="oi" data-glyph="magnifying-glass" aria-hidden="true"></span>
 			<div class="form-div">
-				<input type="text" placeholder="Search employee">
+				<input type="text" placeholder="Search employee" />
+			</div>
+		</div>
+		<!-- Search-member End -->
+
+		<div class="member-list-container flex flex-wrap">
+			<div class="member-wrapper w-1/4 xl:w-1/3 lg:w-1/3 md:w-1/2 sm:w-full my-3 mx-3" v-for="list in 4" :key="list.index"
+				ng-repeat="list in corprorate_details.corporate_members | orderBy: list.member.created_at">
+				<template ng-if="list.emp_main_details">
+					<div class="header" @click="$router.push({ name: 'EmployeeInformation' })">
+						<h3 ng-click="showHideEmployeeDetail(list, $index)">
+							<span ng-bind="list.member.Name">
+								Jazer
+								Zayas {{list}}
+							</span>
+						</h3>
+					</div>
+					<!-- start body -->
+					<div class="body">
+						<!-- start div info-div -->
+						<div class="info-div">
+							<div class="info-details" ng-if="list.member.Email">
+								<label class="block">Email Address:</label>
+								<span class="info-bind" ng-if="list.member.Email"
+									ng-bind="list.member.Email">jazer.zayas10@gmail.com</span>
+							</div>
+							<div class="info-details" ng-if="!list.member.Email">
+								<label>Mobile Number:</label>
+								<span class="info-bind" ng-bind="list.member.PhoneCode">+63</span>
+								<span class="info-bind" ng-bind="list.member.PhoneNo">9177799014</span>
+							</div>
+							<div class="info-details">
+								<label>Mobile Number:</label>
+								<span class="info-bind" ng-bind="list.member.PhoneCode">+63</span>
+								<span class="info-bind" ng-bind="list.member.PhoneNo">9177799014</span>
+							</div>
+							<!-- <div><label>NRIC:</label> <span ng-bind="list.member.NRIC"></span></div> -->
+							<div class="info-details no-margin-bottom">
+								<label>Family Coverage:</label>
+							</div>
+
+							<div class="info-details">
+								<label>Dependents:</label>
+								<span ng-bind="list.dependents">0</span>
+							</div>
+							<div class="info-details no-margin-bottom">
+								<label class="block">Spending Account:</label>
+								<div class="flex flex-wrap justify-between">
+									<span class="w-12 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mr-2 "></span>
+									<span class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2 ">Wellness</span>
+									<span class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2 ">Medical</span>
+								</div>
+								<div class="flex flex-wrap justify-between">
+									<label class="w-12 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mr-2 ">Allocation</label>
+									<div class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2">
+										<span ng-bind="corprorate_details.credits.currency_type" class="currency-type">SGD</span>
+										<span ng-bind="list.spending_account.medical.credits_allocation">100.00</span>
+									</div>
+									<div class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2 ">
+										<span ng-bind="corprorate_details.credits.currency_type" class="currency-type">MYR</span>
+										<span ng-bind="list.spending_account.wellness.credits_allocation">200.00</span>
+									</div>
+								</div>
+								<div class="flex flex-wrap justify-between">
+									<label class="w-12 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mr-2 ">Usage</label>
+									<div class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2">
+										<span ng-bind="corprorate_details.credits.currency_type" class="currency-type">SGD</span>
+										<span ng-bind="list.spending_account.medical.credits_allocation">100.00</span>
+									</div>
+									<div class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2 ">
+										<span ng-bind="corprorate_details.credits.currency_type" class="currency-type">MYR</span>
+										<span ng-bind="list.spending_account.wellness.credits_allocation">200.00</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="info-details">
+								<label>Start Date:</label>
+								<span class="info-bind" ng-bind="list.start_date | cmdate:'dd MMMM, yyyy'">02 January, 2020</span>
+							</div>
+							<div class="info-details">
+								<label>End Date:</label>
+								<span class="info-bind" ng-bind="list.end_date | cmdate:'dd MMMM, yyyy'">02 January, 2020</span>
+							</div>
+							<div class="info-details block" ng-if="list.date_deleted">
+								<label>Date Deleted/Remove:</label>
+								<span class="info-bind text-sm block" ng-bind="list.date_deleted">02 January, 2020</span>
+								<span class="info-bind text-sm block" ng-bind="list.deletion_text">false</span>
+							</div>
+							<div class="info-details" ng-if="list.deletion_text">
+
+							</div>
+						</div>
+						<!-- end info-div -->
+
+						<!-- <div ng-if="list.deletion"><span ng-bind="list.deletion_text"></span></div> -->
+						<div ng-if="list.member.Active == 0" class="account-deactivated-status p-3 bg-red-300 text-center">
+							<span class="text-red-600 text-base">Account Deleted/Deactivated</span>
+						</div>
+						<button ng-if="!list.deletion && !list.schedule && list.member.Active == 1"
+							class="btn btn-transfer-company " @click="toggleTransferAccountModal(list)">Transfer Account</button>
+
+						<template ng-if="list.emp_padd_reset_wrapper">
+							<div class="emp_padd_reset_wrapper text-center w-full">
+								<a href="javascript:void(0)" ng-click="hideEmpPassReset(list)" class="pull-right">
+									<i class="fa fa-times"></i>
+								</a>
+								<div class="white-space-30"></div>
+								<button class="btn-primary re-send-btn w-full" ng-click="showUpdatePass(list)">Update
+									Password</button>
+								<div class="white-space-20"></div>
+								<button class="btn-primary re-send-btn w-full"
+									ng-click="resendEmployeeEmailDash($event, list)">Resend/Reset Account</button>
+								<div class="white-space-20"></div>
+								<button class="btn-primary re-send-btn w-full" ng-click="pinSetupShow(list)">Pin Setup</button>
+								<div class="white-space-20"></div>
+								<button class="btn-primary re-send-btn w-full" ng-click="unPinSetup(list, $event)">Unset Pin</button>
+							</div>
+						</template>
+
+						<span ng-if="list.emp_pass_update">
+							<div class="px-6">
+								<a href="javascript:void(0)" ng-click="hideUpdatePass(list)" class="pull-right">
+									<i class="fa fa-times"></i>
+								</a>
+								<div class="white-space-50"></div>
+								<div class="input-container-padding py-1">
+									<label class="block pr-2">Email</label>
+									<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
+										type="text" ng-model="list.member.Email" disabled />
+								</div>
+								<div class="input-container-padding py-1">
+									<label>Password <span class="text-red-700">*</span></label>
+									<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
+										type="password" ng-model="list.password" required />
+								</div>
+								<div class="input-container-padding py-1">
+									<label>Re-Type Password <span class="text-red-700">*</span></label>
+									<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
+										type="text" ng-model="list.password2" required />
+								</div>
+
+								<button class="btn-primary re-send-btn w-full my-5"
+									ng-click="updatePasswordEmp($event,list)">Update</button>
+							</div>
+						</span>
+
+						<span ng-if="list.pin_setup_update">
+							<div class="px-6">
+								<a href="javascript:void(0)" ng-click="pinSetupHide(list)" class="pull-right">
+									<i class="fa fa-times"></i>
+								</a>
+								<div class="white-space-50"></div>
+								<div class="input-container-padding py-1">
+									<label>Pin <span class="text-red-700">*</span></label>
+									<input type="text" ng-model="list.pin"
+										class="number-only bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
+										required />
+								</div>
+								<div class="input-container-padding py-1">
+									<label>Re-Type Pin <span class="text-red-700">*</span></label>
+									<input type="text" ng-model="list.re_pin"
+										class="number-only bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
+										required />
+								</div>
+
+								<button class="btn-primary re-send-btn w-full my-5" ng-click="updatePinEmp($event,list)">Update</button>
+							</div>
+						</span>
+					</div>
+					<!-- end body -->
+				</template>
 			</div>
 		</div>
 
-		<div v-if="false" class="member-list-container">
-			
-			<div  class="member-wrapper" v-for="list in [1,2,3,4,5]">
-				<router-link tag="div" :to="{ name: 'CorporateEmployeeMenu' }" class="header">
-					<i class="fa fa-user"></i>
-					<label>Lorem Ipsum</label>
-					<span class="oi" data-glyph="caret-right" aria-hidden="true"></span>
-				</router-link>
-				<div class="body">
-					<div class="info-div">
-						<label>Email:</label>
-						<p>afdsafa.asdfa@fmail.com</p>
-					</div>
-					<div class="info-div">
-						<label>NRIC:</label>
-						<p>afdsafa</p>
-					</div>
-					<div class="info-div">
-						<label>Dependents:</label>
-						<p>0</p>
-					</div>
-					
-					<label>Spending Account</label>
-					<div class="info-row">
-						<div class="info-col"></div>
-						<div class="info-col">
-							<label>Medical</label>
-						</div>
-						<div class="info-col">
-							<label>Wellness</label>
-						</div>
-					</div>
-					<div class="info-row">
-						<div class="info-col">
-							<label>Allocation</label>
-						</div>
-						<div class="info-col">
-							S$<span>0.00</span>
-						</div>
-						<div class="info-col">
-							S$<span>0.00</span>
-						</div>
-					</div>
-					<div class="info-row">
-						<div class="info-col">
-							<label>Usage</label>
-						</div>
-						<div class="info-col">
-							S$<span>0.00</span>
-						</div>
-						<div class="info-col">
-							S$<span>0.00</span>
-						</div>
-					</div>
-					<div class="white-space-20"></div>
-					<div class="info-div">
-						<label>Start date:</label>
-						<p>July 04, 1995</p>
-					</div>
-					<div class="info-div">
-						<label>End date:</label>
-						<p>July 04, 1995</p>
-					</div>
-
-					<div class="btn-container">
-						<button class="btn btn-primary">Transfer Account</button>
-					</div>
-				</div>
-			</div>
-
-		</div>
-
-		<div v-if="true" class="member-list-table-wrapper">
-			<div class="member-list-table">
-				<table>
-					<thead>
-						<tr>
-							<th class="name-title">Name</th>
-							<th class="status-title">Status</th>
-							<th class="mobile-number-title">Mobile number</th>
-							<th class="family-coverage-title">Family coverage</th>
-							<th class="spending-account-medical-title">Spending account <span>(medical)</span></th>
-							<th class="spending-account-wellness-title">Spending account <span>(wellness)</span></th>
-							<th class="date-title">Date</th>
-						</tr>
-					</thead>
-					<tbody>
-						
-							<tr>
-								<td class="name-data">
-									<router-link :to="{ name: 'CorporateEmployeeMenu' }">
-										<strong>Noelou Jan Nagac</strong>
-									</router-link>
-									<button class="btn-transfer-account">Transfer Account</button>
-								</td>
-								<router-link :to="{ name: 'CorporateEmployeeMenu' }">
-									<td class="status-data">
-										<div>
-											<span class="status-color active"></span>
-											<span>Active</span>
-										</div>
-										<div class="status-expired-details">
-											<span>Last Day of Coverage/End Date 04/10/2019</span>
-										</div>
-									</td>
-									<td class="mobile-number-data"><span>9064317892</span></td>
-									<td class="family-coverage-data">
-										<div class="dependent-details">
-											<strong>Dependent: </strong>
-											<span>1</span>
-										</div>
-									</td>
-									<td class="spending-account-medical-data">
-										<div class="medical-details">
-											<strong>Allocation:</strong>
-											<span>S$ <span>1000</span></span>
-										</div>
-										<div class="plan-details">
-											<strong>Usage:</strong>
-											<span>S$ <span>979.4</span></span>
-										</div>
-									</td>
-									<td class="spending-account-wellness-data">
-										<div class="medical-details">
-											<strong>Allocation:</strong>
-											<span>S$ <span>1000</span></span>
-										</div>
-										<div class="plan-details">
-											<strong>Usage:</strong>
-											<span>S$ <span>979.4</span></span>
-										</div>
-									</td>
-									<td class="date-data">
-										<div class="start-date-details">
-											<strong>Start date:</strong>
-											<span>July 05, 2019</span>
-										</div>
-										<div class="end-date-details">
-											<strong>End date:</strong>
-											<span>December 05, 2019</span>
-										</div>
-									</td>
-								</router-link>
-							</tr>
-						
-					</tbody>
-				</table>
-			</div>
-		</div>
-
+		<!-- Pagination Start -->
 		<div class="member-list-pagination">
 			<div class="global-pagination">
 				<div class="prev-pagination">
@@ -172,16 +195,71 @@
 				<div class="per-page-pagination">
 					<span>
 						<span>5</span> per page
-        	</span>
-        	<i class="fa fa-angle-down"></i>
-        </div>
-      </div>
+					</span>
+					<i class="fa fa-angle-down"></i>
+				</div>
+			</div>
 		</div>
+		<!-- Pagination End -->
 
-  </div>
+		<!-- Modal Start -->
+		<Modal v-if="showTransferAccountModal" class="transfer-account">
+			<div slot="header" class="h-20 flex items-center px-6 text-2xl">
+				<h1>Transfer Account</h1>
+			</div>
+			<div slot="body" class="p-6 pb-12 text-xl">
+				<div class="trans-comp-container">
+					<div v-if="true" ng-if="!showTransferCompanySummary">
+
+						<div>User: <span class="text-gray-600" ng-bind="selected_user_data.member.Name">Jazer</span></div>
+						<div>ID: <span class="text-gray-600" ng-bind="selected_user_data.member.UserID">0010</span></div>
+						<div>Company: <span class="text-gray-600" ng-bind="corprorate_details.corporate.company_name">Mednefits Tech.</span>
+						</div>
+
+						<div class="pt-8 pb-3">Transfer Date/Start Date</div>
+						<input type="date">
+						<!-- <md-datepicker ng-model="selected_user_data.transfer_start_date" md-hide-icons="calendar"></md-datepicker> -->
+
+						<div class="pb-3 pt-4">Transfer to:</div>
+
+						<div class="transfer-to-wrapper">
+							<input class="border border-gray-400 w-full h-10 rounded-sm" type="text" ng-model="selected_user_data.company" ng-change="companyTransferTyping( selected_user_data.company )">
+							<div v-if="false" ng-if="showCompanyDrop" class="company-list-drop">
+								<div class="company" v-for="list in 3" :key="list.index" ng-repeat="list in agentsCompany | filter : selected_user_data.company"
+									ng-click="setCustomerId( list )">
+									<span ng-bind="list.company_name">Mednefits Tech. {{list}}</span>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div v-if="true" ng-if="showTransferCompanySummary">
+						<div>Summary</div>
+						<div>Name: <span class="text-gray-600" ng-bind="selected_user_data.member.Name">Allan Cheams</span></div>
+						<div>ID: <span class="text-gray-600" ng-bind="selected_user_data.member.UserID">123</span></div>
+						<div>Current Company: <span class="text-gray-600" ng-bind="corprorate_details.corporate.company_name">StackGecko</span></div>
+						<div>Transfer date/Start date: <span class="text-gray-600" ng-bind="selected_user_data.transfer_start_date">Allan Cheams</span></div>
+						<div>Transfer to: <span class="text-gray-600" ng-bind="selected_user_data.company">Allan Cheams</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div slot="footer" class="flex justify-end items-center px-3 pb-3">
+					<h3 ng-bind="text_status.error">Status Error</h3>
+					<button class="btn-primary bg-white text-black mx-1" @click="toggleTransferAccountModal()">Cancel</button>
+					<button ng-if="!showTransferCompanySummary" class="btn-primary mx-1" aria-label="s" ng-click="toggleTransferCompSummary( )"><span>Proceed</span></button>
+					<button ng-if="showTransferCompanySummary" class="btn-primary mx-1" ng-click="toggleTransferCompSummary()">Back</button>
+					<button ng-if="showTransferCompanySummary" class="btn-primary mx-1"  aria-label="s" ng-click="updateTransferCompanyBtn( selected_user_data )"><span>Submit</span></button>
+			</div>
+		</Modal>
+		<!-- Modal End -->
+	</div>
+	<!-- End corporate-members-container -->
+
 </template>
 
 <script>
-	import corporateMemberList from '@/components/corporates/corporateMemberList'
-	export default corporateMemberList
+	import corporateMemberList from "@/components/corporates/corporateMemberList";
+	export default corporateMemberList;
 </script>
