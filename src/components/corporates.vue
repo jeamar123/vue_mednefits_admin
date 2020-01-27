@@ -15,6 +15,7 @@
 				},
 				corporate_pagination : {},
 
+				exportAllCompany: false,
         isFilterModalShow : false,
         isExportModalShow : false,
 				isSearchShow : false,
@@ -51,10 +52,10 @@
 				],
 				export_data_keys : [
 					'company_name',
-					'end_date',
-					'hr_account_status',
-					'employee_seats',
-					'dependent_seats',
+					'expiry_date',
+					'active',
+					'total_employee_seat',
+					'total_dependent_seat',
 					'total_medical_credits',
 					'account_type',
 					'no_of_employees',
@@ -152,12 +153,17 @@
       	this.isExportModalShow = this.isExportModalShow == false ? true : false;
 			},
 			allCompanyCheckBox( opt ){
+				console.log( this.allCompanySelected );
 				this.corporate_id_arr = [];
-				if( opt == false ){
+				if( opt == true ){
 					this.corporate_list_arr.map((value) => {
 						this.corporate_id_arr.push( value.corporate.customer_id );
 						value.selected = true;
 					});
+
+					if( this.corporate_pagination.total == this.corporate_id_arr.length ){
+						this.exportAllCompany = true;
+					}
 				}else{
 					this.corporate_list_arr.map((value) => {
 						value.selected = false;
@@ -165,10 +171,16 @@
 				}
 			},
 			companyCheckBox( list, opt ){
-				if( opt == false ){
+				if( opt == true ){
 					this.corporate_id_arr.push( list.corporate.customer_id );
 				}else{
 					this.corporate_id_arr.splice( $.inArray( list.corporate.customer_id, this.corporate_id_arr ) , 1);
+					this.exportAllCompany = false;
+					this.allCompanySelected = false;
+				}
+				if( this.corporate_id_arr.length == this.corporate_pagination.total ){
+					this.exportAllCompany = true;
+					this.allCompanySelected = true;
 				}
 			},
 			goToCompanyDetails( data ){
@@ -194,31 +206,59 @@
 					// this.getCompanyList();
 				}
 			},
+			selectAllCompany(){
+				this.exportAllCompany = true;
+			},
+			clearAllCompany(){
+				this.exportAllCompany = false;
+				this.corporate_id_arr = [];
+				this.allCompanySelected = false;
+				this.corporate_list_arr.map((value) => {
+					value.selected = false;
+				});
+			},
 
 
 			exportData(){
 				var params = '';
+				var params_header = '';
 				this.export_data_keys.map((value, key) => {
 					if( this.export_data_key_index[ key ] == true ){
-						params += ( (value.toLowerCase()).replace(" ", "_") + "=true&" );
+						params += ( "dataIndex[]=" + value + "&" );
+						params_header += ( "column_header[]=" + this.export_data_header[ key ] + '&' );
 					}
-
 					if( key == this.export_data_keys.length - 1 ){
-						// this.$parent.showLoading();
-						// axios.get( url )
-						// 	.then(res => {
-						// 		console.log( res );
-						// 		this.$parent.hideLoading();
-						// 	})
-						// 	.catch(err => {
-						// 		console.log(err);
-						// 		this.$parent.hideLoading();
-						// 		this.swal('Error!', err, 'error');
-						// 	});
+						if( this.corporate_id_arr.length > 0 ){
+							this.corporate_id_arr.map((value2, key2) => {
+								if( this.export_data_key_index[ key2 ] == true ){
+									params += ( "ids[]=" + value2 + "&" );
+								}
+								if( key2 == this.corporate_id_arr.length - 1 ){
+									this.exportCompanyCSV( params, params_header );
+								}
+							});
+						}else{
+							this.exportCompanyCSV( params, params_header );
+						}
 					}
 				});
-
-				console.log( params );
+				// console.log( params );
+				// console.log( params_header );
+			},
+			exportCompanyCSV( params, params_header ){
+				let download_type = 'by_all';
+				if( this.corporate_id_arr.length > 0 ){
+					download_type = 'by_id';
+				}
+				if( this.filterData.start != null && this.filterData.end != null ){
+					download_type = 'by_date';
+					params += ("start=" + moment( this.filterData.start ).format('YYYY-MM-DD') + "&end=" + moment( this.filterData.end ).format('YYYY-MM-DD') + '&');
+				}
+				if( this.exportAllCompany == true || ( this.corporate_id_arr.length == this.corporate_pagination.total ) ){
+					download_type = 'by_all';
+				}
+				console.log( axios.defaults.serverUrl + '/company/corporate?isGetCSV=true&download_type=' + download_type + '&token=' + localStorage.getItem('vue_admin_session') + '&' + params + params_header );
+				window.open( axios.defaults.serverUrl + '/company/corporate?isGetCSV=true&download_type=' + download_type + '&token=' + localStorage.getItem('vue_admin_session') + '&' + params + params_header );
 			},
 			getCompanyList(){
 				this.$parent.showLoading();
@@ -232,7 +272,7 @@
 					url += '&search=' + this.search_text;
 				}
 				//  ?page=' + this.page_active + '&limit' + this.page_limit
-				console.log( url );
+				// console.log( url );
 				axios.get( url )
 				.then(res => {
 					console.log( res );
@@ -245,10 +285,10 @@
 						value.selected = false;
 					});
 
-					this.filterData = {
-						start: null,
-						end: null,
-					};
+					// this.filterData = {
+					// 	start: null,
+					// 	end: null,
+					// };
 					this.$parent.hideLoading();
 				})
 				.catch(err => {
