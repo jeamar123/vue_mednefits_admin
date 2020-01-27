@@ -260,13 +260,13 @@
 				<div class="emp-header-text">
 					<h3>Add a dependent</h3>
 				</div>
-				<form>
-					<div class="edit-dependent-row">
-						<div class="employee-details-input-wrapper">
+				<form class="md:w-full">
+					<div class="edit-dependent-row flex md:flex-wrap">
+						<div class="employee-details-input-wrapper md:m-0">
 							<label>Full Name</label>
 							<input type="text">
 						</div>
-						<div class="employee-details-input-wrapper">
+						<div class="employee-details-input-wrapper md:m-0">
 							<label>Date of Birth</label>
 							<div class="date-container">
 								<v-date-picker
@@ -279,8 +279,8 @@
 	            </div>
 						</div>
 					</div>
-					<div class="edit-dependent-row">
-						<div class="employee-details-input-wrapper">
+					<div class="edit-dependent-row flex md:flex-wrap">
+						<div class="employee-details-input-wrapper md:m-0">
 							<label>Relationship</label>
 							<select>
 								<option>Spouse</option>
@@ -289,7 +289,7 @@
 								<option>Parent</option>
 							</select>
 						</div>
-						<div class="employee-details-input-wrapper">
+						<div class="employee-details-input-wrapper md:m-0">
 							<label>Start Date</label>
 							<div class="date-container">
 								<v-date-picker
