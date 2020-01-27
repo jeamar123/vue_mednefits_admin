@@ -231,15 +231,6 @@ $font-gray: #888;
     .date-container img {
       left: 10px;
     }
-
-    .date-container input {
-      padding: 5px 5px 5px 28px;
-      background-color: transparent;
-
-      &::placeholder {
-        color: transparent;
-      }
-    }
   }
 
   .noSpending {

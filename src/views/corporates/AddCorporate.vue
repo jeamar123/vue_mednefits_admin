@@ -756,7 +756,7 @@
 									<v-date-picker
 		                popoverDirection="bottom"
 		                v-model="create_company.medical_spending_start_date"
-		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :input-props='{class: "spendingDatePicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                :formats='formats'
 		                popover-visibility="focus"
 		                v-bind:class="{ noSpending : create_company.medical_spending_account == false }"
@@ -773,7 +773,7 @@
 									<v-date-picker
 		                popoverDirection="bottom"
 		                v-model="create_company.medical_spending_end_date"
-		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :input-props='{class: "spendingDatePicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                :formats = 'formats'
 		                popover-visibility="focus"
 		                v-bind:class="{ noSpending : create_company.medical_spending_account == false }"
@@ -803,7 +803,7 @@
 									<v-date-picker
 		                popoverDirection="bottom"
 		                v-model="create_company.wellness_spending_start_date"
-		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :input-props='{class: "spendingDatePicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                :formats='formats'
 		                popover-visibility="focus"
 		                v-bind:class="{ noSpending : create_company.wellness_spending_account == false }"
@@ -819,7 +819,7 @@
 									<v-date-picker
 		                popoverDirection="bottom"
 		                v-model="create_company.wellness_spending_end_date"
-		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :input-props='{class: "spendingDatePicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                :formats='formats'
 		                popover-visibility="focus"
 		                v-bind:class="{ noSpending : create_company.wellness_spending_account == false }"
