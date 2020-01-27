@@ -247,6 +247,11 @@ $font-gray: #888;
     pointer-events: none;
   }
 
+  .password-input-wrapper input[disabled] {
+    cursor: not-allowed;
+    background-color: rgb(235, 235, 228);
+  }
+
 
   .send-welcome-email-toggle {
     display: flex;
