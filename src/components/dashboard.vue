@@ -1,6 +1,5 @@
 <script>
 	import axios from 'axios';
-
 	axios.defaults.headers.common['Authorization'] = localStorage.getItem('vue_admin_session');
 
 	var dashboard = {

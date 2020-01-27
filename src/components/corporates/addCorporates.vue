@@ -606,7 +606,7 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "./src/assets/css/corporates.scss";
+  @import "./src/assets/css/corporates.scss";
 
   @media (max-width: 800px) {
     .add-corporate-container {
