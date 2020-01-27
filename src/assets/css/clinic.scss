@@ -43,7 +43,7 @@
 	}
 	.left-box-wrapper{
 		flex: 1;
-		background: #2d7db3;
+		background: #3a85b7;
 		box-shadow: 0px 1px 5px #ddd;
 		padding-bottom: 50px;
 		position: relative;
@@ -51,9 +51,8 @@
 	.clinic-details-box{
     padding: 35px 20px;
     text-align: center;
-    background: #2986c1;
-    border-top: 2px solid #256a98;
-    border-bottom: 2px solid #256a98;
+    background: #4395ca;
+    border-top: 2px solid #3a85b7;
 
 		img{
 	    width: 80px;
@@ -79,27 +78,34 @@
 		width: 100%;
 
 		.menu-item{
+			display: flex;
 			padding: 20px;
 			color: #eee;
 			font-size: 14px;
 			cursor: pointer;
 	    transition: all .3s ease-in-out;
+	    flex: 2;
 
 			&:hover,
 			&.active{
 				background: #256a98;
 			}
 		}
+		.menu-item label{
+			flex: 2;
+		}
 		.menu-item .oi{
+			flex: 1;
 	    vertical-align: middle;
 	    margin-right: 10px;
 	    position: relative;
 	    top: 1px;
+	    text-align: right;
 		}
 	}
 	.right-box-wrapper{
 		flex: 4;
-		margin: 10px;
+		/*margin: 10px;*/
 	}
 	.clinic-details-wrapper{
 		width: 100%;

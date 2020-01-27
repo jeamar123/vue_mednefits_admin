@@ -1,36 +1,34 @@
 <template>
 	<div id="main-content" >
-		<div class="navbar-line"></div>
+		<!-- <div class="navbar-line"></div> -->
 	  <div class="navbar">
 	  	<div class="nav-logo">
 	  		<img :src="'../assets/img/logo_white.png'">
 	  	</div>
 	  	<div class="nav-items">
 	  		<ul class="nav-ul">
-	  			<router-link tag="li" to="/dashboard/clinic"><a href="#">Clinic</a></router-link>
-	  			<router-link tag="li" to="/dashboard/doctor"><a href="#">Doctor</a></router-link>
-	  			<router-link tag="li" to="/dashboard/accounts"><a href="#">Accounts</a></router-link>
-	  			<router-link tag="li" to="/dashboard/accounts"><a href="#">Public</a></router-link>
-	  			<router-link tag="li" to="/dashboard/accounts"><a href="#">Individual</a></router-link>
-	  			<router-link tag="li" to="/dashboard/accounts"><a href="#">Corporate</a></router-link>
-	  			<router-link tag="li" to="/dashboard/accounts">
-	  				<a href="#">Transaction</a>
-	  				<div class="drop-wrapper transaction-drop">
-	  					<ul class="nav-ul">
-	  						<router-link tag="li" to="/dashboard/clinic"><a href="#">Transaction History</a></router-link>
-	  						<router-link tag="li" to="/dashboard/clinic"><a href="#">Download E-Claim List</a></router-link>
-	  					</ul>
-	  				</div>
-	  			</router-link>
-	  			<router-link tag="li" to="/dashboard/accounts"><a href="#">Analytics</a></router-link>
-	  			<router-link tag="li" to="/dashboard/accounts"><a href="#">Admin</a></router-link>
-	  		</ul>
-	  	</div>
 
-	  	<div class="nav-items-right">
-	  		<ul class="nav-ul">
+	  			<li><router-link tag="a" :to="{ name : 'Clinic' }">Clinic</router-link></li>
+	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Doctor</router-link></li>
+	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Accounts</router-link></li>
+	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Public</router-link></li>
+	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Individual</router-link></li>
+	  			<li><router-link tag="a" :to="{ name : 'Corporates' }">Corporate</router-link></li>
+	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Booking</router-link></li>
 	  			<li>
-	  				<a href="#"><span class="oi" data-glyph="cog" aria-hidden="true"></span></a>
+		  			<router-link tag="a" :to="{ name : 'Analytics' }">
+		  				Transaction
+		  				<div class="drop-wrapper transaction-drop">
+		  					<ul class="nav-ul">
+		  						<router-link tag="a" to="/dashboard/clinic">Transaction History</router-link>
+		  						<router-link tag="a" to="/dashboard/clinic">Download E-Claim List</router-link>
+		  					</ul>
+		  				</div>
+		  			</router-link>
+		  		</li>
+	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Analytics</router-link></li>
+	  			<li>
+	  				<a href="#">Settings</span></a>
 
 	  				<div class="drop-wrapper settings-drop">
 	  					<ul class="nav-ul">
@@ -47,6 +45,7 @@
 	  					</ul>
 	  				</div>
 	  			</li>
+	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Admin</router-link></li>
 	  		</ul>
 	  	</div>
 	  </div>

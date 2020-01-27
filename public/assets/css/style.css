@@ -5,16 +5,23 @@
 body,html{
   height: 100%;
   width: 100%;
-  background: #f1f1f1;
+  background: #E9EAEC;
   font-family: 'Helvetica Light';
   color: #444340;
   font-size: 14px;
+  font-weight: 700;
   /*overflow-x: hidden;*/
   overflow: hidden;
   margin: 0;
   padding: 0;
   letter-spacing: .14px;
   line-height: 1.42857143;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html{
@@ -33,17 +40,20 @@ button:hover {
   line-height: 1;
   padding: 10px 15px;
   font-size: 14px;
-  color: rgba(255,255,255,0.87);
-  background-color: #076086;
+  /*color: rgba(255,255,255,0.87);
+  background-color: #076086;*/
   border-radius: 2px;
+  color: #fff;
+  background-color: #4154AF;
   height: 36px;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
   /*text-transform: uppercase;*/
   transition: all .3s ease-in;
   font-family: inherit;
+  font-weight: 700;
 }
 .btn-primary:hover{
-  background-color: #3593CF;
+  background-color: #30408e;
 }
 
 input, select, textarea{
@@ -83,25 +93,20 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 0 15px;
-    height: 55px;
-    position: fixed;
-    top: 5px;
-    left: 0;
+    padding: 0 16px;
+    height: 50px;
     z-index: 50;
-    background: #0392cf;
-    /*box-shadow: 0px 1px 5px #ddd;*/
+    background: #1667AC;
   }
   .navbar .nav-logo{
-    width: 140px;
-    margin-left: 5px;
+    width: 130px;
+    margin-right: 20px;
   }
   .navbar .nav-logo img{
     width: 100%;
   }
   .navbar .nav-items{
   	flex: 1;
-    text-align: right;
   }
   .navbar .nav-items-right{
     width: 40px;
@@ -121,18 +126,16 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
   }
   .navbar .nav-items > ul > li > a{
     color: #eee;
-    /*color: #797979; */
     text-transform: uppercase;
     font-weight: 700;
-    padding: 0 15px;
-    font-size: 12px;
-    height: 52px;
-    line-height: 50px;
+    padding: 0 12px;
+    font-size: 13px;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 2px;
     display: inline-block;
-    font-family: 'Helvetica Medium'; 
-    margin: 0 5px;
+    margin: 0 8px;
     transition: all .1s ease-in-out;
-    border-bottom: 3px solid transparent;
   }
   .navbar .nav-items-right > ul > li > a,
   .navbar .nav-items-right > ul > li > a span{
@@ -142,10 +145,11 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
     line-height: 50px;
     display: inline-block;
   }
-  .navbar .nav-items > ul > li:hover > a,
-  .navbar .nav-items > ul > li.active > a,
-  .navbar .nav-items > ul > li.router-active > a{
-    border-bottom: 3px solid #eee;
+  .navbar .nav-items > ul > li > a:hover,
+  .navbar .nav-items > ul > li > a.active ,
+  .navbar .nav-items > ul > li > a.router-active{
+    background: white;
+    color: #1667AC!important;
   }
   .navbar .settings-drop{
     top: 25px;
@@ -156,7 +160,6 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
     right: 0;
   }
 /*-----------------------------*/
-
 
 
 /*----------- BODY -------------*/
@@ -176,7 +179,7 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
   }
 
   .child-content{
-    padding-top: 60px;
+    /*padding-top: 60px;*/
     min-height: 100vh;
   }
 
@@ -275,7 +278,7 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
     display: flex;
     width: 100%;
     justify-content: center;
-    align-items: center;
+    /*align-items: center;*/
     height: 55px;
   }
   .search-toolbar-container .input-icon{
@@ -313,9 +316,95 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
 
 /*------ Pagination -------*/
   .pagination-container{
-    
+    text-align: right;
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.54);
+    border-top: 1px solid #f0f0f0;
+  }
+  .pagination-container .pagination-wrapper{
+    width: 450px;
+    padding-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    text-align: center;
+  }
+  .pagination-wrapper .page{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pagination-wrapper .page .page-select,
+  .pagination-wrapper .row .row-select{
+    width: 50px;
+    position: relative;
+    cursor: pointer;
+  }
+  .pagination-wrapper .page .page-select .oi{
+    position: relative;
+    top: 1px;
+    left: 5px;
+    font-size: 11px;
+  }
+  .pagination-wrapper .row{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pagination-wrapper .row .row-select .oi{
+    position: relative;
+    top: 1px;
+    left: 5px;
+    font-size: 11px;
+  }
+  .pagination-wrapper .page-count{
+    width: 100px;
+  }
+  .pagination-wrapper .page-arrows{
+    width: 60px;
+    display: flex;
+  }
+  .pagination-wrapper .page-arrows .arrows{
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    top: 2px;
+    padding: 6px 0;
+  }
+  .pagination-wrapper .drop-pagi{
+    display: none;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+    background-color: #ECF0F1;
+    min-width: 120px;
+    overflow-y: auto;
+    max-height: 180px;
+    position: absolute;
+    bottom: -10px;
+    right: 0;
+  }
+  .drop-pagi::-webkit-scrollbar-track{
+    background-color: #ddd;
+  }
+  .drop-pagi::-webkit-scrollbar-thumb{
+    background-color: #aaa;
+  }
+  .drop-pagi .drop-list{
+    padding: 10px 15px;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+  }
+  .drop-pagi .drop-list:hover{
+    background: #ddd;
+    color: #000;
   }
 /*-------------------------*/
+
 
 /*----------- Table ------------*/
   .tbl-wrapper{
@@ -403,7 +492,6 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
     top: -1px;
   }
 /*------------------------------*/
-
 
 
 /*------ Table pagination -------*/
@@ -553,7 +641,6 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
 /*-------------------------------*/
 
 
-
 /*--------- Transition ----------*/
   .fade-enter-active,
   .fade-leave-active {
@@ -573,7 +660,6 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
     opacity: 0;
   }
 /*-------------------------------*/
-
 
 
 /*----------- MODAL -------------*/
@@ -598,9 +684,9 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
 
   .modal-container {
     width: 400px;
-    margin: 50px auto;
+    margin: 35px auto;
     background-color: #fff;
-    border-radius: 2px;
+    border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
     transition: all .3s ease;
   }
@@ -721,20 +807,20 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
 
 /*----------- Forms -------------*/
   form button{
-    display: inline-block;
+    /*display: inline-block;
     border: none;
     line-height: 1;
     padding: 10px 15px;
     font-size: 12px;
     color: inherit;
-    /*color: rgba(255,255,255,0.87);*/
-    background-color: inherit;
+*/    /*color: rgba(255,255,255,0.87);*/
+   /* background-color: inherit;
     border-radius: 2px;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
     transition: all .3s ease-in;
     font-family: inherit;
     text-align: center;
-    font-weight: 700;
+    font-weight: 700;*/
   }
 
   .form-div{
@@ -753,19 +839,14 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
   }
 
   .form-div .form-input{
-    display: block;
-    margin: 0;
-    background: none;
-    padding: 2px 2px;
-    border-width: 0 0 1px;
-    line-height: 26px;
-    height: 30px;
-    border-radius: 0;
-    border-style: solid;
-    border-color: #ddd;
     width: 100%;
-    box-sizing: border-box;
-    float: left;
+    border: 1px solid #dedede;
+    border-radius: 2px;
+    height: 34px;
+    min-height: unset;
+    padding: 5px 10px 5px 5px;
+    color: #222;
+    font-size: 14px;
   }
 
   .form-div .form-checkbox,
@@ -1000,7 +1081,8 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
   }
 
   *::-webkit-scrollbar-thumb{
-    background-color: #0392cf;
+    background-color: #1667AC;
+    /*background-color: #0392cf;*/
     /*background-image: -webkit-gradient(linear, 0 0, 0 100%,*/
                        /*color-stop(.5, rgba(255, 255, 255, .2)),*/
                        /*color-stop(.5, transparent), to(transparent));*/
