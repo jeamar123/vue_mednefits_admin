@@ -139,7 +139,6 @@
 	                popoverDirection="bottom"
 	                v-model="starDateDetails.null"
 	                :input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
-	                :formats = 'formats'
 	                popover-visibility="focus"
 	              ></v-date-picker>
 	              <i class="fa fa-caret-down"></i>
