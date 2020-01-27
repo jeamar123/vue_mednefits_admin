@@ -185,7 +185,9 @@
 				// console.log('so refreshing...');
 			},
 			removeExportKey( index ){
+				console.log( index );
 				this.export_data_key_index[ index ] = false;
+				this.$forceUpdate();
 			},
 
 
