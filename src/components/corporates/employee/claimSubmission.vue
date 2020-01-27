@@ -2,7 +2,7 @@
 import Modal from "../../../views/modal/Modal.vue";
 
 
-  let corporateEmployeeInformation = {
+  let claimSubmission = {
     components: {
       Modal
     },
@@ -19,7 +19,7 @@ import Modal from "../../../views/modal/Modal.vue";
         removeBackBtn: false,
         editReplaceDependentInfo: false,
         withdrawEmployeeModal: false,
-        inNetworkClaimSummaryModal: false,
+        inNetworkClaimSummaryModal: true,
         editDependentInfo: false,
         showInNetwork: false,
         showOutNetwork: false,
@@ -42,10 +42,6 @@ import Modal from "../../../views/modal/Modal.vue";
           startDate: undefined,
         },
         showShortTermSelector: false,
-        formats: {
-          input: ["DD/MM/YYYY"],
-          data: ["DD/MM/YYYY"]
-        },
       };
     },
     created(){
@@ -272,9 +268,26 @@ import Modal from "../../../views/modal/Modal.vue";
     }
   }
   
-  export default corporateEmployeeInformation
+  export default claimSubmission
 </script>
 
 <style lang="scss" scoped>
 	@import "./src/assets/css/corporateEmployee.scss";
+</style>
+
+<style type="text/css">
+  .in-network-input-wrapper .vDatepicker,
+  .xs-in-network-form .vDatepicker{
+    background: transparent;
+    border: none !important;
+  }
+  .out-of-network-form .visit-date-input-wrapper input{
+    background-color: #fff;
+    border: 1px solid #e9e9e9;
+    border-radius: 4px;
+    color: #888;
+    height: 34px;
+    width: 100%;
+    padding: 6px 18px;
+  }
 </style>

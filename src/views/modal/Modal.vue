@@ -45,7 +45,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./src/assets/css/corporates.scss";
+@import "./src/assets/css/globalModal.scss";
 
 .modal-mask {
   position: fixed;

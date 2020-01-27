@@ -1,4 +1,4 @@
-/*--------------*/
+--------------*/
 	.white-space-5{
 		height: 5px;
 		width: 100%;
@@ -133,7 +133,11 @@
 	.bg-fff{ background-color: #fff; }
 /*-------------*/
 
-
+/*-------------*/
+	.txt-transform-uppercase{
+		text-transform: uppercase;
+	}
+/*-------------*/
 
 /*-------------*/
 	.dp-inline-block{ display: inline-block; }
@@ -359,4 +363,4 @@
 	opacity: 0;
 }
 
-/*-----------*/
+/*-----------

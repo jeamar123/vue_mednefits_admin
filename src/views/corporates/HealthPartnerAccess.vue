@@ -2,15 +2,32 @@
 	<div class="health-partner-access-wrapper">
 		<!-- <button @click="selectCorporatesView( 'CorporateMenu' )" class="btn-primary">BACK</button> -->
 		<div>
+			<router-link tag="a" :to="{ name: 'Corporates' }" class="close-btn"><span class="oi" data-glyph="x" aria-hidden="true"></span></router-link>
 			<h2 class="corporate-text">Corporate</h2>
 		</div>
 		<div class="health-partner-access-container">
+			<!-- <div class="health-partner-tab">
+				<div class="tab">
+					Blocked
+				</div>
+				<div class="tab">
+					Opened
+				</div>
+			</div> -->
+
 			<div class="health-partner-access-blocked">
-				<div class="blocked-opened-header">
+				<div v-if="true" class="blocked-opened-header">
 					<h3>Health Partner Access - BLOCKED</h3>
 					<i class="fa fa-search"></i>
 				</div>
-				<div class="clinic-name-header">
+
+				<div v-if="false" class="health-partner-search">
+					<i class="fa fa-search left"></i>
+					<input type="text" placeholder="Search for partner access" name="">
+					<i class="fa fa-times right"></i>
+				</div>
+
+				<div class="clinic-name-header" >
           <label class="health-checkbox-container"> 
             <span>Blocked Access</span>
             <input type="checkbox">
@@ -18,12 +35,23 @@
           </label>	
           <div class="select-filter-div">
 	        	<select >
-	        		<option value="type">Clinic Type</option>
+	        		<option value="all">All Region</option>
 	        		<option value="name">Clinic Name</option>
 	        	</select>
 	        </div>
-          <button class="btn-primary">OPEN</button>  
+          <div class="select-filter-div">
+	        	<select >
+	        		<option value="type">Clinic Type</option>
+	        		<option value="sgd">Singapore - SGD</option>
+	        		<option value="myr">Malaysia - MYR</option>
+	        	</select>
+	        </div>
+          <button class="btn-primary">
+          	<div class="xs-hide">OPEN</div>
+          	<div class="xs-show"><i class="fa fa-check"></i></div>
+          </button>  
         </div>
+
         <div class="clinic-name-wrapper">
         	<div class="clinic-name-container">
 	        	<label class="health-checkbox-container"> 
@@ -31,8 +59,10 @@
 	            <input type="checkbox">
 	            <span class="health-checkmark"></span>
 	          </label>
+	          <div class="country">Singapore</div>
           </div>
         </div>
+
         <div class="pagination-container">
 					<div class="pagination-wrapper">
 						<div class="page">
@@ -75,14 +105,23 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="sort-container">
 				<img :src="'../assets/img/sort.png'">
 			</div>
+
 			<div class="health-partner-access-opened">
-				<div class="blocked-opened-header">
+				<div v-if="true" class="blocked-opened-header">
 					<h3>Health Partner Access - OPENED</h3>
 					<i class="fa fa-search"></i>
 				</div>
+
+				<div v-if="false" class="health-partner-search">
+					<i class="fa fa-search left"></i>
+					<input type="text" placeholder="Search for partner access" name="">
+					<i class="fa fa-times right"></i>
+				</div>
+
 				<div class="clinic-name-header">
           <label class="health-checkbox-container"> 
             <span>Opened Access</span>
@@ -91,11 +130,21 @@
           </label>	
           <div class="select-filter-div">
 	        	<select >
-	        		<option value="type">Clinic Type</option>
+	        		<option value="all">All Region</option>
 	        		<option value="name">Clinic Name</option>
 	        	</select>
 	        </div>
-          <button class="btn-primary">BLOCK</button>  
+          <div class="select-filter-div">
+	        	<select>
+	        		<option value="type">Clinic Type</option>
+	        		<option value="sgd">Singapore - SGD</option>
+	        		<option value="myr">Malaysia - MYR</option>
+	        	</select>
+	        </div>
+          <button class="btn-primary">
+          	<div class="xs-hide">BLOCK</div>
+          	<div class="xs-show"><i class="fa fa-check"></i></div>
+          </button>  
         </div>
         <div class="clinic-name-wrapper">
 					<div class="clinic-name-container">

@@ -1,0 +1,311 @@
+$bg-blue: #3a85b7;
+
+$font-gray: #888;
+
+.member-list-table {
+  table {
+    thead tr th,
+    tbody tr td {
+      white-space: inherit;
+    }
+
+    thead {
+      border-bottom: 2px solid #ddd;
+    }
+
+    tbody a {
+      color: #283e52;
+      display: contents;
+    }
+  }
+
+  th {
+    vertical-align: top;
+
+    span {
+      display: block;
+    }
+  }
+
+  th,
+  td {
+    padding: 10px;
+
+    &:nth-child(4) {
+      text-align: left;
+    }
+  }
+
+  td {
+    padding: 10px 10px 40px;
+  }
+
+  strong {
+    font-family: "Helvetica Medium";
+  }
+
+  td:last-child {
+    text-align: left;
+  }
+
+  .name-title,
+  .name-data {
+    width: 15%;
+  }
+
+  .status-title,
+  .status-data {
+    width: 13%;
+  }
+
+  .mobile-number-title,
+  .mobile-number-data {
+    width: 10%;
+  }
+
+  .family-coverage-title,
+  .family-coverage-data {
+    width: 12%;
+  }
+
+  .spending-account-medical-title,
+  .spending-account-medical-data,
+  .spending-account-wellness-title,
+  .spending-account-wellness-data {
+    width: 15%;
+  }
+
+  .status-expired-details {
+    color: #f7444e;
+    font-size: 10px;
+    margin: 5px 0 0;
+  }
+
+  .medical-details,
+  .plan-details,
+  .start-date-details,
+  .end-date-details {
+    display: grid;
+    grid-template-columns: 70px auto;
+  }
+
+  .btn-transfer-account {
+    background: #076086;
+    border: 0;
+    border-radius: 4px;
+    color: #fff;
+    padding: 4px 5px;
+    margin: 10px 0 0;
+  }
+
+  .status-color {
+    display: inline-block;
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    margin-right: 10px;
+
+    &.active {
+      background-color: #33cccc;
+    }
+
+    &.removed {
+      background-color: #f7444e;
+    }
+  }
+}
+.member-list-pagination {
+  text-align: center;
+  border-top: 1px solid #cbcbcb;
+  border-bottom: 1px solid #cbcbcb;
+  padding: 18px 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+
+  .global-pagination {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #0392cf;
+
+    i {
+      cursor: pointer;
+      font-size: 30px;
+      margin-right: 10px;
+    }
+  }
+
+  .prev-pagination {
+  }
+
+  .total-item,
+  .per-page-pagination {
+    margin: 0 0 0 30px;
+  }
+
+  .per-page-pagination {
+    position: relative;
+
+    .fa-angle-down {
+      font-size: 20px;
+      margin: 0 0 0 5px;
+    }
+
+    span,
+    i {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+}
+.corporate-members-container {
+  // width: 100%;
+  // padding: 10px 20px;
+  // background: #fff;
+  // height: 100%;
+  // position: relative;
+
+  .search-member-wrapper {
+    position: relative;
+    width: 45%;
+    display: flex;
+
+    .oi {
+      position: relative;
+      padding-right: 15px;
+      top: 12px;
+      left: 5px;
+      font-size: 16px;
+      color: #666;
+    }
+    input {
+      // padding-left: 35px;
+      background: transparent;
+      border-width: 0 0 1px 0;
+      border-color: #888;
+      font-weight: 700;
+      color: #666;
+      border-radius: 0;
+    }
+    input::placeholder {
+      opacity: 0.6;
+    }
+  }
+}
+.member-list-container {
+  // margin: 45px 0;
+  // display: grid;
+  // grid-template-columns: 1fr 1fr 1fr 1fr;
+  // grid-column-gap: 20px;
+  // grid-row-gap: 20px;
+}
+.member-wrapper {
+  // width: 300px;
+  /* min-height: 379px; */
+  /* height: 360px; */
+  background: #fdfdfd;
+  box-shadow: 2px 2px 10px #949393;
+  overflow: hidden;
+  border-radius: 3px;
+
+  p {
+    font-size: 13px;
+    word-wrap: break-word;
+  }
+  label {
+    font-size: 12px;
+    font-weight: 700;
+    color: $font-gray;
+  }
+  .info-div {
+    font-size: 12px;
+
+    .info-details {
+      margin: 10px 0;
+      color: #555;
+    }
+  }
+  .info-row {
+    display: flex;
+
+    .info-col {
+      /*width: 33%;*/
+      flex: 1;
+      padding-right: 10px;
+    }
+    .flex-2 {
+      flex: 2;
+    }
+  }
+  .header {
+    padding: 8px 15px 8px 15px;
+    background: #1667ac;
+    color: #fff;
+    cursor: pointer;
+
+    h3 {
+      display: inline-block;
+      height: 25px;
+      width: 100%;
+      font-size: 14px;
+      text-transform: capitalize;
+    }
+    .fa-user {
+      width: 28px;
+      height: 28px;
+      line-height: 25px;
+      font-size: 16px;
+      border-radius: 50%;
+      border: 1px solid #fff;
+      text-align: center;
+      margin-right: 10px;
+    }
+    .oi {
+      flex: 1;
+      text-align: right;
+      position: relative;
+      top: 3px;
+    }
+  }
+  .body {
+    padding: 10px 15px 20px 15px;
+
+    .btn-transfer-company {
+      width: 100%;
+      border: 2px solid #777;
+      color: #777;
+      font-weight: 700;
+      background: transparent;
+      padding: 10px;
+      border-radius: 4px;
+      margin-top: 50px;
+      font-size: 14px;
+    }
+
+    .info-details {
+
+      label {
+        @apply pr-2;
+      }
+      .info-bind {
+        @apply text-lg;
+      }
+    }
+  }
+  .btn-container {
+    margin-top: 20px;
+
+    button {
+      background: transparent;
+      border: 2px solid #d5d5d5;
+      font-weight: 700;
+      box-shadow: none;
+      color: #999;
+      width: 100%;
+    }
+  }
+}

@@ -30,9 +30,17 @@ html{
 
 button{
   font-family: 'Helvetica Light';
+  outline: none !important;
 }
 button:hover {
   transition: all .3s ease-in-out;
+}
+
+.sideBar-hide {
+  left: 0 !important;
+}
+.hide {
+  display: none !important;
 }
 
 .btn-primary{
@@ -158,6 +166,71 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
   .navbar .transaction-drop{
     top: 25px;
     right: 0;
+  }
+
+  .xs-nav-btn{
+    display: none;
+    position: absolute;
+    font-size: 20px;
+    top: 0px;
+    padding: 10px 15px;
+    right: 0px;
+    color: #FFF;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+  }
+  .xs-menu-container{
+    background: #eee;
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    z-index: 99;
+  }
+  .xs-menu-container ul{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .xs-menu-container ul li{
+    padding: 10px;
+  }
+
+
+
+  /* Extra Large (xl) */
+  @media (max-width: 1330px) { 
+    .navbar .nav-items > ul > li > a {
+      padding: 0 5px;
+      margin: 0 5px;
+      font-size: 12px;
+    }
+    .navbar .nav-logo {
+      width: 110px;
+    }
+  }
+  @media (max-width: 1280px) { 
+
+  }
+  /* Large (lg) */
+  @media (max-width: 1024px) { 
+    .nav-items{
+      display: none;
+    }
+    .xs-nav-btn{
+      display: inline-block;
+    }
+  }
+  /* Medium (md) */
+  @media (max-width: 992px) { 
+    
+  }
+  /* Medium (md) */
+  @media (max-width: 768px) { 
+
+  }
+  /* Small (sm) */
+  @media (max-width: 640px) { 
+
   }
 /*-----------------------------*/
 
@@ -402,6 +475,48 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
   .drop-pagi .drop-list:hover{
     background: #ddd;
     color: #000;
+  }
+
+  /* Extra Large (xl) */
+  @media (max-width: 1280px) { 
+
+  }
+
+  /* Large (lg) */
+  @media (max-width: 1024px) { 
+
+  }
+
+  /* Medium (md) */
+  @media (max-width: 992px) { 
+    .pagination-container .pagination-wrapper{
+      width: 100%;
+    }
+    .pagination-wrapper .page{
+      width: 80px;
+      flex: none;
+    }
+    .pagination-wrapper .row{
+      flex: none;
+      width: 145px;
+    }
+    .pagination-wrapper .page-count{
+      flex: none;
+      width: 80px;
+    }
+    .pagination-wrapper .page .page-select, 
+    .pagination-wrapper .row .row-select{
+      width: 30px;
+    }
+  }
+  /* Medium (md) */
+  @media (max-width: 768px) { 
+
+  }
+
+  /* Small (sm) */
+  @media (max-width: 640px) { 
+
   }
 /*-------------------------*/
 

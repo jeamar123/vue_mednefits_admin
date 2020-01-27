@@ -7,6 +7,7 @@ import VueSlider from 'vue-slider-component';
 import JsonExcel from 'vue-json-excel'
  
 import $ from 'jquery'; 
+import '@/assets/css/tailwind.scss'
 
 import 'v-calendar/lib/v-calendar.min.css';
 import 'vue-slider-component/theme/default.css';
