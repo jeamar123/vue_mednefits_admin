@@ -32,3 +32,16 @@
 <style lang="scss" scoped>
 	@import "./src/assets/css/corporateEmployee.scss";
 </style>
+
+<style type="text/css">
+  @media( max-width: 400px ) {
+    .entitlement-date-picker  .popover-origin .popover-content-wrapper .popover-content {
+      left: -70px;
+    }
+
+    .entitlement-date-picker  .popover-origin .popover-content-wrapper .popover-content.align-left:after {
+      left: 75px;
+    }
+  }
+  
+</style>
