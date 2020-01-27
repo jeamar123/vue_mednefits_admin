@@ -4,7 +4,7 @@
 			<div v-if="!editEmployeeProfile && !addDependentInfo && !editRemoveEmpInfo">
 				<div class="emp-info-header">
 					<h3>Employee Information</h3>
-					<div class="right-btn-container">
+					<div class="right-btn-container sm:relative">
 						<button @click="showEditEmp()" class="btn btn-edit"><img :src="'../assets/img/icons/edit.png'">Edit Profile</button>
 					</div>	
 				</div>
@@ -70,12 +70,12 @@
 
 
 				<div class="emp-info-btn-footer">
-					<div>
-						<h3>Add a Dependent?</h3>
-						<button @click="showAddDependent()" class="btn btn-add"><img :src="'../assets/img/icons/add-employee.svg'">Add</button>
+					<div class="sm:block">
+						<h3 class=" sm:my-3">Add a Dependent?</h3>
+						<button @click="showAddDependent()" class="btn btn-add sm:w-1/2 xs:w-full	"><img :src="'../assets/img/icons/add-employee.svg'">Add</button>
 					</div>
 					<div>
-						<button @click="showRemoveEmp()" class="btn btn-remove-employee">Remove Employee <i class="fa fa-trash"></i></button>
+						<button @click="showRemoveEmp()" class="btn btn-remove-employee sm:relative sm:mt-4 sm:w-1/2 xs:w-full">Remove Employee <i class="fa fa-trash"></i></button>
 						<!-- status removed -->
 						<button v-if="false" class="btn btn-remove-employee btn-restore">Restore Employee</button>
 					</div>
