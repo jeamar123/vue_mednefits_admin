@@ -276,6 +276,5 @@ import Modal from "../../../views/modal/Modal.vue";
 </script>
 
 <style lang="scss" scoped>
-	@import "./src/assets/css/employeeInfoSettings.scss";
 	@import "./src/assets/css/corporateEmployee.scss";
 </style>

@@ -64,8 +64,8 @@
     }
 
     img {
-      width: 16px;
-      height: 16px;
+      width: 20px;
+      // height: 16px;
       cursor: pointer;
     }
   }
@@ -220,6 +220,16 @@
   justify-content: center;
   align-items: center;
 
+  .pages-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span{
+      flex: 1;
+    }
+  }
+
   span {
     font-size: 12px;
   }
@@ -227,6 +237,7 @@
   .prev-next-container {
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
 
   .fa-angle-left {
@@ -250,7 +261,7 @@
 
   .page-num {
     border-radius: 2px;
-    margin: 0 10px 0 0;
+    margin: 0 5px;
     padding: 5px 8px;
     cursor: pointer;
 
@@ -269,6 +280,12 @@
 
     >span:first-child {
       margin: 0 5px 0 0;
+    }
+
+    >span{
+      display: inline-block;
+      height: 26px;
+      line-height: 28px;
     }
 
     i {

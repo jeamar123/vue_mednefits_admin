@@ -5,6 +5,35 @@
   right: 15px;
   font-size: 10px;
 }
+
+.menu-responsive {
+  cursor: pointer;
+  position: absolute;
+  z-index: 999;
+  top: 12px;
+  right: -70.5px;
+  width: 70px;
+  height: 55px;
+  padding: 10px;
+  background: #1667AC;
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  // border-radius: 2px;
+
+  border-radius: 0 50% 50% 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px 5px;
+  // display:none;
+
+  img {
+    height: 30px !important;
+    width: 30px !important;
+  }
+}
+
 .employee-menu-container{
   min-height: calc( 100vh - 60px );
   // display: flex;
@@ -32,7 +61,7 @@
       height: 100px;
       display: block;
       border-radius: 50%;
-      margin: 0px auto 20px auto;
+      margin: 0px auto;
       background: #FFF;
     }
     p{
@@ -1111,130 +1140,7 @@
   }
   
 }
-.employee-details-options {
 
-  .modal-container {
-    width: 400px;
-    margin: 300px auto;
-  }
-
-  .modal-header {
-    background-color: #215e86;
-    border-radius: 4px 4px 0px 0px;
-    color: #fff;
-    padding: 17px 15px;
-    font-weight: 500;
-  }
-  
-
-  .modal-body {
-    padding: 20px;
-    
-   
-    .btn-options-container button {
-      display: block;
-      width: 200px;
-      margin: 0 auto 20px;
-      padding: 10px;
-    }
-  }
-
-  .modal-footer {
-    padding: 0 10px;
-    position: relative;
-    text-align: right;
-
-    .btn-close {
-      box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
-      background-color: transparent;
-      margin: 10px 0;
-      border: 0;
-      min-height: 36px;
-      min-width: 88px;
-    }
-
-    label {
-      position: absolute;
-      left: 15px;
-      top: 20px;
-    }
-  }
-}
-.employee-details-options {
-
-  .update-pass-header {
-    overflow: hidden;
-    margin: 0 0 30px;
-
-    .fa-times {
-      float: right;
-    }
-  }
-
-  .btn-update {
-    width: 100%;
-  }
-
-  // .renew-plan-row {
-  //   margin: 0 0 10px;
-
-  //   >span {
-  //     color: #777;
-  //     margin: 0 0 0 5px;
-  //     display: inline-block;
-  //   }
-  // }
-  // .new-plan-start-container { margin: 30px 0 0; }
-  // .new-plan-start-container >div {
-  //   position: relative;
-  //   width: 147px;
-
-  //   input {
-  //     border: 0;
-  //     border-bottom: 1px solid #cbcbcb;
-  //     padding: 5px 0px;
-  //     font-weight: 700;
-  //   }
-
-  //   .fa-caret-down {
-  //     position: absolute;
-  //     top: 7px;
-  //     right: 0px;
-  //   }
-  // }
-
-  .sms-form {
-    display: flex;
-
-    .country-mobile-input-wrapper {
-      position: relative;
-      margin: 10px 0 0;
-    }
-
-    >div:nth-child(1) {
-      flex: 1;
-    }
-
-    >div:nth-child(2) {
-      flex: 2;
-      margin: 0 0 0 20px;
-    }
-
-    input {
-      width: 100%;
-      border: 0;
-      border-bottom: 1px solid #cbcbcb;
-      padding: 5px 0px;
-      font-weight: 700;
-    }
-
-    .fa-caret-down {
-      position: absolute;
-      top: 6px;
-      right: 0;
-    }
-  }
-}
 .remove-dependent-container {
   .modal-header {
     background-color: #FF6763;
@@ -1259,21 +1165,7 @@
     background-color: #FF6763;
   }
 }
-.in-network-claim-container {
-  .network-summary-row {
-    display: flex;
-    margin: 0 0 15px;
 
-    >label {
-      color: #999;
-      width: 50%;
-    }
-
-    >span {
-      width: 50%;
-    }
-  }
-}
 .fill-corporate-pass-container {
   .modal-container {
     width: 480px;
@@ -1458,14 +1350,194 @@
   }
 }
 
+/* -------------- Entitlement Information ----------------*/
+
+.entitlement-wrapper {
+  padding: 20px 40px;
+
+  .entitlement-btn-edit-wrapper {
+    display: flex;
+    align-items: center;
+    margin: 0 0 70px;
+
+    h3 {
+      flex: 1;
+    }
+  }
+
+  .btn-update {
+    background-color: #0392cf;
+    color: #fff;
+    border: 2px solid #0392cf;
+    border-radius: 2px;
+    padding: 5px 25px;
+    font-weight: 700;
+    height: 38px;
+  }
+
+  .entitlement-information-details {
+    h4 {
+      font-size: 16px;
+      margin: 15px 0;
+    }
+  }
+
+  .medical-entitlement-container,
+  .wellness-entitlement-container {
+    display: flex;
+    padding: 10px 0 0 0;
+
+    
+    .col-md-2 {
+      // width: 16.6%;
+      // padding: 0 40px 0 0;
+    }
+
+    .col-md-3 {
+      // width: 25%;
+      // padding: 0 15px 0 0;
+      // padding: 0 40px 0 0;
+    }
+
+    .entitlement-input-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-column-gap: 2em;
+      margin: 0 20px 0 0;
+
+      >div {
+        margin: 20px 0 0;
+      }
+    }
+  }
+
+  .entitlement-input-container {
+    h5 {
+      margin: 15px 0;
+    }
+
+    .small {
+      padding-top: 10px;
+      color: #0392cf;
+      font-size: 65%;
+      line-height: 1.5;
+    }
+
+    &.allocation {
+      background-color: #f5f5f5;
+      margin: 0 0 10px;
+      padding: 20px;
+
+      h5 {
+        margin: 10px 0;
+      }
+    }
+  }
+
+  .entitlement-input-label {
+    display: flex;
+    align-items: center;
+
+    label {
+      font-size: 12px;
+      padding: 0 10px 0 0;
+    }
+
+    input,select,.entitlement-date-picker {
+      width: 100%;
+      height: 34px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+      padding: 6px 12px;
+      font-size: 14px;
+      position: relative;
+    }
+
+    .entitlement-date-picker {
+      width: auto;
+      padding: 0 0 0 30px;
+      display: flex;
+      align-items: center;
+
+      .fa-calendar-o {
+        position: absolute;
+        left: 9px;
+        top: 8px;
+      }
+    }
+  
+    .original-input {
+      background-color: #eee;
+    }
+  }
+
+  .new-allocation-wrapper {
+    width: 175px;
+  }
+
+  .entitlement-calculation {
+    h4 {
+      font-size: 18px;
+    }
+
+    button {
+      margin: 35px 0 0 0;
+    }
+  }
+
+  .see-more {
+    font-size: 14px;
+
+    >div {
+      color: #0392cf;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 13.5px;
+    }
+
+    p {
+      line-height: 1.2;
+      border-top: 1px solid #5555554a;
+      padding: 10px 0 0;
+      margin: 15px 0;
+      font-weight: 500;
+    }
+  }
+}
+
+/* -------------------------------------------------------*/
+
 /* -------------- RESPONSIVE AREA ----------------*/
+
+  @media (max-width: 1253px) {
+
+    .entitlement-wrapper {
+
+      .medical-entitlement-container,
+      .wellness-entitlement-container, {
+
+        .entitlement-input-wrapper {
+          grid-template-columns: 1fr 1fr;
+          margin: 0 70px 0 0;
+
+          >div {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+
   /* Extra Large (xl) */
-  @media (max-width: 1280px) { 
+  @media (max-width: 1279px) { 
 
   }
 
   /* Large (lg) */
-  @media (max-width: 1024px) { 
+  @media (max-width: 1023px) { 
     .employee-menu-container {
       grid-template-columns: 1fr 100%;
   
@@ -1492,7 +1564,7 @@
   }
 
   /* Medium (md) */
-  @media (min-width: 769px) { 
+  @media (min-width: 767px) { 
     .xs-show{
       display: none;
     }
@@ -1522,6 +1594,37 @@
     .claim-submission-details{
       .xs-in-network-form{
         display: flex;
+      }
+    }
+  }
+
+  @media (max-width: 752px) {
+     .entitlement-wrapper {
+      padding: 20px;
+
+      .medical-entitlement-container,
+      .wellness-entitlement-container, {
+
+        .entitlement-input-wrapper {
+          grid-template-columns: 1fr 1fr;
+          margin: 0 20px 0 0;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 670px) { 
+    .entitlement-wrapper {
+      padding: 20px;
+
+      .medical-entitlement-container,
+      .wellness-entitlement-container, {
+        margin: 0 0 50px;
+
+        .entitlement-input-wrapper {
+          grid-template-columns: 1fr;
+          margin: 0 100px 0 0;
+        }
       }
     }
   }
@@ -1589,6 +1692,47 @@
       }
     }
   }
+
+  @media (max-width: 560px) { 
+    .entitlement-wrapper {
+      padding: 20px;
+
+      .medical-entitlement-container,
+      .wellness-entitlement-container, {
+        margin: 0 0 50px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        .entitlement-input-wrapper {
+          grid-template-columns: 1fr;
+          margin: 0 40px 0 0;
+        }
+      }
+    }
+  }
+
+   @media (max-width: 500px) { 
+    .entitlement-wrapper {
+      padding: 20px;
+
+      .medical-entitlement-container,
+      .wellness-entitlement-container, {
+        margin: 0 0 50px;
+        display: grid;
+        grid-template-columns: 1fr;
+
+        .entitlement-input-wrapper {
+          grid-template-columns: 1fr;
+          margin: 0 0 20px;
+        }
+      }
+
+      .entitlement-input-label .entitlement-date-picker {
+        width: 100%;
+      }
+    }
+  }
+
   @media (max-width: 460px) {
     .claim-submission-details{
       .xs-in-network-form{

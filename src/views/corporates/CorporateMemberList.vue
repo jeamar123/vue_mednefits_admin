@@ -2,7 +2,7 @@
 	<!-- corporate-members-container -->
 	<div class="corporate-members-container pb-24">
 		<!-- Search-member Start -->
-		<div class="search-member-wrapper mb-10">
+		<div class="search-member-wrapper sm:pl-8  lg:ml-6 mb-10">
 			<span class="oi" data-glyph="magnifying-glass" aria-hidden="true"></span>
 			<div class="form-div">
 				<input type="text" placeholder="Search employee" />
@@ -11,10 +11,10 @@
 		<!-- Search-member End -->
 
 		<div class="member-list-container flex flex-wrap">
-			<div class="member-wrapper w-1/4 xl:w-1/3 lg:w-1/3 md:w-1/2 sm:w-full my-3 mx-3" v-for="list in 4"
+			<div class="member-wrapper w-1/4 xl:w-1/3 lg:w-1/3 md:w-1/2 sm:w-full my-3 mx-3" v-for="list in 4" :key="list.index"
 				ng-repeat="list in corprorate_details.corporate_members | orderBy: list.member.created_at">
 				<template ng-if="list.emp_main_details">
-					<div class="header">
+					<div class="header" @click="$router.push({ name: 'EmployeeInformation' })">
 						<h3 ng-click="showHideEmployeeDetail(list, $index)">
 							<span ng-bind="list.member.Name">
 								Jazer

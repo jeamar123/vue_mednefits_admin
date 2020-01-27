@@ -36,6 +36,13 @@ button:hover {
   transition: all .3s ease-in-out;
 }
 
+.sideBar-hide {
+  left: 0 !important;
+}
+.hide {
+  display: none !important;
+}
+
 .btn-primary{
   border: none;
   line-height: 1;
@@ -162,12 +169,16 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
   }
 
   .xs-nav-btn{
-    display: inline-block;
+    display: none;
     position: absolute;
-    top: 15px;
-    right: 15px;
+    font-size: 20px;
+    top: 0px;
+    padding: 10px 15px;
+    right: 0px;
     color: #FFF;
     cursor: pointer;
+    height: 50px;
+    width: 50px;
   }
   .xs-menu-container{
     background: #eee;
