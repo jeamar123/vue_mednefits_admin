@@ -41,7 +41,7 @@
 					<div class="form-col">
 						<div class="form-div">
 							<label>Postal Code</label>
-							<input v-model="create_company.company_postal_code" type="text">
+							<input v-model="create_company.company_postal_code" type="number">
 						</div>
 					</div>
 				</div>
@@ -83,7 +83,7 @@
 					<div class="form-col">
 						<div class="form-div">
 							<label>Phone Number</label>
-							<input v-model="create_company.business_phone" type="text">
+							<input v-model="create_company.business_phone" type="number">
 						</div>
 					</div>
 				</div>
@@ -133,7 +133,7 @@
 					<div class="form-col">
 						<div class="form-div">
 							<label>Postal Code</label>
-							<input v-model="create_company.billing_postal_code" type="text">
+							<input v-model="create_company.billing_postal_code" type="number">
 						</div>
 					</div>
 				</div>
@@ -161,7 +161,7 @@
 					<div class="form-col">
 						<div class="form-div">
 							<label>Phone Number (Billing Contact)</label>
-							<input v-model="create_company.billing_phone" type="text">
+							<input v-model="create_company.billing_phone" type="number">
 						</div>
 					</div>
 					<div class="form-col">

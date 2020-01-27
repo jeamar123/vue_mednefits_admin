@@ -165,8 +165,8 @@
         console.log(moment(this.create_company.medical_spending_start_date).format('YYYY-MM-DD'));
 
         if ( opt == true ) {
-          this.create_company.medical_spending_start_date = new Date(this.create_company.medical_spending_start_date);
-          this.create_company.medical_spending_end_date = new Date(this.create_company.medical_spending_end_date);
+          this.create_company.medical_spending_start_date = new Date(moment(this.create_company.employee_plan_start));
+          this.create_company.medical_spending_end_date = new Date(moment(this.create_company.employee_plan_start));
         } else {
           this.create_company.medical_spending_start_date = '';
           this.create_company.medical_spending_end_date = '';
@@ -176,8 +176,8 @@
         this.create_company.wellness_spending_account = opt;
 
         if ( opt == true ) {
-          this.create_company.wellness_spending_start_date = new Date(this.create_company.wellness_spending_start_date);
-          this.create_company.wellness_spending_end_date = new Date(this.create_company.wellness_spending_end_date);
+          // this.create_company.wellness_spending_start_date = new Date(this.create_company.wellness_spending_start_date);
+          // this.create_company.wellness_spending_end_date = new Date(this.create_company.wellness_spending_end_date);
         } else {
           this.create_company.wellness_spending_start_date = '';
           this.create_company.wellness_spending_end_date = '';
@@ -307,11 +307,12 @@
         this.create_company.wellness_spending_end_date = new Date(moment( this.create_company.employee_plan_start ).add( this.create_company.duration_value, this.create_company.duration_type ).subtract(1, 'days'));
         this.$forceUpdate();  
 
-
-        if ( this.create_company.medical_spending_account == false || this.create_company.wellness_spending_account == false ) {
-          console.log('check');
+        if ( this.create_company.medical_spending_account == false ) {
           this.create_company.medical_spending_start_date = '';
           this.create_company.medical_spending_end_date = '';
+        }
+
+        if ( this.create_company.wellness_spending_account == false ) {
           this.create_company.wellness_spending_start_date = '';
           this.create_company.wellness_spending_end_date = '';
         }
@@ -360,6 +361,20 @@
         if( this.checkAddCorpForm( create_data ) == false ){
           return false;
         }
+
+        this.create_company.employee_plan_start = moment(this.create_company.employee_plan_start).format('YYYY-MM-DD');
+        this.create_company.main_plan_invoice_date = moment(this.create_company.main_plan_invoice_date).format('YYYY-MM-DD');
+        this.create_company.plan_start_extension = moment(this.create_company.plan_start_extension).format('YYYY-MM-DD');
+        this.create_company.plan_invoice_date_dependents = moment(this.create_company.plan_invoice_date_dependents).format('YYYY-MM-DD');
+        this.create_company.employee_plan_start_extension = moment(this.create_company.employee_plan_start_extension).format('YYYY-MM-DD');
+        this.create_company.medical_spending_start_date = moment(this.create_company.medical_spending_start_date).format('YYYY-MM-DD');
+        this.create_company.medical_spending_end_date = moment(this.create_company.medical_spending_end_date).format('YYYY-MM-DD');
+        this.create_company.wellness_spending_start_date = moment(this.create_company.wellness_spending_start_date).format('YYYY-MM-DD');
+        this.create_company.wellness_spending_end_date = moment(this.create_company.wellness_spending_end_date).format('YYYY-MM-DD');
+        this.create_company.wellness_spending_end_date = moment(this.create_company.wellness_spending_end_date).format('YYYY-MM-DD');
+        this.create_company.email_send_date = moment(this.create_company.email_send_date).format('YYYY-MM-DD');
+
+
         axios.post( axios.defaults.serverUrl + '/company/create_company', this.create_company ) 
           .then(res => { 
             console.log(res);
@@ -551,6 +566,8 @@
         }
         if( data.health_spending_account == true ){
           if( data.medical_spending_account == true ){
+            console.log('true and medical spending');
+
             if( !data.medical_spending_start_date ){
               this.$swal( "Error!", "Please select Medical Start date", "error" );
               return false;
