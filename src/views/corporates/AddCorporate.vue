@@ -336,13 +336,13 @@
 					<label>Plan Extension?</label>
 					<div class="toggle-wrapper">
 						<div class="toggle-btns">
-							<div v-on:click="togglePlanExtensionAddCorporate(true)" v-bind:class="{ active : create_company.plan_extension == true }" class="toggle on">Yes</div>
-							<div v-on:click="togglePlanExtensionAddCorporate(false)" v-bind:class="{ active : create_company.plan_extension == false }" class="toggle off">No</div>
+							<div v-on:click="togglePlanExtensionAddCorporate(true)" v-bind:class="{ active : create_company.employee_plan_extension == true }" class="toggle on">Yes</div>
+							<div v-on:click="togglePlanExtensionAddCorporate(false)" v-bind:class="{ active : create_company.employee_plan_extension == false }" class="toggle off">No</div>
 						</div>
 					</div>
 				</div>
 
-				<div v-if="create_company.plan_extension">
+				<div v-if="create_company.employee_plan_extension">
 					<div class="form-row">
 						<div class="form-col mr-20">
 							<div class="form-div">
@@ -441,8 +441,8 @@
 						<label>Payment Status?</label>
 						<div class="toggle-wrapper">
 							<div class="toggle-btns">
-								<div v-on:click="togglePaymentStatusAddCorporate(true)" v-bind:class="{ active : create_company.payment_status == true }" class="toggle on">Paid</div>
-								<div v-on:click="togglePaymentStatusAddCorporate(false)" v-bind:class="{ active : create_company.payment_status == false }" class="toggle off">Pending</div>
+								<div v-on:click="togglePaymentStatusAddCorporate(true)" v-bind:class="{ active : create_company.employee_payment_status == true }" class="toggle on">Paid</div>
+								<div v-on:click="togglePaymentStatusAddCorporate(false)" v-bind:class="{ active : create_company.employee_payment_status == false }" class="toggle off">Pending</div>
 							</div>
 						</div>
 					</div>
@@ -450,7 +450,7 @@
 					</div>
 				</div>
 
-				<div v-if="create_company.plan_extension" class="form-toggle change-plan-toggle">
+				<div v-if="create_company.employee_plan_extension" class="form-toggle change-plan-toggle">
 					<label>Plan Extension? Change Plan Type?</label>
 					<div class="toggle-wrapper">
 						<div class="toggle-btns">
@@ -514,8 +514,8 @@
 							<label>Payment Status?</label>
 							<div class="toggle-wrapper">
 								<div class="toggle-btns">
-									<div v-on:click="togglePaymentStatusExtensionAddCorporate(true)" v-bind:class="{ active : create_company.payment_status_extension == true }" class="toggle on">Paid</div>
-									<div v-on:click="togglePaymentStatusExtensionAddCorporate(false)" v-bind:class="{ active : create_company.payment_status_extension == false }" class="toggle off">Pending</div>
+									<div v-on:click="togglePaymentStatusExtensionAddCorporate(true)" v-bind:class="{ active : create_company.employee_payment_status_extension == true }" class="toggle on">Paid</div>
+									<div v-on:click="togglePaymentStatusExtensionAddCorporate(false)" v-bind:class="{ active : create_company.employee_payment_status_extension == false }" class="toggle off">Pending</div>
 								</div>
 							</div>
 						</div>
@@ -550,13 +550,13 @@
 				<div class="form-toggle">
 					<div class="toggle-wrapper">
 						<div class="toggle-btns">
-							<div v-on:click="toggleDependentsAddCorporate(true)" v-bind:class="{ active : create_company.dependents == true }" class="toggle on">Yes</div>
-							<div v-on:click="toggleDependentsAddCorporate(false)" v-bind:class="{ active : create_company.dependents == false }" class="toggle off">No</div>
+							<div v-on:click="toggleDependentsAddCorporate(true)" v-bind:class="{ active : create_company.dependent_status == true }" class="toggle on">Yes</div>
+							<div v-on:click="toggleDependentsAddCorporate(false)" v-bind:class="{ active : create_company.dependent_status == false }" class="toggle off">No</div>
 						</div>
 					</div>
 				</div>
 
-				<div v-if="create_company.dependents">
+				<div v-if="create_company.dependent_status">
 					<div class="form-row">
 						<div class="form-col mr-20">
 							<div class="form-div">
@@ -624,7 +624,7 @@
 					</div>
 
 					<!-- Plan extension dependent -->
-					<div v-if="create_company.plan_extension" class="form-toggle change-plan-toggle">
+					<div v-if="create_company.employee_plan_extension" class="form-toggle change-plan-toggle">
 						<label>Plan Extension? Change Plan Type?</label>
 						<div class="toggle-wrapper">
 							<div class="toggle-btns">

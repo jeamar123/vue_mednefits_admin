@@ -12,10 +12,10 @@
           duration_value_extension: 1,
           duration_type: 'months',
           duration_type_extension: 'months',
-          plan_extension : false,
+          employee_plan_extension : false,
           plan_extension_change_plan: false,
           plan_extension_dependents: false,
-          dependents: false,
+          dependent_status: false,
           health_spending_account: false,
           medical_spending_account: false,
           wellness_spending_account: false,
@@ -23,8 +23,8 @@
           add_cc: false,
           employee_plan_start: new Date(),
           main_plan_invoice_date: new Date(),
-          payment_status: false,
-          payment_status_extension: false,
+          employee_payment_status: false,
+          employee_payment_status_extension: false,
           payment_status_dependents: false,
           payment_status_extension_dependents: false,
           plan_start_extension: new Date( moment().add( 1,'months').subtract(1,'days') ),
@@ -119,7 +119,7 @@
         this.create_company.add_contacts = opt;
       },
       togglePlanExtensionAddCorporate( opt ) {
-        this.create_company.plan_extension = opt;
+        this.create_company.employee_plan_extension = opt;
 
         if ( opt == true ){
           this.create_company.plan_extension_dependents = true;
@@ -131,12 +131,12 @@
           // this.create_company.secondary_account_type_extension_dependents = this.create_company.secondary_account_type_dependents;
           this.create_company.plan_price_extension_dependents = this.create_company.plan_price_dependents;
           this.create_company.payment_status_extension_dependents = this.create_company.payment_status_dependents ;
-          this.create_company.duration_extension_dependents = this.create_company.duration_value_extension + " " + this.create_company.duration_type_extension;
+          // this.create_company.duration_extension_dependents = this.create_company.duration_value_extension + " " + this.create_company.duration_type_extension;
           this.create_company.employee_plan_start_extension = new Date(moment(this.create_company.plan_start_extension).add(1,'months'));
           this.create_company.plan_invoice_date_dependents = new Date(moment(this.create_company.plan_start_extension).add(1,'months'));
 
-          console.log(this.create_company.employee_plan_start_extension);
-          console.log(this.create_company.plan_invoice_date_dependents);
+          // console.log(this.create_company.employee_plan_start_extension);
+          // console.log(this.create_company.plan_invoice_date_dependents);
         } else {
           this.create_company.plan_extension_dependents = false;
           this.create_company.plan_extension_status = false;
@@ -150,7 +150,7 @@
         this.create_company.plan_extension_dependents = opt;
       },
       toggleDependentsAddCorporate( opt ) {
-        this.create_company.dependents = opt;
+        this.create_company.dependent_status = opt;
       },
       toggleHealthSpendingAddCorporate( opt ) {
         this.create_company.health_spending_account = opt;
@@ -176,8 +176,8 @@
         this.create_company.wellness_spending_account = opt;
 
         if ( opt == true ) {
-          // this.create_company.wellness_spending_start_date = new Date(this.create_company.wellness_spending_start_date);
-          // this.create_company.wellness_spending_end_date = new Date(this.create_company.wellness_spending_end_date);
+          this.create_company.wellness_spending_start_date = new Date(moment(this.create_company.employee_plan_start));
+          this.create_company.wellness_spending_end_date = new Date(moment(this.create_company.employee_plan_start));
         } else {
           this.create_company.wellness_spending_start_date = '';
           this.create_company.wellness_spending_end_date = '';
@@ -286,10 +286,10 @@
         }
       },
       togglePaymentStatusAddCorporate( opt ) {
-        this.create_company.payment_status = opt;
+        this.create_company.employee_payment_status = opt;
       },
       togglePaymentStatusExtensionAddCorporate( opt ) {
-        this.create_company.payment_status_extension = opt;
+        this.create_company.employee_payment_status_extension = opt;
       },
       togglePaymentStatusDependentsAddCorporate( opt ) {
         this.create_company.payment_status_dependents = opt;
@@ -376,13 +376,19 @@
 
 
         axios.post( axios.defaults.serverUrl + '/company/create_company', this.create_company ) 
-          .then(res => { 
-            console.log(res);
+          .then(response => { 
+            console.log(response);
+            this.resetCreateCorporateData();
           })
+          .catch(err => {
+            console.log(err.response);
+            this.resetCreateCorporateData();
+            this.$swal("Error!", err.response.data.message, "error");
+          });
         
       },
       checkAddCorpForm( data ) {
-        console.log(data);
+        // console.log(data);
 
         if( !data.company_name ){
           this.$swal( "Error!", "Please input your Company Name", "error" );
@@ -498,7 +504,7 @@
           this.$swal( "Error!", "Please select your Plan secondary account type", "error" );
           return false;
         }
-        if( data.plan_extension == true ){
+        if( data.employee_plan_extension == true ){
           if( !data.plan_start_extension ){
             this.$swal( "Error!", "Please select Extension Plan Start date ", "error" );
             return false;
@@ -524,7 +530,7 @@
             return false;
           }
         }
-        if( data.dependents == true ){
+        if( data.dependent_status == true ){
           if ( data.dependents_employees == 0 ) {
             this.$swal( "Error!", "Dependent employees should be 1 or more.", "error" );
             return false;
@@ -615,6 +621,55 @@
       validateEmail( email ) {
         var comp = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/;
         return comp.test(email);
+      },
+      resetCreateCorporateData () {
+        this.create_company = {};
+        this.create_company.add_contacts = false;
+        this.create_company.company_contacts = [{
+          first_name : '',
+          last_name : '',
+          job_title : '',
+          email : '',
+          phone : '',
+          send_email_comm_related : false,
+          send_email_bill_related : false,
+        }];
+        this.create_company.billing_status = false;
+        this.create_company.disable_password_input = false;
+        this.create_company.generate_password = false;
+        this.create_company.cc_emails = [];
+        this.create_company.schedule_email = false;
+        this.create_company.employee_employees = 0;
+        this.create_company.dependents_employees = 0;
+        this.create_company.dependent_status = false;
+        this.create_company.duration_value = 1;
+        this.create_company.duration_value_extension = 1;
+        this.create_company.duration_type = 'months';
+        this.create_company.duration_type_extension = 'months';
+        this.create_company.employee_plan_price = 0;
+        this.create_company.employee_plan_price_extension = 0;
+        this.create_company.dependent_plan_price = 0;
+        this.create_company.plan_price_extension_dependents = 0;
+        this.create_company.employee_payment_status = false;
+        this.create_company.employee_payment_status_extension = false;
+        this.create_company.payment_status_dependents = false;
+        this.create_company.payment_status_extension_dependents = false;
+        this.create_company.employee_plan_extension = false;
+        this.create_company.plan_extension_dependents = false;
+        this.create_company.plan_extension_change_plan = false;
+        this.create_company.health_spending_account = false;
+        this.create_company.add_cc = false;
+        this.create_company.employee_plan_start = new Date();
+        this.create_company.main_plan_invoice_date = new Date();
+        this.create_company.plan_start_extension = new Date( moment().add( 1,'months').subtract(1,'days') );
+        this.create_company.plan_invoice_date_dependents = new Date(moment(this.create_company.plan_start_extension).add(1,'months'));
+        this.create_company.employee_plan_start_extension = new Date(moment(this.create_company.plan_start_extension).add(1,'months'));
+        this.create_company.medical_spending_start_date = new Date();
+        this.create_company.medical_spending_end_date = new Date();
+        this.create_company.wellness_spending_start_date = new Date();
+        this.create_company.wellness_spending_end_date = new Date();
+        this.create_company.email_send_date = new Date();
+        console.log(this.create_company);
       },
     }
   }
