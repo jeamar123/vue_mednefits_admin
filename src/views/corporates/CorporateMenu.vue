@@ -143,11 +143,11 @@
 
 					<div class="white-space-50"></div>
 					<div class="btn-container">
-						<button class="btn btn-primary txt-transform-uppercase">Plan Renewal Details</button>
-						<button class="btn btn-primary txt-transform-uppercase">Spending Account Renewal Details</button>
-						<button class="btn btn-primary txt-transform-uppercase">Send Plan Expiration Notification</button>
-						<button class="btn btn-primary txt-transform-uppercase">Corporate Details</button>
-						<button class="btn btn-primary txt-transform-uppercase">Settings</button>
+						<router-link tag="div" :to="{ name : 'PlanRenewal' }"><button class="btn btn-primary txt-transform-uppercase" v-on:click="">Plan Renewal Details</button></router-link>
+						<router-link tag="div" :to="{ name : 'Clinic' }"><button class="btn btn-primary txt-transform-uppercase">Spending Account Renewal Details</button></router-link>
+						<router-link tag="div" :to="{ name : 'Clinic' }"><button class="btn btn-primary txt-transform-uppercase">Send Plan Expiration Notification</button></router-link>
+						<router-link tag="div" :to="{ name : 'Clinic' }"><button class="btn btn-primary txt-transform-uppercase">Corporate Details</button></router-link>
+						<router-link tag="div" :to="{ name : 'CorporateSettings' }"><button class="btn btn-primary txt-transform-uppercase">Settings</button></router-link>
 					</div>
 				</div>
 			</div>
@@ -162,9 +162,9 @@
 						</a> -->
 					</div>
 					<div class="col-2">
-						<router-link tag="a" :to="{ name: 'Corporates' }" class="close-btn corporate">
+						<div class="close-btn corporate" v-on:click="goBackToLastPage()">
 							<span class="oi" data-glyph="x" aria-hidden="true"></span>
-						</router-link>
+						</div>
 					</div>
 				</div>
 

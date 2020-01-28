@@ -5,6 +5,6 @@
 </template>
 
 <script>
-	import spendingRenewalDetails from '@/components/corporates/plan-renwal/spendingRenewalDetails'
+	import spendingRenewalDetails from '@/components/corporates/plan-renewal/spendingRenewalDetails'
 	export default spendingRenewalDetails
 </script>

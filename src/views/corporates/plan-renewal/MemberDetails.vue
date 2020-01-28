@@ -5,6 +5,6 @@
 </template>
 
 <script>
-	import memberDetails from '@/components/corporates/plan-renwal/memberDetails'
+	import memberDetails from '@/components/corporates/plan-renewal/memberDetails'
 	export default memberDetails
 </script>

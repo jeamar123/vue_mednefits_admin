@@ -19,7 +19,10 @@ let corporateMenu = {
     toggleSideInfoBar(opt) {
       //sidebar information in mobile view
       this.sideBar.trigger = !this.sideBar.trigger;
-    }
+    },
+    goBackToLastPage(){
+      this.$router.back();
+    },
   }
 };
 
