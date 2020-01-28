@@ -22,7 +22,7 @@
 						<div class="form-div country-input-wrapper">
 							<label>Country</label>
 							<div class="selector-container">
-								<select v-model="create_company.company_currency">
+								<select v-model="create_company.country">
 									<option value="sgd">Singapore</option>
 									<option value="myr">Malaysia</option>
 								</select>
@@ -274,7 +274,7 @@
 							<div class="date-container">
 								<v-date-picker
 	                popoverDirection="bottom"
-	                v-model="create_company.employee_plan_start"
+	                v-model="create_company.emmployee_plan_start"
 	                :formats='formats'
 	                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 	                popover-visibility="focus"
@@ -305,7 +305,7 @@
 						<div class="form-div">
 							<label>Currency</label>
 							<div class="selector-container">
-								<select v-model="create_company.plan_currency">
+								<select v-model="create_company.currency">
 									<option value="sgd">Singapore Dollar</option>
 									<option value="myr">Malaysian Ringgit</option>
 								</select>
@@ -367,7 +367,7 @@
 										<input v-model="create_company.duration_value_extension" type="text">
 									</div>
 									<div class="selector-container">
-										<select v-model="create_company.duration_type_extension">
+										<select v-model="create_company.employee_duration_extension_type">
 											<option value="days">days</option>
 											<option value="months">months</option>
 											<option value="year">year</option>
@@ -430,8 +430,8 @@
 							<label>Plan Price</label>
 							<div class="account-plan-input-wrapper">
 								<div>
-									<span v-if="create_company.plan_currency == 'sgd'">SGD</span>
-									<span v-if="create_company.plan_currency == 'myr'">MYR</span>
+									<span v-if="create_company.currency == 'sgd'">SGD</span>
+									<span v-if="create_company.currency == 'myr'">MYR</span>
 								</div>
 								<input v-model="create_company.employee_plan_price" type="number">
 							</div>
@@ -503,8 +503,8 @@
 								<label>Plan Price</label>
 								<div class="account-plan-input-wrapper">
 									<div>
-										<span v-if="create_company.plan_currency == 'sgd'">SGD</span>
-										<span v-if="create_company.plan_currency == 'myr'">MYR</span>
+										<span v-if="create_company.currency == 'sgd'">SGD</span>
+										<span v-if="create_company.currency == 'myr'">MYR</span>
 									</div>
 									<input v-model="create_company.employee_plan_price_extension" type="number">
 								</div>
@@ -603,8 +603,8 @@
 								<label>Plan Price</label>
 								<div class="account-plan-input-wrapper">
 									<div>
-										<span v-if="create_company.plan_currency == 'sgd'">SGD</span>
-									<span v-if="create_company.plan_currency == 'myr'">MYR</span>
+										<span v-if="create_company.currency == 'sgd'">SGD</span>
+									<span v-if="create_company.currency == 'myr'">MYR</span>
 									</div>
 									<input v-model="create_company.dependent_plan_price" type="number">
 								</div>
@@ -678,8 +678,8 @@
 									<label>Plan Price</label>
 									<div class="account-plan-input-wrapper">
 										<div>
-											<span v-if="create_company.plan_currency == 'sgd'">SGD</span>
-											<span v-if="create_company.plan_currency == 'myr'">MYR</span>
+											<span v-if="create_company.currency == 'sgd'">SGD</span>
+											<span v-if="create_company.currency == 'myr'">MYR</span>
 										</div>
 										<input v-model="create_company.plan_price_extension_dependents" type="number">
 									</div>
@@ -896,7 +896,7 @@
 								<div class="date-container">
 									<v-date-picker
 		                popoverDirection="bottom"
-		                v-model="create_company.email_send_date"
+		                v-model="create_company.send_account_email_date"
 		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                :formats='formats'
 		                popover-visibility="focus"
@@ -945,13 +945,13 @@
 					<div class="form-col flex-2 mg-rgt-20">
 						<div class="form-div">
 							<label>Name</label>
-							<input type="text">
+							<input v-model="create_company.benefits_name" type="text">
 						</div>
 					</div>
 					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Code</label>
-							<input type="password">
+							<input v-model="create_company.benefits_code" type="password">
 						</div>
 					</div>
 					<div class="form-col">
