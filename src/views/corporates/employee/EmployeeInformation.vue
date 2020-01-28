@@ -316,13 +316,13 @@
 					<div class="emp-header-text">
 						<h3>Remove Employee</h3>
 					</div>
-					<form>
-						<div class="edit-dependent-row">
-							<div class="employee-details-input-wrapper">
+					<form class="sm:w-full">
+						<div class="edit-dependent-row flex xs:flex-wrap">
+							<div class="employee-details-input-wrapper xs:m-0">
 								<label>Full Name</label>
 								<input type="text">
 							</div>
-							<div class="employee-details-input-wrapper">
+							<div class="employee-details-input-wrapper xs:m-0">
 								<label>Last day of coverage</label>
 								<div class="date-container">
 									<v-date-picker
@@ -560,7 +560,7 @@
 
 				<div class="save-btn-footer">
 					<button @click="removeEmployeeBtn('back')" v-if="removeBackBtn" class="btn btn-back">Back</button>
-					<button @click="removeEmployeeBtn('next')" class="btn-primary btn-next">Next</button>
+					<button @click="removeEmployeeBtn('next')" class="btn-primary btn-next xs:w-full">Next</button>
 				</div>
 
 			</div>	
