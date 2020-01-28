@@ -4,7 +4,7 @@
 			<div v-if="!editEmployeeProfile && !addDependentInfo && !editRemoveEmpInfo">
 				<div class="emp-info-header">
 					<h3>Employee Information</h3>
-					<div class="right-btn-container">
+					<div class="right-btn-container sm:relative">
 						<button @click="showEditEmp()" class="btn btn-edit"><img :src="'../assets/img/icons/edit.png'">Edit Profile</button>
 					</div>	
 				</div>
@@ -70,12 +70,12 @@
 
 
 				<div class="emp-info-btn-footer">
-					<div>
-						<h3>Add a Dependent?</h3>
-						<button @click="showAddDependent()" class="btn btn-add"><img :src="'../assets/img/icons/add-employee.svg'">Add</button>
+					<div class="sm:block">
+						<h3 class=" sm:my-3">Add a Dependent?</h3>
+						<button @click="showAddDependent()" class="btn btn-add sm:w-1/2 xs:w-full	"><img :src="'../assets/img/icons/add-employee.svg'">Add</button>
 					</div>
 					<div>
-						<button @click="showRemoveEmp()" class="btn btn-remove-employee">Remove Employee <i class="fa fa-trash"></i></button>
+						<button @click="showRemoveEmp()" class="btn btn-remove-employee sm:relative sm:mt-4 sm:w-1/2 xs:w-full">Remove Employee <i class="fa fa-trash"></i></button>
 						<!-- status removed -->
 						<button v-if="false" class="btn btn-remove-employee btn-restore">Restore Employee</button>
 					</div>
@@ -89,14 +89,14 @@
 					</div>
 					<i @click="showEditEmp()" class="fa fa-times"></i>
 				</div>
-				<div class="edit-emp-details-body">
-					<form>
-						<div class="edit-dependent-row">
-							<div class="employee-details-input-wrapper">
+				<div class="edit-emp-details-body sm:flex sm:flex-wrap">
+					<form class="md:w-full sm:pr-0">
+						<div class="edit-dependent-row flex md:flex-wrap">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Full Name</label>
 								<input type="text">
 							</div>
-							<div class="employee-details-input-wrapper">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Mobile Number</label>
 								<div class="country-code-mobile-container">
 									<div class="country-code-container">
@@ -108,12 +108,12 @@
 							</div>
 						</div>
 
-						<div class="edit-dependent-row">
-							<div class="employee-details-input-wrapper">
+						<div class="edit-dependent-row flex md:flex-wrap">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Member ID</label>
 								<input type="number">
 							</div>
-							<div class="employee-details-input-wrapper">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Job Title</label>
 								<div class="date-container">
 									<input type="text">
@@ -121,8 +121,8 @@
 							</div>
 						</div>
 
-						<div class="edit-dependent-row">
-							<div class="employee-details-input-wrapper">
+						<div class="edit-dependent-row flex md:flex-wrap">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Date of Birth</label>
 								<div class="date-container">
 									<v-date-picker
@@ -134,36 +134,36 @@
 		              <i class="fa fa-caret-down"></i>
 	            	</div>
 							</div>
-							<div class="employee-details-input-wrapper">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Bank Account Number</label>
 								<input type="number">
 							</div>
 						</div>
 
-						<div class="edit-dependent-row">
-							<div class="employee-details-input-wrapper">
+						<div class="edit-dependent-row flex md:flex-wrap">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Postal Code</label>
 								<input type="number">
 							</div>
-							<div class="employee-details-input-wrapper">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Bank Code</label>
 								<input type="number">
 							</div>
 						</div>
 
-						<div class="edit-dependent-row">
-							<div class="employee-details-input-wrapper">
+						<div class="edit-dependent-row flex md:flex-wrap">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Work Email</label>
 								<input type="text">
 							</div>
-							<div class="employee-details-input-wrapper">
+							<div class="employee-details-input-wrapper md:m-0">
 								<label>Bank BRH</label>
 								<input type="number">
 							</div>
 						</div>
 
 					</form>
-					<div class="package-plan-container">
+					<div class="package-plan-container md:w-1/2 sm:w-full">
 						<h4>Package Plan</h4>
 						<div>
 							<button class="btn-primary">Bundle Pro (Health Wallet)</button>
@@ -260,13 +260,13 @@
 				<div class="emp-header-text">
 					<h3>Add a dependent</h3>
 				</div>
-				<form>
-					<div class="edit-dependent-row">
-						<div class="employee-details-input-wrapper">
+				<form class="md:w-full">
+					<div class="edit-dependent-row flex md:flex-wrap">
+						<div class="employee-details-input-wrapper md:m-0">
 							<label>Full Name</label>
 							<input type="text">
 						</div>
-						<div class="employee-details-input-wrapper">
+						<div class="employee-details-input-wrapper md:m-0">
 							<label>Date of Birth</label>
 							<div class="date-container">
 								<v-date-picker
@@ -279,8 +279,8 @@
 	            </div>
 						</div>
 					</div>
-					<div class="edit-dependent-row">
-						<div class="employee-details-input-wrapper">
+					<div class="edit-dependent-row flex md:flex-wrap">
+						<div class="employee-details-input-wrapper md:m-0">
 							<label>Relationship</label>
 							<select>
 								<option>Spouse</option>
@@ -289,7 +289,7 @@
 								<option>Parent</option>
 							</select>
 						</div>
-						<div class="employee-details-input-wrapper">
+						<div class="employee-details-input-wrapper md:m-0">
 							<label>Start Date</label>
 							<div class="date-container">
 								<v-date-picker
@@ -310,19 +310,19 @@
 			</div>
 
 			<div v-if="editRemoveEmpInfo" class="edit-employee-info-container remove-employee-wrapper">
-				<i @click="showRemoveEmp()" class="fa fa-times"></i>
+				<i @click="showRemoveEmp()" class="fa fa-times mb-5"></i>
 
 				<div v-if="remove_step_active == 'remove-emp'">
 					<div class="emp-header-text">
 						<h3>Remove Employee</h3>
 					</div>
-					<form>
-						<div class="edit-dependent-row">
-							<div class="employee-details-input-wrapper">
+					<form class="sm:w-full">
+						<div class="edit-dependent-row flex xs:flex-wrap">
+							<div class="employee-details-input-wrapper xs:m-0">
 								<label>Full Name</label>
 								<input type="text">
 							</div>
-							<div class="employee-details-input-wrapper">
+							<div class="employee-details-input-wrapper xs:m-0">
 								<label>Last day of coverage</label>
 								<div class="date-container">
 									<v-date-picker
@@ -341,7 +341,7 @@
 					<div class="emp-header-text">
 						<h3>How would you like to proceed?</h3>
 					</div>
-					<div class="employee-outcome-container">
+					<div class="employee-outcome-container md:w-4/5 sm:w-11/12">
 						<span class="outcome-title">Please select one of the outcome:</span>
 						<label class="review-container input-checkbox">
 							<input @click="changeRemoveOption(1)" type="checkbox">
@@ -365,32 +365,32 @@
 				<div v-if="remove_step_active == 'replace-emp'" class="edit-employee-info-container">
 					<div class="emp-header-text">
 						<span class="replacement-text">Replacement</span>
-						<h3>Employee details</h3>
+						<h3>Employee Details</h3>
 					</div>
-					<form>
-						<div class="edit-dependent-row">
-							<div class="employee-details-input-wrapper">
+					<form class="md:w-11/12">
+						<div class="edit-dependent-row flex sm:flex-wrap">
+							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Full Name</label>
 								<input type="text">
 							</div>
-							<div class="employee-details-input-wrapper">
+							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Date of Birth</label>
 								<div class="date-container">
 									<v-date-picker
 		                popoverDirection="bottom"
 		                v-model="starDateDetails.null"
-		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :input-props='{class: "vDatepicker mb-4 py-4 border-b w-full", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                popover-visibility="focus"
 		              ></v-date-picker>
 	              </div>
 							</div>
 						</div>
-						<div class="edit-dependent-row">
-							<div class="employee-details-input-wrapper">
+						<div class="edit-dependent-row flex sm:flex-wrap">
+							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Work Email</label>
 								<input type="text">
 							</div>
-							<div class="employee-details-input-wrapper">
+							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Mobile Number</label>
 								<div class="country-code-mobile-container">
 									<div class="country-code-container">
@@ -400,30 +400,30 @@
 								</div>
 							</div>
 						</div>
-						<div class="edit-dependent-row">
-							<div class="employee-details-input-wrapper">
+						<div class="edit-dependent-row flex sm:flex-wrap">
+							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Postal Code</label>
 								<input type="text">
 							</div>
-							<div class="employee-details-input-wrapper">
+							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Start Date</label>
 								<div class="date-container">
 									<v-date-picker
 		                popoverDirection="bottom"
 		                v-model="starDateDetails.null"
-		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :input-props='{class: "vDatepicker mb-4 py-4 border-b w-full", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                popover-visibility="focus"
 		              ></v-date-picker>
 	              </div>
 							</div>
 						</div>
-						<div class="edit-dependent-row">
-							<div class="employee-details-input-wrapper">
+						<div class="edit-dependent-row flex sm:flex-wrap">
+							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Medical Credits</label>
 								<label class="medical-subtext">*If there are no credits to allocate, please key in 0</label>
 								<input type="text">
 							</div>
-							<div class="employee-details-input-wrapper">
+							<div class="employee-details-input-wrapper sm:m-0">
 								<label class="medical-subtext">Wellness Credits Credits</label>
 								<label>*If there are no credits to allocate, please key in 0</label>
 								<input type="text">
@@ -558,9 +558,9 @@
 					</div>
 				</div>
 
-				<div class="save-btn-footer">
-					<button @click="removeEmployeeBtn('back')" v-if="removeBackBtn" class="btn btn-back">Back</button>
-					<button @click="removeEmployeeBtn('next')" class="btn-primary btn-next">Next</button>
+				<div class="save-btn-footer sm:px-6">
+					<button @click="removeEmployeeBtn('back')" v-if="removeBackBtn" class="btn btn-back xs:w-full xs:my-2">Back</button>
+					<button @click="removeEmployeeBtn('next')" class="btn-primary btn-next xs:w-full xs:my-2 xs:float-none">Next</button>
 				</div>
 
 			</div>	
