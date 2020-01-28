@@ -698,7 +698,7 @@
 
   @media (max-width: 670px) {
     .add-corporate-container {
-      .mr-20 {
+      .mg-rgt-20 {
         margin: 0;
       }
 

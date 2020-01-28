@@ -12,7 +12,7 @@
 				<p class="box-title-blue">Business Information</p>
 
 				<div class="form-row">
-					<div class="form-col flex-2 mr-20">
+					<div class="form-col flex-2 mg-rgt-20">
 						<div class="form-div">
 							<label>Company Name</label>
 							<input v-model="create_company.company_name" type="text">
@@ -32,7 +32,7 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-col flex-2 mr-20">
+					<div class="form-col flex-2 mg-rgt-20">
 						<div class="form-div">
 							<label>Company Address</label>
 							<input v-model="create_company.company_address" type="text">
@@ -49,7 +49,7 @@
 				<p class="box-title-black">Business Contact</p>
 
 				<div class="form-row">
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>First Name</label>
 							<input v-model="create_company.business_contact_first_name" type="text">
@@ -63,7 +63,7 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Job Title</label>
 							<div class="selector-container">
@@ -74,7 +74,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Email Address</label>
 							<input v-model="create_company.business_contact_email" type="text">
@@ -124,7 +124,7 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-col flex-2 mr-20">
+					<div class="form-col flex-2 mg-rgt-20">
 						<div class="form-div">
 							<label>Billing Address</label>
 							<input v-model="create_company.billing_address" type="text">
@@ -138,7 +138,7 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>First Name (Billing Contact)</label>
 							<input v-model="create_company.billing_first_name" type="text">
@@ -152,7 +152,7 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Email Address (Billing Contact)</label>
 							<input v-model="create_company.billing_email" type="text">
@@ -196,7 +196,7 @@
 				</div>
 				<div v-if="create_company.add_contacts" v-for="(list, index) of create_company.company_contacts" class="add-more-contact-container">
 					<div class="form-row">
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>First Name</label>
 								<input v-model="list.first_name" type="text">
@@ -210,7 +210,7 @@
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Job Title</label>
 								<div class="selector-container">
@@ -221,7 +221,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Email Address</label>
 								<input v-model="list.email" type="text">
@@ -268,7 +268,7 @@
 				<p class="box-title-blue">Account & Plan</p>
 
 				<div class="form-row">
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Start Date</label>
 							<div class="date-container">
@@ -283,7 +283,7 @@
               </div>
 						</div>
 					</div>
-					<div class="form-col mr-20 duration-container">
+					<div class="form-col mg-rgt-20 duration-container">
 						<div class="form-div">
 							<label>Duration</label>
 							<div class="duration-input-wrapper">
@@ -344,7 +344,7 @@
 
 				<div v-if="create_company.employee_plan_extension">
 					<div class="form-row">
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Start Date</label>
 								<div class="date-container">
@@ -359,7 +359,7 @@
 	              </div>
 							</div>
 						</div>
-						<div class="form-col mr-20 duration-container">
+						<div class="form-col mg-rgt-20 duration-container">
 							<div class="form-div">
 								<label>Duration</label>
 								<div class="duration-input-wrapper">
@@ -384,13 +384,13 @@
 
 				<p class="box-title-black">Employee Account</p>
 				<div class="form-row">
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Total Number of Eligible Employees</label>
 							<input v-model="create_company.employee_employees" type="number">
 						</div>
 					</div>
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Plan Type</label>
 							<div class="selector-container">
@@ -425,7 +425,7 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Plan Price</label>
 							<div class="account-plan-input-wrapper">
@@ -463,7 +463,7 @@
 				<div v-if="create_company.plan_extension_change_plan">
 					<div class="white-space-20"></div>
 					<div class="form-row">
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Plan Type</label>
 								<div class="selector-container">
@@ -498,7 +498,7 @@
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Plan Price</label>
 								<div class="account-plan-input-wrapper">
@@ -523,7 +523,7 @@
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Invoice Date</label>
 								<div class="date-container">
@@ -558,13 +558,13 @@
 
 				<div v-if="create_company.dependent_status">
 					<div class="form-row">
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Total Number of Eligible Employees</label>
 								<input v-model="create_company.dependents_employees" type="number">
 							</div>
 						</div>
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Plan Type</label>
 								<div class="selector-container">
@@ -598,7 +598,7 @@
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Plan Price</label>
 								<div class="account-plan-input-wrapper">
@@ -637,7 +637,7 @@
 					<div v-if="create_company.plan_extension_dependents">
 						<div class="white-space-20"></div>
 						<div class="form-row">
-							<div class="form-col mr-20">
+							<div class="form-col mg-rgt-20">
 								<div class="form-div">
 									<label>Plan Type</label>
 									<div class="selector-container">
@@ -673,7 +673,7 @@
 							</div>
 						</div>
 						<div class="form-row">
-							<div class="form-col mr-20">
+							<div class="form-col mg-rgt-20">
 								<div class="form-div">
 									<label>Plan Price</label>
 									<div class="account-plan-input-wrapper">
@@ -698,7 +698,7 @@
 							</div>
 						</div>
 						<div class="form-row">
-							<div class="form-col mr-20">
+							<div class="form-col mg-rgt-20">
 								<div class="form-div">
 									<label>Invoice Date</label>
 									<div class="date-container">
@@ -749,7 +749,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div med-date-container">
 								<label>Start Date</label>
 								<div class="date-container">
@@ -796,7 +796,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div well-date-container">
 								<label>Start Date</label>
 								<div class="date-container">
@@ -837,13 +837,13 @@
 				<p class="box-title-blue">Business Portal</p>
 
 				<div class="form-row">
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Login ID</label>
 							<input v-model="create_company.business_portal_email" type="text">
 						</div>
 					</div>
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div password-input-wrapper">
 							<label>Password</label>
 							<input type="password" v-model="create_company.business_portal_password" :disabled="create_company.disable_password_input">
@@ -942,13 +942,13 @@
 				<p class="box-title-blue">Benefits Specialist User</p>
 
 				<div class="form-row">
-					<div class="form-col flex-2 mr-20">
+					<div class="form-col flex-2 mg-rgt-20">
 						<div class="form-div">
 							<label>Name</label>
 							<input type="text">
 						</div>
 					</div>
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Code</label>
 							<input type="password">
