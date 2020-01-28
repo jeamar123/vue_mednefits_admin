@@ -31,25 +31,29 @@ import CorporateMemberList from './views/corporates/CorporateMemberList.vue'
 
 import CorporatePlan from './views/corporates/CorporatePlan.vue'
 import SpendingInvoice from './views/corporates/SpendingInvoice.vue'
-import CorporateEnrollment from './views/corporates/CorporateEnrollment.vue'
 import BulkCreditAllocation from './views/corporates/BulkCreditAllocation.vue'
 import CorporateSettings from './views/corporates/CorporateSettings.vue'
 
-// Employee Information
-import CorporateEmployeeMenu from './views/corporates/employee/CorporateEmployeeMenu.vue'
-import EmployeeInformation from './views/corporates/employee/EmployeeInformation.vue'
-import DependentInformation from './views/corporates/employee/DependentInformation.vue'
-import ClaimSubmission from './views/corporates/employee/ClaimSubmission.vue'
-import Entitlement from './views/corporates/employee/Entitlement.vue'
-import EmployeeSettings from './views/corporates/employee/EmployeeSettings.vue'
+  // Corporate Employee Information
+  import CorporateEmployeeMenu from './views/corporates/employee/CorporateEmployeeMenu.vue'
+  import EmployeeInformation from './views/corporates/employee/EmployeeInformation.vue'
+  import DependentInformation from './views/corporates/employee/DependentInformation.vue'
+  import ClaimSubmission from './views/corporates/employee/ClaimSubmission.vue'
+  import Entitlement from './views/corporates/employee/Entitlement.vue'
+  import EmployeeSettings from './views/corporates/employee/EmployeeSettings.vue'
+  // Corporate Add Employee
+  import AddEmployeeEntitlementOption from './views/corporates/enrollment/AddEmployeeEntitlementOption.vue' 
 
-import HealthPartnerAccess from './views/corporates/HealthPartnerAccess.vue'
-import EclaimTypeService from './views/corporates/EclaimTypeService.vue'
-import GcapPerVisit from './views/corporates/GcapPerVisit.vue'
-import PlanRenewal from './views/corporates/PlanRenewal.vue'
-import PlanDetails from './views/corporates/plan-renwal/PlanDetails.vue'
-import MemberDetails from './views/corporates/plan-renwal/MemberDetails.vue'
-import SpendingRenewalDetails from './views/corporates/plan-renwal/SpendingRenewalDetails.vue'
+  // Corporate Settings
+  import HealthPartnerAccess from './views/corporates/HealthPartnerAccess.vue'
+  import EclaimTypeService from './views/corporates/EclaimTypeService.vue'
+  import GcapPerVisit from './views/corporates/GcapPerVisit.vue'
+  // Plan Renewal Feature
+  import PlanRenewal from './views/corporates/PlanRenewal.vue'
+  import PlanDetails from './views/corporates/plan-renewal/PlanDetails.vue'
+  import MemberDetails from './views/corporates/plan-renewal/MemberDetails.vue'
+  import SpendingRenewalDetails from './views/corporates/plan-renewal/SpendingRenewalDetails.vue'
+  import SpendingAccountRenewal from './views/corporates/plan-renewal/SpendingAccountRenewal.vue'
 // End Corporates
 
 import Analytics from './views/Analytics.vue'
@@ -102,18 +106,19 @@ export default new Router({
             { name: 'CorporateMemberList', path: '/dashboard/corporates/menu/member-list', components: { child : CorporateMemberList }  },
             { name: 'CorporatePlan', path: '/dashboard/corporates/menu/corporate-plan', components: { child : CorporatePlan }  },
             { name: 'SpendingInvoice', path: '/dashboard/corporates/menu/spending-invoice', components: { child : SpendingInvoice }  },
-            { name: 'CorporateEnrollment', path: '/dashboard/corporates/menu/enrollment', components: { child : CorporateEnrollment }  },
             { name: 'BulkCreditAllocation', path: '/dashboard/corporates/menu/bulk-credit-allocation', components: { child : BulkCreditAllocation }  },
             // { name: 'HealthPartnerAccess', path: '/dashboard/corporates/menu/health-partner-access', components: { child : HealthPartnerAccess} },
             { name: 'EclaimTypeService', path: '/dashboard/corporates/menu/eclaim-type-service', components: { child : EclaimTypeService} },
             { name: 'GcapPerVisit', path: '/dashboard/corporates/menu/gp-cap-per-visit', components: { child : GcapPerVisit} },
+            { name: 'AddEmployeeEntitlementOption', path: '/dashboard/corporates/menu/enrollment/entitlement', components: { child : AddEmployeeEntitlementOption }  },
             { name: 'PlanRenewal', path: '/dashboard/corporates/menu/plan-renewal', components: { child : PlanRenewal},
               children : [
-                { name: 'GcapPerVisit', path: '/dashboard/corporates/menu/plan-renewal/details', components: { planRenewal : PlanDetails} },
-                { name: 'GcapPerVisit', path: '/dashboard/corporates/menu/plan-renewal/member', components: { planRenewal : MemberDetails} },
-                { name: 'GcapPerVisit', path: '/dashboard/corporates/menu/plan-renewal/spending-account', components: { planRenewal : SpendingRenewalDetails} },
+                { name: 'PlanRenewalDetails', path: '/dashboard/corporates/menu/plan-renewal/details', components: { child : PlanDetails} },
+                { name: 'PlanRenewalMemberDetails', path: '/dashboard/corporates/menu/plan-renewal/member', components: { child : MemberDetails} },
+                { name: 'PlanRenewalSpendingAccount', path: '/dashboard/corporates/menu/plan-renewal/spending-account', components: { child : SpendingRenewalDetails} },
               ]
             },
+            { name: 'PlanRenewalSpendingRenewal', path: '/dashboard/corporates/menu/spending-renewal', components: { child : SpendingAccountRenewal} },
             { name: 'CorporateSettings', path: '/dashboard/corporates/menu/settings', components: { child : CorporateSettings }  },
           ] 
         },

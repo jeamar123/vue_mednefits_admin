@@ -1,5 +1,5 @@
 <script>
-  let corporateSettings = {
+  let spendingAccountRenewal = {
     data() {
       return {
         empSelectorActive: {
@@ -20,9 +20,9 @@
     }
   }
   
-  export default corporateSettings
+  export default spendingAccountRenewal
 </script>
 
 <style lang="scss" scoped>
-	@import "./src/assets/css/corporateSettings.scss";
+	@import "./src/assets/css/corporates.scss";
 </style>
