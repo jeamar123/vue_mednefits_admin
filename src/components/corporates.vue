@@ -9,7 +9,6 @@
     },
 		data() {
 			return {
-				selected_user_id : 12,
 				filterData : {
 					start: null,
 					end: null,
@@ -62,17 +61,17 @@
 					'no_employees',
           'no_dependents',
           'plan_start',
-          'medical_credits_allocated',
+          'medical_credit', //allocated
           'medical_spent_credits',
-          'wellness_credits_allocated',
+          'wellness_credit', //allocated
           'plan_amount',
           'hr_email',
           'employee_fullname',
-          'employee_email_address',
+          'employee_email',
           'mobile',
-          'dob',
+          'employee_dob',
           'employee_status',
-          'employee_cap'
+          'cap_status'
 				],
 				// export_data_keys : [
 				// 	'company_name',
@@ -209,7 +208,6 @@
 			},
 			goToCompanyDetails( data ){
 				// console.log( data );
-				axios.defaults.selected_company_id = 2020;
 				this.$router.push({ name : 'CorporateMenu' });
 			},
       closeAllModalsDrop(){
@@ -220,6 +218,19 @@
       },
 			refreshData(){
 				// console.log('so refreshing...');
+				this.filterData = {
+					start: null,
+					end: null,
+				},
+				this.exportAllCompany = false;
+				this.allCompanySelected = false;
+				this.search_text = '';
+				this.searchPropertiesText = '';
+				this.corporate_id_arr = [];
+
+				this.page_active = 1;
+				this.page_limit = 10;
+				this.getCompanyList();
 			},
 			removeExportKey( index ){
 				this.export_data_key_index[ index ] = false;
@@ -241,6 +252,17 @@
 				this.corporate_list_arr.map((value) => {
 					value.selected = false;
 				});
+			},
+			submitDateFilter(){
+				this.exportAllCompany = false;
+				this.allCompanySelected = false;
+				this.search_text = '';
+				this.searchPropertiesText = '';
+				this.corporate_id_arr = [];
+
+				this.page_active = 1;
+				this.page_limit = 10;
+				this.getCompanyList();
 			},
 
 
@@ -267,23 +289,29 @@
 						}
 					}
 				});
-				// console.log( params );
-				// console.log( params_header );
 			},
 			exportCompanyCSV( params, params_header ){
-				let download_type = 'by_all';
-				if( this.corporate_id_arr.length > 0 ){
-					download_type = 'by_id';
+				let download_type = ['by_all'];
+				let params_download_type = '';
+				if( this.corporate_id_arr.length > 0  && ( this.corporate_id_arr.length == this.corporate_pagination.total ) ){
+					if( this.corporate_id_arr.length == this.corporate_pagination.total ){
+						download_type = ['by_all'];
+					}else{
+						download_type = ['by_id'];
+					}
 				}
 				if( this.filterData.start != null && this.filterData.end != null ){
-					download_type = 'by_date';
+					download_type.push( 'by_date' );
 					params += ("start=" + moment( this.filterData.start ).format('YYYY-MM-DD') + "&end=" + moment( this.filterData.end ).format('YYYY-MM-DD') + '&');
 				}
-				if( this.exportAllCompany == true || ( this.corporate_id_arr.length == this.corporate_pagination.total ) ){
-					download_type = 'by_all';
-				}
-				console.log( axios.defaults.serverUrl + '/company/corporate?isGetCSV=true&download_type=' + download_type + '&token=' + localStorage.getItem('vue_admin_session') + '&' + params + params_header );
-				window.open( axios.defaults.serverUrl + '/company/corporate?isGetCSV=true&download_type=' + download_type + '&token=' + localStorage.getItem('vue_admin_session') + '&' + params + params_header );
+				download_type.map((value, key) => {
+					params_download_type += ('&download_type[]=' + value);
+				});
+				// if( this.exportAllCompany == true || ( this.corporate_id_arr.length == this.corporate_pagination.total ) ){
+				// 	download_type = 'by_all';
+				// }
+				console.log( axios.defaults.serverUrl + '/company/corporate?isGetCSV=true' + params_download_type + '&token=' + localStorage.getItem('vue_admin_session') + '&' + params + params_header );
+				window.open( axios.defaults.serverUrl + '/company/corporate?isGetCSV=true' + params_download_type + '&token=' + localStorage.getItem('vue_admin_session') + '&' + params + params_header );
 			},
 			getCompanyList(){
 				this.$parent.showLoading();

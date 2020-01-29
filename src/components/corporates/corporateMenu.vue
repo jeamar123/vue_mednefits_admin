@@ -12,7 +12,6 @@ let corporateMenu = {
   },
   created() {
     this.corporateViewStatus = this.$route.name;
-    console.log( axios.defaults.selected_company_id );
   },
   methods: {
     selectCorporateView(opt) {
