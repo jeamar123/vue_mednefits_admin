@@ -213,7 +213,7 @@
         </div>
       </div>
       <div slot="footer">
-        <button class="btn-primary" v-on:click="getCompanyList()">Apply Filter</button>
+        <button class="btn-primary" v-on:click="submitDateFilter()">Apply Filter</button>
       </div>
     </Modal>
 
