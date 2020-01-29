@@ -221,7 +221,14 @@ var corporates = {
       if (data == "") {
         // this.getCompanyList();
       }
-    },
+		},
+		submitDateFilter(){
+      this.allCompanySelected = false;
+      this.corporate_id_arr = [];
+			this.page_active = 1;
+      this.page_limit = 10;
+			this.getCompanyList();
+		},
 		exportData(){
 			var params = '';
 			var params_header = '';
