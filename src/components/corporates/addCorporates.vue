@@ -38,13 +38,24 @@
           send_account_email_date: new Date(),
           cc_emails: [],
           generate_password: false,
+          // company_contacts : [
+          //   {
+          //     first_name : "",
+          //     last_name : "",
+          //     job_title : "",
+          //     email : "",
+          //     phone : "",
+          //     send_email_comm_related : false,
+          //     send_email_bill_related : false,
+          //   }
+          // ],
           company_contacts : [
             {
-              first_name : "",
-              last_name : "",
-              job_title : "",
-              email : "",
-              phone : "",
+              add_contact_business_contact_first_name : "",
+              add_contact_business_contact_last_name : "",
+              add_contact_business_job_title : "",
+              add_contact_business_contact_email : "",
+              add_contact_business_phone : "",
               send_email_comm_related : false,
               send_email_bill_related : false,
             }
@@ -376,7 +387,7 @@
         this.create_company.send_account_email_date = moment(this.create_company.send_account_email_date).format('YYYY-MM-DD');
         this.create_company.duration = `${ this.create_company.duration_value } ${ this.create_company.duration_type }`
         // console.log(this.duration); 
-        this.create_company.employee_duration_extension = `${ this.create_company.duration_value_extension } ${ this.create_company.employee_duration_extension_type }`
+        this.create_company.employee_plan_duration = `${ this.create_company.duration_value_extension } ${ this.create_company.employee_duration_extension_type }`
 
         // let data = {
         //   company_name = this.create_company.billing_name;
@@ -460,23 +471,23 @@
           if( this.create_company.company_contacts.length > 0 ){
             for( let value of this.create_company.company_contacts ){
               console.log( value );
-              if ( !value.first_name ) {
+              if ( !value.add_contact_business_contact_first_name ) {
                 this.$swal( "Error!", "Please input your Contact First Name", "error" );
                 return false;
               }
-              if ( !value.last_name ) {
+              if ( !value.add_contact_business_contact_last_name ) {
                 this.$swal( "Error!", "Please input your Contact Last Name", "error" );
                 return false;
               }
-              if ( !value.job_title ) {
+              if ( !value.add_contact_business_job_title ) {
                 this.$swal( "Error!", "Please select your Contact Job Title", "error" );
                 return false;
               }
-              if ( !value.email ) {
+              if ( !value.add_contact_business_contact_email ) {
                 this.$swal( "Error!", "Please input your Contact Email", "error" );
                 return false;
               }
-              if ( !value.phone ) {
+              if ( !value.add_contact_business_phone ) {
                 this.$swal( "Error!", "Please input your Contact Phone Number", "error" );
                 return false;
               }
