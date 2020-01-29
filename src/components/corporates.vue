@@ -293,20 +293,20 @@ var corporates = {
             value.selected = false;
           });
 
-          this.filterData = {
-            start: null,
-            end: null
-          };
-          this.$parent.hideLoading();
-        })
-        .catch(err => {
-          console.log(err);
-          // this.$parent.hideLoading();
-          this.swal("Error!", err, "error");
-        });
+					// this.filterData = {
+					// 	start: null,
+					// 	end: null,
+					// };
+					this.$parent.hideLoading();
+				})
+				.catch(err => {
+					console.log(err);
+					// this.$parent.hideLoading();
+					this.swal('Error!', err, 'error');
+				});
+			}
     }
-  }
-};
+  };
 
 export default corporates;
 </script>
