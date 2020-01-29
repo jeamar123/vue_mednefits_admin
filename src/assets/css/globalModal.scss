@@ -237,6 +237,14 @@
 
   .modal-footer {
     text-align: right;
+    padding: 0 0 10px;
+
+    .btn-close {
+      box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+      padding: 10px 15px;
+      padding: 0 15px;
+      height: 36px;
+    }
   }
 }
 
@@ -370,34 +378,6 @@
 
     .btn-update {
       width: 100%;
-    }
-
-    .renew-plan-row {
-      margin: 0 0 10px;
-
-      >span {
-        color: #777;
-        margin: 0 0 0 5px;
-        display: inline-block;
-      }
-    }
-    .new-plan-start-container { margin: 30px 0 0; }
-    .new-plan-start-container >div {
-      position: relative;
-      width: 147px;
-
-      input {
-        border: 0;
-        border-bottom: 1px solid #cbcbcb;
-        padding: 5px 0px;
-        font-weight: 700;
-      }
-
-      .fa-caret-down {
-        position: absolute;
-        top: 7px;
-        right: 0px;
-      }
     }
 
     .sms-form {

@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import axios from 'axios'
 
 axios.defaults.baseURL = process.env.BASE_URL;
-axios.defaults.serverUrl = 'http://localhost:3000';
+// axios.defaults.serverUrl = 'http://localhost:3000';
+axios.defaults.serverUrl = 'http://api-admin.medicloud.sg';
 axios.defaults.user_id = null;
 
 
@@ -31,25 +32,29 @@ import CorporateMemberList from './views/corporates/CorporateMemberList.vue'
 
 import CorporatePlan from './views/corporates/CorporatePlan.vue'
 import SpendingInvoice from './views/corporates/SpendingInvoice.vue'
-import CorporateEnrollment from './views/corporates/CorporateEnrollment.vue'
 import BulkCreditAllocation from './views/corporates/BulkCreditAllocation.vue'
 import CorporateSettings from './views/corporates/CorporateSettings.vue'
 
-// Employee Information
-import CorporateEmployeeMenu from './views/corporates/employee/CorporateEmployeeMenu.vue'
-import EmployeeInformation from './views/corporates/employee/EmployeeInformation.vue'
-import DependentInformation from './views/corporates/employee/DependentInformation.vue'
-import ClaimSubmission from './views/corporates/employee/ClaimSubmission.vue'
-import Entitlement from './views/corporates/employee/Entitlement.vue'
-import EmployeeSettings from './views/corporates/employee/EmployeeSettings.vue'
+  // Corporate Employee Information
+  import CorporateEmployeeMenu from './views/corporates/employee/CorporateEmployeeMenu.vue'
+  import EmployeeInformation from './views/corporates/employee/EmployeeInformation.vue'
+  import DependentInformation from './views/corporates/employee/DependentInformation.vue'
+  import ClaimSubmission from './views/corporates/employee/ClaimSubmission.vue'
+  import Entitlement from './views/corporates/employee/Entitlement.vue'
+  import EmployeeSettings from './views/corporates/employee/EmployeeSettings.vue'
+  // Corporate Add Employee
+  import AddEmployeeEntitlementOption from './views/corporates/enrollment/AddEmployeeEntitlementOption.vue' 
 
-import HealthPartnerAccess from './views/corporates/HealthPartnerAccess.vue'
-import EclaimTypeService from './views/corporates/EclaimTypeService.vue'
-import GcapPerVisit from './views/corporates/GcapPerVisit.vue'
-import PlanRenewal from './views/corporates/PlanRenewal.vue'
-import PlanDetails from './views/corporates/plan-renwal/PlanDetails.vue'
-import MemberDetails from './views/corporates/plan-renwal/MemberDetails.vue'
-import SpendingRenewalDetails from './views/corporates/plan-renwal/SpendingRenewalDetails.vue'
+  // Corporate Settings
+  import HealthPartnerAccess from './views/corporates/HealthPartnerAccess.vue'
+  import EclaimTypeService from './views/corporates/EclaimTypeService.vue'
+  import GcapPerVisit from './views/corporates/GcapPerVisit.vue'
+  // Plan Renewal Feature
+  import PlanRenewal from './views/corporates/PlanRenewal.vue'
+  import PlanDetails from './views/corporates/plan-renewal/PlanDetails.vue'
+  import MemberDetails from './views/corporates/plan-renewal/MemberDetails.vue'
+  import SpendingRenewalDetails from './views/corporates/plan-renewal/SpendingRenewalDetails.vue'
+  import SpendingAccountRenewal from './views/corporates/plan-renewal/SpendingAccountRenewal.vue'
 // End Corporates
 
 import Analytics from './views/Analytics.vue'
@@ -91,30 +96,32 @@ export default new Router({
         },
         { name: 'AddClinic', path: '/dashboard/clinic/add', component: AddClinic },
         //corporates
-        { name: 'Corporates', path: '/dashboard/corporates', component: Corporates },
+        { name: 'Corporates', path: '/dashboard/corporates', component: Corporates},
         { 
           name: 'CorporateMenu', 
-          path: '/dashboard/corporates/menu', 
+          path: '/dashboard/corporates/menu/:customer_id', 
           component: CorporateMenu,
-          redirect: '/dashboard/corporates/menu/member-list',
+          redirect: '/dashboard/corporates/menu/:customer_id/member-list',
+          props: true,
           children: [
-            { name: 'CorporateInformation', path: '/dashboard/corporates/menu/info', components: { child : CorporateInformation }  },
-            { name: 'CorporateMemberList', path: '/dashboard/corporates/menu/member-list', components: { child : CorporateMemberList }  },
-            { name: 'CorporatePlan', path: '/dashboard/corporates/menu/corporate-plan', components: { child : CorporatePlan }  },
-            { name: 'SpendingInvoice', path: '/dashboard/corporates/menu/spending-invoice', components: { child : SpendingInvoice }  },
-            { name: 'CorporateEnrollment', path: '/dashboard/corporates/menu/enrollment', components: { child : CorporateEnrollment }  },
-            { name: 'BulkCreditAllocation', path: '/dashboard/corporates/menu/bulk-credit-allocation', components: { child : BulkCreditAllocation }  },
+            { name: 'CorporateInformation', path: '/dashboard/corporates/menu/:customer_id/info', components: { child : CorporateInformation }  },
+            { name: 'CorporateMemberList', path: '/dashboard/corporates/menu/:customer_id/member-list', components: { child : CorporateMemberList }, props:true  },
+            { name: 'CorporatePlan', path: '/dashboard/corporates/menu/:customer_id/corporate-plan', components: { child : CorporatePlan } , props:true  },
+            { name: 'SpendingInvoice', path: '/dashboard/corporates/menu/:customer_id/spending-invoice', components: { child : SpendingInvoice } , props:true },
+            { name: 'BulkCreditAllocation', path: '/dashboard/corporates/menu/:customer_id/bulk-credit-allocation', components: { child : BulkCreditAllocation }, props:true  },
             // { name: 'HealthPartnerAccess', path: '/dashboard/corporates/menu/health-partner-access', components: { child : HealthPartnerAccess} },
-            { name: 'EclaimTypeService', path: '/dashboard/corporates/menu/eclaim-type-service', components: { child : EclaimTypeService} },
-            { name: 'GcapPerVisit', path: '/dashboard/corporates/menu/gp-cap-per-visit', components: { child : GcapPerVisit} },
-            { name: 'PlanRenewal', path: '/dashboard/corporates/menu/plan-renewal', components: { child : PlanRenewal},
+            { name: 'EclaimTypeService', path: '/dashboard/corporates/menu/:customer_id/eclaim-type-service', components: { child : EclaimTypeService} , props:true },
+            { name: 'GcapPerVisit', path: '/dashboard/corporates/menu/:customer_id/gp-cap-per-visit', components: { child : GcapPerVisit}, props:true },
+            { name: 'AddEmployeeEntitlementOption', path: '/dashboard/corporates/menu/:customer_id/enrollment/entitlement', components: { child : AddEmployeeEntitlementOption }, props:true  },
+            { name: 'PlanRenewal', path: '/dashboard/corporates/menu/:customer_id/plan-renewal', components: { child : PlanRenewal}, props:true,
               children : [
-                { name: 'GcapPerVisit', path: '/dashboard/corporates/menu/plan-renewal/details', components: { planRenewal : PlanDetails} },
-                { name: 'GcapPerVisit', path: '/dashboard/corporates/menu/plan-renewal/member', components: { planRenewal : MemberDetails} },
-                { name: 'GcapPerVisit', path: '/dashboard/corporates/menu/plan-renewal/spending-account', components: { planRenewal : SpendingRenewalDetails} },
+                { name: 'PlanRenewalDetails', path: '/dashboard/corporates/menu/:customer_id/plan-renewal/details', components: { child : PlanDetails} },
+                { name: 'PlanRenewalMemberDetails', path: '/dashboard/corporates/menu/:customer_id/plan-renewal/member', components: { child : MemberDetails} },
+                { name: 'PlanRenewalSpendingAccount', path: '/dashboard/corporates/menu/:customer_id/plan-renewal/spending-account', components: { child : SpendingRenewalDetails}, props:true },
               ]
             },
-            { name: 'CorporateSettings', path: '/dashboard/corporates/menu/settings', components: { child : CorporateSettings }  },
+            { name: 'PlanRenewalSpendingRenewal', path: '/dashboard/corporates/menu/:customer_id/spending-renewal', components: { child : SpendingAccountRenewal}, props:true },
+            { name: 'CorporateSettings', path: '/dashboard/corporates/menu/:customer_id/settings', components: { child : CorporateSettings }, props:true  },
           ] 
         },
         { 
