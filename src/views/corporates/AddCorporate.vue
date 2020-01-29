@@ -199,13 +199,13 @@
 						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>First Name</label>
-								<input v-model="list.first_name" type="text">
+								<input v-model="list.add_contact_business_contact_first_name" type="text">
 							</div>
 						</div>
 						<div class="form-col">
 							<div class="form-div">
 								<label>Last Name</label>
-								<input v-model="list.last_name" type="text">
+								<input v-model="list.add_contact_business_contact_last_name" type="text">
 							</div>
 						</div>
 					</div>
@@ -214,7 +214,7 @@
 							<div class="form-div">
 								<label>Job Title</label>
 								<div class="selector-container">
-									<select v-model="list.job_title">
+									<select v-model="list.add_contact_business_job_title">
 										<option v-for="jobs of job_title">{{ jobs }}</option>
 									</select>
 									<img :src="'../assets/img/down-arrow.svg'">
@@ -224,13 +224,13 @@
 						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Email Address</label>
-								<input v-model="list.email" type="text">
+								<input v-model="list.add_contact_business_contact_email" type="text">
 							</div>
 						</div>
 						<div class="form-col">
 							<div class="form-div">
 								<label>Phone Number</label>
-								<input v-model="list.phone" type="text">
+								<input v-model="list.add_contact_business_phone" type="text">
 							</div>
 						</div>
 					</div>
@@ -681,7 +681,7 @@
 											<span v-if="create_company.currency == 'sgd'">SGD</span>
 											<span v-if="create_company.currency == 'myr'">MYR</span>
 										</div>
-										<input v-model="create_company.plan_price_extension_dependents" type="number">
+										<input v-model="create_company.dependent_plan_price_extension" type="number">
 									</div>
 								</div>
 							</div>
