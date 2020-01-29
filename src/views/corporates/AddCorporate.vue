@@ -12,7 +12,7 @@
 				<p class="box-title-blue">Business Information</p>
 
 				<div class="form-row">
-					<div class="form-col flex-2 mr-20">
+					<div class="form-col flex-2 mg-rgt-20">
 						<div class="form-div">
 							<label>Company Name</label>
 							<input v-model="create_company.company_name" type="text">
@@ -22,7 +22,7 @@
 						<div class="form-div country-input-wrapper">
 							<label>Country</label>
 							<div class="selector-container">
-								<select v-model="create_company.company_currency">
+								<select v-model="create_company.country">
 									<option value="sgd">Singapore</option>
 									<option value="myr">Malaysia</option>
 								</select>
@@ -32,7 +32,7 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-col flex-2 mr-20">
+					<div class="form-col flex-2 mg-rgt-20">
 						<div class="form-div">
 							<label>Company Address</label>
 							<input v-model="create_company.company_address" type="text">
@@ -41,7 +41,7 @@
 					<div class="form-col">
 						<div class="form-div">
 							<label>Postal Code</label>
-							<input v-model="create_company.company_postal_code" type="text">
+							<input v-model="create_company.company_postal_code" type="number">
 						</div>
 					</div>
 				</div>
@@ -49,7 +49,7 @@
 				<p class="box-title-black">Business Contact</p>
 
 				<div class="form-row">
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>First Name</label>
 							<input v-model="create_company.business_contact_first_name" type="text">
@@ -63,7 +63,7 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Job Title</label>
 							<div class="selector-container">
@@ -74,7 +74,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Email Address</label>
 							<input v-model="create_company.business_contact_email" type="text">
@@ -83,7 +83,7 @@
 					<div class="form-col">
 						<div class="form-div">
 							<label>Phone Number</label>
-							<input v-model="create_company.business_phone" type="text">
+							<input v-model="create_company.business_phone" type="number">
 						</div>
 					</div>
 				</div>
@@ -124,7 +124,7 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-col flex-2 mr-20">
+					<div class="form-col flex-2 mg-rgt-20">
 						<div class="form-div">
 							<label>Billing Address</label>
 							<input v-model="create_company.billing_address" type="text">
@@ -133,12 +133,12 @@
 					<div class="form-col">
 						<div class="form-div">
 							<label>Postal Code</label>
-							<input v-model="create_company.billing_postal_code" type="text">
+							<input v-model="create_company.billing_postal_code" type="number">
 						</div>
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>First Name (Billing Contact)</label>
 							<input v-model="create_company.billing_first_name" type="text">
@@ -152,7 +152,7 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Email Address (Billing Contact)</label>
 							<input v-model="create_company.billing_email" type="text">
@@ -161,7 +161,7 @@
 					<div class="form-col">
 						<div class="form-div">
 							<label>Phone Number (Billing Contact)</label>
-							<input v-model="create_company.billing_phone" type="text">
+							<input v-model="create_company.billing_phone" type="number">
 						</div>
 					</div>
 					<div class="form-col">
@@ -196,7 +196,7 @@
 				</div>
 				<div v-if="create_company.add_contacts" v-for="(list, index) of create_company.company_contacts" class="add-more-contact-container">
 					<div class="form-row">
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>First Name</label>
 								<input v-model="list.first_name" type="text">
@@ -210,7 +210,7 @@
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Job Title</label>
 								<div class="selector-container">
@@ -221,7 +221,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Email Address</label>
 								<input v-model="list.email" type="text">
@@ -268,13 +268,13 @@
 				<p class="box-title-blue">Account & Plan</p>
 
 				<div class="form-row">
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Start Date</label>
 							<div class="date-container">
 								<v-date-picker
 	                popoverDirection="bottom"
-	                v-model="create_company.employee_plan_start"
+	                v-model="create_company.emmployee_plan_start"
 	                :formats='formats'
 	                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 	                popover-visibility="focus"
@@ -283,7 +283,7 @@
               </div>
 						</div>
 					</div>
-					<div class="form-col mr-20 duration-container">
+					<div class="form-col mg-rgt-20 duration-container">
 						<div class="form-div">
 							<label>Duration</label>
 							<div class="duration-input-wrapper">
@@ -305,7 +305,7 @@
 						<div class="form-div">
 							<label>Currency</label>
 							<div class="selector-container">
-								<select v-model="create_company.plan_currency">
+								<select v-model="create_company.currency">
 									<option value="sgd">Singapore Dollar</option>
 									<option value="myr">Malaysian Ringgit</option>
 								</select>
@@ -336,15 +336,15 @@
 					<label>Plan Extension?</label>
 					<div class="toggle-wrapper">
 						<div class="toggle-btns">
-							<div v-on:click="togglePlanExtensionAddCorporate(true)" v-bind:class="{ active : create_company.plan_extension == true }" class="toggle on">Yes</div>
-							<div v-on:click="togglePlanExtensionAddCorporate(false)" v-bind:class="{ active : create_company.plan_extension == false }" class="toggle off">No</div>
+							<div v-on:click="togglePlanExtensionAddCorporate(true)" v-bind:class="{ active : create_company.employee_plan_extension == true }" class="toggle on">Yes</div>
+							<div v-on:click="togglePlanExtensionAddCorporate(false)" v-bind:class="{ active : create_company.employee_plan_extension == false }" class="toggle off">No</div>
 						</div>
 					</div>
 				</div>
 
-				<div v-if="create_company.plan_extension">
+				<div v-if="create_company.employee_plan_extension">
 					<div class="form-row">
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Start Date</label>
 								<div class="date-container">
@@ -359,7 +359,7 @@
 	              </div>
 							</div>
 						</div>
-						<div class="form-col mr-20 duration-container">
+						<div class="form-col mg-rgt-20 duration-container">
 							<div class="form-div">
 								<label>Duration</label>
 								<div class="duration-input-wrapper">
@@ -367,7 +367,7 @@
 										<input v-model="create_company.duration_value_extension" type="text">
 									</div>
 									<div class="selector-container">
-										<select v-model="create_company.duration_type_extension">
+										<select v-model="create_company.employee_duration_extension_type">
 											<option value="days">days</option>
 											<option value="months">months</option>
 											<option value="year">year</option>
@@ -384,13 +384,13 @@
 
 				<p class="box-title-black">Employee Account</p>
 				<div class="form-row">
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Total Number of Eligible Employees</label>
 							<input v-model="create_company.employee_employees" type="number">
 						</div>
 					</div>
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Plan Type</label>
 							<div class="selector-container">
@@ -425,13 +425,13 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Plan Price</label>
 							<div class="account-plan-input-wrapper">
 								<div>
-									<span v-if="create_company.plan_currency == 'sgd'">SGD</span>
-									<span v-if="create_company.plan_currency == 'myr'">MYR</span>
+									<span v-if="create_company.currency == 'sgd'">SGD</span>
+									<span v-if="create_company.currency == 'myr'">MYR</span>
 								</div>
 								<input v-model="create_company.employee_plan_price" type="number">
 							</div>
@@ -441,8 +441,8 @@
 						<label>Payment Status?</label>
 						<div class="toggle-wrapper">
 							<div class="toggle-btns">
-								<div v-on:click="togglePaymentStatusAddCorporate(true)" v-bind:class="{ active : create_company.payment_status == true }" class="toggle on">Paid</div>
-								<div v-on:click="togglePaymentStatusAddCorporate(false)" v-bind:class="{ active : create_company.payment_status == false }" class="toggle off">Pending</div>
+								<div v-on:click="togglePaymentStatusAddCorporate(true)" v-bind:class="{ active : create_company.employee_payment_status == true }" class="toggle on">Paid</div>
+								<div v-on:click="togglePaymentStatusAddCorporate(false)" v-bind:class="{ active : create_company.employee_payment_status == false }" class="toggle off">Pending</div>
 							</div>
 						</div>
 					</div>
@@ -450,7 +450,7 @@
 					</div>
 				</div>
 
-				<div v-if="create_company.plan_extension" class="form-toggle change-plan-toggle">
+				<div v-if="create_company.employee_plan_extension" class="form-toggle change-plan-toggle">
 					<label>Plan Extension? Change Plan Type?</label>
 					<div class="toggle-wrapper">
 						<div class="toggle-btns">
@@ -463,7 +463,7 @@
 				<div v-if="create_company.plan_extension_change_plan">
 					<div class="white-space-20"></div>
 					<div class="form-row">
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Plan Type</label>
 								<div class="selector-container">
@@ -498,13 +498,13 @@
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Plan Price</label>
 								<div class="account-plan-input-wrapper">
 									<div>
-										<span v-if="create_company.plan_currency == 'sgd'">SGD</span>
-										<span v-if="create_company.plan_currency == 'myr'">MYR</span>
+										<span v-if="create_company.currency == 'sgd'">SGD</span>
+										<span v-if="create_company.currency == 'myr'">MYR</span>
 									</div>
 									<input v-model="create_company.employee_plan_price_extension" type="number">
 								</div>
@@ -514,8 +514,8 @@
 							<label>Payment Status?</label>
 							<div class="toggle-wrapper">
 								<div class="toggle-btns">
-									<div v-on:click="togglePaymentStatusExtensionAddCorporate(true)" v-bind:class="{ active : create_company.payment_status_extension == true }" class="toggle on">Paid</div>
-									<div v-on:click="togglePaymentStatusExtensionAddCorporate(false)" v-bind:class="{ active : create_company.payment_status_extension == false }" class="toggle off">Pending</div>
+									<div v-on:click="togglePaymentStatusExtensionAddCorporate(true)" v-bind:class="{ active : create_company.employee_payment_status_extension == true }" class="toggle on">Paid</div>
+									<div v-on:click="togglePaymentStatusExtensionAddCorporate(false)" v-bind:class="{ active : create_company.employee_payment_status_extension == false }" class="toggle off">Pending</div>
 								</div>
 							</div>
 						</div>
@@ -523,7 +523,7 @@
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Invoice Date</label>
 								<div class="date-container">
@@ -550,21 +550,21 @@
 				<div class="form-toggle">
 					<div class="toggle-wrapper">
 						<div class="toggle-btns">
-							<div v-on:click="toggleDependentsAddCorporate(true)" v-bind:class="{ active : create_company.dependents == true }" class="toggle on">Yes</div>
-							<div v-on:click="toggleDependentsAddCorporate(false)" v-bind:class="{ active : create_company.dependents == false }" class="toggle off">No</div>
+							<div v-on:click="toggleDependentsAddCorporate(true)" v-bind:class="{ active : create_company.dependent_status == true }" class="toggle on">Yes</div>
+							<div v-on:click="toggleDependentsAddCorporate(false)" v-bind:class="{ active : create_company.dependent_status == false }" class="toggle off">No</div>
 						</div>
 					</div>
 				</div>
 
-				<div v-if="create_company.dependents">
+				<div v-if="create_company.dependent_status">
 					<div class="form-row">
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Total Number of Eligible Employees</label>
 								<input v-model="create_company.dependents_employees" type="number">
 							</div>
 						</div>
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Plan Type</label>
 								<div class="selector-container">
@@ -598,13 +598,13 @@
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div">
 								<label>Plan Price</label>
 								<div class="account-plan-input-wrapper">
 									<div>
-										<span v-if="create_company.plan_currency == 'sgd'">SGD</span>
-									<span v-if="create_company.plan_currency == 'myr'">MYR</span>
+										<span v-if="create_company.currency == 'sgd'">SGD</span>
+									<span v-if="create_company.currency == 'myr'">MYR</span>
 									</div>
 									<input v-model="create_company.dependent_plan_price" type="number">
 								</div>
@@ -614,8 +614,8 @@
 							<label>Payment Status?</label>
 							<div class="toggle-wrapper">
 								<div class="toggle-btns">
-									<div v-on:click="togglePaymentStatusDependentsAddCorporate(true)" v-bind:class="{ active : create_company.payment_status_dependents == true }" class="toggle on">Paid</div>
-									<div v-on:click="togglePaymentStatusDependentsAddCorporate(false)" v-bind:class="{ active : create_company.payment_status_dependents == false }" class="toggle off">Pending</div>
+									<div v-on:click="togglePaymentStatusDependentsAddCorporate(true)" v-bind:class="{ active : create_company.dependent_payment_status == true }" class="toggle on">Paid</div>
+									<div v-on:click="togglePaymentStatusDependentsAddCorporate(false)" v-bind:class="{ active : create_company.dependent_payment_status == false }" class="toggle off">Pending</div>
 								</div>
 							</div>
 						</div>
@@ -624,24 +624,24 @@
 					</div>
 
 					<!-- Plan extension dependent -->
-					<div v-if="create_company.plan_extension" class="form-toggle change-plan-toggle">
+					<div v-if="create_company.employee_plan_extension" class="form-toggle change-plan-toggle">
 						<label>Plan Extension? Change Plan Type?</label>
 						<div class="toggle-wrapper">
 							<div class="toggle-btns">
-								<div v-on:click="togglePlanExtensionDependentsAddCorporate(true)" v-bind:class="{ active : create_company.plan_extension_dependents == true }" class="toggle on">Yes</div>
-								<div v-on:click="togglePlanExtensionDependentsAddCorporate(false)" v-bind:class="{ active : create_company.plan_extension_dependents == false }" class="toggle off">No</div>
+								<div v-on:click="togglePlanExtensionDependentsAddCorporate(true)" v-bind:class="{ active : create_company.dependent_plan_extension_status == true }" class="toggle on">Yes</div>
+								<div v-on:click="togglePlanExtensionDependentsAddCorporate(false)" v-bind:class="{ active : create_company.dependent_plan_extension_status == false }" class="toggle off">No</div>
 							</div>
 						</div>
 					</div>
 
-					<div v-if="create_company.plan_extension_dependents">
+					<div v-if="create_company.dependent_plan_extension_status">
 						<div class="white-space-20"></div>
 						<div class="form-row">
-							<div class="form-col mr-20">
+							<div class="form-col mg-rgt-20">
 								<div class="form-div">
 									<label>Plan Type</label>
 									<div class="selector-container">
-										<select v-model="create_company.account_type_extension_dependents" v-on:change="accountTypeExtensionDependentsChanged( create_company.account_type_extension_dependents )">
+										<select v-model="create_company.secondary_account_type_extension" v-on:change="accountTypeExtensionDependentsChanged( create_company.secondary_account_type_extension )">
 											<option value="trial_plan">Trial Plan</option>
 											<option value="insurance_bundle">Insurance Bundle</option>
 											<option value="stand_alone_plan">Pro Plan</option>
@@ -654,16 +654,16 @@
 							</div>
 							<div class="form-col">
 								<div 
-									v-if="create_company.account_type_extension_dependents && create_company.account_type_extension_dependents != 'stand_alone_plan' && create_company.account_type_extension_dependents != 'lite_plan' && create_company.account_type_extension_dependents != 'enterprise_plan' "
+									v-if="create_company.secondary_account_type_extension && create_company.secondary_account_type_extension != 'stand_alone_plan' && create_company.secondary_account_type_extension != 'lite_plan' && create_company.secondary_account_type_extension != 'enterprise_plan' "
 									class="form-div">
 									<label>Secondary Plan Type</label>
 									<div class="selector-container">
 										<select v-model="create_company.secondary_account_type_extension_dependents">
-											<option v-if="create_company.account_type_extension_dependents == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
-											<option v-if="create_company.account_type_extension_dependents == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
+											<option v-if="create_company.secondary_account_type_extension == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
+											<option v-if="create_company.secondary_account_type_extension == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
 
-											<option v-if="create_company.account_type_extension_dependents == 'insurance_bundle'" value="pro_plan_bundle">Pro Plan Bundle</option>
-											<option v-if="create_company.account_type_extension_dependents == 'insurance_bundle'" value="insurance_bundle_lite">Insurance Bundle Lite</option>
+											<option v-if="create_company.secondary_account_type_extension == 'insurance_bundle'" value="pro_plan_bundle">Pro Plan Bundle</option>
+											<option v-if="create_company.secondary_account_type_extension == 'insurance_bundle'" value="insurance_bundle_lite">Insurance Bundle Lite</option>
 										</select>
 										<img :src="'../assets/img/down-arrow.svg'">
 									</div>
@@ -673,13 +673,13 @@
 							</div>
 						</div>
 						<div class="form-row">
-							<div class="form-col mr-20">
+							<div class="form-col mg-rgt-20">
 								<div class="form-div">
 									<label>Plan Price</label>
 									<div class="account-plan-input-wrapper">
 										<div>
-											<span v-if="create_company.plan_currency == 'sgd'">SGD</span>
-											<span v-if="create_company.plan_currency == 'myr'">MYR</span>
+											<span v-if="create_company.currency == 'sgd'">SGD</span>
+											<span v-if="create_company.currency == 'myr'">MYR</span>
 										</div>
 										<input v-model="create_company.plan_price_extension_dependents" type="number">
 									</div>
@@ -689,8 +689,8 @@
 								<label>Payment Status?</label>
 								<div class="toggle-wrapper">
 									<div class="toggle-btns">
-										<div v-on:click="togglePaymentStatusExtensionDependentsAddCorporate(true)" v-bind:class="{ active : create_company.payment_status_extension_dependents == true }" class="toggle on">Paid</div>
-										<div v-on:click="togglePaymentStatusExtensionDependentsAddCorporate(false)" v-bind:class="{ active : create_company.payment_status_extension_dependents == false }" class="toggle off">Pending</div>
+										<div v-on:click="togglePaymentStatusExtensionDependentsAddCorporate(true)" v-bind:class="{ active : create_company.dependent_payment_status_extension == true }" class="toggle on">Paid</div>
+										<div v-on:click="togglePaymentStatusExtensionDependentsAddCorporate(false)" v-bind:class="{ active : create_company.dependent_payment_status_extension == false }" class="toggle off">Pending</div>
 									</div>
 								</div>
 							</div>
@@ -698,13 +698,13 @@
 							</div>
 						</div>
 						<div class="form-row">
-							<div class="form-col mr-20">
+							<div class="form-col mg-rgt-20">
 								<div class="form-div">
 									<label>Invoice Date</label>
 									<div class="date-container">
 										<v-date-picker
 			                popoverDirection="bottom"
-			                v-model="create_company.plan_invoice_date_dependents"
+			                v-model="create_company.plan_start_extension_dependents"
 			                :formats='formats'
 			                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 			                popover-visibility="focus"
@@ -749,7 +749,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div med-date-container">
 								<label>Start Date</label>
 								<div class="date-container">
@@ -796,7 +796,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-col mr-20">
+						<div class="form-col mg-rgt-20">
 							<div class="form-div well-date-container">
 								<label>Start Date</label>
 								<div class="date-container">
@@ -837,13 +837,13 @@
 				<p class="box-title-blue">Business Portal</p>
 
 				<div class="form-row">
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Login ID</label>
 							<input v-model="create_company.business_portal_email" type="text">
 						</div>
 					</div>
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div password-input-wrapper">
 							<label>Password</label>
 							<input type="password" v-model="create_company.business_portal_password" :disabled="create_company.disable_password_input">
@@ -896,7 +896,7 @@
 								<div class="date-container">
 									<v-date-picker
 		                popoverDirection="bottom"
-		                v-model="create_company.email_send_date"
+		                v-model="create_company.send_account_email_date"
 		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                :formats='formats'
 		                popover-visibility="focus"
@@ -942,16 +942,16 @@
 				<p class="box-title-blue">Benefits Specialist User</p>
 
 				<div class="form-row">
-					<div class="form-col flex-2 mr-20">
+					<div class="form-col flex-2 mg-rgt-20">
 						<div class="form-div">
 							<label>Name</label>
-							<input type="text">
+							<input v-model="create_company.benefits_name" type="text">
 						</div>
 					</div>
-					<div class="form-col mr-20">
+					<div class="form-col mg-rgt-20">
 						<div class="form-div">
 							<label>Code</label>
-							<input type="password">
+							<input v-model="create_company.benefits_code" type="password">
 						</div>
 					</div>
 					<div class="form-col">
