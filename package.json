@@ -22,7 +22,8 @@
     "vue-moment": "^4.1.0",
     "vue-router": "^3.0.2",
     "vue-slider-component": "^3.0.16",
-    "vue-sweetalert2": "^1.6.4"
+    "vue-sweetalert2": "^1.6.4",
+    "vue2-filters": "^0.9.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.8.0",

@@ -278,6 +278,13 @@ export default corporateEmployeeInformation;
 
 @media (max-width: 1279px) {
   /* ... */
+
+  .account-summary-pro-rated {
+    text-align: center;
+    display: inline-grid;
+    grid-row-gap: 10px;
+    width: 30%;
+  }
 }
 
 /* Large (lg) */
