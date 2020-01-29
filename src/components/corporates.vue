@@ -9,6 +9,7 @@
     },
 		data() {
 			return {
+				selected_user_id : 12,
 				filterData : {
 					start: null,
 					end: null,
@@ -52,15 +53,15 @@
 				],
 				export_data_keys : [
 					'company_name',
-					'expiry_date',
-					'active',
+					'end_date',
+					'hr_account_status',
 					'total_employee_seat',
 					'total_dependent_seat',
 					'total_medical_credits',
 					'account_type',
-					'no_of_employees',
-          'no_of_dependents',
-          'start_date',
+					'no_employees',
+          'no_dependents',
+          'plan_start',
           'medical_credits_allocated',
           'medical_spent_credits',
           'wellness_credits_allocated',
@@ -73,6 +74,29 @@
           'employee_status',
           'employee_cap'
 				],
+				// export_data_keys : [
+				// 	'company_name',
+				// 	'expiry_date',
+				// 	'active',
+				// 	'total_employee_seat',
+				// 	'total_dependent_seat',
+				// 	'total_medical_credits',
+				// 	'account_type',
+				// 	'no_of_employees',
+        //   'no_of_dependents',
+        //   'start_date',
+        //   'medical_credits_allocated',
+        //   'medical_spent_credits',
+        //   'wellness_credits_allocated',
+        //   'plan_amount',
+        //   'hr_email',
+        //   'employee_fullname',
+        //   'employee_email_address',
+        //   'mobile',
+        //   'dob',
+        //   'employee_status',
+        //   'employee_cap'
+				// ],
 				export_data_key_index : [ true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, ],
 
 				page_active : 1,
@@ -185,6 +209,7 @@
 			},
 			goToCompanyDetails( data ){
 				// console.log( data );
+				axios.defaults.selected_company_id = 2020;
 				this.$router.push({ name : 'CorporateMenu' });
 			},
       closeAllModalsDrop(){
@@ -263,15 +288,13 @@
 			getCompanyList(){
 				this.$parent.showLoading();
 				this.isFilterModalShow = false;
-				// + '&limit=' + this.page_limit
-				var url = axios.defaults.serverUrl + '/company/corporate?page=' + this.page_active ;
+				var url = axios.defaults.serverUrl + '/company/corporate?page=' + this.page_active + '&limit=' + this.page_limit;
 				if( this.filterData.start != null && this.filterData.end != null ){
 					url += "&start=" + moment( this.filterData.start ).format('YYYY-MM-DD') + "&end=" + moment( this.filterData.end ).format('YYYY-MM-DD');
 				}
 				if( this.search_text != null && this.search_text != '' ){
 					url += '&search=' + this.search_text;
 				}
-				//  ?page=' + this.page_active + '&limit' + this.page_limit
 				// console.log( url );
 				axios.get( url )
 				.then(res => {
