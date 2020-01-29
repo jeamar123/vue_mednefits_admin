@@ -28,6 +28,7 @@
           employee_payment_status_extension: false,
           dependent_payment_status: false,
           dependent_payment_status_extension: false,
+          dependent_plan_start: new Date(),
           plan_start_extension: new Date( moment().add( 1,'months').subtract(1,'days') ),
           plan_start_extension_dependents: new Date(),
           employee_plan_start_extension: undefined,
@@ -141,7 +142,7 @@
           this.create_company.plan_start_extension_dependents = this.create_company.plan_start_extension;
           // this.create_company.secondary_account_type_extension = this.create_company.dependent_account_type;
           // this.create_company.secondary_account_type_extension_dependents = this.create_company.secondary_account_type_dependents;
-          this.create_company.plan_price_extension_dependents = this.create_company.plan_price_dependents;
+          this.create_company.dependent_plan_price_extension = this.create_company.plan_price_dependents;
           // this.create_company.dependent_payment_status_extsension = this.create_company.payment_status_dependents ;
           // this.create_company.duration_extension_dependents = this.create_company.duration_value_extension + " " + this.create_company.employee_duration_extension_type;
           this.create_company.employee_plan_start_extension = new Date(moment(this.create_company.plan_start_extension).add(1,'months'));
@@ -282,19 +283,19 @@
       },
       accountTypeExtensionDependentsChanged( type ) {
         if( type == 'trial_plan' ){
-          this.create_company.plan_price_extension_dependents = 0;
+          this.create_company.dependent_plan_price_extension = 0;
         }
         if( type == 'insurance_bundle' ){
-          this.create_company.plan_price_extension_dependents = 99;
+          this.create_company.dependent_plan_price_extension = 99;
         }
         if( type == 'stand_alone_plan' ){
-          this.create_company.plan_price_extension_dependents = 99;
+          this.create_company.dependent_plan_price_extension = 99;
         }
         if( type == 'lite_plan' ){
-          this.create_company.plan_price_extension_dependents = 5;
+          this.create_company.dependent_plan_price_extension = 5;
         }
         if( type == 'enterprise_plan' ){
-          this.create_company.plan_price_extension_dependents = 300;
+          this.create_company.dependent_plan_price_extension = 300;
         }
       },
       togglePaymentStatusAddCorporate( opt ) {
@@ -385,9 +386,12 @@
         this.create_company.wellness_spending_end_date = moment(this.create_company.wellness_spending_end_date).format('YYYY-MM-DD');
         this.create_company.wellness_spending_end_date = moment(this.create_company.wellness_spending_end_date).format('YYYY-MM-DD');
         this.create_company.send_account_email_date = moment(this.create_company.send_account_email_date).format('YYYY-MM-DD');
+        this.create_company.dependent_plan_start = moment(this.create_company.dependent_plan_start).format('YYYY-MM-DD');
         this.create_company.duration = `${ this.create_company.duration_value } ${ this.create_company.duration_type }`
-        // console.log(this.duration); 
         this.create_company.employee_plan_duration = `${ this.create_company.duration_value_extension } ${ this.create_company.employee_duration_extension_type }`
+        this.create_company.employee_duration_extension = `${ this.create_company.duration_value_extension } ${ this.create_company.employee_duration_extension_type }`
+        this.create_company.dependent_plan_duration = `${ this.create_company.duration_value_extension } ${ this.create_company.employee_duration_extension_type }`
+        this.create_company.duration_extension_dependents = `${ this.create_company.duration_value_extension } ${ this.create_company.employee_duration_extension_type }`
 
         // let data = {
         //   company_name = this.create_company.billing_name;

@@ -681,7 +681,7 @@
 											<span v-if="create_company.currency == 'sgd'">SGD</span>
 											<span v-if="create_company.currency == 'myr'">MYR</span>
 										</div>
-										<input v-model="create_company.plan_price_extension_dependents" type="number">
+										<input v-model="create_company.dependent_plan_price_extension" type="number">
 									</div>
 								</div>
 							</div>
