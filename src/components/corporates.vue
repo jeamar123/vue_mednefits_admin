@@ -173,7 +173,10 @@
       	this.isFilterModalShow = this.isFilterModalShow == false ? true : false;
 			},
 			exportModal(){
-      	this.isExportModalShow = this.isExportModalShow == false ? true : false;
+				this.isExportModalShow = this.isExportModalShow == false ? true : false;
+				if( this.isExportModalShow == false ){
+					this.export_data_key_index = [ true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, ];
+				}
 			},
 			allCompanyCheckBox( opt ){
 				console.log( this.allCompanySelected );
