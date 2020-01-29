@@ -6,7 +6,7 @@
     data() {
       return {
         create_company : {
-          duration : undefined,
+          // duration : undefined,
           billing_status : false,
           add_contacts : false,
           duration_value: 1,
@@ -15,7 +15,7 @@
           employee_duration_extension_type: 'months',
           employee_plan_extension : false,
           plan_extension_change_plan: false,
-          plan_extension_dependents: false,
+          dependent_plan_extension_status: false,
           dependent_status: false,
           health_spending_account: false,
           medical_spending_account: false,
@@ -26,10 +26,10 @@
           main_plan_invoice_date: new Date(),
           employee_payment_status: false,
           employee_payment_status_extension: false,
-          payment_status_dependents: false,
-          payment_status_extension_dependents: false,
+          dependent_payment_status: false,
+          dependent_payment_status_extension: false,
           plan_start_extension: new Date( moment().add( 1,'months').subtract(1,'days') ),
-          plan_invoice_date_dependents: new Date(),
+          plan_start_extension_dependents: new Date(),
           employee_plan_start_extension: undefined,
           medical_spending_start_date: new Date(),
           medical_spending_end_date: new Date(),
@@ -38,12 +38,6 @@
           send_account_email_date: new Date(),
           cc_emails: [],
           generate_password: false,
-          employee_plan_duration : [ 
-            {
-              duration_value : 5,
-              duration_type : 'months',
-            }
-          ],
           company_contacts : [
             {
               first_name : "",
@@ -129,23 +123,23 @@
         this.create_company.employee_plan_extension = opt;
 
         if ( opt == true ){
-          this.create_company.plan_extension_dependents = true;
+          this.create_company.dependent_plan_extension_status = true;
           this.create_company.plan_extension_status = true;
           // this.create_company.employee_account_type_extension = this.create_company.employee_account_type;
-          this.create_company.secondary_account_type_extension = this.create_company.secondary_account_type;
+          // this.create_company.secondary_account_type_extension = this.create_company.secondary_account_type;
           this.create_company.plan_start_extension_dependents = this.create_company.plan_start_extension;
-          // this.create_company.account_type_extension_dependents = this.create_company.dependent_account_type;
+          // this.create_company.secondary_account_type_extension = this.create_company.dependent_account_type;
           // this.create_company.secondary_account_type_extension_dependents = this.create_company.secondary_account_type_dependents;
           this.create_company.plan_price_extension_dependents = this.create_company.plan_price_dependents;
-          this.create_company.payment_status_extension_dependents = this.create_company.payment_status_dependents ;
+          // this.create_company.dependent_payment_status_extsension = this.create_company.payment_status_dependents ;
           // this.create_company.duration_extension_dependents = this.create_company.duration_value_extension + " " + this.create_company.employee_duration_extension_type;
           this.create_company.employee_plan_start_extension = new Date(moment(this.create_company.plan_start_extension).add(1,'months'));
-          this.create_company.plan_invoice_date_dependents = new Date(moment(this.create_company.plan_start_extension).add(1,'months'));
+          this.create_company.plan_start_extension_dependents = new Date(moment(this.create_company.plan_start_extension).add(1,'months'));
 
           // console.log(this.create_company.employee_plan_start_extension);
-          // console.log(this.create_company.plan_invoice_date_dependents);
+          // console.log(this.create_company.plan_start_extension_dependents);
         } else {
-          this.create_company.plan_extension_dependents = false;
+          this.create_company.dependent_plan_extension_status = false;
           this.create_company.plan_extension_status = false;
         }
       },
@@ -153,8 +147,8 @@
         this.create_company.plan_extension_change_plan = opt;
       },
       togglePlanExtensionDependentsAddCorporate( opt ) {
-        console.log(this.create_company.plan_invoice_date_dependents);
-        this.create_company.plan_extension_dependents = opt;
+        console.log(this.create_company.plan_start_extension_dependents);
+        this.create_company.dependent_plan_extension_status = opt;
       },
       toggleDependentsAddCorporate( opt ) {
         this.create_company.dependent_status = opt;
@@ -299,10 +293,10 @@
         this.create_company.employee_payment_status_extension = opt;
       },
       togglePaymentStatusDependentsAddCorporate( opt ) {
-        this.create_company.payment_status_dependents = opt;
+        this.create_company.dependent_payment_status = opt;
       },
       togglePaymentStatusExtensionDependentsAddCorporate( opt ) {
-        this.create_company.payment_status_extension_dependents = opt;
+        this.create_company.dependent_payment_status_extension = opt;
       },
       startDateChanged() {
         // console.log( moment( this.create_company.plan_start_extension ).add(this.create_company.duration_value ,this.create_company.duration_type).subtract(1,'days') );
@@ -372,7 +366,7 @@
         this.create_company.emmployee_plan_start = moment(this.create_company.emmployee_plan_start).format('YYYY-MM-DD');
         this.create_company.main_plan_invoice_date = moment(this.create_company.main_plan_invoice_date).format('YYYY-MM-DD');
         this.create_company.plan_start_extension = moment(this.create_company.plan_start_extension).format('YYYY-MM-DD');
-        this.create_company.plan_invoice_date_dependents = moment(this.create_company.plan_invoice_date_dependents).format('YYYY-MM-DD');
+        this.create_company.plan_start_extension_dependents = moment(this.create_company.plan_start_extension_dependents).format('YYYY-MM-DD');
         this.create_company.employee_plan_start_extension = moment(this.create_company.employee_plan_start_extension).format('YYYY-MM-DD');
         this.create_company.medical_spending_start_date = moment(this.create_company.medical_spending_start_date).format('YYYY-MM-DD');
         this.create_company.medical_spending_end_date = moment(this.create_company.medical_spending_end_date).format('YYYY-MM-DD');
@@ -380,8 +374,9 @@
         this.create_company.wellness_spending_end_date = moment(this.create_company.wellness_spending_end_date).format('YYYY-MM-DD');
         this.create_company.wellness_spending_end_date = moment(this.create_company.wellness_spending_end_date).format('YYYY-MM-DD');
         this.create_company.send_account_email_date = moment(this.create_company.send_account_email_date).format('YYYY-MM-DD');
-        this.create_company.duration = `${ this.duration_value } ${ this.duration_type }`
-        console.log(this.duration); 
+        this.create_company.duration = `${ this.create_company.duration_value } ${ this.create_company.duration_type }`
+        // console.log(this.duration); 
+        this.create_company.employee_duration_extension = `${ this.create_company.duration_value_extension } ${ this.create_company.employee_duration_extension_type }`
 
         // let data = {
         //   company_name = this.create_company.billing_name;
@@ -396,6 +391,7 @@
           })
           .catch(err => {
             console.log(err.response);
+            this.resetCreateCorporateData();
             this.$swal("Error!", err.response.data.message, "error");
             
           });
@@ -557,28 +553,28 @@
             this.$swal( "Error!", "Please select your Dependents Plan secondary account type", "error" );
             return false;
           }
-          if( data.plan_extension_dependents == true ){
-            if( !data.plan_start_extension_dependents ){
-              this.$swal( "Error!", "Please select your Dependents Extension Plan Start date ", "error" );
-              return false;
-            }
-            if( !data.duration_value_extension_dependents ){
-              this.$swal( "Error!", "Dependents Extension Plan duration must be 1 or more", "error" );
-              return false;
-            }
-            if( !data.duration_type_extension_dependents ){
-              this.$swal( "Error!", "Please select your Dependents Extension duration type", "error" );
-              return false;
-            }
-            if (!data.account_type_extension_dependents) {
+          if( data.dependent_plan_extension_status == true ){
+            // if( !data.plan_start_extension_dependents ){
+            //   this.$swal( "Error!", "Please select your Dependents Extension Plan Start date ", "error" );
+            //   return false;
+            // }
+            // if( !data.duration_value_extension_dependents ){
+            //   this.$swal( "Error!", "Dependents Extension Plan duration must be 1 or more", "error" );
+            //   return false;
+            // }
+            // if( !data.duration_type_extension_dependents ){
+            //   this.$swal( "Error!", "Please select your Dependents Extension duration type", "error" );
+            //   return false;
+            // }
+            if (!data.secondary_account_type_extension) {
               this.$swal( "Error!", "Please select your Dependents Extension Plan account type", "error" );
               return false;
             }
-            if (!data.secondary_account_type_extension_dependents && data.account_type_extension_dependents != 'lite_plan' && data.account_type_extension_dependents != 'stand_alone_plan') {
+            if (!data.secondary_account_type_extension_dependents && data.secondary_account_type_extension != 'lite_plan' && data.secondary_account_type_extension != 'stand_alone_plan') {
               this.$swal( "Error!", "Please select your Dependents Extension Plan secondary account type", "error" );
               return false;
             }
-            if (!data.plan_invoice_date_dependents ) {
+            if (!data.plan_start_extension_dependents ) {
               this.$swal( "Error!", "Please select your Dependents Extension Plan Invoice date", "error" );
               return false;
             }
@@ -640,7 +636,7 @@
         this.create_company.emmployee_plan_start = new Date();
         this.create_company.main_plan_invoice_date = new Date();
         this.create_company.plan_start_extension = new Date( moment().add( 1,'months').subtract(1,'days') );
-        this.create_company.plan_invoice_date_dependents = new Date(moment(this.create_company.plan_start_extension).add(1,'months'));
+        this.create_company.plan_start_extension_dependents = new Date(moment(this.create_company.plan_start_extension).add(1,'months'));
         this.create_company.employee_plan_start_extension = new Date(moment(this.create_company.plan_start_extension).add(1,'months'));
         this.create_company.medical_spending_start_date = new Date();
         this.create_company.medical_spending_end_date = new Date();

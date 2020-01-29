@@ -614,8 +614,8 @@
 							<label>Payment Status?</label>
 							<div class="toggle-wrapper">
 								<div class="toggle-btns">
-									<div v-on:click="togglePaymentStatusDependentsAddCorporate(true)" v-bind:class="{ active : create_company.payment_status_dependents == true }" class="toggle on">Paid</div>
-									<div v-on:click="togglePaymentStatusDependentsAddCorporate(false)" v-bind:class="{ active : create_company.payment_status_dependents == false }" class="toggle off">Pending</div>
+									<div v-on:click="togglePaymentStatusDependentsAddCorporate(true)" v-bind:class="{ active : create_company.dependent_payment_status == true }" class="toggle on">Paid</div>
+									<div v-on:click="togglePaymentStatusDependentsAddCorporate(false)" v-bind:class="{ active : create_company.dependent_payment_status == false }" class="toggle off">Pending</div>
 								</div>
 							</div>
 						</div>
@@ -628,20 +628,20 @@
 						<label>Plan Extension? Change Plan Type?</label>
 						<div class="toggle-wrapper">
 							<div class="toggle-btns">
-								<div v-on:click="togglePlanExtensionDependentsAddCorporate(true)" v-bind:class="{ active : create_company.plan_extension_dependents == true }" class="toggle on">Yes</div>
-								<div v-on:click="togglePlanExtensionDependentsAddCorporate(false)" v-bind:class="{ active : create_company.plan_extension_dependents == false }" class="toggle off">No</div>
+								<div v-on:click="togglePlanExtensionDependentsAddCorporate(true)" v-bind:class="{ active : create_company.dependent_plan_extension_status == true }" class="toggle on">Yes</div>
+								<div v-on:click="togglePlanExtensionDependentsAddCorporate(false)" v-bind:class="{ active : create_company.dependent_plan_extension_status == false }" class="toggle off">No</div>
 							</div>
 						</div>
 					</div>
 
-					<div v-if="create_company.plan_extension_dependents">
+					<div v-if="create_company.dependent_plan_extension_status">
 						<div class="white-space-20"></div>
 						<div class="form-row">
 							<div class="form-col mg-rgt-20">
 								<div class="form-div">
 									<label>Plan Type</label>
 									<div class="selector-container">
-										<select v-model="create_company.account_type_extension_dependents" v-on:change="accountTypeExtensionDependentsChanged( create_company.account_type_extension_dependents )">
+										<select v-model="create_company.secondary_account_type_extension" v-on:change="accountTypeExtensionDependentsChanged( create_company.secondary_account_type_extension )">
 											<option value="trial_plan">Trial Plan</option>
 											<option value="insurance_bundle">Insurance Bundle</option>
 											<option value="stand_alone_plan">Pro Plan</option>
@@ -654,16 +654,16 @@
 							</div>
 							<div class="form-col">
 								<div 
-									v-if="create_company.account_type_extension_dependents && create_company.account_type_extension_dependents != 'stand_alone_plan' && create_company.account_type_extension_dependents != 'lite_plan' && create_company.account_type_extension_dependents != 'enterprise_plan' "
+									v-if="create_company.secondary_account_type_extension && create_company.secondary_account_type_extension != 'stand_alone_plan' && create_company.secondary_account_type_extension != 'lite_plan' && create_company.secondary_account_type_extension != 'enterprise_plan' "
 									class="form-div">
 									<label>Secondary Plan Type</label>
 									<div class="selector-container">
 										<select v-model="create_company.secondary_account_type_extension_dependents">
-											<option v-if="create_company.account_type_extension_dependents == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
-											<option v-if="create_company.account_type_extension_dependents == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
+											<option v-if="create_company.secondary_account_type_extension == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
+											<option v-if="create_company.secondary_account_type_extension == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
 
-											<option v-if="create_company.account_type_extension_dependents == 'insurance_bundle'" value="pro_plan_bundle">Pro Plan Bundle</option>
-											<option v-if="create_company.account_type_extension_dependents == 'insurance_bundle'" value="insurance_bundle_lite">Insurance Bundle Lite</option>
+											<option v-if="create_company.secondary_account_type_extension == 'insurance_bundle'" value="pro_plan_bundle">Pro Plan Bundle</option>
+											<option v-if="create_company.secondary_account_type_extension == 'insurance_bundle'" value="insurance_bundle_lite">Insurance Bundle Lite</option>
 										</select>
 										<img :src="'../assets/img/down-arrow.svg'">
 									</div>
@@ -689,8 +689,8 @@
 								<label>Payment Status?</label>
 								<div class="toggle-wrapper">
 									<div class="toggle-btns">
-										<div v-on:click="togglePaymentStatusExtensionDependentsAddCorporate(true)" v-bind:class="{ active : create_company.payment_status_extension_dependents == true }" class="toggle on">Paid</div>
-										<div v-on:click="togglePaymentStatusExtensionDependentsAddCorporate(false)" v-bind:class="{ active : create_company.payment_status_extension_dependents == false }" class="toggle off">Pending</div>
+										<div v-on:click="togglePaymentStatusExtensionDependentsAddCorporate(true)" v-bind:class="{ active : create_company.dependent_payment_status_extension == true }" class="toggle on">Paid</div>
+										<div v-on:click="togglePaymentStatusExtensionDependentsAddCorporate(false)" v-bind:class="{ active : create_company.dependent_payment_status_extension == false }" class="toggle off">Pending</div>
 									</div>
 								</div>
 							</div>
@@ -704,7 +704,7 @@
 									<div class="date-container">
 										<v-date-picker
 			                popoverDirection="bottom"
-			                v-model="create_company.plan_invoice_date_dependents"
+			                v-model="create_company.plan_start_extension_dependents"
 			                :formats='formats'
 			                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 			                popover-visibility="focus"
