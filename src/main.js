@@ -5,6 +5,7 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import VueMoment from 'vue-moment';
 import VueSlider from 'vue-slider-component';
 import JsonExcel from 'vue-json-excel'
+import Vue2Filters from 'vue2-filters'
  
 import $ from 'jquery'; 
 import '@/assets/css/tailwind.scss'
@@ -17,6 +18,7 @@ import router from './router';
 
 Vue.use(VCalendar);
 Vue.use(vClickOutside);
+Vue.use(Vue2Filters);
 
 const options = {
     confirmButtonColor: '#0392CF',
@@ -33,6 +35,7 @@ Vue.config.productionTip = false;
 window.$ = $; 
 
 new Vue({
+  mixins: [Vue2Filters.mixin],
   router,
   render: h => h(App)
 }).$mount('#app')

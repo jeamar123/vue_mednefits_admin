@@ -46,7 +46,7 @@
               <th>
                 <div class="corporate-list-checkbox-container">
                   <label class="checkbox-input">
-                  <input v-on:click="allCompanyCheckBox( allCompanySelected )" v-model="allCompanySelected" value="true" type="checkbox">
+                  <input v-on:change="allCompanyCheckBox( allCompanySelected )" v-model="allCompanySelected" value="true" type="checkbox">
                   <span class="checkbox-mark"></span>
                   </label>
                 </div>
@@ -65,7 +65,7 @@
               <th>
                 <div class="corporate-list-checkbox-container">
                   <label class="checkbox-input">
-                  <input v-on:click="allCompanyCheckBox( allCompanySelected )" v-model="allCompanySelected" value="true" type="checkbox">
+                  <input v-on:change="allCompanyCheckBox( allCompanySelected )" v-model="allCompanySelected" value="true" type="checkbox">
                   <span class="checkbox-mark"></span>
                   </label>
                 </div>
@@ -73,7 +73,7 @@
               <th class="selected-companies">
                 <span>
                   <span></span>
-                  <span>1</span>
+                  <span>{{ exportAllCompany == true ? corporate_pagination.total : corporate_id_arr.length }}</span>
                    selected
                 </span>
               </th>
@@ -90,11 +90,10 @@
             <tr v-if="allCompanySelected == true" class="selected-companies-container">
               <td colspan="9">
                 <span>All 
-                  <span>12</span>
-                  <span v-if="false">15</span>
+                  <span>{{ exportAllCompany == true ? corporate_pagination.total : corporate_id_arr.length }}</span>
                    companies are selected. 
-                  <span class="select-btn-text">Select all 12 companies.</span>
-                  <span v-if="false" class="select-btn-text">Clear selection.</span>
+                  <span v-if="!exportAllCompany" v-on:click="selectAllCompany()" class="select-btn-text">Select all {{ corporate_pagination.total }} companies.</span>
+                  <span v-if="exportAllCompany" v-on:click="clearAllCompany()" class="select-btn-text">Clear selection.</span>
                 </span>
               </td>
             </tr>
@@ -102,7 +101,7 @@
               <td>
                 <div class="corporate-list-checkbox-container">
                   <label class="checkbox-input">
-                    <input type="checkbox" v-model="list.selected" v-on:click.self="companyCheckBox( list, list.selected )" value="true">
+                    <input type="checkbox" v-model="list.selected" v-on:change.self="companyCheckBox( list, list.selected )" value="true">
                     <span class="checkbox-mark"></span>
                   </label>
                 </div>
@@ -214,7 +213,7 @@
         </div>
       </div>
       <div slot="footer">
-        <button class="btn-primary" v-on:click="getCompanyList()">Apply Filter</button>
+        <button class="btn-primary" v-on:click="submitDateFilter()">Apply Filter</button>
       </div>
     </Modal>
 
