@@ -56,6 +56,11 @@ let corporateMemberList = {
     },
 	},
 	methods: {
+
+		goToEmployeeInformation(list) {
+			console.log('Employee Information ', list);
+			this.$router.push({ name: 'EmployeeInformation'});
+		},
 		// --- Tranfer Account ---
 		toggleTransferAccountModal(data, index) {
 			this.showTransferAccountModal = !this.showTransferAccountModal;

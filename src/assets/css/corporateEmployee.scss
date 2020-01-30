@@ -1,5 +1,5 @@
 /* EMPLOYEE INFO*/
-.close-btn{
+.close-btn {
   position: absolute;
   top: 14px;
   right: 15px;
@@ -15,7 +15,7 @@
   width: 70px;
   height: 55px;
   padding: 10px;
-  background: #1667AC;
+  background: #1667ac;
   -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     0 2px 1px -1px rgba(0, 0, 0, 0.12);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
@@ -34,8 +34,8 @@
   }
 }
 
-.employee-menu-container{
-  min-height: calc( 100vh - 60px );
+.employee-menu-container {
+  min-height: calc(100vh - 60px);
   // display: flex;
   // width: 100%;
 
@@ -43,99 +43,99 @@
   display: grid;
   grid-template-columns: 1fr 5fr;
 
-  .left-box-wrapper{
+  .left-box-wrapper {
     width: 270px;
     min-width: 270px;
-    background: #FFF;
+    background: #fff;
     border: 1px solid rgb(203, 203, 203);
     position: relative;
     margin: 16px 8px 16px 16px;
   }
-  .corporate-details-box{
+  .corporate-details-box {
     padding: 25px 20px;
     text-align: center;
     /*background: #1383b3;*/
 
-    img{
+    img {
       width: 100px;
       height: 100px;
       display: block;
       border-radius: 50%;
       margin: 0px auto;
-      background: #FFF;
+      background: #fff;
     }
-    p{
+    p {
       color: #444;
       font-size: 28px;
     }
   }
-  .emp-status-wrapper{
+  .emp-status-wrapper {
     padding: 15px;
     border: 1px solid #e2e2e2;
     border-width: 0 0 1px 0;
     display: flex;
     margin: 0 10px;
   }
-  .plan-info-wrapper{
+  .plan-info-wrapper {
     padding: 30px 15px;
     border: 1px solid #e2e2e2;
     border-width: 0 0 1px 0;
     margin: 0 10px;
   }
-  .spending-wrapper{
+  .spending-wrapper {
     padding: 30px 15px;
     margin: 0 10px;
   }
-  .row-div{
+  .row-div {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 1px solid #e2e2e2;
   }
-  .row-div.plan-info{
+  .row-div.plan-info {
     flex-wrap: wrap;
 
-    .label-text{
+    .label-text {
       width: 100%;
       flex: none;
     }
-    .status-div{
+    .status-div {
       margin: 10px 0;
       text-align: left;
     }
   }
-  .p-label{
+  .p-label {
     font-size: 16px;
     color: #000;
-    font-family: 'Helvetica Medium';
+    font-family: "Helvetica Medium";
   }
-  .label-text{
+  .label-text {
     flex: 1;
     font-weight: 700;
     font-size: 14px;
     color: #000;
-    font-family: 'Helvetica Medium';
+    font-family: "Helvetica Medium";
   }
-  .status-div{
+  .status-div {
     flex: 2;
     text-align: right;
     color: #555;
     font-size: 14px;
-    
-    .oi{
+
+    .oi {
       position: relative;
       top: 2px;
       margin-left: 10px;
     }
-    &.active .oi{
+    &.active .oi {
       color: #42b72a;
     }
-    &.inactive .oi{
+    &.inactive .oi {
       color: #f1785c;
     }
   }
-  .btn-access-account{
+  .btn-access-account {
     width: 100%;
     margin: 20px 0;
     font-weight: 700;
@@ -144,7 +144,7 @@
     padding: 15px 0;
   }
 
-  .right-box-wrapper{
+  .right-box-wrapper {
     flex: 1;
     margin: 16px 16px 16px 8px;
     // width: 80%;
@@ -153,14 +153,13 @@
   }
 
   .employee-information-container {
-
     .fa-times {
       cursor: pointer;
       font-size: 16px;
     }
 
     tr th {
-      font-family: 'Helvetica Light';
+      font-family: "Helvetica Light";
     }
 
     .btn {
@@ -236,7 +235,7 @@
       border: 0;
       color: #fff;
       font-weight: 700;
-      margin: 0
+      margin: 0;
     }
 
     .btn-medical {
@@ -269,7 +268,7 @@
     padding: 10px 0 0 40px;
     position: relative;
 
-    >div {
+    > div {
       color: rgb(156, 156, 156);
       cursor: pointer;
       font-weight: 700;
@@ -277,7 +276,7 @@
       padding: 0 0 10px;
     }
 
-    >div.active {
+    > div.active {
       color: rgb(40, 62, 82);
       border-bottom: 2px solid rgb(40, 62, 82);
     }
@@ -302,8 +301,8 @@
     font-weight: 700;
   }
 
-  .col-1-emp-info-details >div,
-  .col-2-emp-info-details >div {
+  .col-1-emp-info-details > div,
+  .col-2-emp-info-details > div {
     display: grid;
     grid-template-columns: 1fr 1fr;
     border-bottom: 1px solid #cbcbcb;
@@ -311,7 +310,7 @@
     margin: 0 0 10px;
 
     strong {
-      font-family: 'Helvetica Medium';
+      font-family: "Helvetica Medium";
     }
 
     .emp-username-type-container label {
@@ -328,7 +327,7 @@
     position: relative;
   }
 
-  .emp-info-btn-footer >div:nth-child(1) {
+  .emp-info-btn-footer > div:nth-child(1) {
     display: flex;
 
     h3 {
@@ -397,8 +396,7 @@
   }
 }
 .edit-employee-info-container {
-
-  >.fa-times {
+  > .fa-times {
     float: right;
   }
 
@@ -420,8 +418,12 @@
 .edit-dependent-row {
   display: flex;
 
-  >div:nth-child(1) { margin: 0 10px 0 0; }
-  >div:nth-child(2) { margin: 0 0 0 10px; }
+  > div:nth-child(1) {
+    margin: 0 10px 0 0;
+  }
+  > div:nth-child(2) {
+    margin: 0 0 0 10px;
+  }
 
   .employee-details-input-wrapper {
     width: 100%;
@@ -438,7 +440,6 @@
   }
 }
 .remove-employee-wrapper {
-
   .save-btn-footer {
     padding: 0 40px;
   }
@@ -486,7 +487,7 @@
 }
 .health-spending-account-summary-container {
   .bold-text {
-    font-family: 'Helvetica Medium';
+    font-family: "Helvetica Medium";
   }
 
   .account-summary-date {
@@ -494,8 +495,9 @@
   }
 }
 .account-summary-pro-rated {
-  text-align: center;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .health-spending-dpicker {
     display: inline-flex;
@@ -531,10 +533,10 @@
 
   .spending-account-text {
     margin: 0 0 15px;
-    font-family: 'Helvetica Medium';
+    font-family: "Helvetica Medium";
   }
 
-  .spending-account-details >div {
+  .spending-account-details > div {
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin: 0 0 10px;
@@ -545,7 +547,7 @@
       margin: 0 0 5px;
     }
 
-    >span {
+    > span {
       text-align: right;
       display: block;
     }
@@ -554,7 +556,7 @@
   .separator {
     display: inline-block;
     content: "";
-    border: .5px solid #cbcbcb;
+    border: 0.5px solid #cbcbcb;
     text-align: center;
     margin: 0 auto;
   }
@@ -574,10 +576,10 @@
     }
 
     &.exceed {
-      color: #FF5757;
+      color: #ff5757;
     }
     &.exceed:before {
-      background-color: #FF5757;
+      background-color: #ff5757;
     }
     &.on-track {
       color: #33cccb;
@@ -628,18 +630,18 @@
     }
   }
 
-  .out-network-box .network-header-container{
+  .out-network-box .network-header-container {
     max-width: 550px;
   }
 
   .visit-date-input-wrapper.in-network-visit .popover-container,
-  .xs-in-network-form .popover-container{
+  .xs-in-network-form .popover-container {
     background: #eee;
     border: 0;
     border-radius: 2px;
     padding: 10px;
     height: 38px;
-    font-size: 12px; 
+    font-size: 12px;
     font-weight: 700;
   }
 
@@ -653,7 +655,7 @@
       padding: 10px;
       width: 100%;
       height: 38px;
-      font-size: 12px; 
+      font-size: 12px;
       font-weight: 700;
     }
 
@@ -701,17 +703,17 @@
     }
   }
 
-  .xs-in-network-form{
+  .xs-in-network-form {
     display: none;
     flex-wrap: wrap;
     margin-right: -25px;
 
-    .claim-form-div{
+    .claim-form-div {
       width: 33%;
       padding-right: 20px;
       margin-bottom: 30px;
 
-      label{
+      label {
         width: 100%;
         border-bottom: 1px solid #eee;
         margin-bottom: 10px;
@@ -734,7 +736,6 @@
   }
 
   .payment-type-input-wrapper {
-
     input {
       padding: 10px 20px 10px 10px;
     }
@@ -745,9 +746,7 @@
       right: 10px;
       color: #888;
     }
-  } 
-
-  
+  }
 
   .am-pm-container {
     position: absolute;
@@ -854,12 +853,12 @@
   .input-group {
     display: flex;
     margin: 0 0 30px;
-    
-    >label {
+
+    > label {
       width: 40%;
     }
 
-    >div {
+    > div {
       width: 60%;
       display: inline-block;
     }
@@ -872,13 +871,12 @@
       position: relative;
     }
 
-    .input-wrapper >.fa-caret-down {
+    .input-wrapper > .fa-caret-down {
       position: absolute;
       top: 12px;
       right: 20px;
       color: #888;
     }
-    
   }
 
   .visit-date-input-wrapper input,
@@ -894,7 +892,7 @@
     position: absolute;
     width: 100%;
     background-color: #fff;
-    border: 1px solid rgba(0,0,0,.15);
+    border: 1px solid rgba(0, 0, 0, 0.15);
     z-index: 1;
     padding: 5px 0;
 
@@ -966,7 +964,6 @@
   }
 
   .time-input-wrapper {
-
     .visit-time-container {
       position: absolute;
       align-items: center;
@@ -981,11 +978,11 @@
       position: relative;
       bottom: 5px;
     }
-  }  
+  }
 }
 .drop-box {
-  background-color: #F8F8F8;
-  border: 3px dashed #DDD;
+  background-color: #f8f8f8;
+  border: 3px dashed #ddd;
   cursor: pointer;
   width: 100%;
   height: auto;
@@ -1001,7 +998,7 @@
 
   img {
     width: 55px;
-    display:inline-block;
+    display: inline-block;
   }
 
   .drop-box-content {
@@ -1015,7 +1012,7 @@
     }
 
     .select-file-text {
-      color: #1D9DD3;
+      color: #1d9dd3;
     }
 
     .file-name-upload-text {
@@ -1031,7 +1028,7 @@
 
   h4 {
     margin: 0 0 20px;
-  } 
+  }
 }
 .progress-wrapper {
   display: flex;
@@ -1062,7 +1059,7 @@
 
     .progress {
       height: 100%;
-      background-color: #1D9DD3;
+      background-color: #1d9dd3;
       width: 10%;
     }
   }
@@ -1083,7 +1080,7 @@
   }
 
   .label-item {
-    color: #52B4DE;
+    color: #52b4de;
 
     img {
       border: 1px solid #ccc;
@@ -1092,7 +1089,6 @@
   }
 }
 .out-of-network-table-container {
-
   h4 {
     font-size: 16px;
     margin: 15px 0;
@@ -1120,30 +1116,29 @@
     border: none;
   }
 
-  .tbl-scroll-wrapper{
+  .tbl-scroll-wrapper {
     overflow-y: auto;
 
     &::-webkit-scrollbar {
       height: 10px;
     }
-  
+
     &::-webkit-scrollbar-thumb {
       border-radius: 6px;
       background-color: #aaa;
       border: 2px solid #ddd;
     }
-  
+
     &::-webkit-scrollbar-track {
       /*background-color: transparent;*/
       background-color: #ddd;
     }
   }
-  
 }
 
 .remove-dependent-container {
   .modal-header {
-    background-color: #FF6763;
+    background-color: #ff6763;
     position: relative;
 
     .fa-times {
@@ -1162,7 +1157,7 @@
   }
 
   .btn-delete {
-    background-color: #FF6763;
+    background-color: #ff6763;
   }
 }
 
@@ -1191,39 +1186,40 @@
 
   .modal-footer {
     text-align: right;
-    padding: 0px;  
+    padding: 0px;
   }
 
   button {
     margin: 8px 0 8px 8px;
     height: 36px;
     min-width: 88px;
-    color: rgb(63,81,181);
+    color: rgb(63, 81, 181);
     background-color: transparent;
     border: 0;
     border-radius: 2px;
 
     &:hover {
-      background-color: rgba(158,158,158,0.2);
+      background-color: rgba(158, 158, 158, 0.2);
     }
   }
 }
 .employee-details-input-wrapper {
   label {
     display: block;
-    color: rgba(0,0,0,0.54);
+    color: rgba(0, 0, 0, 0.54);
     font-size: 12px;
   }
 
-  input, select {
+  input,
+  select {
     border: 0;
-    border-bottom: 1px solid rgba(0,0,0,0.12);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     width: 100%;
     height: 30px;
     margin: 0 0 20px;
   }
 }
-.credits-plans-wrapper{
+.credits-plans-wrapper {
   h1 {
     font-size: 24px;
   }
@@ -1240,7 +1236,7 @@
       font-size: 18px;
     }
 
-    >div {
+    > div {
       width: 50%;
     }
   }
@@ -1254,13 +1250,13 @@
   .add-deduct-btn-container {
     button {
       background-color: #fff;
-      color: #4154AF;
+      color: #4154af;
       width: 100px;
       margin: 0 10px 0 0;
     }
 
     button.active {
-      background-color: #4154AF;
+      background-color: #4154af;
       color: #fff;
     }
   }
@@ -1277,7 +1273,7 @@
     margin: 0 0 10px;
   }
 
-  .credit-input-wrapper  {
+  .credit-input-wrapper {
     margin: 40px 0 0;
 
     input {
@@ -1300,8 +1296,7 @@
   }
 
   .plan-date-container {
-
-    >div {
+    > div {
       margin: 0 0 30px;
     }
 
@@ -1337,31 +1332,31 @@
     cursor: pointer;
   }
 
-  input:checked ~ .plan-type-checkmark:after  {
+  input:checked ~ .plan-type-checkmark:after {
     display: block;
   }
 
-  .plan-type-checkmark  {
+  .plan-type-checkmark {
     position: absolute;
     top: 0;
     left: 0;
     height: 18px;
     width: 18px;
     background-color: transparent;
-    border: 2px solid rgba(0,0,0,0.54);
+    border: 2px solid rgba(0, 0, 0, 0.54);
     border-radius: 50%;
   }
 
   .plan-type-checkmark:after {
     display: none;
     content: "";
-    position: absolute; 
+    position: absolute;
     top: 2px;
     left: 2px;
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: rgba(63,81,181,0.87);
+    background-color: rgba(63, 81, 181, 0.87);
   }
 }
 
@@ -1402,7 +1397,6 @@
     display: flex;
     padding: 10px 0 0 0;
 
-    
     .col-md-2 {
       // width: 16.6%;
       // padding: 0 40px 0 0;
@@ -1420,7 +1414,7 @@
       grid-column-gap: 2em;
       margin: 0 20px 0 0;
 
-      >div {
+      > div {
         margin: 20px 0 0;
       }
     }
@@ -1458,14 +1452,16 @@
       padding: 0 10px 0 0;
     }
 
-    input,select,.entitlement-date-picker {
+    input,
+    select,
+    .entitlement-date-picker {
       width: 100%;
       height: 34px;
       background-color: #fff;
       border: 1px solid #ccc;
       border-radius: 4px;
       box-sizing: border-box;
-      box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
       padding: 6px 12px;
       font-size: 14px;
       position: relative;
@@ -1483,7 +1479,7 @@
         top: 8px;
       }
     }
-  
+
     .original-input {
       background-color: #eee;
     }
@@ -1506,7 +1502,7 @@
   .see-more {
     font-size: 14px;
 
-    >div {
+    > div {
       color: #0392cf;
       cursor: pointer;
       font-weight: 500;
@@ -1527,292 +1523,281 @@
 
 /* -------------- RESPONSIVE AREA ----------------*/
 
-  @media (max-width: 1253px) {
+@media (max-width: 1253px) {
+  .entitlement-wrapper {
+    .medical-entitlement-container,
+    .wellness-entitlement-container {
+      .entitlement-input-wrapper {
+        grid-template-columns: 1fr 1fr;
+        margin: 0 70px 0 0;
 
-    .entitlement-wrapper {
+        > div {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
 
-      .medical-entitlement-container,
-      .wellness-entitlement-container, {
+/* Extra Large (xl) */
+@media (max-width: 1279px) {
+}
 
-        .entitlement-input-wrapper {
-          grid-template-columns: 1fr 1fr;
-          margin: 0 70px 0 0;
+@media (max-width: 1285px) {
+  .credits-plans-wrapper .credit-btn-wrapper {
+    grid-template-columns: 1fr;
 
-          >div {
-            margin: 0;
+    .add-deduct-btn-container {
+      margin: 10px 0 0;
+    }
+  }
+}
+
+/* Large (lg) */
+@media (max-width: 1023px) {
+  .employee-menu-container {
+    grid-template-columns: 1fr 100%;
+
+    .left-box-wrapper {
+      position: relative;
+      left: -292px;
+      // left: -336px;
+    }
+
+    .right-box-wrapper {
+      position: relative;
+      left: -292px;
+
+      .corporate-main-container {
+        .toggleResponsive-closeCorporate {
+          // grid-template-columns: 1fr;
+          .btn-menu {
+            display: unset;
           }
         }
       }
     }
   }
 
-  /* Extra Large (xl) */
-  @media (max-width: 1279px) { 
-
-  }
-
-  @media (max-width: 1285px) {
-    .credits-plans-wrapper .credit-btn-wrapper {
+  .credits-plans-wrapper {
+    .credit-btn-wrapper {
       grid-template-columns: 1fr;
+    }
 
-      .add-deduct-btn-container {
-        margin: 10px 0 0;
+    .credit-btn-wrapper .add-deduct-btn-container {
+      margin: 10px 0 0;
+    }
+  }
+}
+
+/* Medium (md) */
+@media (min-width: 767px) {
+  .xs-show {
+    display: none;
+  }
+  .xs-hide {
+    display: inherit;
+  }
+  .xs-show-tbl-cell {
+    display: none;
+  }
+  .xs-hide-tbl-cell {
+    display: table-cell;
+  }
+}
+@media (max-width: 768px) {
+  .xs-show {
+    display: inherit;
+  }
+  .xs-hide {
+    display: none;
+  }
+  .xs-show-tbl-cell {
+    display: table-cell;
+  }
+  .xs-hide-tbl-cell {
+    display: none;
+  }
+  .claim-submission-details {
+    .xs-in-network-form {
+      display: flex;
+    }
+  }
+}
+
+@media (max-width: 752px) {
+  .entitlement-wrapper {
+    padding: 20px;
+
+    .medical-entitlement-container,
+    .wellness-entitlement-container {
+      .entitlement-input-wrapper {
+        grid-template-columns: 1fr 1fr;
+        margin: 0 20px 0 0;
       }
     }
   }
+}
 
-  /* Large (lg) */
-  @media (max-width: 1023px) { 
-    .employee-menu-container {
-      grid-template-columns: 1fr 100%;
-  
-      .left-box-wrapper {
-        position: relative;
-        left: -292px;
-        // left: -336px;
-      }
-  
-      .right-box-wrapper {
-        position: relative;
-        left: -292px;
-  
-        .corporate-main-container {
-          .toggleResponsive-closeCorporate {
-            // grid-template-columns: 1fr;
-            .btn-menu {
-              display: unset;
-            }
-          }
-        }
-      }
-    }
+@media (max-width: 670px) {
+  .entitlement-wrapper {
+    padding: 20px;
 
-    .credits-plans-wrapper {
-      .credit-btn-wrapper {
+    .medical-entitlement-container,
+    .wellness-entitlement-container {
+      margin: 0 0 50px;
+
+      .entitlement-input-wrapper {
         grid-template-columns: 1fr;
-      }
-
-      .credit-btn-wrapper .add-deduct-btn-container {
-        margin: 10px 0 0;
+        margin: 0 100px 0 0;
       }
     }
   }
+}
 
-  /* Medium (md) */
-  @media (min-width: 767px) { 
-    .xs-show{
-      display: none;
+/* Small (sm) */
+@media (max-width: 640px) {
+  .claim-submission-details {
+    .xs-in-network-form {
+      .claim-form-div {
+        width: 50%;
+      }
     }
-    .xs-hide{
-      display: inherit;
-    }
-    .xs-show-tbl-cell{
-      display: none;
-    }
-    .xs-hide-tbl-cell{
-      display: table-cell;
+
+    .btn-network-container {
+      margin: 0 -10px;
+      display: flex;
+
+      .btn-network {
+        margin: 0 10px;
+        flex: 1;
+      }
     }
   }
-  @media (max-width: 768px) { 
-    .xs-show{
-      display: inherit;
+  .employee-menu-container {
+    .employee-information-container {
+      .emp-information-container-details,
+      .dependent-details,
+      .claim-submission-details,
+      .settings-details {
+        padding: 20px;
+      }
+
+      .emp-tab-wrapper {
+        padding-left: 20px;
+      }
     }
-    .xs-hide{
-      display: none;
-    }
-    .xs-show-tbl-cell{
-      display: table-cell;
-    }
-    .xs-hide-tbl-cell{
-      display: none;
-    }
-    .claim-submission-details{
-      .xs-in-network-form{
+  }
+  .out-of-network-form-wrapper {
+    max-width: unset;
+    padding-top: 20px;
+  }
+  .out-of-network-form {
+    padding: 20px 0;
+    box-shadow: none;
+    border-width: 1px 0 0 0;
+
+    .input-group {
+      flex-wrap: wrap;
+
+      .spending-type-box {
         display: flex;
-      }
-    }
-  }
 
-  @media (max-width: 752px) {
-     .entitlement-wrapper {
-      padding: 20px;
-
-      .medical-entitlement-container,
-      .wellness-entitlement-container, {
-
-        .entitlement-input-wrapper {
-          grid-template-columns: 1fr 1fr;
-          margin: 0 20px 0 0;
-        }
-      }
-    }
-  }
-
-  @media (max-width: 670px) { 
-    .entitlement-wrapper {
-      padding: 20px;
-
-      .medical-entitlement-container,
-      .wellness-entitlement-container, {
-        margin: 0 0 50px;
-
-        .entitlement-input-wrapper {
-          grid-template-columns: 1fr;
-          margin: 0 100px 0 0;
-        }
-      }
-    }
-  }
-
-  /* Small (sm) */
-  @media (max-width: 640px) {
-    .claim-submission-details{
-      .xs-in-network-form{
-        .claim-form-div{
-          width: 50%;
-        }
-      }
-
-      .btn-network-container{
-        margin: 0 -10px;
-        display: flex;
-        
-        .btn-network{
-          margin: 0 10px;
+        button {
+          margin: 0 5px;
           flex: 1;
         }
       }
-    }
-    .employee-menu-container{
-      .employee-information-container{
-        .emp-information-container-details,
-        .dependent-details,
-        .claim-submission-details,
-        .settings-details {
-          padding: 20px;
-        }
-
-        .emp-tab-wrapper{
-          padding-left: 20px;
-        }
+      > label {
+        width: 100%;
+        margin-bottom: 8px;
       }
-    }
-    .out-of-network-form-wrapper{
-      max-width: unset;
-      padding-top: 20px;
-    }
-    .out-of-network-form {
-      padding: 20px 0;
-      box-shadow: none;
-      border-width: 1px 0 0 0;
-
-      .input-group {
-        flex-wrap: wrap;
-        
-        .spending-type-box{
-          display: flex;
-
-          button{
-            margin: 0 5px;
-            flex: 1;
-          }
-        }
-        >label {
-          width: 100%;
-          margin-bottom: 8px;
-        }
-        >div {
-          width: 100%;
-        }
-      }
-    }
-  }
-
-
-  @media (max-width: 575px) {
-    .credits-plans-wrapper {
-      position: relative;
-
-      .fa-times {
-        position: absolute;
-        top: 8px;
-        right: 0;
-      }
-
-      .credit-plan-container {
-        display: block;
-
-        >div {
-          width: 100%;
-        }
-      }
-    } 
-  }
-  @media (max-width: 560px) { 
-    .entitlement-wrapper {
-      padding: 20px;
-
-      .medical-entitlement-container,
-      .wellness-entitlement-container, {
-        margin: 0 0 50px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-
-        .entitlement-input-wrapper {
-          grid-template-columns: 1fr;
-          margin: 0 40px 0 0;
-        }
-      }
-    }
-  }
-
-   @media (max-width: 500px) { 
-    .entitlement-wrapper {
-      padding: 20px;
-
-      .medical-entitlement-container,
-      .wellness-entitlement-container {
-        margin: 0 0 50px;
-        display: grid;
-        grid-template-columns: 1fr;
-
-        .entitlement-input-wrapper {
-          grid-template-columns: 1fr;
-          margin: 0 0 20px;
-        }
-      }
-
-      .entitlement-input-label .entitlement-date-picker {
+      > div {
         width: 100%;
       }
     }
   }
+}
 
-  @media (max-width: 460px) {
-    .claim-submission-details{
-      .xs-in-network-form{
-        .claim-form-div{
-          width: 100%;
-        }
+@media (max-width: 575px) {
+  .credits-plans-wrapper {
+    position: relative;
+
+    .fa-times {
+      position: absolute;
+      top: 8px;
+      right: 0;
+    }
+
+    .credit-plan-container {
+      display: block;
+
+      > div {
+        width: 100%;
       }
     }
   }
+}
+@media (max-width: 560px) {
+  .entitlement-wrapper {
+    padding: 20px;
 
-  // -------------- EMPLOYEE INFO SETTINGS ---------------- //
+    .medical-entitlement-container,
+    .wellness-entitlement-container {
+      margin: 0 0 50px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
 
-  @media (max-width: 450px) {
-
-    .employee-menu-container .employee-information-container .btn-settings {
-       width: 100%;
-       font-size: 14px;
-       padding: 10px;
+      .entitlement-input-wrapper {
+        grid-template-columns: 1fr;
+        margin: 0 40px 0 0;
+      }
     }
   }
+}
 
+@media (max-width: 500px) {
+  .entitlement-wrapper {
+    padding: 20px;
 
-  // ------------------------------------------------------ //
+    .medical-entitlement-container,
+    .wellness-entitlement-container {
+      margin: 0 0 50px;
+      display: grid;
+      grid-template-columns: 1fr;
+
+      .entitlement-input-wrapper {
+        grid-template-columns: 1fr;
+        margin: 0 0 20px;
+      }
+    }
+
+    .entitlement-input-label .entitlement-date-picker {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 460px) {
+  .claim-submission-details {
+    .xs-in-network-form {
+      .claim-form-div {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// -------------- EMPLOYEE INFO SETTINGS ---------------- //
+
+@media (max-width: 450px) {
+  .employee-menu-container .employee-information-container .btn-settings {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+// ------------------------------------------------------ //
 
 /* -----------------------------------------------*/
-
-
-

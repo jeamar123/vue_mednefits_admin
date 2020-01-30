@@ -281,9 +281,14 @@ export default corporateEmployeeInformation;
 
   .account-summary-pro-rated {
     text-align: center;
-    display: inline-grid;
+    display: grid;
     grid-row-gap: 10px;
-    width: 30%;
+    width: 100%;
+
+    .health-spending-dpicker {
+      width: 80%;
+      padding: 6px 20px;
+    }
   }
 }
 
@@ -299,6 +304,12 @@ export default corporateEmployeeInformation;
     .emp-information-details {
       grid-template-columns: 1fr;
     }
+  }
+
+  .medical-wellness-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: 10px;
   }
 }
 
