@@ -30,8 +30,33 @@ $font-gray: #888;
   min-height: 50vh;
   position: relative;
 
+  .input-checkmark {
+    border: 1px solid #dedede;
+    border-radius: 2px;
+    height: 20px;
+    width: 20px;
+  }
 
-  input, select{
+  .input-checkbox input:checked ~ .input-checkmark {
+    border-radius: 2px;
+    background-color: #2196F3;
+    border: 0;
+    border: 1px solid #dedede;
+  }
+
+  .input-checkbox .input-checkmark:after {
+    left: 5px;
+    top: 0px;
+    width: 8px;
+    height: 13px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  .selector-container input, select{
     height: 34px;
     background: #fff;
     padding-left: 10px;
@@ -316,13 +341,13 @@ $font-gray: #888;
     border-radius: 2px;
     height: 34px;
     min-height: unset;
-    padding: 5px 10px 5px;
+    padding: 5px 10px 5px 5px;
     color: #222;
     font-size: 14px;
     display: flex;
 
     >div{
-      line-height: 1.7;
+      line-height: 1.5;
     }
 
     span {
@@ -334,6 +359,17 @@ $font-gray: #888;
       padding: 0;
       height: auto;
     }
+  }
+
+  .btn-add-bcc {
+    border-radius: 2px;
+    // width: 60px;
+    display: inline-block;
+    border: 1px solid #dedede;
+    padding: 0 18px;
+    font-size: 12px;
+    background: #0392CF;
+    color: #fff;
   }
 }
 

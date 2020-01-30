@@ -90,14 +90,14 @@
 				<div class="white-space-20"></div>
 				<div class="form-row">
 					<div class="form-div">
-						<label class="input-checkbox">
+						<label class="add-corporate-checkbox input-checkbox">
 						  <input v-model="create_company.send_email_comm_related" type="checkbox">
 						  <span class="input-text">Send Email for Communication related</span>
 						  <span class="input-checkmark"></span>
 						</label>
 					</div>
 					<div class="form-div">
-						<label class="input-checkbox">
+						<label class="add-corporate-checkbox input-checkbox">
 						  <input v-model="create_company.send_email_bill_related" type="checkbox">
 						  <span class="input-text">Send Email for Billing related</span>
 						  <span class="input-checkmark"></span>
@@ -170,14 +170,14 @@
 				<div class="white-space-20"></div>
 				<div class="form-row">
 					<div class="form-div">
-						<label class="input-checkbox">
+						<label class="add-corporate-checkbox input-checkbox">
 						  <input v-model="create_company.bill_send_email_comm_related" type="checkbox">
 						  <span class="input-text">Send Email for Communication related</span>
 						  <span class="input-checkmark"></span>
 						</label>
 					</div>
 					<div class="form-div">
-						<label class="input-checkbox">
+						<label class="add-corporate-checkbox input-checkbox">
 						  <input v-model="create_company.bill_send_email_bill_related" type="checkbox">
 						  <span class="input-text">Send Email for Billing related</span>
 						  <span class="input-checkmark"></span>
@@ -237,14 +237,14 @@
 					<div class="white-space-20"></div>
 					<div class="form-row">
 						<div class="form-div">
-							<label class="input-checkbox">
+							<label class="add-corporate-checkbox input-checkbox">
 							  <input v-model="list.send_email_comm_related" type="checkbox">
 							  <span class="input-text">Send Email for Communication related</span>
 							  <span class="input-checkmark"></span>
 							</label>
 						</div>
 						<div class="form-div">
-							<label class="input-checkbox">
+							<label class="add-corporate-checkbox input-checkbox">
 							  <input v-model="list.send_email_bill_related" type="checkbox">
 							  <span class="input-text">Send Email for Billing related</span>
 							  <span class="input-checkmark"></span>
@@ -852,7 +852,7 @@
 					<div class="form-col">
 						<div class="white-space-20"></div>
 						<div class="form-div">
-							<label class="input-checkbox">
+							<label class="add-corporate-checkbox input-checkbox">
 							  <input v-model="create_company.generate_password" v-on:click="watchPasswordInput(create_company.generate_password)" type="checkbox">
 							  <span class="input-text">Auto Generate Password</span>
 							  <span class="input-checkmark"></span>
@@ -917,7 +917,7 @@
 								<label>Add BCC to email</label>
 								<div class="add-bcc-input-wrapper">
 									<input type="text" v-model="add_cc_create_data">
-									<button v-on:click="addCreateCompanyCCEmail( add_cc_create_data )" class="btn-primary">Add</button>
+									<button v-on:click="addCreateCompanyCCEmail( add_cc_create_data )" class="btn-add-bcc">Add</button>
 								</div>
 							</div>
 						</div>
