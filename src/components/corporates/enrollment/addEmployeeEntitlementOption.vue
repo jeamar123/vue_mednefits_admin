@@ -7,6 +7,10 @@
         wellnessInfoDrop : false,
         medicalSelectDrop : false,
         wellnessSelectDrop : false,
+        spending_account_status : {
+          medical : true,
+          wellness : true,
+        },
 
         isMedicalEntitlementBalance : null,
         isWellnessEntitlementBalance : null,

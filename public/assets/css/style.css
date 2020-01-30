@@ -388,8 +388,103 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
 
 /*-------- Custom Table Pagination -------*/
   .custom-pagination-container{
-    
+
   }
+  .custom-pagination {
+    display: flex;
+    color: #777;
+    padding: 40px 0 150px;
+    justify-content: center;
+    align-items: center;
+  }
+  .custom-pagination .pages-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .custom-pagination .pages-list span{
+    flex: 1;
+  }
+  .custom-pagination span {
+    font-size: 12px;
+  }
+  .custom-pagination .prev-next-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  .custom-pagination .fa-angle-left {
+    margin: 0 10px 0 0;
+    font-size: 25px;
+  }
+  .custom-pagination .fa-angle-right {
+    margin: 0 0 0 10px;
+    font-size: 25px;
+  }
+  .custom-pagination .page-scroll-container {
+    display: flex;
+    margin: 0 70px 0 0;
+  }
+  .custom-pagination .page-scroll-container > div {
+    margin: 0 10px;
+  }
+  .custom-pagination .page-num {
+    border-radius: 2px;
+    margin: 0 5px;
+    padding: 5px 8px;
+    cursor: pointer;
+  }
+  .custom-pagination .page-num.active {
+    background-color: #e8e8e8;
+  }
+  .custom-pagination .page-num:last-child{
+    margin: 0;
+  }
+  .custom-pagination .custom-list-per-page {
+    position: relative;
+    cursor: pointer;
+  }
+  .custom-pagination .custom-list-per-page > span{
+    display: inline-block;
+    height: 26px;
+    line-height: 28px;
+  }
+  .custom-pagination .custom-list-per-page > span:first-child {
+    margin: 0 5px 0 0;
+  }
+  .custom-pagination .custom-list-per-page i {
+    font-size: 14px;
+  }
+  .custom-pagination .opened-per-page-scroll {
+    border: 1px rgba(0,0,0,.12) solid;
+    background-color: #fff;
+    position: absolute;
+    width: 140px;
+    bottom: 40px;
+    left: -38px;
+    padding: 0 0 10px;
+  }
+  .custom-pagination .opened-per-page-scroll > span {
+    display: block;
+    text-align: center;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  .custom-pagination .opened-per-page-scroll:after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    /* top: 108px; */
+    left: 63px;
+    width: 14px;
+    height: 14px;
+    background-color: white;
+    border: 1px rgba(0,0,0,.12) solid;
+    border-left: 0;
+    border-top: 0;
+    transform: rotate(45deg);
+  }
+  
 /*----------------------------------------*/
 
 

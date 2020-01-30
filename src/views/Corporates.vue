@@ -141,38 +141,40 @@
       </div>
     </div>
 
-    <div v-show="corporate_pagination.last_page > 0" class="corporate-pagination">
-      <div class="page-wrapper">
-        <div class="page-scroll-container">
-          <span class="prev-next-container" v-on:click="prevPage()">  
-            <i class="fa fa-angle-left"></i> 
-            <span>Prev</span>
-          </span>
-          <div class="pages-list">
-            <span class="page-num" v-show="page_active > 6" v-on:click="goToPage( 1 )">1</span>
-            <span v-show="page_active > 6" style="margin-left: -10px;">...</span>
+    <div v-show="corporate_pagination.last_page > 0" class="custom-pagination-container">
+      <div class="custom-pagination">
+        <div class="page-wrapper">
+          <div class="page-scroll-container">
+            <span class="prev-next-container" v-on:click="prevPage()">  
+              <i class="fa fa-angle-left"></i> 
+              <span>Prev</span>
+            </span>
+            <div class="pages-list">
+              <span class="page-num" v-show="page_active > 6" v-on:click="goToPage( 1 )">1</span>
+              <span v-show="page_active > 6" style="margin-left: -10px;">...</span>
 
-            <span v-for="(list, index) of limitPagination" class="page-num" v-bind:class="{'active' : list + 1 == page_active}" v-on:click="goToPage( list + 1 )">{{ list + 1 }}</span>
-            
-            <span v-show="corporate_pagination.last_page > 10 && page_active < ( corporate_pagination.last_page - 5 )" style="margin-right: -5px;">...</span>
-            <span class="page-num" v-show="corporate_pagination.last_page > 10 && page_active < ( corporate_pagination.last_page - 5 )" v-on:click="goToPage( corporate_pagination.last_page )">{{ corporate_pagination.last_page }}</span>
+              <span v-for="(list, index) of limitPagination" class="page-num" v-bind:class="{'active' : list + 1 == page_active}" v-on:click="goToPage( list + 1 )">{{ list + 1 }}</span>
+              
+              <span v-show="corporate_pagination.last_page > 10 && page_active < ( corporate_pagination.last_page - 5 )" style="margin-right: -5px;">...</span>
+              <span class="page-num" v-show="corporate_pagination.last_page > 10 && page_active < ( corporate_pagination.last_page - 5 )" v-on:click="goToPage( corporate_pagination.last_page )">{{ corporate_pagination.last_page }}</span>
+            </div>
+            <span class="prev-next-container" v-on:click="nextPage()">  
+              <span>Next</span>
+              <i class="fa fa-angle-right"></i> 
+            </span>
           </div>
-          <span class="prev-next-container" v-on:click="nextPage()">  
-            <span>Next</span>
-            <i class="fa fa-angle-right"></i> 
-          </span>
         </div>
-      </div>
-      <div class="corporate-list-per-page">
-        <span v-on:click="togglePageLimitDrop()"><span>{{ page_limit }}</span> per page</span>
-        <span v-on:click="togglePageLimitDrop()">  
-          <i class="fa fa-caret-down"></i>
-        </span>
-        <div class="opened-per-page-scroll" v-if="isPageLimitDropShow">
-          <span v-on:click="setPageLimit( 10 )">10 per page</span>
-          <span v-on:click="setPageLimit( 25)">25 per page</span>
-          <span v-on:click="setPageLimit( 50 )">50 per page</span>
-          <span v-on:click="setPageLimit( 100 )">100 per page</span>
+        <div class="custom-list-per-page">
+          <span v-on:click="togglePageLimitDrop()"><span>{{ page_limit }}</span> per page</span>
+          <span v-on:click="togglePageLimitDrop()">  
+            <i class="fa fa-caret-down"></i>
+          </span>
+          <div class="opened-per-page-scroll" v-if="isPageLimitDropShow">
+            <span v-on:click="setPageLimit( 10 )">10 per page</span>
+            <span v-on:click="setPageLimit( 25)">25 per page</span>
+            <span v-on:click="setPageLimit( 50 )">50 per page</span>
+            <span v-on:click="setPageLimit( 100 )">100 per page</span>
+          </div>
         </div>
       </div>
     </div>

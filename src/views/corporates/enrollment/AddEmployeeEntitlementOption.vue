@@ -3,7 +3,7 @@
 		<div class="entitlement-option-wrapper">
 			<p class="header-title">Let us know more about the enrollment.</p>
 
-			<div class="item-select">
+			<div v-if="spending_account_status.medical" class="item-select">
 				<label>Is there any <span>Medical Entitlement Balance?</span> <img v-on:click="showDrop(1, true)" class="medical-info-click" :src="'../assets/img/info-icon.png'">
 
 					<div v-if="medicalInfoDrop" class="medical-info-box">
@@ -34,7 +34,7 @@
 					<i class="fa fa-angle-down"></i>
 				</div>
 			</div>
-			<div class="item-select">
+			<div v-if="spending_account_status.wellness" class="item-select">
 				<label>Is there any <span>Wellness Entitlement Balance?</span> <img v-on:click="showDrop(2, true)" class="wellness-info-click" :src="'../assets/img/info-icon.png'">
 
 					<div v-if="wellnessInfoDrop" class="wellness-info-box">
@@ -67,7 +67,7 @@
 			</div>
 		</div>
 		<div class="enrollment-btn-container">
-			<button class="enrollment-next-btn" disabled>NEXT</button>
+			<button class="enrollment-next-btn" :disabled="( spending_account_status.medical == true && isMedicalEntitlementBalance == null ) || ( spending_account_status.wellness == true && isWellnessEntitlementBalance == null )">NEXT</button>
 		</div>
 	</div>
 </template>
