@@ -14,7 +14,7 @@
         <div class="member-list-container flex flex-wrap">
             <div class="member-wrapper w-1/4 xl:w-1/3 lg:w-1/3 md:w-1/2 sm:w-full my-3 mx-3" v-for="list in corporate_members" :key="list.index" ng-repeat="list in corporate_members | orderBy: list.member.created_at">
                 <template>
-              <div class="header" @click="$router.push({ name: 'EmployeeInformation' })">
+              <div class="header" @click="goToEmployeeInformation(list)">
                 <h3 ng-click="showHideEmployeeDetail(list, $index)">
                   <span>{{list.fullname}}</span>
                 </h3>
