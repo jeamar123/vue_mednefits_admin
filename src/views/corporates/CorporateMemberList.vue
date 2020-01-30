@@ -5,7 +5,8 @@
         <div class="search-member-wrapper sm:pl-8 lg:ml-6 mb-10">
             <span class="oi" data-glyph="magnifying-glass" aria-hidden="true"></span>
             <div class="form-div">
-                <input type="text" placeholder="Search employee" />
+                <input type="text" placeholder="Search employee" v-model="searchEmployee"  @change="searchMemberList(searchEmployee)"/>
+                <!-- @keypress.enter="searchMemberList(0, searchEmployee)" -->
             </div>
         </div>
         <!-- Search-member End -->
