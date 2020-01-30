@@ -3,7 +3,7 @@
 		<div class="entitlement-option-wrapper">
 			<p class="header-title">Let us know more about the enrollment.</p>
 
-			<div class="item-select">
+			<div v-if="spending_account_status.medical" class="item-select">
 				<label>Is there any <span>Medical Entitlement Balance?</span> <img v-on:click="showDrop(1, true)" class="medical-info-click" :src="'../assets/img/info-icon.png'">
 
 					<div v-if="medicalInfoDrop" class="medical-info-box">
@@ -24,16 +24,17 @@
 				</label>
 				<div class="select-div" v-click-outside="medicalSelectToggle">
 					<div class="select-value" v-on:click="medicalSelectToggle( true )">
-						<span>Yes</span>
+						<span v-if="isMedicalEntitlementBalance == true">Yes</span>
+						<span v-if="isMedicalEntitlementBalance == false">No</span>
 					</div>
 					<div v-if="medicalSelectDrop" class="select-drop-box" >
-						<div class="select-option" >Yes</div>
-						<div class="select-option" >No</div>
+						<div class="select-option" v-on:click="selectMedicalDropOption(true)">Yes</div>
+						<div class="select-option" v-on:click="selectMedicalDropOption(false)">No</div>
 					</div>
 					<i class="fa fa-angle-down"></i>
 				</div>
 			</div>
-			<div class="item-select">
+			<div v-if="spending_account_status.wellness" class="item-select">
 				<label>Is there any <span>Wellness Entitlement Balance?</span> <img v-on:click="showDrop(2, true)" class="wellness-info-click" :src="'../assets/img/info-icon.png'">
 
 					<div v-if="wellnessInfoDrop" class="wellness-info-box">
@@ -52,20 +53,21 @@
 						</div>
 					</div>
 				</label>
-				<div class="select-div">
-					<div class="select-value">
-						<span>Yes</span>
+				<div class="select-div" v-click-outside="wellnessSelectToggle">
+					<div class="select-value" v-on:click="wellnessSelectToggle( true )">
+						<span v-if="isWellnessEntitlementBalance == true">Yes</span>
+						<span v-if="isWellnessEntitlementBalance == false">No</span>
 					</div>
-					<div class="select-drop-box">
-						<div class="select-option" >Yes</div>
-						<div class="select-option" >No</div>
+					<div v-if="wellnessSelectDrop" class="select-drop-box">
+						<div class="select-option" v-on:click="selectWellnessDropOption(true)">Yes</div>
+						<div class="select-option" v-on:click="selectWellnessDropOption(false)">No</div>
 					</div>
 					<i class="fa fa-angle-down"></i>
 				</div>
 			</div>
 		</div>
 		<div class="enrollment-btn-container">
-			<button class="enrollment-next-btn" disabled>NEXT</button>
+			<button class="enrollment-next-btn" :disabled="( spending_account_status.medical == true && isMedicalEntitlementBalance == null ) || ( spending_account_status.wellness == true && isWellnessEntitlementBalance == null )">NEXT</button>
 		</div>
 	</div>
 </template>

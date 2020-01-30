@@ -7,6 +7,13 @@
         wellnessInfoDrop : false,
         medicalSelectDrop : false,
         wellnessSelectDrop : false,
+        spending_account_status : {
+          medical : true,
+          wellness : true,
+        },
+
+        isMedicalEntitlementBalance : null,
+        isWellnessEntitlementBalance : null,
       };
     },
     created(){
@@ -21,8 +28,18 @@
         }
       },
       medicalSelectToggle( opt ){
-        console.log( opt );
         this.medicalSelectDrop = opt == true ? true : false;
+      },
+      wellnessSelectToggle( opt ){
+        this.wellnessSelectDrop = opt == true ? true : false;
+      },
+      selectMedicalDropOption( opt ){
+        this.isMedicalEntitlementBalance = opt;
+        this.medicalSelectDrop = false;
+      },
+      selectWellnessDropOption( opt ){
+        this.isWellnessEntitlementBalance = opt;
+        this.wellnessSelectDrop = false;
       },
     }
   }

@@ -75,7 +75,7 @@ var corporates = {
       export_data_key_index : [ true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, ],
       page_active: 1,
       page_limit: 10,
-      pagesToDisplay: 10
+      pagesToDisplay: 5
     };
   },
   created() {
@@ -291,7 +291,8 @@ var corporates = {
 			.then(res => {
 				console.log( res );
 				this.corporate_list_arr = res.data.data;
-				this.corporate_pagination = res.data;
+        this.corporate_pagination = res.data;
+        this.corporate_pagination.last_page = 20;
 				// console.log(this.corporate_list_arr);
 				// console.log(this.corporate_pagination);
 
