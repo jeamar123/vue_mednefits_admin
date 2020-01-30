@@ -40,7 +40,7 @@ var corporates = {
         'Medical Allocated Credits',
         'Medical Spent Credits',
         'Wellness Allocated Credits',
-        'Plant Amount',
+        'Plan Amount',
         'HR Email Address',
         'Employee Full Name',
         'Employee Email Address',
@@ -219,7 +219,19 @@ var corporates = {
       // this.isExportModalShow = false;
     },
     refreshData() {
-      // console.log('so refreshing...');
+      this.filterData = {
+        start: null,
+        end: null
+      };
+      this.allCompanySelected = false;
+      this.search_text = "";
+      this.searchPropertiesText = "";
+      this.corporate_id_arr = [];
+      this.export_data_key_index = [ true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, ];
+      this.page_active = 1;
+      this.page_limit = 10;
+
+      this.getCompanyList();
     },
     removeExportKey(index) {
       this.export_data_key_index[index] = false;
