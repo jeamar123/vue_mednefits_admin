@@ -24,9 +24,11 @@ let corporateMemberList = {
 			// ---for get member details and pagination ---
 			corporate_members: [],
 			corporate_pagination: [],
-			page: 1,
-			limit: 10,
+			page_active: 1,
+			page_limit: 10,
 			search: "",
+			pagesToDisplay: 5,
+			isPageLimitDropShow : false,
 			// -----------------------------
 			// --- Tranfer Account ---
 			showTransferCompanySummary: false,
@@ -39,6 +41,19 @@ let corporateMemberList = {
 
 		// trigger api
 		this.getMemberList();
+	},
+	computed: {
+		limitPagination() {
+      if (this.corporate_pagination.totalPages) {
+        var arr = this.range(this.corporate_pagination.totalPages);
+        return arr.slice(
+          this.startIndex(),
+          this.startIndex() + this.pagesToDisplay
+        );
+      } else {
+        return this.range(this.corporate_pagination.totalPages);
+      }
+    },
 	},
 	methods: {
 		// --- Tranfer Account ---
@@ -75,12 +90,60 @@ let corporateMemberList = {
 		},
 		// -----------------------
 
+		// --- Pagination ---
+
+		range(num) {
+			var arr = [];
+			for (var i = 0; i < num; i++) {
+				arr.push(i);
+			}
+			return arr;
+		},
+		startIndex() {
+			if (this.page_active > this.pagesToDisplay / 2 + 1) {
+				if (
+					this.page_active + Math.floor(this.pagesToDisplay / 2) >
+					this.corporate_pagination.totalPages
+				) {
+					return this.corporate_pagination.totalPages - this.pagesToDisplay + 1;
+				}
+				return this.page_active - Math.floor(this.pagesToDisplay / 2);
+			}
+			return 0;
+		},
+		goToPage(num) {
+			this.page_active = num;
+			this.getMemberList();
+		},
+		prevPage() {
+			if (this.corporate_pagination.hasPrevPage) {
+				this.page_active = this.corporate_pagination.prevPage;
+				this.getMemberList();
+			}
+		},
+		nextPage() {
+			if (this.corporate_pagination.hasNextPage) {
+				this.page_active = this.corporate_pagination.nextPage;
+				this.getMemberList();
+			}
+		},
+		setPageLimit(limit) {
+			this.page_limit = limit;
+			this.page_active = 1;
+			this.isPageLimitDropShow = false;
+			this.getMemberList();
+		},
+		togglePageLimitDrop(){
+      this.isPageLimitDropShow = this.isPageLimitDropShow == true ? false : true;
+    },
+		// ------------------
+
 		// api calls
 		getMemberList() {
 			let data = {
 				customer_id: this.customer_id,
-				page: this.page,
-				limit: this.limit
+				page: this.page_active,
+				limit: this.page_limit
 				// serach: 'name'
 			};
 
