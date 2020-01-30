@@ -35,7 +35,6 @@ Vue.config.productionTip = false;
 window.$ = $; 
 
 new Vue({
-  mixins: [Vue2Filters.mixin],
   router,
   render: h => h(App)
 }).$mount('#app')
