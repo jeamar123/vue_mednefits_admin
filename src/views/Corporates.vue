@@ -244,7 +244,7 @@
             </div>
           </div>
           <div class="selected-columns-container">
-            <div class="data-column-header-title">SELECTED COLUMNS<span>(1)</span></div>
+            <div class="data-column-header-title">SELECTED COLUMNS<span>({{ countSelectedProperties }})</span></div>
             <div v-show="export_data_key_index[ index ] == true" class="selected-col-box-container" v-for=" (list, index) in export_data_header">
               <span>{{ list }}</span>
               <i class="fa fa-times" v-on:click="removeExportKey( index )"></i>

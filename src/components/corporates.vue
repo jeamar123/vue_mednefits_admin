@@ -105,7 +105,16 @@ var corporates = {
       } else {
         return this.export_data_header;
       }
-    }
+    },
+    countSelectedProperties(){
+      let ctr = 0;
+      this.export_data_key_index.map((value) => {
+        if( value == true ){
+          ctr += 1;
+        }
+      });
+      return ctr;
+    },
   },
   methods: {
     range(num) {
@@ -292,7 +301,6 @@ var corporates = {
 				console.log( res );
 				this.corporate_list_arr = res.data.data;
         this.corporate_pagination = res.data;
-        this.corporate_pagination.last_page = 20;
 				// console.log(this.corporate_list_arr);
 				// console.log(this.corporate_pagination);
 
