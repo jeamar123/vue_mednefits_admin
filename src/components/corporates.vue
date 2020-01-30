@@ -20,6 +20,7 @@ var corporates = {
       isSearchShow: false,
       isPageLimitDropShow: false,
       allCompanySelected: false,
+      exportAllCompany: false,
 
       search_text: "",
       searchPropertiesText: "",
@@ -27,27 +28,110 @@ var corporates = {
       corporate_id_arr : [],
       corporate_list_arr : [],
       export_data_header : [
-        'Company Name',
-        'Expiry Date',
-        'HR Account Status',
-        'Total Employee Seats',
-        'Total Dependent Seats',
-        'Total Medical Credits',
-        'Account/Plan Type',
-        'No. of Employees',
-        'No. of Dependents',
-        'Start Date',
-        'Medical Allocated Credits',
-        'Medical Spent Credits',
-        'Wellness Allocated Credits',
-        'Plan Amount',
-        'HR Email Address',
-        'Employee Full Name',
-        'Employee Email Address',
-        'Employee Mobile Number',
-        'Employee Date of Birth',
-        'Employee Status',
-        'Employee Cap Per Visit',
+        {
+          name: 'Company Name',
+          isSelected: true
+        },
+        {
+          name: 'Expiry Date',
+          isSelected: true
+        },
+        {
+          name: 'HR Account Status',
+          isSelected: true
+        },
+        {
+          name: 'Total Employee Seats',
+          isSelected: true
+        },
+        {
+          name: 'Total Dependent Seats',
+          isSelected: true
+        },
+        {
+          name: 'Total Medical Credits',
+          isSelected: true
+        },
+        {
+          name: 'Account/Plan Type',
+          isSelected: true
+        },
+        {
+          name: 'No. of Employees',
+          isSelected: true
+        },
+        {
+          name: 'No. of Dependents',
+          isSelected: false
+        },
+        {
+          name: 'Start Date',
+          isSelected: false
+        },
+        {
+          name: 'Medical Allocated Credits',
+          isSelected: false
+        },
+        {
+          name: 'Medical Spent Credits',
+          isSelected: false
+        },
+        {
+          name: 'Wellness Allocated Credits',
+          isSelected: false
+        },
+        {
+          name: 'Plan Amount',
+          isSelected: false
+        },
+        {
+          name: 'HR Email Address',
+          isSelected: false
+        },
+        {
+          name: 'Employee Full Name',
+          isSelected: false
+        },
+        {
+          name: 'Employee Email Address',
+          isSelected: false
+        },
+        {
+          name: 'Employee Mobile Number',
+          isSelected: false
+        },
+        {
+          name: 'Employee Date of Birth',
+          isSelected: false
+        },
+        {
+          name: 'Employee Status',
+          isSelected: false
+        },
+        {
+          name: 'Employee Cap Per Visit',
+          isSelected: false
+        },
+        // 'Expiry Date',
+        // 'HR Account Status',
+        // 'Total Employee Seats',
+        // 'Total Dependent Seats',
+        // 'Total Medical Credits',
+        // 'Account/Plan Type',
+        // 'No. of Employees',
+        // 'No. of Dependents',
+        // 'Start Date',
+        // 'Medical Allocated Credits',
+        // 'Medical Spent Credits',
+        // 'Wellness Allocated Credits',
+        // 'Plan Amount',
+        // 'HR Email Address',
+        // 'Employee Full Name',
+        // 'Employee Email Address',
+        // 'Employee Mobile Number',
+        // 'Employee Date of Birth',
+        // 'Employee Status',
+        // 'Employee Cap Per Visit',
       ],
       export_data_keys : [
         'company_name',
@@ -72,7 +156,6 @@ var corporates = {
         'employee_status',
         'cap_status'
       ],
-      export_data_key_index : [ true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, ],
       page_active: 1,
       page_limit: 10,
       pagesToDisplay: 5
@@ -98,9 +181,7 @@ var corporates = {
       if (this.searchPropertiesText != "") {
         return this.export_data_header.filter(value => {
           // console.log( value );
-          return value
-            .toLowerCase()
-            .startsWith(this.searchPropertiesText.toLowerCase());
+          return value.name.toLowerCase().startsWith(this.searchPropertiesText.toLowerCase());
         });
       } else {
         return this.export_data_header;
@@ -108,8 +189,8 @@ var corporates = {
     },
     countSelectedProperties(){
       let ctr = 0;
-      this.export_data_key_index.map((value) => {
-        if( value == true ){
+      this.export_data_header.map((value) => {
+        if( value.isSelected == true ){
           ctr += 1;
         }
       });
@@ -167,7 +248,9 @@ var corporates = {
     exportModal(){
       this.isExportModalShow = this.isExportModalShow == false ? true : false;
       if( this.isExportModalShow == false ){
-        this.export_data_key_index = [ true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, ];
+        this.export_data_header.map( ( value ) => {
+          value.isSelected = false;
+        });
       }
     },
     allCompanyCheckBox( opt ){
@@ -227,14 +310,27 @@ var corporates = {
       this.search_text = "";
       this.searchPropertiesText = "";
       this.corporate_id_arr = [];
-      this.export_data_key_index = [ true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, ];
+      this.export_data_header.map( ( value ) => {
+        value.isSelected = false;
+      });
       this.page_active = 1;
       this.page_limit = 10;
 
       this.getCompanyList();
     },
+    selectAllCompany(){
+      this.exportAllCompany = true;
+    },
+    clearAllCompany(){
+      this.exportAllCompany = false;
+      this.corporate_id_arr = [];
+      this.allCompanySelected = false;
+      this.corporate_list_arr.map((value) => {
+        value.selected = false;
+      });
+    },
     removeExportKey(index) {
-      this.export_data_key_index[index] = false;
+      this.export_data_header[index].isSelected = false;
       this.$forceUpdate();
     },
     searchCompanyChanged(data) {
@@ -244,24 +340,28 @@ var corporates = {
       }
 		},
 		submitDateFilter(){
+      this.exportAllCompany = false;
       this.allCompanySelected = false;
+      this.search_text = '';
+      this.searchPropertiesText = '';
       this.corporate_id_arr = [];
-			this.page_active = 1;
+
+      this.page_active = 1;
       this.page_limit = 10;
-			this.getCompanyList();
+      this.getCompanyList();
 		},
 		exportData(){
 			var params = '';
 			var params_header = '';
 			this.export_data_keys.map((value, key) => {
-				if( this.export_data_key_index[ key ] == true ){
+				if( this.export_data_header[ key ].isSelected == true ){
 					params += ( "dataIndex[]=" + value + "&" );
-					params_header += ( "column_header[]=" + this.export_data_header[ key ] + '&' );
+					params_header += ( "column_header[]=" + this.export_data_header[ key ].name + '&' );
 				}
 				if( key == this.export_data_keys.length - 1 ){
 					if( this.corporate_id_arr.length > 0 ){
 						this.corporate_id_arr.map((value2, key2) => {
-							if( this.export_data_key_index[ key2 ] == true ){
+							if( this.export_data_header[ key2 .isSelected] == true ){
 								params += ( "ids[]=" + value2 + "&" );
 							}
 							if( key2 == this.corporate_id_arr.length - 1 ){
