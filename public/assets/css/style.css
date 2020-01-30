@@ -393,7 +393,7 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
   .custom-pagination {
     display: flex;
     color: #777;
-    padding: 40px 0 150px;
+    padding: 40px 0;
     justify-content: center;
     align-items: center;
   }

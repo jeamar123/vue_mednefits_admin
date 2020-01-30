@@ -1,22 +1,183 @@
 <script>
 import Modal from "../../views/modal/Modal";
+import moment from "moment";
+import axios from "axios";
 //
 
 let corporateMemberList = {
-  components: {
-    Modal
-  },
-  data() {
-    return {
-      showTransferAccountModal: false,
-    };
-  },
-  created() {},
-  methods: {
-    toggleTransferAccountModal (data, index) {
-      this.showTransferAccountModal = !this.showTransferAccountModal;
+	components: {
+		Modal
+	},
+	data() {
+		return {
+			// --- Date options ---
+			formats: {
+				input: ["DD/MM/YYYY"],
+				data: ["DD/MM/YYYY"]
+			},
+			//---------------------
+
+			selectedCorporate: JSON.parse(localStorage.selected_corporate),
+			customer_id: null,
+			showTransferAccountModal: false,
+
+			// ---for get member details and pagination ---
+			corporate_members: [],
+			corporate_pagination: [],
+			page_active: 1,
+			page_limit: 10,
+			search: "",
+			pagesToDisplay: 5,
+			isPageLimitDropShow : false,
+			// -----------------------------
+			// --- Tranfer Account ---
+			showTransferCompanySummary: false,
+			transfer_date: new Date()
+			// -----------------------
+		};
+	},
+	created() {
+		this.customer_id = this.selectedCorporate.corporate.customer_id;
+
+		// trigger api
+		this.getMemberList();
+	},
+	computed: {
+		limitPagination() {
+      if (this.corporate_pagination.totalPages) {
+        var arr = this.range(this.corporate_pagination.totalPages);
+        return arr.slice(
+          this.startIndex(),
+          this.startIndex() + this.pagesToDisplay
+        );
+      } else {
+        return this.range(this.corporate_pagination.totalPages);
+      }
     },
-  }
+	},
+	methods: {
+		// --- Tranfer Account ---
+		toggleTransferAccountModal(data, index) {
+			this.showTransferAccountModal = !this.showTransferAccountModal;
+		},
+		toggleTransferCompSummary() {
+			this.showTransferCompanySummary = !this.showTransferCompanySummary;
+		},
+		updateTransferCompanyBtn(params) {
+			let data = {
+				member_id: undefined,
+				old_customer_id: this.customer_id,
+				new_customer_id: undefined,
+				start_date: "2019-12-01"
+				// serach: 'name'
+			};
+
+			let url = `${axios.defaults.serverUrl}/company/transfer_employee`;
+			axios.post(url, data)
+				.then(res => {
+					if (res.status == 200) {
+						console.log("transfer_employee", res);
+						// this.$parent.hideLoading();
+						this.toggleTransferAccountModal();
+					}
+				})
+				.catch(err => {
+					console.log(err);
+					// this.$parent.hideLoading();
+					this.toggleTransferAccountModal();
+					this.$swal("Error!", err, "error");
+				});
+		},
+		// -----------------------
+
+		// --- Pagination ---
+
+		range(num) {
+			var arr = [];
+			for (var i = 0; i < num; i++) {
+				arr.push(i);
+			}
+			return arr;
+		},
+		startIndex() {
+			if (this.page_active > this.pagesToDisplay / 2 + 1) {
+				if (
+					this.page_active + Math.floor(this.pagesToDisplay / 2) >
+					this.corporate_pagination.totalPages
+				) {
+					return this.corporate_pagination.totalPages - this.pagesToDisplay + 1;
+				}
+				return this.page_active - Math.floor(this.pagesToDisplay / 2);
+			}
+			return 0;
+		},
+		goToPage(num) {
+			this.page_active = num;
+			this.getMemberList();
+		},
+		prevPage() {
+			if (this.corporate_pagination.hasPrevPage) {
+				this.page_active = this.corporate_pagination.prevPage;
+				this.getMemberList();
+			}
+		},
+		nextPage() {
+			if (this.corporate_pagination.hasNextPage) {
+				this.page_active = this.corporate_pagination.nextPage;
+				this.getMemberList();
+			}
+		},
+		setPageLimit(limit) {
+			this.page_limit = limit;
+			this.page_active = 1;
+			this.isPageLimitDropShow = false;
+			this.getMemberList();
+		},
+		togglePageLimitDrop(){
+      this.isPageLimitDropShow = this.isPageLimitDropShow == true ? false : true;
+    },
+		// ------------------
+
+		// api calls
+		getMemberList() {
+			let data = {
+				customer_id: this.customer_id,
+				page: this.page_active,
+				limit: this.page_limit
+				// serach: 'name'
+			};
+
+			let url = `${axios.defaults.serverUrl}/company/employee_lists?customer_id=${data.customer_id}&page=${data.page}&limit=${data.limit}`;
+			axios.get(url)
+				.then(res => {
+					// this.$parent.showLoading();
+					console.log("member list", res);
+					if (res.status == 200) {
+						this.corporate_members = res.data.data;
+						this.corporate_pagination = res.data;
+
+						this.corporate_members.map((value, index) => {
+							value.enrollment_date = moment(value.enrollment_date).format(
+								"DD MMMM, YYYY"
+							);
+							value.start_date = moment(value.start_date).format("DD MMMM, YYYY");
+							value.expiry_date = moment(value.expiry_date).format(
+								"DD MMMM, YYYY"
+							);
+							value.dob = moment(value.dob).format("DD MMMM, YYYY");
+						});
+
+						console.log("member list", this.corporate_members);
+						// this.$parent.hideLoading();
+					}
+				})
+				.catch(err => {
+					console.log(err);
+					// this.$parent.hideLoading();
+					this.$swal("Error!", err, "error");
+				});
+		}
+	}
 };
 
 export default corporateMemberList;
@@ -25,33 +186,36 @@ export default corporateMemberList;
 <style lang="scss" scoped>
 @import "./src/assets/css/corporateMemberList.scss";
 /* Extra Large (xl) */
+
 @media (max-width: 1280px) {
-  /* ... */
+	/* ... */
 }
 
 /* Large (lg) */
+
 @media (max-width: 1024px) {
-  /* ... */
+	/* ... */
 }
 
 /* Medium (md) */
-@media (max-width: 768px) {
-  /* ... */
 
-  .corporate-members-container {
-    .search-member-wrapper {
-      width: 50%;
-    }
-  }
+@media (max-width: 768px) {
+	/* ... */
+	.corporate-members-container {
+		.search-member-wrapper {
+			width: 50%;
+		}
+	}
 }
 
 /* Small (sm) */
+
 @media (max-width: 640px) {
-  /* ... */
-  .corporate-members-container {
-    .search-member-wrapper {
-      width: 75%;
-    }
-  }
+	/* ... */
+	.corporate-members-container {
+		.search-member-wrapper {
+			width: 75%;
+		}
+	}
 }
 </style>

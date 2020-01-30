@@ -28,6 +28,7 @@
           employee_payment_status_extension: false,
           dependent_payment_status: false,
           dependent_payment_status_extension: false,
+          dependent_plan_start: new Date(),
           plan_start_extension: new Date( moment().add( 1,'months').subtract(1,'days') ),
           plan_start_extension_dependents: new Date(),
           employee_plan_start_extension: undefined,
@@ -38,13 +39,24 @@
           send_account_email_date: new Date(),
           cc_emails: [],
           generate_password: false,
+          // company_contacts : [
+          //   {
+          //     first_name : "",
+          //     last_name : "",
+          //     job_title : "",
+          //     email : "",
+          //     phone : "",
+          //     send_email_comm_related : false,
+          //     send_email_bill_related : false,
+          //   }
+          // ],
           company_contacts : [
             {
-              first_name : "",
-              last_name : "",
-              job_title : "",
-              email : "",
-              phone : "",
+              add_contact_business_contact_first_name : "",
+              add_contact_business_contact_last_name : "",
+              add_contact_business_job_title : "",
+              add_contact_business_contact_email : "",
+              add_contact_business_phone : "",
               send_email_comm_related : false,
               send_email_bill_related : false,
             }
@@ -130,7 +142,7 @@
           this.create_company.plan_start_extension_dependents = this.create_company.plan_start_extension;
           // this.create_company.secondary_account_type_extension = this.create_company.dependent_account_type;
           // this.create_company.secondary_account_type_extension_dependents = this.create_company.secondary_account_type_dependents;
-          this.create_company.plan_price_extension_dependents = this.create_company.plan_price_dependents;
+          this.create_company.dependent_plan_price_extension = this.create_company.plan_price_dependents;
           // this.create_company.dependent_payment_status_extsension = this.create_company.payment_status_dependents ;
           // this.create_company.duration_extension_dependents = this.create_company.duration_value_extension + " " + this.create_company.employee_duration_extension_type;
           this.create_company.employee_plan_start_extension = new Date(moment(this.create_company.plan_start_extension).add(1,'months'));
@@ -271,19 +283,19 @@
       },
       accountTypeExtensionDependentsChanged( type ) {
         if( type == 'trial_plan' ){
-          this.create_company.plan_price_extension_dependents = 0;
+          this.create_company.dependent_plan_price_extension = 0;
         }
         if( type == 'insurance_bundle' ){
-          this.create_company.plan_price_extension_dependents = 99;
+          this.create_company.dependent_plan_price_extension = 99;
         }
         if( type == 'stand_alone_plan' ){
-          this.create_company.plan_price_extension_dependents = 99;
+          this.create_company.dependent_plan_price_extension = 99;
         }
         if( type == 'lite_plan' ){
-          this.create_company.plan_price_extension_dependents = 5;
+          this.create_company.dependent_plan_price_extension = 5;
         }
         if( type == 'enterprise_plan' ){
-          this.create_company.plan_price_extension_dependents = 300;
+          this.create_company.dependent_plan_price_extension = 300;
         }
       },
       togglePaymentStatusAddCorporate( opt ) {
@@ -374,9 +386,12 @@
         this.create_company.wellness_spending_end_date = moment(this.create_company.wellness_spending_end_date).format('YYYY-MM-DD');
         this.create_company.wellness_spending_end_date = moment(this.create_company.wellness_spending_end_date).format('YYYY-MM-DD');
         this.create_company.send_account_email_date = moment(this.create_company.send_account_email_date).format('YYYY-MM-DD');
+        this.create_company.dependent_plan_start = moment(this.create_company.dependent_plan_start).format('YYYY-MM-DD');
         this.create_company.duration = `${ this.create_company.duration_value } ${ this.create_company.duration_type }`
-        // console.log(this.duration); 
+        this.create_company.employee_plan_duration = `${ this.create_company.duration_value_extension } ${ this.create_company.employee_duration_extension_type }`
         this.create_company.employee_duration_extension = `${ this.create_company.duration_value_extension } ${ this.create_company.employee_duration_extension_type }`
+        this.create_company.dependent_plan_duration = `${ this.create_company.duration_value_extension } ${ this.create_company.employee_duration_extension_type }`
+        this.create_company.duration_extension_dependents = `${ this.create_company.duration_value_extension } ${ this.create_company.employee_duration_extension_type }`
 
         // let data = {
         //   company_name = this.create_company.billing_name;
@@ -460,23 +475,23 @@
           if( this.create_company.company_contacts.length > 0 ){
             for( let value of this.create_company.company_contacts ){
               console.log( value );
-              if ( !value.first_name ) {
+              if ( !value.add_contact_business_contact_first_name ) {
                 this.$swal( "Error!", "Please input your Contact First Name", "error" );
                 return false;
               }
-              if ( !value.last_name ) {
+              if ( !value.add_contact_business_contact_last_name ) {
                 this.$swal( "Error!", "Please input your Contact Last Name", "error" );
                 return false;
               }
-              if ( !value.job_title ) {
+              if ( !value.add_contact_business_job_title ) {
                 this.$swal( "Error!", "Please select your Contact Job Title", "error" );
                 return false;
               }
-              if ( !value.email ) {
+              if ( !value.add_contact_business_contact_email ) {
                 this.$swal( "Error!", "Please input your Contact Email", "error" );
                 return false;
               }
-              if ( !value.phone ) {
+              if ( !value.add_contact_business_phone ) {
                 this.$swal( "Error!", "Please input your Contact Phone Number", "error" );
                 return false;
               }
