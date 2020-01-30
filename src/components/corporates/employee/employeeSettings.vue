@@ -1,6 +1,6 @@
 <script>
 import Modal from "../../../views/modal/Modal.vue";
-
+import axios from "axios";
 
   let employeeSettings = {
     components: {
@@ -46,6 +46,7 @@ import Modal from "../../../views/modal/Modal.vue";
           input: ["DD/MM/YYYY"],
           data: ["DD/MM/YYYY"]
         },
+        cap_per_visit: undefined,
       };
     },
     created(){
@@ -268,7 +269,29 @@ import Modal from "../../../views/modal/Modal.vue";
         else if ( x === "standard-one-year") {
           this.showShortTermSelector = false;
         }
-      }
+      },
+      updateCapPerVisit( cap,id ) {
+        console.log(cap);
+
+        if (!cap || cap == null || cap == '') {
+          this.$swal("Oops!", "Please input cap per visit", "error");
+          return false;
+        }
+        var data = {
+          employee_id: 1,
+          cap_amount: cap,
+        }
+
+        axios.post( axios.defaults.serverUrl + '/company/updateEmployeeCap', data ) 
+        .then(response => { 
+          console.log(response);
+          this.$swal("Success!", response.data.message, "success");
+        })
+        .catch(err => {
+          console.log(err.response);
+          this.$swal("Error!", err.response.data.message, "error");
+        });
+      },
     }
   }
   
