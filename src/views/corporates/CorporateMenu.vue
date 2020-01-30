@@ -143,7 +143,7 @@
 
 					<div class="white-space-50"></div>
 					<div class="btn-container">
-						<router-link tag="div" :to="{ name : 'PlanRenewal' }"><button class="btn btn-primary txt-transform-uppercase" v-on:click="">Plan Renewal Details</button></router-link>
+						<router-link tag="div" :to="{ name : 'PlanRenewal' }"><button class="btn btn-primary txt-transform-uppercase">Plan Renewal Details</button></router-link>
 						<router-link tag="div" :to="{ name : 'Clinic' }"><button class="btn btn-primary txt-transform-uppercase">Spending Account Renewal Details</button></router-link>
 						<router-link tag="div" :to="{ name : 'Clinic' }"><button class="btn btn-primary txt-transform-uppercase">Send Plan Expiration Notification</button></router-link>
 						<router-link tag="div" :to="{ name : 'Clinic' }"><button class="btn btn-primary txt-transform-uppercase">Corporate Details</button></router-link>

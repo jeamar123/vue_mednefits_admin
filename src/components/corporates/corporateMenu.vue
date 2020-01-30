@@ -3,11 +3,6 @@ import axios from "axios";
 import moment from "moment"
 
 let corporateMenu = {
-	props: {
-		customer_id: {
-			type: null
-		},
-	},
 	data() {
 		return {
 			corporateViewStatus: "CorporateDetails",
@@ -17,11 +12,13 @@ let corporateMenu = {
 			corporateDetails_data: {},
 			corporateCreditsInfo_data: {},
 			corporateRenewalStatus_data: {},
-			selectedCorporate : JSON.parse(localStorage.selected_corporate),
+			selectedCorporate: JSON.parse(localStorage.selected_corporate),
+			customer_id: null,
 
 		};
 	},
 	created() {
+		this.customer_id = this.selectedCorporate.corporate.customer_id;
 		this.corporateViewStatus = this.$route.name;
 		console.log('id gikan sa corporate list', this.customer_id, 'data pd niya', this.selectedCorporate);
 
@@ -50,20 +47,21 @@ let corporateMenu = {
 			let url = `${axios.defaults.serverUrl}/company/corporate_details?customer_id=${this.customer_id}`;
 			axios.get(url)
 				.then(res => {
-					console.log('details', res);
-					this.corporateDetails_data = res.data
+					if (res.status == 200) {
+						console.log('details', res);
+						this.corporateDetails_data = res.data;
 
+						this.corporateDetails_data.plan_start = moment(this.corporateDetails_data.plan_start).format('MMMM DD, YYYY');
+						this.corporateDetails_data.plan_end = moment(this.corporateDetails_data.plan_end).format('MMMM DD, YYYY');
+						this.corporateDetails_data.last_credit_reset_data = moment(this.corporateDetails_data.last_credit_reset_data).format('MMMM DD, YYYY');
 
-					this.corporateDetails_data.plan_start = moment(this.corporateDetails_data.plan_start).format('MMMM DD, YYYY');
-					this.corporateDetails_data.plan_end = moment(this.corporateDetails_data.plan_end).format('MMMM DD, YYYY');
-					this.corporateDetails_data.last_credit_reset_data = moment(this.corporateDetails_data.last_credit_reset_data).format('MMMM DD, YYYY');
-
-					this.$parent.hideLoading();
+						// this.$parent.hideLoading();
+					}
 				})
 				.catch(err => {
 					console.log(err);
 					// this.$parent.hideLoading();
-					this.swal("Error!", err, "error");
+					this.$swal("Error!", err, "error");
 				});
 		},
 		getCorporateCreditsInfo() {
@@ -71,15 +69,18 @@ let corporateMenu = {
 			let url = `${axios.defaults.serverUrl}/company/corporate_credits_info?customer_id=${this.customer_id}`;
 			axios.get(url)
 				.then(res => {
-					console.log('credits info', res);
-					this.corporateCreditsInfo_data = res.data;
 
-					this.$parent.hideLoading();
+					if (res.status == 200) {
+						console.log('credits info', res);
+						this.corporateCreditsInfo_data = res.data;
+
+						// this.$parent.hideLoading();
+					}
 				})
 				.catch(err => {
 					console.log(err);
 					// this.$parent.hideLoading();
-					this.swal("Error!", err, "error");
+					this.$swal("Error!", err, "error");
 				});
 		},
 		getCustomerRenewalStatus() {
@@ -87,14 +88,16 @@ let corporateMenu = {
 			let url = `${axios.defaults.serverUrl}/company/get_customer_renewal_status?customer_id=${this.customer_id}`;
 			axios.get(url)
 				.then(res => {
-					console.log('renewal status', res);
-					this.corporateRenewalStatus_data = res.data;
-					this.$parent.hideLoading();
+					if (res.status == 200) {
+						console.log('renewal status', res);
+						this.corporateRenewalStatus_data = res.data;
+						// this.$parent.hideLoading();
+					}
 				})
 				.catch(err => {
 					console.log(err);
 					// this.$parent.hideLoading();
-					this.swal("Error!", err, "error");
+					this.$swal("Error!", err, "error");
 				});
 		},
 	}
