@@ -113,7 +113,7 @@
                 <span>{{ list.corporate.company_name }}</span>
               </td>
               <td v-on:click="goToCompanyDetails( list )">
-                <span>{{ list.expiry_date }}</span>
+                <span>{{ formatDate( list.expiry_date, 'YYYY-MM-DD' ,'DD/MM/YYYY' ) }}</span>
               </td>
               <td v-on:click="goToCompanyDetails( list )">
                 <span>{{ list.hr.active == 1 ? 'Active' : 'Deactivated' }}</span>

@@ -58,7 +58,7 @@ var corporates = {
         },
         {
           name: 'No. of Employees',
-          isSelected: true
+          isSelected: false
         },
         {
           name: 'No. of Dependents',
@@ -112,26 +112,6 @@ var corporates = {
           name: 'Employee Cap Per Visit',
           isSelected: false
         },
-        // 'Expiry Date',
-        // 'HR Account Status',
-        // 'Total Employee Seats',
-        // 'Total Dependent Seats',
-        // 'Total Medical Credits',
-        // 'Account/Plan Type',
-        // 'No. of Employees',
-        // 'No. of Dependents',
-        // 'Start Date',
-        // 'Medical Allocated Credits',
-        // 'Medical Spent Credits',
-        // 'Wellness Allocated Credits',
-        // 'Plan Amount',
-        // 'HR Email Address',
-        // 'Employee Full Name',
-        // 'Employee Email Address',
-        // 'Employee Mobile Number',
-        // 'Employee Date of Birth',
-        // 'Employee Status',
-        // 'Employee Cap Per Visit',
       ],
       export_data_keys : [
         'company_name',
@@ -198,6 +178,9 @@ var corporates = {
     },
   },
   methods: {
+    formatDate( date, from, to ){
+      return moment( date, from ).format( to );
+    },
     range(num) {
       var arr = [];
       for (var i = 0; i < num; i++) {
@@ -248,8 +231,8 @@ var corporates = {
     exportModal(){
       this.isExportModalShow = this.isExportModalShow == false ? true : false;
       if( this.isExportModalShow == false ){
-        this.export_data_header.map( ( value ) => {
-          value.isSelected = false;
+        this.export_data_header.map( ( value, index ) => {
+          value.isSelected = index > 6 ? false : true;
         });
       }
     },
@@ -311,7 +294,7 @@ var corporates = {
       this.searchPropertiesText = "";
       this.corporate_id_arr = [];
       this.export_data_header.map( ( value ) => {
-        value.isSelected = false;
+        value.isSelected = index > 6 ? false : true;
       });
       this.page_active = 1;
       this.page_limit = 10;
