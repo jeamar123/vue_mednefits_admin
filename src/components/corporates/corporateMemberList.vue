@@ -33,6 +33,7 @@ let corporateMemberList = {
 			searchEmployee: '',
 			pagesToDisplay: 5,
 			isPageLimitDropShow: false,
+			searchActive : false,
 			// -----------------------------
 			// --- Tranfer Account ---
 			showTransferCompanySummary: false,
@@ -295,11 +296,16 @@ let corporateMemberList = {
 				limit: this.page_limit,
 				search: item,
 			};
-
+			if(item != '') {
+				this.searchActive = true;
+			} else {
+				this.searchActive = false;
+			}
+			
+			this.$parent.showLoading();
 			let url = `${axios.defaults.serverUrl}/company/employee_lists?customer_id=${data.customer_id}&page=${data.page}&limit=${data.limit}&search=${data.search}`;
 			axios.get(url)
 				.then(res => {
-					// this.$parent.showLoading();
 					console.log("search member list", res);
 					if (res.status == 200) {
 						this.corporate_members = res.data.data;
@@ -316,12 +322,12 @@ let corporateMemberList = {
 						});
 
 						console.log("search member list", this.corporate_members);
-						// this.$parent.hideLoading();
+						this.$parent.hideLoading();
 					}
 				})
 				.catch(err => {
 					console.log(err);
-					// this.$parent.hideLoading();
+					this.$parent.hideLoading();
 					this.$swal("Error!", err, "error");
 				});
 
