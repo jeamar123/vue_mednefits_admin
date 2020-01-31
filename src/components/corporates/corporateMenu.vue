@@ -28,6 +28,14 @@ let corporateMenu = {
 		this.getCustomerRenewalStatus();
 	},
 	methods: {
+		// --- Methods from parent ---
+		showLoading(){
+			this.$parent.showLoading();
+		},
+		hideLoading() {
+			this.$parent.hideLoading();
+		},
+		// --------------------------
 		selectCorporateView(opt) {
 			this.corporateViewStatus = opt;
 			this.$router.push({ name: opt });
