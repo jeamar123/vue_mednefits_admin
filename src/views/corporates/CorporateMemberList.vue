@@ -6,7 +6,7 @@
 			<span class="oi" data-glyph="magnifying-glass" aria-hidden="true"></span>
 			<div class="form-div">
 				<input type="text" placeholder="Search Employee and Hit Enter..." class v-model="searchEmployee"
-					@change="searchMemberList(searchEmployee)" />
+					@keypress.enter="searchMemberList(searchEmployee)" @input="searchEmpty(searchEmployee)" />
 				<!-- @keypress.enter="searchMemberList(0, searchEmployee)" -->
 			</div>
 		</div>
