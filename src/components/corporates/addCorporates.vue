@@ -52,8 +52,8 @@
           //     job_title : "",
           //     email : "",
           //     phone : "",
-          //     send_email_comm_related : false,
-          //     send_email_bill_related : false,
+          //     add_business_send_email_comm_related : false,
+          //     add_business_send_email_bill_related : false,
           //   }
           // ],
           company_contacts : [
@@ -63,8 +63,8 @@
               add_contact_business_job_title : "",
               add_contact_business_contact_email : "",
               add_contact_business_phone : "",
-              send_email_comm_related : false,
-              send_email_bill_related : false,
+              add_business_send_email_comm_related : false,
+              add_business_send_email_bill_related : false,
             }
           ],
         },
@@ -216,8 +216,8 @@
           job_title : '',
           email : '',
           phone : '',
-          send_email_comm_related : false,
-          send_email_bill_related : false,
+          add_business_send_email_comm_related : false,
+          add_business_send_email_bill_related : false,
         });
       },
       removeCompanyContact ( index ) {
