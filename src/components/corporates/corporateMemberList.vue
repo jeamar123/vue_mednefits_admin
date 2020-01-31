@@ -53,8 +53,8 @@ let corporateMemberList = {
 		// this.customer_id = this.selectedCorporate.corporate.customer_id;
 
 		// trigger api
-		this.getMemberList();
 		this.getCompanyList();
+		this.getMemberList();
 	},
 	computed: {
 		limitPagination() {
@@ -118,20 +118,19 @@ let corporateMemberList = {
 			this.selected_transfer_data.company = data.company_name;
 		},
 		getCompanyList() {
+			this.$parent.showLoading();
 			let url = `${axios.defaults.serverUrl}/company/get_company_lists`;
 			axios.get(url)
 				.then(res => {
-					// this.$parent.showLoading();
 					console.log("Company list", res);
 					if (res.status == 200) {
 						this.company_list = res.data.data;
 						console.log("Company list", this.company_list);
-						// this.$parent.hideLoading();
 					}
 				})
 				.catch(err => {
 					console.log(err);
-					// this.$parent.hideLoading();
+					this.$parent.hideLoading();
 					this.$swal("Error!", err, "error");
 				});
 		},
@@ -221,7 +220,7 @@ let corporateMemberList = {
 				limit: this.page_limit,
 				// search: this.searchEmployee
 			};
-
+			this.$parent.showLoading();
 			let url = `${axios.defaults.serverUrl}/company/employee_lists?customer_id=${data.customer_id}&page=${data.page}&limit=${data.limit}`;
 			axios.get(url)
 				.then(res => {
@@ -243,12 +242,12 @@ let corporateMemberList = {
 						});
 
 						console.log("member list", this.corporate_members);
-						// this.$parent.hideLoading();
+						this.$parent.hideLoading();
 					}
 				})
 				.catch(err => {
 					console.log(err);
-					// this.$parent.hideLoading();
+					this.$parent.hideLoading();
 					this.$swal("Error!", err, "error");
 				});
 		},
