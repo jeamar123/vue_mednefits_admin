@@ -74,6 +74,7 @@
 					<table>
 						<thead>
 							<tr>
+								<th>Member</th>
 								<th>Health Partner</th>
 								<th>Service</th>
 								<th>Date of Visit</th>
@@ -84,6 +85,11 @@
 						</thead>
 						<tbody>
 							<tr>
+								<td>
+									<div class="in-network-input-wrapper">
+										<input type="text" placeholder="Member">
+									</div>
+								</td>
 								<td>
 									<div class="in-network-input-wrapper">
 										<input type="text" placeholder="Search Health Partner">
@@ -184,6 +190,13 @@
 				</div>
 
 				<div class="xs-in-network-form">
+					<div class="claim-form-div">
+						<label>Member</label>
+						<div class="in-network-input-wrapper">
+							<input type="text" placeholder="Member">
+						</div>
+					</div>
+
 					<div class="claim-form-div">
 						<label>Health Partner</label>
 						<div class="in-network-input-wrapper">
