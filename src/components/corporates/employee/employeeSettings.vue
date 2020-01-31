@@ -50,6 +50,7 @@ let employeeSettings = {
 				input: ["DD/MM/YYYY"],
 				data: ["DD/MM/YYYY"]
 			},
+			cap_per_visit: undefined,
 		};
 	},
 	created() {
@@ -273,7 +274,7 @@ let employeeSettings = {
 				this.showShortTermSelector = false;
 			}
 		},
-     updateCapPerVisit( cap,id ) {
+     updateCapPerVisit( cap ) {
       console.log(cap);
 
       if (!cap || cap == null || cap == '') {
@@ -281,14 +282,17 @@ let employeeSettings = {
         return false;
       }
       var data = {
-        employee_id: 1,
+        employee_id: this.member_id,
         cap_amount: cap,
       }
+
+      // console.log( data );
 
       axios.post( axios.defaults.serverUrl + '/company/updateEmployeeCap', data ) 
       .then(response => { 
         console.log(response);
         this.$swal("Success!", response.data.message, "success");
+        this.showManageCapPerVisit = false;
       })
       .catch(err => {
         console.log(err.response);
