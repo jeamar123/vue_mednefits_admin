@@ -58,7 +58,7 @@ var corporates = {
         },
         {
           name: 'No. of Employees',
-          isSelected: true
+          isSelected: false
         },
         {
           name: 'No. of Dependents',
@@ -178,6 +178,9 @@ var corporates = {
     },
   },
   methods: {
+    formatDate( date, from, to ){
+      return moment( date, from ).format( to );
+    },
     range(num) {
       var arr = [];
       for (var i = 0; i < num; i++) {
@@ -228,8 +231,8 @@ var corporates = {
     exportModal(){
       this.isExportModalShow = this.isExportModalShow == false ? true : false;
       if( this.isExportModalShow == false ){
-        this.export_data_header.map( ( value ) => {
-          value.isSelected = false;
+        this.export_data_header.map( ( value, index ) => {
+          value.isSelected = index > 6 ? false : true;
         });
       }
     },
@@ -291,7 +294,7 @@ var corporates = {
       this.searchPropertiesText = "";
       this.corporate_id_arr = [];
       this.export_data_header.map( ( value ) => {
-        value.isSelected = false;
+        value.isSelected = index > 6 ? false : true;
       });
       this.page_active = 1;
       this.page_limit = 10;
