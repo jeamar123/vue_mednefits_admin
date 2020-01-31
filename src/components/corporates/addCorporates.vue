@@ -13,6 +13,12 @@
           duration_value_extension: 1,
           duration_type: 'months',
           employee_duration_extension_type: 'months',
+          employee_employees: 0,
+          employee_plan_price: 0,
+          employee_plan_price_extension: 0,
+          dependents_employees: 0,
+          dependent_plan_price: 0,
+          dependent_plan_price_extension: 0,
           employee_plan_extension : false,
           plan_extension_change_plan: false,
           dependent_plan_extension_status: false,
@@ -46,8 +52,8 @@
           //     job_title : "",
           //     email : "",
           //     phone : "",
-          //     send_email_comm_related : false,
-          //     send_email_bill_related : false,
+          //     add_business_send_email_comm_related : false,
+          //     add_business_send_email_bill_related : false,
           //   }
           // ],
           company_contacts : [
@@ -57,8 +63,8 @@
               add_contact_business_job_title : "",
               add_contact_business_contact_email : "",
               add_contact_business_phone : "",
-              send_email_comm_related : false,
-              send_email_bill_related : false,
+              add_business_send_email_comm_related : false,
+              add_business_send_email_bill_related : false,
             }
           ],
         },
@@ -142,7 +148,7 @@
           this.create_company.plan_start_extension_dependents = this.create_company.plan_start_extension;
           // this.create_company.secondary_account_type_extension = this.create_company.dependent_account_type;
           // this.create_company.secondary_account_type_extension_dependents = this.create_company.secondary_account_type_dependents;
-          this.create_company.dependent_plan_price_extension = this.create_company.plan_price_dependents;
+          // this.create_company.dependent_plan_price_extension = this.create_company.plan_price_dependents;
           // this.create_company.dependent_payment_status_extsension = this.create_company.payment_status_dependents ;
           // this.create_company.duration_extension_dependents = this.create_company.duration_value_extension + " " + this.create_company.employee_duration_extension_type;
           this.create_company.employee_plan_start_extension = new Date(moment(this.create_company.plan_start_extension).add(1,'months'));
@@ -179,7 +185,7 @@
 
         if ( opt == true ) {
           this.create_company.medical_spending_start_date = new Date(moment(this.create_company.emmployee_plan_start));
-          this.create_company.medical_spending_end_date = new Date(moment(this.create_company.emmployee_plan_start));
+          this.create_company.medical_spending_end_date = new Date(moment(this.create_company.emmployee_plan_start).add( this.create_company.duration_value, this.create_company.duration_type ).subtract(1, 'days'));
         } else {
           this.create_company.medical_spending_start_date = '';
           this.create_company.medical_spending_end_date = '';
@@ -190,7 +196,7 @@
 
         if ( opt == true ) {
           this.create_company.wellness_spending_start_date = new Date(moment(this.create_company.emmployee_plan_start));
-          this.create_company.wellness_spending_end_date = new Date(moment(this.create_company.emmployee_plan_start));
+          this.create_company.wellness_spending_end_date = new Date(moment(this.create_company.emmployee_plan_start).add( this.create_company.duration_value, this.create_company.duration_type ).subtract(1, 'days'));
         } else {
           this.create_company.wellness_spending_start_date = '';
           this.create_company.wellness_spending_end_date = '';
@@ -210,8 +216,8 @@
           job_title : '',
           email : '',
           phone : '',
-          send_email_comm_related : false,
-          send_email_bill_related : false,
+          add_business_send_email_comm_related : false,
+          add_business_send_email_bill_related : false,
         });
       },
       removeCompanyContact ( index ) {
@@ -219,10 +225,12 @@
           title: "",
           text: "Are you sure you want to delete this contact?",
           type: "warning",
+          confirmButtonColor: "#25306C",
+          cancelButtonColor: "#C1C1C1",
           showCancelButton: true,
           showCloseButton: true,
-          confirmButtonColor: "#25306C",
           confirmButtonText: "Yes!",
+          reverseButtons: true,
         }).then(result => {
           if (result) {
             console.log(result);

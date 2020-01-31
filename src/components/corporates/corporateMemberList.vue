@@ -1,5 +1,6 @@
 <script>
 import Modal from "../../views/modal/Modal";
+import Vue2Filters from 'vue2-filters'
 import moment from "moment";
 import axios from "axios";
 //
@@ -7,6 +8,10 @@ import axios from "axios";
 let corporateMemberList = {
 	components: {
 		Modal
+	},
+	mixins: [Vue2Filters.mixin],
+	props: {
+		customer_id: [String, Number],
 	},
 	data() {
 		return {
@@ -18,7 +23,6 @@ let corporateMemberList = {
 			//---------------------
 
 			selectedCorporate: JSON.parse(localStorage.selected_corporate),
-			customer_id: null,
 			showTransferAccountModal: false,
 
 			// ---for get member details and pagination ---
@@ -28,63 +32,133 @@ let corporateMemberList = {
 			page_limit: 10,
 			searchEmployee: '',
 			pagesToDisplay: 5,
-			isPageLimitDropShow : false,
+			isPageLimitDropShow: false,
 			// -----------------------------
 			// --- Tranfer Account ---
 			showTransferCompanySummary: false,
-			transfer_date: new Date()
+			showCompanyDrop: false,
+			selected_transfer_data: {
+				name: '',
+				member_id: '',
+				current_company: '',
+				transfer_date: new Date(),
+				company: '',
+			},
+			company_list: [],
 			// -----------------------
 		};
 	},
 	created() {
-		this.customer_id = this.selectedCorporate.corporate.customer_id;
+		console.log(this.customer_id);
+		// this.customer_id = this.selectedCorporate.corporate.customer_id;
 
 		// trigger api
+		this.getCompanyList();
 		this.getMemberList();
 	},
 	computed: {
 		limitPagination() {
-      if (this.corporate_pagination.totalPages) {
-        var arr = this.range(this.corporate_pagination.totalPages);
-        return arr.slice(
-          this.startIndex(),
-          this.startIndex() + this.pagesToDisplay
-        );
-      } else {
-        return this.range(this.corporate_pagination.totalPages);
-      }
-    },
+			if (this.corporate_pagination.totalPages) {
+				var arr = this.range(this.corporate_pagination.totalPages);
+				return arr.slice(
+					this.startIndex(),
+					this.startIndex() + this.pagesToDisplay
+				);
+			} else {
+				return this.range(this.corporate_pagination.totalPages);
+			}
+		},
 	},
 	methods: {
+
+		goToEmployeeInformation(list) {
+			console.log('Employee Information ', list);
+			this.$router.push({
+				name: 'EmployeeInformation',
+				params: {
+					member_id: list.member_id,
+					name: list.fullname.split(' ').slice(-1).join(' '),
+				}
+			});
+		},
 		// --- Tranfer Account ---
-		toggleTransferAccountModal(data, index) {
+		toggleTransferAccountModal(list) {
 			this.showTransferAccountModal = !this.showTransferAccountModal;
+
+			this.selected_transfer_data = {
+				name: list.fullname,
+				member_id: list.member_id,
+				current_company: this.selectedCorporate.corporate.company_name,
+				transfer_date: new Date(),
+				company: '',
+			}
 		},
 		toggleTransferCompSummary() {
 			this.showTransferCompanySummary = !this.showTransferCompanySummary;
+			if (this.showTransferCompanySummary == true) {
+				this.selected_transfer_data.transfer_date = moment(this.selected_transfer_data.transfer_date).format('DD MMMM, YYYY');
+			} else {
+				this.selected_transfer_data.transfer_date = new Date(this.selected_transfer_data.transfer_date);
+			}
+
+		},
+		companyTransferTyping(data) {
+			if (data.length > 1) {
+				this.showCompanyDrop = true;
+				console.log(this.selected_transfer_data.company);
+			} else {
+				this.showCompanyDrop = false;
+			}
+		},
+		setCustomerId(data) {
+			this.showCompanyDrop = false;
+
+			console.log(data);
+			this.selected_transfer_data.new_company_id = data.customer_id;
+			this.selected_transfer_data.company = data.company_name;
+		},
+		getCompanyList() {
+			this.$parent.showLoading();
+			let url = `${axios.defaults.serverUrl}/company/get_company_lists`;
+			axios.get(url)
+				.then(res => {
+					console.log("Company list", res);
+					if (res.status == 200) {
+						this.company_list = res.data.data;
+						console.log("Company list", this.company_list);
+					}
+				})
+				.catch(err => {
+					console.log(err);
+					this.$parent.hideLoading();
+					this.$swal("Error!", err, "error");
+				});
 		},
 		updateTransferCompanyBtn(params) {
+			console.log('params', params);
 			let data = {
-				member_id: undefined,
+				member_id: params.member_id,
 				old_customer_id: this.customer_id,
-				new_customer_id: undefined,
-				start_date: "2019-12-01"
+				new_customer_id: params.new_company_id,
+				start_date: moment(params.transfer_date).format('YYYY/MM/DD'),
 				// serach: 'name'
 			};
-
 			let url = `${axios.defaults.serverUrl}/company/transfer_employee`;
 			axios.post(url, data)
 				.then(res => {
 					if (res.status == 200) {
 						console.log("transfer_employee", res);
+						this.$swal("Success!", res.data.message, "success");
 						// this.$parent.hideLoading();
-						this.toggleTransferAccountModal();
+						this.showTransferAccountModal = !this.showTransferAccountModal
+					} else {
+						this.$swal("Error!", res.data.message, "error");
 					}
 				})
 				.catch(err => {
 					console.log(err);
 					// this.$parent.hideLoading();
-					this.toggleTransferAccountModal();
+					this.showTransferAccountModal = !this.showTransferAccountModal
 					this.$swal("Error!", err, "error");
 				});
 		},
@@ -133,9 +207,9 @@ let corporateMemberList = {
 			this.isPageLimitDropShow = false;
 			this.getMemberList();
 		},
-		togglePageLimitDrop(){
-      this.isPageLimitDropShow = this.isPageLimitDropShow == true ? false : true;
-    },
+		togglePageLimitDrop() {
+			this.isPageLimitDropShow = this.isPageLimitDropShow == true ? false : true;
+		},
 		// ------------------
 
 		// api calls
@@ -146,7 +220,7 @@ let corporateMemberList = {
 				limit: this.page_limit,
 				// search: this.searchEmployee
 			};
-
+			this.$parent.showLoading();
 			let url = `${axios.defaults.serverUrl}/company/employee_lists?customer_id=${data.customer_id}&page=${data.page}&limit=${data.limit}`;
 			axios.get(url)
 				.then(res => {
@@ -168,6 +242,43 @@ let corporateMemberList = {
 						});
 
 						console.log("member list", this.corporate_members);
+						this.$parent.hideLoading();
+					}
+				})
+				.catch(err => {
+					console.log(err);
+					this.$parent.hideLoading();
+					this.$swal("Error!", err, "error");
+				});
+		},
+		searchMemberList(item) {
+			let data = {
+				customer_id: this.customer_id,
+				page: this.page_active,
+				limit: this.page_limit,
+				search: item,
+			};
+
+			let url = `${axios.defaults.serverUrl}/company/employee_lists?customer_id=${data.customer_id}&page=${data.page}&limit=${data.limit}&search=${data.search}`;
+			axios.get(url)
+				.then(res => {
+					// this.$parent.showLoading();
+					console.log("search member list", res);
+					if (res.status == 200) {
+						this.corporate_members = res.data.data;
+
+						this.corporate_members.map((value, index) => {
+							value.enrollment_date = moment(value.enrollment_date).format(
+								"DD MMMM, YYYY"
+							);
+							value.start_date = moment(value.start_date).format("DD MMMM, YYYY");
+							value.expiry_date = moment(value.expiry_date).format(
+								"DD MMMM, YYYY"
+							);
+							value.dob = moment(value.dob).format("DD MMMM, YYYY");
+						});
+
+						console.log("search member list", this.corporate_members);
 						// this.$parent.hideLoading();
 					}
 				})

@@ -42,7 +42,7 @@
       <div class="corporate-tbl-list-container">
         <table>
           <thead>
-            <tr v-if="allCompanySelected == false">
+            <tr v-if="allCompanySelected == false && corporate_id_arr.length == 0">
               <th>
                 <div class="corporate-list-checkbox-container">
                   <label class="checkbox-input">
@@ -61,7 +61,7 @@
               <th>Account/Plan Type</th>
             </tr>
 
-            <tr v-if="allCompanySelected == true">
+            <tr v-if="allCompanySelected == true || corporate_id_arr.length > 0">
               <th>
                 <div class="corporate-list-checkbox-container">
                   <label class="checkbox-input">
@@ -97,7 +97,7 @@
                 </span>
               </td>
             </tr>
-            <tr v-for="list of corporate_list_arr">
+            <tr v-for="(list, index) of corporate_list_arr" :key="index">
               <td>
                 <div class="corporate-list-checkbox-container">
                   <label class="checkbox-input">
@@ -113,7 +113,7 @@
                 <span>{{ list.corporate.company_name }}</span>
               </td>
               <td v-on:click="goToCompanyDetails( list )">
-                <span>{{ list.expiry_date }}</span>
+                <span>{{ formatDate( list.expiry_date, 'YYYY-MM-DD' ,'DD/MM/YYYY' ) }}</span>
               </td>
               <td v-on:click="goToCompanyDetails( list )">
                 <span>{{ list.hr.active == 1 ? 'Active' : 'Deactivated' }}</span>
@@ -223,7 +223,7 @@
     <Modal v-if="isExportModalShow" class="export-modal-wrapper">
       <div slot="header">
         <h3 class="sm:bg-green">Choose which columns you see</h3>
-        <img v-on:click="exportModal()" class="cancel-icon" :src="'../assets/img/close.svg'"></i>
+        <img v-on:click="exportModal()" class="cancel-icon" :src="'../assets/img/close.svg'">
       </div>
       <div slot="body">
         <div class="dl-corp-content-wrapper">
@@ -233,20 +233,20 @@
               <i class="fa fa-search"></i>
             </div>
             <div class="properties-title">Properties</div>
-            <div v-for="( list, index ) in searchedExportProperties" class="column-check-box">
+            <div v-for="( list, index ) in searchedExportProperties" :key="index" class="column-check-box">
               <div class="corporate-list-checkbox-container">
                 <label class="checkbox-input">
-                  <span class="checkbox-label">{{ list }}</span>
-                  <input type="checkbox" v-model="export_data_key_index[index]" value="true">
+                  <span class="checkbox-label">{{ list.name }}</span>
+                  <input type="checkbox" v-model="list.isSelected" value="true">
                   <span class="checkbox-mark"></span>
                 </label>
               </div>
             </div>
           </div>
           <div class="selected-columns-container">
-            <div class="data-column-header-title">SELECTED COLUMNS<span>(1)</span></div>
-            <div v-show="export_data_key_index[ index ] == true" class="selected-col-box-container" v-for=" (list, index) in export_data_header">
-              <span>{{ list }}</span>
+            <div class="data-column-header-title">SELECTED COLUMNS<span>({{ countSelectedProperties }})</span></div>
+            <div v-show="list.isSelected" class="selected-col-box-container" v-for=" (list, index) in export_data_header" :key="index">
+              <span>{{ list.name }}</span>
               <i class="fa fa-times" v-on:click="removeExportKey( index )"></i>
             </div>
           </div>

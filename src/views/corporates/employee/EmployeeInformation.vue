@@ -437,37 +437,40 @@
 						<span class="replacement-text">Replacement</span>
 						<h3>Health Spending Account Summary</h3>
 
-						<div class="account-summary-pro-rated">Pro-rated allocation from 
-	            <span>
-	            	<span>
-	             		<strong class="bold-text">Start</strong> - 
-	              </span>
-	              <div class="health-spending-dpicker">
+						<div class="account-summary-pro-rated">
+							<div class="pr-2 xl:pr-0">Pro-rated allocation from</div> 
+	            <div class="flex items-center xl:justify-between ">
+	            	<div>
+	             		<strong class="bold-text">Start</strong> : 
+	              </div>
+	              <div class="health-spending-dpicker ">
 	                <i class="fa fa-calendar"></i>
 	                <v-date-picker
 		                popoverDirection="bottom"
 		                v-model="starDateDetails.null"
-		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :input-props='{class: "vDatepicker xl:px-2", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                popover-visibility="focus"
 		              ></v-date-picker>
 		              <i class="fa fa-caret-down"></i>
 	              </div>
-	            </span> to <span>
-	            	<span>
-	              	<strong class="bold-text">End</strong> - 
-	              </span>
-	              <div class="health-spending-dpicker">
+	            </div> 
+							<div class="px-2 xl:px-0">to</div> 
+							<div class="flex items-center xl:justify-between">
+	            	<div>
+	              	<strong class="bold-text">End</strong> : 
+	              </div>
+	              <div class="health-spending-dpicker ">
 	                <i class="fa fa-calendar"></i>
 	                <v-date-picker
 		                popoverDirection="bottom"
 		                v-model="starDateDetails.null"
-		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :input-props='{class: "vDatepicker xl:px-2", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                popover-visibility="focus"
 		              ></v-date-picker>
 		              <i class="fa fa-caret-down"></i>
 	              </div>
-	            </span>
-	            <button class="btn-primary btn-calculate">Calculate</button>
+	            </div>
+	            <button class="btn-primary btn-calculate xl:mx-0 xl:my-2">Calculate</button>
 	          </div>
 	          <div class="account-summary-usage">Usage from
 	            <span>

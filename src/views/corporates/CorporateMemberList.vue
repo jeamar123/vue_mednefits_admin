@@ -14,7 +14,7 @@
         <div class="member-list-container flex flex-wrap">
             <div class="member-wrapper w-1/4 xl:w-1/3 lg:w-1/3 md:w-1/2 sm:w-full my-3 mx-3" v-for="list in corporate_members" :key="list.index" ng-repeat="list in corporate_members | orderBy: list.member.created_at">
                 <template>
-              <div class="header" @click="$router.push({ name: 'EmployeeInformation' })">
+              <div class="header" @click="goToEmployeeInformation(list)">
                 <h3 ng-click="showHideEmployeeDetail(list, $index)">
                   <span>{{list.fullname}}</span>
                 </h3>
@@ -280,17 +280,16 @@
           <div v-if="!showTransferCompanySummary">
             <div>
               User:
-              <span class="text-gray-600" ng-bind="selected_user_data.member.Name">Jazer</span>
+              <span class="text-gray-600">{{selected_transfer_data.name}}</span>
             </div>
             <div>
               ID:
-              <span class="text-gray-600" ng-bind="selected_user_data.member.UserID">0010</span>
+              <span class="text-gray-600">{{selected_transfer_data.member_id}}</span>
             </div>
             <div>
               Company:
-              <span class="text-gray-600" ng-bind="corprorate_details.corporate.company_name">
-                Mednefits
-                Tech.
+              <span class="text-gray-600">
+               {{selected_transfer_data.current_company}}
               </span>
             </div>
 
@@ -298,7 +297,7 @@
             <v-date-picker
               popoverDirection="bottom"
               :formats='formats'
-              v-model="transfer_date"
+              v-model="selected_transfer_data.transfer_date"
               :input-props='{class: "vDatepicker border border-gray-400 w-full h-10 rounded-sm px-4 cursor-pointer", placeholder: "DD/MM/YYYY", readonly: true, }'
               popover-visibility="focus"
             ></v-date-picker>
@@ -310,18 +309,17 @@
               <input
                 class="border border-gray-400 w-full h-10 rounded-sm"
                 type="text"
-                ng-model="selected_user_data.company"
-                ng-change="companyTransferTyping( selected_user_data.company )"
+                v-model="selected_transfer_data.company"
+                @keypress="companyTransferTyping( selected_transfer_data.company )"
               />
-              <div v-if="false" ng-if="showCompanyDrop" class="company-list-drop">
+              <div v-show="showCompanyDrop" class="company-list-drop">
                 <div
                   class="company"
-                  v-for="list in 3"
+                  v-for="list in filterBy(company_list, selected_transfer_data.company , 'company_name')"
                   :key="list.index"
-                  ng-repeat="list in agentsCompany | filter : selected_user_data.company"
-                  ng-click="setCustomerId( list )"
+                  @click="setCustomerId( list )"
                 >
-                  <span ng-bind="list.company_name">Mednefits Tech. {{list}}</span>
+                  <span>{{list.company_name}}</span>
                 </div>
               </div>
             </div>
@@ -331,29 +329,27 @@
             <div>Summary</div>
             <div>
               Name:
-              <span class="text-gray-600" ng-bind="selected_user_data.member.Name">Allan Cheams</span>
+              <span class="text-gray-600">{{selected_transfer_data.name}}</span>
             </div>
             <div>
               ID:
-              <span class="text-gray-600" ng-bind="selected_user_data.member.UserID">123</span>
+              <span class="text-gray-600">{{selected_transfer_data.member_id}}</span>
             </div>
             <div>
               Current Company:
               <span
                 class="text-gray-600"
-                ng-bind="corprorate_details.corporate.company_name"
-              >StackGecko</span>
+              >{{selected_transfer_data.current_company}}</span>
             </div>
             <div>
               Transfer date/Start date:
               <span
                 class="text-gray-600"
-                ng-bind="selected_user_data.transfer_start_date"
-              >Allan Cheams</span>
+              >{{selected_transfer_data.transfer_date}}</span>
             </div>
             <div>
               Transfer to:
-              <span class="text-gray-600" ng-bind="selected_user_data.company">Allan Cheams</span>
+              <span class="text-gray-600">{{selected_transfer_data.company}}</span>
             </div>
           </div>
         </div>
@@ -377,7 +373,7 @@
         <button v-if="showTransferCompanySummary"
           class="btn-primary mx-1"
           aria-label="s"
-          @click="updateTransferCompanyBtn()"
+          @click="updateTransferCompanyBtn(selected_transfer_data)"
         >
           <span>Submit</span>
         </button>
