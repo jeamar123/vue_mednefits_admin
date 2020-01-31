@@ -136,7 +136,7 @@
 					</div>
 					<div @click="showEmpSelectorInfo('EmployeeSettings')"
 						v-bind:class="{'active': $route.name == 'EmployeeSettings'}">Settings</div>
-					<router-link tag="a" :to="{ name: 'CorporateMemberList' }" class="close-btn"><span class="oi" data-glyph="x"
+					<router-link tag="a" :to="{ name: 'CorporateMemberList', params: {customer_id: customer_id} }" class="close-btn"><span class="oi" data-glyph="x"
 							aria-hidden="true"></span></router-link>
 				</div>
 

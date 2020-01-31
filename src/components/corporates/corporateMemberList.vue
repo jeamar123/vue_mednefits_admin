@@ -10,6 +10,9 @@ let corporateMemberList = {
 		Modal
 	},
 	mixins: [Vue2Filters.mixin],
+	props: {
+		customer_id: [String, Number],
+	},
 	data() {
 		return {
 			// --- Date options ---
@@ -20,7 +23,6 @@ let corporateMemberList = {
 			//---------------------
 
 			selectedCorporate: JSON.parse(localStorage.selected_corporate),
-			customer_id: null,
 			showTransferAccountModal: false,
 
 			// ---for get member details and pagination ---
@@ -47,7 +49,8 @@ let corporateMemberList = {
 		};
 	},
 	created() {
-		this.customer_id = this.selectedCorporate.corporate.customer_id;
+		console.log(this.customer_id);
+		// this.customer_id = this.selectedCorporate.corporate.customer_id;
 
 		// trigger api
 		this.getMemberList();
@@ -70,7 +73,13 @@ let corporateMemberList = {
 
 		goToEmployeeInformation(list) {
 			console.log('Employee Information ', list);
-			this.$router.push({ name: 'EmployeeInformation'});
+			this.$router.push({
+				name: 'EmployeeInformation',
+				params: {
+					member_id: list.member_id,
+					name: list.fullname.split(' ').slice(-1).join(' '),
+				}
+			});
 		},
 		// --- Tranfer Account ---
 		toggleTransferAccountModal(list) {
@@ -86,12 +95,12 @@ let corporateMemberList = {
 		},
 		toggleTransferCompSummary() {
 			this.showTransferCompanySummary = !this.showTransferCompanySummary;
-			if(this.showTransferCompanySummary == true) {
+			if (this.showTransferCompanySummary == true) {
 				this.selected_transfer_data.transfer_date = moment(this.selected_transfer_data.transfer_date).format('DD MMMM, YYYY');
 			} else {
 				this.selected_transfer_data.transfer_date = new Date(this.selected_transfer_data.transfer_date);
 			}
-			
+
 		},
 		companyTransferTyping(data) {
 			if (data.length > 1) {
@@ -101,7 +110,7 @@ let corporateMemberList = {
 				this.showCompanyDrop = false;
 			}
 		},
-		setCustomerId (data) {
+		setCustomerId(data) {
 			this.showCompanyDrop = false;
 
 			console.log(data);
@@ -127,7 +136,7 @@ let corporateMemberList = {
 				});
 		},
 		updateTransferCompanyBtn(params) {
-			console.log('params',params);
+			console.log('params', params);
 			let data = {
 				member_id: params.member_id,
 				old_customer_id: this.customer_id,
@@ -243,7 +252,7 @@ let corporateMemberList = {
 					this.$swal("Error!", err, "error");
 				});
 		},
-		searchMemberList(item){
+		searchMemberList(item) {
 			let data = {
 				customer_id: this.customer_id,
 				page: this.page_active,
