@@ -192,7 +192,9 @@
 
 // ------ EMPLOYEE INFO SETTINGS MANAGE CAP PER VISIT MODAL ------ //
 
-.manage-cap-modal-wrapper {
+.modal-mask.manage-cap-modal-wrapper {
+  z-index: 1;
+
   .modal-wrapper {
     display: flex;
     align-items: center;

@@ -171,7 +171,7 @@
   			<div>
   				<label>GP cap per visit</label>
   				<div class="gp-cap-input-wrapper">
-  					<input type="number">
+  					<input v-model="cap_per_visit" type="number">
   					<div class="icon-right">
   						<span>SGD</span>
   					</div>
@@ -180,7 +180,7 @@
   		</div>
   		<div slot="footer">
   			<button @click="selectedEmpDetailsSettingsClicked(2, 'cancel')" class="btn-close">CANCEL</button>
-  			<button class="btn-primary settings-btn-submit">SUBMIT</button>
+  			<button @click="updateCapPerVisit(cap_per_visit)" class="btn-primary settings-btn-submit">SUBMIT</button>
   		</div>
   	</Modal>
 	</div>

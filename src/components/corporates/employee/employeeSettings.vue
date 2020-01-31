@@ -1,6 +1,6 @@
 <script>
 import Modal from "../../../views/modal/Modal.vue";
-
+import axios from "axios";
 
 let employeeSettings = {
 	components: {
@@ -85,7 +85,7 @@ let employeeSettings = {
 		},
 		removeEmployeeBtn(data) {
 			let x = data;
-
+      
 			if (x === "back") {
 				if (this.remove_step_active == 'remove-opt') {
 					this.removeBackBtn = false;
@@ -140,7 +140,7 @@ let employeeSettings = {
 			this.emp_details_replace = false;
 			this.emp_details_reserve = false;
 			this.emp_details_remove = false;
-
+      
 			if (opt === 1) {
 				this.emp_details_replace = true;
 			}
@@ -272,7 +272,29 @@ let employeeSettings = {
 			} else if (x === "standard-one-year") {
 				this.showShortTermSelector = false;
 			}
-		}
+		},
+     updateCapPerVisit( cap,id ) {
+      console.log(cap);
+
+      if (!cap || cap == null || cap == '') {
+        this.$swal("Oops!", "Please input cap per visit", "error");
+        return false;
+      }
+      var data = {
+        employee_id: 1,
+        cap_amount: cap,
+      }
+
+      axios.post( axios.defaults.serverUrl + '/company/updateEmployeeCap', data ) 
+      .then(response => { 
+        console.log(response);
+        this.$swal("Success!", response.data.message, "success");
+      })
+      .catch(err => {
+        console.log(err.response);
+        this.$swal("Error!", err.response.data.message, "error");
+      });
+    },
 	}
 }
 
