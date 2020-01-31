@@ -241,7 +241,7 @@ let corporateMemberList = {
 							);
 							value.dob = moment(value.dob).format("DD MMMM, YYYY");
 						});
-
+						this.searchActive = false;
 						console.log("member list", this.corporate_members);
 						this.$parent.hideLoading();
 					}
@@ -252,43 +252,6 @@ let corporateMemberList = {
 					this.$swal("Error!", err, "error");
 				});
 		},
-		searchMemberList(item) {
-			let data = {
-				customer_id: this.customer_id,
-				page: this.page_active,
-				limit: this.page_limit,
-				search: item,
-			};
-
-			let url = `${axios.defaults.serverUrl}/company/employee_lists?customer_id=${data.customer_id}&page=${data.page}&limit=${data.limit}&search=${data.search}`;
-			axios.get(url)
-				.then(res => {
-					// this.$parent.showLoading();
-					console.log("search member list", res);
-					if (res.status == 200) {
-						this.corporate_members = res.data.data;
-
-						this.corporate_members.map((value, index) => {
-							value.enrollment_date = moment(value.enrollment_date).format(
-								"DD MMMM, YYYY"
-							);
-							value.start_date = moment(value.start_date).format("DD MMMM, YYYY");
-							value.expiry_date = moment(value.expiry_date).format(
-								"DD MMMM, YYYY"
-							);
-							value.dob = moment(value.dob).format("DD MMMM, YYYY");
-						});
-
-						console.log("search member list", this.corporate_members);
-						// this.$parent.hideLoading();
-					}
-				})
-				.catch(err => {
-					console.log(err);
-					// this.$parent.hideLoading();
-					this.$swal("Error!", err, "error");
-				});
-		},
 		searchMemberList(item){
 			let data = {
 				customer_id: this.customer_id,
@@ -296,11 +259,6 @@ let corporateMemberList = {
 				limit: this.page_limit,
 				search: item,
 			};
-			if(item != '') {
-				this.searchActive = true;
-			} else {
-				this.searchActive = false;
-			}
 			
 			this.$parent.showLoading();
 			let url = `${axios.defaults.serverUrl}/company/employee_lists?customer_id=${data.customer_id}&page=${data.page}&limit=${data.limit}&search=${data.search}`;
@@ -320,7 +278,8 @@ let corporateMemberList = {
 							);
 							value.dob = moment(value.dob).format("DD MMMM, YYYY");
 						});
-
+						
+						this.searchActive = true;
 						console.log("search member list", this.corporate_members);
 						this.$parent.hideLoading();
 					}
@@ -331,6 +290,12 @@ let corporateMemberList = {
 					this.$swal("Error!", err, "error");
 				});
 
+		},
+		searchEmpty(data) {
+      console.log(data);
+      if (data == '') {
+        this.getMemberList();
+			}
 		}
 	}
 };
