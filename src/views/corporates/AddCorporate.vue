@@ -91,14 +91,14 @@
 				<div class="form-row">
 					<div class="form-div">
 						<label class="add-corporate-checkbox input-checkbox">
-						  <input v-model="create_company.send_email_comm_related" type="checkbox">
+						  <input v-model="create_company.business_send_email_comm_related" type="checkbox">
 						  <span class="input-text">Send Email for Communication related</span>
 						  <span class="input-checkmark"></span>
 						</label>
 					</div>
 					<div class="form-div">
 						<label class="add-corporate-checkbox input-checkbox">
-						  <input v-model="create_company.send_email_bill_related" type="checkbox">
+						  <input v-model="create_company.business_send_email_bill_related" type="checkbox">
 						  <span class="input-text">Send Email for Billing related</span>
 						  <span class="input-checkmark"></span>
 						</label>
@@ -238,14 +238,14 @@
 					<div class="form-row">
 						<div class="form-div">
 							<label class="add-corporate-checkbox input-checkbox">
-							  <input v-model="list.send_email_comm_related" type="checkbox">
+							  <input v-model="list.add_business_send_email_comm_related" type="checkbox">
 							  <span class="input-text">Send Email for Communication related</span>
 							  <span class="input-checkmark"></span>
 							</label>
 						</div>
 						<div class="form-div">
 							<label class="add-corporate-checkbox input-checkbox">
-							  <input v-model="list.send_email_bill_related" type="checkbox">
+							  <input v-model="list.add_business_send_email_bill_related" type="checkbox">
 							  <span class="input-text">Send Email for Billing related</span>
 							  <span class="input-checkmark"></span>
 							</label>
