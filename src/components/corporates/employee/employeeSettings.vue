@@ -286,12 +286,13 @@ let employeeSettings = {
         cap_amount: cap,
       }
 
-      console.log( data );
+      // console.log( data );
 
       axios.post( axios.defaults.serverUrl + '/company/updateEmployeeCap', data ) 
       .then(response => { 
         console.log(response);
         this.$swal("Success!", response.data.message, "success");
+        this.showManageCapPerVisit = false;
       })
       .catch(err => {
         console.log(err.response);
