@@ -50,6 +50,7 @@ let employeeSettings = {
 				input: ["DD/MM/YYYY"],
 				data: ["DD/MM/YYYY"]
 			},
+			cap_per_visit: undefined,
 		};
 	},
 	created() {
