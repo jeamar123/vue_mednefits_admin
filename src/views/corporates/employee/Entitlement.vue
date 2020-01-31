@@ -2,7 +2,7 @@
 	<div class="entitlement-wrapper">
 		<div class="entitlement-btn-edit-wrapper">
 			<h3>Entitlement Information</h3>
-			<button class="btn-update">Update</button>
+			<button @click="updateEntitlement( varCalc )" class="btn-update">Update</button>
 		</div>
 		<div class="entitlement-information-details">
 			<div class="medical-container">
@@ -24,7 +24,7 @@
 	              <h5>New Entitlement</h5>
 	              <div class="entitlement-input-label">
 	                <label class="entitlement-label currency-type">SGD</label>
-	                <input class="entitlement-input" type="number" readonly="readonly" placeholder="0.00" >
+	                <input v-model="emp_entitlement.medical_new_entitlement" class="entitlement-input" type="number" placeholder="0.00" >
 	              </div>
 	              <p class="small">*Updated on <span>26/01/2020</span></p>
 	            </div>
@@ -69,14 +69,14 @@
 										<span>SGD</span>
 										<span>12.50</span>
 									</h4>
-									<button class="btn-update">Calculate</button>
+									<button :disabled="emp_entitlement.medical_new_entitlement == '' || med_effective_date == '' " class="btn-update" @click="entitlementCalc('medical')">Calculate</button>
 								</div>
 							</div>
-							<div v-if="true" class="see-more">
-								<div>
+							<div v-if="medicalCalculatedInfo" class="see-more">
+								<div @click="dropdownEntitlement.med_alloc_formula = !dropdownEntitlement.med_alloc_formula">
 									<i class="fa fa-chevron-down"></i> See how this is calculated
 								</div>
-								<p>New Prorated allocation is <br>
+								<p v-if="dropdownEntitlement.med_alloc_formula">New Prorated allocation is <br>
 									<span>SGD</span> <span>12</span> x <span>1</span>/<span>3</span> + <span>SGD</span> x <span>2</span>/<span>3</span> = <span>SGD</span> <span>12.50</span>
 								</p>
 							</div>
@@ -104,7 +104,7 @@
 		            <h5>New Entitlement</h5>
 		            <div class="entitlement-input-label">
 		              <label class="entitlement-label currency-type">SGD</label>
-		              <input class="entitlement-input" type="number" readonly="readonly" placeholder="0.00" >
+		              <input v-model="emp_entitlement.wellness_new_entitlement" class="entitlement-input" type="number" placeholder="0.00" >
 		            </div>
 		            <p class="small">*Updated on <span>26/01/2020</span></p>
 		          </div>
@@ -120,7 +120,7 @@
 				              v-model="well_effective_date"
 				              :formats='formats'
 				              :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true }'
-				              popover-visibility="visible"
+				              popover-visibility="focus"
 				            ></v-date-picker>
 				            <i class="fa fa-calendar-o"></i>
 			            </div>
@@ -149,14 +149,14 @@
 										<span>SGD</span>
 										<span>12.50</span>
 									</h4>
-									<button class="btn-update">Calculate</button>
+									<button :disabled="emp_entitlement.wellness_new_entitlement == '' || well_effective_date == '' " class="btn-update" @click="entitlementCalc('wellness')">Calculate</button>
 								</div>
 							</div>
-							<div v-if="true" class="see-more">
-								<div>
+							<div v-if="wellnessCalculatedInfo" class="see-more">
+								<div @click="dropdownEntitlement.well_alloc_formula = !dropdownEntitlement.well_alloc_formula">
 									<i class="fa fa-chevron-down"></i> See how this is calculated
 								</div>
-								<p>New Prorated allocation is <br>
+								<p v-if="dropdownEntitlement.well_alloc_formula">New Prorated allocation is <br>
 									<span>SGD</span> <span>12</span> x <span>1</span>/<span>3</span> + <span>SGD</span> x <span>2</span>/<span>3</span> = <span>SGD</span> <span>12.50</span>
 								</p>
 							</div>

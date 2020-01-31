@@ -6,13 +6,22 @@
           value: 0,
           text: ""
         },
+        dropdownEntitlement: {
+          med_alloc_formula: false,
+          well_alloc_formula: false,
+        },
+        emp_entitlement: {
+          medical_new_entitlement: '',
+          wellness_new_entitlement: '',
+        },
         formats: {
           input: ["DD/MM/YYYY"],
           data: ["DD/MM/YYYY"]
         },
-        med_effective_date: undefined,
-        well_effective_date: undefined,
-        emp_entitlement: {},
+        med_effective_date: null,
+        well_effective_date: null,
+        medicalCalculatedInfo: false,
+        wellnessCalculatedInfo: false,
       };
     },
     created(){
@@ -23,6 +32,20 @@
       //   this.corporateViewStatus = opt;
       //   this.$router.push( { name : opt } );
       // }
+      entitlementCalc( type ) {
+
+        if ( type == 'medical' ) {
+          this.medicalCalculatedInfo = true;
+
+        }
+
+        if ( type == 'wellness' ) {
+          this.wellnessCalculatedInfo = true;
+        }
+      },
+      updateEntitlement(  ) {
+
+      }
     }
   }
   
