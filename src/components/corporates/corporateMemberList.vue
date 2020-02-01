@@ -149,6 +149,9 @@ let corporateMemberList = {
 				.then(res => {
 					if (res.status == 200) {
 						console.log("transfer_employee", res);
+
+
+						this.getMemberList();
 						this.$swal("Success!", res.data.message, "success");
 						// this.$parent.hideLoading();
 						this.showTransferAccountModal = !this.showTransferAccountModal
