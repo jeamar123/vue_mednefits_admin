@@ -255,7 +255,7 @@ let corporateMemberList = {
 					this.$swal("Error!", err, "error");
 				});
 		},
-		searchMemberList(item){
+		searchMemberList(item) {
 			let data = {
 				customer_id: this.customer_id,
 				page: this.page_active,

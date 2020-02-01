@@ -13,7 +13,7 @@
 		<!-- Search-member End -->
 
 		<div class="member-list-container flex flex-wrap">
-			<div class="member-wrapper xl:w-1/3 lg:w-1/3 md:w-1/2 sm:w-full my-3 mx-3" v-for="list in corporate_members"
+			<div class="member-wrapper xl:w-1/3 lg:w-1/3 md:w-1/2 sm:w-1/2 xs:w-full my-3 mx-3" v-for="list in corporate_members"
 				:key="list.index" ng-repeat="list in corporate_members | orderBy: list.member.created_at">
 				<template>
 					<div class="header" @click="goToEmployeeInformation(list)">
@@ -31,13 +31,13 @@
 							</div>
 							<div class="info-details" v-if="!list.email">
 								<label>Mobile Number:</label>
-								<!-- <span class="info-bind" v-bind="list.PhoneCode ? list.PhoneCode : '+65'">+63</span> -->
-								<span class="info-bind">{{list.phone_no || 'N/A'}}</span>
+								<span class="info-bind">{{list.phone_code}}</span>
+								<span class="info-bind">{{list.phone_no }}</span>
 							</div>
 							<div class="info-details">
 								<label>Mobile Number:</label>
-								<!-- <span class="info-bind" v-bind="list.PhoneCode ? list.PhoneCode : '+65' ">+63</span> -->
-								<span class="info-bind">{{list.phone_no || 'N/A'}}</span>
+								<span class="info-bind">{{list.phone_code}}</span>
+								<span class="info-bind">{{list.phone_no}}</span>
 							</div>
 							<!-- <div><label>NRIC:</label> <span ng-bind="list.member.NRIC"></span></div> -->
 							<!-- <div class="info-details no-margin-bottom">
@@ -89,24 +89,23 @@
 								<label>End Date:</label>
 								<span class="info-bind" ng-bind="list.end_date | cmdate:'dd MMMM, yyyy'">{{list.expiry_date}}</span>
 							</div>
-							<div class="info-details block" v-if="false">
+							<div class="info-details block" v-if="list.date_deleted">
 								<label>Date Deleted/Remove:</label>
 								<!-- lacking data sa api -->
-								<span class="info-bind text-sm block" ng-bind="list.date_deleted">02 January, 2020</span>
+								<span class="info-bind text-sm block">{{list.date_deleted || 'N/A'}}</span>
 							</div>
-							<div class="info-details" v-if="list.deletion">
-								<span class="info-bind text-sm block text-red-700"
-									ng-bind="list.deletion_text">{{list.deletion_text ? list.deletion_text : 'Remove on 02 January, 2020'}}</span>
+							<div class="info-details" v-if="list.deletion_text">
+								<span class="info-bind text-sm block text-red-700">{{list.deletion_text || 'N/A'}}</span>
 							</div>
 						</div>
 						<!-- end info-div -->
 
 						<!-- <div ng-if="list.deletion"><span ng-bind="list.deletion_text"></span></div> -->
-						<div v-if="list.deletion_text || list.deletion" ng-if="list.member.Active == 0"
+						<div v-if="list.active == false" ng-if="list.member.Active == 0"
 							class="account-deactivated-status p-3 bg-red-300 text-center">
 							<span class="text-red-600 text-base">Account Deleted/Deactivated</span>
 						</div>
-						<button v-if="!list.deletion" ng-if="!list.deletion && !list.schedule && list.member.Active == 1"
+						<button v-if="!list.deletion && list.active && !list.schedule || !list.deletion && list.active" ng-if="!list.deletion && !list.schedule && list.member.Active == 1"
 							class="btn btn-transfer-company" @click="toggleTransferAccountModal(list)">Transfer Account</button>
 					</div>
 					<!-- end body -->
@@ -116,24 +115,24 @@
 
 		<!-- Pagination Start -->
 		<div v-show="corporate_pagination.totalPages > 0 && !searchActive" class="custom-pagination-container">
-			<div class="custom-pagination">
+			<div class="custom-pagination flex-wrap">
 				<div class="page-wrapper">
-					<div class="page-scroll-container">
+					<div class="page-scroll-container m-0">
 						<span class="prev-next-container" v-on:click="prevPage()">
 							<i class="fa fa-angle-left"></i>
 							<span>Prev</span>
 						</span>
 						<div class="pages-list">
-							<span class="page-num" v-show="page_active > 3" v-on:click="goToPage( 1 )">1</span>
-							<span v-show="page_active > 3" style="margin-left: -10px;">...</span>
+							<span class="page-num xs:m-0" v-show="page_active > 3" v-on:click="goToPage( 1 )">1</span>
+							<span v-show="page_active > 3" class="-ml-3">...</span>
 
-							<span v-for="(list) of limitPagination" :key="list.index" class="page-num"
+							<span v-for="(list) of limitPagination" :key="list.index" class="page-num xs:m-0"
 								v-bind:class="{'active' : list + 1 == page_active}"
 								v-on:click="goToPage( list + 1 )">{{ list + 1 }}</span>
 
 							<span
 								v-show="corporate_pagination.totalPages > 5 && page_active < ( corporate_pagination.totalPages - 3 )"
-								style="margin-right: -5px;">...</span>
+								class="-mr-2">...</span>
 							<span class="page-num"
 								v-show="corporate_pagination.totalPages > 5 && page_active < ( corporate_pagination.totalPages - 3 )"
 								v-on:click="goToPage( corporate_pagination.totalPages )">{{ corporate_pagination.totalPages }}</span>
@@ -144,7 +143,7 @@
 						</span>
 					</div>
 				</div>
-				<div class="custom-list-per-page">
+				<div class="custom-list-per-page px-8">
 					<span v-on:click="togglePageLimitDrop()">
 						<span>{{ page_limit }}</span> per page
 					</span>
