@@ -22,6 +22,8 @@
         well_effective_date: null,
         medicalCalculatedInfo: false,
         wellnessCalculatedInfo: false,
+        cal_one: false,
+        cal_two: false,
       };
     },
     created(){
@@ -32,20 +34,41 @@
       //   this.corporateViewStatus = opt;
       //   this.$router.push( { name : opt } );
       // }
-      entitlementCalc( type ) {
+      entitlementCalc( type, cal ) {
+
+        if ( cal == 1 ) {
+          this.cal_one = true;
+        }
+
+        if ( cal == 2 ) {
+          this.cal_two = true;
+        }
 
         if ( type == 'medical' ) {
           this.medicalCalculatedInfo = true;
-
         }
 
         if ( type == 'wellness' ) {
           this.wellnessCalculatedInfo = true;
         }
+        
+        
       },
-      updateEntitlement(  ) {
+      updateEntitlement() {
 
-      }
+        if ( this.cal_one == true && this.cal_two == false ) {
+          console.log('medical');
+        }
+
+        if ( this.cal_two == true && this.cal_one == false ) {
+          console.log('wellness');
+        }
+
+        if ( this.cal_one == true && this.cal_two == true ) {
+          console.log('medical ug wellness');
+        }
+
+      },
     }
   }
   

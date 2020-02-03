@@ -2,7 +2,7 @@
 	<div class="entitlement-wrapper">
 		<div class="entitlement-btn-edit-wrapper">
 			<h3>Entitlement Information</h3>
-			<button @click="updateEntitlement( varCalc )" class="btn-update">Update</button>
+			<button @click="updateEntitlement()" class="btn-update">Update</button>
 		</div>
 		<div class="entitlement-information-details">
 			<div class="medical-container">
@@ -14,9 +14,11 @@
 	              <h5>Original Entitlement</h5>
 	              <div class="entitlement-input-label">
 	                <label class="entitlement-label currency-type">SGD</label>
-	                <input class="entitlement-input original-input" type="number" readonly="readonly" placeholder="0.00" >
+	                <input v-model="emp_entitlement.original_medical_entitlement" class="entitlement-input original-input" type="number" readonly="readonly" placeholder="0.00" >
 	              </div>
-	              <p class="small">*Updated from <span>SGD</span> <span>200</span> to <span>SGD</span> <span>12</span> on <span>26/01/2020</span></p>
+	              <p class="small">*Updated from 
+	              	<span>SGD </span><span>{{emp_entitlement.old_medical_entitlement}}</span> to <span>SGD </span><span>12</span> on <span>26/01/2020</span>
+	              </p>
 	            </div>
 						</div>
 						<div class="col-md-2">
@@ -69,7 +71,8 @@
 										<span>SGD</span>
 										<span>12.50</span>
 									</h4>
-									<button :disabled="emp_entitlement.medical_new_entitlement == '' || med_effective_date == '' " class="btn-update" @click="entitlementCalc('medical')">Calculate</button>
+									<!-- <button :disabled="emp_entitlement.medical_new_entitlement == '' || med_effective_date == null " class="btn-update" @click="entitlementCalc('medical', calcOne)">Calculate</button> -->
+									<button class="btn-update" @click="entitlementCalc('medical',1)">Calculate</button>
 								</div>
 							</div>
 							<div v-if="medicalCalculatedInfo" class="see-more">
@@ -96,7 +99,7 @@
 		              <label class="entitlement-label currency-type">SGD</label>
 		              <input class="entitlement-input original-input" type="number" readonly="readonly" placeholder="0.00" >
 		            </div>
-		            <p class="small">*Updated from <span>SGD</span> <span>200</span> to <span>SGD</span> <span>12</span> on <span>26/01/2020</span></p>
+		            <p class="small">*Updated from <span>SGD </span><span>200</span> to <span>SGD </span><span>12</span> on <span>26/01/2020</span></p>
 		          </div>
 						</div>
 						<div class="col-md-2">
@@ -149,7 +152,8 @@
 										<span>SGD</span>
 										<span>12.50</span>
 									</h4>
-									<button :disabled="emp_entitlement.wellness_new_entitlement == '' || well_effective_date == '' " class="btn-update" @click="entitlementCalc('wellness')">Calculate</button>
+									<!-- <button :disabled="emp_entitlement.wellness_new_entitlement == '' || well_effective_date == null " class="btn-update" @click="entitlementCalc('wellness', calcTwo)">Calculate</button> -->
+									<button class="btn-update" @click="entitlementCalc('wellness',2)">Calculate</button>
 								</div>
 							</div>
 							<div v-if="wellnessCalculatedInfo" class="see-more">
