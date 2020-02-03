@@ -1,4 +1,6 @@
 <script>
+  import moment from "moment";
+
   let employeeEntitlement = {
     props: {
       member_id: [String, Number],
@@ -44,14 +46,22 @@
       entitlementCalc( type, cal ) {
 
         var med_data = {
-          member_id: 1,
+          member_id: this.member_id,
           new_entitlement_credits: this.emp_entitlement.medical_new_entitlement,
-          entitlement_usage_date: this.med_effective_date,
+          entitlement_usage_date: moment(this.med_effective_date).format('YYYY-MM-DD'),
           proration_type: this.emp_entitlement.medical_proration,
           entitlement_spending_type: type,
         }
 
-        console.log(med_data);
+        var well_data = {
+          member_id: this.member_id,
+          new_entitlement_credits: this.emp_entitlement.wellness_new_entitlement,
+          entitlement_usage_date: moment(this.well_effective_date).format('YYYY-MM-DD'),
+          proration_type: this.emp_entitlement.wellness_proration,
+          entitlement_spending_type: type,
+        }
+
+       
 
         if ( cal == 1 ) {
           this.cal_one = true;
@@ -63,10 +73,12 @@
 
         if ( type == 'medical' ) {
           this.medicalCalculatedInfo = true;
+           console.log(med_data);
         }
 
         if ( type == 'wellness' ) {
           this.wellnessCalculatedInfo = true;
+           console.log(well_data);
         }
         
         

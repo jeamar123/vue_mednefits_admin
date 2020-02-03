@@ -18,7 +18,7 @@
 	              </div>
 	              <p class="small">*Updated from 
 	              	<span>SGD </span><span>{{emp_entitlement.old_medical_entitlement}}</span> to <span>SGD </span>
-	              	<span>{{emp_entitlement.original_medical_entitlement}}</span> on <span>26/01/2020</span>
+	              	<span>{{emp_entitlement.original_medical_entitlement}}</span> on <span>{{ emp_entitlement.medical_entitlement_date }}</span>
 	              </p>
 	            </div>
 						</div>
@@ -137,9 +137,9 @@
 							<div class="entitlement-input-container proration">
 		            <h5>Proration</h5>
 		            <div class="entitlement-input-label">
-		              <select v-model="emp_entitlement.medical_proration">
-		              	<option>Months</option>
-		              	<option>Days</option>
+		              <select v-model="emp_entitlement.wellness_proration">
+		              	<option value="months">Months</option>
+		              	<option value="days">Days</option>
 		              </select>
 		            </div>
 		          </div>
