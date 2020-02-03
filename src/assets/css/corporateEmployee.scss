@@ -420,6 +420,7 @@
 
   > div:nth-child(1) {
     margin: 0 10px 0 0;
+    // margin: 0 0 20px 0;
   }
   > div:nth-child(2) {
     margin: 0 0 0 10px;
@@ -1203,15 +1204,18 @@
     }
   }
 }
+
+
 .employee-details-input-wrapper {
   label {
     display: block;
     color: rgba(0, 0, 0, 0.54);
     font-size: 12px;
+    padding-bottom: 10px;
   }
 
   input,
-  select {
+  select, .vDatepicker {
     border: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     width: 100%;

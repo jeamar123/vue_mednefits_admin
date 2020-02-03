@@ -121,9 +121,9 @@
 				</div>
 
 				<div class="edit-dependent-row sm:flex sm:flex-wrap">
-					<div class="employee-details-input-wrapper sm:m-0">
+					<div class="employee-details-input-wrapper sm:mx-0 sm:mb-6">
 						<label>Date of Birth</label>
-						<div class="date-container">
+						<div class="date-container vDatepicker">
 							<v-date-picker
                 popoverDirection="bottom"
                 v-model="starDateDetails.null"
@@ -133,16 +133,16 @@
               <i class="fa fa-caret-down"></i>
             </div>
 					</div>
-					<div class="employee-details-input-wrapper sm:m-0">
+					<div class="employee-details-input-wrapper sm:mx-0">
 						<label>Member ID</label>
 						<input type="number">
 					</div>
 				</div>
 
 				<div class="edit-dependent-row">
-					<div class="employee-details-input-wrapper">
+					<div class="employee-details-input-wrapper  sm:mx-0 sm:mb-6">
 						<label>Plan Start</label>
-						<div class="date-container">
+						<div class="date-container vDatepicker">
 							<v-date-picker
                 popoverDirection="bottom"
                 v-model="starDateDetails.null"
@@ -152,7 +152,7 @@
               <i class="fa fa-caret-down"></i>
             </div>
 					</div>
-					<div class="employee-details-input-wrapper"></div>
+					<div class="employee-details-input-wrapper sm:hidden"></div>
 				</div>
 
 				<div class="save-btn-footer">
