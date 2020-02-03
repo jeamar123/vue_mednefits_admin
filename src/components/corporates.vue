@@ -361,11 +361,7 @@ var corporates = {
 			let download_type = ['by_all'];
 			let params_download_type = '';
 			if( this.corporate_id_arr.length > 0  && ( this.corporate_id_arr.length == this.corporate_pagination.total ) ){
-				if( this.corporate_id_arr.length == this.corporate_pagination.total ){
-					download_type = ['by_all'];
-				}else{
-					download_type = ['by_id'];
-				}
+				download_type = ['by_id'];
 			}
 			if( this.filterData.start != null && this.filterData.end != null ){
 				download_type.push( 'by_date' );
