@@ -923,7 +923,7 @@
 					</div>
 				</div>
 
-				<div v-if="create_company.add_cc">
+				<div v-if="create_company.send_email">
 					<div class="form-row">
 						<div class="form-col flex-2">
 							<div class="form-div">
