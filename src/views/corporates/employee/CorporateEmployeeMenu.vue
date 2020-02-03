@@ -139,6 +139,21 @@
 					<router-link tag="a" :to="{ name: 'CorporateMemberList', params: {customer_id: customer_id} }" class="close-btn"><span class="oi" data-glyph="x"
 							aria-hidden="true"></span></router-link>
 				</div>
+				<div class="xs-employee-tabs">
+					<div class="emp-tab-box">
+						<select class="emp-tab-select" v-model="activeTab" v-on:change="showEmpSelectorInfo( activeTab )">
+							<option value="EmployeeInformation">Employee</option>		
+							<option value="DependentInformation">Dependent</option>		
+							<option value="ClaimSubmission">Claim Submission</option>		
+							<option value="Entitlement">Entitlement</option>		
+							<option value="EmployeeSettings">Settings</option>		
+						</select>
+						<i class="fa fa-caret-down"></i>
+					</div>
+
+					<router-link tag="a" :to="{ name: 'CorporateMemberList', params: {customer_id: customer_id} }" class="close-btn"><span class="oi" data-glyph="x"
+							aria-hidden="true"></span></router-link>
+				</div>
 
 				<router-view name="child"></router-view>
 			</div>

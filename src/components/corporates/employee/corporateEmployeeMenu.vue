@@ -8,7 +8,8 @@ let corporateEmployeeMenu = {
 			data: null,
 			sideBar: {
 				trigger: false,
-			}
+			},
+			activeTab: this.$route.name,
 		};
 	},
 	created() {
@@ -21,6 +22,7 @@ let corporateEmployeeMenu = {
 			this.sideBar.trigger = !this.sideBar.trigger;
 		},
 		showEmpSelectorInfo(page) {
+			this.activeTab = page;
 			this.$router.push({ name: page });
 		},
 	}
