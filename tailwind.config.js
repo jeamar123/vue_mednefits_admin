@@ -1,3 +1,5 @@
+const { colors } = require('tailwindcss/defaultTheme');
+
 module.exports = {
   important: true,
   theme: {
@@ -18,7 +20,16 @@ module.exports = {
       display: ['Helvetica Medium', 'sans-serif'],
       body: ['Helvetica Light', 'sans-serif'],
     },
-    extend: {}
+    extend: {
+      colors: {
+        gray: {
+          ...colors.gray,
+          '100': '#0000001f',
+          '500': '#ecf0f1',
+          '900': '#666',
+        }
+      }
+    },
   },
   variants: {},
   plugins: []

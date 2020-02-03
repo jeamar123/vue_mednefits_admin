@@ -12,6 +12,12 @@ let employeeSettings = {
 	},
 	data() {
 		return {
+			// Modal Update - Reset //
+				showSetupAccountModal: false,
+				emp_padd_reset_wrapper: true,
+				emp_pass_update: false,
+				pin_setup_update: false,
+			// END Modal //
 			empSelectorActive: {
 				value: 0,
 				text: ""
@@ -32,7 +38,6 @@ let employeeSettings = {
 			showTimeVisitDropdown: false,
 			showDaytimeOption: false,
 			showTimeOption: false,
-			showSetupAccountModal: false,
 			showClaimTypeListOption: false,
 			showMemberListOption: false,
 			showRenewModal: false,
@@ -221,6 +226,9 @@ let employeeSettings = {
 					this.showSetupAccountModal = true;
 				} else if (x === "cancel") {
 					this.showSetupAccountModal = false;
+					this.emp_padd_reset_wrapper = true;
+					this.emp_pass_update = false;
+					this.pin_setup_update = false;
 				}
 			}
 
@@ -298,7 +306,21 @@ let employeeSettings = {
         console.log(err.response);
         this.$swal("Error!", err.response.data.message, "error");
       });
-    },
+		},
+		showUpdatePass() {
+			this.emp_padd_reset_wrapper = !this.emp_padd_reset_wrapper;
+			this.emp_pass_update = !this.emp_pass_update;
+		},
+		pinSetupShow () {
+			this.emp_padd_reset_wrapper = !this.emp_padd_reset_wrapper;
+			this.pin_setup_update = !this.pin_setup_update;
+		},
+		resendEmployeeEmailDash() {
+			// function here
+		},
+		unPinSetup() {
+			// function here
+		}
 	}
 }
 
@@ -307,4 +329,31 @@ export default employeeSettings
 
 <style lang="scss" scoped>
 @import "./src/assets/css/corporateEmployee.scss";
+
+
+
+@media (max-width: 1280px) {
+	/* ... */
+}
+
+/* Large (lg) */
+
+@media (max-width: 1024px) {
+	/* ... */
+}
+
+/* Medium (md) */
+
+@media (max-width: 768px) {
+	/* ... */
+
+}
+
+/* Small (sm) */
+
+@media (max-width: 640px) {
+	/* ... */
+	
+}
+
 </style>

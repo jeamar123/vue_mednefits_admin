@@ -598,3 +598,32 @@
 }
 
 // ------------------------------------------------------ //
+
+
+
+//  ------------ Settings Update Reset Password --------- //
+
+.update-reset, .sms-notification {
+  .modal-container {
+    width: 450px;
+    font-size: 16px;
+    margin: 70px auto;
+  }
+  .modal-header {
+    background: rgb(63, 81, 181);
+    color: #fff;
+  }
+}
+// .sms-notification {
+//   .modal-container {
+//     width: 450px;
+//     font-size: 16px;
+//     margin: 70px auto;
+//   }
+//   .modal-header {
+//     background: rgb(63, 81, 181);
+//     color: #fff;
+//   }
+// }
+
+// ----------------------------------------------------- //
