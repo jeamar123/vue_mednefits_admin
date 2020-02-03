@@ -881,11 +881,11 @@
 							<div class="send-welcome-email-toggle">
 								<div class="toggle-wrapper">
 									<div class="toggle-btns">
-										<div v-on:click="toggleSendWelcomeEmailAddCorporate(true)" v-bind:class="{ active : create_company.add_cc == true }" class="toggle on">Yes</div>
-										<div v-on:click="toggleSendWelcomeEmailAddCorporate(false)" v-bind:class="{ active : create_company.add_cc == false }" class="toggle off">No</div>
+										<div v-on:click="toggleSendWelcomeEmailAddCorporate(true)" v-bind:class="{ active : create_company.send_email == true }" class="toggle on">Yes</div>
+										<div v-on:click="toggleSendWelcomeEmailAddCorporate(false)" v-bind:class="{ active : create_company.send_email == false }" class="toggle off">No</div>
 									</div>
 								</div>
-								<div v-if="create_company.add_cc" class="welcome-email-account-selector">
+								<div v-if="create_company.send_email" class="welcome-email-account-selector">
 								<label>Schedule Welcome Email Account?</label>
 									<div class="form-toggle form-col-toggle">
 										<div class="toggle-wrapper">
