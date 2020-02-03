@@ -23,6 +23,7 @@
 							<label>Country</label>
 							<div class="selector-container">
 								<select v-model="create_company.country">
+									<option></option>
 									<option value="sgd">Singapore</option>
 									<option value="myr">Malaysia</option>
 								</select>
@@ -68,6 +69,7 @@
 							<label>Job Title</label>
 							<div class="selector-container">
 								<select v-model="create_company.business_job_title">
+									<option></option>
 									<option v-for="jobs of job_title">{{ jobs }}</option>
 								</select>
 								<img :src="'../assets/img/down-arrow.svg'">
@@ -215,6 +217,7 @@
 								<label>Job Title</label>
 								<div class="selector-container">
 									<select v-model="list.add_contact_business_job_title">
+										<option></option>
 										<option v-for="jobs of job_title">{{ jobs }}</option>
 									</select>
 									<img :src="'../assets/img/down-arrow.svg'">
@@ -292,6 +295,7 @@
 								</div>
 								<div class="selector-container">
 									<select v-model="create_company.duration_type" v-on:change="startDateChanged()">
+										<option></option>
 										<option value="days">days</option>
 										<option value="months">months</option>
 										<option value="years">year</option>
@@ -306,6 +310,7 @@
 							<label>Currency</label>
 							<div class="selector-container">
 								<select v-model="create_company.currency">
+									<option></option>
 									<option value="sgd">Singapore Dollar</option>
 									<option value="myr">Malaysian Ringgit</option>
 								</select>
@@ -368,6 +373,7 @@
 									</div>
 									<div class="selector-container">
 										<select v-model="create_company.employee_duration_extension_type">
+											<option></option>
 											<option value="days">days</option>
 											<option value="months">months</option>
 											<option value="year">year</option>
@@ -413,6 +419,7 @@
 							<label>Secondary Plan Type</label>
 							<div class="selector-container">
 								<select v-model="create_company.employee_secondary_account_type">
+									<option></option>
 									<option v-if="create_company.employee_account_type == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
 									<option v-if="create_company.employee_account_type == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
 
@@ -468,6 +475,7 @@
 								<label>Plan Type</label>
 								<div class="selector-container">
 									<select v-model="create_company.employee_account_type_extension" v-on:change="accountTypeExtensionChanged( create_company.employee_account_type_extension )">
+										<option></option>
 										<option value="trial_plan">Trial Plan</option>
 										<option value="insurance_bundle">Insurance Bundle</option>
 										<option value="stand_alone_plan">Pro Plan</option>
@@ -484,6 +492,7 @@
 								<label>Secondary Plan Type</label>
 								<div class="selector-container">
 									<select v-model="create_company.employee_secondary_account_type_extension">
+										<option></option>
 										<option v-if="create_company.employee_account_type_extension == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
 										<option v-if="create_company.employee_account_type_extension == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
 
@@ -569,6 +578,7 @@
 								<label>Plan Type</label>
 								<div class="selector-container">
 									<select v-model="create_company.dependent_account_type" v-on:change="accountDependentsTypeChanged( create_company.dependent_account_type )">
+										<option></option>
 										<option value="trial_plan">Trial Plan</option>
 										<option value="insurance_bundle">Insurance Bundle</option>
 										<option value="stand_alone_plan">Pro Plan</option>
@@ -586,6 +596,7 @@
 								<label>Secondary Plan Type</label>
 								<div class="selector-container">
 									<select v-model="create_company.dependent_secondary_account_type">
+										<option></option>
 										<option v-if="create_company.dependent_account_type == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
 										<option v-if="create_company.dependent_account_type == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
 
@@ -642,6 +653,7 @@
 									<label>Plan Type</label>
 									<div class="selector-container">
 										<select v-model="create_company.secondary_account_type_extension" v-on:change="accountTypeExtensionDependentsChanged( create_company.secondary_account_type_extension )">
+											<option></option>
 											<option value="trial_plan">Trial Plan</option>
 											<option value="insurance_bundle">Insurance Bundle</option>
 											<option value="stand_alone_plan">Pro Plan</option>
@@ -659,6 +671,7 @@
 									<label>Secondary Plan Type</label>
 									<div class="selector-container">
 										<select v-model="create_company.secondary_account_type_extension_dependents">
+											<option></option>
 											<option v-if="create_company.secondary_account_type_extension == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
 											<option v-if="create_company.secondary_account_type_extension == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
 
