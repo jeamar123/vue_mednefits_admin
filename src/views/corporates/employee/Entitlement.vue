@@ -120,7 +120,7 @@
 				              v-model="well_effective_date"
 				              :formats='formats'
 				              :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true }'
-				              popover-visibility="visible"
+				              popover-visibility="focus"
 				            ></v-date-picker>
 				            <i class="fa fa-calendar-o"></i>
 			            </div>
