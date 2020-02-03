@@ -758,7 +758,7 @@
 		                v-model="create_company.medical_spending_start_date"
 		                :input-props='{class: "spendingDatePicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                :formats='formats'
-		                popover-visibility="visible"
+		                popover-visibility="focus"
 		                v-bind:class="{ noSpending : create_company.medical_spending_account == false }"
 		              >
 		              </v-date-picker>
