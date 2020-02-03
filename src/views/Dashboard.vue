@@ -3,7 +3,7 @@
 		<!-- <div class="navbar-line"></div> -->
 	  <div class="navbar">
 	  	<div class="nav-logo">
-	  		<img :src="'../assets/img/logo_white.png'">
+	  		<img :src="'../assets/img/latest logo/Mednefits Logo V2.svg'">
 	  	</div>
 	  	<div class="nav-items">
 	  		<ul class="nav-ul">

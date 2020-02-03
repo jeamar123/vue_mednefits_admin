@@ -58,7 +58,7 @@ $font-gray: #888;
 
   .selector-container input, select{
     height: 34px;
-    background: #fff;
+    background: transparent;
     padding-left: 10px;
     border-color: #dedede;
     -webkit-appearance: none;
@@ -325,6 +325,7 @@ $font-gray: #888;
 
   .selector-container {
     position: relative;
+    z-index: 0;
 
     img {
       height: 12px;
@@ -332,6 +333,7 @@ $font-gray: #888;
       position: absolute;
       top: 12px;
       right: 10px;
+      z-index: -1;
     }
   }
 

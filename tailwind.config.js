@@ -11,7 +11,7 @@ module.exports = {
       // => @media (max-width: 767px) { ... }
       'sm': {'max': '639px'},
       // => @media (max-width: 639px) { ... }
-      'xs': {'min':'220px', 'max': '420px'},
+      'xs': {'min':'220px', 'max': '480px'},
 
     },
     fontFamily: {

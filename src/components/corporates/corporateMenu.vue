@@ -3,6 +3,9 @@ import axios from "axios";
 import moment from "moment"
 
 let corporateMenu = {
+	props: {
+		customer_id: [String, Number],
+	},
 	data() {
 		return {
 			corporateViewStatus: "CorporateDetails",
@@ -18,7 +21,7 @@ let corporateMenu = {
 		};
 	},
 	created() {
-		this.customer_id = this.selectedCorporate.corporate.customer_id;
+		// this.customer_id = this.selectedCorporate.corporate.customer_id;
 		this.corporateViewStatus = this.$route.name;
 		console.log('id gikan sa corporate list', this.customer_id, 'data pd niya', this.selectedCorporate);
 
@@ -28,6 +31,14 @@ let corporateMenu = {
 		this.getCustomerRenewalStatus();
 	},
 	methods: {
+		// --- Methods from parent ---
+		showLoading(){
+			this.$parent.showLoading();
+		},
+		hideLoading() {
+			this.$parent.hideLoading();
+		},
+		// --------------------------
 		selectCorporateView(opt) {
 			this.corporateViewStatus = opt;
 			this.$router.push({ name: opt });
@@ -51,9 +62,9 @@ let corporateMenu = {
 						console.log('details', res);
 						this.corporateDetails_data = res.data;
 
-						this.corporateDetails_data.plan_start = moment(this.corporateDetails_data.plan_start).format('MMMM DD, YYYY');
-						this.corporateDetails_data.plan_end = moment(this.corporateDetails_data.plan_end).format('MMMM DD, YYYY');
-						this.corporateDetails_data.last_credit_reset_data = moment(this.corporateDetails_data.last_credit_reset_data).format('MMMM DD, YYYY');
+						this.corporateDetails_data.plan_start = moment(this.corporateDetails_data.plan_start).format('DD MMMM, YYYY');
+						this.corporateDetails_data.plan_end = moment(this.corporateDetails_data.plan_end).format('DD MMMM, YYYY');
+						this.corporateDetails_data.last_credit_reset_data = moment(this.corporateDetails_data.last_credit_reset_data).format('DD MMMM, YYYY');
 
 						// this.$parent.hideLoading();
 					}
