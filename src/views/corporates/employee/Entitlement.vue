@@ -17,7 +17,8 @@
 	                <input v-model="emp_entitlement.original_medical_entitlement" class="entitlement-input original-input" type="number" readonly="readonly" placeholder="0.00" >
 	              </div>
 	              <p class="small">*Updated from 
-	              	<span>SGD </span><span>{{emp_entitlement.old_medical_entitlement}}</span> to <span>SGD </span><span>12</span> on <span>26/01/2020</span>
+	              	<span>SGD </span><span>{{emp_entitlement.old_medical_entitlement}}</span> to <span>SGD </span>
+	              	<span>{{emp_entitlement.original_medical_entitlement}}</span> on <span>26/01/2020</span>
 	              </p>
 	            </div>
 						</div>
@@ -55,8 +56,8 @@
 	              <h5>Proration</h5>
 	              <div class="entitlement-input-label">
 	                <select v-model="emp_entitlement.medical_proration">
-	                	<option>Months</option>
-	                	<option>Days</option>
+	                	<option value="months">Months</option>
+	                	<option value="days">Days</option>
 	                </select>
 	              </div>
 	            </div>
@@ -68,11 +69,12 @@
 								<h5>New Allocation</h5>
 								<div class="entitlement-calculation">
 									<h4>
-										<span>SGD</span>
+										<span>SGD </span>
 										<span>12.50</span>
 									</h4>
 									<!-- <button :disabled="emp_entitlement.medical_new_entitlement == '' || med_effective_date == null " class="btn-update" @click="entitlementCalc('medical', calcOne)">Calculate</button> -->
 									<button class="btn-update" @click="entitlementCalc('medical',1)">Calculate</button>
+									<p v-if="false" class="effective-date-error">New Medical Entitlement Usage Date exceeded the Spending End Date.</p>
 								</div>
 							</div>
 							<div v-if="medicalCalculatedInfo" class="see-more">
@@ -97,7 +99,7 @@
 		            <h5>Original Entitlement</h5>
 		            <div class="entitlement-input-label">
 		              <label class="entitlement-label currency-type">SGD</label>
-		              <input class="entitlement-input original-input" type="number" readonly="readonly" placeholder="0.00" >
+		              <input v-model="emp_entitlement.original_wellness_entitlement" class="entitlement-input original-input" type="number" readonly="readonly" placeholder="0.00" >
 		            </div>
 		            <p class="small">*Updated from <span>SGD </span><span>200</span> to <span>SGD </span><span>12</span> on <span>26/01/2020</span></p>
 		          </div>
@@ -149,11 +151,12 @@
 								<h5>New Allocation</h5>
 								<div class="entitlement-calculation">
 									<h4>
-										<span>SGD</span>
+										<span>SGD </span>
 										<span>12.50</span>
 									</h4>
 									<!-- <button :disabled="emp_entitlement.wellness_new_entitlement == '' || well_effective_date == null " class="btn-update" @click="entitlementCalc('wellness', calcTwo)">Calculate</button> -->
 									<button class="btn-update" @click="entitlementCalc('wellness',2)">Calculate</button>
+									<p v-if="false" class="effective-date-error">New Medical Entitlement Usage Date exceeded the Spending End Date.</p>
 								</div>
 							</div>
 							<div v-if="wellnessCalculatedInfo" class="see-more">

@@ -1,5 +1,9 @@
 <script>
   let employeeEntitlement = {
+    props: {
+      member_id: [String, Number],
+      name: [String, Number]
+    },
     data() {
       return {
         empSelectorActive: {
@@ -11,6 +15,8 @@
           well_alloc_formula: false,
         },
         emp_entitlement: {
+          original_medical_entitlement: 0.00,
+          original_wellness_entitlement: 0.00,
           medical_new_entitlement: '',
           wellness_new_entitlement: '',
         },
@@ -28,6 +34,7 @@
     },
     created(){
       // this.corporateViewStatus = this.$route.name;
+      console.log(`${this.member_id} ug is ${this.name}`);
     },
     methods: {
       // selectCorporateView( opt ){
@@ -35,6 +42,16 @@
       //   this.$router.push( { name : opt } );
       // }
       entitlementCalc( type, cal ) {
+
+        var med_data = {
+          member_id: 1,
+          new_entitlement_credits: this.emp_entitlement.medical_new_entitlement,
+          entitlement_usage_date: this.med_effective_date,
+          proration_type: this.emp_entitlement.medical_proration,
+          entitlement_spending_type: type,
+        }
+
+        console.log(med_data);
 
         if ( cal == 1 ) {
           this.cal_one = true;
