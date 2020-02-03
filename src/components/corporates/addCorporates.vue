@@ -27,7 +27,7 @@
           medical_spending_account: false,
           wellness_spending_account: false,
           schedule_email: false,
-          add_cc: false,
+          send_email: false,
           emmployee_plan_start: new Date(),
           main_plan_invoice_date: new Date(),
           employee_payment_status: false,
@@ -204,7 +204,7 @@
 
       },
       toggleSendWelcomeEmailAddCorporate ( opt ) {
-        this.create_company.add_cc = opt;
+        this.create_company.send_email = opt;
       },
       toggleScheduleEmailSend ( opt ) {
         this.create_company.schedule_email = opt;
