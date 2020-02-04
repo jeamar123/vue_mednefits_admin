@@ -209,6 +209,7 @@
                 v-model="filterData.end"
                 :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
                 popover-visibility="focus"
+                :formats="formats"
               ></v-date-picker>
               <img class="calendar-icon" :src="'../assets/img/calendar-gray.png'"></i>
             </div>

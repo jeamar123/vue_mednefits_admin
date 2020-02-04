@@ -348,7 +348,7 @@ var corporates = {
 				if( key == this.export_data_keys.length - 1 ){
 					if( this.corporate_id_arr.length > 0 ){
 						this.corporate_id_arr.map((value2, key2) => {
-							if( this.export_data_header[ key2 .isSelected] == true ){
+							if( this.export_data_header[ key2 ].isSelected == true ){
 								params += ( "ids[]=" + value2 + "&" );
 							}
 							if( key2 == this.corporate_id_arr.length - 1 ){
