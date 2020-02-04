@@ -364,7 +364,7 @@ var corporates = {
 		exportCompanyCSV( params, params_header ){
 			let download_type = ['by_all'];
 			let params_download_type = '';
-			if( this.corporate_id_arr.length > 0  && ( this.corporate_id_arr.length == this.corporate_pagination.total ) ){
+			if( this.corporate_id_arr.length > 0 ){
 				download_type = ['by_id'];
 			}
 			if( this.filterData.start != null && this.filterData.end != null ){
