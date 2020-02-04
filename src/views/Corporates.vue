@@ -125,7 +125,7 @@
                 <span>{{ list.total_dependent_seat }}</span>
               </td>
               <td v-on:click="goToCompanyDetails( list )">
-                <span>{{ list.total_medical_credits }}</span>
+                <span>{{ list.total_medical_credits | number('0.00') }}</span>
               </td>
               <td v-on:click="goToCompanyDetails( list )">
                 <span v-show="list.employees.account_type == 'stand_alone_plan'">Pro Plan</span>
