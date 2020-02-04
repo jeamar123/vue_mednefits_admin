@@ -9,6 +9,10 @@ var corporates = {
   },
   data() {
     return {
+      formats: {
+				input: ["DD/MM/YYYY"],
+				data: ["DD/MM/YYYY"]
+			},
       filterData: {
         start: null,
         end: null
