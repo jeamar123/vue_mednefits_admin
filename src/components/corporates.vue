@@ -280,7 +280,7 @@ var corporates = {
 				}
 			});
 			
-			localStorage.selected_corporate = JSON.stringify(data);
+			// localStorage.selected_corporate = JSON.stringify(data);
     },
     closeAllModalsDrop() {
       // console.log('click outside.');

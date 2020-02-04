@@ -19,11 +19,11 @@
 					</div>
 					<div class="info-div">
 						<label>Plan Start Date</label>
-						<p>{{corporateDetails_data.plan_start}}</p>
+						<p>{{ formatDate(corporateDetails_data.plan_start, null, 'DD MMMM, YYYY') }}</p>
 					</div>
 					<div class="info-div">
 						<label>Plan End Date</label>
-						<p>{{corporateDetails_data.plan_end}}</p>
+						<p>{{ formatDate(corporateDetails_data.plan_end, null, 'DD MMMM, YYYY') }}</p>
 					</div>
 					<div class="info-div">
 						<label>Days to Expire Plan</label>
@@ -36,15 +36,15 @@
 
 					<div class="info-div-inline">
 						<label>Total seats:</label>
-						<p>{{selectedCorporate.total_employee_seat}}</p>
+						<p>{{corporateDetails_data.employee ? corporateDetails_data.employee.total_seats: 0}}</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Occupied Seats:</label>
-						<p>{{selectedCorporate.employees.employee_enrolled_count}}</p>
+						<p>{{corporateDetails_data.employee ? corporateDetails_data.employee.occupied_seats : 0}}</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Vacant Seats:</label>
-						<p>{{selectedCorporate.total_employee_seat - selectedCorporate.employees.employee_enrolled_count}}</p>
+						<p>{{corporateDetails_data.employee ? corporateDetails_data.employee.vacant_seats : 0}}</p>
 					</div>
 
 					<div class="white-space-10"></div>
@@ -52,15 +52,15 @@
 
 					<div class="info-div-inline">
 						<label>Total seats:</label>
-						<p>{{selectedCorporate.total_dependent_seat}}</p>
+						<p>{{corporateDetails_data.dependent ? corporateDetails_data.dependent.total_seats : 0}}</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Occupied Seats:</label>
-						<p>{{selectedCorporate.dependents ? selectedCorporate.dependents.dependent_enrolled_count : '0'}}</p>
+						<p>{{corporateDetails_data.dependent ? corporateDetails_data.dependent.occupied_seats: 0}}</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Vacant Seats:</label>
-						<p>{{ selectedCorporate.dependents ? selectedCorporate.total_dependent_seat - selectedCorporate.dependents.dependent_enrolled_count : selectedCorporate.total_dependent_seat}}</p>
+						<p>{{corporateDetails_data.dependent ? corporateDetails_data.dependent.vacant_seats: 0}}</p>
 					</div>
 					<div class="white-space-10"></div>
 				</div>
@@ -71,32 +71,32 @@
 
 					<div class="info-div-inline">
 						<label>Total:</label>
-						<p>
-							<span>SGD</span> {{corporateCreditsInfo_data.total_medical_company_allocation | currency('', 2, { thousandsSeparator: ',' }) }}
+						<p class="uppercase">
+							{{corporateCreditsInfo_data.total_medical_company_allocation | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Allocated:</label>
-						<p>
-							<span>SGD</span> {{corporateCreditsInfo_data.total_medical_employee_allocated | currency('', 2, { thousandsSeparator: ',' }) }}
+						<p class="uppercase">
+						 {{corporateCreditsInfo_data.total_medical_employee_allocated | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Unallocated:</label>
-						<p>
-							<span>SGD</span> {{corporateCreditsInfo_data.total_medical_company_unallocation | currency('', 2, { thousandsSeparator: ',' }) }}
+						<p class="uppercase">
+							{{corporateCreditsInfo_data.total_medical_company_unallocation | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Spent:</label>
-						<p>
-							<span>SGD</span> {{corporateCreditsInfo_data.total_medical_employee_spent | currency('', 2, { thousandsSeparator: ',' }) }}
+						<p class="uppercase">
+							{{corporateCreditsInfo_data.total_medical_employee_spent | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Balance:</label>
-						<p>
-							<span>SGD</span> {{corporateCreditsInfo_data.total_medical_employee_balance | currency('', 2, { thousandsSeparator: ',' }) }}
+						<p class="uppercase">
+						 {{corporateCreditsInfo_data.total_medical_employee_balance | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 					</div>
 
@@ -106,47 +106,48 @@
 
 					<div class="info-div-inline">
 						<label>Total:</label>
-						<p>
-							<span>SGD</span> {{corporateCreditsInfo_data.total_medical_wellness_allocation | currency('', 2, { thousandsSeparator: ',' }) }}
+						<p class="uppercase"> 
+							{{corporateCreditsInfo_data.total_medical_wellness_allocation | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Allocated:</label>
-						<p>
-							<span>SGD</span> {{corporateCreditsInfo_data.total_wellness_employee_allocated | currency('', 2, { thousandsSeparator: ',' }) }}
+						<p class="uppercase">
+							{{corporateCreditsInfo_data.total_wellness_employee_allocated | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Unallocated:</label>
-						<p>
-							<span>SGD</span> {{corporateCreditsInfo_data.total_medical_wellness_unallocation | currency('', 2, { thousandsSeparator: ',' }) }}
+						<p class="uppercase">
+							{{corporateCreditsInfo_data.total_medical_wellness_unallocation | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Spent:</label>
-						<p>
-							<span>SGD</span> {{corporateCreditsInfo_data.total_wellness_employee_spent | currency('', 2, { thousandsSeparator: ',' }) }}
+						<p class="uppercase">
+							{{corporateCreditsInfo_data.total_wellness_employee_spent | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Balance:</label>
-						<p>
-							<span>SGD</span> {{corporateCreditsInfo_data.total_wellness_employee_balance | currency('', 2, { thousandsSeparator: ',' }) }}
+						<p class="uppercase">
+							{{corporateCreditsInfo_data.total_wellness_employee_balance | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 					</div>
 
 					<div class="white-space-20"></div>
-					<div class="info-div credit-reset">
+					<div class="info-div credit-reset" v-if="corporateDetails_data.last_credit_reset_data">
 						<label>Latest Credit Reset Date</label>
-						<p>{{corporateDetails_data.last_credit_reset_data}}</p>
+						<p>{{ formatDate(corporateDetails_data.last_credit_reset_data, null, 'DD MMMM, YYYY') }}</p>
 					</div>
 
 					<div class="white-space-50"></div>
 					<div class="btn-container">
-						<router-link tag="div" :to="{ name : 'PlanRenewal' }"><button class="btn btn-primary txt-transform-uppercase">Plan Renewal Details</button></router-link>
-						<router-link tag="div" :to="{ name : 'Clinic' }"><button class="btn btn-primary txt-transform-uppercase">Spending Account Renewal Details</button></router-link>
-						<router-link tag="div" :to="{ name : 'Clinic' }"><button class="btn btn-primary txt-transform-uppercase">Send Plan Expiration Notification</button></router-link>
+						<router-link tag="div" :to="{ name : 'PlanRenewal' }"><button v-if="corporateRenewalStatus_data.to_plan_renew" class="btn btn-primary txt-transform-uppercase">Plan Renewal Details</button></router-link>
+						<router-link tag="div" :to="{ name : 'Clinic' }"><button v-if="corporateRenewalStatus_data.to_spending_renew && !corporateRenewalStatus_data.combine" class="btn btn-primary txt-transform-uppercase">Spending Account Renewal Details</button></router-link>
+						<router-link tag="div" :to="{ name : 'Clinic' }"><button v-if="corporateCreditsInfo_data.to_expire" class="btn btn-primary txt-transform-uppercase">Send Plan Expiration Notification</button></router-link>
 						<router-link tag="div" :to="{ name : 'Clinic' }"><button class="btn btn-primary txt-transform-uppercase">Corporate Details</button></router-link>
+						<router-link tag="div" :to="{ name : 'CorporateSettings' }"><button class="btn btn-primary txt-transform-uppercase">Pending Enrollnent <span ng-bind="corprorate_details.pending_enrollment"> 0 </span></button></router-link>
 						<router-link tag="div" :to="{ name : 'CorporateSettings' }"><button class="btn btn-primary txt-transform-uppercase">Settings</button></router-link>
 					</div>
 				</div>
@@ -162,7 +163,11 @@
 						</a> -->
 					</div>
 					<div class="col-2">
-						<div class="close-btn corporate" v-on:click="$router.push({ name: 'Corporates'})">
+						<div v-if="$route.name == 'CorporateMemberList'" class="close-btn corporate" v-on:click="$router.push({ name: 'Corporates'})">
+							<span class="oi" data-glyph="x" aria-hidden="true"></span>
+						</div>
+
+						<div v-else class="close-btn corporate" v-on:click="$router.push({ name: 'CorporateMemberList'})">
 							<span class="oi" data-glyph="x" aria-hidden="true"></span>
 						</div>
 					</div>
@@ -171,6 +176,10 @@
 				<router-view name="child"></router-view>
 			</div>
 		</div>
+
+		<transition name="fade">
+			<Loader v-if="showLoader"></Loader>
+		</transition>
 	</div>
 </template>
 
