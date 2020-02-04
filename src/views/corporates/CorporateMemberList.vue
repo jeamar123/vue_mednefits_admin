@@ -94,8 +94,8 @@
 								<!-- lacking data sa api -->
 								<span class="info-bind text-sm block">{{list.date_deleted || 'N/A'}}</span>
 							</div>
-							<div class="info-details" v-if="list.deletion_text">
-								<span class="info-bind text-sm block text-red-700">{{list.deletion_text || 'N/A'}}</span>
+							<div class="info-details" v-if="list.deletion_text || list.deletion">
+								<span class="info-bind text-sm block text-red-700">{{list.deletion_text ? list.deletion_text : 'walay deletion_text sa data sa api'}}</span>
 							</div>
 						</div>
 						<!-- end info-div -->
@@ -105,7 +105,7 @@
 							class="account-deactivated-status p-3 bg-red-300 text-center">
 							<span class="text-red-600 text-base">Account Deleted/Deactivated</span>
 						</div>
-						<button v-if="!list.deletion && list.active && !list.schedule || !list.deletion && list.active" ng-if="!list.deletion && !list.schedule && list.member.Active == 1"
+						<button v-if="!list.deletion && list.active && !list.schedule || !list.deletion && list.active && list.schedule == undefined" ng-if="!list.deletion && !list.schedule && list.member.Active == 1"
 							class="btn btn-transfer-company" @click="toggleTransferAccountModal(list)">Transfer Account</button>
 					</div>
 					<!-- end body -->
@@ -114,7 +114,7 @@
 		</div>
 
 		<!-- Pagination Start -->
-		<div v-show="corporate_pagination.totalPages > 0 && !searchActive" class="custom-pagination-container">
+		<div v-show="corporate_pagination.data && !searchActive" class="custom-pagination-container">
 			<div class="custom-pagination flex-wrap">
 				<div class="page-wrapper">
 					<div class="page-scroll-container m-0">
@@ -191,7 +191,7 @@
 					<div v-if="!showTransferCompanySummary">
 						<div>
 							User:
-							<span class="text-gray-600">{{selected_transfer_data.name}}</span>
+							<span class="text-gray-900">{{selected_transfer_data.name}}</span>
 						</div>
 						<div>
 							ID:
@@ -266,6 +266,10 @@
 			</div>
 		</Modal>
 		<!-- Modal End -->
+
+		<transition name="fade">
+			<Loader v-if="showLoader"></Loader>
+		</transition>
 	</div>
 	<!-- End corporate-members-container -->
 </template>
