@@ -294,7 +294,7 @@ var corporates = {
       this.searchPropertiesText = "";
       this.corporate_id_arr = [];
       this.export_data_header.map( ( value ) => {
-        value.isSelected = index > 6 ? false : true;
+        value.isSelected = false;
       });
       this.page_active = 1;
       this.page_limit = 10;
