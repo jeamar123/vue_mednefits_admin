@@ -43,22 +43,27 @@
       //   this.corporateViewStatus = opt;
       //   this.$router.push( { name : opt } );
       // }
+      getMemberEntitlement() {
+        this.emp_entitlement.medical_entitlement_date = moment(this.med_effective_date).format('DD/MM/YYYY');
+        this.emp_entitlement.wellness_entitlement_date = moment(this.well_effective_date).format('DD/MM/YYYY');
+        console.log(this.med_effective_date);
+      },
       entitlementCalc( type, cal ) {
 
-        var med_data = {
+        this.med_data = {
           member_id: this.member_id,
           new_entitlement_credits: this.emp_entitlement.medical_new_entitlement,
           entitlement_usage_date: moment(this.med_effective_date).format('YYYY-MM-DD'),
           proration_type: this.emp_entitlement.medical_proration,
-          entitlement_spending_type: type,
+          entitlement_spending_type: 'medical',
         }
 
-        var well_data = {
+        this.well_data = {
           member_id: this.member_id,
           new_entitlement_credits: this.emp_entitlement.wellness_new_entitlement,
           entitlement_usage_date: moment(this.well_effective_date).format('YYYY-MM-DD'),
           proration_type: this.emp_entitlement.wellness_proration,
-          entitlement_spending_type: type,
+          entitlement_spending_type: 'wellness',
         }
 
        
@@ -73,12 +78,14 @@
 
         if ( type == 'medical' ) {
           this.medicalCalculatedInfo = true;
-           console.log(med_data);
+          console.log(this.med_data);
+          this.getMemberEntitlement();
         }
 
         if ( type == 'wellness' ) {
           this.wellnessCalculatedInfo = true;
-           console.log(well_data);
+           console.log(this.well_data);
+           this.getMemberEntitlement();
         }
         
         
@@ -87,14 +94,18 @@
 
         if ( this.cal_one == true && this.cal_two == false ) {
           console.log('medical');
+          console.log(this.med_data);
         }
 
         if ( this.cal_two == true && this.cal_one == false ) {
           console.log('wellness');
+          console.log(this.well_data);
         }
 
         if ( this.cal_one == true && this.cal_two == true ) {
           console.log('medical ug wellness');
+          console.log(this.med_data);
+          console.log(this.well_data);
         }
 
       },

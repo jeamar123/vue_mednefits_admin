@@ -29,7 +29,7 @@
 	                <label class="entitlement-label currency-type">SGD</label>
 	                <input v-model="emp_entitlement.medical_new_entitlement" class="entitlement-input" type="number" placeholder="0.00" >
 	              </div>
-	              <p class="small">*Updated on <span>26/01/2020</span></p>
+	              <p class="small">*Updated on <span>{{ emp_entitlement.medical_entitlement_date }}</span></p>
 	            </div>
 						</div>
 						<div class="col-md-3">
@@ -48,7 +48,7 @@
 				            <i class="fa fa-calendar-o"></i>
 			            </div>
 	              </div>
-	              <p class="small">*Updated on <span>26/01/2020</span></p>
+	              <p class="small">*Updated on <span>{{ emp_entitlement.medical_entitlement_date }}</span></p>
 	            </div>
 						</div>
 						<div class="col-md-2">
@@ -101,7 +101,10 @@
 		              <label class="entitlement-label currency-type">SGD</label>
 		              <input v-model="emp_entitlement.original_wellness_entitlement" class="entitlement-input original-input" type="number" readonly="readonly" placeholder="0.00" >
 		            </div>
-		            <p class="small">*Updated from <span>SGD </span><span>200</span> to <span>SGD </span><span>12</span> on <span>26/01/2020</span></p>
+		            <p class="small">*Updated from <span>SGD </span>
+		            	<span>{{emp_entitlement.old_wellness_entitlement}}</span> to 
+		            	<span>SGD </span><span>{{emp_entitlement.original_wellness_entitlement}}</span> on 
+		            	<span>{{ emp_entitlement.wellness_entitlement_date }}</span></p>
 		          </div>
 						</div>
 						<div class="col-md-2">
@@ -111,7 +114,7 @@
 		              <label class="entitlement-label currency-type">SGD</label>
 		              <input v-model="emp_entitlement.wellness_new_entitlement" class="entitlement-input" type="number" placeholder="0.00" >
 		            </div>
-		            <p class="small">*Updated on <span>26/01/2020</span></p>
+		            <p class="small">*Updated on <span>{{ emp_entitlement.wellness_entitlement_date }}</span></p>
 		          </div>
 						</div>
 						<div class="col-md-3">
@@ -130,7 +133,7 @@
 				            <i class="fa fa-calendar-o"></i>
 			            </div>
 		            </div>
-		            <p class="small">*Updated on <span>26/01/2020</span></p>
+		            <p class="small">*Updated on <span>{{ emp_entitlement.wellness_entitlement_date }}</span></p>
 		          </div>
 						</div>
 						<div class="col-md-2">
