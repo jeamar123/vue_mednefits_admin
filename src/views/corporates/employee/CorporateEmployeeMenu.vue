@@ -65,13 +65,16 @@
 			<div class="spending-wrapper">
 				<p class="p-label">Medical Spending Account</p>
 				<div class="white-space-20"></div>
-				<div class="row-div">
-					<div class="label-text">
-						<label>Allocation</label>
+				<div class="allocation-wrapper">
+					<div class="row-div">
+						<div class="label-text">
+							<label>Allocation</label>
+						</div>
+						<div class="status-div">
+							<p>S$<span>0.00</span></p>
+						</div>
 					</div>
-					<div class="status-div">
-						<p>S$<span>0.00</span></p>
-					</div>
+					<p class="small"> *The amount of <span>SGD </span> <span>12.92 </span> will be update on <span>14/02/2020</span></p>
 				</div>
 				<div class="row-div">
 					<div class="label-text">
@@ -93,13 +96,16 @@
 				<div class="white-space-20"></div>
 				<p class="p-label">Wellness Spending Account</p>
 				<div class="white-space-20"></div>
-				<div class="row-div">
-					<div class="label-text">
-						<label>Allocation</label>
+				<div class="allocation-wrapper">
+					<div class="row-div">
+						<div class="label-text">
+							<label>Allocation</label>
+						</div>
+						<div class="status-div">
+							<p>S$<span>0.00</span></p>
+						</div>
 					</div>
-					<div class="status-div">
-						<p>S$<span>0.00</span></p>
-					</div>
+					<p class="small"> *The amount of <span>SGD </span> <span>12.92 </span> will be update on <span>14/02/2020</span></p>
 				</div>
 				<div class="row-div">
 					<div class="label-text">
