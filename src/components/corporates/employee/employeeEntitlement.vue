@@ -21,6 +21,9 @@
           original_wellness_entitlement: 0.00,
           medical_new_entitlement: '',
           wellness_new_entitlement: '',
+
+          updated_medical_entitlement: false,
+          updated_wellness_entitlement: false,
         },
         formats: {
           input: ["DD/MM/YYYY"],
@@ -46,7 +49,9 @@
       getMemberEntitlement() {
         this.emp_entitlement.medical_entitlement_date = moment(this.med_effective_date).format('DD/MM/YYYY');
         this.emp_entitlement.wellness_entitlement_date = moment(this.well_effective_date).format('DD/MM/YYYY');
-        console.log(this.med_effective_date);
+        // console.log(this.med_effective_date);
+        this.emp_entitlement.updated_medical_entitlement = true;
+        this.emp_entitlement.updated_wellness_entitlement = true;
       },
       entitlementCalc( type, cal ) {
 
@@ -79,13 +84,11 @@
         if ( type == 'medical' ) {
           this.medicalCalculatedInfo = true;
           console.log(this.med_data);
-          this.getMemberEntitlement();
         }
 
         if ( type == 'wellness' ) {
           this.wellnessCalculatedInfo = true;
            console.log(this.well_data);
-           this.getMemberEntitlement();
         }
         
         
@@ -95,17 +98,20 @@
         if ( this.cal_one == true && this.cal_two == false ) {
           console.log('medical');
           console.log(this.med_data);
+          this.getMemberEntitlement();
         }
 
         if ( this.cal_two == true && this.cal_one == false ) {
           console.log('wellness');
           console.log(this.well_data);
+          this.getMemberEntitlement();
         }
 
         if ( this.cal_one == true && this.cal_two == true ) {
           console.log('medical ug wellness');
           console.log(this.med_data);
           console.log(this.well_data);
+          this.getMemberEntitlement();
         }
 
       },

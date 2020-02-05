@@ -16,7 +16,7 @@
 	                <label class="entitlement-label currency-type">SGD</label>
 	                <input v-model="emp_entitlement.original_medical_entitlement" class="entitlement-input original-input" type="number" readonly="readonly" placeholder="0.00" >
 	              </div>
-	              <p class="small">*Updated from 
+	              <p v-if="emp_entitlement.updated_medical_entitlement" class="small">*Updated from 
 	              	<span>SGD </span><span>{{emp_entitlement.old_medical_entitlement}}</span> to <span>SGD </span>
 	              	<span>{{emp_entitlement.original_medical_entitlement}}</span> on <span>{{ emp_entitlement.medical_entitlement_date }}</span>
 	              </p>
@@ -29,7 +29,7 @@
 	                <label class="entitlement-label currency-type">SGD</label>
 	                <input v-model="emp_entitlement.medical_new_entitlement" class="entitlement-input" type="number" placeholder="0.00" >
 	              </div>
-	              <p class="small">*Updated on <span>{{ emp_entitlement.medical_entitlement_date }}</span></p>
+	              <p v-if="emp_entitlement.updated_medical_entitlement" class="small">*Updated on <span>{{ emp_entitlement.medical_entitlement_date }}</span></p>
 	            </div>
 						</div>
 						<div class="col-md-3">
@@ -48,7 +48,7 @@
 				            <i class="fa fa-calendar-o"></i>
 			            </div>
 	              </div>
-	              <p class="small">*Updated on <span>{{ emp_entitlement.medical_entitlement_date }}</span></p>
+	              <p v-if="emp_entitlement.updated_medical_entitlement" class="small">*Updated on <span>{{ emp_entitlement.medical_entitlement_date }}</span></p>
 	            </div>
 						</div>
 						<div class="col-md-2">
@@ -72,8 +72,8 @@
 										<span>SGD </span>
 										<span>12.50</span>
 									</h4>
-									<!-- <button :disabled="emp_entitlement.medical_new_entitlement == '' || med_effective_date == null " class="btn-update" @click="entitlementCalc('medical', calcOne)">Calculate</button> -->
-									<button class="btn-update" @click="entitlementCalc('medical',1)">Calculate</button>
+									<button :disabled="emp_entitlement.medical_new_entitlement == '' || med_effective_date == null " class="btn-update" @click="entitlementCalc('medical', 1)">Calculate</button>
+									<!-- <button class="btn-update" @click="entitlementCalc('medical',1)">Calculate</button> -->
 									<p v-if="false" class="effective-date-error">New Medical Entitlement Usage Date exceeded the Spending End Date.</p>
 								</div>
 							</div>
@@ -101,7 +101,7 @@
 		              <label class="entitlement-label currency-type">SGD</label>
 		              <input v-model="emp_entitlement.original_wellness_entitlement" class="entitlement-input original-input" type="number" readonly="readonly" placeholder="0.00" >
 		            </div>
-		            <p class="small">*Updated from <span>SGD </span>
+		            <p v-if="emp_entitlement.updated_wellness_entitlement" class="small">*Updated from <span>SGD </span>
 		            	<span>{{emp_entitlement.old_wellness_entitlement}}</span> to 
 		            	<span>SGD </span><span>{{emp_entitlement.original_wellness_entitlement}}</span> on 
 		            	<span>{{ emp_entitlement.wellness_entitlement_date }}</span></p>
@@ -114,7 +114,7 @@
 		              <label class="entitlement-label currency-type">SGD</label>
 		              <input v-model="emp_entitlement.wellness_new_entitlement" class="entitlement-input" type="number" placeholder="0.00" >
 		            </div>
-		            <p class="small">*Updated on <span>{{ emp_entitlement.wellness_entitlement_date }}</span></p>
+		            <p v-if="emp_entitlement.updated_wellness_entitlement" class="small">*Updated on <span>{{ emp_entitlement.wellness_entitlement_date }}</span></p>
 		          </div>
 						</div>
 						<div class="col-md-3">
@@ -133,7 +133,7 @@
 				            <i class="fa fa-calendar-o"></i>
 			            </div>
 		            </div>
-		            <p class="small">*Updated on <span>{{ emp_entitlement.wellness_entitlement_date }}</span></p>
+		            <p v-if="emp_entitlement.updated_wellness_entitlement" class="small">*Updated on <span>{{ emp_entitlement.wellness_entitlement_date }}</span></p>
 		          </div>
 						</div>
 						<div class="col-md-2">
@@ -157,8 +157,8 @@
 										<span>SGD </span>
 										<span>12.50</span>
 									</h4>
-									<!-- <button :disabled="emp_entitlement.wellness_new_entitlement == '' || well_effective_date == null " class="btn-update" @click="entitlementCalc('wellness', calcTwo)">Calculate</button> -->
-									<button class="btn-update" @click="entitlementCalc('wellness',2)">Calculate</button>
+									<button :disabled="emp_entitlement.wellness_new_entitlement == '' || well_effective_date == null " class="btn-update" @click="entitlementCalc('wellness', 2)">Calculate</button>
+									<!-- <button class="btn-update" @click="entitlementCalc('wellness',2)">Calculate</button> -->
 									<p v-if="false" class="effective-date-error">New Medical Entitlement Usage Date exceeded the Spending End Date.</p>
 								</div>
 							</div>
