@@ -228,13 +228,16 @@
           confirmButtonColor: "#25306C",
           cancelButtonColor: "#C1C1C1",
           showCancelButton: true,
-          showCloseButton: true,
+          showCloseButton: false,
           confirmButtonText: "Yes!",
           reverseButtons: true,
         }).then(result => {
           if (result) {
             console.log(result);
-            this.create_company.company_contacts.splice(index,1);
+            // console.log(result.dismiss);
+            if (result.value == true) {
+              this.create_company.company_contacts.splice(index,1);
+            }
           } 
         });
       },
