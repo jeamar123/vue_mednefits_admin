@@ -233,9 +233,9 @@
           reverseButtons: true,
         }).then(result => {
           if (result) {
-            // console.log(result);
+            console.log(result);
             // console.log(result.dismiss);
-            if (result.dismiss == 'cancel') {
+            if (result.dismiss == 'cancel' || result.value == true) {
               this.create_company.company_contacts.splice(index,1);
             }
           } 
