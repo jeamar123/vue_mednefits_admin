@@ -974,7 +974,7 @@
 			</div>
 
 			<div class="form-row justify-content-end margin-030">
-				<button v-on:click="createCorporateDashboard( create_company )" class="btn btn-primary">CREATE ACCOUNT</button>
+				<button v-on:click="createCorporateDashboard( create_company )" class="btn submit-add-corporate-btn">CREATE ACCOUNT</button>
 			</div>
 			<div class="white-space-50"></div>
 

@@ -30,6 +30,14 @@ $font-gray: #888;
   min-height: 50vh;
   position: relative;
 
+  .submit-add-corporate-btn {
+    background-color: #0392CF;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    padding: 12px 30px;
+  }
+
   .input-checkmark {
     border: 1px solid #dedede;
     border-radius: 2px;
