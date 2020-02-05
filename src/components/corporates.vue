@@ -9,6 +9,10 @@ var corporates = {
   },
   data() {
     return {
+      formats: {
+				input: ["DD/MM/YYYY"],
+				data: ["DD/MM/YYYY"]
+			},
       filterData: {
         start: null,
         end: null
@@ -294,7 +298,7 @@ var corporates = {
       this.searchPropertiesText = "";
       this.corporate_id_arr = [];
       this.export_data_header.map( ( value ) => {
-        value.isSelected = index > 6 ? false : true;
+        value.isSelected = false;
       });
       this.page_active = 1;
       this.page_limit = 10;
@@ -344,7 +348,7 @@ var corporates = {
 				if( key == this.export_data_keys.length - 1 ){
 					if( this.corporate_id_arr.length > 0 ){
 						this.corporate_id_arr.map((value2, key2) => {
-							if( this.export_data_header[ key2 .isSelected] == true ){
+							if( this.export_data_header[ key2 ].isSelected == true ){
 								params += ( "ids[]=" + value2 + "&" );
 							}
 							if( key2 == this.corporate_id_arr.length - 1 ){
@@ -356,11 +360,16 @@ var corporates = {
 					}
 				}
 			});
-		},
+    },
+    dateChanged( val ){
+      console.log( val );
+      console.log( this.filterData.start );
+      this.filterData.start = val.date;
+    },
 		exportCompanyCSV( params, params_header ){
 			let download_type = ['by_all'];
 			let params_download_type = '';
-			if( this.corporate_id_arr.length > 0  && ( this.corporate_id_arr.length == this.corporate_pagination.total ) ){
+			if( this.corporate_id_arr.length > 0 ){
 				download_type = ['by_id'];
 			}
 			if( this.filterData.start != null && this.filterData.end != null ){
@@ -377,6 +386,7 @@ var corporates = {
 			window.open( axios.defaults.serverUrl + '/company/corporate?isGetCSV=true' + params_download_type + '&token=' + localStorage.getItem('vue_admin_session') + '&' + params + params_header );
 		},
 		getCompanyList(){
+      console.log( this.corporate_id_arr );
 			this.$parent.showLoading();
 			this.isFilterModalShow = false;
 			var url = axios.defaults.serverUrl + '/company/corporate?page=' + this.page_active + '&limit=' + this.page_limit;
@@ -396,7 +406,7 @@ var corporates = {
 				// console.log(this.corporate_pagination);
 
 				this.corporate_list_arr.map(value => {
-					value.selected = false;
+          value.selected = $.inArray( value.corporate.customer_id, this.corporate_id_arr ) > -1 ? true : false;
 				});
 
 				// this.filterData = {

@@ -125,7 +125,7 @@
                 <span>{{ list.total_dependent_seat }}</span>
               </td>
               <td v-on:click="goToCompanyDetails( list )">
-                <span>{{ list.total_medical_credits }}</span>
+                <span>{{ list.total_medical_credits | number('0,0.00') }}</span>
               </td>
               <td v-on:click="goToCompanyDetails( list )">
                 <span v-show="list.employees.account_type == 'stand_alone_plan'">Pro Plan</span>
@@ -196,6 +196,7 @@
                 v-model="filterData.start"
                 :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
                 popover-visibility="focus"
+                :formats="formats"
               ></v-date-picker>
               <img class="calendar-icon" :src="'../assets/img/calendar-gray.png'"></i>
             </div>
@@ -208,6 +209,7 @@
                 v-model="filterData.end"
                 :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
                 popover-visibility="focus"
+                :formats="formats"
               ></v-date-picker>
               <img class="calendar-icon" :src="'../assets/img/calendar-gray.png'"></i>
             </div>
