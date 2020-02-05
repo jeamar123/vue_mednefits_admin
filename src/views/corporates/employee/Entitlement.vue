@@ -82,7 +82,7 @@
 									<i class="fa fa-chevron-down"></i> See how this is calculated
 								</div>
 								<p v-if="dropdownEntitlement.med_alloc_formula">New Prorated allocation is <br>
-									<span>SGD</span> <span>12</span> x <span>1</span>/<span>3</span> + <span>SGD</span> x <span>2</span>/<span>3</span> = <span>SGD</span> <span>12.50</span>
+									<span>{{calc_entitlement_med.currency_type}}</span> <span>{{emp_entitlement.original_medical_entitlement}}</span> x <span>{{calc_entitlement_med.plan_month_duration}}</span>/<span>{{calc_entitlement_med.plan_year_duration}}</span> + <span>{{calc_entitlement_med.currency_type}} </span>{{emp_entitlement.medical_new_entitlement}}<span></span> x <span>{{calc_entitlement_med.entitlement_duration}}</span>/<span>{{calc_entitlement_med.plan_year_duration}}</span> = <span>{{calc_entitlement_med.currency_type}}</span> <span>{{ new_allocation_med }}</span>
 								</p>
 							</div>
 						</div>
@@ -167,7 +167,7 @@
 									<i class="fa fa-chevron-down"></i> See how this is calculated
 								</div>
 								<p v-if="dropdownEntitlement.well_alloc_formula">New Prorated allocation is <br>
-									<span>SGD</span> <span>12</span> x <span>1</span>/<span>3</span> + <span>SGD</span> x <span>2</span>/<span>3</span> = <span>SGD</span> <span>12.50</span>
+									<span>{{calc_entitlement_well.currency_type}}</span> <span>{{emp_entitlement.original_wellness_entitlement}}</span> x <span>{{calc_entitlement_well.plan_month_duration}}</span>/<span>{{calc_entitlement_well.plan_year_duration}}</span> + <span>{{calc_entitlement_well.currency_type}} </span>{{emp_entitlement.medical_new_entitlement}}<span></span> x <span>{{calc_entitlement_well.entitlement_duration}}</span>/<span>{{calc_entitlement_well.plan_year_duration}}</span> = <span>{{calc_entitlement_well.currency_type}}</span> <span>{{ new_allocation_well }}</span>
 								</p>
 							</div>
 						</div>

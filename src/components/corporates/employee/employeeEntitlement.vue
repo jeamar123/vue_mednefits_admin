@@ -16,15 +16,31 @@
           med_alloc_formula: false,
           well_alloc_formula: false,
         },
+        // sample data
         emp_entitlement: {
-          original_medical_entitlement: 0.00,
-          original_wellness_entitlement: 0.00,
+          original_medical_entitlement: 0,
+          original_wellness_entitlement: 0,
           medical_new_entitlement: '',
           wellness_new_entitlement: '',
 
           updated_medical_entitlement: false,
           updated_wellness_entitlement: false,
         },
+        calc_entitlement_med: {
+          currency_type: 'SGD',
+          plan_month_duration: 11,
+          plan_year_duration: 12,
+          entitlement_duration: 1,
+        },
+        calc_entitlement_well: {
+          currency_type: 'SGD',
+          plan_month_duration: 11,
+          plan_year_duration: 12,
+          entitlement_duration: 1,
+        },
+        // end of sample data
+        new_allocation_med: undefined,
+        new_allocation_well: undefined,
         formats: {
           input: ["DD/MM/YYYY"],
           data: ["DD/MM/YYYY"]
@@ -50,8 +66,11 @@
         this.emp_entitlement.medical_entitlement_date = moment(this.med_effective_date).format('DD/MM/YYYY');
         this.emp_entitlement.wellness_entitlement_date = moment(this.well_effective_date).format('DD/MM/YYYY');
         // console.log(this.med_effective_date);
+        //sample update entitlement
         this.emp_entitlement.updated_medical_entitlement = true;
         this.emp_entitlement.updated_wellness_entitlement = true;
+
+
       },
       entitlementCalc( type, cal ) {
 
