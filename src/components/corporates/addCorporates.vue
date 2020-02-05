@@ -398,10 +398,10 @@
         this.create_company.wellness_spending_end_date = moment(this.create_company.wellness_spending_end_date).format('YYYY-MM-DD');
         this.create_company.send_account_email_date = moment(this.create_company.send_account_email_date).format('YYYY-MM-DD');
         this.create_company.dependent_plan_start = moment(this.create_company.dependent_plan_start).format('YYYY-MM-DD');
-        this.create_company.duration = `${ this.create_company.duration_value } ${ this.create_company.duration_type }`
-        this.create_company.employee_plan_duration = `${ this.create_company.duration_value_extension } ${ this.create_company.employee_duration_extension_type }`
+        // this.create_company.duration = `${ this.create_company.duration_value } ${ this.create_company.duration_type }`
+        this.create_company.employee_plan_duration = `${ this.create_company.duration_value } ${ this.create_company.duration_type }`
         this.create_company.employee_duration_extension = `${ this.create_company.duration_value_extension } ${ this.create_company.employee_duration_extension_type }`
-        this.create_company.dependent_plan_duration = `${ this.create_company.duration_value_extension } ${ this.create_company.employee_duration_extension_type }`
+        this.create_company.dependent_plan_duration = `${ this.create_company.duration_value } ${ this.create_company.duration_type }`
         this.create_company.duration_extension_dependents = `${ this.create_company.duration_value_extension } ${ this.create_company.employee_duration_extension_type }`
 
         // let data = {
