@@ -267,9 +267,9 @@
 		</Modal>
 		<!-- Modal End -->
 
-		<transition name="fade">
+		<!-- <transition name="fade">
 			<Loader v-if="showLoader"></Loader>
-		</transition>
+		</transition> -->
 	</div>
 	<!-- End corporate-members-container -->
 </template>
