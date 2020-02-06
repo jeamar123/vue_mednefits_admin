@@ -128,12 +128,13 @@
                 <span>{{ list.total_medical_credits | number('0,0.00') }}</span>
               </td>
               <td v-on:click="goToCompanyDetails( list )">
-                <span v-show="list.employees.account_type == 'stand_alone_plan'">Pro Plan</span>
+                <span>{{ list.account_type }}</span>
+                <!-- <span v-show="list.employees.account_type == 'stand_alone_plan'">Pro Plan</span>
                 <span v-show="list.employees.account_type == 'insurance_bundle'">Insurance Bundle</span>
                 <span v-show="list.employees.account_type == 'trial_plan'">Trial Plan</span>
                 <span v-show="list.employees.account_type == 'lite_plan'">Lite Plan</span>
                 <span v-show="list.employees.account_type == 'super_pro_plan'">Super Pro Plan</span>
-                <span v-show="list.employees.account_type == 'enterprise_plan'">Enterprise Plan</span>
+                <span v-show="list.employees.account_type == 'enterprise_plan'">Enterprise Plan</span> -->
               </td>
             </tr>
           </tbody>

@@ -407,7 +407,7 @@ var corporates = {
 				console.log( res );
 				this.corporate_list_arr = res.data.data;
         this.corporate_pagination = res.data;
-        this.overallTotalCompanies = this.corporate_pagination.total == 0 ? this.corporate_pagination.total : this.overallTotalCompanies;
+        this.overallTotalCompanies = this.overallTotalCompanies == 0 ? this.corporate_pagination.total : this.overallTotalCompanies;
 				// console.log(this.corporate_list_arr);
 				// console.log(this.corporate_pagination);
         console.log( this.exportAllCompany );
