@@ -29,7 +29,9 @@ let corporateMemberList = {
 
 			// ---for get member details and pagination ---
 			corporate_members: [],
-			corporate_pagination: [],
+			corporate_pagination: {
+				data: [],
+			},
 			page_active: 1,
 			page_limit: 10,
 			searchEmployee: "",

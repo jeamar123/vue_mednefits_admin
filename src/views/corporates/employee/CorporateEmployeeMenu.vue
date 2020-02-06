@@ -74,33 +74,36 @@
 					</div>
 				</div>
 				<div class="row-div block">
-					<div class="flex">
-						<div class="label-text">
-							<label>Usage</label>
+					<div class="flex cursor-pointer" @click="spendingUsage('medical')">
+						<div class="label-text" >
+							<label class="cursor-pointer">Usage</label>
 						</div>
 						<div class="status-div">
-							<p><span class="uppercase">{{employee_side_info.spending_account.medical.credits_spent | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
+							<p><span class="uppercase">{{(employee_side_info.spending_account.medical.credits_spent + employee_side_info.spending_account.medical.e_claim_amount_pending_medication) | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span> <i :class="{'fa-angle-right': !employee_side_info.spending_account.medical.usage, 'fa-angle-down': employee_side_info.spending_account.medical.usage}" class="fa ml-2 text-lg font-bold" aria-hidden="true"></i></p>
+							
 						</div>
 					</div>
-	
-					<template v-if="true">
-							<div class="flex font-normal">
-							<div class="label-text text-sm">
-								<label>Spent</label>
+
+					<transition name="fade"> 
+						<div v-if="employee_side_info.spending_account.medical.usage">
+							<div class="flex">
+								<div class="label-text font-normal text-sm">
+									<label>Spent</label>
+								</div>
+								<div class="status-div text-sm">
+									<p><span class="uppercase">{{employee_side_info.spending_account.medical.credits_spent | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
+								</div>
 							</div>
-							<div class="status-div text-sm">
-								<p><span class="uppercase">{{employee_side_info.spending_account.medical.credits_spent | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
+							<div class="flex">
+								<div class="label-text font-normal text-sm">
+									<label>Pending claim</label>
+								</div>
+								<div class="status-div text-sm">
+									<p><span class="uppercase">{{employee_side_info.spending_account.medical.e_claim_amount_pending_medication | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
+								</div>
 							</div>
 						</div>
-						<div class="flex">
-							<div class="label-text text-sm">
-								<label>Pending claim</label>
-							</div>
-							<div class="status-div text-sm">
-								<p><span class="uppercase">{{employee_side_info.spending_account.medical.credits_spent | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
-							</div>
-						</div>
-					</template>
+					</transition>
 					
 				</div>
 				<div class="row-div">
@@ -123,13 +126,37 @@
 						<p><span class="uppercase">{{ employee_side_info.spending_account.wellness.credits_allocation_wellness | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' }) }}</span></p>
 					</div>
 				</div>
-				<div class="row-div">
-					<div class="label-text">
-						<label>Usage</label>
+				<div class="row-div block">
+					<div class="flex cursor-pointer" @click="spendingUsage('wellness')">
+						<div class="label-text">
+							<label class="cursor-pointer">Usage</label>
+						</div>
+						<div class="status-div">
+							<p><span class="uppercase">{{ (employee_side_info.spending_account.wellness.credits_spent_wellness + employee_side_info.spending_account.wellness.e_claim_amount_pending_wellness) | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' }) }}</span> <i :class="{'fa-angle-right': !employee_side_info.spending_account.wellness.usage, 'fa-angle-down': employee_side_info.spending_account.wellness.usage}" class="fa ml-2 text-lg font-bold" aria-hidden="true"></i></p>
+						</div>
 					</div>
-					<div class="status-div">
-						<p><span class="uppercase">{{ employee_side_info.spending_account.wellness.credits_spent_wellness | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' }) }}</span></p>
-					</div>
+				
+
+					<transition name="fade"> 
+						<div v-if="employee_side_info.spending_account.wellness.usage">
+							<div class="flex">
+								<div class="label-text font-normal text-sm">
+									<label>Spent</label>
+								</div>
+								<div class="status-div text-sm">
+									<p><span class="uppercase">{{employee_side_info.spending_account.wellness.credits_spent_wellness | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
+								</div>
+							</div>
+							<div class="flex">
+								<div class="label-text font-normal text-sm">
+									<label>Pending claim</label>
+								</div>
+								<div class="status-div text-sm">
+									<p><span class="uppercase">{{employee_side_info.spending_account.wellness.e_claim_amount_pending_wellness | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
+								</div>
+							</div>
+						</div>
+					</transition>
 				</div>
 				<div class="row-div">
 					<div class="label-text">
