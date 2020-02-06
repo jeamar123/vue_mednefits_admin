@@ -142,7 +142,8 @@ var corporates = {
       ],
       page_active: 1,
       page_limit: 10,
-      pagesToDisplay: 5
+      pagesToDisplay: 5,
+      overallTotalCompanies: 0,
     };
   },
   created() {
@@ -263,8 +264,11 @@ var corporates = {
         this.corporate_id_arr.push( list.corporate.customer_id );
       }else{
         this.corporate_id_arr.splice( $.inArray( list.corporate.customer_id, this.corporate_id_arr ) , 1);
-        this.exportAllCompany = false;
-        this.allCompanySelected = false;
+        // this.exportAllCompany = false;
+        // this.allCompanySelected = false;
+        if( this.exportAllCompany == true ){
+          this.overallTotalCompanies -= 1;
+        }
       }
       if( this.corporate_id_arr.length == this.corporate_pagination.total ){
         this.exportAllCompany = true;
@@ -293,11 +297,12 @@ var corporates = {
         start: null,
         end: null
       };
+      this.exportAllCompany = false;
       this.allCompanySelected = false;
       this.search_text = "";
       this.searchPropertiesText = "";
       this.corporate_id_arr = [];
-      this.export_data_header.map( ( value ) => {
+      this.export_data_header.map( ( value, index ) => {
         value.isSelected = index > 6 ? false : true;
       });
       this.page_active = 1;
@@ -307,6 +312,9 @@ var corporates = {
     },
     selectAllCompany(){
       this.exportAllCompany = true;
+      this.corporate_list_arr.map(value => {
+        value.selected = true;
+      });
     },
     clearAllCompany(){
       this.exportAllCompany = false;
@@ -384,7 +392,6 @@ var corporates = {
 			window.open( axios.defaults.serverUrl + '/company/corporate?isGetCSV=true' + params_download_type + '&token=' + localStorage.getItem('vue_admin_session') + '&' + params + params_header );
 		},
 		getCompanyList(){
-      console.log( this.corporate_id_arr );
 			this.$parent.showLoading();
 			this.isFilterModalShow = false;
 			var url = axios.defaults.serverUrl + '/company/corporate?page=' + this.page_active + '&limit=' + this.page_limit;
@@ -400,11 +407,20 @@ var corporates = {
 				console.log( res );
 				this.corporate_list_arr = res.data.data;
         this.corporate_pagination = res.data;
+        this.overallTotalCompanies = this.corporate_pagination.total == 0 ? this.corporate_pagination.total : this.overallTotalCompanies;
 				// console.log(this.corporate_list_arr);
 				// console.log(this.corporate_pagination);
-
+        console.log( this.exportAllCompany );
 				this.corporate_list_arr.map(value => {
-          value.selected = $.inArray( value.corporate.customer_id, this.corporate_id_arr ) > -1 ? true : false;
+          if( this.exportAllCompany == true ){
+            value.selected = true;
+          }else{
+            value.selected = $.inArray( value.corporate.customer_id, this.corporate_id_arr ) > -1 ? true : false;
+          }
+
+          if( $.inArray( value.corporate.customer_id, this.corporate_id_arr ) > -1 ){
+            this.allCompanySelected = true;
+          }
 				});
 
 				// this.filterData = {

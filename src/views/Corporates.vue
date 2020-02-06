@@ -73,7 +73,7 @@
               <th class="selected-companies">
                 <span>
                   <span></span>
-                  <span>{{ exportAllCompany == true ? corporate_pagination.total : corporate_id_arr.length }}</span>
+                  <span>{{ exportAllCompany == true ? overallTotalCompanies : corporate_id_arr.length }}</span>
                    selected
                 </span>
               </th>
