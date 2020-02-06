@@ -284,7 +284,7 @@ let corporateMemberList = {
 				search: item
 			};
 
-			this.showLoading();
+			this.$parent.showLoading();
 			let url = `${axios.defaults.serverUrl}/company/employee_lists?customer_id=${data.customer_id}&page=${data.page}&limit=${data.limit}&search=${data.search}`;
 			axios
 				.get(url)
@@ -308,7 +308,7 @@ let corporateMemberList = {
 
 						this.searchActive = true;
 						console.log("search member list", this.corporate_members);
-						this.hideLoading();
+						this.$parent.hideLoading();
 					}
 				})
 				.catch(err => {
