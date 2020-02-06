@@ -7,6 +7,7 @@ let employeeSettings = {
 		Modal
 	},
 	props: {
+		customer_id: [String, Number],
 		member_id: [String, Number],
 		name: [String, Number]
 	},
@@ -56,6 +57,11 @@ let employeeSettings = {
 				data: ["DD/MM/YYYY"]
 			},
 			cap_per_visit: '',
+			showEmpRenewPlanSummary: false,
+			// Sample data for re new plan modal 
+			selected_user_data: {
+				new_start_date: '',
+			}
 		};
 	},
 	created() {
@@ -320,7 +326,15 @@ let employeeSettings = {
 		},
 		unPinSetup() {
 			// function here
-		}
+		},
+		// Renew Plan Modal
+		toggleEmpRenewPlanSummary() {
+			if (this.showEmpRenewPlanSummary == false) {
+				this.showEmpRenewPlanSummary = true;
+			} else {
+				this.showEmpRenewPlanSummary = false;
+			}
+		},
 	}
 }
 
