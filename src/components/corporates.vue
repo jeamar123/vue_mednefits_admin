@@ -266,9 +266,9 @@ var corporates = {
         this.corporate_id_arr.splice( $.inArray( list.corporate.customer_id, this.corporate_id_arr ) , 1);
         // this.exportAllCompany = false;
         // this.allCompanySelected = false;
-        if( this.exportAllCompany == true ){
-          this.overallTotalCompanies -= 1;
-        }
+      }
+      if( this.exportAllCompany == true ){
+        this.overallTotalCompanies = opt == true ? this.overallTotalCompanies + 1 : this.overallTotalCompanies - 1;
       }
       if( this.corporate_id_arr.length == this.corporate_pagination.total ){
         this.exportAllCompany = true;
