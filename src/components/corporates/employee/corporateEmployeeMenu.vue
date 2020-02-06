@@ -17,7 +17,12 @@ let corporateEmployeeMenu = {
 			showLoader: false,
 			// -----------------
 			// ---- Data storage ------
-			employee_side_info: {},
+			employee_side_info: {
+				spending_account: {
+					medical: {},
+					wellness: {},
+				}
+			},
 			// ------------------------
 			data: null,
 			sideBar: {
@@ -58,35 +63,42 @@ let corporateEmployeeMenu = {
 
 		// API calls
 		onLoad() {
-			this.showLoading();
+			// this.$parent.showLoading();
 			let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
 
-			axios.all([ //butang sa array ang ipa load na api or function para masunod ug tawag.
-				axios.get(get_employee_details),
+			axios.all([ //butang sa array ang ipa load na api or function para in order pag tawag.
+				// axios.get(get_employee_details),
+				this.getEmployeeSideDetails(),
 			]).then(res => {
 				// Log the data to the console
 				// You would do something with both sets of data here
-				console.log(res);
-				if (res[0].status == 200) {
-					this.employee_side_info = res[0].data.data;
-					console.log(this.employee_side_info);
-				}
-				this.hideLoading();
+				// console.log(res);
+				// this.$parent.hideLoading();
 			}).catch(error => {
 				// if there's an error, log it
 				console.log(error);
-				this.hideLoading();
+				// this.parent.hideLoading();
 			});
-
-			// Promise.all([
-			// 	this.getCorporateDetails(),
-			// 	this.getCorporateCreditsInfo(),
-			// 	this.getCustomerRenewalStatus(),
-			// ]).then( res => {
-			// 	console.log('mana ang side bar summary');
-			// 	// this.hideLoading();
-			// })
 		},
+		getEmployeeSideDetails() {
+			// for single  buttons or manual trigger
+			let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
+			axios.get(get_employee_details)
+				.then(res => {
+					// Log the data to the console
+					// You would do something with both sets of data here
+					console.log(res);
+					if (res.status == 200) {
+						this.employee_side_info = res.data.data;
+						console.log(this.employee_side_info);
+					}
+					// this.$parent.hideLoading();
+				}).catch(error => {
+					// if there's an error, log it
+					console.log(error);
+					// this.$parent.hideLoading();
+				});
+		}
 	}
 }
 

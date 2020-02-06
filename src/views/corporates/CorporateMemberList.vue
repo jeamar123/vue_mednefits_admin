@@ -12,8 +12,8 @@
 		</div>
 		<!-- Search-member End -->
 
-		<div class="member-list-container flex flex-wrap">
-			<div class="member-wrapper xl:w-1/3 lg:w-1/3 md:w-1/2 sm:w-1/2 xs:w-full my-3 mx-3" v-for="list in corporate_members"
+		<div class="member-list-container flex flex-wrap md:justify-center">
+			<div class="member-wrapper my-3 mx-3" v-for="list in corporate_members"
 				:key="list.index" ng-repeat="list in corporate_members | orderBy: list.member.created_at">
 				<template>
 					<div class="header" @click="goToEmployeeInformation(list)">
@@ -114,7 +114,7 @@
 		</div>
 
 		<!-- Pagination Start -->
-		<div v-show="corporate_pagination.length > 5 && !searchActive" class="custom-pagination-container">
+		<div v-show="corporate_pagination.data.length > 5 && !searchActive" class="custom-pagination-container">
 			<div class="custom-pagination flex-wrap">
 				<div class="page-wrapper">
 					<div class="page-scroll-container m-0">

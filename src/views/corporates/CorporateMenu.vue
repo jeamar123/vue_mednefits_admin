@@ -162,7 +162,7 @@
 						<router-link tag="div" :to="{ name : 'Clinic' }"><button v-if="corporateRenewalStatus_data.to_spending_renew && !corporateRenewalStatus_data.combine" class="btn btn-primary txt-transform-uppercase">Spending Account Renewal Details</button></router-link>
 						<router-link tag="div" :to="{ name : 'Clinic' }"><button v-if="corporateCreditsInfo_data.to_expire" class="btn btn-primary txt-transform-uppercase">Send Plan Expiration Notification</button></router-link>
 						<router-link tag="div" :to="{ name : 'Clinic' }"><button class="btn btn-primary txt-transform-uppercase">Corporate Details</button></router-link>
-						<router-link tag="div" :to="{ name : 'CorporateSettings' }"><button class="btn btn-primary txt-transform-uppercase">Pending Enrollnent <span ng-bind="corprorate_details.pending_enrollment"> 0 </span></button></router-link>
+						<router-link tag="div" :to="{ name : 'CorporateSettings' }"><button v-if="false" class="btn btn-primary txt-transform-uppercase">Pending Enrollnent <span ng-bind="corprorate_details.pending_enrollment"> 0 </span></button></router-link>
 						<router-link tag="div" :to="{ name : 'CorporateSettings' }"><button class="btn btn-primary txt-transform-uppercase">Settings</button></router-link>
 					</div>
 				</div>

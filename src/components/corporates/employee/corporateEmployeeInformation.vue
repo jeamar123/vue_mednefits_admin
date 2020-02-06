@@ -1,5 +1,8 @@
 <script>
 import Modal from "../../../views/modal/Modal.vue";
+import axios from "axios";
+import moment from "moment"
+
 
 let corporateEmployeeInformation = {
 	components: {
@@ -48,14 +51,71 @@ let corporateEmployeeInformation = {
 			formats: {
 				input: ["DD/MM/YYYY"],
 				data: ["DD/MM/YYYY"]
-			}
+			},
+			// ---- Data storage ------
+			employee_info: {
+				spending_account: {
+					medical: {},
+					wellness: {},
+				}
+			},
+			// ------------------------
 		};
 	},
 	created() {
 		console.log(`${this.member_id} ug is  ${this.name}`);
 		this.healthPartnerViewStatus = this.$route.name;
+
+		this.onLoad();
 	},
 	methods: {
+		formatDate(date, from, to) {
+			if (date != null) {
+				return moment(date, from).format(to);
+			}
+		},
+		// - New methotds -
+
+		//api calls
+		// API calls
+		onLoad() {
+			this.$parent.showLoading();
+			let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
+
+			axios.all([ //butang sa array ang ipa load na api or function para in order pag tawag.
+				// axios.get(get_employee_details),
+				this.getEmployeeDetails(),
+			]).then(res => {
+				// Log the data to the console
+				// You would do something with both sets of data here
+				// console.log(res);
+				this.$parent.hideLoading();
+			}).catch(error => {
+				// if there's an error, log it
+				console.log(error);
+				this.parent.hideLoading();
+			});
+		},
+		getEmployeeDetails() {
+			// for single  buttons or manual trigger
+			let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
+			axios.get(get_employee_details)
+				.then(res => {
+					// Log the data to the console
+					// You would do something with both sets of data here
+					console.log(res);
+					if (res.status == 200) {
+						this.employee_info = res.data.data;
+						console.log(this.employee_info);
+					}
+					// this.$parent.hideLoading();
+				}).catch(error => {
+					// if there's an error, log it
+					console.log(error);
+					// this.$parent.hideLoading();
+				});
+		},
+		//-------------
 		selectHealthPartnerView(opt) {
 			this.healthPartnerViewStatus = opt;
 			this.$router.push({ name: opt });
