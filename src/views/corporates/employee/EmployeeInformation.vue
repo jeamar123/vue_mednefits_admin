@@ -12,50 +12,50 @@
 					<div class="col-1-emp-info-details">
 						<div>
 							<strong>Full Name</strong>
-							<span>Honglay Rose Lim</span>
+							<span>{{employee_info.fullname || 'N/A'}}</span>
 						</div>
 						<div>
 							<strong>Date of Birth</strong>
-							<span>2019-03-04</span>
+							<span>{{ formatDate(employee_info.dob, null, 'DD-MM-YYYY') }}</span>
 						</div>
 						<div>
 							<strong>Postal Code</strong>
-							<span>12345</span>
+							<span>{{employee_info.postal_code || 'N/A'}}</span>
 						</div>
 						<div>
 							<strong>Job Title</strong>
-							<span>Other</span>
+							<span>{{employee_info.job_title || 'N/A'}}</span>
 						</div>
 						<div>
 							<strong>Mobile Country Code</strong>
-							<span>+65</span>
+							<span>{{employee_info.phone_code || 'N/A'}}</span>
 						</div>
 						<div>
 							<strong>Mobile Number</strong>
-							<span>+639064317892</span>
+							<span>{{employee_info.phone_no || 'N/A'}}</span>
 						</div>
 					</div>
 
 					<div class="col-2-emp-info-details">
 						<div>
 							<strong>Member ID</strong>
-							<span>023735</span>
+							<span>{{employee_info.member_id || 'N/A'}}</span>
 						</div>
 						<div>
 							<strong>Work Email</strong>
-							<span>honglay@mednefits.com</span>
+							<span>{{employee_info.work_email || 'N/A'}}</span>
 						</div>
 						<div>
 							<strong>Bank Account Number</strong>
-							<span></span>
+							<span>{{employee_info.bank_account_number || 'N/A'}}</span>
 						</div>
 						<div>
 							<strong>Bank Code</strong>
-							<span></span>
+							<span>{{employee_info.bank_code || 'N/A'}}</span>
 						</div>
 						<div>
 							<strong>Bank BRH</strong>
-							<span></span>
+							<span>{{employee_info.bank_brh || 'N/A'}}</span>
 						</div>
 						<div>
 							<strong>For Cummunication</strong>

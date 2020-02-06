@@ -17,9 +17,6 @@ let corporateMemberList = {
 	},
 	data() {
 		return {
-			// --- Loading State ---
-			showLoader: false,
-			// ---------------------
 			// --- Date options ---
 			formats: {
 				input: ["DD/MM/YYYY"],
@@ -59,7 +56,6 @@ let corporateMemberList = {
 		// this.customer_id = this.selectedCorporate.corporate.customer_id;
 
 		this.getMemberList();
-		console.log(2);
 		this.getCompanyList();
 
 		// await this.hideLoading();
@@ -83,13 +79,6 @@ let corporateMemberList = {
 			if (date != null) {
 				return moment(date, from).format(to);
 			}
-		},
-		// --- Methods Loading ------
-		showLoading() {
-			this.showLoader = true;
-		},
-		hideLoading() {
-			this.showLoader = false;
 		},
 		goToEmployeeInformation(list) {
 			console.log("Employee Information ", list);
@@ -252,12 +241,11 @@ let corporateMemberList = {
 				limit: this.page_limit
 				// search: this.searchEmployee
 			};
-			// this.showLoading();
+			this.$parent.showLoading();
 			let url = `${axios.defaults.serverUrl}/company/employee_lists?customer_id=${data.customer_id}&page=${data.page}&limit=${data.limit}`;
 			axios
 				.get(url)
 				.then(res => {
-					// this.showLoading();
 					console.log("member list", res);
 					if (res.status == 200) {
 						this.corporate_members = res.data.data;
@@ -277,7 +265,7 @@ let corporateMemberList = {
 						});
 						this.searchActive = false;
 						console.log("member list", this.corporate_members);
-						// this.hideLoading();
+						this.$parent.hideLoading();
 					}
 				})
 				.catch(err => {
@@ -342,7 +330,6 @@ export default corporateMemberList;
 <style lang="scss" scoped>
 @import "./src/assets/css/corporateMemberList.scss";
 /* Extra Large (xl) */
-
 @media (max-width: 1280px) {
 	/* ... */
 }
