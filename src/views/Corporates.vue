@@ -90,7 +90,7 @@
             <tr v-if="allCompanySelected == true" class="selected-companies-container">
               <td colspan="9">
                 <span>All 
-                  <span>{{ exportAllCompany == true ? corporate_pagination.total : corporate_id_arr.length }}</span>
+                  <span>{{ exportAllCompany == true ? overallTotalCompanies : corporate_id_arr.length }}</span>
                    companies are selected. 
                   <span v-if="!exportAllCompany" v-on:click="selectAllCompany()" class="select-btn-text">Select all {{ corporate_pagination.total }} companies.</span>
                   <span v-if="exportAllCompany" v-on:click="clearAllCompany()" class="select-btn-text">Clear selection.</span>
