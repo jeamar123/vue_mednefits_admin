@@ -1128,6 +1128,10 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
     font-size: 14px;
   }
 
+  .date-container input {
+    background-color: transparent;
+  }
+
   input.spendingDatePicker[type="text"] {
     padding: 5px 5px 5px 28px !important;
     background-color: transparent;
@@ -1437,3 +1441,15 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
   font-size: 16px !important;
 }
 
+@media screen and (min-width: 671px) and (max-width: 767px) {
+  .spending-end-date-container .popover-origin.direction-bottom.align-left[data-v-1ad2436f], 
+  .spending-end-date-container .popover-origin.direction-top.align-left[data-v-1ad2436f] {
+    right: 0;
+    left: auto;
+  }
+
+  .spending-end-date-container .popover-origin .popover-content-wrapper .popover-content.align-left[data-v-1ad2436f]:after {
+    right: 20px;
+    left: auto;
+  }
+}
