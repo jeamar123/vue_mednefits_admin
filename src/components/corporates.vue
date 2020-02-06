@@ -257,6 +257,8 @@ var corporates = {
         this.corporate_list_arr.map((value) => {
           value.selected = false;
         });
+        this.exportAllCompany = false;
+        this.overallTotalCompanies = this.corporate_pagination.total;
       }
     },
     companyCheckBox( list, opt ){
