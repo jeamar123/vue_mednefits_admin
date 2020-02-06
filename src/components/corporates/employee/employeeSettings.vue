@@ -351,6 +351,17 @@ let employeeSettings = {
 			console.log(data);
 			this.showRenewModal = false;
 			this.showEmpRenewPlanSummary = false;
+
+			axios.post( axios.defaults.serverUrl + '/company/employee_plan_renew', data ) 
+      .then(response => { 
+        console.log(response);
+        // this.$swal("Success!", response.data.message, "success");
+      })
+      .catch(err => {
+        console.log(err.response);
+				// this.$swal("Error!", err.response.data.message, "error");
+				this.$swal("Error!", err.response, "error");
+      });
 		},
 	}
 }
