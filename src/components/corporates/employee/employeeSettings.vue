@@ -1,12 +1,14 @@
 <script>
 import Modal from "../../../views/modal/Modal.vue";
 import axios from "axios";
+import moment from "moment";
 
 let employeeSettings = {
 	components: {
 		Modal
 	},
 	props: {
+		customer_id: [String, Number],
 		member_id: [String, Number],
 		name: [String, Number]
 	},
@@ -56,6 +58,13 @@ let employeeSettings = {
 				data: ["DD/MM/YYYY"]
 			},
 			cap_per_visit: '',
+			credits_amount: '',
+			plan_type: {
+				fixed: 1,
+				duration: '2 months',
+				plan_start: undefined,
+				end_date: '2020-04-21',
+			},
 		};
 	},
 	created() {
@@ -274,14 +283,14 @@ let employeeSettings = {
 				this.showEmpCreditsPlan = false;
 			}
 		},
-		shortTermRadioBtn(data) {
-			let x = data;
-			if (x === "short-term") {
-				this.showShortTermSelector = true;
-			} else if (x === "standard-one-year") {
-				this.showShortTermSelector = false;
-			}
-		},
+		// shortTermRadioBtn(data) {
+		// 	let x = data;
+		// 	if (x === "short-term") {
+		// 		this.showShortTermSelector = true;
+		// 	} else if (x === "standard-one-year") {
+		// 		this.showShortTermSelector = false;
+		// 	}
+		// },
      updateCapPerVisit( cap ) {
       console.log(cap);
 
@@ -320,7 +329,51 @@ let employeeSettings = {
 		},
 		unPinSetup() {
 			// function here
-		}
+		},
+		submitUserCreditAllocation( credit ) {
+			if ( credit && credit > 0 ) {
+				var data = {
+					user_id: this.member_id,
+					customer_id: this.customer_id,
+					allocation_type: this.editCreditAllocationOpt,
+					credit_type: this.editCreditAllocationTypeOpt,
+					credits: this.credits_amount,
+				}
+
+				axios.post( axios.defaults.serverUrl + 'user_credit_allocation', data ) 
+					.then(response => { 
+						console.log(response);
+						this.$swal("Success!", response.data.message, "success");
+					})
+					.catch(err => {
+						console.log(err);
+						console.log(data);
+						this.$swal("Error!", err.response, "error");
+					});
+			} else {
+				this.$swal('Ooops!', 'Credits must be greater than zero.', 'error');
+			}
+		},
+		updatePlanDetails () {
+			var data = {
+				user_id: this.member_id,
+				plan_start: moment(this.plan_type.plan_start).format('YYYY-MM-DD'),
+				end_date: this.plan_type.end_date,
+				fixed: this.plan_type.fixed,
+				duration: this.plan_type.duration,
+			}
+			
+			axios.post( axios.defaults.serverUrl + 'update/user_plan_details', data ) 
+				.then(response => { 
+					console.log(response);
+					this.$swal("Success!", response.data.message, "success");
+				})
+				.catch(err => {
+					console.log(err);
+					console.log(data);
+					this.$swal("Error!", err.response, "error");
+				});
+		},
 	}
 }
 
