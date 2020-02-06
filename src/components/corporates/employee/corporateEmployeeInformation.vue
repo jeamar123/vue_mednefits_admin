@@ -76,7 +76,6 @@ let corporateEmployeeInformation = {
 		},
 		// - New methotds -
 
-		//api calls
 		// API calls
 		onLoad() {
 			this.$parent.showLoading();

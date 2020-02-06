@@ -259,6 +259,7 @@
 				</div>	
 			</div>
 
+<!-- remove step 1 -->
 			<div v-if="addDependentInfo" class="edit-employee-info-container add-dependent-wrapper">
 				<i @click="showAddDependent()" class="fa fa-times"></i>
 				<div class="emp-header-text">
@@ -324,11 +325,11 @@
 						<div class="edit-dependent-row flex xs:flex-wrap">
 							<div class="employee-details-input-wrapper xs:m-0">
 								<label>Full Name</label>
-								<input type="text">
+								<input type="text" >
 							</div>
 							<div class="employee-details-input-wrapper xs:m-0">
 								<label>Last day of coverage</label>
-								<div class="date-container">
+								<div class="date-container vDatepicker">
 									<v-date-picker
 		                popoverDirection="bottom"
 		                v-model="starDateDetails.null"
