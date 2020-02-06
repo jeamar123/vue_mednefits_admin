@@ -51,8 +51,8 @@
 								<label class="block">Spending Account:</label>
 								<div class="flex flex-wrap justify-between">
 									<span class="w-12 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mr-2"></span>
-									<span class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2">Wellness</span>
 									<span class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2">Medical</span>
+									<span class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2">Wellness</span>
 								</div>
 								<div class="flex flex-wrap justify-between">
 									<label class="w-12 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mr-2">Allocation</label>

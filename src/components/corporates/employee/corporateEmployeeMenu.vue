@@ -19,8 +19,12 @@ let corporateEmployeeMenu = {
 			// ---- Data storage ------
 			employee_side_info: {
 				spending_account: {
-					medical: {},
-					wellness: {},
+					medical: {
+						// usage: false,
+					},
+					wellness: {
+						// usage: false,
+					},
 				}
 			},
 			// ------------------------
@@ -44,6 +48,17 @@ let corporateEmployeeMenu = {
 				return moment(date, from).format(to);
 			}
 		},
+		spendingUsage(type) {
+			if(type == 'medical'){
+				this.employee_side_info.spending_account.medical.usage = !this.employee_side_info.spending_account.medical.usage;
+				this.$forceUpdate();
+				// console.log(`medical usage ${this.employee_side_info.spending_account.medical.usage}`);
+			} else {
+				this.employee_side_info.spending_account.wellness.usage = !this.employee_side_info.spending_account.wellness.usage;
+				this.$forceUpdate();
+			}
+			
+		},
 		// --- Methods Loader ------
 		showLoading() {
 			this.showLoader = true;
@@ -64,14 +79,12 @@ let corporateEmployeeMenu = {
 		// API calls
 		onLoad() {
 			// this.$parent.showLoading();
-			let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
+			// let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
 
 			axios.all([ //butang sa array ang ipa load na api or function para in order pag tawag.
 				// axios.get(get_employee_details),
 				this.getEmployeeSideDetails(),
 			]).then(res => {
-				// Log the data to the console
-				// You would do something with both sets of data here
 				// console.log(res);
 				// this.$parent.hideLoading();
 			}).catch(error => {

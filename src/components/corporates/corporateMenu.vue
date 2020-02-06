@@ -78,9 +78,16 @@ let corporateMenu = {
 
 		// Api Calls
 		onLoad() {
-			this.getCorporateDetails();
-			this.getCustomerRenewalStatus();
-			this.getCorporateCreditsInfo();
+			axios.all([
+				this.getCorporateDetails(),
+				this.getCustomerRenewalStatus(),
+				this.getCorporateCreditsInfo(),
+			]).then(res => {
+				console.log('success all api');
+			}).catch (err => {
+				console.log(err);
+			})
+
 		},
 
 		getCorporateDetails() {
