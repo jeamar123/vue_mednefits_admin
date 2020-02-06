@@ -76,7 +76,7 @@
 
 					<div class="info-div-inline">
 						<label>Total:</label>
-						<p v-if="corporateCreditsInfo_data.total_medical_company_allocation >=0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_medical_company_allocation >= 0" class="uppercase">
 							{{corporateCreditsInfo_data.total_medical_company_allocation | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
@@ -116,7 +116,7 @@
 
 					<div class="info-div-inline">
 						<label>Total:</label>
-						<p v-if="corporateCreditsInfo_data.total_medical_wellness_allocation >=0" class="uppercase"> 
+						<p v-if="corporateCreditsInfo_data.total_medical_wellness_allocation >= 0" class="uppercase"> 
 							{{corporateCreditsInfo_data.total_medical_wellness_allocation | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>

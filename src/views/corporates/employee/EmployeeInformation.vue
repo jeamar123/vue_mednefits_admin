@@ -100,10 +100,14 @@
 								<label>Mobile Number</label>
 								<div class="country-code-mobile-container">
 									<div class="country-code-container">
-										<input type="text">
+										<!-- <input type="text"> -->
+										<select name="" id="">
+											<option value="60">(MY) +60</option>
+											<option value="65">(SG) +65</option>
+										</select>
 										<i class="fa fa-caret-down"></i>
 									</div>
-									<input type="text">
+									<input type="number">
 								</div>	
 							</div>
 						</div>
