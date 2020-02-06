@@ -349,7 +349,7 @@
 
 				<div v-if="create_company.employee_plan_extension">
 					<div class="form-row">
-						<div class="form-col mg-rgt-20">
+						<div class="form-col mg-rgt-20 account-date-container">
 							<div class="form-div">
 								<label>Start Date</label>
 								<div class="date-container">
@@ -532,7 +532,7 @@
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="form-col mg-rgt-20">
+						<div class="form-col mg-rgt-20 account-date-container">
 							<div class="form-div">
 								<label>Invoice Date</label>
 								<div class="date-container">
