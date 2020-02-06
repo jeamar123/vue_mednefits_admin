@@ -14,6 +14,12 @@ let corporateEmployeeInformation = {
 	},
 	data() {
 		return {
+			// --- Date options ---
+			formats: {
+				input: ["DD/MM/YYYY"],
+				data: ["DD/MM/YYYY"]
+			},
+			//---------------------
 			empSelectorActive: {
 				value: 0,
 				text: ""
@@ -59,6 +65,7 @@ let corporateEmployeeInformation = {
 					wellness: {},
 				}
 			},
+			toEdit: {},
 			// ------------------------
 		};
 	},
@@ -80,7 +87,8 @@ let corporateEmployeeInformation = {
 		// API calls
 		onLoad() {
 			this.$parent.showLoading();
-			let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
+			// let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
+			// let update_employee_details = `${axios.defaults.serverUrl}/company/update_employee_details`;
 
 			axios.all([ //butang sa array ang ipa load na api or function para in order pag tawag.
 				// axios.get(get_employee_details),
@@ -95,6 +103,29 @@ let corporateEmployeeInformation = {
 				console.log(error);
 				this.parent.hideLoading();
 			});
+		},
+		update_employee() {
+			let update_employee_details = `${axios.defaults.serverUrl}/company/update_employee_details`;
+			let data = this.toEdit;
+
+			axios.put(update_employee_details, data)
+				.then(res => {
+					console.log(res);
+					if( res.status == 200) {
+						console.log(res.data);
+						this.$swal("Success!", 'Update Successful', "success");
+						this.getEmployeeDetails();
+						this.editEmployeeProfile = false;
+					}else {
+						this.$swal("Error!", res.data.message, "error");
+					}
+				}).catch(error => {
+					console.log(error);
+					this.$swal("Error!", error.message, "error");
+					this.editEmployeeProfile = false;
+				});
+				
+
 		},
 		getEmployeeDetails() {
 			// for single  buttons or manual trigger
@@ -125,8 +156,21 @@ let corporateEmployeeInformation = {
 			this.empSelectorActive.text = text;
 		},
 		showEditEmp() {
-			this.editEmployeeProfile =
-				this.editEmployeeProfile == false ? true : false;
+			this.editEmployeeProfile = this.editEmployeeProfile == false ? true : false;
+
+			this.toEdit = {
+				fullname : this.employee_info.fullname,
+				phone_code: String(this.employee_info.phone_code),
+				phone_no: String(this.employee_info.phone_no),
+				member_id: String(this.employee_info.member_id),
+				job_title: this.employee_info.job_title,
+				dob: new Date(this.employee_info.dob),
+				bank_account_number: String(this.employee_info.bank_account_number),
+				postal_code: String(this.employee_info.postal_code),
+				bank_code: String(this.employee_info.bank_code),
+				email: this.employee_info.work_email,
+				bank_brh: String(this.employee_info.bank_brh),
+			}
 		},
 		showAddDependent() {
 			this.addDependentInfo = this.addDependentInfo == false ? true : false;

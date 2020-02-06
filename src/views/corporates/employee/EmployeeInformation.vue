@@ -82,10 +82,10 @@
 				</div>
 			</div>
 
-			<div v-if="editEmployeeProfile" class="edit-emp-profile-wrapper">
+			<div v-if="editEmployeeProfile" class="edit-emp-profile-wrapper capitalize">
 				<div class="edit-emp-details-header">
 					<div>
-						<h3>Edit Employee Details <span class="emp-name-text">Kynn Rodriguez</span></h3>
+						<h3>Edit Employee Details <span class="emp-name-text">{{employee_info.fullname}}</span></h3>
 					</div>
 					<i @click="showEditEmp()" class="fa fa-times"></i>
 				</div>
@@ -94,20 +94,20 @@
 						<div class="edit-dependent-row flex md:flex-wrap">
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Full Name</label>
-								<input type="text">
+								<input type="text" v-model="toEdit.fullname">
 							</div>
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Mobile Number</label>
 								<div class="country-code-mobile-container">
 									<div class="country-code-container">
 										<!-- <input type="text"> -->
-										<select name="" id="">
-											<option value="60">(MY) +60</option>
-											<option value="65">(SG) +65</option>
+										<select name="" id="" v-model="toEdit.phone_code">
+											<option value="+60">(MY) +60</option>
+											<option value="+65">(SG) +65</option>
 										</select>
 										<i class="fa fa-caret-down"></i>
 									</div>
-									<input type="number">
+									<input type="number" v-model="toEdit.phone_no">
 								</div>	
 							</div>
 						</div>
@@ -115,12 +115,12 @@
 						<div class="edit-dependent-row flex md:flex-wrap">
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Member ID</label>
-								<input type="number">
+								<input type="number" v-model="toEdit.member_id">
 							</div>
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Job Title</label>
 								<div class="date-container">
-									<input type="text">
+									<input type="text" v-model="toEdit.job_title">
 								</div>	
 							</div>
 						</div>
@@ -128,41 +128,42 @@
 						<div class="edit-dependent-row flex md:flex-wrap">
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Date of Birth</label>
-								<div class="date-container">
+								<div class="date-container vDatepicker">
 									<v-date-picker
 		                popoverDirection="bottom"
-		                v-model="starDateDetails.null"
+		                v-model="toEdit.dob"
 		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                popover-visibility="focus"
+										:formats='formats'
 		              ></v-date-picker>
 		              <i class="fa fa-caret-down"></i>
 	            	</div>
 							</div>
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Bank Account Number</label>
-								<input type="number">
+								<input type="number" v-model="toEdit.bank_account_number">
 							</div>
 						</div>
 
 						<div class="edit-dependent-row flex md:flex-wrap">
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Postal Code</label>
-								<input type="number">
+								<input type="number" v-model="toEdit.postal_code">
 							</div>
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Bank Code</label>
-								<input type="number">
+								<input type="number" v-model="toEdit.bank_code">
 							</div>
 						</div>
 
 						<div class="edit-dependent-row flex md:flex-wrap">
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Work Email</label>
-								<input type="text">
+								<input type="text" v-model="toEdit.email">
 							</div>
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Bank BRH</label>
-								<input type="number">
+								<input type="number" v-model="toEdit.bank_brh">
 							</div>
 						</div>
 
@@ -255,7 +256,7 @@
 					</div>
 				</div>
 				<div class="save-btn-footer">
-					<button class="btn-primary">SAVE & CONTINUE</button>
+					<button class="btn-primary" @click="update_employee()">SAVE & CONTINUE</button>
 				</div>	
 			</div>
 
