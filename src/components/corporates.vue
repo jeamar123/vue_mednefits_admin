@@ -288,6 +288,16 @@ var corporates = {
 			
 			// localStorage.selected_corporate = JSON.stringify(data);
     },
+    submitSearch(){
+      this.export_data_header.map( ( value, index ) => {
+        value.isSelected = index > 6 ? false : true;
+      });
+      this.exportAllCompany = false;
+      this.allCompanySelected = false;
+      this.page_active = 1;
+      this.overallTotalCompanies = 0;
+      this.getCompanyList();
+    },
     closeAllModalsDrop() {
       // console.log('click outside.');
       // this.isPageLimitDropShow = false;
@@ -331,7 +341,6 @@ var corporates = {
       this.$forceUpdate();
     },
     searchCompanyChanged(data) {
-      console.log(data);
       if (data == "") {
         // this.getCompanyList();
       }
@@ -345,6 +354,7 @@ var corporates = {
 
       this.page_active = 1;
       this.page_limit = 10;
+      this.overallTotalCompanies = 0;
       this.getCompanyList();
 		},
 		exportData(){

@@ -16,7 +16,7 @@
         </div>
       </div>
 			<div class="search-container">
-        <form class="search-input-wrapper" v-on:submit.prevent="getCompanyList()">
+        <form class="search-input-wrapper" v-on:submit.prevent="submitSearch()">
           <i class="fa fa-search"></i>
           <input type="text" placeholder="Search" v-model="search_text" v-on:input="searchCompanyChanged( search_text )">
         </form>
