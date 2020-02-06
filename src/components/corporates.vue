@@ -121,9 +121,9 @@ var corporates = {
         'company_name',
         'plan_end',
         'hr_account_status',
-        'total_employee_seat',
+        'total_employee_seats',
         'total_dependent_seat',
-        'total_medical_credits',
+        'total_medical_credit',
         'account_type',
         'no_employees',
         'no_dependents',
@@ -298,7 +298,7 @@ var corporates = {
       this.searchPropertiesText = "";
       this.corporate_id_arr = [];
       this.export_data_header.map( ( value ) => {
-        value.isSelected = false;
+        value.isSelected = index > 6 ? false : true;
       });
       this.page_active = 1;
       this.page_limit = 10;
@@ -348,9 +348,7 @@ var corporates = {
 				if( key == this.export_data_keys.length - 1 ){
 					if( this.corporate_id_arr.length > 0 ){
 						this.corporate_id_arr.map((value2, key2) => {
-							if( this.export_data_header[ key2 ].isSelected == true ){
-								params += ( "ids[]=" + value2 + "&" );
-							}
+              params += ( "ids[]=" + value2 + "&" );
 							if( key2 == this.corporate_id_arr.length - 1 ){
 								this.exportCompanyCSV( params, params_header );
 							}
