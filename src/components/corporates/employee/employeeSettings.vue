@@ -1,6 +1,7 @@
 <script>
 import Modal from "../../../views/modal/Modal.vue";
 import axios from "axios";
+import moment from "moment";
 
 let employeeSettings = {
 	components: {
@@ -60,7 +61,7 @@ let employeeSettings = {
 			showEmpRenewPlanSummary: false,
 			// Sample data for re new plan modal 
 			selected_user_data: {
-				new_start_date: '',
+				new_start_date: undefined,
 			}
 		};
 	},
@@ -330,10 +331,26 @@ let employeeSettings = {
 		// Renew Plan Modal
 		toggleEmpRenewPlanSummary() {
 			if (this.showEmpRenewPlanSummary == false) {
-				this.showEmpRenewPlanSummary = true;
+				if ( this.selected_user_data.new_start_date ) {
+					this.showEmpRenewPlanSummary = true;
+					this.selected_user_data.new_start_date = moment(this.selected_user_data.new_start_date).format('MMMM DD, YYYY');
+				} else {
+					this.$swal("Error!", "Select New Plan Start first.", "error");
+				}
 			} else {
 				this.showEmpRenewPlanSummary = false;
 			}
+		},
+		updateEmpRenewPlanBtn( date ) {
+			var data = {
+				customer_id: this.customer_id,
+				plan_stat: moment(date.new_start_date).format('YYYY-MM-DD'),
+				user_id: this.member_id,
+			}
+
+			console.log(data);
+			this.showRenewModal = false;
+			this.showEmpRenewPlanSummary = false;
 		},
 	}
 }
