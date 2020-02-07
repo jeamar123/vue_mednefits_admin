@@ -333,21 +333,24 @@ let employeeSettings = {
 		submitUserCreditAllocation( credit ) {
 			if ( credit && credit > 0 ) {
 				var data = {
-					user_id: this.member_id,
+					member_id: this.member_id,
 					customer_id: this.customer_id,
-					allocation_type: this.editCreditAllocationOpt,
-					credit_type: this.editCreditAllocationTypeOpt,
+					spending_type: this.editCreditAllocationOpt,
+					allocation_type: this.editCreditAllocationTypeOpt,
 					credits: this.credits_amount,
 				}
 
-				axios.post( axios.defaults.serverUrl + 'user_credit_allocation', data ) 
+				axios.post( axios.defaults.serverUrl + '/company/employee_allocate_credits', data ) 
 					.then(response => { 
-						console.log(response);
-						this.$swal("Success!", response.data.message, "success");
+						// console.log(response.data.status);
+						if (response.data.status) {
+							this.$swal("Success!", response.data.message, "success");
+						} else {
+							this.$swal("Error!", response.data.message, "error");
+						}
 					})
 					.catch(err => {
-						console.log(err);
-						console.log(data);
+						// console.log(err);
 						this.$swal("Error!", err.response, "error");
 					});
 			} else {
