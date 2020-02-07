@@ -50,6 +50,9 @@ let corporateEmployeeInformation = {
 			editCreditAllocationOpt: "medical",
 			editCreditAllocationTypeOpt: "add",
 			showEmpCreditsPlan: false,
+			emp_details_replace: false,
+			emp_details_reserve: false,
+			emp_details_remove: false,
 			starDateDetails: {
 				startDate: undefined
 			},
@@ -66,6 +69,8 @@ let corporateEmployeeInformation = {
 				}
 			},
 			toEdit: {},
+			toRemove: {},
+			toReplace: {},
 			// ------------------------
 		};
 	},
@@ -83,7 +88,6 @@ let corporateEmployeeInformation = {
 		},
 		// - New methotds -
 
-		//api calls
 		// API calls
 		onLoad() {
 			this.$parent.showLoading();
@@ -124,7 +128,6 @@ let corporateEmployeeInformation = {
 					this.$swal("Error!", error.message, "error");
 					this.editEmployeeProfile = false;
 				});
-				
 
 		},
 		getEmployeeDetails() {
@@ -177,6 +180,12 @@ let corporateEmployeeInformation = {
 		},
 		showRemoveEmp() {
 			this.editRemoveEmpInfo = this.editRemoveEmpInfo == false ? true : false;
+
+			this.toRemove = {
+				member_id: this.employee_info.member_id,
+				fullname: this.employee_info.fullname,
+				last_day: new Date(moment().add(1, 'days')),
+			}
 		},
 		showReplaceDependent() {
 			this.editReplaceDependentInfo =
@@ -193,6 +202,9 @@ let corporateEmployeeInformation = {
 			let x = data;
 
 			if (x === "back") {
+				this.emp_details_replace = false;
+				this.emp_details_reserve = false;
+				this.emp_details_remove = false;
 				if (this.remove_step_active == "remove-opt") {
 					this.removeBackBtn = false;
 					this.remove_step_active = "remove-emp";
@@ -200,14 +212,17 @@ let corporateEmployeeInformation = {
 
 				if (this.remove_step_active == "replace-emp") {
 					this.remove_step_active = "remove-opt";
+					this.emp_details_replace = false;
 				}
 
 				if (this.remove_step_active == "health-spending-summary") {
 					this.remove_step_active = "remove-opt";
+					this.emp_details_reserve = false;
 				}
 
 				if (this.remove_step_active == "health-spending-account") {
 					this.remove_step_active = "health-spending-summary";
+					this.emp_details_remove = false;
 				}
 			}
 
@@ -218,14 +233,12 @@ let corporateEmployeeInformation = {
 				} else if (this.remove_step_active == "remove-opt") {
 					if (this.emp_details_replace) {
 						this.remove_step_active = "replace-emp";
-					}
-
-					if (this.emp_details_reserve) {
+					} else if (this.emp_details_reserve) {
 						this.remove_step_active = "health-spending-summary";
-					}
-
-					if (this.emp_details_remove) {
+					} else if (this.emp_details_remove) {
 						this.remove_step_active = "health-spending-summary";
+					} else {
+						this.$swal('Warning', 'Select 1 Option', 'warning');
 					}
 				} else if (this.remove_step_active == "replace-emp") {
 					this.remove_step_active = "health-spending-summary";
@@ -240,14 +253,14 @@ let corporateEmployeeInformation = {
 			this.emp_details_remove = false;
 
 			if (opt === 1) {
-				this.emp_details_replace = true;
+				this.emp_details_replace = !this.emp_details_replace;
 			}
 			if (opt === 2) {
-				this.emp_details_reserve = true;
+				this.emp_details_reserve = !this.emp_details_reserve;
 				console.log("2 ni siya");
 			}
 			if (opt === 3) {
-				this.emp_details_remove = true;
+				this.emp_details_remove = !this.emp_details_remove;
 				console.log("3 ni siya");
 			}
 		},
