@@ -416,10 +416,9 @@
             this.$router.push({ path: '/dashboard/corporates' })
           })
           .catch(err => {
-            console.log(err.response);
             this.resetCreateCorporateData();
-            this.$swal("Error!", err.response.data.message, "error");
-            
+            this.$parent.hideLoading();
+            this.errorHandler( err );
           });
         
       },

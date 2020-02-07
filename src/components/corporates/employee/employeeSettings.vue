@@ -303,9 +303,9 @@ let employeeSettings = {
         this.showManageCapPerVisit = false;
       })
       .catch(err => {
-        console.log(err.response);
-        this.$swal("Error!", err.response.data.message, "error");
-      });
+        this.$parent.hideLoading();
+        this.errorHandler( err );
+			});
 		},
 		showUpdatePass() {
 			this.emp_padd_reset_wrapper = !this.emp_padd_reset_wrapper;

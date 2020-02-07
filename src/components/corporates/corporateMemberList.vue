@@ -1,6 +1,5 @@
 <script>
 import Modal from "../../views/modal/Modal";
-import Vue2Filters from "vue2-filters";
 import moment from "moment";
 import axios from "axios";
 import Loader from "../../views/loader/Loader";
@@ -11,7 +10,6 @@ let corporateMemberList = {
 		Modal,
 		Loader
 	},
-	mixins: [Vue2Filters.mixin],
 	props: {
 		customer_id: [String, Number]
 	},
@@ -98,14 +96,15 @@ let corporateMemberList = {
 		// --- Tranfer Account ---
 		toggleTransferAccountModal(list) {
 			this.showTransferAccountModal = !this.showTransferAccountModal;
-
-			this.selected_transfer_data = {
-				name: list.fullname,
-				member_id: list.member_id,
-				current_company: localStorage.company_name,
-				transfer_date: new Date(),
-				company: ""
-			};
+			if( list ){
+				this.selected_transfer_data = {
+					name: list.fullname,
+					member_id: list.member_id,
+					current_company: localStorage.company_name,
+					transfer_date: new Date(),
+					company: ""
+				};
+			}
 		},
 		toggleTransferCompSummary() {
 			this.showTransferCompanySummary = !this.showTransferCompanySummary;
@@ -148,9 +147,8 @@ let corporateMemberList = {
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.hideLoading();
-					this.$swal("Error!", err.message, "error");
+					this.$parent.hideLoading();
+					this.errorHandler( err );
 				});
 		},
 		updateTransferCompanyBtn(params) {
@@ -178,10 +176,9 @@ let corporateMemberList = {
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.hideLoading();
 					this.showTransferAccountModal = !this.showTransferAccountModal;
-					this.$swal("Error!", err.message, "error");
+					this.$parent.hideLoading();
+					this.errorHandler( err );
 				});
 		},
 		// -----------------------
@@ -243,10 +240,8 @@ let corporateMemberList = {
 			]).then( res => {
 
 			}).catch(err => {
-				console.log(err.message);
-				console.log(err.response);
-				// this.$parent.hideLoading();
-				this.$swal('Error!', err.response.statusText, 'error');
+        this.$parent.hideLoading();
+        this.errorHandler( err );
 			});
 		},
 		getMemberList() {
@@ -285,9 +280,8 @@ let corporateMemberList = {
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.hideLoading();
-					this.$swal("Error!", err.message, "error");
+					this.$parent.hideLoading();
+					this.errorHandler( err );
 				});
 		},
 		searchMemberList(item) {
@@ -326,9 +320,8 @@ let corporateMemberList = {
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					this.hideLoading();
-					this.$swal("Error!", err.message, "error");
+					this.$parent.hideLoading();
+					this.errorHandler( err );
 				});
 		},
 		searchEmpty(data) {

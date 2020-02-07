@@ -445,10 +445,8 @@ var corporates = {
 				this.$parent.hideLoading();
 			})
 			.catch(err => {
-				console.log(err.message);
-				console.log(err.response);
-				// this.$parent.hideLoading();
-				this.$swal('Error!', err.response.statusText, 'error');
+        this.$parent.hideLoading();
+        this.errorHandler( err );
 			});
 		}
 	}
