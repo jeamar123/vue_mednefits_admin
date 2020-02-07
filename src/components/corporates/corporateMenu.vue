@@ -87,10 +87,8 @@ let corporateMenu = {
 				console.log('success all api');
 				localStorage.startMemberList = true;
 			}).catch(err => {
-				console.log(err.message);
-				console.log(err.response);
-				// this.$parent.hideLoading();
-				this.$swal('Error!', err.response.statusText, 'error');
+				this.$parent.hideLoading();
+				this.errorHandler(err);
 			});
 
 		},
@@ -107,11 +105,9 @@ let corporateMenu = {
 					}
 				})
 				.catch(err => {
-				console.log(err.message);
-				console.log(err.response);
-				// this.$parent.hideLoading();
-				this.$swal('Error!', err.response.statusText, 'error');
-			});
+					this.$parent.hideLoading();
+					this.errorHandler(err);
+				});
 		},
 		getCorporateCreditsInfo() {
 			// side info
@@ -127,11 +123,9 @@ let corporateMenu = {
 					}
 				})
 				.catch(err => {
-				console.log(err.message);
-				console.log(err.response);
-				// this.$parent.hideLoading();
-				this.$swal('Error!', err.response.statusText, 'error');
-			});
+					this.$parent.hideLoading();
+					this.errorHandler(err);
+				});
 		},
 		getCustomerRenewalStatus() {
 			// side info
@@ -145,12 +139,30 @@ let corporateMenu = {
 					}
 				})
 				.catch(err => {
-				console.log(err.message);
-				console.log(err.response);
-				// this.$parent.hideLoading();
-				this.$swal('Error!', err.response.statusText, 'error');
-			});
+					this.$parent.hideLoading();
+					this.errorHandler(err);
+				});
 		},
+		sendPlanExpiration() {
+			this.$parent.showLoading();
+			let url = `${axios.defaults.serverUrl}/company/send_company_plan_expiration_notification`;
+			let data = {
+				customer_id: this.customer_id,
+				email: localStorage.company_email
+			}
+			axios.post(url,data)
+				.then(res => {
+					console.log(res);
+					if (res.status == 200) {
+						this.$parent.hideLoading();
+						this.$swal('Success', res.data.message, 'success');
+					}
+				})
+				.catch(err => {
+					this.$parent.hideLoading();
+					this.errorHandler(err);
+				});
+		}
 	},
 };
 
