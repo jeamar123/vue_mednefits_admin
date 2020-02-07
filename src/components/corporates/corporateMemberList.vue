@@ -96,7 +96,7 @@ let corporateMemberList = {
 		// --- Tranfer Account ---
 		toggleTransferAccountModal(list) {
 			this.showTransferAccountModal = !this.showTransferAccountModal;
-			if( list ){
+			if (list) {
 				this.selected_transfer_data = {
 					name: list.fullname,
 					member_id: list.member_id,
@@ -148,7 +148,7 @@ let corporateMemberList = {
 				})
 				.catch(err => {
 					this.$parent.hideLoading();
-					this.errorHandler( err );
+					this.errorHandler(err);
 				});
 		},
 		updateTransferCompanyBtn(params) {
@@ -166,9 +166,10 @@ let corporateMemberList = {
 				.then(res => {
 					if (res.status == 200) {
 						console.log("transfer_employee", res);
-
-						this.getMemberList();
-						this.$swal("Success!", res.data.message, "success");
+						this.$swal("Success!", res.data.message, "success")
+							.then(res => {
+								this.getMemberList();
+							})
 						// this.hideLoading();
 						this.showTransferAccountModal = !this.showTransferAccountModal;
 					} else {
@@ -178,7 +179,7 @@ let corporateMemberList = {
 				.catch(err => {
 					this.showTransferAccountModal = !this.showTransferAccountModal;
 					this.$parent.hideLoading();
-					this.errorHandler( err );
+					this.errorHandler(err);
 				});
 		},
 		// -----------------------
@@ -237,11 +238,11 @@ let corporateMemberList = {
 			console.log(trigger);
 			axios.all([
 				this.getMemberList(),
-			]).then( res => {
+			]).then(res => {
 
 			}).catch(err => {
-        this.$parent.hideLoading();
-        this.errorHandler( err );
+				this.$parent.hideLoading();
+				this.errorHandler(err);
 			});
 		},
 		getMemberList() {
@@ -276,12 +277,12 @@ let corporateMemberList = {
 						this.searchActive = false;
 						console.log("member list", this.corporate_members);
 						this.getCompanyList(),
-						this.$parent.hideLoading();
+							this.$parent.hideLoading();
 					}
 				})
 				.catch(err => {
 					this.$parent.hideLoading();
-					this.errorHandler( err );
+					this.errorHandler(err);
 				});
 		},
 		searchMemberList(item) {
@@ -321,7 +322,7 @@ let corporateMemberList = {
 				})
 				.catch(err => {
 					this.$parent.hideLoading();
-					this.errorHandler( err );
+					this.errorHandler(err);
 				});
 		},
 		searchEmpty(data) {
