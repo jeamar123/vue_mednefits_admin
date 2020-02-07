@@ -18,8 +18,8 @@
         },
         // sample data
         emp_entitlement: {
-          original_medical_entitlement: 0,
-          original_wellness_entitlement: 0,
+          original_medical_entitlement: 5,
+          original_wellness_entitlement: 12,
           medical_new_entitlement: '',
           wellness_new_entitlement: '',
 
@@ -29,7 +29,7 @@
         calc_entitlement_med: {
           currency_type: 'SGD',
           plan_month_duration: 11,
-          plan_year_duration: 12,
+          plan_year_duration: 3,
           entitlement_duration: 1,
         },
         calc_entitlement_well: {
@@ -39,8 +39,8 @@
           entitlement_duration: 1,
         },
         // end of sample data
-        new_allocation_med: undefined,
-        new_allocation_well: undefined,
+        new_allocation_med: parseFloat(0).toFixed(2),
+        new_allocation_well: parseFloat(0).toFixed(2),
         formats: {
           input: ["DD/MM/YYYY"],
           data: ["DD/MM/YYYY"]
@@ -70,9 +70,11 @@
         this.emp_entitlement.updated_medical_entitlement = true;
         this.emp_entitlement.updated_wellness_entitlement = true;
 
-
+        
       },
       entitlementCalc( type, cal ) {
+
+        this.entitlement_calc_type = type;
 
         this.med_data = {
           member_id: this.member_id,
@@ -103,14 +105,24 @@
         if ( type == 'medical' ) {
           this.medicalCalculatedInfo = true;
           console.log(this.med_data);
+
+          //calcuation in medical
+          this.new_allocation_med = this.emp_entitlement.original_medical_entitlement * this.calc_entitlement_med.plan_month_duration / this.calc_entitlement_med.plan_year_duration 
+          + this.emp_entitlement.medical_new_entitlement * this.calc_entitlement_med.entitlement_duration / this.calc_entitlement_med.plan_year_duration;
+          // console.log(this.sample);
+          this.new_allocation_med = parseFloat(this.new_allocation_med).toFixed(2);
         }
 
         if ( type == 'wellness' ) {
           this.wellnessCalculatedInfo = true;
            console.log(this.well_data);
+
+          //calcuation in wellness
+          this.new_allocation_well = this.emp_entitlement.original_wellness_entitlement * this.calc_entitlement_well.plan_month_duration / this.calc_entitlement_well.plan_year_duration 
+          + this.emp_entitlement.wellness_new_entitlement * this.calc_entitlement_well.entitlement_duration / this.calc_entitlement_well.plan_year_duration;
+          // console.log(this.sample);
+          this.new_allocation_well = parseFloat(this.new_allocation_well).toFixed(2);
         }
-        
-        
       },
       updateEntitlement() {
 
