@@ -123,10 +123,11 @@ let corporateEmployeeInformation = {
 					}else {
 						this.$swal("Error!", res.data.message, "error");
 					}
-				}).catch(error => {
-					console.log(error);
-					this.$swal("Error!", error.message, "error");
+				})
+				.catch(err => {
 					this.editEmployeeProfile = false;
+					this.$parent.hideLoading();
+					this.errorHandler( err );
 				});
 
 		},
@@ -143,10 +144,9 @@ let corporateEmployeeInformation = {
 						console.log(this.employee_info);
 					}
 					// this.$parent.hideLoading();
-				}).catch(error => {
-					// if there's an error, log it
-					console.log(error);
-					// this.$parent.hideLoading();
+				}).catch(err => {
+					this.$parent.hideLoading();
+					this.errorHandler( err );
 				});
 		},
 		//-------------
