@@ -31,7 +31,9 @@ Vue.component('VueSlider', VueSlider);
 Vue.component('downloadExcel', JsonExcel)
 Vue.config.productionTip = false;
 
-Vue.mixin(Vue2Filters.mixin,{
+Vue.mixin( Vue2Filters.mixin );
+
+Vue.mixin({
   methods: {
     errorHandler: ( error ) => {
       console.log(error);
