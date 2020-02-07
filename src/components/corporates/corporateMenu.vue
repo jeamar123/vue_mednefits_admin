@@ -87,10 +87,8 @@ let corporateMenu = {
 				console.log('success all api');
 				localStorage.startMemberList = true;
 			}).catch(err => {
-				console.log(err.message);
-				console.log(err.response);
-				// this.$parent.hideLoading();
-				this.$swal('Error!', err.response.statusText, 'error');
+        this.$parent.hideLoading();
+        this.errorHandler( err );
 			});
 
 		},
@@ -107,11 +105,9 @@ let corporateMenu = {
 					}
 				})
 				.catch(err => {
-				console.log(err.message);
-				console.log(err.response);
-				// this.$parent.hideLoading();
-				this.$swal('Error!', err.response.statusText, 'error');
-			});
+					this.$parent.hideLoading();
+					this.errorHandler( err );
+				});
 		},
 		getCorporateCreditsInfo() {
 			// side info
@@ -127,11 +123,9 @@ let corporateMenu = {
 					}
 				})
 				.catch(err => {
-				console.log(err.message);
-				console.log(err.response);
-				// this.$parent.hideLoading();
-				this.$swal('Error!', err.response.statusText, 'error');
-			});
+					this.$parent.hideLoading();
+					this.errorHandler( err );
+				});
 		},
 		getCustomerRenewalStatus() {
 			// side info
@@ -145,11 +139,9 @@ let corporateMenu = {
 					}
 				})
 				.catch(err => {
-				console.log(err.message);
-				console.log(err.response);
-				// this.$parent.hideLoading();
-				this.$swal('Error!', err.response.statusText, 'error');
-			});
+					this.$parent.hideLoading();
+					this.errorHandler( err );
+				});
 		},
 	},
 };

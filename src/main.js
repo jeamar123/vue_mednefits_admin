@@ -31,6 +31,27 @@ Vue.component('VueSlider', VueSlider);
 Vue.component('downloadExcel', JsonExcel)
 Vue.config.productionTip = false;
 
+Vue.mixin( Vue2Filters.mixin );
+
+Vue.mixin({
+  methods: {
+    errorHandler: ( error ) => {
+      console.log(error);
+      if (error.response) {
+        console.log(error.response);
+        Vue.swal('Error!', error.response.status + ' ' + error.response.statusText, 'error');
+      } else if (error.request) {
+        console.log('The request was made but no response was received. ', error.request);
+        Vue.swal('Error!', 'Something went wrong.', 'error');
+      } else {
+        console.log('Something happened in setting up the request that triggered an Error. ', error.message);
+        Vue.swal('Error!', 'Something went wrong.', 'error');
+      }
+      console.log(error.config);
+    },
+  }
+});
+
 // const $ = require('jquery');
 window.$ = $; 
 
