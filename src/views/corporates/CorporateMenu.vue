@@ -76,35 +76,35 @@
 
 					<div class="info-div-inline">
 						<label>Total:</label>
-						<p v-if="corporateCreditsInfo_data.total_medical_company_allocation >= 0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_medical_company_allocation != null" class="uppercase">
 							{{corporateCreditsInfo_data.total_medical_company_allocation | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Allocated:</label>
-						<p v-if="corporateCreditsInfo_data.total_medical_employee_allocated >=0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_medical_employee_allocated != null" class="uppercase">
 						 {{corporateCreditsInfo_data.total_medical_employee_allocated | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Unallocated:</label>
-						<p v-if="corporateCreditsInfo_data.total_medical_company_unallocation >=0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_medical_company_unallocation != null" class="uppercase">
 							{{corporateCreditsInfo_data.total_medical_company_unallocation | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Spent:</label>
-						<p v-if="corporateCreditsInfo_data.total_medical_employee_spent >=0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_medical_employee_spent != null" class="uppercase">
 							{{corporateCreditsInfo_data.total_medical_employee_spent | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Balance:</label>
-						<p v-if="corporateCreditsInfo_data.total_medical_employee_balance >=0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_medical_employee_balance != null" class="uppercase">
 						 {{corporateCreditsInfo_data.total_medical_employee_balance | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
@@ -116,35 +116,35 @@
 
 					<div class="info-div-inline">
 						<label>Total:</label>
-						<p v-if="corporateCreditsInfo_data.total_medical_wellness_allocation >= 0" class="uppercase"> 
+						<p v-if="corporateCreditsInfo_data.total_medical_wellness_allocation != null" class="uppercase"> 
 							{{corporateCreditsInfo_data.total_medical_wellness_allocation | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Allocated:</label>
-						<p v-if="corporateCreditsInfo_data.total_wellness_employee_allocated >=0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_wellness_employee_allocated != null" class="uppercase">
 							{{corporateCreditsInfo_data.total_wellness_employee_allocated | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Unallocated:</label>
-						<p v-if="corporateCreditsInfo_data.total_medical_wellness_unallocation >=0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_medical_wellness_unallocation!= null" class="uppercase">
 							{{corporateCreditsInfo_data.total_medical_wellness_unallocation | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Spent:</label>
-						<p v-if="corporateCreditsInfo_data.total_wellness_employee_spent >=0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_wellness_employee_spent != null" class="uppercase">
 							{{corporateCreditsInfo_data.total_wellness_employee_spent | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Balance:</label>
-						<p v-if="corporateCreditsInfo_data.total_wellness_employee_balance >=0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_wellness_employee_balance != null" class="uppercase">
 							{{corporateCreditsInfo_data.total_wellness_employee_balance | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>

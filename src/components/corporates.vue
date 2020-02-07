@@ -147,6 +147,8 @@ var corporates = {
     };
   },
   created() {
+    localStorage.startMemberList = false;
+    localStorage.company_name = '';
     this.getCompanyList();
   },
   computed: {
@@ -282,11 +284,12 @@ var corporates = {
       this.$router.push({
         name: "CorporateMenu",
         params: {
-					customer_id: data.corporate.customer_id,
+          customer_id: data.corporate.customer_id,
+          company_name: data.corporate.company_name
 				}
 			});
 			
-			// localStorage.selected_corporate = JSON.stringify(data);
+			localStorage.company_name = data.corporate.company_name;
     },
     submitSearch(){
       this.export_data_header.map( ( value, index ) => {

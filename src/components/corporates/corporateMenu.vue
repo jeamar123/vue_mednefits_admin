@@ -5,10 +5,11 @@ import Loader from "../../views/loader/Loader";
 
 let corporateMenu = {
 	components: {
-		Loader
+		Loader,
 	},
 	props: {
 		customer_id: [String, Number],
+		company_name: [String, Number],
 	},
 	data() {
 		return {
@@ -84,9 +85,13 @@ let corporateMenu = {
 				this.getCorporateCreditsInfo(),
 			]).then(res => {
 				console.log('success all api');
-			}).catch (err => {
-				console.log(err);
-			})
+				localStorage.startMemberList = true;
+			}).catch(err => {
+				console.log(err.message);
+				console.log(err.response);
+				// this.$parent.hideLoading();
+				this.$swal('Error!', err.response.statusText, 'error');
+			});
 
 		},
 
@@ -102,10 +107,11 @@ let corporateMenu = {
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.hideLoading();
-					this.$swal("Error!", err, "error");
-				});
+				console.log(err.message);
+				console.log(err.response);
+				// this.$parent.hideLoading();
+				this.$swal('Error!', err.response.statusText, 'error');
+			});
 		},
 		getCorporateCreditsInfo() {
 			// side info
@@ -121,10 +127,11 @@ let corporateMenu = {
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.hideLoading();
-					this.$swal("Error!", err, "error");
-				});
+				console.log(err.message);
+				console.log(err.response);
+				// this.$parent.hideLoading();
+				this.$swal('Error!', err.response.statusText, 'error');
+			});
 		},
 		getCustomerRenewalStatus() {
 			// side info
@@ -138,10 +145,11 @@ let corporateMenu = {
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.hideLoading();
-					this.$swal("Error!", err, "error");
-				});
+				console.log(err.message);
+				console.log(err.response);
+				// this.$parent.hideLoading();
+				this.$swal('Error!', err.response.statusText, 'error');
+			});
 		},
 	},
 };
