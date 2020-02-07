@@ -6,6 +6,7 @@ import VueMoment from 'vue-moment';
 import VueSlider from 'vue-slider-component';
 import JsonExcel from 'vue-json-excel'
 import Vue2Filters from 'vue2-filters'
+import axios from 'axios'
  
 import $ from 'jquery'; 
 import '@/assets/css/tailwind.scss'
@@ -42,12 +43,21 @@ Vue.mixin({
         Vue.swal('Error!', error.response.status + ' ' + error.response.statusText, 'error');
       } else if (error.request) {
         console.log('The request was made but no response was received. ', error.request);
-        Vue.swal('Error!', 'Something went wrong.', 'error');
+        Vue.swal('Error!', 'Something went wrong. The request was made but no response was received.', 'error');
       } else {
         console.log('Something happened in setting up the request that triggered an Error. ', error.message);
-        Vue.swal('Error!', 'Something went wrong.', 'error');
+        Vue.swal('Error!', 'Something went wrong. Something happened in setting up the request that triggered an Error.', 'error');
       }
       console.log(error.config);
+    },
+    goBack : () => {
+      router.back();
+    },
+    showLoading : () =>{
+      router.app.$children[0].$children[0].showLoading();
+    },
+    hideLoading : () =>{
+      router.app.$children[0].$children[0].hideLoading();
     },
   }
 });
@@ -55,7 +65,18 @@ Vue.mixin({
 // const $ = require('jquery');
 window.$ = $; 
 
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
+console.log( source );
+
 new Vue({
   router,
-  render: h => h(App)
+  render: h => h(App),
+  watch:{
+    $route (to, from){
+      console.log(to);
+      console.log(from);
+      source.cancel('Page changed.');
+    }
+  }
 }).$mount('#app')
