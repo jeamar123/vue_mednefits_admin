@@ -115,19 +115,21 @@ let corporateEmployeeInformation = {
 			axios.put(update_employee_details, data)
 				.then(res => {
 					console.log(res);
-					if( res.status == 200) {
+					if (res.status == 200) {
 						console.log(res.data);
-						this.$swal("Success!", 'Update Successful', "success");
-						this.getEmployeeDetails();
-						this.editEmployeeProfile = false;
-					}else {
+						this.$swal("Success!", 'Update Successful', "success")
+							.then(res => {
+								this.getEmployeeDetails();
+								this.editEmployeeProfile = false;
+							});
+					} else {
 						this.$swal("Error!", res.data.message, "error");
 					}
 				})
 				.catch(err => {
 					this.editEmployeeProfile = false;
 					this.$parent.hideLoading();
-					this.errorHandler( err );
+					this.errorHandler(err);
 				});
 
 		},
@@ -146,7 +148,7 @@ let corporateEmployeeInformation = {
 					// this.$parent.hideLoading();
 				}).catch(err => {
 					this.$parent.hideLoading();
-					this.errorHandler( err );
+					this.errorHandler(err);
 				});
 		},
 		//-------------
@@ -162,7 +164,7 @@ let corporateEmployeeInformation = {
 			this.editEmployeeProfile = this.editEmployeeProfile == false ? true : false;
 
 			this.toEdit = {
-				fullname : this.employee_info.fullname,
+				fullname: this.employee_info.fullname,
 				phone_code: String(this.employee_info.phone_code),
 				phone_no: String(this.employee_info.phone_no),
 				member_id: String(this.employee_info.member_id),
