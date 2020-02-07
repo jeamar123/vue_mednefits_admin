@@ -24,7 +24,7 @@ let corporateMemberList = {
 			},
 			//---------------------
 
-			selectedCorporate: JSON.parse(localStorage.selected_corporate),
+			// selectedCorporate: JSON.parse(localStorage.selected_corporate),
 			showTransferAccountModal: false,
 
 			// ---for get member details and pagination ---
@@ -57,9 +57,9 @@ let corporateMemberList = {
 		console.log(this.customer_id);
 		// this.customer_id = this.selectedCorporate.corporate.customer_id;
 
-		this.getMemberList();
-		this.getCompanyList();
-
+		// this.getMemberList();
+		// this.getCompanyList();
+		this.onLoad(localStorage.startMemberList);
 		// await this.hideLoading();
 
 	},
@@ -102,7 +102,7 @@ let corporateMemberList = {
 			this.selected_transfer_data = {
 				name: list.fullname,
 				member_id: list.member_id,
-				current_company: this.selectedCorporate.corporate.company_name,
+				current_company: localStorage.company_name,
 				transfer_date: new Date(),
 				company: ""
 			};
@@ -150,7 +150,7 @@ let corporateMemberList = {
 				.catch(err => {
 					console.log(err);
 					// this.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.$swal("Error!", err.message, "error");
 				});
 		},
 		updateTransferCompanyBtn(params) {
@@ -181,7 +181,7 @@ let corporateMemberList = {
 					console.log(err);
 					// this.hideLoading();
 					this.showTransferAccountModal = !this.showTransferAccountModal;
-					this.$swal("Error!", err, "error");
+					this.$swal("Error!", err.message, "error");
 				});
 		},
 		// -----------------------
@@ -236,6 +236,19 @@ let corporateMemberList = {
 		// ------------------
 
 		// api calls
+		onLoad(trigger) {
+			console.log(trigger);
+			axios.all([
+				this.getMemberList(),
+			]).then( res => {
+
+			}).catch(err => {
+				console.log(err.message);
+				console.log(err.response);
+				// this.$parent.hideLoading();
+				this.$swal('Error!', err.response.statusText, 'error');
+			});
+		},
 		getMemberList() {
 			let data = {
 				customer_id: this.customer_id,
@@ -267,13 +280,14 @@ let corporateMemberList = {
 						});
 						this.searchActive = false;
 						console.log("member list", this.corporate_members);
+						this.getCompanyList(),
 						this.$parent.hideLoading();
 					}
 				})
 				.catch(err => {
 					console.log(err);
 					// this.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.$swal("Error!", err.message, "error");
 				});
 		},
 		searchMemberList(item) {
@@ -314,7 +328,7 @@ let corporateMemberList = {
 				.catch(err => {
 					console.log(err);
 					this.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.$swal("Error!", err.message, "error");
 				});
 		},
 		searchEmpty(data) {
@@ -332,6 +346,7 @@ export default corporateMemberList;
 <style lang="scss" scoped>
 @import "./src/assets/css/corporateMemberList.scss";
 /* Extra Large (xl) */
+
 @media (max-width: 1280px) {
 	/* ... */
 }
