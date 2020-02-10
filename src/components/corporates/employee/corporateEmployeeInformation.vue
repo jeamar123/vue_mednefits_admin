@@ -144,6 +144,7 @@ let corporateEmployeeInformation = {
 					console.log(res);
 					if (res.status == 200) {
 						this.employee_info = res.data.data;
+						// localStorage.employee_email = this.employee_info.work_email;
 						console.log(this.employee_info);
 					}
 					// this.$parent.hideLoading();

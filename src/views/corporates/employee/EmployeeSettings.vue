@@ -247,7 +247,7 @@
 						<div class="input-container-padding py-1">
 							<label class="block pr-2">Email</label>
 							<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2" type="text"
-								ng-model="list.member.Email" disabled />
+								v-model="toUpdatePassword.member_email" disabled />
 						</div>
 						<div class="input-container-padding py-1">
 							<label>
@@ -255,19 +255,19 @@
 								<span class="text-red-700">*</span>
 							</label>
 							<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
-								type="password" ng-model="list.password" required />
+								type="password" v-model="toUpdatePassword.password" required />
 						</div>
 						<div class="input-container-padding py-1">
 							<label>
 								Re-Type Password
 								<span class="text-red-700">*</span>
 							</label>
-							<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2" type="text"
-								ng-model="list.password2" required />
+							<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2" type="password"
+								v-model="toUpdatePassword.re_type_password" required />
 						</div>
 
 						<button class="btn-primary re-send-btn w-full my-5"
-							ng-click="updatePasswordEmp($event,list)">Update</button>
+							@click="updatePasswordEmp(toUpdatePassword)">Update</button>
 					</div>
 				</template>
 
