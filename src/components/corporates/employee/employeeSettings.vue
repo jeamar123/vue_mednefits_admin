@@ -65,10 +65,10 @@ let employeeSettings = {
 			},
 			credits_amount: '',
 			plan_type: {
-				fixed: 1,
+				fixed: 0,
 				duration: '2 months',
 				plan_start: undefined,
-				end_date: '2020-04-21',
+				end_date: '',
 			},
 		};
 	},
@@ -389,8 +389,8 @@ let employeeSettings = {
 						}
 					})
 					.catch(err => {
-						// console.log(err);
-						this.$swal("Error!", err.response, "error");
+						this.$parent.hideLoading();
+						this.errorHandler( err );
 					});
 			} else {
 				this.$swal('Ooops!', 'Credits must be greater than zero.', 'error');
@@ -398,22 +398,20 @@ let employeeSettings = {
 		},
 		updatePlanDetails () {
 			var data = {
-				user_id: this.member_id,
+				member_id: this.member_id,
 				plan_start: moment(this.plan_type.plan_start).format('YYYY-MM-DD'),
-				end_date: this.plan_type.end_date,
 				fixed: this.plan_type.fixed,
 				duration: this.plan_type.duration,
 			}
 			
-			axios.post( axios.defaults.serverUrl + 'update/user_plan_details', data ) 
+			axios.post( axios.defaults.serverUrl + '/company/update_plan_employee', data ) 
 				.then(response => { 
 					console.log(response);
 					this.$swal("Success!", response.data.message, "success");
 				})
 				.catch(err => {
-					console.log(err);
-					console.log(data);
-					this.$swal("Error!", err.response, "error");
+					this.$parent.hideLoading();
+					this.errorHandler( err );
 				});
 		},
 	}
