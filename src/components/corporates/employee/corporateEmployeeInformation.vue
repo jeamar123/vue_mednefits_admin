@@ -112,7 +112,8 @@ let corporateEmployeeInformation = {
 			let update_employee_details = `${axios.defaults.serverUrl}/company/update_employee_details`;
 			let data = this.toEdit;
 
-			axios.put(update_employee_details, data)
+			if(this.checkForm()) {
+				axios.put(update_employee_details, data)
 				.then(res => {
 					console.log(res);
 					if (res.status == 200) {
@@ -131,7 +132,7 @@ let corporateEmployeeInformation = {
 					this.$parent.hideLoading();
 					this.errorHandler(err);
 				});
-
+			}
 		},
 		getEmployeeDetails() {
 			// for single  buttons or manual trigger
@@ -151,6 +152,66 @@ let corporateEmployeeInformation = {
 					this.errorHandler(err);
 				});
 		},
+		checkForm() {
+      this.error_updateEmployee = [];
+
+      if (!this.toEdit.fullname) {
+        this.error_updateEmployee.push("Name.");
+			}
+      if (!this.toEdit.phone_code) {
+        this.error_updateEmployee.push("Area Code.");
+			}
+      if (!this.toEdit.phone_no) {
+        this.error_updateEmployee.push("Name.");
+			}
+      if (!this.toEdit.member_id) {
+        this.error_updateEmployee.push("Member ID.");
+			}
+      if (!this.toEdit.job_title) {
+        this.error_updateEmployee.push("Job Title.");
+			}
+      if (!this.toEdit.dob) {
+        this.error_updateEmployee.push("Birthday.");
+			}
+      if (!this.toEdit.bank_account_number) {
+        this.error_updateEmployee.push("Bank Account Number.");
+			}
+      if (!this.toEdit.postal_code) {
+        this.error_updateEmployee.push("Postal Code.");
+			}
+      if (!this.toEdit.bank_code) {
+        this.error_updateEmployee.push("Bank Code.");
+			}
+      if (!this.toEdit.bank_brh) {
+        this.error_updateEmployee.push("Bank BRH.");
+			}
+			
+      if (!this.toEdit.email) {
+        this.error_updateEmployee.push('Email.');
+      } else if (!this.validEmail(this.toEdit.email)) {
+        this.error_updateEmployee.push('Valid email.');
+      }
+
+      if (!this.error_updateEmployee.length) {
+        return true;
+      } else {
+				console.log(this.error_updateEmployee);
+				let new_error = [];
+				this.error_updateEmployee.map(value => {
+						 new_error.push(`<span class="block p-1 text-red-500 text-center w-1/2 mx-auto my-0">${value}</span>`);
+				});
+				this.$swal(
+					'Required', 
+					new_error.join('\n\n'), 
+					'warning'
+				);
+				
+			}
+		},
+		validEmail (email) {
+			let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; 
+      return re.test(email);
+		},
 		//-------------
 		selectHealthPartnerView(opt) {
 			this.healthPartnerViewStatus = opt;
@@ -166,15 +227,15 @@ let corporateEmployeeInformation = {
 			this.toEdit = {
 				fullname: this.employee_info.fullname,
 				phone_code: String(this.employee_info.phone_code),
-				phone_no: String(this.employee_info.phone_no),
-				member_id: String(this.employee_info.member_id),
+				phone_no: this.employee_info.phone_no,
+				member_id: this.employee_info.member_id,
 				job_title: this.employee_info.job_title,
 				dob: new Date(this.employee_info.dob),
-				bank_account_number: String(this.employee_info.bank_account_number),
+				bank_account_number: this.employee_info.bank_account_number,
 				postal_code: String(this.employee_info.postal_code),
-				bank_code: String(this.employee_info.bank_code),
+				bank_code: this.employee_info.bank_code,
 				email: this.employee_info.work_email,
-				bank_brh: String(this.employee_info.bank_brh),
+				bank_brh: this.employee_info.bank_brh,
 			}
 		},
 		showAddDependent() {
