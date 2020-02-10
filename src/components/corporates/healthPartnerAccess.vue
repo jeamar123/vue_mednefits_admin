@@ -31,7 +31,8 @@ import moment, { locale } from "moment";
         axios.get( axios.defaults.serverUrl + '/company/clinic?token=' + localStorage.getItem('vue_admin_session') + '&corporate_id=9&region=sgd' )
           .then(res => {
             console.log( res );
-            
+            this.block_clinic_list = res.data.clinic_block;
+            this.open_clinic_list = res.data.clinic_available;
             this.hideLoading();
           })
           .catch(err => {

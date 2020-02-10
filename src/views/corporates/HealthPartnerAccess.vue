@@ -53,7 +53,7 @@
         </div>
 
         <div class="clinic-name-wrapper">
-        	<div class="clinic-name-container">
+        	<div v-for="list in block_clinic_list" class="clinic-name-container">
 	        	<label class="health-checkbox-container"> 
 	            <span>Healthway Medical Clinic (Yishun Avenue 6)</span>
 	            <input type="checkbox">
