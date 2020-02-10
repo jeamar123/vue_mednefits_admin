@@ -1,6 +1,5 @@
 <script>
 import Modal from "../../views/modal/Modal";
-import Vue2Filters from "vue2-filters";
 import moment from "moment";
 import axios from "axios";
 import Loader from "../../views/loader/Loader";
@@ -11,15 +10,11 @@ let corporateMemberList = {
 		Modal,
 		Loader
 	},
-	mixins: [Vue2Filters.mixin],
 	props: {
 		customer_id: [String, Number]
 	},
 	data() {
 		return {
-			// --- Loading State ---
-			showLoader: false,
-			// ---------------------
 			// --- Date options ---
 			formats: {
 				input: ["DD/MM/YYYY"],
@@ -27,12 +22,14 @@ let corporateMemberList = {
 			},
 			//---------------------
 
-			selectedCorporate: JSON.parse(localStorage.selected_corporate),
+			// selectedCorporate: JSON.parse(localStorage.selected_corporate),
 			showTransferAccountModal: false,
 
 			// ---for get member details and pagination ---
 			corporate_members: [],
-			corporate_pagination: [],
+			corporate_pagination: {
+				data: [],
+			},
 			page_active: 1,
 			page_limit: 10,
 			searchEmployee: "",
@@ -58,10 +55,9 @@ let corporateMemberList = {
 		console.log(this.customer_id);
 		// this.customer_id = this.selectedCorporate.corporate.customer_id;
 
-		this.getMemberList();
-		console.log(2);
-		this.getCompanyList();
-
+		// this.getMemberList();
+		// this.getCompanyList();
+		this.onLoad(localStorage.startMemberList);
 		// await this.hideLoading();
 
 	},
@@ -84,13 +80,6 @@ let corporateMemberList = {
 				return moment(date, from).format(to);
 			}
 		},
-		// --- Methods Loading ------
-		showLoading() {
-			this.showLoader = true;
-		},
-		hideLoading() {
-			this.showLoader = false;
-		},
 		goToEmployeeInformation(list) {
 			console.log("Employee Information ", list);
 			this.$router.push({
@@ -107,14 +96,15 @@ let corporateMemberList = {
 		// --- Tranfer Account ---
 		toggleTransferAccountModal(list) {
 			this.showTransferAccountModal = !this.showTransferAccountModal;
-
-			this.selected_transfer_data = {
-				name: list.fullname,
-				member_id: list.member_id,
-				current_company: this.selectedCorporate.corporate.company_name,
-				transfer_date: new Date(),
-				company: ""
-			};
+			if (list) {
+				this.selected_transfer_data = {
+					name: list.fullname,
+					member_id: list.member_id,
+					current_company: localStorage.company_name,
+					transfer_date: new Date(),
+					company: ""
+				};
+			}
 		},
 		toggleTransferCompSummary() {
 			this.showTransferCompanySummary = !this.showTransferCompanySummary;
@@ -157,9 +147,8 @@ let corporateMemberList = {
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.$parent.hideLoading();
+					this.errorHandler(err);
 				});
 		},
 		updateTransferCompanyBtn(params) {
@@ -177,9 +166,10 @@ let corporateMemberList = {
 				.then(res => {
 					if (res.status == 200) {
 						console.log("transfer_employee", res);
-
-						this.getMemberList();
-						this.$swal("Success!", res.data.message, "success");
+						this.$swal("Success!", res.data.message, "success")
+							.then(res => {
+								this.getMemberList();
+							})
 						// this.hideLoading();
 						this.showTransferAccountModal = !this.showTransferAccountModal;
 					} else {
@@ -187,10 +177,9 @@ let corporateMemberList = {
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.hideLoading();
 					this.showTransferAccountModal = !this.showTransferAccountModal;
-					this.$swal("Error!", err, "error");
+					this.$parent.hideLoading();
+					this.errorHandler(err);
 				});
 		},
 		// -----------------------
@@ -245,6 +234,17 @@ let corporateMemberList = {
 		// ------------------
 
 		// api calls
+		onLoad(trigger) {
+			console.log(trigger);
+			axios.all([
+				this.getMemberList(),
+			]).then(res => {
+
+			}).catch(err => {
+				this.$parent.hideLoading();
+				this.errorHandler(err);
+			});
+		},
 		getMemberList() {
 			let data = {
 				customer_id: this.customer_id,
@@ -252,12 +252,11 @@ let corporateMemberList = {
 				limit: this.page_limit
 				// search: this.searchEmployee
 			};
-			// this.showLoading();
+			this.$parent.showLoading();
 			let url = `${axios.defaults.serverUrl}/company/employee_lists?customer_id=${data.customer_id}&page=${data.page}&limit=${data.limit}`;
 			axios
 				.get(url)
 				.then(res => {
-					// this.showLoading();
 					console.log("member list", res);
 					if (res.status == 200) {
 						this.corporate_members = res.data.data;
@@ -277,13 +276,13 @@ let corporateMemberList = {
 						});
 						this.searchActive = false;
 						console.log("member list", this.corporate_members);
-						// this.hideLoading();
+						this.getCompanyList(),
+							this.$parent.hideLoading();
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.$parent.hideLoading();
+					this.errorHandler(err);
 				});
 		},
 		searchMemberList(item) {
@@ -294,7 +293,7 @@ let corporateMemberList = {
 				search: item
 			};
 
-			this.showLoading();
+			this.$parent.showLoading();
 			let url = `${axios.defaults.serverUrl}/company/employee_lists?customer_id=${data.customer_id}&page=${data.page}&limit=${data.limit}&search=${data.search}`;
 			axios
 				.get(url)
@@ -318,13 +317,12 @@ let corporateMemberList = {
 
 						this.searchActive = true;
 						console.log("search member list", this.corporate_members);
-						this.hideLoading();
+						this.$parent.hideLoading();
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					this.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.$parent.hideLoading();
+					this.errorHandler(err);
 				});
 		},
 		searchEmpty(data) {

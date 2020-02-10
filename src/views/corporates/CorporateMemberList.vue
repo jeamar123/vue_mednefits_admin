@@ -12,8 +12,8 @@
 		</div>
 		<!-- Search-member End -->
 
-		<div class="member-list-container flex flex-wrap">
-			<div class="member-wrapper xl:w-1/3 lg:w-1/3 md:w-1/2 sm:w-1/2 xs:w-full my-3 mx-3" v-for="list in corporate_members"
+		<div class="member-list-container flex flex-wrap md:justify-center">
+			<div class="member-wrapper my-3 mx-3" v-for="list in corporate_members"
 				:key="list.index" ng-repeat="list in corporate_members | orderBy: list.member.created_at">
 				<template>
 					<div class="header" @click="goToEmployeeInformation(list)">
@@ -51,8 +51,8 @@
 								<label class="block">Spending Account:</label>
 								<div class="flex flex-wrap justify-between">
 									<span class="w-12 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mr-2"></span>
-									<span class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2">Wellness</span>
 									<span class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2">Medical</span>
+									<span class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2">Wellness</span>
 								</div>
 								<div class="flex flex-wrap justify-between">
 									<label class="w-12 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mr-2">Allocation</label>
@@ -94,8 +94,8 @@
 								<!-- lacking data sa api -->
 								<span class="info-bind text-sm block">{{list.date_deleted || 'N/A'}}</span>
 							</div>
-							<div class="info-details" v-if="list.deletion_text || list.deletion">
-								<span class="info-bind text-sm block text-red-700">{{list.deletion_text ? list.deletion_text : 'walay deletion_text sa data sa api'}}</span>
+							<div class="info-details" v-if="list.deletion_text">
+								<span class="info-bind text-sm block text-red-700">{{list.deletion_text ? list.deletion_text : ''}}</span>
 							</div>
 						</div>
 						<!-- end info-div -->
@@ -105,7 +105,7 @@
 							class="account-deactivated-status p-3 bg-red-300 text-center">
 							<span class="text-red-600 text-base">Account Deleted/Deactivated</span>
 						</div>
-						<button v-if="!list.deletion && list.active && !list.schedule || !list.deletion && list.active && list.schedule == undefined" ng-if="!list.deletion && !list.schedule && list.member.Active == 1"
+						<button v-if="!list.deletion && list.active && !list.schedule" ng-if="!list.deletion && !list.schedule && list.member.Active == 1"
 							class="btn btn-transfer-company" @click="toggleTransferAccountModal(list)">Transfer Account</button>
 					</div>
 					<!-- end body -->
@@ -114,7 +114,7 @@
 		</div>
 
 		<!-- Pagination Start -->
-		<div v-show="corporate_pagination.length > 5 && !searchActive" class="custom-pagination-container">
+		<div v-show="corporate_pagination.data.length > 5 && !searchActive" class="custom-pagination-container">
 			<div class="custom-pagination flex-wrap">
 				<div class="page-wrapper">
 					<div class="page-scroll-container m-0">
@@ -267,9 +267,9 @@
 		</Modal>
 		<!-- Modal End -->
 
-		<transition name="fade">
+		<!-- <transition name="fade">
 			<Loader v-if="showLoader"></Loader>
-		</transition>
+		</transition> -->
 	</div>
 	<!-- End corporate-members-container -->
 </template>

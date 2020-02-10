@@ -1222,9 +1222,18 @@
   select, .vDatepicker {
     border: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 0;
     width: 100%;
     height: 30px;
     margin: 0 0 20px;
+    background: none;
+    
+  }
+
+  select {
+    width: 100px;
+    -webkit-appearance: none;
+
   }
 }
 .credits-plans-wrapper {

@@ -16,7 +16,7 @@
         </div>
       </div>
 			<div class="search-container">
-        <form class="search-input-wrapper" v-on:submit.prevent="getCompanyList()">
+        <form class="search-input-wrapper" v-on:submit.prevent="submitSearch()">
           <i class="fa fa-search"></i>
           <input type="text" placeholder="Search" v-model="search_text" v-on:input="searchCompanyChanged( search_text )">
         </form>
@@ -73,7 +73,7 @@
               <th class="selected-companies">
                 <span>
                   <span></span>
-                  <span>{{ exportAllCompany == true ? corporate_pagination.total : corporate_id_arr.length }}</span>
+                  <span>{{ exportAllCompany == true ? overallTotalCompanies : corporate_id_arr.length }}</span>
                    selected
                 </span>
               </th>
@@ -90,7 +90,7 @@
             <tr v-if="allCompanySelected == true" class="selected-companies-container">
               <td colspan="9">
                 <span>All 
-                  <span>{{ exportAllCompany == true ? corporate_pagination.total : corporate_id_arr.length }}</span>
+                  <span>{{ exportAllCompany == true ? overallTotalCompanies : corporate_id_arr.length }}</span>
                    companies are selected. 
                   <span v-if="!exportAllCompany" v-on:click="selectAllCompany()" class="select-btn-text">Select all {{ corporate_pagination.total }} companies.</span>
                   <span v-if="exportAllCompany" v-on:click="clearAllCompany()" class="select-btn-text">Clear selection.</span>
@@ -128,12 +128,13 @@
                 <span>{{ list.total_medical_credits | number('0,0.00') }}</span>
               </td>
               <td v-on:click="goToCompanyDetails( list )">
-                <span v-show="list.employees.account_type == 'stand_alone_plan'">Pro Plan</span>
+                <span>{{ list.account_type }}</span>
+                <!-- <span v-show="list.employees.account_type == 'stand_alone_plan'">Pro Plan</span>
                 <span v-show="list.employees.account_type == 'insurance_bundle'">Insurance Bundle</span>
                 <span v-show="list.employees.account_type == 'trial_plan'">Trial Plan</span>
                 <span v-show="list.employees.account_type == 'lite_plan'">Lite Plan</span>
                 <span v-show="list.employees.account_type == 'super_pro_plan'">Super Pro Plan</span>
-                <span v-show="list.employees.account_type == 'enterprise_plan'">Enterprise Plan</span>
+                <span v-show="list.employees.account_type == 'enterprise_plan'">Enterprise Plan</span> -->
               </td>
             </tr>
           </tbody>

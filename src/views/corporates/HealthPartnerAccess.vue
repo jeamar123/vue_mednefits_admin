@@ -2,7 +2,8 @@
 	<div class="health-partner-access-wrapper">
 		<!-- <button @click="selectCorporatesView( 'CorporateMenu' )" class="btn-primary">BACK</button> -->
 		<div>
-			<router-link tag="a" :to="{ name: 'Corporates' }" class="close-btn"><span class="oi" data-glyph="x" aria-hidden="true"></span></router-link>
+			<router-link tag="a" :to="{ name: 'Corporates' }" ></router-link>
+			<a v-on:click="goBack()" class="close-btn"><span class="oi" data-glyph="x" aria-hidden="true"></span></a>
 			<h2 class="corporate-text">Corporate</h2>
 		</div>
 		<div class="health-partner-access-container">
@@ -36,14 +37,14 @@
           <div class="select-filter-div">
 	        	<select >
 	        		<option value="all">All Region</option>
-	        		<option value="name">Clinic Name</option>
+							<option value="sgd">Singapore - SGD</option>
+	        		<option value="myr">Malaysia - MYR</option>
 	        	</select>
 	        </div>
           <div class="select-filter-div">
 	        	<select >
 	        		<option value="type">Clinic Type</option>
-	        		<option value="sgd">Singapore - SGD</option>
-	        		<option value="myr">Malaysia - MYR</option>
+	        		<option value="name">Clinic Name</option>
 	        	</select>
 	        </div>
           <button class="btn-primary">
@@ -131,14 +132,14 @@
           <div class="select-filter-div">
 	        	<select >
 	        		<option value="all">All Region</option>
-	        		<option value="name">Clinic Name</option>
+							<option value="sgd">Singapore - SGD</option>
+	        		<option value="myr">Malaysia - MYR</option>
 	        	</select>
 	        </div>
           <div class="select-filter-div">
 	        	<select>
 	        		<option value="type">Clinic Type</option>
-	        		<option value="sgd">Singapore - SGD</option>
-	        		<option value="myr">Malaysia - MYR</option>
+	        		<option value="name">Clinic Name</option>
 	        	</select>
 	        </div>
           <button class="btn-primary">

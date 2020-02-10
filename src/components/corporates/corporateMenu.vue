@@ -5,15 +5,17 @@ import Loader from "../../views/loader/Loader";
 
 let corporateMenu = {
 	components: {
-		Loader
+		Loader,
 	},
 	props: {
 		customer_id: [String, Number],
+		company_name: [String, Number],
 	},
 	data() {
 		return {
 			// --- Loading State ---
 			showLoader: false,
+			dataTest: 'Loadding',
 			// ---------------------
 			corporateViewStatus: "CorporateDetails",
 			sideBar: {
@@ -43,7 +45,7 @@ let corporateMenu = {
 		this.corporateViewStatus = this.$route.name;
 		console.log('id gikan sa corporate list', this.customer_id, 'data pd niya', this.selectedCorporate);
 
-		this.api_all();
+		this.onLoad();
 		// trigger api onLoad
 		// this.getCorporateDetails();
 		// this.getCorporateCreditsInfo();
@@ -57,10 +59,10 @@ let corporateMenu = {
 		},
 		// --- Methods Loading ------
 		showLoading() {
-			this.showLoader = true;
+			this.$parent.showLoading();
 		},
 		hideLoading() {
-			this.showLoader = false;
+			this.$parent.hideLoading();
 		},
 		// --------------------------
 		selectCorporateView(opt) {
@@ -76,44 +78,19 @@ let corporateMenu = {
 		},
 
 		// Api Calls
-		api_all() {
-			this.showLoading();
-			let corporate_details = `${axios.defaults.serverUrl}/company/corporate_details?customer_id=${this.customer_id}`;
-			let corporate_credits_info = `${axios.defaults.serverUrl}/company/corporate_credits_info?customer_id=${this.customer_id}`;
-			let get_customer_renewal_status = `${axios.defaults.serverUrl}/company/get_customer_renewal_status?customer_id=${this.customer_id}`;
-
-			Promise.all([
-				axios.get(corporate_details),
-				axios.get(corporate_credits_info),
-				axios.get(get_customer_renewal_status)
-			]).then(response => {
-				// Log the data to the console
-				// You would do something with both sets of data here
-				console.log(response);
-				if (response[0].status == 200) {
-					this.corporateDetails_data = response[0].data;
-				}
-				if (response[1].status == 200) {
-					this.corporateCreditsInfo_data = response[1].data;
-				}
-				if (response[2].status == 200) {
-					this.corporateRenewalStatus_data = response[2].data;
-				}
-				this.hideLoading();
-			}).catch(error => {
-				// if there's an error, log it
-				console.log(error);
-				this.hideLoading();
+		onLoad() {
+			axios.all([
+				this.getCorporateDetails(),
+				this.getCustomerRenewalStatus(),
+				this.getCorporateCreditsInfo(),
+			]).then(res => {
+				console.log('success all api');
+				localStorage.startMemberList = true;
+			}).catch(err => {
+				this.$parent.hideLoading();
+				this.errorHandler(err);
 			});
 
-			// Promise.all([
-			// 	this.getCorporateDetails(),
-			// 	this.getCorporateCreditsInfo(),
-			// 	this.getCustomerRenewalStatus(),
-			// ]).then( res => {
-			// 	console.log('mana ang side bar summary');
-			// 	// this.hideLoading();
-			// })
 		},
 
 		getCorporateDetails() {
@@ -128,9 +105,8 @@ let corporateMenu = {
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.$parent.hideLoading();
+					this.errorHandler(err);
 				});
 		},
 		getCorporateCreditsInfo() {
@@ -147,9 +123,8 @@ let corporateMenu = {
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.$parent.hideLoading();
+					this.errorHandler(err);
 				});
 		},
 		getCustomerRenewalStatus() {
@@ -164,12 +139,31 @@ let corporateMenu = {
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.$parent.hideLoading();
+					this.errorHandler(err);
 				});
 		},
-	}
+		sendPlanExpiration() {
+			this.$parent.showLoading();
+			let url = `${axios.defaults.serverUrl}/company/send_company_plan_expiration_notification`;
+			let data = {
+				customer_id: this.customer_id,
+				email: localStorage.company_email
+			}
+			axios.post(url,data)
+				.then(res => {
+					console.log(res);
+					if (res.status == 200) {
+						this.$parent.hideLoading();
+						this.$swal('Success', res.data.message, 'success');
+					}
+				})
+				.catch(err => {
+					this.$parent.hideLoading();
+					this.errorHandler(err);
+				});
+		}
+	},
 };
 
 export default corporateMenu;
