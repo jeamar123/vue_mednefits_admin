@@ -28,7 +28,7 @@ import moment, { locale } from "moment";
       getClinicList(){
         // 
 
-        axios.get( axios.defaults.serverUrl + '/company/clinic?token=' + localStorage.getItem('vue_admin_session') + '&corporate_id=9&region=sgd' )
+        axios.get( axios.defaults.serverUrl + '/company/clinic?token=' + localStorage.getItem('vue_admin_session') + '&corporate_id=' + this.id + '&region[]=sgd&region[]=sgd' )
           .then(res => {
             console.log( res );
             this.block_clinic_list = res.data.clinic_block;
