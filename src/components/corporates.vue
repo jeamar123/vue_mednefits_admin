@@ -382,11 +382,6 @@ var corporates = {
 				}
 			});
     },
-    dateChanged( val ){
-      console.log( val );
-      console.log( this.filterData.start );
-      this.filterData.start = val.date;
-    },
 		exportCompanyCSV( params, params_header ){
 			let download_type = ['by_all'];
 			let params_download_type = '';
