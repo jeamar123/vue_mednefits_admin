@@ -23,6 +23,7 @@
 							<label>Country</label>
 							<div class="selector-container">
 								<select v-model="create_company.country">
+									<option></option>
 									<option value="sgd">Singapore</option>
 									<option value="myr">Malaysia</option>
 								</select>
@@ -68,6 +69,7 @@
 							<label>Job Title</label>
 							<div class="selector-container">
 								<select v-model="create_company.business_job_title">
+									<option></option>
 									<option v-for="jobs of job_title">{{ jobs }}</option>
 								</select>
 								<img :src="'../assets/img/down-arrow.svg'">
@@ -215,6 +217,7 @@
 								<label>Job Title</label>
 								<div class="selector-container">
 									<select v-model="list.add_contact_business_job_title">
+										<option></option>
 										<option v-for="jobs of job_title">{{ jobs }}</option>
 									</select>
 									<img :src="'../assets/img/down-arrow.svg'">
@@ -268,7 +271,7 @@
 				<p class="box-title-blue">Account & Plan</p>
 
 				<div class="form-row">
-					<div class="form-col mg-rgt-20">
+					<div class="form-col mg-rgt-20 account-date-container">
 						<div class="form-div">
 							<label>Start Date</label>
 							<div class="date-container">
@@ -292,9 +295,10 @@
 								</div>
 								<div class="selector-container">
 									<select v-model="create_company.duration_type" v-on:change="startDateChanged()">
+										<option></option>
 										<option value="days">days</option>
 										<option value="months">months</option>
-										<option value="years">year</option>
+										<option value="years">years</option>
 									</select>
 									<img :src="'../assets/img/down-arrow.svg'">
 								</div>
@@ -306,6 +310,7 @@
 							<label>Currency</label>
 							<div class="selector-container">
 								<select v-model="create_company.currency">
+									<option></option>
 									<option value="sgd">Singapore Dollar</option>
 									<option value="myr">Malaysian Ringgit</option>
 								</select>
@@ -315,7 +320,7 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-col">
+					<div class="form-col invoice-date-row">
 						<div class="form-div invoice-date-container">
 							<label>Invoice Date</label>
 							<div class="date-container">
@@ -344,7 +349,7 @@
 
 				<div v-if="create_company.employee_plan_extension">
 					<div class="form-row">
-						<div class="form-col mg-rgt-20">
+						<div class="form-col mg-rgt-20 account-date-container">
 							<div class="form-div">
 								<label>Start Date</label>
 								<div class="date-container">
@@ -368,9 +373,10 @@
 									</div>
 									<div class="selector-container">
 										<select v-model="create_company.employee_duration_extension_type">
+											<option></option>
 											<option value="days">days</option>
 											<option value="months">months</option>
-											<option value="year">year</option>
+											<option value="year">years</option>
 										</select>
 										<img :src="'../assets/img/down-arrow.svg'">
 									</div>
@@ -413,6 +419,7 @@
 							<label>Secondary Plan Type</label>
 							<div class="selector-container">
 								<select v-model="create_company.employee_secondary_account_type">
+									<option></option>
 									<option v-if="create_company.employee_account_type == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
 									<option v-if="create_company.employee_account_type == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
 
@@ -468,6 +475,7 @@
 								<label>Plan Type</label>
 								<div class="selector-container">
 									<select v-model="create_company.employee_account_type_extension" v-on:change="accountTypeExtensionChanged( create_company.employee_account_type_extension )">
+										<option></option>
 										<option value="trial_plan">Trial Plan</option>
 										<option value="insurance_bundle">Insurance Bundle</option>
 										<option value="stand_alone_plan">Pro Plan</option>
@@ -484,6 +492,7 @@
 								<label>Secondary Plan Type</label>
 								<div class="selector-container">
 									<select v-model="create_company.employee_secondary_account_type_extension">
+										<option></option>
 										<option v-if="create_company.employee_account_type_extension == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
 										<option v-if="create_company.employee_account_type_extension == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
 
@@ -523,7 +532,7 @@
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="form-col mg-rgt-20">
+						<div class="form-col mg-rgt-20 account-date-container">
 							<div class="form-div">
 								<label>Invoice Date</label>
 								<div class="date-container">
@@ -569,6 +578,7 @@
 								<label>Plan Type</label>
 								<div class="selector-container">
 									<select v-model="create_company.dependent_account_type" v-on:change="accountDependentsTypeChanged( create_company.dependent_account_type )">
+										<option></option>
 										<option value="trial_plan">Trial Plan</option>
 										<option value="insurance_bundle">Insurance Bundle</option>
 										<option value="stand_alone_plan">Pro Plan</option>
@@ -586,6 +596,7 @@
 								<label>Secondary Plan Type</label>
 								<div class="selector-container">
 									<select v-model="create_company.dependent_secondary_account_type">
+										<option></option>
 										<option v-if="create_company.dependent_account_type == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
 										<option v-if="create_company.dependent_account_type == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
 
@@ -642,6 +653,7 @@
 									<label>Plan Type</label>
 									<div class="selector-container">
 										<select v-model="create_company.secondary_account_type_extension" v-on:change="accountTypeExtensionDependentsChanged( create_company.secondary_account_type_extension )">
+											<option></option>
 											<option value="trial_plan">Trial Plan</option>
 											<option value="insurance_bundle">Insurance Bundle</option>
 											<option value="stand_alone_plan">Pro Plan</option>
@@ -659,6 +671,7 @@
 									<label>Secondary Plan Type</label>
 									<div class="selector-container">
 										<select v-model="create_company.secondary_account_type_extension_dependents">
+											<option></option>
 											<option v-if="create_company.secondary_account_type_extension == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
 											<option v-if="create_company.secondary_account_type_extension == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
 
@@ -698,7 +711,7 @@
 							</div>
 						</div>
 						<div class="form-row">
-							<div class="form-col mg-rgt-20">
+							<div class="form-col mg-rgt-20 invoice-date-row">
 								<div class="form-div">
 									<label>Invoice Date</label>
 									<div class="date-container">
@@ -758,7 +771,7 @@
 		                v-model="create_company.medical_spending_start_date"
 		                :input-props='{class: "spendingDatePicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                :formats='formats'
-		                popover-visibility="visible"
+		                popover-visibility="focus"
 		                v-bind:class="{ noSpending : create_company.medical_spending_account == false }"
 		              >
 		              </v-date-picker>
@@ -767,7 +780,7 @@
 							</div>
 						</div>
 						<div class="form-col">
-							<div class="form-div med-date-container">
+							<div class="form-div med-date-container spending-end-date-container">
 								<label>End Date</label>
 								<div class="date-container">
 									<v-date-picker
@@ -813,7 +826,7 @@
 							</div>
 						</div>
 						<div class="form-col">
-							<div class="form-div well-date-container">
+							<div class="form-div well-date-container spending-end-date-container">
 								<label>End Date</label>
 								<div class="date-container">
 									<v-date-picker
@@ -868,11 +881,11 @@
 							<div class="send-welcome-email-toggle">
 								<div class="toggle-wrapper">
 									<div class="toggle-btns">
-										<div v-on:click="toggleSendWelcomeEmailAddCorporate(true)" v-bind:class="{ active : create_company.add_cc == true }" class="toggle on">Yes</div>
-										<div v-on:click="toggleSendWelcomeEmailAddCorporate(false)" v-bind:class="{ active : create_company.add_cc == false }" class="toggle off">No</div>
+										<div v-on:click="toggleSendWelcomeEmailAddCorporate(true)" v-bind:class="{ active : create_company.send_email == true }" class="toggle on">Yes</div>
+										<div v-on:click="toggleSendWelcomeEmailAddCorporate(false)" v-bind:class="{ active : create_company.send_email == false }" class="toggle off">No</div>
 									</div>
 								</div>
-								<div v-if="create_company.add_cc" class="welcome-email-account-selector">
+								<div v-if="create_company.send_email" class="welcome-email-account-selector">
 								<label>Schedule Welcome Email Account?</label>
 									<div class="form-toggle form-col-toggle">
 										<div class="toggle-wrapper">
@@ -910,7 +923,7 @@
 					</div>
 				</div>
 
-				<div v-if="create_company.add_cc">
+				<div v-if="create_company.send_email">
 					<div class="form-row">
 						<div class="form-col flex-2">
 							<div class="form-div">
@@ -961,7 +974,7 @@
 			</div>
 
 			<div class="form-row justify-content-end margin-030">
-				<button v-on:click="createCorporateDashboard( create_company )" class="btn btn-primary">CREATE ACCOUNT</button>
+				<button v-on:click="createCorporateDashboard( create_company )" class="btn submit-add-corporate-btn">CREATE ACCOUNT</button>
 			</div>
 			<div class="white-space-50"></div>
 

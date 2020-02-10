@@ -1,3 +1,5 @@
+const { colors } = require('tailwindcss/defaultTheme');
+
 module.exports = {
   important: true,
   theme: {
@@ -11,14 +13,23 @@ module.exports = {
       // => @media (max-width: 767px) { ... }
       'sm': {'max': '639px'},
       // => @media (max-width: 639px) { ... }
-      'xs': {'min':'220px', 'max': '420px'},
+      'xs': {'min':'220px', 'max': '480px'},
 
     },
     fontFamily: {
       display: ['Helvetica Medium', 'sans-serif'],
       body: ['Helvetica Light', 'sans-serif'],
     },
-    extend: {}
+    extend: {
+      colors: {
+        gray: {
+          ...colors.gray,
+          '100': '#0000001f',
+          '500': '#ecf0f1',
+          '900': '#666',
+        }
+      }
+    },
   },
   variants: {},
   plugins: []

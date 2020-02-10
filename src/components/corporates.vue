@@ -9,6 +9,10 @@ var corporates = {
   },
   data() {
     return {
+      formats: {
+				input: ["DD/MM/YYYY"],
+				data: ["DD/MM/YYYY"]
+			},
       filterData: {
         start: null,
         end: null
@@ -117,9 +121,9 @@ var corporates = {
         'company_name',
         'plan_end',
         'hr_account_status',
-        'total_employee_seat',
+        'total_employee_seats',
         'total_dependent_seat',
-        'total_medical_credits',
+        'total_medical_credit',
         'account_type',
         'no_employees',
         'no_dependents',
@@ -138,10 +142,14 @@ var corporates = {
       ],
       page_active: 1,
       page_limit: 10,
-      pagesToDisplay: 5
+      pagesToDisplay: 5,
+      overallTotalCompanies: 0,
     };
   },
   created() {
+    localStorage.startMemberList = false;
+    localStorage.company_name = '';
+    localStorage.company_email= '';
     this.getCompanyList();
   },
   computed: {
@@ -252,6 +260,8 @@ var corporates = {
         this.corporate_list_arr.map((value) => {
           value.selected = false;
         });
+        this.exportAllCompany = false;
+        this.overallTotalCompanies = this.corporate_pagination.total;
       }
     },
     companyCheckBox( list, opt ){
@@ -259,8 +269,11 @@ var corporates = {
         this.corporate_id_arr.push( list.corporate.customer_id );
       }else{
         this.corporate_id_arr.splice( $.inArray( list.corporate.customer_id, this.corporate_id_arr ) , 1);
-        this.exportAllCompany = false;
-        this.allCompanySelected = false;
+        // this.exportAllCompany = false;
+        // this.allCompanySelected = false;
+      }
+      if( this.exportAllCompany == true ){
+        this.overallTotalCompanies = opt == true ? this.overallTotalCompanies + 1 : this.overallTotalCompanies - 1;
       }
       if( this.corporate_id_arr.length == this.corporate_pagination.total ){
         this.exportAllCompany = true;
@@ -272,11 +285,23 @@ var corporates = {
       this.$router.push({
         name: "CorporateMenu",
         params: {
-					customer_id: data.corporate.customer_id,
+          customer_id: data.corporate.customer_id,
+          company_name: data.corporate.company_name
 				}
 			});
 			
-			localStorage.selected_corporate = JSON.stringify(data);
+      localStorage.company_name = data.corporate.company_name;
+      localStorage.company_email = data.corporate.contact.email;
+    },
+    submitSearch(){
+      this.export_data_header.map( ( value, index ) => {
+        value.isSelected = index > 6 ? false : true;
+      });
+      this.exportAllCompany = false;
+      this.allCompanySelected = false;
+      this.page_active = 1;
+      this.overallTotalCompanies = 0;
+      this.getCompanyList();
     },
     closeAllModalsDrop() {
       // console.log('click outside.');
@@ -289,11 +314,12 @@ var corporates = {
         start: null,
         end: null
       };
+      this.exportAllCompany = false;
       this.allCompanySelected = false;
       this.search_text = "";
       this.searchPropertiesText = "";
       this.corporate_id_arr = [];
-      this.export_data_header.map( ( value ) => {
+      this.export_data_header.map( ( value, index ) => {
         value.isSelected = index > 6 ? false : true;
       });
       this.page_active = 1;
@@ -303,6 +329,9 @@ var corporates = {
     },
     selectAllCompany(){
       this.exportAllCompany = true;
+      this.corporate_list_arr.map(value => {
+        value.selected = true;
+      });
     },
     clearAllCompany(){
       this.exportAllCompany = false;
@@ -317,7 +346,6 @@ var corporates = {
       this.$forceUpdate();
     },
     searchCompanyChanged(data) {
-      console.log(data);
       if (data == "") {
         // this.getCompanyList();
       }
@@ -331,6 +359,7 @@ var corporates = {
 
       this.page_active = 1;
       this.page_limit = 10;
+      this.overallTotalCompanies = 0;
       this.getCompanyList();
 		},
 		exportData(){
@@ -344,9 +373,7 @@ var corporates = {
 				if( key == this.export_data_keys.length - 1 ){
 					if( this.corporate_id_arr.length > 0 ){
 						this.corporate_id_arr.map((value2, key2) => {
-							if( this.export_data_header[ key2 .isSelected] == true ){
-								params += ( "ids[]=" + value2 + "&" );
-							}
+              params += ( "ids[]=" + value2 + "&" );
 							if( key2 == this.corporate_id_arr.length - 1 ){
 								this.exportCompanyCSV( params, params_header );
 							}
@@ -356,16 +383,17 @@ var corporates = {
 					}
 				}
 			});
-		},
+    },
+    dateChanged( val ){
+      console.log( val );
+      console.log( this.filterData.start );
+      this.filterData.start = val.date;
+    },
 		exportCompanyCSV( params, params_header ){
 			let download_type = ['by_all'];
 			let params_download_type = '';
-			if( this.corporate_id_arr.length > 0  && ( this.corporate_id_arr.length == this.corporate_pagination.total ) ){
-				if( this.corporate_id_arr.length == this.corporate_pagination.total ){
-					download_type = ['by_all'];
-				}else{
-					download_type = ['by_id'];
-				}
+			if( this.corporate_id_arr.length > 0 ){
+				download_type = ['by_id'];
 			}
 			if( this.filterData.start != null && this.filterData.end != null ){
 				download_type.push( 'by_date' );
@@ -381,7 +409,7 @@ var corporates = {
 			window.open( axios.defaults.serverUrl + '/company/corporate?isGetCSV=true' + params_download_type + '&token=' + localStorage.getItem('vue_admin_session') + '&' + params + params_header );
 		},
 		getCompanyList(){
-			this.$parent.showLoading();
+			this.showLoading();
 			this.isFilterModalShow = false;
 			var url = axios.defaults.serverUrl + '/company/corporate?page=' + this.page_active + '&limit=' + this.page_limit;
 			if( this.filterData.start != null && this.filterData.end != null ){
@@ -396,23 +424,31 @@ var corporates = {
 				console.log( res );
 				this.corporate_list_arr = res.data.data;
         this.corporate_pagination = res.data;
+        this.overallTotalCompanies = this.overallTotalCompanies == 0 ? this.corporate_pagination.total : this.overallTotalCompanies;
 				// console.log(this.corporate_list_arr);
 				// console.log(this.corporate_pagination);
-
+        console.log( this.exportAllCompany );
 				this.corporate_list_arr.map(value => {
-					value.selected = false;
+          if( this.exportAllCompany == true ){
+            value.selected = true;
+          }else{
+            value.selected = $.inArray( value.corporate.customer_id, this.corporate_id_arr ) > -1 ? true : false;
+          }
+
+          if( $.inArray( value.corporate.customer_id, this.corporate_id_arr ) > -1 ){
+            this.allCompanySelected = true;
+          }
 				});
 
 				// this.filterData = {
 				// 	start: null,
 				// 	end: null,
 				// };
-				this.$parent.hideLoading();
+				this.hideLoading();
 			})
 			.catch(err => {
-				console.log(err);
-				// this.$parent.hideLoading();
-				this.swal('Error!', err, 'error');
+        this.hideLoading();
+        this.errorHandler( err );
 			});
 		}
 	}

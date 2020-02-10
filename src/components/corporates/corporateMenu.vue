@@ -1,35 +1,64 @@
 <script>
 import axios from "axios";
 import moment from "moment"
+import Loader from "../../views/loader/Loader";
 
 let corporateMenu = {
+	components: {
+		Loader,
+	},
+	props: {
+		customer_id: [String, Number],
+		company_name: [String, Number],
+	},
 	data() {
 		return {
+			// --- Loading State ---
+			showLoader: false,
+			dataTest: 'Loadding',
+			// ---------------------
 			corporateViewStatus: "CorporateDetails",
 			sideBar: {
 				trigger: false
 			},
-			corporateDetails_data: {},
+			corporateDetails_data: {
+				employee: {
+					// total_seats: 0,
+					// occupied_seats: 0,
+					// vacant_seats: 0,
+				},
+				dependent: {
+					// total_seats: 0,
+					// occupied_seats: 0,
+					// vacant_seats: 0,
+				}
+			},
 			corporateCreditsInfo_data: {},
 			corporateRenewalStatus_data: {},
-			selectedCorporate: JSON.parse(localStorage.selected_corporate),
-			customer_id: null,
+			// selectedCorporate: JSON.parse(localStorage.selected_corporate),
+			// customer_id: null,
 
 		};
 	},
 	created() {
-		this.customer_id = this.selectedCorporate.corporate.customer_id;
+		// this.customer_id = this.selectedCorporate.corporate.customer_id;
 		this.corporateViewStatus = this.$route.name;
 		console.log('id gikan sa corporate list', this.customer_id, 'data pd niya', this.selectedCorporate);
 
+		this.onLoad();
 		// trigger api onLoad
-		this.getCorporateDetails();
-		this.getCorporateCreditsInfo();
-		this.getCustomerRenewalStatus();
+		// this.getCorporateDetails();
+		// this.getCorporateCreditsInfo();
+		// this.getCustomerRenewalStatus();
 	},
 	methods: {
-		// --- Methods from parent ---
-		showLoading(){
+		formatDate(date, from, to) {
+			if (date != null) {
+				return moment(date, from).format(to);
+			}
+		},
+		// --- Methods Loading ------
+		showLoading() {
 			this.$parent.showLoading();
 		},
 		hideLoading() {
@@ -49,6 +78,20 @@ let corporateMenu = {
 		},
 
 		// Api Calls
+		onLoad() {
+			axios.all([
+				this.getCorporateDetails(),
+				this.getCustomerRenewalStatus(),
+				this.getCorporateCreditsInfo(),
+			]).then(res => {
+				console.log('success all api');
+				localStorage.startMemberList = true;
+			}).catch(err => {
+				this.$parent.hideLoading();
+				this.errorHandler(err);
+			});
+
+		},
 
 		getCorporateDetails() {
 			// side info
@@ -58,18 +101,12 @@ let corporateMenu = {
 					if (res.status == 200) {
 						console.log('details', res);
 						this.corporateDetails_data = res.data;
-
-						this.corporateDetails_data.plan_start = moment(this.corporateDetails_data.plan_start).format('MMMM DD, YYYY');
-						this.corporateDetails_data.plan_end = moment(this.corporateDetails_data.plan_end).format('MMMM DD, YYYY');
-						this.corporateDetails_data.last_credit_reset_data = moment(this.corporateDetails_data.last_credit_reset_data).format('MMMM DD, YYYY');
-
-						// this.$parent.hideLoading();
+						// this.hideLoading();
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.$parent.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.$parent.hideLoading();
+					this.errorHandler(err);
 				});
 		},
 		getCorporateCreditsInfo() {
@@ -82,13 +119,12 @@ let corporateMenu = {
 						console.log('credits info', res);
 						this.corporateCreditsInfo_data = res.data;
 
-						// this.$parent.hideLoading();
+						// this.hideLoading();
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.$parent.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.$parent.hideLoading();
+					this.errorHandler(err);
 				});
 		},
 		getCustomerRenewalStatus() {
@@ -99,16 +135,35 @@ let corporateMenu = {
 					if (res.status == 200) {
 						console.log('renewal status', res);
 						this.corporateRenewalStatus_data = res.data;
-						// this.$parent.hideLoading();
+						// this.hideLoading();
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.$parent.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.$parent.hideLoading();
+					this.errorHandler(err);
 				});
 		},
-	}
+		sendPlanExpiration() {
+			this.$parent.showLoading();
+			let url = `${axios.defaults.serverUrl}/company/send_company_plan_expiration_notification`;
+			let data = {
+				customer_id: this.customer_id,
+				email: localStorage.company_email
+			}
+			axios.post(url,data)
+				.then(res => {
+					console.log(res);
+					if (res.status == 200) {
+						this.$parent.hideLoading();
+						this.$swal('Success', res.data.message, 'success');
+					}
+				})
+				.catch(err => {
+					this.$parent.hideLoading();
+					this.errorHandler(err);
+				});
+		}
+	},
 };
 
 export default corporateMenu;

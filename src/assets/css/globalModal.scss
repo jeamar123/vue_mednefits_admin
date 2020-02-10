@@ -1,3 +1,30 @@
+@media (max-width: 1280px) {
+  /* ... */
+}
+
+/* Large (lg) */
+
+@media (max-width: 1024px) {
+  /* ... */
+}
+
+/* Medium (md) */
+
+@media (max-width: 768px) {
+  /* ... */
+}
+
+/* Small (sm) */
+
+@media (max-width: 640px) {
+  /* ... */
+  .modal-container {
+    width: 92% !important;
+    margin: 70px auto;
+  }
+}
+
+
 // ------ CORPORATE LIST ADD FILTER ------ //
   .add-filter-wrapper {
     .modal-container {
@@ -598,3 +625,32 @@
 }
 
 // ------------------------------------------------------ //
+
+
+
+//  ------------ Settings Update Reset Password --------- //
+
+.update-reset, .sms-notification {
+  .modal-container {
+    width: 450px;
+    font-size: 16px;
+    margin: 70px auto;
+  }
+  .modal-header {
+    background: rgb(63, 81, 181);
+    color: #fff;
+  }
+}
+// .sms-notification {
+//   .modal-container {
+//     width: 450px;
+//     font-size: 16px;
+//     margin: 70px auto;
+//   }
+//   .modal-header {
+//     background: rgb(63, 81, 181);
+//     color: #fff;
+//   }
+// }
+
+// ----------------------------------------------------- //

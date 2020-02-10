@@ -1,17 +1,17 @@
 <script>
 import Modal from "../../views/modal/Modal";
-import Vue2Filters from 'vue2-filters'
 import moment from "moment";
 import axios from "axios";
+import Loader from "../../views/loader/Loader";
 //
 
 let corporateMemberList = {
 	components: {
-		Modal
+		Modal,
+		Loader
 	},
-	mixins: [Vue2Filters.mixin],
 	props: {
-		customer_id: [String, Number],
+		customer_id: [String, Number]
 	},
 	data() {
 		return {
@@ -22,29 +22,32 @@ let corporateMemberList = {
 			},
 			//---------------------
 
-			selectedCorporate: JSON.parse(localStorage.selected_corporate),
+			// selectedCorporate: JSON.parse(localStorage.selected_corporate),
 			showTransferAccountModal: false,
 
 			// ---for get member details and pagination ---
 			corporate_members: [],
-			corporate_pagination: [],
+			corporate_pagination: {
+				data: [],
+			},
 			page_active: 1,
 			page_limit: 10,
-			searchEmployee: '',
+			searchEmployee: "",
 			pagesToDisplay: 5,
 			isPageLimitDropShow: false,
+			searchActive: false,
 			// -----------------------------
 			// --- Tranfer Account ---
 			showTransferCompanySummary: false,
 			showCompanyDrop: false,
 			selected_transfer_data: {
-				name: '',
-				member_id: '',
-				current_company: '',
+				name: "",
+				member_id: "",
+				current_company: "",
 				transfer_date: new Date(),
-				company: '',
+				company: ""
 			},
-			company_list: [],
+			company_list: []
 			// -----------------------
 		};
 	},
@@ -52,9 +55,11 @@ let corporateMemberList = {
 		console.log(this.customer_id);
 		// this.customer_id = this.selectedCorporate.corporate.customer_id;
 
-		// trigger api
-		this.getCompanyList();
-		this.getMemberList();
+		// this.getMemberList();
+		// this.getCompanyList();
+		this.onLoad(localStorage.startMemberList);
+		// await this.hideLoading();
+
 	},
 	computed: {
 		limitPagination() {
@@ -67,40 +72,51 @@ let corporateMemberList = {
 			} else {
 				return this.range(this.corporate_pagination.totalPages);
 			}
-		},
+		}
 	},
 	methods: {
-
+		formatDate(date, from, to) {
+			if (date != null) {
+				return moment(date, from).format(to);
+			}
+		},
 		goToEmployeeInformation(list) {
-			console.log('Employee Information ', list);
+			console.log("Employee Information ", list);
 			this.$router.push({
-				name: 'EmployeeInformation',
+				name: "EmployeeInformation",
 				params: {
 					member_id: list.member_id,
-					name: list.fullname.split(' ').slice(-1).join(' '),
+					name: list.fullname
+						.split(" ")
+						.slice(-1)
+						.join(" ")
 				}
 			});
 		},
 		// --- Tranfer Account ---
 		toggleTransferAccountModal(list) {
 			this.showTransferAccountModal = !this.showTransferAccountModal;
-
-			this.selected_transfer_data = {
-				name: list.fullname,
-				member_id: list.member_id,
-				current_company: this.selectedCorporate.corporate.company_name,
-				transfer_date: new Date(),
-				company: '',
+			if (list) {
+				this.selected_transfer_data = {
+					name: list.fullname,
+					member_id: list.member_id,
+					current_company: localStorage.company_name,
+					transfer_date: new Date(),
+					company: ""
+				};
 			}
 		},
 		toggleTransferCompSummary() {
 			this.showTransferCompanySummary = !this.showTransferCompanySummary;
 			if (this.showTransferCompanySummary == true) {
-				this.selected_transfer_data.transfer_date = moment(this.selected_transfer_data.transfer_date).format('DD MMMM, YYYY');
+				this.selected_transfer_data.transfer_date = moment(
+					this.selected_transfer_data.transfer_date
+				).format("DD MMMM, YYYY");
 			} else {
-				this.selected_transfer_data.transfer_date = new Date(this.selected_transfer_data.transfer_date);
+				this.selected_transfer_data.transfer_date = new Date(
+					this.selected_transfer_data.transfer_date
+				);
 			}
-
 		},
 		companyTransferTyping(data) {
 			if (data.length > 1) {
@@ -118,48 +134,52 @@ let corporateMemberList = {
 			this.selected_transfer_data.company = data.company_name;
 		},
 		getCompanyList() {
-			this.$parent.showLoading();
+			// this.showLoading();
 			let url = `${axios.defaults.serverUrl}/company/get_company_lists`;
-			axios.get(url)
+			axios
+				.get(url)
 				.then(res => {
 					console.log("Company list", res);
 					if (res.status == 200) {
 						this.company_list = res.data.data;
-						console.log("Company list", this.company_list);
+						// console.log("Company list", this.company_list);
+						// this.hideLoading();
 					}
 				})
 				.catch(err => {
-					console.log(err);
 					this.$parent.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.errorHandler(err);
 				});
 		},
 		updateTransferCompanyBtn(params) {
-			console.log('params', params);
+			console.log("params", params);
 			let data = {
 				member_id: params.member_id,
 				old_customer_id: this.customer_id,
 				new_customer_id: params.new_company_id,
-				start_date: moment(params.transfer_date).format('YYYY/MM/DD'),
+				start_date: moment(params.transfer_date).format("YYYY/MM/DD")
 				// serach: 'name'
 			};
 			let url = `${axios.defaults.serverUrl}/company/transfer_employee`;
-			axios.post(url, data)
+			axios
+				.post(url, data)
 				.then(res => {
 					if (res.status == 200) {
 						console.log("transfer_employee", res);
-						this.$swal("Success!", res.data.message, "success");
-						// this.$parent.hideLoading();
-						this.showTransferAccountModal = !this.showTransferAccountModal
+						this.$swal("Success!", res.data.message, "success")
+							.then(res => {
+								this.getMemberList();
+							})
+						// this.hideLoading();
+						this.showTransferAccountModal = !this.showTransferAccountModal;
 					} else {
 						this.$swal("Error!", res.data.message, "error");
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.$parent.hideLoading();
-					this.showTransferAccountModal = !this.showTransferAccountModal
-					this.$swal("Error!", err, "error");
+					this.showTransferAccountModal = !this.showTransferAccountModal;
+					this.$parent.hideLoading();
+					this.errorHandler(err);
 				});
 		},
 		// -----------------------
@@ -208,23 +228,35 @@ let corporateMemberList = {
 			this.getMemberList();
 		},
 		togglePageLimitDrop() {
-			this.isPageLimitDropShow = this.isPageLimitDropShow == true ? false : true;
+			this.isPageLimitDropShow =
+				this.isPageLimitDropShow == true ? false : true;
 		},
 		// ------------------
 
 		// api calls
+		onLoad(trigger) {
+			console.log(trigger);
+			axios.all([
+				this.getMemberList(),
+			]).then(res => {
+
+			}).catch(err => {
+				this.$parent.hideLoading();
+				this.errorHandler(err);
+			});
+		},
 		getMemberList() {
 			let data = {
 				customer_id: this.customer_id,
 				page: this.page_active,
-				limit: this.page_limit,
+				limit: this.page_limit
 				// search: this.searchEmployee
 			};
 			this.$parent.showLoading();
 			let url = `${axios.defaults.serverUrl}/company/employee_lists?customer_id=${data.customer_id}&page=${data.page}&limit=${data.limit}`;
-			axios.get(url)
+			axios
+				.get(url)
 				.then(res => {
-					// this.$parent.showLoading();
 					console.log("member list", res);
 					if (res.status == 200) {
 						this.corporate_members = res.data.data;
@@ -234,21 +266,23 @@ let corporateMemberList = {
 							value.enrollment_date = moment(value.enrollment_date).format(
 								"DD MMMM, YYYY"
 							);
-							value.start_date = moment(value.start_date).format("DD MMMM, YYYY");
+							value.start_date = moment(value.start_date).format(
+								"DD MMMM, YYYY"
+							);
 							value.expiry_date = moment(value.expiry_date).format(
 								"DD MMMM, YYYY"
 							);
 							value.dob = moment(value.dob).format("DD MMMM, YYYY");
 						});
-
+						this.searchActive = false;
 						console.log("member list", this.corporate_members);
-						this.$parent.hideLoading();
+						this.getCompanyList(),
+							this.$parent.hideLoading();
 					}
 				})
 				.catch(err => {
-					console.log(err);
 					this.$parent.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.errorHandler(err);
 				});
 		},
 		searchMemberList(item) {
@@ -256,13 +290,14 @@ let corporateMemberList = {
 				customer_id: this.customer_id,
 				page: this.page_active,
 				limit: this.page_limit,
-				search: item,
+				search: item
 			};
 
+			this.$parent.showLoading();
 			let url = `${axios.defaults.serverUrl}/company/employee_lists?customer_id=${data.customer_id}&page=${data.page}&limit=${data.limit}&search=${data.search}`;
-			axios.get(url)
+			axios
+				.get(url)
 				.then(res => {
-					// this.$parent.showLoading();
 					console.log("search member list", res);
 					if (res.status == 200) {
 						this.corporate_members = res.data.data;
@@ -271,23 +306,30 @@ let corporateMemberList = {
 							value.enrollment_date = moment(value.enrollment_date).format(
 								"DD MMMM, YYYY"
 							);
-							value.start_date = moment(value.start_date).format("DD MMMM, YYYY");
+							value.start_date = moment(value.start_date).format(
+								"DD MMMM, YYYY"
+							);
 							value.expiry_date = moment(value.expiry_date).format(
 								"DD MMMM, YYYY"
 							);
 							value.dob = moment(value.dob).format("DD MMMM, YYYY");
 						});
 
+						this.searchActive = true;
 						console.log("search member list", this.corporate_members);
-						// this.$parent.hideLoading();
+						this.$parent.hideLoading();
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.$parent.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.$parent.hideLoading();
+					this.errorHandler(err);
 				});
-
+		},
+		searchEmpty(data) {
+			console.log(data);
+			if (data == "") {
+				this.getMemberList();
+			}
 		}
 	}
 };
@@ -324,6 +366,12 @@ export default corporateMemberList;
 
 @media (max-width: 640px) {
 	/* ... */
+	.transfer-account {
+		.modal-container {
+			width: 100% !important;
+			margin: 70px auto;
+		}
+	}
 	.corporate-members-container {
 		.search-member-wrapper {
 			width: 75%;

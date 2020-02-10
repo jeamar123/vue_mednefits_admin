@@ -172,7 +172,7 @@ $font-gray: #888;
 
   .search-member-wrapper {
     position: relative;
-    width: 45%;
+    width: 370px;
     display: flex;
 
     .oi {
@@ -194,6 +194,8 @@ $font-gray: #888;
     }
     input::placeholder {
       opacity: 0.6;
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.87);
     }
   }
 }
@@ -205,7 +207,7 @@ $font-gray: #888;
   // grid-row-gap: 20px;
 }
 .member-wrapper {
-  // width: 300px;
+  width: 270px;
   /* min-height: 379px; */
   /* height: 360px; */
   background: #fdfdfd;

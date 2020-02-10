@@ -12,6 +12,12 @@ let employeeSettings = {
 	},
 	data() {
 		return {
+			// Modal Update - Reset //
+				showSetupAccountModal: false,
+				emp_padd_reset_wrapper: true,
+				emp_pass_update: false,
+				pin_setup_update: false,
+			// END Modal //
 			empSelectorActive: {
 				value: 0,
 				text: ""
@@ -32,7 +38,6 @@ let employeeSettings = {
 			showTimeVisitDropdown: false,
 			showDaytimeOption: false,
 			showTimeOption: false,
-			showSetupAccountModal: false,
 			showClaimTypeListOption: false,
 			showMemberListOption: false,
 			showRenewModal: false,
@@ -50,6 +55,7 @@ let employeeSettings = {
 				input: ["DD/MM/YYYY"],
 				data: ["DD/MM/YYYY"]
 			},
+			cap_per_visit: '',
 		};
 	},
 	created() {
@@ -220,6 +226,9 @@ let employeeSettings = {
 					this.showSetupAccountModal = true;
 				} else if (x === "cancel") {
 					this.showSetupAccountModal = false;
+					this.emp_padd_reset_wrapper = true;
+					this.emp_pass_update = false;
+					this.pin_setup_update = false;
 				}
 			}
 
@@ -273,7 +282,7 @@ let employeeSettings = {
 				this.showShortTermSelector = false;
 			}
 		},
-     updateCapPerVisit( cap,id ) {
+     updateCapPerVisit( cap ) {
       console.log(cap);
 
       if (!cap || cap == null || cap == '') {
@@ -281,20 +290,37 @@ let employeeSettings = {
         return false;
       }
       var data = {
-        employee_id: 1,
+        employee_id: this.member_id,
         cap_amount: cap,
       }
+
+      // console.log( data );
 
       axios.post( axios.defaults.serverUrl + '/company/updateEmployeeCap', data ) 
       .then(response => { 
         console.log(response);
         this.$swal("Success!", response.data.message, "success");
+        this.showManageCapPerVisit = false;
       })
       .catch(err => {
-        console.log(err.response);
-        this.$swal("Error!", err.response.data.message, "error");
-      });
-    },
+        this.$parent.hideLoading();
+        this.errorHandler( err );
+			});
+		},
+		showUpdatePass() {
+			this.emp_padd_reset_wrapper = !this.emp_padd_reset_wrapper;
+			this.emp_pass_update = !this.emp_pass_update;
+		},
+		pinSetupShow () {
+			this.emp_padd_reset_wrapper = !this.emp_padd_reset_wrapper;
+			this.pin_setup_update = !this.pin_setup_update;
+		},
+		resendEmployeeEmailDash() {
+			// function here
+		},
+		unPinSetup() {
+			// function here
+		}
 	}
 }
 
@@ -303,4 +329,31 @@ export default employeeSettings
 
 <style lang="scss" scoped>
 @import "./src/assets/css/corporateEmployee.scss";
+
+
+
+@media (max-width: 1280px) {
+	/* ... */
+}
+
+/* Large (lg) */
+
+@media (max-width: 1024px) {
+	/* ... */
+}
+
+/* Medium (md) */
+
+@media (max-width: 768px) {
+	/* ... */
+
+}
+
+/* Small (sm) */
+
+@media (max-width: 640px) {
+	/* ... */
+	
+}
+
 </style>
