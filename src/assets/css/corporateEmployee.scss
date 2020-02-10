@@ -86,6 +86,25 @@
     padding: 30px 15px;
     margin: 0 10px;
   }
+  .allocation-wrapper {
+    border-bottom: 1px solid #e2e2e2;
+    padding: 0 0 10px;
+    margin: 0 0 20px;
+
+    .row-div {
+      border: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    .small {
+      color: #0392cf;
+      font-size: 65%;
+      line-height: 1.5;
+      margin: 10px 0 0;
+      width: 145px;
+    }
+  }
   .row-div {
     display: flex;
     justify-content: center;
@@ -1400,6 +1419,10 @@
     padding: 5px 25px;
     font-weight: 700;
     height: 38px;
+
+     &[disabled] {
+      opacity: .5;
+    }
   }
 
   .entitlement-information-details {
@@ -1413,17 +1436,6 @@
   .wellness-entitlement-container {
     display: flex;
     padding: 10px 0 0 0;
-
-    .col-md-2 {
-      // width: 16.6%;
-      // padding: 0 40px 0 0;
-    }
-
-    .col-md-3 {
-      // width: 25%;
-      // padding: 0 15px 0 0;
-      // padding: 0 40px 0 0;
-    }
 
     .entitlement-input-wrapper {
       display: grid;
@@ -1513,6 +1525,12 @@
 
     button {
       margin: 35px 0 0 0;
+    }
+
+    .effective-date-error {
+      font-size: 10px;
+      margin: 10px 0 0;
+      color: #f14242;
     }
   }
 
