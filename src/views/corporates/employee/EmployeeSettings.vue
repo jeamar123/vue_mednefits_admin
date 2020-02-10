@@ -22,7 +22,7 @@
 				</button>
 			</div>
 			<div>
-				<button @click="selectHealthPartnerView( 'HealthPartnerAccess' )" class="btn btn-settings">
+				<button @click="selectHealthPartnerView( )" class="btn btn-settings">
 					<i class="fa fa-search"></i> Health Partner Access
 				</button>
 			</div>

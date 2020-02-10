@@ -2,9 +2,8 @@
 	<div class="health-partner-access-wrapper">
 		<!-- <button @click="selectCorporatesView( 'CorporateMenu' )" class="btn-primary">BACK</button> -->
 		<div>
-			<router-link tag="a" :to="{ name: 'Corporates' }" ></router-link>
 			<a v-on:click="goBack()" class="close-btn"><span class="oi" data-glyph="x" aria-hidden="true"></span></a>
-			<h2 class="corporate-text">Corporate</h2>
+			<h2 class="corporate-text txt-transform-capitalize">{{ type }}</h2>
 		</div>
 		<div class="health-partner-access-container">
 			<!-- <div class="health-partner-tab">

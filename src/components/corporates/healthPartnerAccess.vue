@@ -1,17 +1,35 @@
 <script>
+import axios from "axios";
+import moment, { locale } from "moment";
+
   let  healthPartnerAccess = {
+    props: {
+      id: [String, Number],
+      type: [String, Number]
+    },
     data() {
       return {
         
       };
     },
     created(){
-      this.corporatesViewStatus = this.$route.name;
+      console.log( this.type );
+      this.getClinicList();
     },
     methods: {
-      selectCorporatesView( opt ){
-        this.corporatesViewStatus = opt;
-        this.$router.push( { name : opt } );
+      getClinicList(){
+        // 
+
+        axios.get( axios.defaults.serverUrl + '/company/clinic?token=' + localStorage.getItem('vue_admin_session') + '&corporate_id=9&region=sgd' )
+          .then(res => {
+            console.log( res );
+            
+            this.hideLoading();
+          })
+          .catch(err => {
+            this.hideLoading();
+            this.errorHandler( err );
+          });
       },
     }
   }
