@@ -77,8 +77,10 @@
 									</div>
 								</div>
 								<div class="credit-input-wrapper">
-									<input v-if="editCreditAllocationTypeOpt == 'add'" v-model="credits_amount" type="number" placeholder="Credits Add*" />
-									<input v-if="editCreditAllocationTypeOpt == 'deduct'" v-model="credits_amount" type="number" placeholder="Credits Deduct*" />
+									<input v-if="editCreditAllocationTypeOpt == 'add'" v-model="credits_amount" type="number"
+										placeholder="Credits Add*" />
+									<input v-if="editCreditAllocationTypeOpt == 'deduct'" v-model="credits_amount" type="number"
+										placeholder="Credits Deduct*" />
 								</div>
 							</div>
 						</div>
@@ -130,7 +132,7 @@
 							<div class="end-date-container">
 								<h4>
 									End Date:
-									<span >{{ employee_info.expiry_date }}</span>
+									<span>{{ employee_info.expiry_date }}</span>
 								</h4>
 							</div>
 							<div>
@@ -176,8 +178,7 @@
 							<div class="start-date-input-wrapper">
 								<v-date-picker popoverDirection="bottom" v-model="selected_user_data.new_start_date"
 									:input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
-									:formats = "formats"
-									popover-visibility="focus"></v-date-picker>
+									:formats="formats" popover-visibility="focus"></v-date-picker>
 								<i class="fa fa-caret-down"></i>
 							</div>
 						</div>
@@ -186,9 +187,12 @@
 			</div>
 			<div slot="footer">
 				<button @click="selectedEmpDetailsSettingsClicked(1, 'cancel')" class="btn-close">CANCEL</button>
-				<button @click="toggleEmpRenewPlanSummary()" v-if="showEmpRenewPlanSummary" class="btn-close btn-back">BACK</button>
-				<button @click="updateEmpRenewPlanBtn( selected_user_data )" class="btn-primary settings-btn-submit" v-if="showEmpRenewPlanSummary">SUBMIT</button>
-				<button @click="toggleEmpRenewPlanSummary()" v-if="!showEmpRenewPlanSummary" class="btn-primary settings-btn-submit">PROCEED</button>
+				<button @click="toggleEmpRenewPlanSummary()" v-if="showEmpRenewPlanSummary"
+					class="btn-close btn-back">BACK</button>
+				<button @click="updateEmpRenewPlanBtn( selected_user_data )" class="btn-primary settings-btn-submit"
+					v-if="showEmpRenewPlanSummary">SUBMIT</button>
+				<button @click="toggleEmpRenewPlanSummary()" v-if="!showEmpRenewPlanSummary"
+					class="btn-primary settings-btn-submit">PROCEED</button>
 			</div>
 		</Modal>
 
@@ -229,7 +233,7 @@
 						<div class="white-space-30"></div>
 						<button class="btn-primary re-send-btn w-full" @click="showUpdatePass()">Update Password</button>
 						<div class="white-space-20"></div>
-						<button class="btn-primary re-send-btn w-full" @click="resendEmployeeEmailDash()">Resend/Reset
+						<button class="btn-primary re-send-btn w-full" @click="resend_reset_account()">Resend/Reset
 							Account</button>
 						<div class="white-space-20"></div>
 						<button class="btn-primary re-send-btn w-full" @click="pinSetupShow()">Pin Setup</button>
@@ -262,8 +266,8 @@
 								Re-Type Password
 								<span class="text-red-700">*</span>
 							</label>
-							<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2" type="password"
-								v-model="toUpdatePassword.re_type_password" required />
+							<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
+								type="password" v-model="toUpdatePassword.re_type_password" required />
 						</div>
 
 						<button class="btn-primary re-send-btn w-full my-5"
@@ -331,8 +335,8 @@
 							Mobile Number
 							<span class="text-red-700">*</span>
 						</label>
-						<input class="border-solid border-b border-gray-100 w-full py-2"
-							type="number" ng-model="list.password" required />
+						<input class="border-solid border-b border-gray-100 w-full py-2" type="number" ng-model="list.password"
+							required />
 					</div>
 				</div>
 			</div>
