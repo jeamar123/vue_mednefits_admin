@@ -15,11 +15,16 @@ let employeeSettings = {
 	data() {
 		return {
 			// Modal Update - Reset //
-				showSetupAccountModal: false,
-				emp_padd_reset_wrapper: true,
-				emp_pass_update: false,
-				pin_setup_update: false,
+			showSetupAccountModal: false,
+			emp_padd_reset_wrapper: true,
+			emp_pass_update: false,
+			pin_setup_update: false,
 			// END Modal //
+
+			// data for reset pass and pin
+			toUpdatePassword: {},
+			member_email: '',
+			// ---------------------------
 			empSelectorActive: {
 				value: 0,
 				text: ""
@@ -76,6 +81,8 @@ let employeeSettings = {
 	created() {
 		console.log(`${this.member_id} ug is ${this.name}`);
 		this.healthPartnerViewStatus = this.$route.name;
+
+		this.onLoad();
 	},
 	methods: {
 		selectHealthPartnerView(opt) {
@@ -106,7 +113,7 @@ let employeeSettings = {
 		},
 		removeEmployeeBtn(data) {
 			let x = data;
-      
+
 			if (x === "back") {
 				if (this.remove_step_active == 'remove-opt') {
 					this.removeBackBtn = false;
@@ -161,7 +168,7 @@ let employeeSettings = {
 			this.emp_details_replace = false;
 			this.emp_details_reserve = false;
 			this.emp_details_remove = false;
-      
+
 			if (opt === 1) {
 				this.emp_details_replace = true;
 			}
@@ -297,49 +304,80 @@ let employeeSettings = {
 		// 		this.showShortTermSelector = false;
 		// 	}
 		// },
-     updateCapPerVisit( cap ) {
-      console.log(cap);
+		updateCapPerVisit(cap) {
+			console.log(cap);
 
-      if (!cap || cap == null || cap == '') {
-        this.$swal("Oops!", "Please input cap per visit", "error");
-        return false;
-      }
-      var data = {
-        employee_id: this.member_id,
-        cap_amount: cap,
-      }
+			if (!cap || cap == null || cap == '') {
+				this.$swal("Oops!", "Please input cap per visit", "error");
+				return false;
+			}
+			var data = {
+				employee_id: this.member_id,
+				cap_amount: cap,
+			}
 
-      // console.log( data );
+			// console.log( data );
 
-      axios.post( axios.defaults.serverUrl + '/company/updateEmployeeCap', data ) 
-      .then(response => { 
-        console.log(response);
-        this.$swal("Success!", response.data.message, "success");
-        this.showManageCapPerVisit = false;
-      })
-      .catch(err => {
-        this.$parent.hideLoading();
-        this.errorHandler( err );
-			});
+			axios.post(axios.defaults.serverUrl + '/company/updateEmployeeCap', data)
+				.then(response => {
+					console.log(response);
+					this.$swal("Success!", response.data.message, "success");
+					this.showManageCapPerVisit = false;
+				})
+				.catch(err => {
+					this.$parent.hideLoading();
+					this.errorHandler(err);
+				});
 		},
+
+		// employee details options
 		showUpdatePass() {
 			this.emp_padd_reset_wrapper = !this.emp_padd_reset_wrapper;
 			this.emp_pass_update = !this.emp_pass_update;
+
+			this.toUpdatePassword = {
+				member_email: this.member_email,
+				member_id: this.member_id,
+			};
 		},
-		pinSetupShow () {
+		updatePasswordEmp(data) {
+
+			let update_member_password = `${axios.defaults.serverUrl}/auth/update_member_password`;
+
+			axios.put(update_member_password, data)
+				.then(res => {
+					console.log(res);
+					if (res.data.status == true) {
+						this.$swal("Success!", 'Your password has been reset successfully', "success")
+							.then(res1 => {
+								this.showUpdatePass(); // cloase ang update password
+								this.toUpdatePassword = {};
+							});
+					} else {
+						this.$swal("Warning!", res.data.message, "warning");
+					}
+				})
+				.catch(err => {
+					this.$parent.hideLoading();
+					this.errorHandler(err);
+				});
+		},
+		pinSetupShow() {
 			this.emp_padd_reset_wrapper = !this.emp_padd_reset_wrapper;
 			this.pin_setup_update = !this.pin_setup_update;
 		},
-		resendEmployeeEmailDash() {
+		resendE_reset_account() {
 			// function here
 		},
 		unPinSetup() {
 			// function here
 		},
+		//  -----------------------
+
 		// Renew Plan Modal
 		toggleEmpRenewPlanSummary() {
 			if (this.showEmpRenewPlanSummary == false) {
-				if ( this.selected_user_data.new_start_date ) {
+				if (this.selected_user_data.new_start_date) {
 					this.showEmpRenewPlanSummary = true;
 					this.selected_user_data.new_start_date = moment(this.selected_user_data.new_start_date).format('MMMM DD, YYYY');
 				} else {
@@ -349,7 +387,7 @@ let employeeSettings = {
 				this.showEmpRenewPlanSummary = false;
 			}
 		},
-		updateEmpRenewPlanBtn( date ) {
+		updateEmpRenewPlanBtn(date) {
 			var data = {
 				customer_id: this.customer_id,
 				plan_stat: moment(date.new_start_date).format('YYYY-MM-DD'),
@@ -380,8 +418,8 @@ let employeeSettings = {
 					credits: this.credits_amount,
 				}
 
-				axios.post( axios.defaults.serverUrl + '/company/employee_allocate_credits', data ) 
-					.then(response => { 
+				axios.post(axios.defaults.serverUrl + '/company/employee_allocate_credits', data)
+					.then(response => {
 						// console.log(response.data.status);
 						if (response.data.status) {
 							this.$swal("Success!", response.data.message, "success");
@@ -397,16 +435,15 @@ let employeeSettings = {
 				this.$swal('Ooops!', 'Credits must be greater than zero.', 'error');
 			}
 		},
-		updatePlanDetails () {
+		updatePlanDetails() {
 			var data = {
 				member_id: this.member_id,
 				plan_start: moment(this.plan_type.plan_start).format('YYYY-MM-DD'),
 				fixed: this.plan_type.fixed,
 				duration: this.plan_type.duration,
 			}
-			
 			axios.put( axios.defaults.serverUrl + '/company/update_plan_employee', data ) 
-				.then(response => { 
+				.then(response => {
 					console.log(response);
 					this.$swal("Success!", response.data.message, "success");
 				})
@@ -415,6 +452,50 @@ let employeeSettings = {
 					this.errorHandler( err );
 				});
 		},
+
+		// Api calls
+		getEmployeeDetails() {
+			// for single  buttons or manual trigger
+			let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
+			axios.get(get_employee_details)
+				.then(res => {
+					// Log the data to the console
+					// You would do something with both sets of data here
+					console.log(res);
+					if (res.status == 200) {
+						this.member_email = res.data.data.work_email;
+						// localStorage.employee_email = this.employee_info.work_email;
+						console.log(this.employee_info);
+					}
+					// this.$parent.hideLoading();
+				}).catch(err => {
+					this.hideLoading();
+					this.errorHandler(err);
+				});
+		},
+
+
+
+		// ipa Last rani ang onLoad()
+		onLoad() { // dri tawagon ang api na ipa load drtso
+			this.showLoading();
+			axios.all([ // para sunod ang pag tawag sa api(In-Order)
+					this.getEmployeeDetails(),
+
+				]).then(res => {
+					//methods if naa
+					let res_len = res.length;
+					res.map((value, index) => {
+						if (index == res.length - 1) {
+							this.hideLoading();
+						}
+					});
+				})
+				.catch(err => {
+					this.hideLoading();
+					this.errorHandler(err);
+				});
+		}
 	}
 }
 
@@ -423,9 +504,6 @@ export default employeeSettings
 
 <style lang="scss" scoped>
 @import "./src/assets/css/corporateEmployee.scss";
-
-
-
 @media (max-width: 1280px) {
 	/* ... */
 }
@@ -440,14 +518,11 @@ export default employeeSettings
 
 @media (max-width: 768px) {
 	/* ... */
-
 }
 
 /* Small (sm) */
 
 @media (max-width: 640px) {
 	/* ... */
-	
 }
-
 </style>

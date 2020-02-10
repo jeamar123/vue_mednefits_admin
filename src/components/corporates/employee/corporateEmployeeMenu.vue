@@ -104,6 +104,7 @@ let corporateEmployeeMenu = {
 					console.log(res);
 					if (res.status == 200) {
 						this.employee_side_info = res.data.data;
+						// localStorage.employee_email = this.employee_side_info.work_email;
 						console.log(this.employee_side_info);
 					}
 					// this.$parent.hideLoading();

@@ -58,6 +58,7 @@ let corporateMemberList = {
 
 		// this.getMemberList();
 		// this.getCompanyList();
+		// localStorage.employee_email = '';
 		this.onLoad(localStorage.startMemberList);
 		// await this.hideLoading();
 
