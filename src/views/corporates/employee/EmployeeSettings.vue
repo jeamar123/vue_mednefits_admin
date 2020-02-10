@@ -77,13 +77,13 @@
 									</div>
 								</div>
 								<div class="credit-input-wrapper">
-									<input v-if="editCreditAllocationTypeOpt == 'add'" type="number" placeholder="Credits Add*" />
-									<input v-if="editCreditAllocationTypeOpt == 'deduct'" type="number" placeholder="Credits Deduct*" />
+									<input v-if="editCreditAllocationTypeOpt == 'add'" v-model="credits_amount" type="number" placeholder="Credits Add*" />
+									<input v-if="editCreditAllocationTypeOpt == 'deduct'" v-model="credits_amount" type="number" placeholder="Credits Deduct*" />
 								</div>
 							</div>
 						</div>
 						<div class="btn-update-credits">
-							<button class="btn-primary">UPDATE CREDITS</button>
+							<button @click="submitUserCreditAllocation( credits_amount )" class="btn-primary">UPDATE CREDITS</button>
 						</div>
 					</div>
 					<div>
@@ -91,17 +91,27 @@
 						<div class="plan-type-selector">
 							<label class="container">
 								<span>Standard 1 year</span>
-								<input @click="shortTermRadioBtn('standard-one-year')" type="radio" name="radio" />
+								<input value=1 v-model="plan_type.fixed" type="radio" name="radio" />
 								<span class="plan-type-checkmark"></span>
 							</label>
 							<label class="container">
 								<span>Short Term</span>
-								<input @click="shortTermRadioBtn('short-term')" type="radio" name="radio" />
+								<input value=0 v-model="plan_type.fixed" type="radio" name="radio" />
 								<span class="plan-type-checkmark"></span>
 							</label>
-							<select v-if="showShortTermSelector">
+							<select v-if="plan_type.fixed == 0" v-model="plan_type.duration">
 								<option>1 month</option>
 								<option>2 months</option>
+								<option>3 months</option>
+								<option>4 months</option>
+								<option>5 months</option>
+								<option>6 months</option>
+								<option>7 months</option>
+								<option>8 months</option>
+								<option>9 months</option>
+								<option>10 months</option>
+								<option>11 months</option>
+								<option>1 year</option>
 							</select>
 						</div>
 						<div class="plan-date-container">
@@ -110,7 +120,7 @@
 								<div class="date-container">
 									<img :src="'../assets/img/calendar.png'" />
 									<div class="start-date-input-wrapper">
-										<v-date-picker popoverDirection="bottom" v-model="starDateDetails.starDate"
+										<v-date-picker popoverDirection="bottom" v-model="plan_type.plan_start"
 											:input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
 											:formats="formats" popover-visibility="focus"></v-date-picker>
 										<i class="fa fa-caret-down"></i>
@@ -120,11 +130,11 @@
 							<div class="end-date-container">
 								<h4>
 									End Date:
-									<span>2020-08-02</span>
+									<span >{{ plan_type.end_date }}</span>
 								</h4>
 							</div>
 							<div>
-								<button class="btn-primary">UPDATE PLAN</button>
+								<button @click="updatePlanDetails()" class="btn-primary">UPDATE PLAN</button>
 							</div>
 						</div>
 					</div>
