@@ -148,6 +148,10 @@
 			</div>
 			<div slot="body">
 				<div>
+					<div v-if="showEmpRenewPlanSummary">
+						<h4 class="summary-title">Summary</h4>
+					</div>
+
 					<div class="renew-plan-row">
 						<label>User:</label>
 						<span>niknik san</span>
@@ -160,14 +164,19 @@
 						<label>Old Plan Start:</label>
 						<span>September 15, 2019</span>
 					</div>
+					<div v-if="showEmpRenewPlanSummary" class="renew-plan-row">
+						<label>New Plan Start:</label>
+						<span>{{selected_user_data.new_start_date}}</span>
+					</div>
 
-					<div class="new-plan-start-container">
+					<div v-if="!showEmpRenewPlanSummary" class="new-plan-start-container">
 						<h4>New Plan Start:</h4>
 						<div class="date-container">
 							<img :src="'../assets/img/calendar.png'" />
 							<div class="start-date-input-wrapper">
-								<v-date-picker popoverDirection="bottom" v-model="starDateDetails.null"
+								<v-date-picker popoverDirection="bottom" v-model="selected_user_data.new_start_date"
 									:input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
+									:formats = "formats"
 									popover-visibility="focus"></v-date-picker>
 								<i class="fa fa-caret-down"></i>
 							</div>
@@ -177,7 +186,9 @@
 			</div>
 			<div slot="footer">
 				<button @click="selectedEmpDetailsSettingsClicked(1, 'cancel')" class="btn-close">CANCEL</button>
-				<button class="btn-primary settings-btn-submit">PROCEED</button>
+				<button @click="toggleEmpRenewPlanSummary()" v-if="showEmpRenewPlanSummary" class="btn-close btn-back">BACK</button>
+				<button @click="updateEmpRenewPlanBtn( selected_user_data )" class="btn-primary settings-btn-submit" v-if="showEmpRenewPlanSummary">SUBMIT</button>
+				<button @click="toggleEmpRenewPlanSummary()" v-if="!showEmpRenewPlanSummary" class="btn-primary settings-btn-submit">PROCEED</button>
 			</div>
 		</Modal>
 

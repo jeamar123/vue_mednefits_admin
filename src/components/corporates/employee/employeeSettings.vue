@@ -330,6 +330,41 @@ let employeeSettings = {
 		unPinSetup() {
 			// function here
 		},
+		// Renew Plan Modal
+		toggleEmpRenewPlanSummary() {
+			if (this.showEmpRenewPlanSummary == false) {
+				if ( this.selected_user_data.new_start_date ) {
+					this.showEmpRenewPlanSummary = true;
+					this.selected_user_data.new_start_date = moment(this.selected_user_data.new_start_date).format('MMMM DD, YYYY');
+				} else {
+					this.$swal("Error!", "Select New Plan Start first.", "error");
+				}
+			} else {
+				this.showEmpRenewPlanSummary = false;
+			}
+		},
+		updateEmpRenewPlanBtn( date ) {
+			var data = {
+				customer_id: this.customer_id,
+				plan_stat: moment(date.new_start_date).format('YYYY-MM-DD'),
+				user_id: this.member_id,
+			}
+
+			console.log(data);
+			this.showRenewModal = false;
+			this.showEmpRenewPlanSummary = false;
+
+			axios.post( axios.defaults.serverUrl + '/company/employee_plan_renew', data ) 
+      .then(response => { 
+        console.log(response);
+        // this.$swal("Success!", response.data.message, "success");
+      })
+      .catch(err => {
+        console.log(err.response);
+				// this.$swal("Error!", err.response.data.message, "error");
+				this.$swal("Error!", err.response, "error");
+      });
+    },  
 		submitUserCreditAllocation( credit ) {
 			if ( credit && credit > 0 ) {
 				var data = {
