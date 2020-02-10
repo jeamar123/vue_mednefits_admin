@@ -58,6 +58,11 @@ let employeeSettings = {
 				data: ["DD/MM/YYYY"]
 			},
 			cap_per_visit: '',
+			showEmpRenewPlanSummary: false,
+			// Sample data for re new plan modal 
+			selected_user_data: {
+				new_start_date: undefined,
+			},
 			credits_amount: '',
 			plan_type: {
 				fixed: 1,
@@ -360,10 +365,9 @@ let employeeSettings = {
         // this.$swal("Success!", response.data.message, "success");
       })
       .catch(err => {
-        console.log(err.response);
-				// this.$swal("Error!", err.response.data.message, "error");
-				this.$swal("Error!", err.response, "error");
-      });
+        this.$parent.hideLoading();
+        this.errorHandler( err );
+			});
     },  
 		submitUserCreditAllocation( credit ) {
 			if ( credit && credit > 0 ) {
