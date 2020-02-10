@@ -9,7 +9,15 @@ import moment, { locale } from "moment";
     },
     data() {
       return {
-        
+        block_clinic_list: [],
+        block_clinic_opt: 'type',
+        block_clinic_region: 'sgd',
+        block_clinic_search: null,
+
+        open_clinic_list: [],
+        open_clinic_opt: 'type',
+        open_clinic_region: 'sgd',
+        open_clinic_search: null,
       };
     },
     created(){
