@@ -385,6 +385,8 @@ let employeeSettings = {
 				}
 			} else {
 				this.showEmpRenewPlanSummary = false;
+				this.selected_user_data.new_start_date = new Date(moment(this.selected_user_data.new_start_date));
+				console.log(this.selected_user_data.new_start_date);
 			}
 		},
 		updateEmpRenewPlanBtn(date) {
@@ -464,6 +466,8 @@ let employeeSettings = {
 					console.log(res);
 					if (res.status == 200) {
 						this.member_email = res.data.data.work_email;
+						this.employee_info = res.data.data
+						this.employee_info.start_date = moment(this.employee_info.start_date).format('MMMM DD, YYYY');
 						// localStorage.employee_email = this.employee_info.work_email;
 						console.log(this.employee_info);
 					}

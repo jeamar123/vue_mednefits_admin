@@ -154,15 +154,15 @@
 
 					<div class="renew-plan-row">
 						<label>User:</label>
-						<span>niknik san</span>
+						<span>{{employee_info.fullname}}</span>
 					</div>
 					<div class="renew-plan-row">
 						<label>ID:</label>
-						<span>29467</span>
+						<span>{{employee_info.member_id}}</span>
 					</div>
 					<div class="renew-plan-row">
 						<label>Old Plan Start:</label>
-						<span>September 15, 2019</span>
+						<span>{{employee_info.start_date}}</span>
 					</div>
 					<div v-if="showEmpRenewPlanSummary" class="renew-plan-row">
 						<label>New Plan Start:</label>
