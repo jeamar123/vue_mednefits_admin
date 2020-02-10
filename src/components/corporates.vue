@@ -289,9 +289,7 @@ var corporates = {
           company_name: data.corporate.company_name
 				}
 			});
-			
-      localStorage.company_name = data.corporate.company_name;
-      localStorage.company_email = data.corporate.contact.email;
+      // localStorage.company_email = data.corporate.contact.email;
     },
     submitSearch(){
       this.export_data_header.map( ( value, index ) => {
