@@ -7,7 +7,8 @@ export default {
       console.log(error);
       if (error.response) {
         console.log(error.response);
-        Vue.swal('Error!', error.response.status + ' ' + error.response.statusText, 'error');
+        // Vue.swal('Error!', error.response.status + ' ' + error.response.statusText, 'error');
+        Vue.swal('Error!', error.response.data.message, 'error');
       } else if (error.request) {
         console.log('The request was made but no response was received. ', error.request);
         Vue.swal('Error!', 'Something went wrong. The request was made but no response was received.', 'error');
