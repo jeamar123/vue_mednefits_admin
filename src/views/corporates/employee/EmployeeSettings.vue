@@ -130,7 +130,7 @@
 							<div class="end-date-container">
 								<h4>
 									End Date:
-									<span >{{ plan_type.end_date }}</span>
+									<span >{{ employee_info.expiry_date }}</span>
 								</h4>
 							</div>
 							<div>

@@ -70,13 +70,32 @@ let employeeSettings = {
 				plan_start: undefined,
 				end_date: '',
 			},
+			employee_info: {},
 		};
 	},
 	created() {
 		console.log(`${this.member_id} ug is ${this.name}`);
 		this.healthPartnerViewStatus = this.$route.name;
+		this.getEmployeeInfo();
 	},
 	methods: {
+		getEmployeeInfo() {
+			let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
+			axios.get(get_employee_details)
+				.then(res => {
+						// Log the data to the console
+						// You would do something with both sets of data here
+						console.log(res);
+						if (res.status == 200) {
+							this.employee_info = res.data.data;
+							console.log(this.employee_info);
+						}
+						// this.$parent.hideLoading();
+					}).catch(err => {
+						this.$parent.hideLoading();
+						this.errorHandler(err);
+					});
+		},
 		selectHealthPartnerView(opt) {
 			this.healthPartnerViewStatus = opt;
 			this.$router.push({ name: opt });
@@ -404,7 +423,7 @@ let employeeSettings = {
 				duration: this.plan_type.duration,
 			}
 			
-			axios.post( axios.defaults.serverUrl + '/company/update_plan_employee', data ) 
+			axios.put( axios.defaults.serverUrl + '/company/update_plan_employee', data ) 
 				.then(response => { 
 					console.log(response);
 					this.$swal("Success!", response.data.message, "success");

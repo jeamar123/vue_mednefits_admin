@@ -72,6 +72,7 @@ let corporateEmployeeMenu = {
 			this.sideBar.trigger = !this.sideBar.trigger;
 		},
 		showEmpSelectorInfo(page) {
+			console.log(page);
 			this.activeTab = page;
 			this.$router.push({ name: page });
 		},
