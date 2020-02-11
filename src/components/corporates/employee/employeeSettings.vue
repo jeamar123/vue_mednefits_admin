@@ -69,7 +69,7 @@ let employeeSettings = {
 			new_plan_start_date: undefined,
 			credits_amount: '',
 			plan_type: {
-				fixed: 0,
+				fixed: "0",
 				duration: '2 months',
 				plan_start: undefined,
 				end_date: '',
@@ -551,11 +551,9 @@ let employeeSettings = {
 			}
 		},
 		updatePlanDetails() {
-			console.log(this.plan_type.plan_start);
-
 			var data = {
 				member_id: this.member_id,
-				// plan_start: moment(this.plan_type.plan_start).format('YYYY-MM-DD'),
+				plan_start: moment(this.plan_type.plan_start).format('YYYY-MM-DD'),
 				plan_start: this.plan_type.plan_start,
 				fixed: this.plan_type.fixed,
 				duration: this.plan_type.duration,
@@ -565,13 +563,10 @@ let employeeSettings = {
 				.then(response => {
 					console.log(response);
 					console.log(data);
-					// if ( this.plan_type.plan_start ) {
-					// 	this.$swal("Success!", response.data.message, "success");
-					// } else {
-					// 	this.$swal("Error!", "Select Plan Start Date ", "error");
-					// }
+					this.$swal("Success!", response.data.message, "success");
 				})
 				.catch(err => {
+					console.log(data);
 					this.$parent.hideLoading();
 					this.errorHandler(err);
 				});
