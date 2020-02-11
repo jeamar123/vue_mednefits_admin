@@ -322,9 +322,10 @@
 							Country Code
 							<span class="text-red-700">*</span>
 						</label>
-						<select name="" id="" class="border-solid border-b border-gray-100 w-full my-4">
-							<option value="65">(SG) +65</option>
-							<option value="60">(MY) +60</option>
+						<select name="" id="" v-model="toSmsData.phone_code" class="border-solid border-b border-gray-100 w-full my-4">
+							<option value="+65">(SG) +65</option>
+							<option value="+63">(PH) +63</option>
+							<option value="+60">(MY) +60</option>
 						</select>
 					</div>
 					<div class="input-container-padding py-2 pl-6 flex-1">
@@ -332,7 +333,7 @@
 							Mobile Number
 							<span class="text-red-700">*</span>
 						</label>
-						<input class="border-solid border-b border-gray-100 w-full py-2" type="number" ng-model="list.password"
+						<input class="border-solid border-b border-gray-100 w-full py-2" type="number" v-model="toSmsData.phone_no"
 							required />
 					</div>
 				</div>
@@ -340,7 +341,7 @@
 			<div slot="footer" class="flex justify-end items-center px-3 pb-3">
 				<button class="btn-close btn-primary bg-white text-black mx-3"
 					@click="selectedEmpDetailsSettingsClicked(3,'cancel')">CLOSE</button>
-				<button class="btn-close btn-primary">SUBMIT</button>
+				<button class="btn-close btn-primary" @click="send_sms_notification(toSmsData)">SUBMIT</button>
 			</div>
 
 		</Modal>

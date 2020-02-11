@@ -102,8 +102,9 @@
 									<div class="country-code-container">
 										<!-- <input type="text"> -->
 										<select name="" id="" v-model="toEdit.phone_code">
-											<option value="+60">(MY) +60</option>
 											<option value="+65">(SG) +65</option>
+											<option value="+63">(PH) +63</option>
+											<option value="+60">(MY) +60</option>
 										</select>
 										<i class="fa fa-caret-down"></i>
 									</div>
