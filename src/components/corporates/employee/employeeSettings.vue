@@ -21,7 +21,8 @@ let employeeSettings = {
 			pin_setup_update: false,
 			// END Modal //
 
-			// data for reset pass and pin
+			// data for reset pass and pin and sms update
+			toSmsData: {},
 			toUpdatePassword: {},
 			member_email: '',
 			// ---------------------------
@@ -273,6 +274,11 @@ let employeeSettings = {
 			if (y == 3) {
 				if (x === "sms-update-notify") {
 					this.showSmsUpdateNotify = true;
+
+					this.toSmsData = {
+						phone_code: '',
+						phone_no: ''
+					};
 				} else if (x === "cancel") {
 					this.showSmsUpdateNotify = false;
 				}
@@ -330,7 +336,7 @@ let employeeSettings = {
 				});
 		},
 
-		// employee details options
+		// employee details options - JAZ
 		showUpdatePass() {
 			this.emp_padd_reset_wrapper = !this.emp_padd_reset_wrapper;
 			this.emp_pass_update = !this.emp_pass_update;
