@@ -11,7 +11,8 @@ let corporateMemberList = {
 		Loader
 	},
 	props: {
-		customer_id: [String, Number]
+		customer_id: [String, Number],
+		company_name: [String, Number],
 	},
 	data() {
 		return {
@@ -57,6 +58,7 @@ let corporateMemberList = {
 
 		// this.getMemberList();
 		// this.getCompanyList();
+		// localStorage.employee_email = '';
 		this.onLoad(localStorage.startMemberList);
 		// await this.hideLoading();
 
@@ -100,7 +102,7 @@ let corporateMemberList = {
 				this.selected_transfer_data = {
 					name: list.fullname,
 					member_id: list.member_id,
-					current_company: localStorage.company_name,
+					current_company: this.company_name,
 					transfer_date: new Date(),
 					company: ""
 				};

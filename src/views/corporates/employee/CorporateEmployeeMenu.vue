@@ -204,7 +204,7 @@
 					<router-link tag="a" :to="{ name: 'CorporateMemberList', params: {customer_id: customer_id} }" class="close-btn"><span class="oi" data-glyph="x" aria-hidden="true"></span></router-link>
 				</div>
 	
-				<router-view name="child"></router-view>
+				<router-view name="child" @FromSettings="fromSettings"></router-view>
 			</div>
 		</div>
 	

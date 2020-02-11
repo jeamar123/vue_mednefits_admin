@@ -43,6 +43,11 @@ let corporateEmployeeMenu = {
 	},
 	mounted() {},
 	methods: {
+		fromSettings(data) {
+			// console.log(data);
+			console.log(data.from_settings);
+			this.employee_side_info = data.from_settings;
+		},
 		formatDate(date, from, to) {
 			if (date != null) {
 				return moment(date, from).format(to);
@@ -104,6 +109,7 @@ let corporateEmployeeMenu = {
 					console.log(res);
 					if (res.status == 200) {
 						this.employee_side_info = res.data.data;
+						// localStorage.employee_email = this.employee_side_info.work_email;
 						console.log(this.employee_side_info);
 					}
 					// this.$parent.hideLoading();

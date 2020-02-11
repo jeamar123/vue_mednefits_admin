@@ -640,7 +640,10 @@
 
 //  ------------ Settings Update Reset Password --------- //
 
-.update-reset, .sms-notification {
+
+.modal-mask.update-reset, .modal-mask.sms-notification {
+  z-index: 0;
+  
   .modal-container {
     width: 450px;
     font-size: 16px;
