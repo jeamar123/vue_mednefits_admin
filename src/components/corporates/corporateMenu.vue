@@ -5,10 +5,11 @@ import Loader from "../../views/loader/Loader";
 
 let corporateMenu = {
 	components: {
-		Loader
+		Loader,
 	},
 	props: {
 		customer_id: [String, Number],
+		company_name: [String, Number],
 	},
 	data() {
 		return {
@@ -84,9 +85,11 @@ let corporateMenu = {
 				this.getCorporateCreditsInfo(),
 			]).then(res => {
 				console.log('success all api');
-			}).catch (err => {
-				console.log(err);
-			})
+				localStorage.startMemberList = true;
+			}).catch(err => {
+				this.$parent.hideLoading();
+				this.errorHandler(err);
+			});
 
 		},
 
@@ -98,13 +101,13 @@ let corporateMenu = {
 					if (res.status == 200) {
 						console.log('details', res);
 						this.corporateDetails_data = res.data;
+						// localStorage.company_name = this.corporateDetails_data.company_name;
 						// this.hideLoading();
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.$parent.hideLoading();
+					this.errorHandler(err);
 				});
 		},
 		getCorporateCreditsInfo() {
@@ -121,9 +124,8 @@ let corporateMenu = {
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.$parent.hideLoading();
+					this.errorHandler(err);
 				});
 		},
 		getCustomerRenewalStatus() {
@@ -138,11 +140,30 @@ let corporateMenu = {
 					}
 				})
 				.catch(err => {
-					console.log(err);
-					// this.hideLoading();
-					this.$swal("Error!", err, "error");
+					this.$parent.hideLoading();
+					this.errorHandler(err);
 				});
 		},
+		sendPlanExpiration() {
+			this.$parent.showLoading();
+			let url = `${axios.defaults.serverUrl}/company/send_company_plan_expiration_notification`;
+			let data = {
+				customer_id: this.customer_id,
+				email: localStorage.company_email
+			}
+			axios.post(url,data)
+				.then(res => {
+					console.log(res);
+					if (res.status == 200) {
+						this.$parent.hideLoading();
+						this.$swal('Success', res.data.message, 'success');
+					}
+				})
+				.catch(err => {
+					this.$parent.hideLoading();
+					this.errorHandler(err);
+				});
+		}
 	},
 };
 

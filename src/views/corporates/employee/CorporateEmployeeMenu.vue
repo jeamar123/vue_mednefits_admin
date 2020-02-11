@@ -65,13 +65,16 @@
 			<div class="spending-wrapper">
 				<p class="p-label">Medical Spending Account</p>
 				<div class="white-space-20"></div>
-				<div class="row-div">
-					<div class="label-text">
-						<label>Allocation</label>
+				<div class="allocation-wrapper">
+					<div class="row-div">
+						<div class="label-text">
+							<label>Allocation</label>
+						</div>
+						<div class="status-div">
+							<p><span class="uppercase">{{employee_side_info.spending_account.medical.credits_allocation | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
+						</div>
 					</div>
-					<div class="status-div">
-						<p><span class="uppercase">{{employee_side_info.spending_account.medical.credits_allocation | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
-					</div>
+					<p class="small"> *The amount of <span>SGD </span> <span>12.92 </span> will be update on <span>14/02/2020</span></p>
 				</div>
 				<div class="row-div block">
 					<div class="flex cursor-pointer" @click="spendingUsage('medical')">
@@ -118,13 +121,16 @@
 				<div class="white-space-20"></div>
 				<p class="p-label">Wellness Spending Account</p>
 				<div class="white-space-20"></div>
-				<div class="row-div">
-					<div class="label-text">
-						<label>Allocation</label>
+				<div class="allocation-wrapper">
+					<div class="row-div">
+						<div class="label-text">
+							<label>Allocation</label>
+						</div>
+						<div class="status-div">
+							<p><span class="uppercase">{{ employee_side_info.spending_account.wellness.credits_allocation_wellness | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' }) }}</span></p>
+						</div>
 					</div>
-					<div class="status-div">
-						<p><span class="uppercase">{{ employee_side_info.spending_account.wellness.credits_allocation_wellness | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' }) }}</span></p>
-					</div>
+					<p class="small"> *The amount of <span>SGD </span> <span>12.92 </span> will be update on <span>14/02/2020</span></p>
 				</div>
 				<div class="row-div block">
 					<div class="flex cursor-pointer" @click="spendingUsage('wellness')">
@@ -198,7 +204,7 @@
 					<router-link tag="a" :to="{ name: 'CorporateMemberList', params: {customer_id: customer_id} }" class="close-btn"><span class="oi" data-glyph="x" aria-hidden="true"></span></router-link>
 				</div>
 	
-				<router-view name="child"></router-view>
+				<router-view name="child" @FromEmployee="fromEmployee"></router-view>
 			</div>
 		</div>
 	

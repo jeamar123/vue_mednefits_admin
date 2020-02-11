@@ -43,9 +43,8 @@
 					this.hideLoading();
 				})
 				.catch(err => {
-					console.log(  err.response  );
-					this.hideLoading();
-					this.$swal('Error!', err.response.data.message, 'error');
+					this.$parent.hideLoading();
+					this.errorHandler( err );
 				});
       }
     }

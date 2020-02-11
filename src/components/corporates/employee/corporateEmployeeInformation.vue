@@ -50,6 +50,9 @@ let corporateEmployeeInformation = {
 			editCreditAllocationOpt: "medical",
 			editCreditAllocationTypeOpt: "add",
 			showEmpCreditsPlan: false,
+			emp_details_replace: false,
+			emp_details_reserve: false,
+			emp_details_remove: false,
 			starDateDetails: {
 				startDate: undefined
 			},
@@ -66,6 +69,8 @@ let corporateEmployeeInformation = {
 				}
 			},
 			toEdit: {},
+			toRemove: {},
+			toReplace: {},
 			// ------------------------
 		};
 	},
@@ -83,10 +88,9 @@ let corporateEmployeeInformation = {
 		},
 		// - New methotds -
 
-		//api calls
 		// API calls
 		onLoad() {
-			this.$parent.showLoading();
+			this.showLoading();
 			// let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
 			// let update_employee_details = `${axios.defaults.serverUrl}/company/update_employee_details`;
 
@@ -97,7 +101,12 @@ let corporateEmployeeInformation = {
 				// Log the data to the console
 				// You would do something with both sets of data here
 				// console.log(res);
-				this.$parent.hideLoading();
+				let res_len = res.length;
+				res.map((value, index) => {
+					if (index == res.length - 1) {
+						this.hideLoading();
+					}
+				});
 			}).catch(error => {
 				// if there's an error, log it
 				console.log(error);
@@ -108,24 +117,27 @@ let corporateEmployeeInformation = {
 			let update_employee_details = `${axios.defaults.serverUrl}/company/update_employee_details`;
 			let data = this.toEdit;
 
-			axios.put(update_employee_details, data)
-				.then(res => {
-					console.log(res);
-					if( res.status == 200) {
-						console.log(res.data);
-						this.$swal("Success!", 'Update Successful', "success");
-						this.getEmployeeDetails();
+			if (this.checkForm()) {
+				axios.put(update_employee_details, data)
+					.then(res => {
+						console.log(res);
+						if (res.status == 200) {
+							console.log(res.data);
+							this.$swal("Success!", 'Update Successful', "success")
+								.then(res => {
+									this.getEmployeeDetails();
+									this.editEmployeeProfile = false;
+								});
+						} else {
+							this.$swal("Error!", res.data.message, "error");
+						}
+					})
+					.catch(err => {
 						this.editEmployeeProfile = false;
-					}else {
-						this.$swal("Error!", res.data.message, "error");
-					}
-				}).catch(error => {
-					console.log(error);
-					this.$swal("Error!", error.message, "error");
-					this.editEmployeeProfile = false;
-				});
-				
-
+						this.$parent.hideLoading();
+						this.errorHandler(err);
+					});
+			}
 		},
 		getEmployeeDetails() {
 			// for single  buttons or manual trigger
@@ -137,14 +149,75 @@ let corporateEmployeeInformation = {
 					console.log(res);
 					if (res.status == 200) {
 						this.employee_info = res.data.data;
+						this.$emit('FromEmployee', {from_employee: this.employee_info});
+						// localStorage.employee_email = this.employee_info.work_email;
 						console.log(this.employee_info);
 					}
 					// this.$parent.hideLoading();
-				}).catch(error => {
-					// if there's an error, log it
-					console.log(error);
-					// this.$parent.hideLoading();
+				}).catch(err => {
+					this.$parent.hideLoading();
+					this.errorHandler(err);
 				});
+		},
+		checkForm() {
+			this.error_updateEmployee = [];
+
+			if (!this.toEdit.fullname) {
+				this.error_updateEmployee.push("Name.");
+			}
+			if (!this.toEdit.phone_code) {
+				this.error_updateEmployee.push("Area Code.");
+			}
+			if (!this.toEdit.phone_no) {
+				this.error_updateEmployee.push("Mobile Number.");
+			}
+			if (!this.toEdit.member_id) {
+				this.error_updateEmployee.push("Member ID.");
+			}
+			if (!this.toEdit.job_title) {
+				this.error_updateEmployee.push("Job Title.");
+			}
+			if (!this.toEdit.dob) {
+				this.error_updateEmployee.push("Birthday.");
+			}
+			if (!this.toEdit.bank_account_number) {
+				this.error_updateEmployee.push("Bank Account Number.");
+			}
+			if (!this.toEdit.postal_code) {
+				this.error_updateEmployee.push("Postal Code.");
+			}
+			if (!this.toEdit.bank_code) {
+				this.error_updateEmployee.push("Bank Code.");
+			}
+			if (!this.toEdit.bank_brh) {
+				this.error_updateEmployee.push("Bank BRH.");
+			}
+
+			if (!this.toEdit.email) {
+				this.error_updateEmployee.push('Email.');
+			} else if (!this.validEmail(this.toEdit.email)) {
+				this.error_updateEmployee.push('Valid email.');
+			}
+
+			if (!this.error_updateEmployee.length) {
+				return true;
+			} else {
+				console.log(this.error_updateEmployee);
+				let new_error = [];
+				this.error_updateEmployee.map(value => {
+					new_error.push(`<span class="block p-1 text-red-500 text-center w-1/2 mx-auto my-0">${value}</span>`);
+				});
+				this.$swal(
+					'Required',
+					new_error.join('\n\n'),
+					'warning'
+				);
+
+			}
+		},
+		validEmail(email) {
+			let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			return re.test(email);
 		},
 		//-------------
 		selectHealthPartnerView(opt) {
@@ -159,17 +232,18 @@ let corporateEmployeeInformation = {
 			this.editEmployeeProfile = this.editEmployeeProfile == false ? true : false;
 
 			this.toEdit = {
-				fullname : this.employee_info.fullname,
+				fullname: this.employee_info.fullname,
 				phone_code: String(this.employee_info.phone_code),
-				phone_no: String(this.employee_info.phone_no),
-				member_id: String(this.employee_info.member_id),
+				phone_no: this.employee_info.phone_no,
+				member_id: this.employee_info.member_id,
 				job_title: this.employee_info.job_title,
 				dob: new Date(this.employee_info.dob),
-				bank_account_number: String(this.employee_info.bank_account_number),
+				bank_account_number: this.employee_info.bank_account_number,
 				postal_code: String(this.employee_info.postal_code),
-				bank_code: String(this.employee_info.bank_code),
+				bank_code: this.employee_info.bank_code,
 				email: this.employee_info.work_email,
-				bank_brh: String(this.employee_info.bank_brh),
+				bank_brh: this.employee_info.bank_brh,
+				communication_type: this.employee_info.communication_type,
 			}
 		},
 		showAddDependent() {
@@ -177,6 +251,12 @@ let corporateEmployeeInformation = {
 		},
 		showRemoveEmp() {
 			this.editRemoveEmpInfo = this.editRemoveEmpInfo == false ? true : false;
+
+			this.toRemove = {
+				member_id: this.employee_info.member_id,
+				fullname: this.employee_info.fullname,
+				last_day: new Date(moment().add(1, 'days')),
+			}
 		},
 		showReplaceDependent() {
 			this.editReplaceDependentInfo =
@@ -193,6 +273,9 @@ let corporateEmployeeInformation = {
 			let x = data;
 
 			if (x === "back") {
+				this.emp_details_replace = false;
+				this.emp_details_reserve = false;
+				this.emp_details_remove = false;
 				if (this.remove_step_active == "remove-opt") {
 					this.removeBackBtn = false;
 					this.remove_step_active = "remove-emp";
@@ -200,14 +283,17 @@ let corporateEmployeeInformation = {
 
 				if (this.remove_step_active == "replace-emp") {
 					this.remove_step_active = "remove-opt";
+					this.emp_details_replace = false;
 				}
 
 				if (this.remove_step_active == "health-spending-summary") {
 					this.remove_step_active = "remove-opt";
+					this.emp_details_reserve = false;
 				}
 
 				if (this.remove_step_active == "health-spending-account") {
 					this.remove_step_active = "health-spending-summary";
+					this.emp_details_remove = false;
 				}
 			}
 
@@ -218,14 +304,12 @@ let corporateEmployeeInformation = {
 				} else if (this.remove_step_active == "remove-opt") {
 					if (this.emp_details_replace) {
 						this.remove_step_active = "replace-emp";
-					}
-
-					if (this.emp_details_reserve) {
+					} else if (this.emp_details_reserve) {
 						this.remove_step_active = "health-spending-summary";
-					}
-
-					if (this.emp_details_remove) {
+					} else if (this.emp_details_remove) {
 						this.remove_step_active = "health-spending-summary";
+					} else {
+						this.$swal('Warning', 'Select 1 Option', 'warning');
 					}
 				} else if (this.remove_step_active == "replace-emp") {
 					this.remove_step_active = "health-spending-summary";
@@ -240,14 +324,14 @@ let corporateEmployeeInformation = {
 			this.emp_details_remove = false;
 
 			if (opt === 1) {
-				this.emp_details_replace = true;
+				this.emp_details_replace = !this.emp_details_replace;
 			}
 			if (opt === 2) {
-				this.emp_details_reserve = true;
+				this.emp_details_reserve = !this.emp_details_reserve;
 				console.log("2 ni siya");
 			}
 			if (opt === 3) {
-				this.emp_details_remove = true;
+				this.emp_details_remove = !this.emp_details_remove;
 				console.log("3 ni siya");
 			}
 		},

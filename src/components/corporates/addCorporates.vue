@@ -416,10 +416,9 @@
             this.$router.push({ path: '/dashboard/corporates' })
           })
           .catch(err => {
-            console.log(err.response);
             this.resetCreateCorporateData();
-            this.$swal("Error!", err.response.data.message, "error");
-            
+            this.$parent.hideLoading();
+            this.errorHandler( err );
           });
         
       },
@@ -500,6 +499,11 @@
               }
               if ( !value.add_contact_business_contact_email ) {
                 this.$swal( "Error!", "Please input your Contact Email", "error" );
+                return false;
+              }
+              var checkAddContactEmail = this.validateEmail( value.add_contact_business_contact_email );
+              if( !checkAddContactEmail ){
+                this.$swal( "Error!", "Invalid Add Contact email", "error" );
                 return false;
               }
               if ( !value.add_contact_business_phone ) {
@@ -714,14 +718,20 @@
         width: 100%;
       }
 
+      .med-well-spending-wrapper .form-row:nth-child(1) .mg-rgt-20 {
+        z-index: 20;
+      }
+
+      .med-well-spending-wrapper .form-row:nth-child(2) .mg-rgt-20 { 
+        .well-date-container { 
+          z-index: 14;
+        }
+      }
+
       .med-date-container,
       .well-date-container {
         width: 100%;
         margin: 10px 0 0;
-      }
-
-      .med-well-spending-wrapper .form-toggle {
-        margin: 0;
       }
     }
   }

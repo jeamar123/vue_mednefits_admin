@@ -102,8 +102,9 @@
 									<div class="country-code-container">
 										<!-- <input type="text"> -->
 										<select name="" id="" v-model="toEdit.phone_code">
-											<option value="+60">(MY) +60</option>
 											<option value="+65">(SG) +65</option>
+											<option value="+63">(PH) +63</option>
+											<option value="+60">(MY) +60</option>
 										</select>
 										<i class="fa fa-caret-down"></i>
 									</div>
@@ -260,6 +261,7 @@
 				</div>	
 			</div>
 
+
 			<div v-if="addDependentInfo" class="edit-employee-info-container add-dependent-wrapper">
 				<i @click="showAddDependent()" class="fa fa-times"></i>
 				<div class="emp-header-text">
@@ -314,9 +316,10 @@
 				</form>
 			</div>
 
+	<!-- remove start -->
 			<div v-if="editRemoveEmpInfo" class="edit-employee-info-container remove-employee-wrapper">
 				<i @click="showRemoveEmp()" class="fa fa-times mb-5"></i>
-
+		<!-- remove step 1 -->
 				<div v-if="remove_step_active == 'remove-emp'">
 					<div class="emp-header-text">
 						<h3>Remove Employee</h3>
@@ -325,23 +328,24 @@
 						<div class="edit-dependent-row flex xs:flex-wrap">
 							<div class="employee-details-input-wrapper xs:m-0">
 								<label>Full Name</label>
-								<input type="text">
+								<input type="text" disabled v-model="toRemove.fullname">
 							</div>
 							<div class="employee-details-input-wrapper xs:m-0">
 								<label>Last day of coverage</label>
-								<div class="date-container">
+								<div class="date-container vDatepicker">
 									<v-date-picker
 		                popoverDirection="bottom"
-		                v-model="starDateDetails.null"
+		                v-model="toRemove.last_day"
 		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                popover-visibility="focus"
+										:formats='formats'
 		              ></v-date-picker>
 	              </div>
 							</div>
 						</div>
 					</form>
 				</div>
-
+		<!-- remove step 2 -->
 				<div v-if="remove_step_active == 'remove-opt'">
 					<div class="emp-header-text">
 						<h3>How would you like to proceed?</h3>
@@ -349,24 +353,24 @@
 					<div class="employee-outcome-container md:w-4/5 sm:w-11/12">
 						<span class="outcome-title">Please select one of the outcome:</span>
 						<label class="review-container input-checkbox">
-							<input @click="changeRemoveOption(1)" type="checkbox">
+							<input @click="changeRemoveOption(1)" type="radio" name="check1">
 							<p>To replace the leaving employee, I would like to pre-enroll the new joiner.</p>
 							<span class="input-checkmark"></span>
 						</label>
 						<label class="review-container input-checkbox">
-							<input @click="changeRemoveOption(2)" type="checkbox">
+							<input @click="changeRemoveOption(2)" type="radio" name="check1">
 							<p>I'm not ready to pre-enroll the new joiner, please hold the seat for future hire.</p>
 							<p class="review-prepare-template-text">*Note: Once this employee is removed, the occupied seat will move to a vacant seat.</p>
 							<span class="input-checkmark"></span>
 						</label>
 						<label class="review-container input-checkbox">
-							<input @click="changeRemoveOption(3)" type="checkbox">
+							<input @click="changeRemoveOption(3)" type="radio" name="check1">
 							<p>Please remove the seat completely, and proceed for refund.</p>
 							<span class="input-checkmark"></span>
 						</label>
 					</div>
 				</div>
-
+			<!-- remove step 2 -->
 				<div v-if="remove_step_active == 'replace-emp'" class="edit-employee-info-container">
 					<div class="emp-header-text">
 						<span class="replacement-text">Replacement</span>
@@ -376,16 +380,17 @@
 						<div class="edit-dependent-row flex sm:flex-wrap">
 							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Full Name</label>
-								<input type="text">
+								<input type="text" v-model="toReplace.fullname">
 							</div>
 							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Date of Birth</label>
 								<div class="date-container">
 									<v-date-picker
 		                popoverDirection="bottom"
-		                v-model="starDateDetails.null"
+		                v-model="toReplace.dob"
 		                :input-props='{class: "vDatepicker mb-4 py-4 border-b w-full", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                popover-visibility="focus"
+										:formats='formats'
 		              ></v-date-picker>
 	              </div>
 							</div>
@@ -393,31 +398,37 @@
 						<div class="edit-dependent-row flex sm:flex-wrap">
 							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Work Email</label>
-								<input type="text">
+								<input type="text" v-model="toReplace.work_email">
 							</div>
 							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Mobile Number</label>
 								<div class="country-code-mobile-container">
 									<div class="country-code-container">
-										<input type="text"><i class="fa fa-caret-down"></i>
+										<!-- <input type="text"> -->
+										<select name="" id="" v-model="toReplace.phone_code">
+											<option value="+60">(MY) +60</option>
+											<option value="+65">(SG) +65</option>
+										</select>
+										<i class="fa fa-caret-down"></i>
 									</div>
-									<input type="text">
+									<input type="text" v-model="toReplace.phone_no">
 								</div>
 							</div>
 						</div>
 						<div class="edit-dependent-row flex sm:flex-wrap">
 							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Postal Code</label>
-								<input type="text">
+								<input type="text" v-model="toReplace.postal_code">
 							</div>
 							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Start Date</label>
 								<div class="date-container">
 									<v-date-picker
 		                popoverDirection="bottom"
-		                v-model="starDateDetails.null"
+		                v-model="toReplace.start_date"
 		                :input-props='{class: "vDatepicker mb-4 py-4 border-b w-full", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                popover-visibility="focus"
+										:formats="formats"
 		              ></v-date-picker>
 	              </div>
 							</div>
@@ -426,12 +437,12 @@
 							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Medical Credits</label>
 								<label class="medical-subtext">*If there are no credits to allocate, please key in 0</label>
-								<input type="text">
+								<input type="text" v-model="toReplace.medical_credits">
 							</div>
 							<div class="employee-details-input-wrapper sm:m-0">
 								<label class="medical-subtext">Wellness Credits Credits</label>
 								<label>*If there are no credits to allocate, please key in 0</label>
-								<input type="text">
+								<input type="text" v-model="toReplace.wellness_credits">
 							</div>
 						</div>
 					</form>
@@ -575,7 +586,6 @@
 		</div>
 
 		<div>
-
 			<Modal v-if="withdrawEmployeeModal" class="employee-details-options remove-dependent-container">
 				<div slot="header">
 					<h1>Withdraw Employee</h1>
@@ -605,8 +615,6 @@
 					<button class="btn-primary btn-delete">DELETE</button>
 				</div>
 			</Modal>
-
-			
 
 	  	<Modal v-if="showSetupAccountModal" class="employee-details-options">
 	  		<div slot="header">

@@ -77,13 +77,15 @@
 									</div>
 								</div>
 								<div class="credit-input-wrapper">
-									<input v-if="editCreditAllocationTypeOpt == 'add'" type="number" placeholder="Credits Add*" />
-									<input v-if="editCreditAllocationTypeOpt == 'deduct'" type="number" placeholder="Credits Deduct*" />
+									<input v-if="editCreditAllocationTypeOpt == 'add'" v-model="credits_amount" type="number"
+										placeholder="Credits Add*" />
+									<input v-if="editCreditAllocationTypeOpt == 'deduct'" v-model="credits_amount" type="number"
+										placeholder="Credits Deduct*" />
 								</div>
 							</div>
 						</div>
 						<div class="btn-update-credits">
-							<button class="btn-primary">UPDATE CREDITS</button>
+							<button @click="submitUserCreditAllocation( credits_amount )" class="btn-primary">UPDATE CREDITS</button>
 						</div>
 					</div>
 					<div>
@@ -91,17 +93,27 @@
 						<div class="plan-type-selector">
 							<label class="container">
 								<span>Standard 1 year</span>
-								<input @click="shortTermRadioBtn('standard-one-year')" type="radio" name="radio" />
+								<input value=0 v-model="plan_type.fixed" type="radio" name="radio" />
 								<span class="plan-type-checkmark"></span>
 							</label>
 							<label class="container">
 								<span>Short Term</span>
-								<input @click="shortTermRadioBtn('short-term')" type="radio" name="radio" />
+								<input value=1 v-model="plan_type.fixed" type="radio" name="radio" />
 								<span class="plan-type-checkmark"></span>
 							</label>
-							<select v-if="showShortTermSelector">
+							<select v-if="plan_type.fixed == 1" v-model="plan_type.duration">
 								<option>1 month</option>
 								<option>2 months</option>
+								<option>3 months</option>
+								<option>4 months</option>
+								<option>5 months</option>
+								<option>6 months</option>
+								<option>7 months</option>
+								<option>8 months</option>
+								<option>9 months</option>
+								<option>10 months</option>
+								<option>11 months</option>
+								<option>1 year</option>
 							</select>
 						</div>
 						<div class="plan-date-container">
@@ -110,7 +122,7 @@
 								<div class="date-container">
 									<img :src="'../assets/img/calendar.png'" />
 									<div class="start-date-input-wrapper">
-										<v-date-picker popoverDirection="bottom" v-model="starDateDetails.starDate"
+										<v-date-picker popoverDirection="bottom" v-model="plan_type.plan_start"
 											:input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
 											:formats="formats" popover-visibility="focus"></v-date-picker>
 										<i class="fa fa-caret-down"></i>
@@ -120,11 +132,11 @@
 							<div class="end-date-container">
 								<h4>
 									End Date:
-									<span>2020-08-02</span>
+									<span>{{ employee_info.expiry_date }}</span>
 								</h4>
 							</div>
 							<div>
-								<button class="btn-primary">UPDATE PLAN</button>
+								<button @click="updatePlanDetails()" class="btn-primary">UPDATE PLAN</button>
 							</div>
 						</div>
 					</div>
@@ -138,27 +150,35 @@
 			</div>
 			<div slot="body">
 				<div>
+					<div v-if="showEmpRenewPlanSummary">
+						<h4 class="summary-title">Summary</h4>
+					</div>
+
 					<div class="renew-plan-row">
 						<label>User:</label>
-						<span>niknik san</span>
+						<span>{{employee_info.fullname}}</span>
 					</div>
 					<div class="renew-plan-row">
 						<label>ID:</label>
-						<span>29467</span>
+						<span>{{employee_info.member_id}}</span>
 					</div>
 					<div class="renew-plan-row">
 						<label>Old Plan Start:</label>
-						<span>September 15, 2019</span>
+						<span>{{employee_info.start_date}}</span>
+					</div>
+					<div v-if="showEmpRenewPlanSummary" class="renew-plan-row">
+						<label>New Plan Start:</label>
+						<span>{{new_plan_start_date}}</span>
 					</div>
 
-					<div class="new-plan-start-container">
+					<div v-if="!showEmpRenewPlanSummary" class="new-plan-start-container">
 						<h4>New Plan Start:</h4>
 						<div class="date-container">
 							<img :src="'../assets/img/calendar.png'" />
 							<div class="start-date-input-wrapper">
-								<v-date-picker popoverDirection="bottom" v-model="starDateDetails.null"
+								<v-date-picker popoverDirection="bottom" v-model="new_plan_start_date"
 									:input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
-									popover-visibility="focus"></v-date-picker>
+									:formats="formats" popover-visibility="focus"></v-date-picker>
 								<i class="fa fa-caret-down"></i>
 							</div>
 						</div>
@@ -167,7 +187,9 @@
 			</div>
 			<div slot="footer">
 				<button @click="selectedEmpDetailsSettingsClicked(1, 'cancel')" class="btn-close">CANCEL</button>
-				<button class="btn-primary settings-btn-submit">PROCEED</button>
+				<button @click="toggleEmpRenewPlanSummary()" v-if="showEmpRenewPlanSummary" class="btn-close btn-back">BACK</button>
+				<button @click="updateEmpRenewPlanBtn( new_plan_start_date )" class="btn-primary settings-btn-submit" v-if="showEmpRenewPlanSummary">SUBMIT</button>
+				<button @click="toggleEmpRenewPlanSummary()" v-if="!showEmpRenewPlanSummary" class="btn-primary settings-btn-submit">PROCEED</button>
 			</div>
 		</Modal>
 
@@ -208,7 +230,7 @@
 						<div class="white-space-30"></div>
 						<button class="btn-primary re-send-btn w-full" @click="showUpdatePass()">Update Password</button>
 						<div class="white-space-20"></div>
-						<button class="btn-primary re-send-btn w-full" @click="resendEmployeeEmailDash()">Resend/Reset
+						<button class="btn-primary re-send-btn w-full" @click="resend_reset_account()">Resend/Reset
 							Account</button>
 						<div class="white-space-20"></div>
 						<button class="btn-primary re-send-btn w-full" @click="pinSetupShow()">Pin Setup</button>
@@ -226,7 +248,7 @@
 						<div class="input-container-padding py-1">
 							<label class="block pr-2">Email</label>
 							<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2" type="text"
-								ng-model="list.member.Email" disabled />
+								v-model="toUpdatePassword.member_email" disabled />
 						</div>
 						<div class="input-container-padding py-1">
 							<label>
@@ -234,19 +256,19 @@
 								<span class="text-red-700">*</span>
 							</label>
 							<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
-								type="password" ng-model="list.password" required />
+								type="password" v-model="toUpdatePassword.password" required />
 						</div>
 						<div class="input-container-padding py-1">
 							<label>
 								Re-Type Password
 								<span class="text-red-700">*</span>
 							</label>
-							<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2" type="text"
-								ng-model="list.password2" required />
+							<input class="bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
+								type="password" v-model="toUpdatePassword.re_type_password" required />
 						</div>
 
 						<button class="btn-primary re-send-btn w-full my-5"
-							ng-click="updatePasswordEmp($event,list)">Update</button>
+							@click="updatePasswordEmp(toUpdatePassword)">Update</button>
 					</div>
 				</template>
 
@@ -300,9 +322,10 @@
 							Country Code
 							<span class="text-red-700">*</span>
 						</label>
-						<select name="" id="" class="border-solid border-b border-gray-100 w-full my-4">
-							<option value="65">(SG) +65</option>
-							<option value="60">(MY) +60</option>
+						<select name="" id="" v-model="toSmsData.phone_code" class="border-solid border-b border-gray-100 w-full my-4">
+							<option value="+65">(SG) +65</option>
+							<option value="+63">(PH) +63</option>
+							<option value="+60">(MY) +60</option>
 						</select>
 					</div>
 					<div class="input-container-padding py-2 pl-6 flex-1">
@@ -310,15 +333,15 @@
 							Mobile Number
 							<span class="text-red-700">*</span>
 						</label>
-						<input class="border-solid border-b border-gray-100 w-full py-2"
-							type="number" ng-model="list.password" required />
+						<input class="border-solid border-b border-gray-100 w-full py-2" type="number" v-model="toSmsData.phone_no"
+							required />
 					</div>
 				</div>
 			</div>
 			<div slot="footer" class="flex justify-end items-center px-3 pb-3">
 				<button class="btn-close btn-primary bg-white text-black mx-3"
 					@click="selectedEmpDetailsSettingsClicked(3,'cancel')">CLOSE</button>
-				<button class="btn-close btn-primary">SUBMIT</button>
+				<button class="btn-close btn-primary" @click="send_sms_notification(toSmsData)">SUBMIT</button>
 			</div>
 
 		</Modal>

@@ -271,7 +271,7 @@
 				<p class="box-title-blue">Account & Plan</p>
 
 				<div class="form-row">
-					<div class="form-col mg-rgt-20">
+					<div class="form-col mg-rgt-20 account-date-container">
 						<div class="form-div">
 							<label>Start Date</label>
 							<div class="date-container">
@@ -298,7 +298,7 @@
 										<option></option>
 										<option value="days">days</option>
 										<option value="months">months</option>
-										<option value="years">year</option>
+										<option value="years">years</option>
 									</select>
 									<img :src="'../assets/img/down-arrow.svg'">
 								</div>
@@ -320,7 +320,7 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-col">
+					<div class="form-col invoice-date-row">
 						<div class="form-div invoice-date-container">
 							<label>Invoice Date</label>
 							<div class="date-container">
@@ -349,7 +349,7 @@
 
 				<div v-if="create_company.employee_plan_extension">
 					<div class="form-row">
-						<div class="form-col mg-rgt-20">
+						<div class="form-col mg-rgt-20 account-date-container">
 							<div class="form-div">
 								<label>Start Date</label>
 								<div class="date-container">
@@ -376,7 +376,7 @@
 											<option></option>
 											<option value="days">days</option>
 											<option value="months">months</option>
-											<option value="year">year</option>
+											<option value="year">years</option>
 										</select>
 										<img :src="'../assets/img/down-arrow.svg'">
 									</div>
@@ -532,7 +532,7 @@
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="form-col mg-rgt-20">
+						<div class="form-col mg-rgt-20 account-date-container">
 							<div class="form-div">
 								<label>Invoice Date</label>
 								<div class="date-container">
@@ -711,7 +711,7 @@
 							</div>
 						</div>
 						<div class="form-row">
-							<div class="form-col mg-rgt-20">
+							<div class="form-col mg-rgt-20 invoice-date-row">
 								<div class="form-div">
 									<label>Invoice Date</label>
 									<div class="date-container">
@@ -780,7 +780,7 @@
 							</div>
 						</div>
 						<div class="form-col">
-							<div class="form-div med-date-container">
+							<div class="form-div med-date-container spending-end-date-container">
 								<label>End Date</label>
 								<div class="date-container">
 									<v-date-picker
@@ -826,7 +826,7 @@
 							</div>
 						</div>
 						<div class="form-col">
-							<div class="form-div well-date-container">
+							<div class="form-div well-date-container spending-end-date-container">
 								<label>End Date</label>
 								<div class="date-container">
 									<v-date-picker

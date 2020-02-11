@@ -76,35 +76,35 @@
 
 					<div class="info-div-inline">
 						<label>Total:</label>
-						<p v-if="corporateCreditsInfo_data.total_medical_company_allocation >= 0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_medical_company_allocation != null" class="uppercase">
 							{{corporateCreditsInfo_data.total_medical_company_allocation | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Allocated:</label>
-						<p v-if="corporateCreditsInfo_data.total_medical_employee_allocated >=0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_medical_employee_allocated != null" class="uppercase">
 						 {{corporateCreditsInfo_data.total_medical_employee_allocated | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Unallocated:</label>
-						<p v-if="corporateCreditsInfo_data.total_medical_company_unallocation >=0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_medical_company_unallocation != null" class="uppercase">
 							{{corporateCreditsInfo_data.total_medical_company_unallocation | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Spent:</label>
-						<p v-if="corporateCreditsInfo_data.total_medical_employee_spent >=0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_medical_employee_spent != null" class="uppercase">
 							{{corporateCreditsInfo_data.total_medical_employee_spent | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Balance:</label>
-						<p v-if="corporateCreditsInfo_data.total_medical_employee_balance >=0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_medical_employee_balance != null" class="uppercase">
 						 {{corporateCreditsInfo_data.total_medical_employee_balance | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
@@ -116,35 +116,35 @@
 
 					<div class="info-div-inline">
 						<label>Total:</label>
-						<p v-if="corporateCreditsInfo_data.total_medical_wellness_allocation >= 0" class="uppercase"> 
+						<p v-if="corporateCreditsInfo_data.total_medical_wellness_allocation != null" class="uppercase"> 
 							{{corporateCreditsInfo_data.total_medical_wellness_allocation | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Allocated:</label>
-						<p v-if="corporateCreditsInfo_data.total_wellness_employee_allocated >=0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_wellness_employee_allocated != null" class="uppercase">
 							{{corporateCreditsInfo_data.total_wellness_employee_allocated | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Unallocated:</label>
-						<p v-if="corporateCreditsInfo_data.total_medical_wellness_unallocation >=0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_medical_wellness_unallocation!= null" class="uppercase">
 							{{corporateCreditsInfo_data.total_medical_wellness_unallocation | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Spent:</label>
-						<p v-if="corporateCreditsInfo_data.total_wellness_employee_spent >=0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_wellness_employee_spent != null" class="uppercase">
 							{{corporateCreditsInfo_data.total_wellness_employee_spent | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
 					</div>
 					<div class="info-div-inline">
 						<label>Balance:</label>
-						<p v-if="corporateCreditsInfo_data.total_wellness_employee_balance >=0" class="uppercase">
+						<p v-if="corporateCreditsInfo_data.total_wellness_employee_balance != null" class="uppercase">
 							{{corporateCreditsInfo_data.total_wellness_employee_balance | currency(`${corporateCreditsInfo_data.currency_type} `, 2, { thousandsSeparator: ',' }) }}
 						</p>
 						<p v-else>Loading . . .</p>
@@ -160,7 +160,7 @@
 					<div class="btn-container">
 						<router-link tag="div" :to="{ name : 'PlanRenewal' }"><button v-if="corporateRenewalStatus_data.to_plan_renew" class="btn btn-primary txt-transform-uppercase">Plan Renewal Details</button></router-link>
 						<router-link tag="div" :to="{ name : 'Clinic' }"><button v-if="corporateRenewalStatus_data.to_spending_renew && !corporateRenewalStatus_data.combine" class="btn btn-primary txt-transform-uppercase">Spending Account Renewal Details</button></router-link>
-						<router-link tag="div" :to="{ name : 'Clinic' }"><button v-if="corporateCreditsInfo_data.to_expire" class="btn btn-primary txt-transform-uppercase">Send Plan Expiration Notification</button></router-link>
+						<button v-if="corporateDetails_data.to_expire" class="btn btn-primary txt-transform-uppercase" @click="sendPlanExpiration()">Send Plan Expiration Notification</button>
 						<router-link tag="div" :to="{ name : 'Clinic' }"><button class="btn btn-primary txt-transform-uppercase">Corporate Details</button></router-link>
 						<router-link tag="div" :to="{ name : 'CorporateSettings' }"><button v-if="false" class="btn btn-primary txt-transform-uppercase">Pending Enrollnent <span ng-bind="corprorate_details.pending_enrollment"> 0 </span></button></router-link>
 						<router-link tag="div" :to="{ name : 'CorporateSettings' }"><button class="btn btn-primary txt-transform-uppercase">Settings</button></router-link>

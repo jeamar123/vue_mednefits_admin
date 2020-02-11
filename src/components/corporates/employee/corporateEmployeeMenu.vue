@@ -5,7 +5,7 @@ import Loader from "../../../views/loader/Loader";
 
 let corporateEmployeeMenu = {
 	components: {
-		Loader
+		Loader,
 	},
 	props: {
 		customer_id: [String, Number],
@@ -43,6 +43,11 @@ let corporateEmployeeMenu = {
 	},
 	mounted() {},
 	methods: {
+		fromEmployee(data) {
+			console.log(`data sa employee tab`,data.from_employee);
+			this.employee_side_info = data.from_employee;
+			
+		},
 		formatDate(date, from, to) {
 			if (date != null) {
 				return moment(date, from).format(to);
@@ -72,6 +77,7 @@ let corporateEmployeeMenu = {
 			this.sideBar.trigger = !this.sideBar.trigger;
 		},
 		showEmpSelectorInfo(page) {
+			console.log(page);
 			this.activeTab = page;
 			this.$router.push({ name: page });
 		},
@@ -103,6 +109,7 @@ let corporateEmployeeMenu = {
 					console.log(res);
 					if (res.status == 200) {
 						this.employee_side_info = res.data.data;
+						// localStorage.employee_email = this.employee_side_info.work_email;
 						console.log(this.employee_side_info);
 					}
 					// this.$parent.hideLoading();
