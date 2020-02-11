@@ -344,33 +344,84 @@ let employeeSettings = {
 
 			let update_member_password = `${axios.defaults.serverUrl}/auth/update_member_password`;
 
-			axios.put(update_member_password, data)
-				.then(res => {
-					console.log(res);
-					if (res.data.status == true) {
-						this.$swal("Success!", 'Your password has been reset successfully', "success")
-							.then(res1 => {
-								this.showUpdatePass(); // cloase ang update password
-								this.toUpdatePassword = {};
-							});
-					} else {
-						this.$swal("Warning!", res.data.message, "warning");
-					}
-				})
-				.catch(err => {
-					this.$parent.hideLoading();
-					this.errorHandler(err);
-				});
+			if (this.reset_pass_checkForm()) {
+				axios.put(update_member_password, data)
+					.then(res => {
+						console.log(res);
+						if (res.data.status == true) {
+							this.$swal("Success!", 'Your password has been reset successfully', "success")
+								.then(res1 => {
+									this.showUpdatePass(); // cloase ang update password
+									this.toUpdatePassword = {};
+								});
+						} else {
+							this.$swal("Warning!", res.data.message, "warning");
+						}
+					})
+					.catch(err => {
+						this.$parent.hideLoading();
+						this.errorHandler(err);
+					});
+			}
 		},
 		pinSetupShow() {
 			this.emp_padd_reset_wrapper = !this.emp_padd_reset_wrapper;
 			this.pin_setup_update = !this.pin_setup_update;
 		},
-		resendE_reset_account() {
+		resend_reset_account() {
 			// function here
+			this.showLoading();
+			let resend_employee_account = `${axios.defaults.serverUrl}/company/resend_employee_account`; 
+			let data = {
+				member_id: this.member_id,
+			}
+
+			axios.post(resend_employee_account, data)
+				.then(res => {
+					console.log(res);
+					if (res.data.status == true) {
+						this.hideLoading();
+						this.$swal("Success!", res.data.message, "success")
+							.then(res1 => {
+								// your additional functions to run after swal ok button clicked
+							});
+					} else {
+						this.hideLoading();
+						this.$swal("Warning!", res.data.message, "warning");
+					}
+				})
+				.catch(err => {
+					this.hideLoading();
+					this.errorHandler(err);
+				});
 		},
 		unPinSetup() {
 			// function here
+		},
+		reset_pass_checkForm() {
+			this.error_updatePassword = [];
+
+			if (!this.toUpdatePassword.password) {
+				this.error_updatePassword.push("Password.");
+			}
+			if (!this.toUpdatePassword.re_type_password) {
+				this.error_updatePassword.push("Confirm Password.");
+			}
+
+			if (!this.error_updatePassword.length) {
+				return true;
+			} else {
+				console.log(this.error_updateEmployee);
+				let new_error = [];
+				this.error_updatePassword.map(value => {
+					new_error.push(`<span class="block p-1 text-red-500 text-center w-1/2 mx-auto my-0">${value}</span>`);
+				});
+				this.$swal(
+					'Required',
+					new_error.join('\n\n'),
+					'warning'
+				);
+			}
 		},
 		//  -----------------------
 
@@ -431,7 +482,7 @@ let employeeSettings = {
 					})
 					.catch(err => {
 						this.$parent.hideLoading();
-						this.errorHandler( err );
+						this.errorHandler(err);
 					});
 			} else {
 				this.$swal('Ooops!', 'Credits must be greater than zero.', 'error');
@@ -444,14 +495,14 @@ let employeeSettings = {
 				fixed: this.plan_type.fixed,
 				duration: this.plan_type.duration,
 			}
-			axios.put( axios.defaults.serverUrl + '/company/update_plan_employee', data ) 
+			axios.put(axios.defaults.serverUrl + '/company/update_plan_employee', data)
 				.then(response => {
 					console.log(response);
 					this.$swal("Success!", response.data.message, "success");
 				})
 				.catch(err => {
 					this.$parent.hideLoading();
-					this.errorHandler( err );
+					this.errorHandler(err);
 				});
 		},
 
