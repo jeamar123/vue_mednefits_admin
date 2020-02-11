@@ -298,6 +298,7 @@ let employeeSettings = {
 			let x = data;
 			if (x === "credits-plans") {
 				this.showEmpCreditsPlan = true;
+				console.log(this.plan_type.plan_start);
 			} else if (x === "cancel") {
 				this.showEmpCreditsPlan = false;
 			}
@@ -550,16 +551,25 @@ let employeeSettings = {
 			}
 		},
 		updatePlanDetails() {
+			console.log(this.plan_type.plan_start);
+
 			var data = {
 				member_id: this.member_id,
-				plan_start: moment(this.plan_type.plan_start).format('YYYY-MM-DD'),
+				// plan_start: moment(this.plan_type.plan_start).format('YYYY-MM-DD'),
+				plan_start: this.plan_type.plan_start,
 				fixed: this.plan_type.fixed,
 				duration: this.plan_type.duration,
 			}
+
 			axios.put(axios.defaults.serverUrl + '/company/update_plan_employee', data)
 				.then(response => {
 					console.log(response);
-					this.$swal("Success!", response.data.message, "success");
+					console.log(data);
+					// if ( this.plan_type.plan_start ) {
+					// 	this.$swal("Success!", response.data.message, "success");
+					// } else {
+					// 	this.$swal("Error!", "Select Plan Start Date ", "error");
+					// }
 				})
 				.catch(err => {
 					this.$parent.hideLoading();
