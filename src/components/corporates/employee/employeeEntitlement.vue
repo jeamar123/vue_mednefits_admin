@@ -1,5 +1,6 @@
 <script>
   import moment from "moment";
+  import axios from "axios";
 
   let employeeEntitlement = {
     props: {
@@ -56,12 +57,37 @@
     created(){
       // this.corporateViewStatus = this.$route.name;
       console.log(`${this.member_id} ug is ${this.name}`);
+      this.getEmployeeDetails();
     },
     methods: {
       // selectCorporateView( opt ){
       //   this.corporateViewStatus = opt;
       //   this.$router.push( { name : opt } );
       // }
+
+      // Api calls
+      getEmployeeDetails() {
+        // for single  buttons or manual trigger
+        let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
+        axios.get(get_employee_details)
+          .then(res => {
+            // Log the data to the console
+            // You would do something with both sets of data here
+            console.log(res);
+            if (res.status == 200) {
+              this.employee_info = res.data.data
+              // this.start_date_entitlement = moment(this.employee_info.start_date).format('DD/MM/YYYY')
+              // localStorage.employee_email = this.employee_info.work_email;
+              // console.log(this.start_date_entitlement);
+              console.log(this.employee_info);
+            }
+            // this.$parent.hideLoading();
+          }).catch(err => {
+            this.hideLoading();
+            this.errorHandler(err);
+          });
+      },
+
       getMemberEntitlement() {
         this.emp_entitlement.medical_entitlement_date = moment(this.med_effective_date).format('DD/MM/YYYY');
         this.emp_entitlement.wellness_entitlement_date = moment(this.well_effective_date).format('DD/MM/YYYY');
@@ -92,8 +118,11 @@
           entitlement_spending_type: 'wellness',
         }
 
-       
-
+        // this.medical_date = moment(this.med_data.entitlement_usage_date).format('DD/MM/YYYY');
+        // this.plan_month_duration = moment.duration(this.medical_date.diff(this.start_date_entitlement));
+        // console.log(this.plan_month_duration);
+        // console.log(this.medical_date);
+        // console.log(this.start_date_entitlement);
         if ( cal == 1 ) {
           this.cal_one = true;
         }
