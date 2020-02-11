@@ -69,7 +69,7 @@ let employeeSettings = {
 			new_plan_start_date: undefined,
 			credits_amount: '',
 			plan_type: {
-				fixed: 0,
+				fixed: "0",
 				duration: '2 months',
 				plan_start: undefined,
 				end_date: '',
@@ -298,6 +298,7 @@ let employeeSettings = {
 			let x = data;
 			if (x === "credits-plans") {
 				this.showEmpCreditsPlan = true;
+				console.log(this.plan_type.plan_start);
 			} else if (x === "cancel") {
 				this.showEmpCreditsPlan = false;
 			}
@@ -533,7 +534,10 @@ let employeeSettings = {
 					.then(response => {
 						// console.log(response.data.status);
 						if (response.data.status) {
-							this.$swal("Success!", response.data.message, "success");
+							this.$swal("Success!", response.data.message, "success")
+							.then (response1 => { 
+								this.getEmployeeDetails();
+							});
 						} else {
 							this.$swal("Error!", response.data.message, "error");
 						}
@@ -550,15 +554,19 @@ let employeeSettings = {
 			var data = {
 				member_id: this.member_id,
 				plan_start: moment(this.plan_type.plan_start).format('YYYY-MM-DD'),
+				plan_start: this.plan_type.plan_start,
 				fixed: this.plan_type.fixed,
 				duration: this.plan_type.duration,
 			}
+
 			axios.put(axios.defaults.serverUrl + '/company/update_plan_employee', data)
 				.then(response => {
 					console.log(response);
+					console.log(data);
 					this.$swal("Success!", response.data.message, "success");
 				})
 				.catch(err => {
+					console.log(data);
 					this.$parent.hideLoading();
 					this.errorHandler(err);
 				});
@@ -575,7 +583,8 @@ let employeeSettings = {
 					console.log(res);
 					if (res.status == 200) {
 						this.member_email = res.data.data.work_email;
-						this.employee_info = res.data.data
+						this.employee_info = res.data.data;
+						this.$emit('FromSettings', {from_settings: this.employee_info });
 						// localStorage.employee_email = this.employee_info.work_email;
 						console.log(this.employee_info);
 					}

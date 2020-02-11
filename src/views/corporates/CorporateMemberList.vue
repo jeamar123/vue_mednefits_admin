@@ -114,7 +114,7 @@
 		</div>
 
 		<!-- Pagination Start -->
-		<div v-show="corporate_pagination.data.length > 5 && !searchActive" class="custom-pagination-container">
+		<div v-show="corporate_pagination.totalPages > 1 && corporate_pagination.data.length > 0 && !searchActive" class="custom-pagination-container">
 			<div class="custom-pagination flex-wrap">
 				<div class="page-wrapper">
 					<div class="page-scroll-container m-0">
