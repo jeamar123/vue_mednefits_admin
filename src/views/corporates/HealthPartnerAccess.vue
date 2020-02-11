@@ -23,7 +23,9 @@
 
 				<div v-if="isBlockSearchShow" class="health-partner-search">
 					<i class="fa fa-search left"></i>
-					<input type="text" placeholder="Search for partner access" name="">
+					<form v-on:submit.prevent="getClinicList()" class="wpc-100">
+						<input type="text" placeholder="Search for partner access" v-model="block_clinic_search">
+					</form>
 					<i class="fa fa-times right" v-on:click="toggleSearch('block', false)"></i>
 				</div>
 
@@ -34,7 +36,7 @@
             <span class="health-checkmark"></span>
           </label>	
           <div class="select-filter-div">
-	        	<select v-model="block_clinic_region">
+	        	<select v-model="block_clinic_region" v-on:change="regionChange('block')">
 	        		<option value="all">All Region</option>
 							<option value="sgd">Singapore - SGD</option>
 	        		<option value="myr">Malaysia - MYR</option>
@@ -118,7 +120,9 @@
 
 				<div v-if="isOpenSearchShow" class="health-partner-search">
 					<i class="fa fa-search left"></i>
-					<input type="text" placeholder="Search for partner access" name="">
+					<form v-on:submit.prevent="getClinicList()" class="wpc-100">
+						<input type="text" placeholder="Search for partner access" v-model="open_clinic_search">
+					</form>
 					<i class="fa fa-times right" v-on:click="toggleSearch('open', false)"></i>
 				</div>
 
@@ -129,7 +133,7 @@
             <span class="health-checkmark"></span>
           </label>	
           <div class="select-filter-div">
-	        	<select v-model="open_clinic_region" v-on:change="getClinicList()">
+	        	<select v-model="open_clinic_region" v-on:change="regionChange('open')">
 	        		<option value="all">All Region</option>
 							<option value="sgd">Singapore - SGD</option>
 	        		<option value="myr">Malaysia - MYR</option>
@@ -184,7 +188,7 @@
 							</div>
 						</div>
 						<div class="page-count">
-							<span>{{ (open_active_page*open_page_limit) - open_page_limit + 1 }}</span> - <span>{{ (open_active_page*open_page_limit) }}</span> of <span>{{ open_pagination.table_open_total }}</span>
+							<span>{{ open_pagination.from }}</span> - <span>{{ open_pagination.to }}</span> of <span>{{ open_pagination.table_open_total }}</span>
 						</div>
 						<div class="page-arrows">
 							<div class="arrows" v-on:click="openPrevPage()">

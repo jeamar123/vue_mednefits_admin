@@ -48,6 +48,15 @@ import moment, { locale } from "moment";
           this.isBlockSearchShow = opt;
         }
       },
+      regionChange( type ){
+        if( type == 'open' ){
+          this.open_active_page = 1;
+        }
+        if( type == 'block' ){
+          this.block_active_page = 1;
+        }
+        this.getClinicList();
+      },
       // PAGINATION FUNCTIONS
         openPrevPage(){
           if( this.open_active_page != 1 ){
@@ -56,7 +65,7 @@ import moment, { locale } from "moment";
           }
         },
         openNextPage(){
-          if( this.open_active_page != 5 ){
+          if( this.open_active_page != this.open_pagination.table_open_last_page ){
             this.open_active_page += 1;
             this.getClinicList();
           }
@@ -77,7 +86,7 @@ import moment, { locale } from "moment";
           }
         },
         blockNextPage(){
-          if( this.block_active_page != 5 ){
+          if( this.block_active_page != this.block_pagination.table_open_last_page ){
             this.block_active_page += 1;
             this.getClinicList();
           }
@@ -109,14 +118,23 @@ import moment, { locale } from "moment";
           account_type: [this.type, this.type],
           // search: [ this.open_clinic_search , this.block_clinic_search ],
         }
+        if( this.open_clinic_search != null || this.block_clinic_search != null ){
+          data.search = [ (this.open_clinic_search == null ? 0 : this.open_clinic_search), (this.block_clinic_search == null ? 0 : this.block_clinic_search) ];
+        }
+        this.showLoading();
         console.log( data );
         axios.get( url, { params: data } )
           .then(res => {
             console.log( res );
             this.block_clinic_list = res.data.block_list.docs;
             this.block_pagination = res.data.block_list;
+
+
             this.open_clinic_list = res.data.open_list.docs;
             this.open_pagination = res.data.open_list;
+            this.open_pagination.from = (this.open_active_page * this.open_page_limit) - this.open_page_limit + 1;
+            this.open_pagination.to = this.open_active_page == this.open_pagination.table_open_last_page ? this.open_pagination.table_open_total : (this.open_active_page * this.open_page_limit);
+            
             this.hideLoading();
           })
           .catch(err => {
