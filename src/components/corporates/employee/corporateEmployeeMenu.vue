@@ -43,6 +43,11 @@ let corporateEmployeeMenu = {
 	},
 	mounted() {},
 	methods: {
+		fromSettings(data) {
+			// console.log(data);
+			console.log(data.from_settings);
+			this.employee_side_info = data.from_settings;
+		},
 		fromEmployee(data) {
 			console.log(`data sa employee tab`,data.from_employee);
 			this.employee_side_info = data.from_employee;

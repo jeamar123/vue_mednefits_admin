@@ -93,12 +93,12 @@
 						<div class="plan-type-selector">
 							<label class="container">
 								<span>Standard 1 year</span>
-								<input value=0 v-model="plan_type.fixed" type="radio" name="radio" />
+								<input value="0" v-model="plan_type.fixed" type="radio" name="radio" />
 								<span class="plan-type-checkmark"></span>
 							</label>
 							<label class="container">
 								<span>Short Term</span>
-								<input value=1 v-model="plan_type.fixed" type="radio" name="radio" />
+								<input value="1" v-model="plan_type.fixed" type="radio" name="radio" />
 								<span class="plan-type-checkmark"></span>
 							</label>
 							<select v-if="plan_type.fixed == 1" v-model="plan_type.duration">
