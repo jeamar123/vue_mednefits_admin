@@ -532,8 +532,9 @@
 
 // -------------- RENEWAL MODAL SETTINGS ---------------- //
 
-.show-renewal-modal {
-  
+.modal-mask.show-renewal-modal {
+  z-index: 0;
+
   .modal-wrapper {
     display: flex;
     align-items: center;
@@ -556,6 +557,11 @@
 
   .modal-body {
     padding: 20px 20px 40px;
+
+    .summary-title {
+      font-size: 20px;
+      margin: 0 0 20px;
+    }
   }
 
   .renew-plan-row {
@@ -603,6 +609,10 @@
   .modal-footer {
     padding: 0 15px;
     text-align: right;
+
+    .btn-back {
+      margin: 10px 0 10px 10px;
+    }
   }
 }
 
@@ -630,7 +640,10 @@
 
 //  ------------ Settings Update Reset Password --------- //
 
-.update-reset, .sms-notification {
+
+.modal-mask.update-reset, .modal-mask.sms-notification {
+  z-index: 0;
+  
   .modal-container {
     width: 450px;
     font-size: 16px;

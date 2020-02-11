@@ -101,6 +101,7 @@ let corporateMenu = {
 					if (res.status == 200) {
 						console.log('details', res);
 						this.corporateDetails_data = res.data;
+						// localStorage.company_name = this.corporateDetails_data.company_name;
 						// this.hideLoading();
 					}
 				})

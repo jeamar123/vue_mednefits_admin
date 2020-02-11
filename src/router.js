@@ -3,8 +3,8 @@ import Router from 'vue-router'
 import axios from 'axios'
 
 axios.defaults.baseURL = process.env.BASE_URL;
-// axios.defaults.serverUrl = 'http://localhost:3000';
-axios.defaults.serverUrl = 'http://api-admin.medicloud.sg';
+axios.defaults.serverUrl = 'http://localhost:3000';
+// axios.defaults.serverUrl = 'http://api-admin.medicloud.sg';
 axios.defaults.user_id = null;
 
 
@@ -99,43 +99,43 @@ export default new Router({
         { name: 'Corporates', path: '/dashboard/corporates', component: Corporates},
         { 
           name: 'CorporateMenu', 
-          path: '/dashboard/corporates/company-:customer_id', 
+          path: '/dashboard/corporates/:company_name-:customer_id', 
           component: CorporateMenu,
-          redirect: '/dashboard/corporates/company-:customer_id/member-list',
+          redirect: '/dashboard/corporates/:company_name-:customer_id/member-list',
           props: true,
           children: [
-            { name: 'CorporateInformation', path: '/dashboard/corporates/company-:customer_id/info', components: { child : CorporateInformation }  },
-            { name: 'CorporateMemberList', path: '/dashboard/corporates/company-:customer_id/member-list', components: { child : CorporateMemberList }, props: { child: true}  },
-            { name: 'CorporatePlan', path: '/dashboard/corporates/company-:customer_id/corporate-plan', components: { child : CorporatePlan } , props: { child: true}  },
-            { name: 'SpendingInvoice', path: '/dashboard/corporates/company-:customer_id/spending-invoice', components: { child : SpendingInvoice } , props: { child: true} },
-            { name: 'BulkCreditAllocation', path: '/dashboard/corporates/company-:customer_id/bulk-credit-allocation', components: { child : BulkCreditAllocation }, props: { child: true}  },
+            { name: 'CorporateInformation', path: '/dashboard/corporates/:company_name-:customer_id/info', components: { child : CorporateInformation }  },
+            { name: 'CorporateMemberList', path: '/dashboard/corporates/:company_name-:customer_id/member-list', components: { child : CorporateMemberList }, props: { child: true}  },
+            { name: 'CorporatePlan', path: '/dashboard/corporates/:company_name-:customer_id/corporate-plan', components: { child : CorporatePlan } , props: { child: true}  },
+            { name: 'SpendingInvoice', path: '/dashboard/corporates/:company_name-:customer_id/spending-invoice', components: { child : SpendingInvoice } , props: { child: true} },
+            { name: 'BulkCreditAllocation', path: '/dashboard/corporates/:company_name-:customer_id/bulk-credit-allocation', components: { child : BulkCreditAllocation }, props: { child: true}  },
             // { name: 'HealthPartnerAccess', path: '/dashboard/corporates/menu/health-partner-access', components: { child : HealthPartnerAccess} },
-            { name: 'EclaimTypeService', path: '/dashboard/corporates/company-:customer_id/eclaim-type-service', components: { child : EclaimTypeService} , props: { child: true} },
-            { name: 'GcapPerVisit', path: '/dashboard/corporates/company-:customer_id/gp-cap-per-visit', components: { child : GcapPerVisit}, props: { child: true} },
-            { name: 'AddEmployeeEntitlementOption', path: '/dashboard/corporates/company-:customer_id/enrollment/entitlement', components: { child : AddEmployeeEntitlementOption }, props: { child: true}  },
-            { name: 'PlanRenewal', path: '/dashboard/corporates/company-:customer_id/plan-renewal', components: { child : PlanRenewal}, props: { child: true},
+            { name: 'EclaimTypeService', path: '/dashboard/corporates/:company_name-:customer_id/eclaim-type-service', components: { child : EclaimTypeService} , props: { child: true} },
+            { name: 'GcapPerVisit', path: '/dashboard/corporates/:company_name-:customer_id/gp-cap-per-visit', components: { child : GcapPerVisit}, props: { child: true} },
+            { name: 'AddEmployeeEntitlementOption', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/entitlement', components: { child : AddEmployeeEntitlementOption }, props: { child: true}  },
+            { name: 'PlanRenewal', path: '/dashboard/corporates/:company_name-:customer_id/plan-renewal', components: { child : PlanRenewal}, props: { child: true},
               children : [
-                { name: 'PlanRenewalDetails', path: '/dashboard/corporates/company-:customer_id/plan-renewal/details', components: { child : PlanDetails} },
-                { name: 'PlanRenewalMemberDetails', path: '/dashboard/corporates/company-:customer_id/plan-renewal/member', components: { child : MemberDetails} },
-                { name: 'PlanRenewalSpendingAccount', path: '/dashboard/corporates/company-:customer_id/plan-renewal/spending-account', components: { child : SpendingRenewalDetails}, props:true },
+                { name: 'PlanRenewalDetails', path: '/dashboard/corporates/:company_name-:customer_id/plan-renewal/details', components: { child : PlanDetails} },
+                { name: 'PlanRenewalMemberDetails', path: '/dashboard/corporates/:company_name-:customer_id/plan-renewal/member', components: { child : MemberDetails} },
+                { name: 'PlanRenewalSpendingAccount', path: '/dashboard/corporates/:company_name-:customer_id/plan-renewal/spending-account', components: { child : SpendingRenewalDetails}, props:true },
               ]
             },
-            { name: 'PlanRenewalSpendingRenewal', path: '/dashboard/corporates/company-:customer_id/pending-renewal', components: { child : SpendingAccountRenewal}, props:true },
-            { name: 'CorporateSettings', path: '/dashboard/corporates/company-:customer_id/settings', components: { child : CorporateSettings }, props:true  },
+            { name: 'PlanRenewalSpendingRenewal', path: '/dashboard/corporates/:company_name-:customer_id/pending-renewal', components: { child : SpendingAccountRenewal}, props:true },
+            { name: 'CorporateSettings', path: '/dashboard/corporates/:company_name-:customer_id/settings', components: { child : CorporateSettings }, props:true  },
           ] 
         },
         { 
           name: 'CorporateEmployeeMenu', 
-          path: '/dashboard/corporates/company-:customer_id/', 
+          path: '/dashboard/corporates/:company_name-:customer_id/', 
           component: CorporateEmployeeMenu,
-          redirect: '/dashboard/corporates/company-:customer_id/:name-:member_id',
+          redirect: '/dashboard/corporates/:company_name-:customer_id/:name-:member_id',
           props:true,
           children: [
-            { name: 'EmployeeInformation', path: '/dashboard/corporates/company-:customer_id/:name-:member_id', components: { child : EmployeeInformation } , props: { child: true}},
-            { name: 'DependentInformation', path: '/dashboard/corporates/company-:customer_id/:name-:member_id/dependent', components: { child : DependentInformation }, props: { child: true}  },
-            { name: 'ClaimSubmission', path: '/dashboard/corporates/company-:customer_id/:name-:member_id/claim_submission', components: { child : ClaimSubmission }, props: { child: true}  },
-            { name: 'Entitlement', path: '/dashboard/corporates/company-:customer_id/:name-:member_id/entitlement', components: { child : Entitlement }, props: { child: true}  },
-            { name: 'EmployeeSettings', path: '/dashboard/corporates/company-:customer_id/:name-:member_id/settings', components: { child : EmployeeSettings }, props: { child: true}  },
+            { name: 'EmployeeInformation', path: '/dashboard/corporates/:company_name-:customer_id/:name-:member_id', components: { child : EmployeeInformation } , props: { child: true}},
+            { name: 'DependentInformation', path: '/dashboard/corporates/:company_name-:customer_id/:name-:member_id/dependent', components: { child : DependentInformation }, props: { child: true}  },
+            { name: 'ClaimSubmission', path: '/dashboard/corporates/:company_name-:customer_id/:name-:member_id/claim_submission', components: { child : ClaimSubmission }, props: { child: true}  },
+            { name: 'Entitlement', path: '/dashboard/corporates/:company_name-:customer_id/:name-:member_id/entitlement', components: { child : Entitlement }, props: { child: true}  },
+            { name: 'EmployeeSettings', path: '/dashboard/corporates/:company_name-:customer_id/:name-:member_id/settings', components: { child : EmployeeSettings }, props: { child: true}  },
           ]
         },
         { name: 'AddCorporate', path: '/dashboard/corporates/add', component: AddCorporate },

@@ -16,15 +16,15 @@
 			</div> -->
 
 			<div class="health-partner-access-blocked">
-				<div v-if="true" class="blocked-opened-header">
+				<div v-if="!isBlockSearchShow" class="blocked-opened-header">
 					<h3>Health Partner Access - BLOCKED</h3>
-					<i class="fa fa-search"></i>
+					<i class="fa fa-search" v-on:click="toggleSearch('block', true)"></i>
 				</div>
 
-				<div v-if="false" class="health-partner-search">
+				<div v-if="isBlockSearchShow" class="health-partner-search">
 					<i class="fa fa-search left"></i>
 					<input type="text" placeholder="Search for partner access" name="">
-					<i class="fa fa-times right"></i>
+					<i class="fa fa-times right" v-on:click="toggleSearch('block', false)"></i>
 				</div>
 
 				<div class="clinic-name-header" >
@@ -34,14 +34,14 @@
             <span class="health-checkmark"></span>
           </label>	
           <div class="select-filter-div">
-	        	<select >
+	        	<select v-model="block_clinic_region">
 	        		<option value="all">All Region</option>
 							<option value="sgd">Singapore - SGD</option>
 	        		<option value="myr">Malaysia - MYR</option>
 	        	</select>
 	        </div>
           <div class="select-filter-div">
-	        	<select >
+	        	<select v-model="block_clinic_opt">
 	        		<option value="type">Clinic Type</option>
 	        		<option value="name">Clinic Name</option>
 	        	</select>
@@ -55,11 +55,11 @@
         <div class="clinic-name-wrapper">
         	<div v-for="list in block_clinic_list" class="clinic-name-container">
 	        	<label class="health-checkbox-container"> 
-	            <span>Healthway Medical Clinic (Yishun Avenue 6)</span>
-	            <input type="checkbox">
+	            <span>{{ list.clinic_name }}</span>
+	            <input type="checkbox" v-model="list.selected">
 	            <span class="health-checkmark"></span>
 	          </label>
-	          <div class="country">Singapore</div>
+	          <div class="country">{{ list.currency_type == 'sgd' ? 'Singapore' : 'Malaysia' }}</div>
           </div>
         </div>
 
@@ -111,15 +111,15 @@
 			</div>
 
 			<div class="health-partner-access-opened">
-				<div v-if="true" class="blocked-opened-header">
+				<div v-if="!isOpenSearchShow" class="blocked-opened-header">
 					<h3>Health Partner Access - OPENED</h3>
-					<i class="fa fa-search"></i>
+					<i class="fa fa-search" v-on:click="toggleSearch('open', true)"></i>
 				</div>
 
-				<div v-if="false" class="health-partner-search">
+				<div v-if="isOpenSearchShow" class="health-partner-search">
 					<i class="fa fa-search left"></i>
 					<input type="text" placeholder="Search for partner access" name="">
-					<i class="fa fa-times right"></i>
+					<i class="fa fa-times right" v-on:click="toggleSearch('open', false)"></i>
 				</div>
 
 				<div class="clinic-name-header">
@@ -129,14 +129,14 @@
             <span class="health-checkmark"></span>
           </label>	
           <div class="select-filter-div">
-	        	<select >
+	        	<select v-model="open_clinic_region" v-on:change="getClinicList()">
 	        		<option value="all">All Region</option>
 							<option value="sgd">Singapore - SGD</option>
 	        		<option value="myr">Malaysia - MYR</option>
 	        	</select>
 	        </div>
           <div class="select-filter-div">
-	        	<select>
+	        	<select v-model="open_clinic_opt">
 	        		<option value="type">Clinic Type</option>
 	        		<option value="name">Clinic Name</option>
 	        	</select>
@@ -153,7 +153,7 @@
 	            <input type="checkbox" v-model="list.selected">
 	            <span class="health-checkmark"></span>
 	          </label>
-						<div>{{ list.currency_type == 'sgd' ? 'Singapore' : 'Malaysia' }}</div>
+						<div class="country">{{ list.currency_type == 'sgd' ? 'Singapore' : 'Malaysia' }}</div>
 	        </div>
 				</div>
 				<div class="pagination-container">
@@ -161,37 +161,36 @@
 						<div class="page">
 							<span class="page-text">Page:</span>
 							<div class="page-select">
-								<span class="page-value">1</span>
+								<span class="page-value">{{ open_active_page }}</span>
 								<span data-glyph="caret-bottom" aria-hidden="true" class="oi"></span>
 								<div class="drop-pagi">
-									<div class="drop-list">1</div>
-									<div class="drop-list">1</div>
-									<div class="drop-list">1</div>
-									<div class="drop-list">1</div>
+									<div class="drop-list" v-for="list in range( open_pagination.table_open_last_page )">{{ list }}</div>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<span class="row-text">Rows per page:</span>
 							<div class="row-select">
-								<span class="row-value">5</span>
+								<span class="row-value">{{ open_page_limit }}</span>
 								<span data-glyph="caret-bottom" aria-hidden="true" class="oi"></span>
 								<div class="drop-pagi">
-									<div class="drop-list">1</div>
-									<div class="drop-list">1</div>
-									<div class="drop-list">1</div>
-									<div class="drop-list">1</div>
+									<div class="drop-list" v-on:click="openSetPerPage(10)">10</div>
+									<div class="drop-list" v-on:click="openSetPerPage(20)">20</div>
+									<div class="drop-list" v-on:click="openSetPerPage(30)">30</div>
+									<div class="drop-list" v-on:click="openSetPerPage(40)">40</div>
+									<div class="drop-list" v-on:click="openSetPerPage(50)">50</div>
+									<div class="drop-list" v-on:click="openSetPerPage(100)">100</div>
 								</div>
 							</div>
 						</div>
 						<div class="page-count">
-							<span>1</span> - <span>2</span> of <span>5</span>
+							<span>{{ (open_active_page*open_page_limit) - open_page_limit + 1 }}</span> - <span>{{ (open_active_page*open_page_limit) }}</span> of <span>{{ open_pagination.table_open_total }}</span>
 						</div>
 						<div class="page-arrows">
-							<div class="arrows">
+							<div class="arrows" v-on:click="openPrevPage()">
 								<span data-glyph="caret-left" aria-hidden="true" class="oi"></span>
 							</div>
-							<div class="arrows">
+							<div class="arrows" v-on:click="openNextPage()">
 								<span data-glyph="caret-right" aria-hidden="true" class="oi"></span>
 							</div>
 						</div>
