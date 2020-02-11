@@ -243,6 +243,7 @@ let corporateEmployeeInformation = {
 				bank_code: this.employee_info.bank_code,
 				email: this.employee_info.work_email,
 				bank_brh: this.employee_info.bank_brh,
+				communication_type: this.employee_info.communication_type,
 			}
 		},
 		showAddDependent() {
