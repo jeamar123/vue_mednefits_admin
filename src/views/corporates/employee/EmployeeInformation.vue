@@ -58,10 +58,10 @@
 							<span>{{employee_info.bank_brh || 'N/A'}}</span>
 						</div>
 						<div>
-							<strong>For Cummunication</strong>
+							<strong>For Communication</strong>
 							<span class="emp-username-type-container">
-								<label><input type="radio" name="emp-username-type"> Email</label>
-								<label><input type="radio" name="emp-username-type"> SMS</label>
+								<label><input type="radio" name="emp-username-type" v-model="employee_info.communication_type"> Email</label>
+								<label><input type="radio" name="emp-username-type" v-model="employee_info.communication_type"> SMS</label>
 							</span>
 						</div>
 					</div>
