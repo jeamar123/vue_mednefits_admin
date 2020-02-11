@@ -43,9 +43,17 @@ import moment, { locale } from "moment";
       toggleSearch( type, opt ){
         if( type == 'open' ){
           this.isOpenSearchShow = opt;
+          if( opt == false ){
+            this.open_clinic_search = null;
+            this.getClinicList();
+          }
         }
         if( type == 'block' ){
           this.isBlockSearchShow = opt;
+          if( opt == false ){
+            this.open_clinic_search = null;
+            this.getClinicList();
+          }
         }
       },
       regionChange( type ){
