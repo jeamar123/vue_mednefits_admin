@@ -5,7 +5,7 @@ import Loader from "../../../views/loader/Loader";
 
 let corporateEmployeeMenu = {
 	components: {
-		Loader
+		Loader,
 	},
 	props: {
 		customer_id: [String, Number],
@@ -43,6 +43,11 @@ let corporateEmployeeMenu = {
 	},
 	mounted() {},
 	methods: {
+		fromEmployee(data) {
+			console.log(`data sa employee tab`,data.from_employee);
+			this.employee_side_info = data.from_employee;
+			
+		},
 		formatDate(date, from, to) {
 			if (date != null) {
 				return moment(date, from).format(to);
