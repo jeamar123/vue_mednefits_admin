@@ -90,7 +90,7 @@ let corporateEmployeeInformation = {
 
 		// API calls
 		onLoad() {
-			this.$parent.showLoading();
+			this.showLoading();
 			// let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
 			// let update_employee_details = `${axios.defaults.serverUrl}/company/update_employee_details`;
 
@@ -101,7 +101,12 @@ let corporateEmployeeInformation = {
 				// Log the data to the console
 				// You would do something with both sets of data here
 				// console.log(res);
-				this.$parent.hideLoading();
+				let res_len = res.length;
+				res.map((value, index) => {
+					if (index == res.length - 1) {
+						this.hideLoading();
+					}
+				});
 			}).catch(error => {
 				// if there's an error, log it
 				console.log(error);
@@ -112,26 +117,26 @@ let corporateEmployeeInformation = {
 			let update_employee_details = `${axios.defaults.serverUrl}/company/update_employee_details`;
 			let data = this.toEdit;
 
-			if(this.checkForm()) {
+			if (this.checkForm()) {
 				axios.put(update_employee_details, data)
-				.then(res => {
-					console.log(res);
-					if (res.status == 200) {
-						console.log(res.data);
-						this.$swal("Success!", 'Update Successful', "success")
-							.then(res => {
-								this.getEmployeeDetails();
-								this.editEmployeeProfile = false;
-							});
-					} else {
-						this.$swal("Error!", res.data.message, "error");
-					}
-				})
-				.catch(err => {
-					this.editEmployeeProfile = false;
-					this.$parent.hideLoading();
-					this.errorHandler(err);
-				});
+					.then(res => {
+						console.log(res);
+						if (res.status == 200) {
+							console.log(res.data);
+							this.$swal("Success!", 'Update Successful', "success")
+								.then(res => {
+									this.getEmployeeDetails();
+									this.editEmployeeProfile = false;
+								});
+						} else {
+							this.$swal("Error!", res.data.message, "error");
+						}
+					})
+					.catch(err => {
+						this.editEmployeeProfile = false;
+						this.$parent.hideLoading();
+						this.errorHandler(err);
+					});
 			}
 		},
 		getEmployeeDetails() {
@@ -144,6 +149,7 @@ let corporateEmployeeInformation = {
 					console.log(res);
 					if (res.status == 200) {
 						this.employee_info = res.data.data;
+						this.$emit('FromEmployee', {from_employee: this.employee_info});
 						// localStorage.employee_email = this.employee_info.work_email;
 						console.log(this.employee_info);
 					}
@@ -154,64 +160,64 @@ let corporateEmployeeInformation = {
 				});
 		},
 		checkForm() {
-      this.error_updateEmployee = [];
+			this.error_updateEmployee = [];
 
-      if (!this.toEdit.fullname) {
-        this.error_updateEmployee.push("Name.");
+			if (!this.toEdit.fullname) {
+				this.error_updateEmployee.push("Name.");
 			}
-      if (!this.toEdit.phone_code) {
-        this.error_updateEmployee.push("Area Code.");
+			if (!this.toEdit.phone_code) {
+				this.error_updateEmployee.push("Area Code.");
 			}
-      if (!this.toEdit.phone_no) {
-        this.error_updateEmployee.push("Name.");
+			if (!this.toEdit.phone_no) {
+				this.error_updateEmployee.push("Mobile Number.");
 			}
-      if (!this.toEdit.member_id) {
-        this.error_updateEmployee.push("Member ID.");
+			if (!this.toEdit.member_id) {
+				this.error_updateEmployee.push("Member ID.");
 			}
-      if (!this.toEdit.job_title) {
-        this.error_updateEmployee.push("Job Title.");
+			if (!this.toEdit.job_title) {
+				this.error_updateEmployee.push("Job Title.");
 			}
-      if (!this.toEdit.dob) {
-        this.error_updateEmployee.push("Birthday.");
+			if (!this.toEdit.dob) {
+				this.error_updateEmployee.push("Birthday.");
 			}
-      if (!this.toEdit.bank_account_number) {
-        this.error_updateEmployee.push("Bank Account Number.");
+			if (!this.toEdit.bank_account_number) {
+				this.error_updateEmployee.push("Bank Account Number.");
 			}
-      if (!this.toEdit.postal_code) {
-        this.error_updateEmployee.push("Postal Code.");
+			if (!this.toEdit.postal_code) {
+				this.error_updateEmployee.push("Postal Code.");
 			}
-      if (!this.toEdit.bank_code) {
-        this.error_updateEmployee.push("Bank Code.");
+			if (!this.toEdit.bank_code) {
+				this.error_updateEmployee.push("Bank Code.");
 			}
-      if (!this.toEdit.bank_brh) {
-        this.error_updateEmployee.push("Bank BRH.");
+			if (!this.toEdit.bank_brh) {
+				this.error_updateEmployee.push("Bank BRH.");
 			}
-			
-      if (!this.toEdit.email) {
-        this.error_updateEmployee.push('Email.');
-      } else if (!this.validEmail(this.toEdit.email)) {
-        this.error_updateEmployee.push('Valid email.');
-      }
 
-      if (!this.error_updateEmployee.length) {
-        return true;
-      } else {
+			if (!this.toEdit.email) {
+				this.error_updateEmployee.push('Email.');
+			} else if (!this.validEmail(this.toEdit.email)) {
+				this.error_updateEmployee.push('Valid email.');
+			}
+
+			if (!this.error_updateEmployee.length) {
+				return true;
+			} else {
 				console.log(this.error_updateEmployee);
 				let new_error = [];
 				this.error_updateEmployee.map(value => {
-						 new_error.push(`<span class="block p-1 text-red-500 text-center w-1/2 mx-auto my-0">${value}</span>`);
+					new_error.push(`<span class="block p-1 text-red-500 text-center w-1/2 mx-auto my-0">${value}</span>`);
 				});
 				this.$swal(
-					'Required', 
-					new_error.join('\n\n'), 
+					'Required',
+					new_error.join('\n\n'),
 					'warning'
 				);
-				
+
 			}
 		},
-		validEmail (email) {
-			let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; 
-      return re.test(email);
+		validEmail(email) {
+			let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			return re.test(email);
 		},
 		//-------------
 		selectHealthPartnerView(opt) {
