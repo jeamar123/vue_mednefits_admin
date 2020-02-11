@@ -147,12 +147,13 @@
           </button>  
         </div>
         <div class="clinic-name-wrapper">
-					<div class="clinic-name-container">
+					<div v-for="list in open_clinic_list" class="clinic-name-container">
 	        	<label class="health-checkbox-container"> 
-	            <span>Royce Dental Surgery (Bishan)</span>
-	            <input type="checkbox">
+	            <span>{{ list.clinic_name }}</span>
+	            <input type="checkbox" v-model="list.selected">
 	            <span class="health-checkmark"></span>
 	          </label>
+						<div>{{ list.currency_type == 'sgd' ? 'Singapore' : 'Malaysia' }}</div>
 	        </div>
 				</div>
 				<div class="pagination-container">
