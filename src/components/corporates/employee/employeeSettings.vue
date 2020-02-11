@@ -65,9 +65,7 @@ let employeeSettings = {
 			cap_per_visit: '',
 			showEmpRenewPlanSummary: false,
 			// Sample data for re new plan modal 
-			selected_user_data: {
-				new_start_date: undefined,
-			},
+			new_plan_start_date: undefined,
 			credits_amount: '',
 			plan_type: {
 				fixed: 0,
@@ -257,6 +255,8 @@ let employeeSettings = {
 			if (y == 1) {
 				if (x === "renew-plan") {
 					this.showRenewModal = true;
+					this.employee_info.start_date = moment(this.employee_info.start_date).format('MMMM DD, YYYY');
+					console.log(this.employee_info.start_date);
 				} else if (x === "cancel") {
 					this.showRenewModal = false;
 				}
@@ -377,33 +377,33 @@ let employeeSettings = {
 		// Renew Plan Modal
 		toggleEmpRenewPlanSummary() {
 			if (this.showEmpRenewPlanSummary == false) {
-				if (this.selected_user_data.new_start_date) {
+				if (this.new_plan_start_date) {
 					this.showEmpRenewPlanSummary = true;
-					this.selected_user_data.new_start_date = moment(this.selected_user_data.new_start_date).format('MMMM DD, YYYY');
+					this.new_plan_start_date = moment(this.new_plan_start_date).format('MMMM DD, YYYY');
 				} else {
 					this.$swal("Error!", "Select New Plan Start first.", "error");
 				}
 			} else {
 				this.showEmpRenewPlanSummary = false;
-				this.selected_user_data.new_start_date = new Date(moment(this.selected_user_data.new_start_date));
-				console.log(this.selected_user_data.new_start_date);
+				this.new_plan_start_date = new Date(moment(this.new_plan_start_date,'MMMM DD,YYYY'));
+				// console.log(this.new_plan_start_date);
 			}
 		},
 		updateEmpRenewPlanBtn(date) {
 			var data = {
-				customer_id: this.customer_id,
-				plan_stat: moment(date.new_start_date).format('YYYY-MM-DD'),
-				user_id: this.member_id,
+				member_id: this.member_id,
+				plan_start: moment(this.new_plan_start_date).format('YYYY-MM-DD'),
 			}
 
 			console.log(data);
 			this.showRenewModal = false;
 			this.showEmpRenewPlanSummary = false;
 
-			axios.post( axios.defaults.serverUrl + '/company/employee_plan_renew', data ) 
+			axios.put( axios.defaults.serverUrl + '/company/renew_plan', data ) 
       .then(response => { 
         console.log(response);
-        // this.$swal("Success!", response.data.message, "success");
+				this.$swal("Success!", response.data.message, "success");
+				this.new_plan_start_date = new Date(data.plan_start);
       })
       .catch(err => {
         this.$parent.hideLoading();
@@ -467,7 +467,6 @@ let employeeSettings = {
 					if (res.status == 200) {
 						this.member_email = res.data.data.work_email;
 						this.employee_info = res.data.data
-						this.employee_info.start_date = moment(this.employee_info.start_date).format('MMMM DD, YYYY');
 						// localStorage.employee_email = this.employee_info.work_email;
 						console.log(this.employee_info);
 					}
