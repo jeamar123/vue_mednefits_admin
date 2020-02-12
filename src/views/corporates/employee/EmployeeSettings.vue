@@ -22,7 +22,7 @@
 				</button>
 			</div>
 			<div>
-				<button @click="selectHealthPartnerView( 'HealthPartnerAccess' )" class="btn btn-settings">
+				<button @click="selectHealthPartnerView( )" class="btn btn-settings">
 					<i class="fa fa-search"></i> Health Partner Access
 				</button>
 			</div>
@@ -203,7 +203,7 @@
 					<div class="gp-cap-input-wrapper">
 						<input v-model="cap_per_visit" type="number" />
 						<div class="icon-right">
-							<span>SGD</span>
+							<span class="currency-type">{{this.employee_info.currency_type}}</span>
 						</div>
 					</div>
 				</div>
@@ -312,7 +312,7 @@
 		<Modal v-if="showSmsUpdateNotify" class="sms-notification">
 			<div slot="header">
 				<div class="h-20 flex items-center px-6 text-2xl">
-					<h1>Employee Details Options</h1>
+					<h1>Send SMS Update Notification</h1>
 				</div>
 			</div>
 			<div slot="body">

@@ -134,7 +134,7 @@ let corporateEmployeeInformation = {
 					})
 					.catch(err => {
 						this.editEmployeeProfile = false;
-						this.$parent.hideLoading();
+						this.hideLoading();
 						this.errorHandler(err);
 					});
 			}
@@ -153,9 +153,9 @@ let corporateEmployeeInformation = {
 						// localStorage.employee_email = this.employee_info.work_email;
 						console.log(this.employee_info);
 					}
-					// this.$parent.hideLoading();
+					// this.hideLoading();
 				}).catch(err => {
-					this.$parent.hideLoading();
+					this.hideLoading();
 					this.errorHandler(err);
 				});
 		},
@@ -243,6 +243,7 @@ let corporateEmployeeInformation = {
 				bank_code: this.employee_info.bank_code,
 				email: this.employee_info.work_email,
 				bank_brh: this.employee_info.bank_brh,
+				communication_type: this.employee_info.communication_type,
 			}
 		},
 		showAddDependent() {

@@ -70,7 +70,7 @@
 				<i @click="toggleShowInNetwork('cancel')" class="fa fa-times"></i>
 			</div>
 			<div class="in-network-table-container">
-				<div class="tbl-scroll-wrapper xs-hide">
+				<!-- <div class="tbl-scroll-wrapper xs-hide">
 					<table>
 						<thead>
 							<tr>
@@ -187,13 +187,26 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				</div> -->
 
 				<div class="xs-in-network-form">
 					<div class="claim-form-div">
 						<label>Member</label>
-						<div class="in-network-input-wrapper">
+						<div class="in-network-input-wrapper member-input-wrapper">
 							<input type="text" placeholder="Member">
+
+							<div class="caret-down-container">
+								<i class="fa fa-caret-down"></i>
+							</div>
+
+							<ul v-if="false" class="dropdown-menu">
+								<li>
+									<a>Credit</a>
+								</li>
+								<li>
+									<a>Cash</a>
+								</li>
+							</ul>
 						</div>
 					</div>
 
@@ -201,6 +214,18 @@
 						<label>Health Partner</label>
 						<div class="in-network-input-wrapper">
 							<input type="text" placeholder="Search Health Partner">
+
+							<div class="health-partner-drop">
+								<div v-for="list in [1,2,3]" >
+									<img :src="'../images/img-portfolio-place.png'">
+									<!-- <img ng-src="{{ list.image }}" ng-if="list.image"> -->
+									<div class="partner-details">
+										<p>name</p>
+										<p>website</p>
+										<p>phone</p>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 
@@ -299,9 +324,7 @@
 					<div class="claim-form-div">
 						<label>Amount</label>
 						<div class="in-network-input-wrapper">
-							<div class="in-network-input-wrapper">
-								<input type="text" placeholder="Enter Amount">
-							</div>
+							<input type="text" placeholder="Enter Amount">
 						</div>
 					</div>
 				</div>

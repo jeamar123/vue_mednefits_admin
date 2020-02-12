@@ -50,7 +50,6 @@ let corporateEmployeeMenu = {
 				this.onLoad();
 				console.log('sulod');
 			}
-			
 		},
 		fromEmployee(data) {
 			console.log(`data sa employee tab`,data.from_employee);
