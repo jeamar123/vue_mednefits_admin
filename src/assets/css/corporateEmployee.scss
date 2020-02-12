@@ -316,11 +316,22 @@
     }
   }
 
+  .dep-info-header {
+    position: relative;
+    margin: 0 0 30px;
+
+    .right-btn-container {
+      position: absolute;
+      top: -45px;
+      right: 0;
+    }
+  }
+
   .emp-information-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 2em;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
     font-weight: 700;
   }
 

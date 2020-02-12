@@ -312,7 +312,7 @@
 		<Modal v-if="showSmsUpdateNotify" class="sms-notification">
 			<div slot="header">
 				<div class="h-20 flex items-center px-6 text-2xl">
-					<h1>Employee Details Options</h1>
+					<h1>Send SMS Update Notification</h1>
 				</div>
 			</div>
 			<div slot="body">

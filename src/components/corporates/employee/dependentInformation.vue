@@ -1,10 +1,16 @@
 <script>
 import Modal from "../../../views/modal/Modal.vue";
+import axios from "axios";
+import moment from "moment"
 
 
 let dependentInformation = {
 	components: {
 		Modal
+	},
+	props: {
+		member_id: [String, Number],
+		customer_id: [String, Number]
 	},
 	data() {
 		return {
@@ -42,12 +48,23 @@ let dependentInformation = {
 				startDate: undefined,
 			},
 			showShortTermSelector: false,
+
+			// Depedents Global Variables
+			dependent_arr: [],
+			// -------------------------
 		};
 	},
 	created() {
 		this.healthPartnerViewStatus = this.$route.name;
+
+		this.onLoad();
 	},
 	methods: {
+		formatDate(date, from, to) {
+			if (date != null) {
+				return moment(date, from).format(to);
+			}
+		},
 		selectHealthPartnerView(opt) {
 			this.healthPartnerViewStatus = opt;
 			this.$router.push({ name: opt });
@@ -263,7 +280,51 @@ let dependentInformation = {
 			} else if (x === "standard-one-year") {
 				this.showShortTermSelector = false;
 			}
-		}
+		},
+
+		// API METHODS
+
+		getEmployeeDependents() {
+			let get_employee_dependents = `${axios.defaults.serverUrl}/company/get_employee_dependents?customer_id=${this.customer_id}&employee_id=${this.member_id}`;
+
+			axios.get(get_employee_dependents)
+				.then(res => {
+					// Log the data to the console
+					// You would do something with both sets of data here
+					console.log(res);
+					if (res.data.status == true) {
+						this.dependent_arr = res.data.dependents;
+						// this.$emit('FromEmployee', { from_employee: this.employee_info });
+						console.log(this.dependent_arr);
+					}
+					// this.hideLoading();
+				}).catch(err => {
+					this.hideLoading();
+					this.errorHandler(err);
+				});
+		},
+
+		onLoad() {
+			this.showLoading();
+			axios.all([
+				// API ARRAY
+				this.getEmployeeDependents(),
+			]).then(res => {
+				// Log the data to the console
+				// You would do something with both sets of data here
+				// console.log(res);
+				let res_len = res.length;
+				res.map((value, index) => {
+					if (index == res.length - 1) {
+						this.hideLoading();
+					}
+				});
+			}).catch(error => {
+				// if there's an error, log it
+				console.log(error);
+				this.hideLoading();
+			});
+		},
 	}
 }
 
@@ -297,7 +358,5 @@ export default dependentInformation
 
 @media (max-width: 640px) {
 	/* ... */
-
-	
 }
 </style>

@@ -55,6 +55,7 @@ let employeeSettings = {
 	},
 	created() {
 		console.log(`${this.member_id} ug is ${this.name}`);
+		this.onLoad();
 	},
 	methods: {
 		selectHealthPartnerView(){
