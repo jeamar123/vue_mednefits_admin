@@ -39,7 +39,7 @@ let employeeSettings = {
 				input: ["DD/MM/YYYY"],
 				data: ["DD/MM/YYYY"]
 			},
-			cap_per_visit: '',
+			cap_per_visit: 0,
 			showEmpRenewPlanSummary: false,
 			// Sample data for re new plan modal 
 			new_plan_start_date: undefined,
@@ -90,6 +90,7 @@ let employeeSettings = {
 			if (y == 2) {
 				if (x === "manage-visit") {
 					this.showManageCapPerVisit = true;
+					console.log(this.data_cap);
 				} else if (x === "cancel") {
 					this.showManageCapPerVisit = false;
 				}
@@ -142,17 +143,18 @@ let employeeSettings = {
 				this.$swal("Oops!", "Please input cap per visit", "error");
 				return false;
 			}
-			var data = {
+			this.data_cap = {
 				employee_id: this.member_id,
 				cap_amount: cap,
 			}
 			// console.log( data );
 
-			axios.post(axios.defaults.serverUrl + '/company/updateEmployeeCap', data)
+			axios.post(axios.defaults.serverUrl + '/company/updateEmployeeCap', this.data_cap)
 				.then(response => {
 					console.log(response);
 					this.$swal("Success!", response.data.message, "success");
 					this.showManageCapPerVisit = false;
+					this.cap_per_visit = this.data_cap.cap_amount;
 				})
 				.catch(err => {
 					this.$parent.hideLoading();
