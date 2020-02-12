@@ -14,11 +14,11 @@
 	              <h5>Original Entitlement</h5>
 	              <div class="entitlement-input-label">
 	                <label class="entitlement-label currency-type">SGD</label>
-	                <input v-model="emp_entitlement.original_medical_entitlement" class="entitlement-input original-input" type="number" readonly="readonly" placeholder="0.00" >
+	                <input v-model="get_calc_medical.medical_entitlement" class="entitlement-input original-input" type="number" readonly="readonly" placeholder="0.00" >
 	              </div>
 	              <p v-if="emp_entitlement.updated_medical_entitlement" class="small">*Updated from 
-	              	<span>SGD </span><span>{{emp_entitlement.old_medical_entitlement}}</span> to <span>SGD </span>
-	              	<span>{{emp_entitlement.original_medical_entitlement}}</span> on <span>{{ emp_entitlement.medical_entitlement_date }}</span>
+	              	<span>SGD </span><span>{{get_calc_medical.medical_entitlement}}</span> to <span>SGD </span>
+	              	<span>{{emp_entitlement.medical_new_entitlement}}</span> on <span>{{ emp_entitlement.medical_entitlement_date }}</span>
 	              </p>
 	            </div>
 						</div>
@@ -70,21 +70,22 @@
 								<div class="entitlement-calculation">
 									<h4>
 										<span>SGD </span>
-										<span>{{new_allocation_med}}</span>
+										<span v-if="!effectiveMedDateError">{{new_allocation_med}}</span>
+										<span v-if="effectiveMedDateError">{{ 0 | number('0.00') }}</span>
 									</h4>
 									<button :disabled="emp_entitlement.medical_new_entitlement == '' || med_effective_date == null " class="btn-update" @click="entitlementCalc('medical', 1)">Calculate</button>
 									<!-- <button class="btn-update" @click="entitlementCalc('medical',1)">Calculate</button> -->
-									<p v-if="false" class="effective-date-error">New Medical Entitlement Usage Date exceeded the Spending End Date.</p>
+									<p v-if="effectiveMedDateError" class="effective-date-error">New Medical Entitlement Usage Date exceeded the Spending End Date.</p>
 								</div>
 							</div>
-							<div v-if="medicalCalculatedInfo" class="see-more">
+							<div v-if="medicalCalculatedInfo && !effectiveMedDateError" class="see-more">
 								<div @click="dropdownEntitlement.med_alloc_formula = !dropdownEntitlement.med_alloc_formula">
 									<i class="fa fa-chevron-down"></i> See how this is calculated
 								</div>
 								<p v-if="dropdownEntitlement.med_alloc_formula">New Prorated allocation is: <br>
-									<span>{{calc_entitlement_med.currency_type}} </span> <span>{{emp_entitlement.original_medical_entitlement}}</span> x <span>{{calc_entitlement_med.plan_month_duration}}</span>/<span>{{calc_entitlement_med.plan_year_duration}}</span> 
-									+ <span>{{calc_entitlement_med.currency_type}} </span><span>{{emp_entitlement.medical_new_entitlement}}</span> x <span>{{calc_entitlement_med.entitlement_duration}}</span>/<span>{{calc_entitlement_med.plan_year_duration}}</span> 
-									= <span>{{calc_entitlement_med.currency_type}} </span> <span>{{ new_allocation_med }}</span>
+									<span>{{calc_entitlement_med.currency_type}} </span> <span>{{get_calc_medical.medical_entitlement}}</span> x <span>{{plan_month_duration}}</span>/<span>{{medical_plan_duration}}</span> 
+									+ <span>{{calc_entitlement_med.currency_type}} </span><span>{{emp_entitlement.medical_new_entitlement}}</span> x <span>{{entitlement_duration}}</span>/<span>{{medical_plan_duration}}</span> 
+									= <span>{{calc_entitlement_med.currency_type}} </span> <span>{{new_allocation_med}}</span>
 								</p>
 							</div>
 						</div>
@@ -101,7 +102,7 @@
 		            <h5>Original Entitlement</h5>
 		            <div class="entitlement-input-label">
 		              <label class="entitlement-label currency-type">SGD</label>
-		              <input v-model="emp_entitlement.original_wellness_entitlement" class="entitlement-input original-input" type="number" readonly="readonly" placeholder="0.00" >
+		              <input v-model="get_calc_wellness.wellness_entitlement" class="entitlement-input original-input" type="number" readonly="readonly" placeholder="0.00" >
 		            </div>
 		            <p v-if="emp_entitlement.updated_wellness_entitlement" class="small">*Updated from <span>SGD </span>
 		            	<span>{{emp_entitlement.old_wellness_entitlement}}</span> to 
@@ -157,20 +158,21 @@
 								<div class="entitlement-calculation">
 									<h4>
 										<span>SGD </span>
-										<span>{{new_allocation_well}}</span>
+										<span v-if="!effectiveWellDateError">{{new_allocation_well}}</span>
+										<span v-if="effectiveWellDateError">{{ 0 | number('0.00') }}</span>
 									</h4>
 									<button :disabled="emp_entitlement.wellness_new_entitlement == '' || well_effective_date == null " class="btn-update" @click="entitlementCalc('wellness', 2)">Calculate</button>
 									<!-- <button class="btn-update" @click="entitlementCalc('wellness',2)">Calculate</button> -->
-									<p v-if="false" class="effective-date-error">New Medical Entitlement Usage Date exceeded the Spending End Date.</p>
+									<p v-if="effectiveWellDateError" class="effective-date-error">New Medical Entitlement Usage Date exceeded the Spending End Date.</p>
 								</div>
 							</div>
-							<div v-if="wellnessCalculatedInfo" class="see-more">
+							<div v-if="wellnessCalculatedInfo && !effectiveWellDateError" class="see-more">
 								<div @click="dropdownEntitlement.well_alloc_formula = !dropdownEntitlement.well_alloc_formula">
 									<i class="fa fa-chevron-down"></i> See how this is calculated
 								</div>
 								<p v-if="dropdownEntitlement.well_alloc_formula">New Prorated allocation is: <br>
-									<span>{{calc_entitlement_well.currency_type}} </span> <span>{{emp_entitlement.original_wellness_entitlement}}</span> x <span>{{calc_entitlement_well.plan_month_duration}}</span>/<span>{{calc_entitlement_well.plan_year_duration}}</span> 
-									+ <span>{{calc_entitlement_well.currency_type}} </span><span>{{emp_entitlement.wellness_new_entitlement}}</span> x <span>{{calc_entitlement_well.entitlement_duration}}</span>/<span>{{calc_entitlement_well.plan_year_duration}}</span> 
+									<span>{{calc_entitlement_well.currency_type}} </span> <span>{{emp_entitlement.original_wellness_entitlement}}</span> x <span>{{calc_entitlement_well.plan_month_duration}}</span>/<span>{{wellness_plan_duration}}</span> 
+									+ <span>{{calc_entitlement_well.currency_type}} </span><span>{{emp_entitlement.wellness_new_entitlement}}</span> x <span>{{calc_entitlement_well.entitlement_duration}}</span>/<span>{{wellness_plan_duration}}</span> 
 									= <span>{{calc_entitlement_well.currency_type}} </span> <span>{{ new_allocation_well }}</span>
 								</p>
 							</div>
