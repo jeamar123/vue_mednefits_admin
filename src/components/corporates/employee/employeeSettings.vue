@@ -89,6 +89,7 @@ let employeeSettings = {
 			if (y == 2) {
 				if (x === "manage-visit") {
 					this.showManageCapPerVisit = true;
+					console.log(this.getEmployeeDetails());
 				} else if (x === "cancel") {
 					this.showManageCapPerVisit = false;
 				}
