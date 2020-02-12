@@ -35,7 +35,7 @@
 	        	</select>
 	        </div>
           <div class="select-filter-div">
-	        	<select v-model="block_clinic_opt">
+	        	<select v-model="block_clinic_opt" v-on:change="typeChange( )">
 	        		<option value="type">Clinic Type</option>
 	        		<option value="name">Clinic Name</option>
 	        	</select>
@@ -143,7 +143,7 @@
 	        	</select>
 	        </div>
           <div class="select-filter-div">
-	        	<select v-model="open_clinic_opt">
+	        	<select v-model="open_clinic_opt" v-on:change="typeChange( )">
 	        		<option value="type">Clinic Type</option>
 	        		<option value="name">Clinic Name</option>
 	        	</select>
