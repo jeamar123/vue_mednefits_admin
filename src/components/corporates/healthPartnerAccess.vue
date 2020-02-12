@@ -26,6 +26,8 @@ import moment, { locale } from "moment";
         open_page_limit: 10,
         isOpenSearchShow: false,
         open_pagination: {},
+
+        isPageDropShow: [false,false],
       };
     },
     created(){
@@ -66,6 +68,9 @@ import moment, { locale } from "moment";
         this.getClinicList();
       },
       // PAGINATION FUNCTIONS
+        togglePageDrop( index, opt ){
+          this.isPageDropShow[ index ] = opt;
+        },
         openPrevPage(){
           if( this.open_active_page != 1 ){
             this.open_active_page -= 1;
@@ -136,7 +141,8 @@ import moment, { locale } from "moment";
             console.log( res );
             this.block_clinic_list = res.data.block_list.docs;
             this.block_pagination = res.data.block_list;
-
+            this.block_pagination.from = (this.block_active_page * this.block_page_limit) - this.block_page_limit + 1;
+            this.block_pagination.to = this.block_active_page == this.block_pagination.table_block_last_page ? this.block_pagination.table_block_total : (this.block_active_page * this.block_page_limit);
 
             this.open_clinic_list = res.data.open_list.docs;
             this.open_pagination = res.data.open_list;

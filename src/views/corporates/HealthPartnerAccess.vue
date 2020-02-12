@@ -164,10 +164,10 @@
 					<div class="pagination-wrapper">
 						<div class="page">
 							<span class="page-text">Page:</span>
-							<div class="page-select">
+							<div v-on:click="togglePageDrop( 0, true )" class="page-select">
 								<span class="page-value">{{ open_active_page }}</span>
 								<span data-glyph="caret-bottom" aria-hidden="true" class="oi"></span>
-								<div class="drop-pagi">
+								<div v-show="isPageDropShow[0]" class="drop-pagi">
 									<div class="drop-list" v-for="list in range( open_pagination.table_open_last_page )">{{ list }}</div>
 								</div>
 							</div>

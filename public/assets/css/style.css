@@ -551,7 +551,7 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
     padding: 6px 0;
   }
   .pagination-wrapper .drop-pagi{
-    display: none;
+    /* display: none; */
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
     background-color: #ECF0F1;
     min-width: 120px;

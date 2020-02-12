@@ -58,6 +58,11 @@ export default {
   display: table;
   transition: opacity .3s ease;
   z-index: 99999;
+
+  .modal-wrapper {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .modal-enter-active,
