@@ -50,7 +50,7 @@ let dependentInformation = {
 			showShortTermSelector: false,
 
 			// Depedents Global Variables
-			dependent_arr: [],
+			dependent_arr: {},
 			// -------------------------
 		};
 	},
@@ -296,6 +296,7 @@ let dependentInformation = {
 						this.dependent_arr = res.data.dependents;
 						// this.$emit('FromEmployee', { from_employee: this.employee_info });
 						console.log(this.dependent_arr);
+						this.hideLoading();
 					}
 					// this.hideLoading();
 				}).catch(err => {
@@ -316,7 +317,7 @@ let dependentInformation = {
 				let res_len = res.length;
 				res.map((value, index) => {
 					if (index == res.length - 1) {
-						this.hideLoading();
+						// this.hideLoading();
 					}
 				});
 			}).catch(error => {
