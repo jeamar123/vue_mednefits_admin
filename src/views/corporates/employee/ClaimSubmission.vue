@@ -199,7 +199,7 @@
 								<i class="fa fa-caret-down"></i>
 							</div>
 
-							<ul v-if="false" class="dropdown-menu">
+							<ul v-if="true" class="dropdown-menu">
 								<li v-for="list in memberList">
 									<a>{{ list.name }}</a>
 								</li>
@@ -210,16 +210,15 @@
 					<div class="claim-form-div">
 						<label>Health Partner</label>
 						<div class="in-network-input-wrapper">
-							<input type="text" placeholder="Search Health Partner">
+							<input type="text" placeholder="Search Health Partner" v-model="inNetwork_data.health_partner">
 
-							<div v-if="false" class="health-partner-drop">
-								<div v-for="list in [1,2,3]" class="health-partner-drop-row">
-									<img :src="'../images/img-portfolio-place.png'">
-									<!-- <img ng-src="{{ list.image }}" ng-if="list.image"> -->
+							<div v-if="inNetwork_data.health_partner.length > 2" class="health-partner-drop">
+								<div v-for="list in filterBy(clinicList, inNetwork_data.health_partner)" class="health-partner-drop-row">
+									<img :src="list.provider_image">
 									<div class="partner-details">
-										<p>name</p>
-										<p>website</p>
-										<p><span>phone</span></p>
+										<p>{{ list.name }}</p>
+										<p>{{ list.website_link }}</p>
+										<p><span>{{ list.phone_no }}</span></p>
 									</div>
 								</div>
 							</div>
@@ -230,7 +229,7 @@
 						<label>Service</label>
 						<div class="in-network-input-wrapper">
 							<input type="text" placeholder="Search Service">
-							<ul v-if="false" class="dropdown-menu search-service-dropdown">
+							<ul v-if="true" class="dropdown-menu search-service-dropdown">
 								<li>
 									<a>No Service</a>
 								</li>
@@ -296,6 +295,11 @@
 									</div>
 								</div>
 							</div>
+
+							<ul v-if="true" class="dropdown-menu daytime-drop">
+								<li><a>AM</a></li>
+								<li><a>PM</a></li>
+							</ul>
 						</div>
 					</div>
 
@@ -307,7 +311,7 @@
 								<i class="fa fa-caret-down"></i>
 							</div>
 
-							<ul v-if="false" class="dropdown-menu">
+							<ul v-if="true" class="dropdown-menu">
 								<li>
 									<a>Credit</a>
 								</li>

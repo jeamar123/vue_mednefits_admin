@@ -27,26 +27,31 @@ import moment, { locale } from "moment";
         starDateDetails: {
           startDate: undefined,
         },
+        inNetwork_data: {
+
+        },
 
         memberList : [],
+        clinicList : [],
       };
     },
     created(){
       console.log( this.member_id );
-      // this.getMemberList();
       // this.getClinicList();
-
+      this.showLoading();
       axios.all([ //butang sa array ang ipa load na api or function para in order pag tawag.
 				// axios.get(get_employee_details),
-        axios.get( axios.defaults.serverUrl + '/company/get_members_by_user_id?member_id=' + this.member_id),
-        axios.get( axios.defaults.serverUrl + '/clinics/get_clinics' )
+        this.getMemberList( true ),
+        this.getClinicList( true )
 			]).then(res => {
-				console.log(res);
-				// this.$parent.hideLoading();
-			}).catch(error => {
+        console.log(res);
+        this.getMemberList( false, res[0] );
+        this.getClinicList( false, res[1] );
+				this.hideLoading();
+			}).catch(err => {
 				// if there's an error, log it
-				console.log(error);
-				// this.parent.hideLoading();
+        this.hideLoading();
+        this.errorHandler( err );
 			});
     },
     methods: {
@@ -111,30 +116,40 @@ import moment, { locale } from "moment";
 
 
 
-      getMemberList() {
-        axios.get( axios.defaults.serverUrl + '/company/get_members_by_user_id?member_id=' + this.member_id)
-          .then(res => {
-            console.log( res );
-            this.memberList = res.data.data;
-            this.hideLoading();
-          })
-          .catch(err => {
-            this.hideLoading();
-            this.errorHandler( err );
-          });
+      getMemberList( isGetAPI, resData ) {
+        var request = axios.get( axios.defaults.serverUrl + '/company/get_members_by_user_id?member_id=' + this.member_id);
+        var response = res => {
+          console.log( res );
+          this.memberList = res.data.data;
+          this.hideLoading();
+        }
+        if( isGetAPI ){ return request; }
+        if( resData ){ response( resData ); return false; }
+        this.showLoading();
+        request.then(response)
+        .catch(err => {
+          this.hideLoading();
+          this.errorHandler( err );
+        });
       },
-      getClinicList() {
-        axios.get( axios.defaults.serverUrl + '/clinics/get_clinics' )
-          .then(res => {
-            console.log( res );
-            this.hideLoading();
-          })
-          .catch(err => {
-            this.hideLoading();
-            this.errorHandler( err );
-          });
+      getClinicList( isGetAPI, resData ) {
+        var request = axios.get( axios.defaults.serverUrl + '/clinics/get_clinics' )
+        var response = res => {
+          console.log( res );
+          this.clinicList = res.data.data;
+          this.hideLoading();
+        }
+        if( isGetAPI ){ return request; }
+        if( resData ){ response( resData ); return false; }
+        this.showLoading();
+        request.then(response)
+        .catch(err => {
+          this.hideLoading();
+          this.errorHandler( err );
+        });
       },
       getServiceList() {
+        this.showLoading();
         axios.get( axios.defaults.serverUrl + '/clinics/get_clinic_services?clinic_id=' + this.member_id)
           .then(res => {
             console.log( res );
