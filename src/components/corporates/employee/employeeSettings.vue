@@ -361,7 +361,8 @@ let employeeSettings = {
 						if (response.data.status) {
 							this.$swal("Success!", response.data.message, "success")
 							.then (response1 => { 
-								this.getEmployeeDetails();
+								// this.getEmployeeDetails();
+								this.$emit('FromSettings', true);
 							});
 						} else {
 							this.$swal("Error!", response.data.message, "error");
@@ -409,7 +410,7 @@ let employeeSettings = {
 					if (res.status == 200) {
 						this.member_email = res.data.data.work_email;
 						this.employee_info = res.data.data;
-						this.$emit('FromSettings', {from_settings: this.employee_info });
+						// this.$emit('FromSettings', {from_settings: this.employee_info });
 						// localStorage.employee_email = this.employee_info.work_email;
 						console.log(this.employee_info);
 					}
