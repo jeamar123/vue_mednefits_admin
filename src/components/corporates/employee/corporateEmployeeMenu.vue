@@ -49,9 +49,10 @@ let corporateEmployeeMenu = {
 			this.employee_side_info = data.from_settings;
 		},
 		fromEmployee(data) {
-			console.log(`data sa employee tab`,data.from_employee);
-			this.employee_side_info = data.from_employee;
-			
+			console.log(data);
+			if (data) {
+				this.getEmployeeSideDetails();
+			}
 		},
 		formatDate(date, from, to) {
 			if (date != null) {
@@ -59,7 +60,7 @@ let corporateEmployeeMenu = {
 			}
 		},
 		spendingUsage(type) {
-			if(type == 'medical'){
+			if (type == 'medical') {
 				this.employee_side_info.spending_account.medical.usage = !this.employee_side_info.spending_account.medical.usage;
 				this.$forceUpdate();
 				// console.log(`medical usage ${this.employee_side_info.spending_account.medical.usage}`);
@@ -67,7 +68,7 @@ let corporateEmployeeMenu = {
 				this.employee_side_info.spending_account.wellness.usage = !this.employee_side_info.spending_account.wellness.usage;
 				this.$forceUpdate();
 			}
-			
+
 		},
 		// --- Methods Loader ------
 		showLoading() {
@@ -112,9 +113,10 @@ let corporateEmployeeMenu = {
 					// Log the data to the console
 					// You would do something with both sets of data here
 					console.log(res);
-					if (res.status == 200) {
+					if (res.data.status == true) {
 						this.employee_side_info = res.data.data;
 						// localStorage.employee_email = this.employee_side_info.work_email;
+						this.hideLoading();
 						console.log(this.employee_side_info);
 					}
 					// this.$parent.hideLoading();

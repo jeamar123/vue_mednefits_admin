@@ -102,21 +102,21 @@
 						<div class="edit-dependent-row flex md:flex-wrap">
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Full Name</label>
-								<input type="text" v-model="toEdit.fullname">
+								<input type="name" v-model="toEdit.fullname" required autocomplete="name">
 							</div>
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Mobile Number</label>
 								<div class="country-code-mobile-container">
 									<div class="country-code-container">
 										<!-- <input type="text"> -->
-										<select name="" id="" v-model="toEdit.phone_code">
+										<select name="relationship" id="" v-model="toEdit.phone_code">
 											<option value="+65">(SG) +65</option>
 											<option value="+63">(PH) +63</option>
 											<option value="+60">(MY) +60</option>
 										</select>
 										<i class="fa fa-caret-down"></i>
 									</div>
-									<input type="number" v-model="toEdit.phone_no">
+									<input type="tel" name="phone" v-model="toEdit.phone_no" required autocomplete="tel">
 								</div>
 							</div>
 						</div>
@@ -124,7 +124,7 @@
 						<div class="edit-dependent-row flex md:flex-wrap">
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Member ID</label>
-								<input type="number" v-model="toEdit.member_id">
+								<input type="number" v-model="toEdit.member_id" readonly="readonly">
 							</div>
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Job Title</label>
@@ -164,7 +164,7 @@
 						<div class="edit-dependent-row flex md:flex-wrap">
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Work Email</label>
-								<input type="text" v-model="toEdit.email">
+								<input type="email" v-model="toEdit.email" required autocomplete="email">
 							</div>
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Bank BRH</label>
@@ -297,7 +297,7 @@
 					<div class="edit-dependent-row flex md:flex-wrap">
 						<div class="employee-details-input-wrapper md:m-0">
 							<label>Full Name</label>
-							<input type="text">
+							<input type="text" name="name">
 						</div>
 						<div class="employee-details-input-wrapper md:m-0">
 							<label>Date of Birth</label>
@@ -679,7 +679,7 @@
 				</div>
 			</Modal>
 
-			<Modal v-if="showSmsUpdateNotify" class="employee-details-options">
+			<!-- <Modal v-if="showSmsUpdateNotify" class="employee-details-options">
 				<div slot="header">
 					<h1>Send SMS Update Notification</h1>
 				</div>
@@ -704,7 +704,7 @@
 					<button @click="selectedEmpDetailsSettingsClicked(3, 'cancel')" class="btn-close">CANCEL</button>
 					<button class="btn-primary settings-btn-submit">SUBMIT</button>
 				</div>
-			</Modal>
+			</Modal> -->
 
 			<Modal v-if="false" class="fill-corporate-pass-container">
 				<div slot="body">
