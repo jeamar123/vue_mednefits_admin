@@ -297,14 +297,15 @@
 					<div class="edit-dependent-row flex md:flex-wrap">
 						<div class="employee-details-input-wrapper md:m-0">
 							<label>Full Name</label>
-							<input type="text" name="name">
+							<input type="name" v-model="toAddDep.fullname" required autocomplete="name">
 						</div>
 						<div class="employee-details-input-wrapper md:m-0">
 							<label>Date of Birth</label>
 							<div class="date-container">
-								<v-date-picker popoverDirection="bottom" v-model="starDateDetails.null"
+								<v-date-picker popoverDirection="bottom" v-model="toAddDep.dob"
 									:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
-									popover-visibility="focus"></v-date-picker>
+									popover-visibility="focus"
+									:formats="formats"></v-date-picker>
 								<i class="fa fa-caret-down"></i>
 							</div>
 						</div>
@@ -312,26 +313,27 @@
 					<div class="edit-dependent-row flex md:flex-wrap">
 						<div class="employee-details-input-wrapper md:m-0">
 							<label>Relationship</label>
-							<select>
-								<option>Spouse</option>
-								<option>Child</option>
-								<option>Family</option>
-								<option>Parent</option>
+							<select v-model="toAddDep.relationship">
+								<option value="spouse">Spouse</option>
+								<option value="child">Child</option>
+								<option value="family">Family</option>
+								<option value="parent">Parent</option>
 							</select>
 						</div>
 						<div class="employee-details-input-wrapper md:m-0">
 							<label>Start Date</label>
 							<div class="date-container">
-								<v-date-picker popoverDirection="bottom" v-model="starDateDetails.null"
+								<v-date-picker popoverDirection="bottom" v-model="toAddDep.plan_start"
 									:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
-									popover-visibility="focus"></v-date-picker>
+									popover-visibility="focus"
+									:formats="formats"></v-date-picker>
 								<i class="fa fa-caret-down"></i>
 							</div>
 						</div>
 					</div>
 					<div class="save-btn-footer">
 						<button class="btn">CANCEL</button>
-						<button class="btn-primary">SAVE & CONTINUE</button>
+						<button class="btn-primary" @click="addDependent(toAddDep)">SAVE & CONTINUE</button>
 					</div>
 				</form>
 			</div>

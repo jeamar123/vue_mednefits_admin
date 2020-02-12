@@ -181,7 +181,7 @@
 			<div class="employee-information-container">
 				<div class="emp-tab-wrapper lg:pl-20">
 					<div class="" @click="showEmpSelectorInfo('EmployeeInformation')" v-bind:class="{'active': $route.name == 'EmployeeInformation'}">Employee</div>
-					<div @click="showEmpSelectorInfo('DependentInformation')" v-bind:class="{'active': $route.name == 'DependentInformation'}">Dependent</div>
+					<div v-if="employee_side_info.dependents != 0" @click="showEmpSelectorInfo('DependentInformation')" v-bind:class="{'active': $route.name == 'DependentInformation'}">Dependent</div>
 					<div @click="showEmpSelectorInfo('ClaimSubmission')" v-bind:class="{'active': $route.name == 'ClaimSubmission'}">Claim Submission</div>
 					<div @click="showEmpSelectorInfo('Entitlement')" v-bind:class="{'active': $route.name == 'Entitlement'}">
 						Entitlement
@@ -192,12 +192,12 @@
 				<div class="xs-employee-tabs">
 					<div class="emp-tab-box">
 						<select class="emp-tab-select" v-model="activeTab" v-on:change="showEmpSelectorInfo( activeTab )">
-											<option value="EmployeeInformation">Employee</option>		
-											<option value="DependentInformation">Dependent</option>		
-											<option value="ClaimSubmission">Claim Submission</option>		
-											<option value="Entitlement">Entitlement</option>		
-											<option value="EmployeeSettings">Settings</option>		
-										</select>
+							<option value="EmployeeInformation">Employee</option>		
+							<option value="DependentInformation">Dependent</option>		
+							<option value="ClaimSubmission">Claim Submission</option>		
+							<option value="Entitlement">Entitlement</option>		
+							<option value="EmployeeSettings">Settings</option>		
+						</select>
 						<i class="fa fa-caret-down"></i>
 					</div>
 	
