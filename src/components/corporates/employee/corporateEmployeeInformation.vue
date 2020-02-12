@@ -163,6 +163,7 @@ let corporateEmployeeInformation = {
 							this.$swal("Success!", 'Update Successful', "success")
 								.then(res => {
 									this.getEmployeeDetails();
+									this.$emit('FromEmployee', true);
 									this.editEmployeeProfile = false;
 								});
 						} else {
@@ -186,7 +187,6 @@ let corporateEmployeeInformation = {
 					console.log(res);
 					if (res.status == 200) {
 						this.employee_info = res.data.data;
-						this.$emit('FromEmployee', { from_employee: this.employee_info });
 						// localStorage.employee_email = this.employee_info.work_email;
 						console.log(this.employee_info);
 						this.hideLoading();
@@ -218,18 +218,18 @@ let corporateEmployeeInformation = {
 			if (!this.toEdit.dob) {
 				this.error_updateEmployee.push("Birthday.");
 			}
-			if (!this.toEdit.bank_account_number) {
-				this.error_updateEmployee.push("Bank Account Number.");
-			}
-			if (!this.toEdit.postal_code) {
-				this.error_updateEmployee.push("Postal Code.");
-			}
-			if (!this.toEdit.bank_code) {
-				this.error_updateEmployee.push("Bank Code.");
-			}
-			if (!this.toEdit.bank_brh) {
-				this.error_updateEmployee.push("Bank BRH.");
-			}
+			// if (!this.toEdit.bank_account_number) {
+			// 	this.error_updateEmployee.push("Bank Account Number.");
+			// }
+			// if (!this.toEdit.postal_code) {
+			// 	this.error_updateEmployee.push("Postal Code.");
+			// }
+			// if (!this.toEdit.bank_code) {
+			// 	this.error_updateEmployee.push("Bank Code.");
+			// }
+			// if (!this.toEdit.bank_brh) {
+			// 	this.error_updateEmployee.push("Bank BRH.");
+			// }
 
 			if (!this.toEdit.email) {
 				this.error_updateEmployee.push('Email.');

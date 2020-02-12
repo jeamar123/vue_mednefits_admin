@@ -27,5 +27,11 @@ export default {
     hideLoading : () =>{
       router.app.$children[0].$children[0].hideLoading();
     },
+
+    // For validtaion with RegEx
+    validEmail: (email) => {
+			let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			return re.test(email);
+		},
   }
 }
