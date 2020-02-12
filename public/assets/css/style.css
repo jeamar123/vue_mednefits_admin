@@ -495,6 +495,7 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
     font-weight: 700;
     color: rgba(0, 0, 0, 0.54);
     border-top: 1px solid #f0f0f0;
+    min-height: 46px;
   }
   .pagination-container .pagination-wrapper{
     width: 450px;
@@ -515,6 +516,10 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
   .pagination-wrapper .row .row-select{
     width: 50px;
     position: relative;
+    /* cursor: pointer; */
+  }
+  .pagination-wrapper .page .page-select > span,
+  .pagination-wrapper .row .row-select > span{
     cursor: pointer;
   }
   .pagination-wrapper .page .page-select .oi{
@@ -551,7 +556,7 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
     padding: 6px 0;
   }
   .pagination-wrapper .drop-pagi{
-    display: none;
+    /* display: none; */
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
     background-color: #ECF0F1;
     min-width: 120px;
