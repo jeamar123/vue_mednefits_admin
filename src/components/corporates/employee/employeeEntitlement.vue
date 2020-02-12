@@ -95,8 +95,19 @@
         //sample update entitlement
         this.emp_entitlement.updated_medical_entitlement = true;
         this.emp_entitlement.updated_wellness_entitlement = true;
+      },
 
-        
+      getCalcData() {
+        let get_calc_details = `${axios.defaults.serverUrl}/company/get_member_entitlement_calculation_details?member_id=${this.member_id}`;
+        axios.get(get_calc_details)
+        // axios.get(axios.defaults.serverUrl + '/company/get_member_entitlement_calculation_details?member_id=' + this.member_id)
+					.then(response => {
+						console.log(response);
+					})
+					.catch(err => {
+						this.$parent.hideLoading();
+						this.errorHandler(err);
+					});
       },
       entitlementCalc( type, cal ) {
 
@@ -140,6 +151,8 @@
           + this.emp_entitlement.medical_new_entitlement * this.calc_entitlement_med.entitlement_duration / this.calc_entitlement_med.plan_year_duration;
           // console.log(this.sample);
           this.new_allocation_med = parseFloat(this.new_allocation_med).toFixed(2);
+          
+          this.getCalcData(this.member_id);
         }
 
         if ( type == 'wellness' ) {
