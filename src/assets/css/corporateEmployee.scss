@@ -719,11 +719,15 @@
       border-radius: 2px;
       color: #888;
       width: 100%;
-      padding: 5px 10px;
+      padding: 5px 0px;
     }
 
     .dropdown-menu li {
-      padding: 5px 0;
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+    .dropdown-menu li:hover{
+      background: #f5f5f5;
     }
 
     .visit-date-container {
@@ -763,6 +767,52 @@
   .in-network-input-wrapper {
     position: relative;
     width: 90%;
+
+    .health-partner-drop{
+      width: 250px;
+      padding: 10px;
+      border-radius: 2px;
+      background: #FFF;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+      position: absolute;
+      z-index: 1000;
+      background-image: linear-gradient(to bottom, #337ab7 0%, #2b669a 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff2b669a', GradientType=0);
+      background-repeat: repeat-x;
+      border-color: #2b669a;
+      // display: none;
+      max-height: 200px;
+      overflow-y: auto;
+
+      .health-partner-drop-row{
+        display: flex;
+        margin-bottom: 15px;
+
+        img{
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+        }
+
+        .partner-details{
+          flex: 1;
+          padding-left: 10px;
+
+          p{
+            margin: 0;
+            color: #FFF;
+            font-size: 12px;
+
+            span{
+              display: inline-block;
+              background-color: #d9edf7;
+              color: #31708f;
+            }
+          }
+        }
+      }
+    }
   }
 
   .visit-date-input-wrapper input {

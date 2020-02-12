@@ -200,11 +200,8 @@
 							</div>
 
 							<ul v-if="false" class="dropdown-menu">
-								<li>
-									<a>Credit</a>
-								</li>
-								<li>
-									<a>Cash</a>
+								<li v-for="list in memberList">
+									<a>{{ list.name }}</a>
 								</li>
 							</ul>
 						</div>
@@ -215,14 +212,14 @@
 						<div class="in-network-input-wrapper">
 							<input type="text" placeholder="Search Health Partner">
 
-							<div class="health-partner-drop">
-								<div v-for="list in [1,2,3]" >
+							<div v-if="false" class="health-partner-drop">
+								<div v-for="list in [1,2,3]" class="health-partner-drop-row">
 									<img :src="'../images/img-portfolio-place.png'">
 									<!-- <img ng-src="{{ list.image }}" ng-if="list.image"> -->
 									<div class="partner-details">
 										<p>name</p>
 										<p>website</p>
-										<p>phone</p>
+										<p><span>phone</span></p>
 									</div>
 								</div>
 							</div>

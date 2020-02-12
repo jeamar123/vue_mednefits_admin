@@ -1,29 +1,53 @@
 <script>
 import Modal from "../../../views/modal/Modal.vue";
-
+import axios from "axios";
+import moment, { locale } from "moment";
 
   let claimSubmission = {
     components: {
       Modal
     },
+    props: {
+      member_id: [String, Number],
+    },
     data() {
       return {
+        spendingTypeOpt: 'medical',
+        step_active: 1,
+
         inNetworkClaimSummaryModal: false,
         showInNetwork: false,
         showOutNetwork: false,
-        spendingTypeOpt: 'medical',
-        step_active: 1,
         showTimeVisitDropdown: false,
         showDaytimeOption: false,
         showTimeOption: false,
         showClaimTypeListOption: false,
         showMemberListOption: false,
+
         starDateDetails: {
           startDate: undefined,
         },
+
+        memberList : [],
       };
     },
     created(){
+      console.log( this.member_id );
+      // this.getMemberList();
+      // this.getClinicList();
+
+      axios.all([ //butang sa array ang ipa load na api or function para in order pag tawag.
+				// axios.get(get_employee_details),
+        axios.get( axios.defaults.serverUrl + '/company/get_members_by_user_id?member_id=' + this.member_id),
+        axios.get( axios.defaults.serverUrl + '/clinics/get_clinics' )
+			]).then(res => {
+				console.log(res);
+				// this.$parent.hideLoading();
+			}).catch(error => {
+				// if there's an error, log it
+				console.log(error);
+				// this.parent.hideLoading();
+			});
     },
     methods: {
       
@@ -88,9 +112,19 @@ import Modal from "../../../views/modal/Modal.vue";
 
 
       getMemberList() {
-        // 
-
-        axios.get( axios.defaults.serverUrl + 'company/get_members_by_user_id?member_id=22')
+        axios.get( axios.defaults.serverUrl + '/company/get_members_by_user_id?member_id=' + this.member_id)
+          .then(res => {
+            console.log( res );
+            this.memberList = res.data.data;
+            this.hideLoading();
+          })
+          .catch(err => {
+            this.hideLoading();
+            this.errorHandler( err );
+          });
+      },
+      getClinicList() {
+        axios.get( axios.defaults.serverUrl + '/clinics/get_clinics' )
           .then(res => {
             console.log( res );
             this.hideLoading();
@@ -99,7 +133,18 @@ import Modal from "../../../views/modal/Modal.vue";
             this.hideLoading();
             this.errorHandler( err );
           });
-      }
+      },
+      getServiceList() {
+        axios.get( axios.defaults.serverUrl + '/clinics/get_clinic_services?clinic_id=' + this.member_id)
+          .then(res => {
+            console.log( res );
+            this.hideLoading();
+          })
+          .catch(err => {
+            this.hideLoading();
+            this.errorHandler( err );
+          });
+      },
     }
   }
   
