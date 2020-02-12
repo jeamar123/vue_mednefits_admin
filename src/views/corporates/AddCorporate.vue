@@ -903,7 +903,7 @@
 
 				<div v-if="create_company.schedule_email">
 					<div class="form-row">
-						<div class="form-col flex-2">
+						<div class="form-col flex-2 invoice-date-row">
 							<div class="form-div">
 								<label>Send Date</label>
 								<div class="date-container">
