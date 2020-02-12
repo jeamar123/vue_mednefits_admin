@@ -332,7 +332,7 @@
 						</div>
 					</div>
 					<div class="save-btn-footer">
-						<button class="btn">CANCEL</button>
+						<button class="btn" @click="showAddDependent()">CANCEL</button>
 						<button class="btn-primary" @click="addDependent(toAddDep)">SAVE & CONTINUE</button>
 					</div>
 				</form>

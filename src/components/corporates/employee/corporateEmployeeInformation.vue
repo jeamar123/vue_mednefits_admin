@@ -317,7 +317,9 @@ let corporateEmployeeInformation = {
 			}
 		},
 		showAddDependent() {
+			this.toAddDep = {};
 			this.addDependentInfo = this.addDependentInfo == false ? true : false;
+
 		},
 		showRemoveEmp() {
 			this.editRemoveEmpInfo = this.editRemoveEmpInfo == false ? true : false;

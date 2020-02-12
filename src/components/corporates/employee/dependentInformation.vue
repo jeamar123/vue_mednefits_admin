@@ -14,6 +14,12 @@ let dependentInformation = {
 	},
 	data() {
 		return {
+			// --- Date options ---
+			formats: {
+				input: ["DD/MM/YYYY"],
+				data: ["DD/MM/YYYY"]
+			},
+			//---------------------
 			empSelectorActive: {
 				value: 0,
 				text: ""
@@ -51,6 +57,7 @@ let dependentInformation = {
 
 			// Depedents Global Variables
 			dependent_arr: {},
+			toEdit: {},
 			// -------------------------
 		};
 	},
@@ -88,8 +95,14 @@ let dependentInformation = {
 		showRemoveDependent() {
 			this.withdrawEmployeeModal = this.withdrawEmployeeModal == false ? true : false;
 		},
-		showEditDependent() {
+		showEditDependent(list) {
 			this.editDependentInfo = this.editDependentInfo == false ? true : false;
+
+			if(list) {
+				console.log(list);
+				list.dob = new Date(list.dob);
+				this.toEdit = list;
+			}
 		},
 		removeEmployeeBtn(data) {
 			let x = data;
@@ -281,6 +294,78 @@ let dependentInformation = {
 				this.showShortTermSelector = false;
 			}
 		},
+
+		// Jaz methods
+		updateDependent(toEdit) {
+			this.showLoading();
+
+			let update_dependent_details = `${axios.defaults.serverUrl}/company/update_dependent_details`;
+
+			let data  = {
+				member_id: toEdit.member_id,
+				fullname: toEdit.fullname,
+				dob: moment(toEdit.dob).format('YYYY-MM-DD'),
+				relationship: toEdit.relationship,
+				plan_start: moment(toEdit.plant_start).format('YYYY-MM-DD'),
+			}
+
+			if(this.checkForm_editDep(data)) {
+				axios.put(update_dependent_details, data)
+				.then(res => {
+					// Log the data to the console
+					// You would do something with both sets of data here
+					console.log(res);
+					this.hideLoading();
+					
+					if (res.data.status == true) {
+						this.$swal('Success', res.data.message, 'succes')
+							.then(res1 => {
+								this.toEdit = {};
+								this.editDependentInfo = false;
+							})
+					} else {
+						this.$swal("Error!", res.data.message, "error");
+					}
+					// this.hideLoading();
+				}).catch(err => {
+					this.hideLoading();
+					this.errorHandler(err);
+				});
+			}
+		},
+		checkForm_editDep(data) {
+			this.error_editDep = [];
+
+			if (!data.fullname) {
+				this.error_editDep.push("Name.");
+			}
+			if (!data.dob) {
+				this.error_editDep.push("Birthday.");
+			}
+			if (!data.relationship) {
+				this.error_editDep.push("Relationship.");
+			}
+			if (!data.plan_start) {
+				this.error_editDep.push("Start Date.");
+			}
+
+			if (!this.error_editDep.length) {
+				return true;
+			} else {
+				console.log(this.error_editDep);
+				let new_error = [];
+				this.error_editDep.map(value => {
+					new_error.push(`<span class="block p-1 text-red-500 text-center w-1/2 mx-auto my-0">${value}</span>`);
+				});
+				this.$swal(
+					'Required',
+					new_error.join('\n\n'),
+					'warning'
+				);
+
+			}
+		},
+		// ----------
 
 		// API METHODS
 
