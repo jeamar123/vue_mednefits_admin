@@ -102,7 +102,19 @@
         axios.get(get_calc_details)
         // axios.get(axios.defaults.serverUrl + '/company/get_member_entitlement_calculation_details?member_id=' + this.member_id)
 					.then(response => {
-						console.log(response);
+            // console.log(response);
+            this.get_calc_medical = response.data.medical;
+            this.get_calc_wellness = response.data.wellness;
+
+            if ( this.emp_entitlement.medical_proration == 'months' ) {
+              console.log('months');
+              this.medical_plan_duration_month = moment(new Date(this.get_calc_medical.medical_spending_validate_end_date)).diff(new Date(this.med_effective_date), 'months', false) + 1;
+              console.log(this.medical_plan_duration_month);
+            } else {
+              console.log('days');
+              this.medical_plan_duration_days = moment(new Date(this.get_calc_medical.medical_spending_validate_end_date)).diff(new Date(this.med_effective_date), 'days', false) + 1;
+              console.log(this.medical_plan_duration_days);
+            }
 					})
 					.catch(err => {
 						this.$parent.hideLoading();
