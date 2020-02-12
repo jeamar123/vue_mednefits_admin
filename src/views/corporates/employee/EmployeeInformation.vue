@@ -679,7 +679,7 @@
 				</div>
 			</Modal>
 
-			<Modal v-if="showSmsUpdateNotify" class="employee-details-options">
+			<!-- <Modal v-if="showSmsUpdateNotify" class="employee-details-options">
 				<div slot="header">
 					<h1>Send SMS Update Notification</h1>
 				</div>
@@ -704,7 +704,7 @@
 					<button @click="selectedEmpDetailsSettingsClicked(3, 'cancel')" class="btn-close">CANCEL</button>
 					<button class="btn-primary settings-btn-submit">SUBMIT</button>
 				</div>
-			</Modal>
+			</Modal> -->
 
 			<Modal v-if="false" class="fill-corporate-pass-container">
 				<div slot="body">

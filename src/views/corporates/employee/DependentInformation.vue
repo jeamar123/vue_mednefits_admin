@@ -1,46 +1,49 @@
 <template>
 	<div class="dependent-details">
 		<div v-if="!editDependentInfo && !editReplaceDependentInfo">
-			<div class="emp-info-header md:text-center">
-				<h3>Dependent Information</h3>
-				<div class="right-btn-container md:relative md:text-right">
-					<button @click="showReplaceDependent()" class="btn btn-edit xs:w-full xs:m-1"><img :src="'../assets/img/replace.png'">Replace</button>
-					<button @click="showRemoveDependent()" class="btn btn-edit btn-remove xs:w-full xs:m-1"><img :src="'../assets/img/icons/dustbin.png'">Remove</button>
-					<button @click="showEditDependent()" class="btn btn-edit xs:w-full xs:m-1"><img :src="'../assets/img/icons/edit.png'">Edit</button>
-				</div>
-			</div>
-			<div class="emp-information-details sm:flex sm:flex-wrap">
-				<div class="col-1-emp-info-details sm:w-full">
-					<div>
-						<strong>Full Name</strong>
-						<span>Kevin Aton</span>
-					</div>
-					<div>
-						<strong>Plan Start</strong>
-						<span>August 03,2019</span>
-					</div>
-					<div>
-						<strong>Plan End</strong>
-						<span>August 02,2020</span>
+			<h3>Dependent Information</h3>
+			<template v-for="list in dependent_arr">
+				<div class="dep-info-header md:text-center" :key="list.index">
+					<div class="right-btn-container md:relative md:text-right">
+						<button @click="showReplaceDependent()" class="btn btn-edit xs:w-full xs:m-1"><img :src="'../assets/img/replace.png'">Replace</button>
+						<button @click="showRemoveDependent()" class="btn btn-edit btn-remove xs:w-full xs:m-1"><img :src="'../assets/img/icons/dustbin.png'">Remove</button>
+						<button @click="showEditDependent()" class="btn btn-edit xs:w-full xs:m-1"><img :src="'../assets/img/icons/edit.png'">Edit</button>
 					</div>
 				</div>
+				<div class="emp-information-details sm:flex sm:flex-wrap" :key="list.index">
+					<div class="col-1-emp-info-details sm:w-full">
+						<div>
+							<strong>Full Name</strong>
+							<span>{{list.first_name || null }} {{list.last_name || null }}</span> 
+							<!-- to change fullname -->
+						</div>
+						<div>
+							<strong>Plan Start</strong>
+							<span>{{ (formatDate(list.plan_start, null, 'DD/MM/YYYY')) || 'null' }}</span>
+						</div>
+						<div>
+							<strong>Plan End</strong>
+							<span>{{ (formatDate(list.plan_end, null, 'DD/MM/YYYY')) || 'null' }}</span>
+						</div>
+					</div>
 
-				<div class="col-2-emp-info-details sm:w-full">
-					<div>
-						<strong>Date of Birth</strong>
-						<span>04/03/2019</span>
+					<div class="col-2-emp-info-details sm:w-full">
+						<div>
+							<strong>Date of Birth</strong>
+							<span>{{ (formatDate(list.dob, null, 'DD/MM/YYYY')) || 'null' }}</span>
+						</div>
+						<div>
+							<strong>Relationship</strong>
+							<span>{{list.relationship || 'null'}}</span>
+						</div>
+						<div>
+							<strong>Member ID</strong>
+							<span>{{list.member_id || 'null'}}</span>
+						</div>
 					</div>
-					<div>
-						<strong>Relationship</strong>
-						<span>Child</span>
-					</div>
-					<div>
-						<strong>Member ID</strong>
-						<span>023736</span>
-					</div>
-				</div>
 
-			</div>
+				</div>
+			</template>
 		</div>
 		<!-- Replace dependent container -->
 		<div v-if="editReplaceDependentInfo" class="edit-employee-info-container">
