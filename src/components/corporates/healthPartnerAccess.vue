@@ -140,11 +140,21 @@ import moment, { locale } from "moment";
         selectAllOpen( opt ){
           console.log( this.open_clinic_list );
           if( this.open_clinic_opt == 'name' ){
-            this.open_clinic_list.map(( value, key ) => {
-              console.log( key );
-              console.log( value );
+            Object.keys(this.open_clinic_list).map(( value, key ) => {
+              this.open_clinic_list[key].selected = opt;
+              console.log( this.open_clinic_list[key] );
             });
           }
+        },
+        typeChange(){
+          this.allOpenSelected = false;
+          this.allBlockSelected = false;
+          Object.keys(this.open_clinic_list).map(( value, key ) => {
+            this.open_clinic_list[key].selected = false;
+          });
+          Object.keys(this.clinic_type_list).map(( value, key ) => {
+            this.clinic_type_list[key].selected = false;
+          });
         },
 
 
