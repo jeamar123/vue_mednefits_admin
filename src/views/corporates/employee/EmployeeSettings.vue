@@ -203,7 +203,7 @@
 					<div class="gp-cap-input-wrapper">
 						<input v-model="cap_per_visit" type="number" />
 						<div class="icon-right">
-							<span>{{this.employee_info.currency_type}}</span>
+							<span class="currency-type">{{this.employee_info.currency_type}}</span>
 						</div>
 					</div>
 				</div>
