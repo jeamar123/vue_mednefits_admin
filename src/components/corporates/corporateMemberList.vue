@@ -48,6 +48,7 @@ let corporateMemberList = {
 				transfer_date: new Date(),
 				company: ""
 			},
+			compnayList_done: false,
 			company_list: []
 			// -----------------------
 		};
@@ -108,8 +109,20 @@ let corporateMemberList = {
 				};
 			}
 		},
-		toggleTransferCompSummary() {
-			this.showTransferCompanySummary = !this.showTransferCompanySummary;
+		toggleTransferCompSummary(type) {
+			
+			if(this.selected_transfer_data.company != '' || type == 'close') {
+
+				if(this.selected_transfer_data.company == this.company_name) {
+					this.$swal("Warning!", "Transfer to same company is not allowed", "warning");
+				} else {
+					this.showTransferCompanySummary = !this.showTransferCompanySummary;
+				}
+
+			} else {
+				this.$swal('Warning', 'No company is selected.','warning');
+			}
+
 			if (this.showTransferCompanySummary == true) {
 				this.selected_transfer_data.transfer_date = moment(
 					this.selected_transfer_data.transfer_date
@@ -142,8 +155,9 @@ let corporateMemberList = {
 				.get(url)
 				.then(res => {
 					console.log("Company list", res);
-					if (res.status == 200) {
+					if (res.data.status == true) {
 						this.company_list = res.data.data;
+						this.compnayList_done = true;
 						// console.log("Company list", this.company_list);
 						// this.hideLoading();
 					}
@@ -163,11 +177,15 @@ let corporateMemberList = {
 				// serach: 'name'
 			};
 			let url = `${axios.defaults.serverUrl}/company/transfer_employee`;
-			axios
-				.post(url, data)
+
+			if(data.old_customer_id != data.new_customer_id) {
+
+				this.showLoading();
+				axios.post(url, data)
 				.then(res => {
-					if (res.status == 200) {
+					if (res.data.status == true) {
 						console.log("transfer_employee", res);
+						this.hideLoading();
 						this.$swal("Success!", res.data.message, "success")
 							.then(res => {
 								this.getMemberList();
@@ -175,14 +193,19 @@ let corporateMemberList = {
 						// this.hideLoading();
 						this.showTransferAccountModal = !this.showTransferAccountModal;
 					} else {
-						this.$swal("Error!", res.data.message, "error");
+						this.hideLoading();
+						this.$swal("Error!", `${this.selected_transfer_data.company} is not a company`, "error");
 					}
 				})
 				.catch(err => {
 					this.showTransferAccountModal = !this.showTransferAccountModal;
-					this.$parent.hideLoading();
+					this.hideLoading();
 					this.errorHandler(err);
 				});
+			} else {
+				this.$swal("Warning!", "Transfer to same company is not allowed", "warning");
+			}
+			
 		},
 		// -----------------------
 
