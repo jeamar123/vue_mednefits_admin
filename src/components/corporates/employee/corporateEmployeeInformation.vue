@@ -150,6 +150,32 @@ let corporateEmployeeInformation = {
 					});
 			}
 		},
+		update_communication_type(value) {
+			let update_employee_details = `${axios.defaults.serverUrl}/company/update_employee_details`;
+			let data  = {
+				member_id: this.member_id,
+				communication_type: value
+			}
+
+			axios.put(update_employee_details, data)
+				.then(res => {
+					console.log(res);
+					if (res.status == 200) {
+						console.log(res.data);
+						this.$swal("Success!", 'Update Successful', "success")
+							.then(res => {
+								this.getEmployeeDetails();
+							});
+					} else {
+						this.$swal("Error!", res.data.message, "error");
+					}
+				})
+				.catch(err => {
+					this.editEmployeeProfile = false;
+					this.hideLoading();
+					this.errorHandler(err);
+				});
+		},
 		update_employee() {
 			let update_employee_details = `${axios.defaults.serverUrl}/company/update_employee_details`;
 			let data = this.toEdit;
@@ -313,7 +339,7 @@ let corporateEmployeeInformation = {
 				bank_code: this.employee_info.bank_code,
 				email: this.employee_info.work_email,
 				bank_brh: this.employee_info.bank_brh,
-				communication_type: this.employee_info.communication_type,
+				// communication_type: this.employee_info.communication_type,
 			}
 		},
 		showAddDependent() {
