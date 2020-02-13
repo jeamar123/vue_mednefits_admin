@@ -29,6 +29,7 @@ import moment, { locale } from "moment";
         isInPaymentTypeDropShow: false,
         inNetworkClaimSummaryModal: false,
 
+        employee_info: {},
         starDateDetails: {
           startDate: undefined,
         },
@@ -41,11 +42,13 @@ import moment, { locale } from "moment";
           service_text: '',
           service: [],
           service_data: [],
+          service_ids: [],
           visit_date: new Date(),
           visit_time: moment().format('hh : mm'),
           daytime: moment().format('A'),
           payment_type: '',
           amount: '',
+          send_receipt: false,
         },
         timePickerValues: {
           hour: Number( moment().format('h') ),
@@ -66,14 +69,16 @@ import moment, { locale } from "moment";
         console.log(res);
         this.getMemberList( false, res[0] );
         this.getClinicList( false, res[1] );
-				this.hideLoading();
+        this.hideLoading();
 			}).catch(err => {
         this.hideLoading();
         this.errorHandler( err );
 			});
     },
     methods: {
-      
+      formatDate( date, from, to ){
+        return moment( date, from ).format( to );
+      },
       
 
       toggleShowInNetwork(data) {
@@ -182,6 +187,7 @@ import moment, { locale } from "moment";
           this.inNetwork_data.service_text = '';
           this.inNetwork_data.service = [];
           this.inNetwork_data.service_data = [];
+          this.inNetwork_data.service_ids = [];
           this.getServiceList( data.health_provider_id );
         },
         toggleServiceDrop(){
@@ -192,6 +198,7 @@ import moment, { locale } from "moment";
           if( !this.serviceList[ index ].selected ){
             this.serviceList[ index ].selected = true;
             this.inNetwork_data.service.push( data.service_name );
+            this.inNetwork_data.service_ids.push( data.health_provider_service_id );
             this.inNetwork_data.service_text = '';
             this.inNetwork_data.service.map((value,key) => {
               if( key != 0 ){
@@ -206,6 +213,7 @@ import moment, { locale } from "moment";
           this.serviceList[ index ].selected = false;
           this.inNetwork_data.service.splice( $.inArray( data.service_name, this.inNetwork_data.service ), 1 );
           this.inNetwork_data.service_data.splice( $.inArray( data.service_name, this.inNetwork_data.service ), 1 );
+          this.inNetwork_data.service_ids.splice( $.inArray( data.service_name, this.inNetwork_data.service ), 1 );
           this.inNetwork_data.service_text = '';
           this.inNetwork_data.service.map((value,key) => {
             if( key != 0 ){
@@ -252,18 +260,68 @@ import moment, { locale } from "moment";
           }
           this.$forceUpdate();
         },
-        inNetworkSubmitData( in_network_data ) { 
-          console.log( in_network_data );
-          this.inNetworkClaimSummaryModal = true;
-        },
-        hideSummaryModal(){
-          this.inNetworkClaimSummaryModal = false;
+        toggleSummaryModal(){
+          console.log( this.inNetwork_data );
+          this.inNetworkClaimSummaryModal = this.inNetworkClaimSummaryModal == true ? false : true;
         },
         
         
+        
+      resetValues(){
+        this.inNetwork_data = {
+          member: '',
+          member_data: {},
+          health_partner: '',
+          health_partner_data: {},
+          service_text: '',
+          service: [],
+          service_data: [],
+          service_ids: [],
+          visit_date: new Date(),
+          visit_time: moment().format('hh : mm'),
+          daytime: moment().format('A'),
+          payment_type: '',
+          amount: '',
+          send_receipt: false,
+        };
+        this.timePickerValues = {
+          hour: Number( moment().format('h') ),
+          minute: Number( moment().format('m') ),
+        };
+      },
 
-
-
+      submitInNetwork( in_network_data ) { 
+        var date = moment( in_network_data.visit_date ).format('YYYY-MM-DD');
+        var time = moment( in_network_data.visit_time, 'hh : mm' ).format('HH:mm');
+        var data = {
+          clinic_id: in_network_data.health_partner_data.health_provider_id,
+          member_id: in_network_data.member_data.member_id,
+          amount: in_network_data.amount,
+          date: date + ' ' + time,
+          type: in_network_data.payment_type,
+          services: in_network_data.service_ids,
+          send_email: in_network_data.send_receipt
+        }
+        console.log( data );
+        this.inNetworkClaimSummaryModal = false;
+        this.showLoading();
+        axios.post( axios.defaults.serverUrl + '/transactions/create_claim', data )
+          .then(res => {
+            console.log( res );
+            if( res.data.status ){
+              this.$swal('Success!', res.data.message, 'success');
+              this.showInNetwork = false;
+              this.resetValues();
+            }else{
+              this.$swal('Error!', res.data.message, 'error');
+            }
+            this.hideLoading();
+          })
+          .catch(err => {
+            this.hideLoading();
+            this.errorHandler( err );
+          });
+      },
       getMemberList( isGetAPI, resData ) {
         var request = axios.get( axios.defaults.serverUrl + '/company/get_members_by_user_id?member_id=' + this.member_id);
         var response = res => {
