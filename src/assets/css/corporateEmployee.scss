@@ -1032,6 +1032,7 @@
     border: 1px solid rgba(0, 0, 0, 0.15);
     z-index: 1;
     padding: 5px 0;
+    z-index: 999;
 
     a:hover {
       background: #ddd;
