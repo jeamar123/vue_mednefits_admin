@@ -189,6 +189,7 @@ let corporateMemberList = {
 						this.$swal("Success!", res.data.message, "success")
 							.then(res => {
 								this.getMemberList();
+								this.$emit('FromMemberList', true);
 							})
 						// this.hideLoading();
 						this.showTransferAccountModal = !this.showTransferAccountModal;

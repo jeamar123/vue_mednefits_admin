@@ -61,12 +61,8 @@
 						<div>
 							<strong>For Communication</strong>
 							<span class="emp-username-type-container">
-								<label><input type="radio" name="emp-username-type" v-model="employee_info.communication_type"
-										value="email" :checked=" employee_info.communication_type == 'email'"
-										:disabled="employee_info.communication_type == 'sms'"> Email</label>
-								<label><input type="radio" name="emp-username-type" v-model="employee_info.communication_type"
-										value="sms" :checked=" employee_info.communication_type == 'sms'"
-										:disabled="employee_info.communication_type == 'email'"> SMS</label>
+								<label><input type="radio" name="emp-username-type" v-model="employee_info.communication_type" value="email" @change="update_communication_type(employee_info.communication_type)"> Email</label>
+								<label><input type="radio" name="emp-username-type" v-model="employee_info.communication_type" value="sms" @change="update_communication_type(employee_info.communication_type)"> SMS</label>
 							</span>
 						</div>
 					</div>
@@ -171,7 +167,7 @@
 								<input type="number" v-model="toEdit.bank_brh">
 							</div>
 						</div>
-						<div class="edit-dependent-row flex md:flex-wrap w-1/2">
+						<!-- <div class="edit-dependent-row flex md:flex-wrap w-1/2">
 							<div class="employee-details-input-wrapper">
 								<label>For Communication</label>
 								<div class="emp-username-type-container flex border-b border-solid border-gray-100">
@@ -187,7 +183,7 @@
 								
 								</div>
 							</div>
-						</div>
+						</div> -->
 
 
 					</form>

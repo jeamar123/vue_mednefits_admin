@@ -188,7 +188,7 @@
 					</div>
 				</div>
 
-				<router-view name="child"></router-view>
+				<router-view name="child" @FromMemberList="fromMemberList"></router-view>
 			</div>
 		</div>
 
