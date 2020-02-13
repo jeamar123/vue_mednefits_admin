@@ -29,7 +29,7 @@
           </label>	
           <div class="select-filter-div">
 	        	<select v-model="block_clinic_region" v-on:change="regionChange('block')">
-	        		<option value="all">All Region</option>
+	        		<option value="0">All Region</option>
 							<option value="sgd">Singapore - SGD</option>
 	        		<option value="myr">Malaysia - MYR</option>
 	        	</select>
@@ -137,7 +137,7 @@
           </label>	
           <div class="select-filter-div">
 	        	<select v-model="open_clinic_region" v-on:change="regionChange('open')">
-	        		<option value="all">All Region</option>
+	        		<option value="0">All Region</option>
 							<option value="sgd">Singapore - SGD</option>
 	        		<option value="myr">Malaysia - MYR</option>
 	        	</select>
@@ -168,7 +168,7 @@
 	            <input type="checkbox" v-model="list.selected">
 	            <span class="health-checkmark"></span>
 	          </label>
-						<div v-if="list.currency_type" class="country">{{ list.currency_type == 'sgd' ? 'Singapore' : 'Malaysia' }}</div>
+						<div v-if="list.provider_region" class="country">{{ list.currency_type == 'sgd' ? 'Singapore' : 'Malaysia' }}</div>
 	        </div>
 				</div>
 				<div class="pagination-container">

@@ -61,12 +61,8 @@
 						<div>
 							<strong>For Communication</strong>
 							<span class="emp-username-type-container">
-								<label><input type="radio" name="emp-username-type" v-model="employee_info.communication_type"
-										value="email" :checked=" employee_info.communication_type == 'email'"
-										:disabled="employee_info.communication_type == 'sms'"> Email</label>
-								<label><input type="radio" name="emp-username-type" v-model="employee_info.communication_type"
-										value="sms" :checked=" employee_info.communication_type == 'sms'"
-										:disabled="employee_info.communication_type == 'email'"> SMS</label>
+								<label><input type="radio" name="emp-username-type" v-model="employee_info.communication_type" value="email" @change="update_communication_type(employee_info.communication_type)"> Email</label>
+								<label><input type="radio" name="emp-username-type" v-model="employee_info.communication_type" value="sms" @change="update_communication_type(employee_info.communication_type)"> SMS</label>
 							</span>
 						</div>
 					</div>
@@ -102,21 +98,21 @@
 						<div class="edit-dependent-row flex md:flex-wrap">
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Full Name</label>
-								<input type="text" v-model="toEdit.fullname">
+								<input type="name" v-model="toEdit.fullname" required autocomplete="name">
 							</div>
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Mobile Number</label>
 								<div class="country-code-mobile-container">
 									<div class="country-code-container">
 										<!-- <input type="text"> -->
-										<select name="" id="" v-model="toEdit.phone_code">
+										<select name="relationship" id="" v-model="toEdit.phone_code">
 											<option value="+65">(SG) +65</option>
 											<option value="+63">(PH) +63</option>
 											<option value="+60">(MY) +60</option>
 										</select>
 										<i class="fa fa-caret-down"></i>
 									</div>
-									<input type="number" v-model="toEdit.phone_no">
+									<input type="tel" name="phone" v-model="toEdit.phone_no" required autocomplete="tel">
 								</div>
 							</div>
 						</div>
@@ -124,7 +120,7 @@
 						<div class="edit-dependent-row flex md:flex-wrap">
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Member ID</label>
-								<input type="number" v-model="toEdit.member_id">
+								<input type="number" v-model="toEdit.member_id" readonly="readonly">
 							</div>
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Job Title</label>
@@ -164,14 +160,14 @@
 						<div class="edit-dependent-row flex md:flex-wrap">
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Work Email</label>
-								<input type="text" v-model="toEdit.email">
+								<input type="email" v-model="toEdit.email" required autocomplete="email">
 							</div>
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Bank BRH</label>
 								<input type="number" v-model="toEdit.bank_brh">
 							</div>
 						</div>
-						<div class="edit-dependent-row flex md:flex-wrap w-1/2">
+						<!-- <div class="edit-dependent-row flex md:flex-wrap w-1/2">
 							<div class="employee-details-input-wrapper">
 								<label>For Communication</label>
 								<div class="emp-username-type-container flex border-b border-solid border-gray-100">
@@ -187,7 +183,7 @@
 								
 								</div>
 							</div>
-						</div>
+						</div> -->
 
 
 					</form>
@@ -297,14 +293,15 @@
 					<div class="edit-dependent-row flex md:flex-wrap">
 						<div class="employee-details-input-wrapper md:m-0">
 							<label>Full Name</label>
-							<input type="text">
+							<input type="name" v-model="toAddDep.fullname" required autocomplete="name">
 						</div>
 						<div class="employee-details-input-wrapper md:m-0">
 							<label>Date of Birth</label>
 							<div class="date-container">
-								<v-date-picker popoverDirection="bottom" v-model="starDateDetails.null"
+								<v-date-picker popoverDirection="bottom" v-model="toAddDep.dob"
 									:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
-									popover-visibility="focus"></v-date-picker>
+									popover-visibility="focus"
+									:formats="formats"></v-date-picker>
 								<i class="fa fa-caret-down"></i>
 							</div>
 						</div>
@@ -312,26 +309,27 @@
 					<div class="edit-dependent-row flex md:flex-wrap">
 						<div class="employee-details-input-wrapper md:m-0">
 							<label>Relationship</label>
-							<select>
-								<option>Spouse</option>
-								<option>Child</option>
-								<option>Family</option>
-								<option>Parent</option>
+							<select v-model="toAddDep.relationship">
+								<option value="spouse">Spouse</option>
+								<option value="child">Child</option>
+								<option value="family">Family</option>
+								<option value="parent">Parent</option>
 							</select>
 						</div>
 						<div class="employee-details-input-wrapper md:m-0">
 							<label>Start Date</label>
 							<div class="date-container">
-								<v-date-picker popoverDirection="bottom" v-model="starDateDetails.null"
+								<v-date-picker popoverDirection="bottom" v-model="toAddDep.plan_start"
 									:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
-									popover-visibility="focus"></v-date-picker>
+									popover-visibility="focus"
+									:formats="formats"></v-date-picker>
 								<i class="fa fa-caret-down"></i>
 							</div>
 						</div>
 					</div>
 					<div class="save-btn-footer">
-						<button class="btn">CANCEL</button>
-						<button class="btn-primary">SAVE & CONTINUE</button>
+						<button class="btn" @click="showAddDependent()">CANCEL</button>
+						<button class="btn-primary" @click="addDependent(toAddDep)">SAVE & CONTINUE</button>
 					</div>
 				</form>
 			</div>

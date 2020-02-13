@@ -7,7 +7,7 @@
 					<div class="right-btn-container md:relative md:text-right">
 						<button @click="showReplaceDependent()" class="btn btn-edit xs:w-full xs:m-1"><img :src="'../assets/img/replace.png'">Replace</button>
 						<button @click="showRemoveDependent()" class="btn btn-edit btn-remove xs:w-full xs:m-1"><img :src="'../assets/img/icons/dustbin.png'">Remove</button>
-						<button @click="showEditDependent()" class="btn btn-edit xs:w-full xs:m-1"><img :src="'../assets/img/icons/edit.png'">Edit</button>
+						<button @click="showEditDependent(list)" class="btn btn-edit xs:w-full xs:m-1"><img :src="'../assets/img/icons/edit.png'">Edit</button>
 					</div>
 				</div>
 				<div class="emp-information-details sm:flex sm:flex-wrap" :key="list.index">
@@ -110,15 +110,15 @@
 				<div class="edit-dependent-row sm:flex sm:flex-wrap">
 					<div class="employee-details-input-wrapper sm:m-0">
 						<label>Full Name</label>
-						<input type="text">
+						<input type="name" v-model="toEdit.fullname" required autocomplete="name">
 					</div>
 					<div class="employee-details-input-wrapper sm:m-0">
 						<label>Relationship</label>
-						<select>
-							<option>Spouse</option>
-							<option>Child</option>
-							<option>Family</option>
-							<option>Parent</option>
+						<select v-model="toEdit.relationship">
+							<option value="spouse">Spouse</option>
+							<option value="child">Child</option>
+							<option value="family">Family</option>
+							<option value="parent">Parent</option>
 						</select>
 					</div>
 				</div>
@@ -129,16 +129,17 @@
 						<div class="date-container vDatepicker">
 							<v-date-picker
                 popoverDirection="bottom"
-                v-model="starDateDetails.null"
+                v-model="toEdit.dob"
                 :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
                 popover-visibility="focus"
+								:formats="formats"
               ></v-date-picker>
               <i class="fa fa-caret-down"></i>
             </div>
 					</div>
 					<div class="employee-details-input-wrapper sm:mx-0">
 						<label>Member ID</label>
-						<input type="number">
+						<input type="number" v-model="toEdit.member_id"  required readonly="readonly">
 					</div>
 				</div>
 
@@ -148,9 +149,10 @@
 						<div class="date-container vDatepicker">
 							<v-date-picker
                 popoverDirection="bottom"
-                v-model="starDateDetails.null"
+                v-model="toEdit.plan_start"
                 :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
                 popover-visibility="focus"
+								:formats="formats"
               ></v-date-picker>
               <i class="fa fa-caret-down"></i>
             </div>
@@ -159,7 +161,7 @@
 				</div>
 
 				<div class="save-btn-footer">
-					<button class="btn-primary">SAVE & CONTINUE</button>
+					<button class="btn-primary" @click="updateDependent(toEdit)">SAVE & CONTINUE</button>
 				</div>
 			</form>
 		</div>
