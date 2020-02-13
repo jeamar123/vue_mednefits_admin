@@ -186,7 +186,7 @@
           this.medicalCalculatedInfo = true;
           // console.log(this.med_data);
           
-          //medical
+          //medical calculate two dates
           if ( this.emp_entitlement.medical_proration == 'months' ) {
             this.medical_plan_duration = moment(new Date(this.get_calc_medical.medical_spending_validate_end_date)).diff(new Date(this.med_effective_date), 'months', false) + 1;
             // console.log('medical_plan_duration',this.medical_plan_duration);
@@ -235,11 +235,25 @@
           this.wellnessCalculatedInfo = true;
           console.log(this.well_data);
 
-          //wellness
+          //wellness calculate two dates
           if ( this.emp_entitlement.wellness_proration == 'months' ) {
             console.log('months');
             this.wellness_plan_duration = moment(new Date(this.get_calc_wellness.wellness_spending_validate_end_date)).diff(new Date(this.well_effective_date), 'months', false) + 1;
             // console.log(this.medical_plan_duration);
+
+            if( new Date(this.well_effective_date) < new Date(this.get_calc_wellness.wellness_usage_date) ){
+              // console.log('true siya');
+              this.plan_month_duration = moment(new Date(this.get_calc_wellness.wellness_usage_date)).diff(new Date(this.well_effective_date), 'months', false) + 1;
+              // console.log('plan month duration Months',this.plan_month_duration);
+            } else {
+              // console.log('false siya');
+              this.plan_month_duration = moment(new Date(this.well_effective_date)).diff(new Date(this.get_calc_wellness.wellness_usage_date), 'months', false) + 1;
+              // console.log('plan month duration Months',this.plan_month_duration);
+            }
+
+            this.entitlement_duration = moment(new Date(this.get_calc_wellness.wellness_spending_validate_end_date)).diff(new Date(this.well_effective_date), 'months', false) + 1;
+            // console.log('entitlement duration Months',this.entitlement_duration);
+
           }
           if ( this.emp_entitlement.wellness_proration == 'days' ) {
             console.log('days');
