@@ -297,8 +297,6 @@ let dependentInformation = {
 
 		// Jaz methods
 		updateDependent(toEdit) {
-			this.showLoading();
-
 			let update_dependent_details = `${axios.defaults.serverUrl}/company/update_dependent_details`;
 
 			let data  = {
@@ -310,6 +308,8 @@ let dependentInformation = {
 			}
 
 			if(this.checkForm_editDep(data)) {
+				this.showLoading();
+				
 				axios.put(update_dependent_details, data)
 				.then(res => {
 					// Log the data to the console
@@ -324,6 +324,7 @@ let dependentInformation = {
 								this.editDependentInfo = false;
 							})
 					} else {
+						this.hideLoading();
 						this.$swal("Error!", res.data.message, "error");
 					}
 					// this.hideLoading();
