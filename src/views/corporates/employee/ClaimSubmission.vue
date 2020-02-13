@@ -8,8 +8,8 @@
 		</div>
 		<div v-if="!showInNetwork && !showOutNetwork">
 			<div class="btn-network-container">
-				<button @click="toggleShowInNetwork('in-network')" class="btn-network">IN-NETWORK</button>
-				<button @click="toggleShowOutNetwork('out-network')" class="btn-network">OUT-OF-NETWORK</button>
+				<button v-on:click="toggleShowInNetwork('in-network')" class="btn-network">IN-NETWORK</button>
+				<button v-on:click="toggleShowOutNetwork('out-network')" class="btn-network">OUT-OF-NETWORK</button>
 			</div>
 			<div class="out-of-network-table-container">
 				<h4>Out-of-Network Transactions</h4>
@@ -31,7 +31,7 @@
 							<tr>
 								<td class="xs-show-tbl-cell">
 									<span>
-										<button @click="editInNetworkOpt()">Edit</button>
+										<button v-on:click="editInNetworkOpt()">Edit</button>
 									</span>
 								</td>
 								<td>
@@ -54,7 +54,7 @@
 								</td>
 								<td class="xs-hide-tbl-cell">
 									<span>
-										<button @click="editInNetworkOpt()">Edit</button>
+										<button v-on:click="editInNetworkOpt()">Edit</button>
 									</span>
 								</td>
 							</tr>
@@ -67,7 +67,7 @@
 		<div v-if="showInNetwork" class="in-network-box">
 			<div class="network-header-container">
 				<h5>IN-NETWORK</h5>
-				<i @click="toggleShowInNetwork('cancel')" class="fa fa-times"></i>
+				<i v-on:click="toggleShowInNetwork('cancel')" class="fa fa-times"></i>
 			</div>
 			<div class="in-network-table-container">
 				<div class="xs-in-network-form">
@@ -225,7 +225,7 @@
 		<div v-if="showOutNetwork" class="out-network-box">
 			<div class="network-header-container">
 				<h5>OUT-OF-NETWORK</h5>
-				<i @click="toggleShowOutNetwork('cancel')" class="fa fa-times"></i>
+				<i v-on:click="toggleShowOutNetwork('cancel')" class="fa fa-times"></i>
 			</div>
 			<div class="out-of-network-form-wrapper">
 				<div class="out-of-network-form">
@@ -233,40 +233,30 @@
 						<div class="input-group">
 							<label>Spending Account <span class="required">*</span></label>
 							<div class="input-wrapper spending-type-box">
-								<button @click="setSpendingType('medical')" v-bind:class="{'active': spendingTypeOpt == 'medical' }" 
+								<button v-on:click="selectSpendingType('medical')" v-bind:class="{'active': outNetwork_data.spending_type == 'medical' }" 
 								class="btn-medical">Medical</button>
-								<button @click="setSpendingType('wellness')" v-bind:class="{'active': spendingTypeOpt == 'wellness' }" 
+								<button v-on:click="selectSpendingType('wellness')" v-bind:class="{'active': outNetwork_data.spending_type == 'wellness' }" 
 								class="btn-medical">Wellness</button>
 							</div>
 						</div>
 						<div class="input-group">
 							<label>Claim Type <span class="required">*</span></label>
-							<div class="input-wrapper">
-								<input @click="claimTypeListOption()" type="text">
+							<div class="input-wrapper claim-type-input-wrapper">
+								<input v-on:click="toggleClaimTypeDrop()" type="text" v-model="outNetwork_data.claim_type" readonly>
 								<i class="fa fa-caret-down"></i>
-								<ul v-if="showClaimTypeListOption" class="dropdown-menu">
-									<li>
-										<a>General Practice</a>
-									</li>
-									<li>
-										<a>Health Screening</a>
-									</li>
-									<li>
-										<a>Traditional Chinese Medicine</a>
-									</li>
-									<li>
-										<a>Medical Specialist</a>
-									</li>
-									<li>
-										<a>Other</a>
-									</li>
+								<ul v-if="isOutClaimDropShow" class="dropdown-menu" v-click-outside="hideAllDrop">
+									<li v-on:click="selectClaimType('General Practice')"><a>General Practice</a></li>
+									<li v-on:click="selectClaimType('Health Screening')"><a>Health Screening</a></li>
+									<li v-on:click="selectClaimType('Traditional Chinese Medicine')"><a>Traditional Chinese Medicine</a></li>
+									<li v-on:click="selectClaimType('Medical Specialist')"><a>Medical Specialist</a></li>
+									<li v-on:click="selectClaimType('Other')"><a>Other</a></li>
 								</ul>
 							</div>
 						</div>
 						<div class="input-group">
 							<label>Provider <span class="required">*</span></label>
 							<div class="input-wrapper">
-								<input type="text" placeholder="Mednefits Pte LTd">
+								<input type="text" placeholder="Mednefits Pte LTd" v-model="outNetwork_data.provider">
 							</div>
 						</div>
 						<div class="input-group">
@@ -274,7 +264,7 @@
 							<div class="input-wrapper visit-date-input-wrapper">
 								<v-date-picker
 	                  popoverDirection="bottom"
-	                  v-model="starDateDetails.starDate"
+	                  v-model="outNetwork_data.visit_date"
 	                  :input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
 	                  popover-visibility="focus"
 	                ></v-date-picker>
@@ -289,23 +279,22 @@
 								<div class="visit-time-container">
 									<img :src="'../assets/img/coverage/Submit-E-Claim---Visit-Time.png'">
 								</div>
-								<input @click="clickedTimeOption()" type="text">
-								<div @click="clickedDaytimeOption()" class="am-pm-container">
-									<span>AM</span>
+								<input v-on:click="toggleVisitTimeDrop()" type="text" v-model="outNetwork_data.visit_time">
+								<div v-on:click="toggleDayTimeDrop()" class="am-pm-container">
+									<span>{{ outNetwork_data.daytime }}</span>
 									<i class="fa fa-caret-down"></i>
 								</div>
 
-								<div v-if="showTimeOption" class="time-opt-wrapper">
+								<div v-if="isOutVisitTimeDropShow" class="time-opt-wrapper" v-click-outside="hideAllDrop">
 									<div class="time-wrapper">
 										<div class="hour">
-											<div class="hour-up-arrow">
+											<div class="hour-up-now" v-on:click="timeHour(true)">
 												<i class="fa fa-chevron-up"></i>
 											</div>
 											<div class="hour-value">
-												<span>0</span>
-												<span>5</span>
+												<span>{{ timePickerValues.hour < 10 ? '0' : null }}{{ timePickerValues.hour }}</span>
 											</div>
-											<div class="hour-down-arrow">
+											<div class="hour-up-now" v-on:click="timeHour(false)">
 												<i class="fa fa-chevron-down"></i>
 											</div>
 										</div>
@@ -313,51 +302,51 @@
 											<span>:</span>
 										</div>
 										<div class="minute">
-											<div class="hour-up-arrow">
-												<i class="fa fa-chevron-up"></i>
-											</div>
-											<div class="hour-value">
-												<span>0</span>
-												<span>5</span>
-											</div>
-											<div class="hour-down-arrow">
-												<i class="fa fa-chevron-down"></i>
+											<div class="hour">
+												<div class="hour-up-now" v-on:click="timeMinute(true)">
+													<i class="fa fa-chevron-up"></i>
+												</div>
+												<div class="hour-value">
+													<span>{{ timePickerValues.minute < 10 ? '0' : null }}{{ timePickerValues.minute }}</span>
+												</div>
+												<div class="hour-up-now" v-on:click="timeMinute(false)">
+													<i class="fa fa-chevron-down"></i>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 
-								<ul v-if="showDaytimeOption" class="daytime-opt">
-									<li>
-										<a>AM</a>
-									</li>
-									<li>
-										<a>PM</a>
-									</li>
+								<ul v-if="isOutDayTimeDropShow" class="daytime-opt" v-click-outside="hideAllDrop">
+									<li v-on:click="selectDayTime('AM')"><a>AM</a></li>
+									<li v-on:click="selectDayTime('PM')"><a>PM</a></li>
 								</ul>
 							</div>
 						</div>
 						<div class="input-group">
 							<label>Claim Amount <span class="required">*</span></label>
 							<div class="input-wrapper currency-input-wrapper">
-								<input type="text">
-								<div class="currency-container">
-									<span>S$</span>
+								<input type="text" placeholder="Price">
+								<div v-on:click="toggleCurrencyDrop()" class="currency-container">
+									<span class="txt-transform-uppercase">{{ outNetwork_data.currency }}</span>
+									<i class="fa fa-caret-down"></i>
 								</div>
+
+								<ul v-if="isOutCurrencyDropShow" class="currency-opt" v-click-outside="hideAllDrop">
+									<li v-on:click="selectCurrency('sgd')"><a>SGD</a></li>
+									<li v-on:click="selectCurrency('myr')"><a>MYR</a></li>
+								</ul>
 							</div>
 						</div>
 						<div class="input-group">
 							<label>Member <span class="required">*</span></label>
-							<div class="input-wrapper">
-								<input @click="memberListOption()" type="text">
+							<div class="input-wrapper member-input-wrapper">
+								<input v-on:click="toggleMemberDrop()" type="text" v-model="outNetwork_data.member" readonly>
 								<i class="fa fa-caret-down"></i>
 
-								<ul v-if="showMemberListOption" class="dropdown-menu">
-									<li>
-										<a>Kynn Rodriguez</a>
-									</li>
-									<li>
-										<a>Mike Vega</a>
+								<ul v-if="isOutMemberDropShow" class="dropdown-menu">
+									<li v-for="list in memberList" v-on:click="selectMember(list)">
+										<a>{{ list.name }}</a>
 									</li>
 								</ul>
 							</div>
@@ -408,7 +397,7 @@
 									<label>Spending type*</label>
 								</div>
 								<div class="label-item">
-									<span>medical</span>
+									<span>{{ outNetwork_data.spending_type }}</span>
 								</div>
 							</div>
 							<div class="summary-list-row">
@@ -416,7 +405,7 @@
 									<label>Item/Service*</label>
 								</div>
 								<div class="label-item">
-									<span>medical</span>
+									<span>{{ outNetwork_data.claim_type }}</span>
 								</div>
 							</div>
 							<div class="summary-list-row">
@@ -424,7 +413,7 @@
 									<label>Merchant*</label>
 								</div>
 								<div class="label-item">
-									<span>medical</span>
+									<span>{{ outNetwork_data.provider }}</span>
 								</div>
 							</div>
 							<div class="summary-list-row">
@@ -432,7 +421,7 @@
 									<label>Visit Date*</label>
 								</div>
 								<div class="label-item">
-									<span>October 14,2019</span>
+									<span>{{ formatDate( outNetwork_data.visit_date, null, 'MMMM DD, YYYY' ) }}</span>
 								</div>
 							</div>
 							<div class="summary-list-row">
@@ -440,7 +429,7 @@
 									<label>Visit Time*</label>
 								</div>
 								<div class="label-item">
-									<span>11 : 14 AM</span>
+									<span>{{ outNetwork_data.visit_time }} {{ outNetwork_data.daytime }}</span>
 								</div>
 							</div>
 							<div class="summary-list-row">
@@ -448,7 +437,7 @@
 									<label>Claim Amount*</label>
 								</div>
 								<div class="label-item">
-									<span>S$ </span>
+									<span><span>{{ outNetwork_data.currency }}</span> {{ outNetwork_data.claim_amount }}</span>
 								</div>
 							</div>
 							<div class="summary-list-row">
@@ -456,7 +445,7 @@
 									<label>Member*</label>
 								</div>
 								<div class="label-item">
-									<span>medical</span>
+									<span>{{ outNetwork_data.member }}</span>
 								</div>
 							</div>
 							<div class="summary-list-row">
@@ -474,9 +463,9 @@
 
 				</div>
 				<div class="next-btn-footer">
-					<button v-if="step_active == 2 || step_active == 3" @click="empDetailsOutNetworkNextBackBtn('back')" class="btn-submit btn-back">BACK</button>
-					<button v-if="step_active == 1 || step_active == 2" @click="empDetailsOutNetworkNextBackBtn('next')" class="btn-submit">Next</button>
-					<button v-if="step_active == 3" @click="empDetailsOutNetworkNextBackBtn()" class="btn-submit">SUBMIT</button>
+					<button v-if="step_active == 2 || step_active == 3" v-on:click="empDetailsOutNetworkNextBackBtn('back')" class="btn-submit btn-back">BACK</button>
+					<button v-if="step_active == 1 || step_active == 2" v-on:click="empDetailsOutNetworkNextBackBtn('next')" class="btn-submit">Next</button>
+					<button v-if="step_active == 3" v-on:click="empDetailsOutNetworkNextBackBtn()" class="btn-submit">SUBMIT</button>
 				</div>
 			</div>
 		</div>		

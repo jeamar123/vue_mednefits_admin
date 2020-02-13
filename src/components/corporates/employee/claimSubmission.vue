@@ -16,9 +16,9 @@ import moment, { locale } from "moment";
         step_active: 1,
         showInNetwork: false,
         showOutNetwork: false,
+        
         showDaytimeOption: false,
         showTimeOption: false,
-        showClaimTypeListOption: false,
         showMemberListOption: false,
 
         isInMemberDropShow: false,
@@ -28,6 +28,13 @@ import moment, { locale } from "moment";
         isInDayTimeDropShow: false,
         isInPaymentTypeDropShow: false,
         inNetworkClaimSummaryModal: false,
+
+        isOutClaimDropShow: false,
+        isOutVisitTimeDropShow: false,
+        isOutDayTimeDropShow: false,
+        isOutPaymentTypeDropShow: false,
+        isOutCurrencyDropShow: false,
+        isOutMemberDropShow: false,
 
         employee_info: {},
         starDateDetails: {
@@ -49,6 +56,21 @@ import moment, { locale } from "moment";
           payment_type: '',
           amount: '',
           send_receipt: false,
+        },
+        outNetwork_data: {
+          spending_type: 'medical',
+          claim_type: '',
+          claim_type_data: {},
+          provider: '',
+          visit_date: new Date(),
+          visit_time: moment().format('hh : mm'),
+          daytime: moment().format('A'),
+          amount: '',
+          claim_amount: '',
+          currency: 'sgd',
+          member: '',
+          member_data: {},
+          receipts: [],
         },
         timePickerValues: {
           hour: Number( moment().format('h') ),
@@ -100,15 +122,11 @@ import moment, { locale } from "moment";
       editInNetworkOpt() {
         this.showOutNetwork = true;
       },
-      claimTypeListOption() {
-        this.showClaimTypeListOption = this.showClaimTypeListOption == false ? true : false;
-      },
+      
       memberListOption() {
         this.showMemberListOption = this.showMemberListOption == false ? true : false;
       },
-      setSpendingType(opt) {
-        this.spendingTypeOpt = opt;
-      },
+      
       
       clickedTimeOption() {
         this.showTimeOption = this.showTimeOption == false ? true : false;
@@ -137,8 +155,44 @@ import moment, { locale } from "moment";
 
 
       // TimePicker
+        toggleVisitTimeDrop( ) {
+          this.isInDayTimeDropShow = false;
+          this.isOutDayTimeDropShow = false;
+          if( this.showInNetwork ){
+            this.isInVisitTimeDropShow = this.isInVisitTimeDropShow == false ? true : false;
+          }
+          if( this.showOutNetwork ){
+            this.isOutVisitTimeDropShow = this.isOutVisitTimeDropShow == false ? true : false;
+          }
+        },
+        toggleDayTimeDrop( ) {
+          this.isInVisitTimeDropShow = false;
+          this.isOutVisitTimeDropShow = false;
+          if( this.showInNetwork ){
+            this.isInDayTimeDropShow = this.isInDayTimeDropShow == false ? true : false;
+          }
+          if( this.showOutNetwork ){
+            this.isOutDayTimeDropShow = this.isOutDayTimeDropShow == false ? true : false;
+          }
+        },
+        selectDayTime( opt ){
+          this.isInDayTimeDropShow = false;
+          this.isOutDayTimeDropShow = false;
+          if( this.showInNetwork ){
+            this.inNetwork_data.daytime = opt;
+          }
+          if( this.showOutNetwork ){
+            this.outNetwork_data.daytime = opt;
+          }
+        },
         setVisitTime(){
-          this.inNetwork_data.visit_time = (this.timePickerValues.hour < 10 ? 0 : '') + '' + this.timePickerValues.hour + ' : ' + (this.timePickerValues.minute < 10 ? 0 : '') + '' + this.timePickerValues.minute;
+          var time = (this.timePickerValues.hour < 10 ? 0 : '') + '' + this.timePickerValues.hour + ' : ' + (this.timePickerValues.minute < 10 ? 0 : '') + '' + this.timePickerValues.minute;
+          if( this.showInNetwork ){
+            this.inNetwork_data.visit_time = time;
+          }
+          if( this.showOutNetwork ){
+            this.outNetwork_data.visit_time = time;
+          }
         },
         timeHour( opt ){
           if( opt == true ){
@@ -159,18 +213,30 @@ import moment, { locale } from "moment";
           this.setVisitTime();
         },
 
-
-
-      // IN NETWORK FUNCTIONS
-        toggleMemberDrop(){
+      toggleMemberDrop(){
+        if( this.showInNetwork ){
           this.isInMemberDropShow = this.isInMemberDropShow == true ? false : true;
-        },
-        selectMember( data ){
-          console.log( data );
-          this.isInMemberDropShow = false;
+        }
+        if( this.showOutNetwork ){
+          this.isOutMemberDropShow = this.isOutMemberDropShow == true ? false : true;
+        }
+      },
+      selectMember( data ){
+        console.log( data );
+        this.isInMemberDropShow = false;
+        this.isOutMemberDropShow = false;
+        if( this.showInNetwork ){
           this.inNetwork_data.member = data.name;
           this.inNetwork_data.member_data = data;
-        },
+        }
+        if( this.showOutNetwork ){
+          this.outNetwork_data.member = data.name;
+          this.outNetwork_data.member_data = data;
+        }
+      },
+
+      // IN NETWORK FUNCTIONS
+        
         partnerInputChanged( data ){
           // console.log( data );
           if( data.length > 2 ){
@@ -222,18 +288,6 @@ import moment, { locale } from "moment";
             this.inNetwork_data.service_text += value;
           });
         },
-        toggleVisitTimeDrop() {
-          this.isInDayTimeDropShow = false;
-          this.isInVisitTimeDropShow = this.isInVisitTimeDropShow == false ? true : false;
-        },
-        toggleDayTimeDrop() {
-          this.isInVisitTimeDropShow = false;
-          this.isInDayTimeDropShow = this.isInDayTimeDropShow == false ? true : false;
-        },
-        selectDayTime( opt ){
-          this.isInDayTimeDropShow = false;
-          this.inNetwork_data.daytime = opt;
-        },
         togglePaymentTypeDrop(){
           this.isInPaymentTypeDropShow = this.isInPaymentTypeDropShow == false ? true : false;
         },
@@ -241,32 +295,63 @@ import moment, { locale } from "moment";
           this.isInPaymentTypeDropShow = false;
           this.inNetwork_data.payment_type = opt;
         },
-        hideAllDrop( e ){
-          if ($(e.target).parents(".member-input-wrapper").length === 0) {
-            this.isInMemberDropShow = false;
-          }
-          if ($(e.target).parents(".partner-input-wrapper").length === 0) {
-            this.isInPartnerDropShow = false;
-          }
-          if ($(e.target).parents(".service-input-wrapper").length === 0) {
-            this.isInServiceDropShow = false;
-          }
-          if ($(e.target).parents(".visit-time-input-wrapper").length === 0) {
-            this.isInVisitTimeDropShow = false;
-            this.isInDayTimeDropShow = false;
-          }
-          if ($(e.target).parents(".payment-type-input-wrapper").length === 0) {
-            this.isInPaymentTypeDropShow = false;
-          }
-          this.$forceUpdate();
-        },
         toggleSummaryModal(){
           console.log( this.inNetwork_data );
           this.inNetworkClaimSummaryModal = this.inNetworkClaimSummaryModal == true ? false : true;
         },
         
-        
-        
+      // OUT NETWORK FUNCTIONS
+        selectSpendingType(opt) {
+          this.outNetwork_data.spending_type = opt;
+        },
+        toggleClaimTypeDrop() {
+          this.isOutClaimDropShow = this.isOutClaimDropShow == false ? true : false;
+        },
+        selectClaimType( data ){
+          this.isOutClaimDropShow = false;
+          this.outNetwork_data.claim_type = data;
+          this.outNetwork_data.claim_type_data = data;
+        },
+        toggleCurrencyDrop() {
+          this.isOutCurrencyDropShow = this.isOutCurrencyDropShow == false ? true : false;
+        },
+        selectCurrency( data ){
+          this.isOutCurrencyDropShow = false;
+          this.outNetwork_data.currency = data;
+        },
+      
+      
+      
+      hideAllDrop( e ){
+        if ($(e.target).parents(".member-input-wrapper").length === 0) {
+          this.isInMemberDropShow = false;
+          this.isOutMemberDropShow = false;
+        }
+        if ($(e.target).parents(".partner-input-wrapper").length === 0) {
+          this.isInPartnerDropShow = false;
+        }
+        if ($(e.target).parents(".service-input-wrapper").length === 0) {
+          this.isInServiceDropShow = false;
+        }
+        if ($(e.target).parents(".visit-time-input-wrapper").length === 0) {
+          this.isInVisitTimeDropShow = false;
+          this.isInDayTimeDropShow = false;
+        }
+        if ($(e.target).parents(".payment-type-input-wrapper").length === 0) {
+          this.isInPaymentTypeDropShow = false;
+        }
+        if ($(e.target).parents(".claim-type-input-wrapper").length === 0) {
+          this.isOutClaimDropShow = false;
+        }
+        if ($(e.target).parents(".time-input-wrapper").length === 0) {
+          this.isOutVisitTimeDropShow = false;
+          this.isOutDayTimeDropShow = false;
+        }
+        if ($(e.target).parents(".currency-input-wrapper").length === 0) {
+          this.isOutCurrencyDropShow = false;
+        }
+        this.$forceUpdate();
+      },
       resetValues(){
         this.inNetwork_data = {
           member: '',
