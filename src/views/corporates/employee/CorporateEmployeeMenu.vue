@@ -90,7 +90,7 @@
 					<transition name="fade"> 
 						<div v-if="employee_side_info.spending_account.medical.usage">
 							<div class="flex">
-								<div class="label-text font-normal text-sm">
+								<div class="label-text font-normal text-sm flex-none">
 									<label>Spent</label>
 								</div>
 								<div class="status-div text-sm">
@@ -98,7 +98,7 @@
 								</div>
 							</div>
 							<div class="flex">
-								<div class="label-text font-normal text-sm">
+								<div class="label-text font-normal text-sm flex-none">
 									<label>Pending claim</label>
 								</div>
 								<div class="status-div text-sm">
@@ -146,7 +146,7 @@
 					<transition name="fade"> 
 						<div v-if="employee_side_info.spending_account.wellness.usage">
 							<div class="flex">
-								<div class="label-text font-normal text-sm">
+								<div class="label-text font-normal text-sm flex-none">
 									<label>Spent</label>
 								</div>
 								<div class="status-div text-sm">
@@ -154,8 +154,8 @@
 								</div>
 							</div>
 							<div class="flex">
-								<div class="label-text font-normal text-sm">
-									<label>Pending claim</label>
+								<div class="label-text font-normal text-sm flex-none">
+									<label class="">Pending claim</label>
 								</div>
 								<div class="status-div text-sm">
 									<p><span class="uppercase">{{employee_side_info.spending_account.wellness.e_claim_amount_pending_wellness | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
