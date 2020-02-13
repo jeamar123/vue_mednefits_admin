@@ -69,7 +69,7 @@
 								<h5>New Allocation</h5>
 								<div class="entitlement-calculation">
 									<h4>
-										<span>{{employee_info.currency_type}} </span>
+										<span class="currency-type">{{employee_info.currency_type}} </span>
 										<span v-if="!effectiveMedDateError">{{new_allocation_med}}</span>
 										<span v-if="effectiveMedDateError">{{ 0 | number('0.00') }}</span>
 									</h4>
@@ -83,9 +83,9 @@
 									<i class="fa fa-chevron-down"></i> See how this is calculated
 								</div>
 								<p v-if="dropdownEntitlement.med_alloc_formula">New Prorated allocation is: <br>
-									<span>{{employee_info.currency_type}} </span> <span>{{get_calc_medical.medical_entitlement}}</span> x <span>{{plan_month_duration}}</span>/<span>{{medical_plan_duration}}</span> 
-									+ <span>{{employee_info.currency_type}} </span><span>{{emp_entitlement.medical_new_entitlement}}</span> x <span>{{entitlement_duration}}</span>/<span>{{medical_plan_duration}}</span> 
-									= <span>{{employee_info.currency_type}} </span> <span>{{new_allocation_med}}</span>
+									<span class="currency-type">{{employee_info.currency_type}} </span> <span>{{get_calc_medical.medical_entitlement}}</span> x <span>{{med_plan_month_duration}}</span>/<span>{{medical_plan_duration}}</span> 
+									+ <span class="currency-type">{{employee_info.currency_type}} </span><span>{{emp_entitlement.medical_new_entitlement}}</span> x <span>{{med_entitlement_duration}}</span>/<span>{{medical_plan_duration}}</span> 
+									= <span class="currency-type">{{employee_info.currency_type}} </span> <span>{{new_allocation_med}}</span>
 								</p>
 							</div>
 						</div>
@@ -157,7 +157,7 @@
 								<h5>New Allocation</h5>
 								<div class="entitlement-calculation">
 									<h4>
-										<span>{{employee_info.currency_type}} </span>
+										<span class="currency-type">{{employee_info.currency_type}} </span>
 										<span v-if="!effectiveWellDateError">{{new_allocation_well}}</span>
 										<span v-if="effectiveWellDateError">{{ 0 | number('0.00') }}</span>
 									</h4>
@@ -171,9 +171,9 @@
 									<i class="fa fa-chevron-down"></i> See how this is calculated
 								</div>
 								<p v-if="dropdownEntitlement.well_alloc_formula">New Prorated allocation is: <br>
-									<span>{{employee_info.currency_type}} </span> <span>{{get_calc_wellness.wellness_entitlement}}</span> x <span>{{plan_month_duration}}</span>/<span>{{wellness_plan_duration}}</span> 
-									+ <span>{{employee_info.currency_type}} </span><span>{{emp_entitlement.wellness_new_entitlement}}</span> x <span>{{entitlement_duration}}</span>/<span>{{wellness_plan_duration}}</span> 
-									= <span>{{employee_info.currency_type}} </span> <span>{{ new_allocation_well }}</span>
+									<span class="currency-type">{{employee_info.currency_type}} </span> <span>{{get_calc_wellness.wellness_entitlement}}</span> x <span>{{well_plan_month_duration}}</span>/<span>{{wellness_plan_duration}}</span> 
+									+ <span class="currency-type">{{employee_info.currency_type}} </span><span>{{emp_entitlement.wellness_new_entitlement}}</span> x <span>{{well_entitlement_duration}}</span>/<span>{{wellness_plan_duration}}</span> 
+									= <span class="currency-type">{{employee_info.currency_type}} </span> <span>{{ new_allocation_well }}</span>
 								</p>
 							</div>
 						</div>

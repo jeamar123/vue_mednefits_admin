@@ -184,15 +184,15 @@
 
             if( new Date(this.med_effective_date) < new Date(this.get_calc_medical.medical_usage_date) ){
               // console.log('true siya');
-              this.plan_month_duration = moment(new Date(this.get_calc_medical.medical_usage_date)).diff(new Date(this.med_effective_date), 'months', false) + 1;
+              this.med_plan_month_duration = moment(new Date(this.get_calc_medical.medical_usage_date)).diff(new Date(this.med_effective_date), 'months', false) + 1;
               // console.log('plan month duration Months',this.plan_month_duration);
             } else {
               // console.log('false siya');
-              this.plan_month_duration = moment(new Date(this.med_effective_date)).diff(new Date(this.get_calc_medical.medical_usage_date), 'months', false) + 1;
+              this.med_plan_month_duration = moment(new Date(this.med_effective_date)).diff(new Date(this.get_calc_medical.medical_usage_date), 'months', false) + 1;
               // console.log('plan month duration Months',this.plan_month_duration);
             }
 
-            this.entitlement_duration = moment(new Date(this.get_calc_medical.medical_spending_validate_end_date)).diff(new Date(this.med_effective_date), 'months', false) + 1;
+            this.med_entitlement_duration = moment(new Date(this.get_calc_medical.medical_spending_validate_end_date)).diff(new Date(this.med_effective_date), 'months', false) + 1;
             // console.log('entitlement duration Months',this.entitlement_duration);
           }
           if ( this.emp_entitlement.medical_proration == 'days' ) {
@@ -202,21 +202,21 @@
 
             if( new Date(this.med_effective_date) < new Date(this.get_calc_medical.medical_usage_date) ){
               console.log('true siya');
-              this.plan_month_duration = moment(new Date(this.get_calc_medical.medical_usage_date)).diff(new Date(this.med_effective_date), 'days', false) + 1;
+              this.med_plan_month_duration = moment(new Date(this.get_calc_medical.medical_usage_date)).diff(new Date(this.med_effective_date), 'days', false) + 1;
               // console.log('plan month duration Days',this.plan_month_duration);
             } else {
               console.log('false siya');
-              this.plan_month_duration = moment(new Date(this.med_effective_date)).diff(new Date(this.get_calc_medical.medical_usage_date), 'days', false) + 1;
+              this.med_plan_month_duration = moment(new Date(this.med_effective_date)).diff(new Date(this.get_calc_medical.medical_usage_date), 'days', false) + 1;
               // console.log('plan month duration Days',this.plan_month_duration);
             }  
 
-            this.entitlement_duration = moment(new Date(this.get_calc_medical.medical_spending_validate_end_date)).diff(new Date(this.med_effective_date), 'days', false) + 1;
+            this.med_entitlement_duration = moment(new Date(this.get_calc_medical.medical_spending_validate_end_date)).diff(new Date(this.med_effective_date), 'days', false) + 1;
             // console.log('entitlement duration Days',this.entitlement_duration);
           }
 
           //calcuation in medical
-          this.new_allocation_med = this.get_calc_medical.medical_entitlement * this.plan_month_duration / this.medical_plan_duration 
-          + this.emp_entitlement.medical_new_entitlement * this.entitlement_duration / this.medical_plan_duration;
+          this.new_allocation_med = this.get_calc_medical.medical_entitlement * this.med_plan_month_duration / this.medical_plan_duration 
+          + this.emp_entitlement.medical_new_entitlement * this.med_entitlement_duration / this.medical_plan_duration;
           // console.log(this.sample);
           this.new_allocation_med = parseFloat(this.new_allocation_med).toFixed(2);
         }
@@ -234,15 +234,15 @@
 
             if( new Date(this.well_effective_date) < new Date(this.get_calc_wellness.wellness_usage_date) ){
               // console.log('true siya');
-              this.plan_month_duration = moment(new Date(this.get_calc_wellness.wellness_usage_date)).diff(new Date(this.well_effective_date), 'months', false) + 1;
+              this.well_plan_month_duration = moment(new Date(this.get_calc_wellness.wellness_usage_date)).diff(new Date(this.well_effective_date), 'months', false) + 1;
               console.log('plan month duration Months',this.plan_month_duration);
             } else {
               // console.log('false siya');
-              this.plan_month_duration = moment(new Date(this.well_effective_date)).diff(new Date(this.get_calc_wellness.wellness_usage_date), 'months', false) + 1;
+              this.well_plan_month_duration = moment(new Date(this.well_effective_date)).diff(new Date(this.get_calc_wellness.wellness_usage_date), 'months', false) + 1;
               console.log('plan month duration Months',this.plan_month_duration);
             }
 
-            this.entitlement_duration = moment(new Date(this.get_calc_wellness.wellness_spending_validate_end_date)).diff(new Date(this.well_effective_date), 'months', false) + 1;
+            this.well_entitlement_duration = moment(new Date(this.get_calc_wellness.wellness_spending_validate_end_date)).diff(new Date(this.well_effective_date), 'months', false) + 1;
             console.log('entitlement duration Months',this.entitlement_duration);
 
           }
@@ -253,21 +253,21 @@
 
             if( new Date(this.well_effective_date) < new Date(this.get_calc_wellness.wellness_usage_date) ){
               console.log('true siya');
-              this.plan_month_duration = moment(new Date(this.get_calc_wellness.wellness_usage_date)).diff(new Date(this.well_effective_date), 'days', false) + 1;
+              this.well_plan_month_duration = moment(new Date(this.get_calc_wellness.wellness_usage_date)).diff(new Date(this.well_effective_date), 'days', false) + 1;
               // console.log('plan month duration Days',this.plan_month_duration);
             } else {
               console.log('false siya');
-              this.plan_month_duration = moment(new Date(this.well_effective_date)).diff(new Date(this.get_calc_wellness.wellness_usage_date), 'days', false) + 1;
+              this.well_plan_month_duration = moment(new Date(this.well_effective_date)).diff(new Date(this.get_calc_wellness.wellness_usage_date), 'days', false) + 1;
               // console.log('plan month duration Days',this.plan_month_duration);
             }  
 
-            this.entitlement_duration = moment(new Date(this.get_calc_wellness.wellness_spending_validate_end_date)).diff(new Date(this.well_effective_date), 'days', false) + 1;
+            this.well_entitlement_duration = moment(new Date(this.get_calc_wellness.wellness_spending_validate_end_date)).diff(new Date(this.well_effective_date), 'days', false) + 1;
             // console.log('entitlement duration Days',this.entitlement_duration);
           }
 
           //calcuation in wellness
-          this.new_allocation_well = this.get_calc_wellness.wellness_entitlement * this.plan_month_duration / this.wellness_plan_duration 
-          + this.emp_entitlement.wellness_new_entitlement * this.entitlement_duration / this.wellness_plan_duration;
+          this.new_allocation_well = this.get_calc_wellness.wellness_entitlement * this.well_plan_month_duration / this.wellness_plan_duration 
+          + this.emp_entitlement.wellness_new_entitlement * this.well_entitlement_duration / this.wellness_plan_duration;
           // console.log(this.sample);
           this.new_allocation_well = parseFloat(this.new_allocation_well).toFixed(2);
         }
