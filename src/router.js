@@ -121,7 +121,7 @@ export default new Router({
               ]
             },
             { name: 'PlanRenewalSpendingRenewal', path: '/dashboard/corporates/:company_name-:customer_id/pending-renewal', components: { child : SpendingAccountRenewal}, props:true },
-            { name: 'CorporateSettings', path: '/dashboard/corporates/:company_name-:customer_id/settings', components: { child : CorporateSettings }, props:true  },
+            { name: 'CorporateSettings', path: '/dashboard/corporates/:company_name-:customer_id/settings', components: { child : CorporateSettings }, props: { child: true }  },
           ] 
         },
         { 
