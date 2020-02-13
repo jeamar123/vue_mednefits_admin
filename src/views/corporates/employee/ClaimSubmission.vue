@@ -70,137 +70,20 @@
 				<i @click="toggleShowInNetwork('cancel')" class="fa fa-times"></i>
 			</div>
 			<div class="in-network-table-container">
-				<!-- <div class="tbl-scroll-wrapper xs-hide">
-					<table>
-						<thead>
-							<tr>
-								<th>Member</th>
-								<th>Health Partner</th>
-								<th>Service</th>
-								<th>Date of Visit</th>
-								<th>Time of Visit</th>
-								<th>Payment Type</th>
-								<th>Amount</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<div class="in-network-input-wrapper">
-										<input type="text" placeholder="Member">
-									</div>
-								</td>
-								<td>
-									<div class="in-network-input-wrapper">
-										<input type="text" placeholder="Search Health Partner">
-									</div>
-								</td>
-								<td>
-									<div class="in-network-input-wrapper">
-										<input type="text" placeholder="Search Service">
-										<ul v-if="false" class="dropdown-menu search-service-dropdown">
-											<li>
-												<a>No Service</a>
-											</li>
-										</ul>
-									</div>
-								</td>
-								<td>
-									<div class="in-network-input-wrapper visit-date-input-wrapper in-network-visit">
-										<v-date-picker
-											popoverDirection="bottom"
-											v-model="starDateDetails.starDate"
-											:input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
-											popover-visibility="focus"
-										></v-date-picker>
-										<div class="visit-date-container">
-											<img :src="'../assets/img/coverage/Submit-E-Claim---Visit-Date.png'">
-										</div>
-									</div>
-								</td>
-								<td>
-									<div class="in-network-input-wrapper visit-time-input-wrapper">
-										<div class="visit-time-container">
-											<img :src="'../assets/img/coverage/Submit-E-Claim---Visit-Time.png'">
-										</div>
-										<input @click="clickedTimeVisitDropdown()" type="text">
-										<div class="am-pm-container">
-											<span>AM</span>
-											<i class="fa fa-caret-down"></i>
-										</div>
-
-										<div v-if="showTimeVisitDropdown" class="dropdown-menu">
-											<div class="time-wrapper">
-												<div class="hour">
-													<div class="hour-up-now">
-														<i class="fa fa-chevron-up"></i>
-													</div>
-													<div class="hour-value">
-														<span>01</span>
-													</div>
-													<div class="hour-up-now">
-														<i class="fa fa-chevron-down"></i>
-													</div>
-												</div>
-												<div class="middle">
-													<span>:</span>
-												</div>
-												<div class="minute">
-													<div class="hour">
-														<div class="hour-up-now">
-															<i class="fa fa-chevron-up"></i>
-														</div>
-														<div class="hour-value">
-															<span>01</span>
-														</div>
-														<div class="hour-up-now">
-															<i class="fa fa-chevron-down"></i>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</td>
-								<td>
-									<div class="in-network-input-wrapper payment-type-input-wrapper">
-										<input type="text">
-										<div class="caret-down-container">
-											<i class="fa fa-caret-down"></i>
-										</div>
-
-										<ul v-if="false" class="dropdown-menu">
-											<li>
-												<a>Credit</a>
-											</li>
-											<li>
-												<a>Cash</a>
-											</li>
-										</ul>
-									</div>
-								</td>
-								<td>
-									<div class="in-network-input-wrapper">
-										<input type="text" placeholder="Enter Amount">
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div> -->
-
 				<div class="xs-in-network-form">
 					<div class="claim-form-div">
 						<label>Member</label>
-						<div class="in-network-input-wrapper member-input-wrapper">
-							<input type="text" placeholder="Member">
+						<div class="in-network-input-wrapper member-input-wrapper" >
+							<span v-on:click="toggleMemberDrop()">
+								<input type="text" placeholder="Member" v-model="inNetwork_data.member" readonly>
 
-							<div class="caret-down-container">
-								<i class="fa fa-caret-down"></i>
-							</div>
+								<div class="caret-down-container">
+									<i class="fa fa-caret-down"></i>
+								</div>
+							</span>
 
-							<ul v-if="true" class="dropdown-menu">
-								<li v-for="list in memberList">
+							<ul v-if="isInMemberDropShow" class="dropdown-menu member-drop" v-click-outside="hideAllDrop">
+								<li v-for="list in memberList" v-on:click="selectMember(list)">
 									<a>{{ list.name }}</a>
 								</li>
 							</ul>
@@ -209,11 +92,11 @@
 
 					<div class="claim-form-div">
 						<label>Health Partner</label>
-						<div class="in-network-input-wrapper">
-							<input type="text" placeholder="Search Health Partner" v-model="inNetwork_data.health_partner">
+						<div class="in-network-input-wrapper partner-input-wrapper">
+							<input type="text" placeholder="Search Health Partner" v-model="inNetwork_data.health_partner" v-on:input="partnerInputChanged( inNetwork_data.health_partner )">
 
-							<div v-if="inNetwork_data.health_partner.length > 2" class="health-partner-drop">
-								<div v-for="list in filterBy(clinicList, inNetwork_data.health_partner)" class="health-partner-drop-row">
+							<div v-if="isInPartnerDropShow" class="health-partner-drop" v-click-outside="hideAllDrop">
+								<div v-for="list in filterBy(clinicList, inNetwork_data.health_partner)" class="health-partner-drop-row" v-on:click="selectHealthPartner( list )">
 									<img :src="list.provider_image">
 									<div class="partner-details">
 										<p>{{ list.name }}</p>
@@ -227,10 +110,14 @@
 
 					<div class="claim-form-div">
 						<label>Service</label>
-						<div class="in-network-input-wrapper">
-							<input type="text" placeholder="Search Service">
-							<ul v-if="true" class="dropdown-menu search-service-dropdown">
-								<li>
+						<div class="in-network-input-wrapper service-input-wrapper">
+							<input type="text" placeholder="Search Service" v-model="inNetwork_data.service_text" v-on:click="toggleServiceDrop()" readonly>
+							<ul v-if="isInServiceDropShow" class="dropdown-menu" v-click-outside="hideAllDrop">
+								<li v-for="(list, index) in serviceList" >
+									<a v-on:click="selectService( list, index )">{{ list.service_name }}</a>
+									<a v-show="list.selected" class="rmv-service" v-on:click="removeService( list, index )"><i class="fa fa-times"></i></a>
+								</li>
+								<li v-if="serviceList.length == 0">
 									<a>No Service</a>
 								</li>
 							</ul>
@@ -242,7 +129,7 @@
 						<div class="in-network-input-wrapper visit-date-input-wrapper in-network-visit">
 							<v-date-picker
 								popoverDirection="bottom"
-								v-model="starDateDetails.starDate"
+								v-model="inNetwork_data.visit_date"
 								:input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
 								popover-visibility="focus"
 							></v-date-picker>
@@ -258,22 +145,22 @@
 							<div class="visit-time-container">
 								<img :src="'../assets/img/coverage/Submit-E-Claim---Visit-Time.png'">
 							</div>
-							<input @click="clickedTimeVisitDropdown()" type="text">
-							<div class="am-pm-container">
-								<span>AM</span>
+							<input type="text" v-model="inNetwork_data.visit_time" v-on:click="toggleVisitTimeDrop()" >
+							<div class="am-pm-container" v-on:click="toggleDayTimeDrop()">
+								<span>{{ inNetwork_data.daytime }}</span>
 								<i class="fa fa-caret-down"></i>
 							</div>
 
-							<div v-if="showTimeVisitDropdown" class="dropdown-menu">
+							<div v-if="isInVisitTimeDropShow" class="dropdown-menu timepicker-drop" v-click-outside="hideAllDrop">
 								<div class="time-wrapper">
 									<div class="hour">
-										<div class="hour-up-now">
+										<div class="hour-up-now" v-on:click="timeHour(true)">
 											<i class="fa fa-chevron-up"></i>
 										</div>
 										<div class="hour-value">
-											<span>01</span>
+											<span>{{ timePickerValues.hour < 10 ? '0' : null }}{{ timePickerValues.hour }}</span>
 										</div>
-										<div class="hour-up-now">
+										<div class="hour-up-now" v-on:click="timeHour(false)">
 											<i class="fa fa-chevron-down"></i>
 										</div>
 									</div>
@@ -282,13 +169,13 @@
 									</div>
 									<div class="minute">
 										<div class="hour">
-											<div class="hour-up-now">
+											<div class="hour-up-now" v-on:click="timeMinute(true)">
 												<i class="fa fa-chevron-up"></i>
 											</div>
 											<div class="hour-value">
-												<span>01</span>
+												<span>{{ timePickerValues.minute < 10 ? '0' : null }}{{ timePickerValues.minute }}</span>
 											</div>
-											<div class="hour-up-now">
+											<div class="hour-up-now" v-on:click="timeMinute(false)">
 												<i class="fa fa-chevron-down"></i>
 											</div>
 										</div>
@@ -296,9 +183,9 @@
 								</div>
 							</div>
 
-							<ul v-if="true" class="dropdown-menu daytime-drop">
-								<li><a>AM</a></li>
-								<li><a>PM</a></li>
+							<ul v-if="isInDayTimeDropShow" class="dropdown-menu daytime-drop" v-click-outside="hideAllDrop">
+								<li v-on:click="selectDayTime('AM')"><a>AM</a></li>
+								<li v-on:click="selectDayTime('PM')"><a>PM</a></li>
 							</ul>
 						</div>
 					</div>
@@ -306,18 +193,16 @@
 					<div class="claim-form-div">
 						<label>Payment Type</label>
 						<div class="in-network-input-wrapper payment-type-input-wrapper">
-							<input type="text">
-							<div class="caret-down-container">
-								<i class="fa fa-caret-down"></i>
-							</div>
+							<span v-on:click="togglePaymentTypeDrop()">
+								<input type="text" v-model="inNetwork_data.payment_type" readonly>
+								<div class="caret-down-container">
+									<i class="fa fa-caret-down"></i>
+								</div>
+							</span>
 
-							<ul v-if="true" class="dropdown-menu">
-								<li>
-									<a>Credit</a>
-								</li>
-								<li>
-									<a>Cash</a>
-								</li>
+							<ul v-if="isInPaymentTypeDropShow" class="dropdown-menu" v-click-outside="hideAllDrop">
+								<li v-on:click="selectPaymentType('credit')"><a>Credit</a></li>
+								<li v-on:click="selectPaymentType('cash')"><a>Cash</a></li>
 							</ul>
 						</div>
 					</div>
@@ -325,13 +210,15 @@
 					<div class="claim-form-div">
 						<label>Amount</label>
 						<div class="in-network-input-wrapper">
-							<input type="text" placeholder="Enter Amount">
+							<input type="text" placeholder="Enter Amount" v-model="inNetwork_data.amount">
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="in-network-btn-footer">
-				<button @click="inNetworkSubmit()" class="btn-submit">Submit</button>
+				<button v-on:click="inNetworkSubmitData( inNetwork_data )" class="btn-submit" 
+					:disabled="!inNetwork_data.member || !inNetwork_data.health_partner || !inNetwork_data.service || !inNetwork_data.visit_date || !inNetwork_data.visit_time || !inNetwork_data.payment_type || inNetwork_data.amount == '' "
+				>Submit</button>
 			</div>
 		</div>
 
@@ -633,7 +520,7 @@
 	          <input type="checkbox"> Send Email Receipt
 	        </label>
 
-					<button @click="inNetworkSubmit()" class="btn-close">CANCEL</button>
+					<button v-on:click="hideSummaryModal()" class="btn-close">CANCEL</button>
 	  			<button class="btn-primary settings-btn-submit">CONFIRM</button>
 				</div>
 			</Modal>

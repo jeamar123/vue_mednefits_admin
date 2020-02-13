@@ -19,7 +19,6 @@ import router from './router';
 
 import mixins from './components/mixins';
 
-
 Vue.use(VCalendar);
 Vue.use(vClickOutside);
 Vue.use(Vue2Filters);
