@@ -137,6 +137,9 @@
 	.txt-transform-uppercase{
 		text-transform: uppercase;
 	}
+	.txt-transform-capitalize{
+		text-transform: capitalize; 
+	}
 /*-------------*/
 
 /*-------------*/

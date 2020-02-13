@@ -84,6 +84,22 @@ import Modal from "../../../views/modal/Modal.vue";
           }
         }
       },
+
+
+
+      getMemberList() {
+        // 
+
+        axios.get( axios.defaults.serverUrl + 'company/get_members_by_user_id?member_id=22')
+          .then(res => {
+            console.log( res );
+            this.hideLoading();
+          })
+          .catch(err => {
+            this.hideLoading();
+            this.errorHandler( err );
+          });
+      }
     }
   }
   
