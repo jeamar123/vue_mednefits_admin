@@ -208,7 +208,7 @@
 						<div class="pb-3 pt-4">Transfer to:</div>
 
 						<div class="transfer-to-wrapper">
-							<input class="border border-gray-400 w-full h-10 rounded-sm" type="text"
+							<input class="border border-gray-400 w-full h-10 rounded-sm px-4" type="text"
 								v-model="selected_transfer_data.company"
 								@keypress="companyTransferTyping( selected_transfer_data.company )" />
 							<div v-show="showCompanyDrop" class="company-list-drop">
