@@ -28,7 +28,7 @@ import moment, { locale } from "moment";
           startDate: undefined,
         },
         inNetwork_data: {
-
+          health_partner: '',
         },
 
         memberList : [],
@@ -37,6 +37,7 @@ import moment, { locale } from "moment";
     },
     created(){
       console.log( this.member_id );
+      console.log( this.inNetwork_data.health_partner );
       // this.getClinicList();
       this.showLoading();
       axios.all([ //butang sa array ang ipa load na api or function para in order pag tawag.
