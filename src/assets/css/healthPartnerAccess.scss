@@ -104,6 +104,10 @@
     .btn-primary {
       height: 32px;
     }
+    .btn-primary[disabled] {
+      opacity: .5;
+      cursor: not-allowed;
+    }
   }
 
   .health-checkmark {

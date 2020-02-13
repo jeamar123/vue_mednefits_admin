@@ -75,7 +75,7 @@
 				</div>
 			</router-link>
 
-			<router-link tag="div" class="menu-item" :to="{ name : 'HealthPartnerAccess' }">
+			<router-link tag="div" class="menu-item" :to="{ name : 'HealthPartnerAccess', params: { id: customer_id, type: 'company' } }">
 				<div class="img-wrapper">
 					<img :src="'../assets/img/settings-icons/key.png'">
 				</div>
