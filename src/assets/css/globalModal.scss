@@ -416,6 +416,9 @@
 
 // ------------ CLAIM SUBMISSION IN NETWORK CLAIM SUMMARY MODAL ----------- //
   .in-network-claim-container {
+    .modal-container{
+      width: 450px;
+    }
     .network-summary-row {
       display: flex;
       margin: 0 0 15px;

@@ -201,7 +201,7 @@
 							</span>
 
 							<ul v-if="isInPaymentTypeDropShow" class="dropdown-menu" v-click-outside="hideAllDrop">
-								<li v-on:click="selectPaymentType('credit')"><a>Credit</a></li>
+								<li v-on:click="selectPaymentType('credits')"><a>Credit</a></li>
 								<li v-on:click="selectPaymentType('cash')"><a>Cash</a></li>
 							</ul>
 						</div>
@@ -216,7 +216,7 @@
 				</div>
 			</div>
 			<div class="in-network-btn-footer">
-				<button v-on:click="inNetworkSubmitData( inNetwork_data )" class="btn-submit" 
+				<button v-on:click="toggleSummaryModal( )" class="btn-submit" 
 					:disabled="!inNetwork_data.member || !inNetwork_data.health_partner || !inNetwork_data.service || !inNetwork_data.visit_date || !inNetwork_data.visit_time || !inNetwork_data.payment_type || inNetwork_data.amount == '' "
 				>Submit</button>
 			</div>
@@ -492,36 +492,36 @@
 				<div slot="body">
 					<div class="network-summary-row">
 						<label>Health Partner</label>
-						<span>Malaysia Ringgit Mednefits Test Clinic</span>
+						<span>{{ inNetwork_data.health_partner }}</span>
 					</div>
 					<div class="network-summary-row">
 						<label>Services</label>
-						<span>Medicine & Treatment</span>
+						<span>{{ inNetwork_data.service_text }}</span>
 					</div>
 					<div class="network-summary-row">
 						<label>Date of Visit</label>
-						<span>28 October, 2019</span>
+						<span>{{ formatDate( inNetwork_data.visit_date, null, 'DD MMMM, YYYY' ) }}</span>
 					</div>
 					<div class="network-summary-row">
 						<label>Time of Visit</label>
-						<span>04 : 56 AM</span>
+						<span>{{ inNetwork_data.visit_time }} {{ inNetwork_data.daytime }}</span>
 					</div>
 					<div class="network-summary-row">
 						<label>Payment Type</label>
-						<span>Credit</span>
+						<span class="txt-transform-capitalize">{{ inNetwork_data.payment_type }}</span>
 					</div>
 					<div class="network-summary-row">
 						<label>Amount</label>
-						<span><span>SGD </span><span>11</span></span>
+						<span><span class="txt-transform-uppercase">{{ $parent.$data.employee_side_info.currency_type }} </span>{{ inNetwork_data.amount }}</span>
 					</div>
 				</div>
 				<div slot="footer">
 					<label>
-	          <input type="checkbox"> Send Email Receipt
+	          <input type="checkbox" v-model="inNetwork_data.send_receipt"> Send Email Receipt
 	        </label>
 
-					<button v-on:click="hideSummaryModal()" class="btn-close">CANCEL</button>
-	  			<button class="btn-primary settings-btn-submit">CONFIRM</button>
+					<button v-on:click="toggleSummaryModal()" class="btn-close">CANCEL</button>
+	  			<button class="btn-primary settings-btn-submit" v-on:click="submitInNetwork( inNetwork_data )">CONFIRM</button>
 				</div>
 			</Modal>
 
