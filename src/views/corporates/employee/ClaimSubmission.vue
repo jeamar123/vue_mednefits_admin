@@ -28,33 +28,26 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+							<tr v-for="( list, index ) in outNetworkList">
 								<td class="xs-show-tbl-cell">
 									<span>
-										<button v-on:click="editInNetworkOpt()">Edit</button>
+										<button v-on:click="editOutNetworkOpt( list )">Edit</button>
 									</span>
 								</td>
+								<td>{{ list.out_of_network_transaction_id }}</td>
+								<td>{{ list.provider }}</td>
+								
+								<td>{{ list.claim_type }}</td>
+								<td><span class="txt-transform-uppercase">{{ list.currency_type }}</span> {{ list.claim_amount }}</td>
+								<td>{{ list.spending_type }}</td>
 								<td>
-									<span>MNF003978</span>
-								</td>
-								<td>
-									<span>Lo</span>
-								</td>
-								<td>S$ 
-									<span>4.00</span>
-								</td>
-								<td>
-									<span>Genera Practice</span>
-								</td>
-								<td>
-									<span>medical</span>
-								</td>
-								<td>
-									<span>Pending</span>
+									<span v-if="list.claim_status == 0">Pending</span>
+									<span v-if="list.claim_status == 1">Approved</span>
+									<span v-if="list.claim_status == 2">Rejected</span>
 								</td>
 								<td class="xs-hide-tbl-cell">
 									<span>
-										<button v-on:click="editInNetworkOpt()">Edit</button>
+										<button v-on:click="editOutNetworkOpt( list )">Edit</button>
 									</span>
 								</td>
 							</tr>
@@ -132,6 +125,7 @@
 								v-model="inNetwork_data.visit_date"
 								:input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
 								popover-visibility="focus"
+								:formats="formats"
 							></v-date-picker>
 							<div class="visit-date-container">
 								<img :src="'../assets/img/coverage/Submit-E-Claim---Visit-Date.png'">
@@ -229,7 +223,7 @@
 			</div>
 			<div class="out-of-network-form-wrapper">
 				<div class="out-of-network-form">
-					<div v-if="step_active == 1" class="step-one">
+					<div v-if="out_step_active == 1" class="step-one">
 						<div class="input-group">
 							<label>Spending Account <span class="required">*</span></label>
 							<div class="input-wrapper spending-type-box">
@@ -245,11 +239,7 @@
 								<input v-on:click="toggleClaimTypeDrop()" type="text" v-model="outNetwork_data.claim_type" readonly>
 								<i class="fa fa-caret-down"></i>
 								<ul v-if="isOutClaimDropShow" class="dropdown-menu" v-click-outside="hideAllDrop">
-									<li v-on:click="selectClaimType('General Practice')"><a>General Practice</a></li>
-									<li v-on:click="selectClaimType('Health Screening')"><a>Health Screening</a></li>
-									<li v-on:click="selectClaimType('Traditional Chinese Medicine')"><a>Traditional Chinese Medicine</a></li>
-									<li v-on:click="selectClaimType('Medical Specialist')"><a>Medical Specialist</a></li>
-									<li v-on:click="selectClaimType('Other')"><a>Other</a></li>
+									<li v-for="list in claimTypeList" v-on:click="selectClaimType(list)"><a>{{ list.name }}</a></li>
 								</ul>
 							</div>
 						</div>
@@ -267,6 +257,7 @@
 	                  v-model="outNetwork_data.visit_date"
 	                  :input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
 	                  popover-visibility="focus"
+										:formats="formats"
 	                ></v-date-picker>
 								<div class="visit-date-container">
 									<img :src="'../assets/img/coverage/Submit-E-Claim---Visit-Date.png'">
@@ -326,7 +317,7 @@
 						<div class="input-group">
 							<label>Claim Amount <span class="required">*</span></label>
 							<div class="input-wrapper currency-input-wrapper">
-								<input type="text" placeholder="Price">
+								<input type="text" placeholder="Price" v-model="outNetwork_data.claim_amount">
 								<div v-on:click="toggleCurrencyDrop()" class="currency-container">
 									<span class="txt-transform-uppercase">{{ outNetwork_data.currency }}</span>
 									<i class="fa fa-caret-down"></i>
@@ -352,9 +343,9 @@
 							</div>
 						</div>
 					</div>
-					<div v-if="step_active == 2" class="step-two">
+					<div v-if="out_step_active == 2" class="step-two">
 						<div class="drop-box">
-							<input type="file">
+							<input ref="receiptUploader" type="file" v-on:change="uploadReceipts($event.target.files);">
 							<div class="drop-box-content">
 								<div>
 									<img :src="'../assets/img/Upload-Receipt.png'">
@@ -368,29 +359,34 @@
 
 						<div class="uploaded-list">
 							<h4>Uploaded</h4>
-							<div class="progress-wrapper">
+							<div class="progress-wrapper" v-for="(img,index) in uploading_files">
 								<div class="icon-img">
-									<img :src="'../assets/img/Receipt-doc-xls.png'">
+									<img v-if="img.type == 'image/png' || img.type == 'image/jpeg'" :src="'../assets/img/file-types/Receipt-png.png'" style="width: 30px;">
+									<img v-if="img.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'" :src="'../assets/img/file-types/Receipt-doc-xls.png'" style="width: 30px;">
+									<img v-if="img.type == 'application/pdf'" :src="'../assets/img/file-types/Receipt-pdf.png'" style="width: 30px;">
+									<img v-if="img.type != 'image/png' && img.type != 'image/jpeg' && img.type != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' && img.type != 'application/pdf'" :src="'../assets/img/file-types/Receipt-png.png'" style="width: 30px;">
 								</div>
 								<div class="progress-bar-container">
 									<div class="file-info-container">
-										<span class="file-name">Employee Enro</span>... 
-										<span class="file-size">5.243kb</span>
-										<span><i class="fa fa-times"></i></span>	
+										<span>{{ !img.name ? '' : img.name.length < 13 ? img.name : img.name.substring(0,13) + "..."}}</span>
+										<span class="file-size"><span>{{ img.size / 1000 }}</span>mb</span>
+										<span v-on:click="removeReceipt(index)"><i class="fa fa-times"></i></span>	
 									</div>
 									<div class="progress-bar"> 
-										<div class="progress"></div>
+										<div v-show="img.uploading == 20" class="progress" style="width: 20%;"></div>
+										<div v-show="img.uploading == 60" class="progress progress-error" style="width: 60%;"></div>
+										<div v-show="img.uploading == 100" class="progress" style="width: 100%;"></div>
 									</div>
 									<div class="file-status-container">
-										<span v-if="false" class="file-status">Completed.</span>
-										<span v-if="false" class="file-status">Uploading...</span>
-										<span class="file-status">Invalid file.</span>
+										<span v-if="img.uploading == 100 && !img.error" class="file-status">Completed.</span>
+										<span v-if="img.uploading < 100 && !img.error" class="file-status">Uploading...</span>
+										<span v-if="img.error == true" class="file-status">Invalid file.</span>
 									</div>
 								</div>
 							</div>
 						</div>	
 					</div>
-					<div v-if="step_active == 3" class="step-three">
+					<div v-if="out_step_active == 3" class="step-three">
 						<div class="summary-list">
 							<div class="summary-list-row">
 								<div class="summary-label">
@@ -453,8 +449,11 @@
 									<label>Receipt*</label>
 								</div>
 								<div class="label-item">
-									<span>
-										<img :src="'../assets/img/Receipt-doc-xls.png'">
+									<span v-for="img in outNetwork_data.receipts" class="img-wrapper">
+										<img v-if="img.type == 'image/png' || img.type == 'image/jpeg'" :src="img.fake" style="">
+										<img v-if="img.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'" :src="'../assets/img/file-types/Receipt-doc-xls.png'">
+										<img v-if="img.type == 'application/pdf'" :src="'../assets/img/file-types/Receipt-pdf.png'">
+										<img v-if="img.type != 'image/png' && img.type != 'image/jpeg' && img.type != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' && img.type != 'application/pdf'" :src="'../assets/img/file-types/Receipt-png.png'">
 									</span>
 								</div>
 							</div>
@@ -463,9 +462,9 @@
 
 				</div>
 				<div class="next-btn-footer">
-					<button v-if="step_active == 2 || step_active == 3" v-on:click="empDetailsOutNetworkNextBackBtn('back')" class="btn-submit btn-back">BACK</button>
-					<button v-if="step_active == 1 || step_active == 2" v-on:click="empDetailsOutNetworkNextBackBtn('next')" class="btn-submit">Next</button>
-					<button v-if="step_active == 3" v-on:click="empDetailsOutNetworkNextBackBtn()" class="btn-submit">SUBMIT</button>
+					<button v-if="out_step_active > 1" v-on:click="outStepButton('back')" class="btn-submit btn-back">BACK</button>
+					<button v-if="out_step_active < 3" v-on:click="outStepButton('next')" class="btn-submit">Next</button>
+					<button v-if="out_step_active == 3" v-on:click="submitOutnNetwork( outNetwork_data )" class="btn-submit">SUBMIT</button>
 				</div>
 			</div>
 		</div>		

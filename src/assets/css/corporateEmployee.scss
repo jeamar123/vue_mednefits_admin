@@ -1237,6 +1237,10 @@
       height: 100%;
       background-color: #1d9dd3;
       width: 10%;
+
+      &.progress-error{
+        background-color: red;
+      }
     }
   }
 
@@ -1257,7 +1261,10 @@
 
   .label-item {
     color: #52b4de;
-
+    span.img-wrapper{
+      display: inline-block;
+      margin-right: 10px;
+    }
     img {
       border: 1px solid #ccc;
       width: 55px;
@@ -1279,9 +1286,11 @@
 
   tr th,
   tr td {
-    &:first-child {
-      padding: 20px 15px 10px 15px;
-    }
+    padding: 10px 15px;
+
+    // &:first-child {
+    //   // padding: 10px 15px;
+    // }
   }
 
   button {
