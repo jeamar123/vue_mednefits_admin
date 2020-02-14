@@ -186,7 +186,7 @@
             }
 
             this.med_entitlement_duration = moment(new Date(this.get_calc_medical.medical_spending_validate_end_date)).diff(new Date(this.med_effective_date), 'months', false) + 1;
-            // console.log('entitlement duration Months',this.med_entitlement_duration);
+            console.log('entitlement duration Months',this.med_entitlement_duration);
           }
           if ( this.emp_entitlement.medical_proration == 'days' ) {
             console.log('days');
