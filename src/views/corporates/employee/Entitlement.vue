@@ -16,9 +16,9 @@
 	                <label class="entitlement-label currency-type">{{employee_info.currency_type}} </label>
 	                <input v-model="get_calc_medical.medical_entitlement" class="entitlement-input original-input" type="number" readonly="readonly" placeholder="0.00" >
 	              </div>
-	              <p v-if="emp_entitlement.updated_medical_entitlement" class="small">*Updated from 
-	              	<span>{{employee_info.currency_type}} </span><span>{{get_calc_medical.medical_entitlement}}</span> to <span>{{employee_info.currency_type}} </span>
-	              	<span>{{emp_entitlement.medical_new_entitlement}}</span> on <span>{{ emp_entitlement.medical_entitlement_date }}</span>
+	              <p v-if="get_calc_medical.entitlement_status" class="small">*Updated from 
+	              	<span class="currency-type">{{employee_info.currency_type}} </span><span>{{old_credits_medical}}</span> to <span class="currency-type">{{employee_info.currency_type}} </span>
+	              	<span>{{new_credits_medical}}</span> on <span>{{ effective_date_medical }}</span>
 	              </p>
 	            </div>
 						</div>
@@ -29,7 +29,7 @@
 	                <label class="entitlement-label currency-type">{{employee_info.currency_type}} </label>
 	                <input v-model="emp_entitlement.medical_new_entitlement" class="entitlement-input" type="number" placeholder="0.00" >
 	              </div>
-	              <p v-if="emp_entitlement.updated_medical_entitlement" class="small">*Updated on <span>{{ emp_entitlement.medical_entitlement_date }}</span></p>
+	              <p v-if="get_calc_medical.entitlement_status" class="small">*Updated on <span>{{ effective_date_medical }}</span></p>
 	            </div>
 						</div>
 						<div class="col-md-3">
@@ -48,7 +48,7 @@
 				            <i class="fa fa-calendar-o"></i>
 			            </div>
 	              </div>
-	              <p v-if="emp_entitlement.updated_medical_entitlement" class="small">*Updated on <span>{{ emp_entitlement.medical_entitlement_date }}</span></p>
+	              <p v-if="get_calc_medical.entitlement_status" class="small">*Updated on <span>{{ effective_date_medical }}</span></p>
 	            </div>
 						</div>
 						<div class="col-md-2">
@@ -101,13 +101,13 @@
 							<div class="entitlement-input-container original">
 		            <h5>Original Entitlement</h5>
 		            <div class="entitlement-input-label">
-		              <label class="entitlement-label currency-type">{{employee_info.currency_type}}</label>
+		              <label class="entitlement-label currency-type">{{get_calc_medical.currency_type}}</label>
 		              <input v-model="get_calc_wellness.wellness_entitlement" class="entitlement-input original-input" type="number" readonly="readonly" placeholder="0.00" >
 		            </div>
-		            <p v-if="emp_entitlement.updated_wellness_entitlement" class="small">*Updated from <span>{{employee_info.currency_type}} </span>
-		            	<span>{{emp_entitlement.old_wellness_entitlement}}</span> to 
-		            	<span>{{employee_info.currency_type}} </span><span>{{emp_entitlement.original_wellness_entitlement}}</span> on 
-		            	<span>{{ emp_entitlement.wellness_entitlement_date }}</span></p>
+		            <p v-if="get_calc_wellness.entitlement_status" class="small">*Updated from <span class="currency-type">{{get_calc_medical.currency_type}} </span>
+		            	<span>{{old_credits_wellness}}</span> to 
+		            	<span class="currency-type">{{get_calc_medical.currency_type}} </span><span>{{new_credits_medical}}</span> on 
+		            	<span>{{ effective_date_wellness }}</span></p>
 		          </div>
 						</div>
 						<div class="col-md-2">
@@ -117,7 +117,7 @@
 		              <label class="entitlement-label currency-type">{{employee_info.currency_type}} </label>
 		              <input v-model="emp_entitlement.wellness_new_entitlement" class="entitlement-input" type="number" placeholder="0.00" >
 		            </div>
-		            <p v-if="emp_entitlement.updated_wellness_entitlement" class="small">*Updated on <span>{{ emp_entitlement.wellness_entitlement_date }}</span></p>
+		            <p v-if="get_calc_wellness.entitlement_status" class="small">*Updated on <span>{{ effective_date_wellness }}</span></p>
 		          </div>
 						</div>
 						<div class="col-md-3">
@@ -136,7 +136,7 @@
 				            <i class="fa fa-calendar-o"></i>
 			            </div>
 		            </div>
-		            <p v-if="emp_entitlement.updated_wellness_entitlement" class="small">*Updated on <span>{{ emp_entitlement.wellness_entitlement_date }}</span></p>
+		            <p v-if="get_calc_wellness.entitlement_status" class="small">*Updated on <span>{{ effective_date_wellness }}</span></p>
 		          </div>
 						</div>
 						<div class="col-md-2">
