@@ -58,6 +58,7 @@ import moment, { locale } from "moment";
           send_receipt: false,
         },
         outNetwork_data: {
+          isUpdate: false,
           spending_type: 'medical',
           claim_type: '',
           claim_type_data: {},
@@ -65,7 +66,6 @@ import moment, { locale } from "moment";
           visit_date: new Date(),
           visit_time: moment().format('hh : mm'),
           daytime: moment().format('A'),
-          amount: '',
           claim_amount: '',
           currency: 'sgd',
           member: '',
@@ -73,6 +73,9 @@ import moment, { locale } from "moment";
           receipts: [],
           receipts_fake: [],
           uploading: false,
+          claim_status: 0,
+          status_date: null,
+          status_reason: null,
         },
         timePickerValues: {
           hour: Number( moment().format('h') ),
@@ -134,20 +137,23 @@ import moment, { locale } from "moment";
         }
       },
       editOutNetworkOpt( data ) {
+        var member = _.find( this.memberList, { 'member_id' : data.member_id } );
         this.outNetwork_data = {
+          isUpdate: true,
+          out_of_network_transaction_id: data.out_of_network_transaction_id,
           spending_type: data.spending_type,
           claim_type: data.claim_type,
-          claim_type_data: {},
           provider: data.provider,
           visit_date: new Date( data.visit_date ),
           visit_time: moment( data.visit_time, 'hh:mm A' ).format('hh : mm'),
           daytime: moment( data.visit_time, 'hh:mm A' ).format('A'),
-          amount: '',
           claim_amount: data.claim_amount,
           currency: data.currency_type,
-          member: data.member_id,
-          member_data: {},
-          receipts: [],
+          member: member.name,
+          member_data: member,
+          claim_status: data.claim_status,
+          status_date: data.status_date,
+          status_reason: data.status_reason,
         };
         this.timePickerValues = {
           hour: Number( moment( data.visit_time, 'hh:mm A' ).format('h') ),
@@ -492,6 +498,7 @@ import moment, { locale } from "moment";
           send_receipt: false,
         };
         this.outNetwork_data = {
+          isUpdate: false,
           spending_type: 'medical',
           claim_type: '',
           claim_type_data: {},
@@ -499,7 +506,6 @@ import moment, { locale } from "moment";
           visit_date: new Date(),
           visit_time: moment().format('hh : mm'),
           daytime: moment().format('A'),
-          amount: '',
           claim_amount: '',
           currency: 'sgd',
           member: '',
@@ -507,6 +513,9 @@ import moment, { locale } from "moment";
           receipts: [],
           receipts_fake: [],
           uploading: false,
+          claim_status: 0,
+          status_date: null,
+          status_reason: null,
         };
         this.timePickerValues = {
           hour: Number( moment().format('h') ),
@@ -563,37 +572,59 @@ import moment, { locale } from "moment";
           claim_amount: out_network_data.claim_amount,
           spending_type: out_network_data.spending_type,
           currency_type: out_network_data.currency,
-          claim_status: 0,
-          status_date: null,
-          status_reason: null,
+          claim_status: out_network_data.claim_status,
+          status_date: out_network_data.status_date,
+          status_reason: out_network_data.status_reason,
         }
-        Object.keys( data ).map(( key ) => {
-          formData.append(key, data[ key ]);
-        });
-        this.outNetwork_data.receipts.map(( value, key ) => {
-          formData.append('filename', value);
-        });
         this.showLoading();
-        axios.post( 
-          axios.defaults.serverUrl + '/company/ClaimSubmission', 
-          formData, 
-					{ headers: { 'Content-Type': 'multipart/form-data' } }) 
-          .then(res => {
-            console.log( res );
-            if( res.data.status ){
-              this.$swal('Success!', res.data.message, 'success');
-              this.showOutNetwork = false;
-              this.getOutNetworkList();
-              this.resetValues();
-            }else{
-              this.$swal('Error!', res.data.message, 'error');
-            }
-            this.hideLoading();
-          })
-          .catch(err => {
-            this.hideLoading();
-            this.errorHandler( err );
+        if( !out_network_data.isUpdate ){
+          Object.keys( data ).map(( key ) => {
+            formData.append(key, data[ key ]);
           });
+          this.outNetwork_data.receipts.map(( value, key ) => {
+            formData.append('filename', value);
+          });
+          axios.post( 
+            axios.defaults.serverUrl + '/company/ClaimSubmission', 
+            formData, 
+            { headers: { 'Content-Type': 'multipart/form-data' } }) 
+            .then(res => {
+              console.log( res );
+              if( res.status == 200 || res.status == 201 ){
+                this.$swal('Success!', res.data.message, 'success');
+                this.showOutNetwork = false;
+                this.getOutNetworkList();
+                this.resetValues();
+              }else{
+                this.$swal('Error!', res.data.message, 'error');
+              }
+              this.hideLoading();
+            })
+            .catch(err => {
+              this.hideLoading();
+              this.errorHandler( err );
+            });
+        }else{
+          data.out_of_network_transaction_id = out_network_data.out_of_network_transaction_id;
+          axios.put( 
+            axios.defaults.serverUrl + '/company/ClaimSubmission', data) 
+            .then(res => {
+              console.log( res );
+              if( res.status == 200 || res.status == 201 ){
+                this.$swal('Success!', res.data.message, 'success');
+                this.showOutNetwork = false;
+                this.getOutNetworkList();
+                this.resetValues();
+              }else{
+                this.$swal('Error!', res.data.message, 'error');
+              }
+              this.hideLoading();
+            })
+            .catch(err => {
+              this.hideLoading();
+              this.errorHandler( err );
+            });
+        }
       },
       getOutNetworkList( isGetAPI, resData ){
         var request = axios.get( axios.defaults.serverUrl + '/company/get_out_of_network_transactions?member_id=' + this.member_id);

@@ -180,7 +180,10 @@ import moment, { locale } from "moment";
             this.clinic_type_list.map(( value, key ) => {
               if( value.block == 0 ){
                 value.selected = opt;
-                this.open_selected_clinic_types.push( value.provider_id );
+                this.open_selected_clinic_types.push({
+                  clinic_id : value.provider_id,
+                  status : 1,
+                });
               }
             });
           }
@@ -203,7 +206,10 @@ import moment, { locale } from "moment";
             this.clinic_type_list.map(( value, key ) => {
               if( value.block == 1 ){
                 value.selected = opt;
-                this.block_selected_clinic_types.push( value.provider_id );
+                this.block_selected_clinic_types.push( {
+                  clinic_id : value.provider_id,
+                  status : 0,
+                } );
               }
             });
           }
