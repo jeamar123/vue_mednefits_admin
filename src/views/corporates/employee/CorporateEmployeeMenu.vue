@@ -33,8 +33,7 @@
 						<label>Plan</label>
 					</div>
 					<div class="status-div">
-						<p>Employee - Insurance Bundle</p>
-						<p class="text-red-500 text-xs">{Static data pa - missing data sa api}</p>
+						<p v-for="plan in employee_side_info.coverage_plans" :key="plan.index">{{plan}}</p>
 					</div>
 				</div>
 				<div class="row-div">
@@ -42,7 +41,15 @@
 						<label>Plan Covers</label>
 					</div>
 					<div class="status-div">
-						<p><span>{{employee_side_info.dependents}}</span> People</p>
+						<p><span>{{employee_side_info.total_plan_covers}}</span> People</p>
+					</div>
+				</div>
+				<div v-if="false" class="row-div">
+					<div class="label-text">
+						<label>Cap</label>
+					</div>
+					<div class="status-div">
+						<p>GP cap per Visit SGD 50.00</p>
 					</div>
 				</div>
 				<div class="row-div">
