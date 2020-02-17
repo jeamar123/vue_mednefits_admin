@@ -15,6 +15,10 @@
 							<strong>Full Name</strong>
 							<span>{{employee_info.fullname || 'N/A'}}</span>
 						</div>
+						<div v-if="employee_info.nric">
+							<strong>NRIC/FIN</strong>
+							<span>{{employee_info.nric || 'N/A'}}</span>
+						</div>
 						<div>
 							<strong>Date of Birth</strong>
 							<span>{{ formatDate(employee_info.dob, null, 'DD-MM-YYYY') }}</span>
@@ -34,6 +38,21 @@
 						<div>
 							<strong>Mobile Number</strong>
 							<span>{{employee_info.phone_no || 'N/A'}}</span>
+						</div>
+						<div v-if="employee_info.medical_enable" class="entitlement-status-container">
+							<strong>Medical Entitlement</strong>
+							<span>
+								<span>{{employee_info.medical_entitlement}}</span>
+								<span v-if="employee_info.medical_entitlement_status" class="small">(The amount of <span class="currency-type">{{ employee_info.currency_type }} </span><span>{{ employee_info.medical_entitlement_status.new_entitlement_credits }}</span> will be updated on <span>{{ medEffectiveDate }}</span>)</span>
+							</span>
+							<div @click="updateEntitlement.isMedShowEntitlement = !updateEntitlement.isMedShowEntitlement" class="custom-ellipsis-wrapper">
+								<span class="custom-ellipsis">
+									<div></div>
+									<div></div>
+									<div></div>
+								</span>
+							</div>
+							<router-link tag="div" :to="{ name: 'Entitlement' }" v-if="updateEntitlement.isMedShowEntitlement" class="update-container">Update</router-link>
 						</div>
 					</div>
 
@@ -64,6 +83,21 @@
 								<label><input type="radio" name="emp-username-type" v-model="employee_info.communication_type" value="email" @change="update_communication_type(employee_info.communication_type)"> Email</label>
 								<label><input type="radio" name="emp-username-type" v-model="employee_info.communication_type" value="sms" @change="update_communication_type(employee_info.communication_type)"> SMS</label>
 							</span>
+						</div>
+						<div v-if="employee_info.wellness_enable" class="entitlement-status-container">
+							<strong>Wellness Entitlement</strong>
+							<span>
+								<span>{{employee_info.wellness_entitlement}}</span>
+								<span v-if="employee_info.wellness_entitlement_status" class="small">(The amount of <span class="currency-type">{{ employee_info.currency_type }} </span><span>{{ employee_info.wellness_entitlement_status.new_entitlement_credits }}</span> will be updated on <span>{{ wellEffectiveDate }}</span>)</span>
+							</span>
+							<div @click="updateEntitlement.isWellShowEntitlement = !updateEntitlement.isWellShowEntitlement" class="custom-ellipsis-wrapper">
+								<span class="custom-ellipsis">
+									<div></div>
+									<div></div>
+									<div></div>
+								</span>
+							</div>
+							<router-link tag="div" :to="{ name: 'Entitlement' }" v-if="updateEntitlement.isWellShowEntitlement" class="update-container">Update</router-link>
 						</div>
 					</div>
 
@@ -124,8 +158,14 @@
 							</div>
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Job Title</label>
-								<div class="date-container">
-									<input type="text" v-model="toEdit.job_title">
+								<div class="jobList-container">
+									<!-- <input type="text" v-model="toEdit.job_title"> -->
+									<select name="" id="" v-model="toEdit.job_title">
+										<option :value="jobs.job_title" v-for="jobs in jobList" :key="jobs.index">
+											{{jobs.job_title}}
+										</option>
+									</select>
+									<i class="fa fa-caret-down"></i>
 								</div>
 							</div>
 						</div>
