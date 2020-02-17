@@ -249,6 +249,8 @@ let corporateEmployeeInformation = {
 						}
 						console.log(this.employee_info);
 						this.hideLoading();
+					} else {
+						this.hideLoading();
 					}
 					// this.hideLoading();
 				}).catch(err => {
