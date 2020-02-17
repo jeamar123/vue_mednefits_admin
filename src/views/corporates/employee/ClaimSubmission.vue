@@ -462,9 +462,12 @@
 
 				</div>
 				<div class="next-btn-footer">
-					<button v-if="out_step_active > 1" v-on:click="outStepButton('back')" class="btn-submit btn-back">BACK</button>
-					<button v-if="out_step_active < 3" v-on:click="outStepButton('next')" class="btn-submit">Next</button>
-					<button v-if="out_step_active == 3" v-on:click="submitOutnNetwork( outNetwork_data )" class="btn-submit">SUBMIT</button>
+					<button v-if="outNetwork_data.isUpdate" v-on:click="submitOutnNetwork( outNetwork_data )" class="btn-submit">UPDATE</button>
+					<span v-if="!outNetwork_data.isUpdate">
+						<button v-if="out_step_active > 1" v-on:click="outStepButton('back')" class="btn-submit btn-back">BACK</button>
+						<button v-if="out_step_active < 3" v-on:click="outStepButton('next')" class="btn-submit">Next</button>
+						<button v-if="out_step_active == 3" v-on:click="submitOutnNetwork( outNetwork_data )" class="btn-submit">SUBMIT</button>
+					</span>
 				</div>
 			</div>
 		</div>		

@@ -6,6 +6,7 @@ import VueMoment from 'vue-moment';
 import VueSlider from 'vue-slider-component';
 import JsonExcel from 'vue-json-excel'
 import Vue2Filters from 'vue2-filters'
+import _ from 'lodash'
 import axios from 'axios'
  
 import $ from 'jquery'; 
