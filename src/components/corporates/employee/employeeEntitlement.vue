@@ -23,6 +23,8 @@
           original_wellness_entitlement: 12,
           medical_new_entitlement: '',
           wellness_new_entitlement: '',
+          medical_proration: 'months',
+          wellness_proration: 'months',
 
           updated_medical_entitlement: false,
           updated_wellness_entitlement: false,
@@ -308,6 +310,7 @@
               this.getEmployeeDetails();
               this.getCalcData();
               this.emp_entitlement.medical_new_entitlement = '';
+              this.$emit('FromEntitlement', true);
             } else {
               this.$swal("Error!", response.data.message, "error");
             }
@@ -330,6 +333,7 @@
               this.getEmployeeDetails();
               this.getCalcData();
               this.emp_entitlement.wellness_new_entitlement = '';
+              this.$emit('FromEntitlement', true);
             } else {
               this.$swal("Error!", response.data.message, "error");
             }

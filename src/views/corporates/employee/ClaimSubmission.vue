@@ -47,7 +47,7 @@
 								</td>
 								<td class="xs-hide-tbl-cell">
 									<span>
-										<button v-on:click="editOutNetworkOpt( list )">Edit</button>
+										<button v-if="list.claim_status == 0" v-on:click="editOutNetworkOpt( list )">Edit</button>
 									</span>
 								</td>
 							</tr>

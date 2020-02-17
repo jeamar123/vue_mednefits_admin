@@ -339,6 +339,7 @@ let employeeSettings = {
 					console.log(response);
 					this.$swal("Success!", response.data.message, "success");
 					this.new_plan_start_date = new Date(data.plan_start);
+					this.$emit('FromSettings', true);
 				})
 				.catch(err => {
 					this.$parent.hideLoading();

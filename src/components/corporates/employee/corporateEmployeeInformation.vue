@@ -82,8 +82,12 @@ let corporateEmployeeInformation = {
 			},
 			spending_account_next_disabled: false,
 			//dependent
-			toAddDep: {}
+			toAddDep: {},
 			// ------------------------
+			updateEntitlement: {
+				isMedShowEntitlement: false,
+				isWellShowEntitlement: false,
+			},
 		};
 	},
 	created() {
@@ -236,6 +240,13 @@ let corporateEmployeeInformation = {
 					if (res.data.status == true) {
 						this.employee_info = res.data.data;
 						// localStorage.employee_email = this.employee_info.work_email;
+						if ( this.employee_info.medical_entitlement_status != null ) {
+							this.medEffectiveDate = moment(this.employee_info.medical_entitlement_status.effective_date).format('DD/MM/YYYY');
+							
+						}
+						if ( this.employee_info.wellness_entitlement_status != null ) {
+							this.wellEffectiveDate = moment(this.employee_info.wellness_entitlement_status.effective_date).format('DD/MM/YYYY');
+						}
 						console.log(this.employee_info);
 						this.hideLoading();
 					} else {

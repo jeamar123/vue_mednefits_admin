@@ -51,6 +51,14 @@ let corporateEmployeeMenu = {
 				console.log('sulod');
 			}
 		},
+		fromEntitlement(data) {
+			// this.employee_side_info = data.from_settings;
+			console.log(data);
+			if (data) {
+				this.onLoad();
+				console.log('sulod');
+			}
+		},
 		fromEmployee(data) {
 			console.log(data);
 			if (data) {
@@ -119,6 +127,15 @@ let corporateEmployeeMenu = {
 					if (res.data.status == true) {
 						this.employee_side_info = res.data.data;
 						// localStorage.employee_email = this.employee_side_info.work_email;
+
+						if ( this.employee_side_info.medical_entitlement_status != null ) {
+							this.medEffectiveDate = moment(this.employee_side_info.medical_entitlement_status.effective_date).format('DD/MM/YYYY');
+							
+						}
+						if ( this.employee_side_info.wellness_entitlement_status != null ) {
+							this.wellEffectiveDate = moment(this.employee_side_info.wellness_entitlement_status.effective_date).format('DD/MM/YYYY');
+						}
+						
 						this.hideLoading();
 						console.log(this.employee_side_info);
 					}

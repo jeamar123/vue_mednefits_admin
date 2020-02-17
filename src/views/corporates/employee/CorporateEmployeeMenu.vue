@@ -70,113 +70,117 @@
 				</div>
 			</div>
 			<div class="spending-wrapper">
-				<p class="p-label">Medical Spending Account</p>
-				<div class="white-space-20"></div>
-				<div class="allocation-wrapper">
+				<div v-if="employee_side_info.medical_enable">
+					<p class="p-label">Medical Spending Account</p>
+					<div class="white-space-20"></div>
+					<div class="allocation-wrapper">
+						<div class="row-div">
+							<div class="label-text">
+								<label>Allocation</label>
+							</div>
+							<div class="status-div">
+								<p><span class="uppercase">{{employee_side_info.spending_account.medical.credits_allocation | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
+							</div>
+						</div>
+						<p v-if="employee_side_info.medical_entitlement_status" class="small"> *The amount of <span class="currency-type">{{ employee_side_info.currency_type }} </span> <span>{{ employee_side_info.medical_entitlement_status.new_allocation_credits }} </span> will be update on <span>{{ medEffectiveDate }}</span></p>
+					</div>
+					<div class="row-div block">
+						<div class="flex cursor-pointer" @click="spendingUsage('medical')">
+							<div class="label-text" >
+								<label class="cursor-pointer">Usage</label>
+							</div>
+							<div class="status-div">
+								<p><span class="uppercase">{{(employee_side_info.spending_account.medical.credits_spent + employee_side_info.spending_account.medical.e_claim_amount_pending_medication) | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span> <i :class="{'fa-angle-right': !employee_side_info.spending_account.medical.usage, 'fa-angle-down': employee_side_info.spending_account.medical.usage}" class="fa ml-2 text-lg font-bold" aria-hidden="true"></i></p>
+								
+							</div>
+						</div>
+
+						<transition name="fade"> 
+							<div v-if="employee_side_info.spending_account.medical.usage">
+								<div class="flex">
+									<div class="label-text font-normal text-sm flex-none">
+										<label>Spent</label>
+									</div>
+									<div class="status-div text-sm">
+										<p><span class="uppercase">{{employee_side_info.spending_account.medical.credits_spent | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
+									</div>
+								</div>
+								<div class="flex">
+									<div class="label-text font-normal text-sm flex-none">
+										<label>Pending claim</label>
+									</div>
+									<div class="status-div text-sm">
+										<p><span class="uppercase">{{employee_side_info.spending_account.medical.e_claim_amount_pending_medication | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
+									</div>
+								</div>
+							</div>
+						</transition>
+						
+					</div>
 					<div class="row-div">
 						<div class="label-text">
-							<label>Allocation</label>
+							<label>Balance</label>
 						</div>
 						<div class="status-div">
-							<p><span class="uppercase">{{employee_side_info.spending_account.medical.credits_allocation | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
+							<p><span class="uppercase">{{employee_side_info.spending_account.medical.balance | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
 						</div>
-					</div>
-					<p class="small"> *The amount of <span>SGD </span> <span>12.92 </span> will be update on <span>14/02/2020</span></p>
-				</div>
-				<div class="row-div block">
-					<div class="flex cursor-pointer" @click="spendingUsage('medical')">
-						<div class="label-text" >
-							<label class="cursor-pointer">Usage</label>
-						</div>
-						<div class="status-div">
-							<p><span class="uppercase">{{(employee_side_info.spending_account.medical.credits_spent + employee_side_info.spending_account.medical.e_claim_amount_pending_medication) | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span> <i :class="{'fa-angle-right': !employee_side_info.spending_account.medical.usage, 'fa-angle-down': employee_side_info.spending_account.medical.usage}" class="fa ml-2 text-lg font-bold" aria-hidden="true"></i></p>
-							
-						</div>
-					</div>
-
-					<transition name="fade"> 
-						<div v-if="employee_side_info.spending_account.medical.usage">
-							<div class="flex">
-								<div class="label-text font-normal text-sm flex-none">
-									<label>Spent</label>
-								</div>
-								<div class="status-div text-sm">
-									<p><span class="uppercase">{{employee_side_info.spending_account.medical.credits_spent | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
-								</div>
-							</div>
-							<div class="flex">
-								<div class="label-text font-normal text-sm flex-none">
-									<label>Pending claim</label>
-								</div>
-								<div class="status-div text-sm">
-									<p><span class="uppercase">{{employee_side_info.spending_account.medical.e_claim_amount_pending_medication | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
-								</div>
-							</div>
-						</div>
-					</transition>
-					
-				</div>
-				<div class="row-div">
-					<div class="label-text">
-						<label>Balance</label>
-					</div>
-					<div class="status-div">
-						<p><span class="uppercase">{{employee_side_info.spending_account.medical.balance | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
 					</div>
 				</div>
 				<div class="white-space-10"></div>
 				<div class="white-space-20"></div>
-				<p class="p-label">Wellness Spending Account</p>
-				<div class="white-space-20"></div>
-				<div class="allocation-wrapper">
+				<div v-if="employee_side_info.wellness_enable">
+					<p class="p-label">Wellness Spending Account</p>
+					<div class="white-space-20"></div>
+					<div class="allocation-wrapper">
+						<div class="row-div">
+							<div class="label-text">
+								<label>Allocation</label>
+							</div>
+							<div class="status-div">
+								<p><span class="uppercase">{{ employee_side_info.spending_account.wellness.credits_allocation_wellness | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' }) }}</span></p>
+							</div>
+						</div>
+						<p v-if="employee_side_info.wellness_entitlement_status"  class="small"> *The amount of <span class="currency-type">{{ employee_side_info.currency_type }} </span> <span>{{ employee_side_info.wellness_entitlement_status.new_allocation_credits }} </span> will be update on <span>{{ wellEffectiveDate }}</span></p>
+					</div>
+					<div class="row-div block">
+						<div class="flex cursor-pointer" @click="spendingUsage('wellness')">
+							<div class="label-text">
+								<label class="cursor-pointer">Usage</label>
+							</div>
+							<div class="status-div">
+								<p><span class="uppercase">{{ (employee_side_info.spending_account.wellness.credits_spent_wellness + employee_side_info.spending_account.wellness.e_claim_amount_pending_wellness) | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' }) }}</span> <i :class="{'fa-angle-right': !employee_side_info.spending_account.wellness.usage, 'fa-angle-down': employee_side_info.spending_account.wellness.usage}" class="fa ml-2 text-lg font-bold" aria-hidden="true"></i></p>
+							</div>
+						</div>
+					
+
+						<transition name="fade"> 
+							<div v-if="employee_side_info.spending_account.wellness.usage">
+								<div class="flex">
+									<div class="label-text font-normal text-sm flex-none">
+										<label>Spent</label>
+									</div>
+									<div class="status-div text-sm">
+										<p><span class="uppercase">{{employee_side_info.spending_account.wellness.credits_spent_wellness | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
+									</div>
+								</div>
+								<div class="flex">
+									<div class="label-text font-normal text-sm flex-none">
+										<label class="">Pending claim</label>
+									</div>
+									<div class="status-div text-sm">
+										<p><span class="uppercase">{{employee_side_info.spending_account.wellness.e_claim_amount_pending_wellness | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
+									</div>
+								</div>
+							</div>
+						</transition>
+					</div>
 					<div class="row-div">
 						<div class="label-text">
-							<label>Allocation</label>
+							<label>Balance</label>
 						</div>
 						<div class="status-div">
-							<p><span class="uppercase">{{ employee_side_info.spending_account.wellness.credits_allocation_wellness | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' }) }}</span></p>
+							<p><span class="uppercase">{{ employee_side_info.spending_account.wellness.balance | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' }) }}</span></p>
 						</div>
-					</div>
-					<p class="small"> *The amount of <span>SGD </span> <span>12.92 </span> will be update on <span>14/02/2020</span></p>
-				</div>
-				<div class="row-div block">
-					<div class="flex cursor-pointer" @click="spendingUsage('wellness')">
-						<div class="label-text">
-							<label class="cursor-pointer">Usage</label>
-						</div>
-						<div class="status-div">
-							<p><span class="uppercase">{{ (employee_side_info.spending_account.wellness.credits_spent_wellness + employee_side_info.spending_account.wellness.e_claim_amount_pending_wellness) | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' }) }}</span> <i :class="{'fa-angle-right': !employee_side_info.spending_account.wellness.usage, 'fa-angle-down': employee_side_info.spending_account.wellness.usage}" class="fa ml-2 text-lg font-bold" aria-hidden="true"></i></p>
-						</div>
-					</div>
-				
-
-					<transition name="fade"> 
-						<div v-if="employee_side_info.spending_account.wellness.usage">
-							<div class="flex">
-								<div class="label-text font-normal text-sm flex-none">
-									<label>Spent</label>
-								</div>
-								<div class="status-div text-sm">
-									<p><span class="uppercase">{{employee_side_info.spending_account.wellness.credits_spent_wellness | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
-								</div>
-							</div>
-							<div class="flex">
-								<div class="label-text font-normal text-sm flex-none">
-									<label class="">Pending claim</label>
-								</div>
-								<div class="status-div text-sm">
-									<p><span class="uppercase">{{employee_side_info.spending_account.wellness.e_claim_amount_pending_wellness | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
-								</div>
-							</div>
-						</div>
-					</transition>
-				</div>
-				<div class="row-div">
-					<div class="label-text">
-						<label>Balance</label>
-					</div>
-					<div class="status-div">
-						<p><span class="uppercase">{{ employee_side_info.spending_account.wellness.balance | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' }) }}</span></p>
 					</div>
 				</div>
 	
@@ -211,7 +215,7 @@
 					<router-link tag="a" :to="{ name: 'CorporateMemberList', params: {customer_id: customer_id} }" class="close-btn"><span class="oi" data-glyph="x" aria-hidden="true"></span></router-link>
 				</div>
 	
-				<router-view name="child" @FromEmployee="fromEmployee" @FromSettings="fromSettings"></router-view>
+				<router-view name="child" @FromEmployee="fromEmployee" @FromSettings="fromSettings" @FromEntitlement="fromEntitlement"></router-view>
 			</div>
 		</div>
 	
