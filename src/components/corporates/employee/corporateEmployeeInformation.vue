@@ -1,5 +1,6 @@
 <script>
 import Modal from "../../../views/modal/Modal.vue";
+import jobList from '../../../assets/json/job.json';
 import axios from "axios";
 import moment from "moment"
 
@@ -13,7 +14,7 @@ let corporateEmployeeInformation = {
 		name: [String, Number],
 		customer_id: [String, Number],
 	},
-	data() {
+	data:	()	=>	{
 		return {
 			// --- Date options ---
 			formats: {
@@ -73,6 +74,7 @@ let corporateEmployeeInformation = {
 			toEdit: {},
 			toRemove: {},
 			toReplace: {},
+			jobList: jobList,
 			account_spending_summary: {
 				medical: {},
 				wellness: {},
@@ -85,7 +87,7 @@ let corporateEmployeeInformation = {
 		};
 	},
 	created() {
-		console.log(`${this.member_id} ug is  ${this.name}`);
+		// console.log(jobList);
 		this.healthPartnerViewStatus = this.$route.name;
 
 		this.onLoad();
@@ -196,7 +198,7 @@ let corporateEmployeeInformation = {
 								.then(res => {
 									this.getEmployeeDetails();
 									this.$emit('FromEmployee', true);
-									this.editEmployeeProfile = false;
+									// this.editEmployeeProfile = false;
 								});
 						} else {
 							this.$swal("Error!", res.data.message, "error");
@@ -639,7 +641,7 @@ let corporateEmployeeInformation = {
 			} else if (x === "standard-one-year") {
 				this.showShortTermSelector = false;
 			}
-		}
+		},
 	}
 };
 
