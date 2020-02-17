@@ -19,7 +19,6 @@ import router from './router';
 
 import mixins from './components/mixins';
 
-
 Vue.use(VCalendar);
 Vue.use(vClickOutside);
 Vue.use(Vue2Filters);
@@ -44,15 +43,15 @@ window.$ = $;
 
 const CancelToken = axios.CancelToken;
 const source = CancelToken.source();
-console.log( source );
+// console.log( source );
 
 new Vue({
   router,
   render: h => h(App),
   watch:{
     $route (to, from){
-      console.log(to);
-      console.log(from);
+      // console.log(to);
+      // console.log(from);
       source.cancel('Page changed.');
     }
   }

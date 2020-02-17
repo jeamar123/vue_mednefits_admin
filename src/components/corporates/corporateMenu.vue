@@ -52,6 +52,13 @@ let corporateMenu = {
 		// this.getCustomerRenewalStatus();
 	},
 	methods: {
+		// emits
+		fromMemberList(data) {
+			if(data) {
+				this.getCorporateDetails();
+			}
+		},
+		// -----
 		formatDate(date, from, to) {
 			if (date != null) {
 				return moment(date, from).format(to);
