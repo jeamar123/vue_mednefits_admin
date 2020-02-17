@@ -238,6 +238,8 @@ let corporateEmployeeInformation = {
 						// localStorage.employee_email = this.employee_info.work_email;
 						console.log(this.employee_info);
 						this.hideLoading();
+					} else {
+						this.hideLoading();
 					}
 					// this.hideLoading();
 				}).catch(err => {
