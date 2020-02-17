@@ -215,25 +215,46 @@ import moment, { locale } from "moment";
           }
         },
         selectOne( opt, data ){
-          var push_data = { clinic_id: data.clinic_id, account_type: this.type, status: opt == 'open' ? 1 : 0 };
+          var clinic_name_data = { clinic_id: data.clinic_id, account_type: this.type, status: opt == 'open' ? 1 : 0 };
+          var clinic_type_data = { clinic_id: data.provider_id, status: opt == 'open' ? 1 : 0 };
           if( opt == 'open' ){
-            var index = _.findIndex( this.open_selected_clinics , push_data);
-            if( index > -1 ){
-              this.open_selected_clinics.splice( index, 1 );
+            if( this.open_clinic_opt == 'name' ){
+              var index = _.findIndex( this.open_selected_clinics , clinic_name_data);
+              if( index > -1 ){
+                this.open_selected_clinics.splice( index, 1 );
+              }else{
+                this.open_selected_clinics.push( clinic_name_data );
+              }
             }else{
-              this.open_selected_clinics.push( push_data );
+              var index = _.findIndex( this.open_selected_clinic_types , clinic_type_data);
+              if( index > -1 ){
+                this.open_selected_clinic_types.splice( index, 1 );
+              }else{
+                this.open_selected_clinic_types.push( clinic_type_data );
+              }
             }
           }
           if( opt == 'block' ){
-            var index = _.findIndex( this.block_selected_clinics , push_data);
-            if( index > -1 ){
-              this.block_selected_clinics.splice( index, 1 );
+            if( this.open_clinic_opt == 'name' ){
+              var index = _.findIndex( this.block_selected_clinics , clinic_name_data);
+              if( index > -1 ){
+                this.block_selected_clinics.splice( index, 1 );
+              }else{
+                this.block_selected_clinics.push( clinic_name_data );
+              }
             }else{
-              this.block_selected_clinics.push( push_data );
+              var index = _.findIndex( this.block_selected_clinic_types , clinic_type_data);
+              if( index > -1 ){
+                this.block_selected_clinic_types.splice( index, 1 );
+              }else{
+                this.block_selected_clinic_types.push( clinic_type_data );
+              }
             }
           }
           console.log( this.open_selected_clinics );
+          console.log( this.open_selected_clinic_types );
           console.log( this.block_selected_clinics );
+          console.log( this.block_selected_clinic_types );
         },
         
 
