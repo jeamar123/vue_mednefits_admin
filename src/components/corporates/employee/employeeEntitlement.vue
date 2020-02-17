@@ -58,7 +58,6 @@
         wellness_entitlement: 0,
         effectiveMedDateError: false,
         effectiveWellDateError: false,
-
         medical_entitlement_status: undefined,
         wellness_entitlement_status: undefined,
       };
@@ -148,7 +147,6 @@
                       
             // console.log('reponse sa get calculate',response);
 
-
             //trap for exceeding spending end date
             if ( new Date(this.med_effective_date) > new Date(this.get_calc_medical.medical_spending_validate_end_date) ) {
               this.effectiveMedDateError = true;
@@ -197,6 +195,7 @@
         }
 
         if ( type == 'medical' ) {
+          // this.getCalcData();
           this.medicalCalculatedInfo = true;
           // console.log(this.med_data);
           
@@ -245,6 +244,7 @@
         }
 
         if ( type == 'wellness' ) {
+          // this.getCalcData();
           this.wellnessCalculatedInfo = true;
           console.log(this.well_data);
 

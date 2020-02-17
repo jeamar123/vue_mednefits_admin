@@ -22,7 +22,7 @@
 				</button>
 			</div>
 			<div>
-				<button @click="selectHealthPartnerView( 'HealthPartnerAccess' )" class="btn btn-settings">
+				<button @click="selectHealthPartnerView( )" class="btn btn-settings">
 					<i class="fa fa-search"></i> Health Partner Access
 				</button>
 			</div>
@@ -93,12 +93,12 @@
 						<div class="plan-type-selector">
 							<label class="container">
 								<span>Standard 1 year</span>
-								<input value=0 v-model="plan_type.fixed" type="radio" name="radio" />
+								<input value="0" v-model="plan_type.fixed" type="radio" name="radio" />
 								<span class="plan-type-checkmark"></span>
 							</label>
 							<label class="container">
 								<span>Short Term</span>
-								<input value=1 v-model="plan_type.fixed" type="radio" name="radio" />
+								<input value="1" v-model="plan_type.fixed" type="radio" name="radio" />
 								<span class="plan-type-checkmark"></span>
 							</label>
 							<select v-if="plan_type.fixed == 1" v-model="plan_type.duration">
@@ -203,7 +203,7 @@
 					<div class="gp-cap-input-wrapper">
 						<input v-model="cap_per_visit" type="number" />
 						<div class="icon-right">
-							<span>SGD</span>
+							<span class="currency-type">{{this.employee_info.currency_type}}</span>
 						</div>
 					</div>
 				</div>
@@ -312,7 +312,7 @@
 		<Modal v-if="showSmsUpdateNotify" class="sms-notification">
 			<div slot="header">
 				<div class="h-20 flex items-center px-6 text-2xl">
-					<h1>Employee Details Options</h1>
+					<h1>Send SMS Update Notification</h1>
 				</div>
 			</div>
 			<div slot="body">
@@ -322,9 +322,10 @@
 							Country Code
 							<span class="text-red-700">*</span>
 						</label>
-						<select name="" id="" class="border-solid border-b border-gray-100 w-full my-4">
-							<option value="65">(SG) +65</option>
-							<option value="60">(MY) +60</option>
+						<select name="" id="" v-model="toSmsData.phone_code" class="border-solid border-b border-gray-100 w-full my-4">
+							<option value="+65">(SG) +65</option>
+							<option value="+63">(PH) +63</option>
+							<option value="+60">(MY) +60</option>
 						</select>
 					</div>
 					<div class="input-container-padding py-2 pl-6 flex-1">
@@ -332,7 +333,7 @@
 							Mobile Number
 							<span class="text-red-700">*</span>
 						</label>
-						<input class="border-solid border-b border-gray-100 w-full py-2" type="number" ng-model="list.password"
+						<input class="border-solid border-b border-gray-100 w-full py-2" type="number" v-model="toSmsData.phone_no"
 							required />
 					</div>
 				</div>
@@ -340,7 +341,7 @@
 			<div slot="footer" class="flex justify-end items-center px-3 pb-3">
 				<button class="btn-close btn-primary bg-white text-black mx-3"
 					@click="selectedEmpDetailsSettingsClicked(3,'cancel')">CLOSE</button>
-				<button class="btn-close btn-primary">SUBMIT</button>
+				<button class="btn-close btn-primary" @click="send_sms_notification(toSmsData)">SUBMIT</button>
 			</div>
 
 		</Modal>

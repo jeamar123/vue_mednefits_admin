@@ -121,7 +121,7 @@ export default new Router({
               ]
             },
             { name: 'PlanRenewalSpendingRenewal', path: '/dashboard/corporates/:company_name-:customer_id/pending-renewal', components: { child : SpendingAccountRenewal}, props:true },
-            { name: 'CorporateSettings', path: '/dashboard/corporates/:company_name-:customer_id/settings', components: { child : CorporateSettings }, props:true  },
+            { name: 'CorporateSettings', path: '/dashboard/corporates/:company_name-:customer_id/settings', components: { child : CorporateSettings }, props: { child: true }  },
           ] 
         },
         { 
@@ -139,7 +139,7 @@ export default new Router({
           ]
         },
         { name: 'AddCorporate', path: '/dashboard/corporates/add', component: AddCorporate },
-        { name: 'HealthPartnerAccess', path: '/dashboard/health-partner-access/:type-:id', component: HealthPartnerAccess },
+        { name: 'HealthPartnerAccess', path: '/dashboard/health-partner-access/:type-:id', component: HealthPartnerAccess , props: true},
 
         { name: 'Analytics', path: '/dashboard/analytics', component: Analytics },
       ]

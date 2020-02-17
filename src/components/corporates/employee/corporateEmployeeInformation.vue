@@ -10,7 +10,8 @@ let corporateEmployeeInformation = {
 	},
 	props: {
 		member_id: [String, Number],
-		name: [String, Number]
+		name: [String, Number],
+		customer_id: [String, Number],
 	},
 	data() {
 		return {
@@ -62,6 +63,7 @@ let corporateEmployeeInformation = {
 				data: ["DD/MM/YYYY"]
 			},
 			// ---- Data storage ------
+			//employee
 			employee_info: {
 				spending_account: {
 					medical: {},
@@ -71,6 +73,8 @@ let corporateEmployeeInformation = {
 			toEdit: {},
 			toRemove: {},
 			toReplace: {},
+			//dependent
+			toAddDep: {}
 			// ------------------------
 		};
 	},
@@ -90,7 +94,7 @@ let corporateEmployeeInformation = {
 
 		// API calls
 		onLoad() {
-			this.$parent.showLoading();
+			this.showLoading();
 			// let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
 			// let update_employee_details = `${axios.defaults.serverUrl}/company/update_employee_details`;
 
@@ -101,19 +105,59 @@ let corporateEmployeeInformation = {
 				// Log the data to the console
 				// You would do something with both sets of data here
 				// console.log(res);
-				this.$parent.hideLoading();
+				let res_len = res.length;
+				res.map((value, index) => {
+					if (index == res.length - 1) {
+						// this.hideLoading();
+					}
+				});
 			}).catch(error => {
 				// if there's an error, log it
 				console.log(error);
 				this.parent.hideLoading();
 			});
 		},
-		update_employee() {
-			let update_employee_details = `${axios.defaults.serverUrl}/company/update_employee_details`;
-			let data = this.toEdit;
+		addDependent(toAddDep) {
+			let create_dependent_account = `${axios.defaults.serverUrl}/company/create_dependent_account`;
 
-			if(this.checkForm()) {
-				axios.put(update_employee_details, data)
+			if (this.checkForm_addDependent(toAddDep)) {
+				toAddDep.dob = moment(toAddDep.dob.dob).format('YYYY-MM-DD');
+				toAddDep.plan_start = moment(toAddDep.plan_start).format('YYYY-MM-DD');
+
+				let data = {
+					member_id: this.member_id,
+					customer_id: this.customer_id,
+					dependents: [toAddDep]
+				}
+				axios.post(create_dependent_account, data)
+					.then(res => {
+						console.log(res);
+						if (res.data.status == true) {
+							console.log(res.data);
+							this.$swal("Success!", res.data.message, "success")
+								.then(res => {
+									// this.getEmployeeDetails();
+									this.showAddDependent();
+								});
+						} else {
+							this.$swal("Warning!", res.data.message, "warning");
+						}
+					})
+					.catch(err => {
+						this.editEmployeeProfile = false;
+						this.hideLoading();
+						this.errorHandler(err);
+					});
+			}
+		},
+		update_communication_type(value) {
+			let update_employee_details = `${axios.defaults.serverUrl}/company/update_employee_details`;
+			let data  = {
+				member_id: this.member_id,
+				communication_type: value
+			}
+
+			axios.put(update_employee_details, data)
 				.then(res => {
 					console.log(res);
 					if (res.status == 200) {
@@ -121,7 +165,6 @@ let corporateEmployeeInformation = {
 						this.$swal("Success!", 'Update Successful', "success")
 							.then(res => {
 								this.getEmployeeDetails();
-								this.editEmployeeProfile = false;
 							});
 					} else {
 						this.$swal("Error!", res.data.message, "error");
@@ -129,9 +172,35 @@ let corporateEmployeeInformation = {
 				})
 				.catch(err => {
 					this.editEmployeeProfile = false;
-					this.$parent.hideLoading();
+					this.hideLoading();
 					this.errorHandler(err);
 				});
+		},
+		update_employee() {
+			let update_employee_details = `${axios.defaults.serverUrl}/company/update_employee_details`;
+			let data = this.toEdit;
+
+			if (this.checkForm_edit()) {
+				axios.put(update_employee_details, data)
+					.then(res => {
+						console.log(res);
+						if (res.status == 200) {
+							console.log(res.data);
+							this.$swal("Success!", 'Update Successful', "success")
+								.then(res => {
+									this.getEmployeeDetails();
+									this.$emit('FromEmployee', true);
+									this.editEmployeeProfile = false;
+								});
+						} else {
+							this.$swal("Error!", res.data.message, "error");
+						}
+					})
+					.catch(err => {
+						this.editEmployeeProfile = false;
+						this.hideLoading();
+						this.errorHandler(err);
+					});
 			}
 		},
 		getEmployeeDetails() {
@@ -146,72 +215,105 @@ let corporateEmployeeInformation = {
 						this.employee_info = res.data.data;
 						// localStorage.employee_email = this.employee_info.work_email;
 						console.log(this.employee_info);
+						this.hideLoading();
 					}
-					// this.$parent.hideLoading();
+					// this.hideLoading();
 				}).catch(err => {
-					this.$parent.hideLoading();
+					this.hideLoading();
 					this.errorHandler(err);
 				});
 		},
-		checkForm() {
-      this.error_updateEmployee = [];
+		checkForm_edit() {
+			this.error_updateEmployee = [];
 
-      if (!this.toEdit.fullname) {
-        this.error_updateEmployee.push("Name.");
+			if (!this.toEdit.fullname) {
+				this.error_updateEmployee.push("Name.");
 			}
-      if (!this.toEdit.phone_code) {
-        this.error_updateEmployee.push("Area Code.");
+			if (!this.toEdit.phone_code) {
+				this.error_updateEmployee.push("Area Code.");
 			}
-      if (!this.toEdit.phone_no) {
-        this.error_updateEmployee.push("Name.");
+			if (!this.toEdit.phone_no) {
+				this.error_updateEmployee.push("Mobile Number.");
 			}
-      if (!this.toEdit.member_id) {
-        this.error_updateEmployee.push("Member ID.");
+			if (!this.toEdit.member_id) {
+				this.error_updateEmployee.push("Member ID.");
 			}
-      if (!this.toEdit.job_title) {
-        this.error_updateEmployee.push("Job Title.");
+			if (!this.toEdit.job_title) {
+				this.error_updateEmployee.push("Job Title.");
 			}
-      if (!this.toEdit.dob) {
-        this.error_updateEmployee.push("Birthday.");
+			if (!this.toEdit.dob) {
+				this.error_updateEmployee.push("Birthday.");
 			}
-      if (!this.toEdit.bank_account_number) {
-        this.error_updateEmployee.push("Bank Account Number.");
-			}
-      if (!this.toEdit.postal_code) {
-        this.error_updateEmployee.push("Postal Code.");
-			}
-      if (!this.toEdit.bank_code) {
-        this.error_updateEmployee.push("Bank Code.");
-			}
-      if (!this.toEdit.bank_brh) {
-        this.error_updateEmployee.push("Bank BRH.");
-			}
-			
-      if (!this.toEdit.email) {
-        this.error_updateEmployee.push('Email.');
-      } else if (!this.validEmail(this.toEdit.email)) {
-        this.error_updateEmployee.push('Valid email.');
-      }
+			// if (!this.toEdit.bank_account_number) {
+			// 	this.error_updateEmployee.push("Bank Account Number.");
+			// }
+			// if (!this.toEdit.postal_code) {
+			// 	this.error_updateEmployee.push("Postal Code.");
+			// }
+			// if (!this.toEdit.bank_code) {
+			// 	this.error_updateEmployee.push("Bank Code.");
+			// }
+			// if (!this.toEdit.bank_brh) {
+			// 	this.error_updateEmployee.push("Bank BRH.");
+			// }
 
-      if (!this.error_updateEmployee.length) {
-        return true;
-      } else {
+			if (!this.toEdit.email) {
+				this.error_updateEmployee.push('Email.');
+			} else if (!this.validEmail(this.toEdit.email)) {
+				this.error_updateEmployee.push('Valid email.');
+			}
+
+			if (!this.error_updateEmployee.length) {
+				return true;
+			} else {
 				console.log(this.error_updateEmployee);
 				let new_error = [];
 				this.error_updateEmployee.map(value => {
-						 new_error.push(`<span class="block p-1 text-red-500 text-center w-1/2 mx-auto my-0">${value}</span>`);
+					new_error.push(`<span class="block p-1 text-red-500 text-center w-1/2 mx-auto my-0">${value}</span>`);
 				});
 				this.$swal(
-					'Required', 
-					new_error.join('\n\n'), 
+					'Required',
+					new_error.join('\n\n'),
 					'warning'
 				);
-				
+
 			}
 		},
-		validEmail (email) {
-			let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; 
-      return re.test(email);
+		checkForm_addDependent(data) {
+			this.error_addDep = [];
+
+			if (!data.fullname) {
+				this.error_addDep.push("Name.");
+			}
+			if (!data.dob) {
+				this.error_addDep.push("Birthday.");
+			}
+			if (!data.relationship) {
+				this.error_addDep.push("Relationship.");
+			}
+			if (!data.plan_start) {
+				this.error_addDep.push("Start Date.");
+			}
+
+			if (!this.error_addDep.length) {
+				return true;
+			} else {
+				console.log(this.error_addDep);
+				let new_error = [];
+				this.error_addDep.map(value => {
+					new_error.push(`<span class="block p-1 text-red-500 text-center w-1/2 mx-auto my-0">${value}</span>`);
+				});
+				this.$swal(
+					'Required',
+					new_error.join('\n\n'),
+					'warning'
+				);
+
+			}
+		},
+		validEmail(email) {
+			let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			return re.test(email);
 		},
 		//-------------
 		selectHealthPartnerView(opt) {
@@ -237,10 +339,13 @@ let corporateEmployeeInformation = {
 				bank_code: this.employee_info.bank_code,
 				email: this.employee_info.work_email,
 				bank_brh: this.employee_info.bank_brh,
+				// communication_type: this.employee_info.communication_type,
 			}
 		},
 		showAddDependent() {
+			this.toAddDep = {};
 			this.addDependentInfo = this.addDependentInfo == false ? true : false;
+
 		},
 		showRemoveEmp() {
 			this.editRemoveEmpInfo = this.editRemoveEmpInfo == false ? true : false;

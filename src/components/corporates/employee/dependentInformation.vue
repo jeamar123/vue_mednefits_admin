@@ -1,13 +1,25 @@
 <script>
 import Modal from "../../../views/modal/Modal.vue";
+import axios from "axios";
+import moment from "moment"
 
 
 let dependentInformation = {
 	components: {
 		Modal
 	},
+	props: {
+		member_id: [String, Number],
+		customer_id: [String, Number]
+	},
 	data() {
 		return {
+			// --- Date options ---
+			formats: {
+				input: ["DD/MM/YYYY"],
+				data: ["DD/MM/YYYY"]
+			},
+			//---------------------
 			empSelectorActive: {
 				value: 0,
 				text: ""
@@ -42,12 +54,24 @@ let dependentInformation = {
 				startDate: undefined,
 			},
 			showShortTermSelector: false,
+
+			// Depedents Global Variables
+			dependent_arr: {},
+			toEdit: {},
+			// -------------------------
 		};
 	},
 	created() {
 		this.healthPartnerViewStatus = this.$route.name;
+
+		this.onLoad();
 	},
 	methods: {
+		formatDate(date, from, to) {
+			if (date != null) {
+				return moment(date, from).format(to);
+			}
+		},
 		selectHealthPartnerView(opt) {
 			this.healthPartnerViewStatus = opt;
 			this.$router.push({ name: opt });
@@ -71,8 +95,14 @@ let dependentInformation = {
 		showRemoveDependent() {
 			this.withdrawEmployeeModal = this.withdrawEmployeeModal == false ? true : false;
 		},
-		showEditDependent() {
+		showEditDependent(list) {
 			this.editDependentInfo = this.editDependentInfo == false ? true : false;
+
+			if(list) {
+				console.log(list);
+				list.dob = new Date(list.dob);
+				this.toEdit = list;
+			}
 		},
 		removeEmployeeBtn(data) {
 			let x = data;
@@ -263,7 +293,125 @@ let dependentInformation = {
 			} else if (x === "standard-one-year") {
 				this.showShortTermSelector = false;
 			}
-		}
+		},
+
+		// Jaz methods
+		updateDependent(toEdit) {
+			let update_dependent_details = `${axios.defaults.serverUrl}/company/update_dependent_details`;
+
+			let data  = {
+				member_id: toEdit.member_id,
+				fullname: toEdit.fullname,
+				dob: moment(toEdit.dob).format('YYYY-MM-DD'),
+				relationship: toEdit.relationship,
+				plan_start: moment(toEdit.plant_start).format('YYYY-MM-DD'),
+			}
+
+			if(this.checkForm_editDep(data)) {
+				this.showLoading();
+				
+				axios.put(update_dependent_details, data)
+				.then(res => {
+					// Log the data to the console
+					// You would do something with both sets of data here
+					console.log(res);
+					this.hideLoading();
+					
+					if (res.data.status == true) {
+						this.$swal('Success', res.data.message, 'succes')
+							.then(res1 => {
+								this.toEdit = {};
+								this.editDependentInfo = false;
+							})
+					} else {
+						this.hideLoading();
+						this.$swal("Error!", res.data.message, "error");
+					}
+					// this.hideLoading();
+				}).catch(err => {
+					this.hideLoading();
+					this.errorHandler(err);
+				});
+			}
+		},
+		checkForm_editDep(data) {
+			this.error_editDep = [];
+
+			if (!data.fullname) {
+				this.error_editDep.push("Name.");
+			}
+			if (!data.dob) {
+				this.error_editDep.push("Birthday.");
+			}
+			if (!data.relationship) {
+				this.error_editDep.push("Relationship.");
+			}
+			if (!data.plan_start) {
+				this.error_editDep.push("Start Date.");
+			}
+
+			if (!this.error_editDep.length) {
+				return true;
+			} else {
+				console.log(this.error_editDep);
+				let new_error = [];
+				this.error_editDep.map(value => {
+					new_error.push(`<span class="block p-1 text-red-500 text-center w-1/2 mx-auto my-0">${value}</span>`);
+				});
+				this.$swal(
+					'Required',
+					new_error.join('\n\n'),
+					'warning'
+				);
+
+			}
+		},
+		// ----------
+
+		// API METHODS
+
+		getEmployeeDependents() {
+			let get_employee_dependents = `${axios.defaults.serverUrl}/company/get_employee_dependents?customer_id=${this.customer_id}&employee_id=${this.member_id}`;
+
+			axios.get(get_employee_dependents)
+				.then(res => {
+					// Log the data to the console
+					// You would do something with both sets of data here
+					console.log(res);
+					if (res.data.status == true) {
+						this.dependent_arr = res.data.dependents;
+						// this.$emit('FromEmployee', { from_employee: this.employee_info });
+						console.log(this.dependent_arr);
+						this.hideLoading();
+					}
+					// this.hideLoading();
+				}).catch(err => {
+					this.hideLoading();
+					this.errorHandler(err);
+				});
+		},
+
+		onLoad() {
+			this.showLoading();
+			axios.all([
+				// API ARRAY
+				this.getEmployeeDependents(),
+			]).then(res => {
+				// Log the data to the console
+				// You would do something with both sets of data here
+				// console.log(res);
+				let res_len = res.length;
+				res.map((value, index) => {
+					if (index == res.length - 1) {
+						// this.hideLoading();
+					}
+				});
+			}).catch(error => {
+				// if there's an error, log it
+				console.log(error);
+				this.hideLoading();
+			});
+		},
 	}
 }
 
@@ -297,7 +445,5 @@ export default dependentInformation
 
 @media (max-width: 640px) {
 	/* ... */
-
-	
 }
 </style>

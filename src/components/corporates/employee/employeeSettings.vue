@@ -20,33 +20,10 @@ let employeeSettings = {
 			emp_pass_update: false,
 			pin_setup_update: false,
 			// END Modal //
-
-			// data for reset pass and pin
+			// data for reset pass and pin and sms update
+			toSmsData: {},
 			toUpdatePassword: {},
 			member_email: '',
-			// ---------------------------
-			empSelectorActive: {
-				value: 0,
-				text: ""
-			},
-			editEmployeeProfile: false,
-			addDependentInfo: false,
-			editRemoveEmpInfo: false,
-			remove_step_active: 'remove-emp',
-			removeBackBtn: false,
-			editReplaceDependentInfo: false,
-			withdrawEmployeeModal: false,
-			inNetworkClaimSummaryModal: false,
-			editDependentInfo: false,
-			showInNetwork: false,
-			showOutNetwork: false,
-			spendingTypeOpt: 'medical',
-			step_active: 1,
-			showTimeVisitDropdown: false,
-			showDaytimeOption: false,
-			showTimeOption: false,
-			showClaimTypeListOption: false,
-			showMemberListOption: false,
 			showRenewModal: false,
 			showManageCapPerVisit: false,
 			showSmsUpdateNotify: false,
@@ -62,13 +39,13 @@ let employeeSettings = {
 				input: ["DD/MM/YYYY"],
 				data: ["DD/MM/YYYY"]
 			},
-			cap_per_visit: '',
+			cap_per_visit: 0,
 			showEmpRenewPlanSummary: false,
 			// Sample data for re new plan modal 
 			new_plan_start_date: undefined,
 			credits_amount: '',
 			plan_type: {
-				fixed: 0,
+				fixed: "0",
 				duration: '2 months',
 				plan_start: undefined,
 				end_date: '',
@@ -78,163 +55,11 @@ let employeeSettings = {
 	},
 	created() {
 		console.log(`${this.member_id} ug is ${this.name}`);
-		this.healthPartnerViewStatus = this.$route.name;
-
 		this.onLoad();
 	},
 	methods: {
-		selectHealthPartnerView(opt) {
-			this.healthPartnerViewStatus = opt;
-			this.$router.push({ name: opt });
-		},
-		showEmpSelectorInfo(value, text) {
-			this.empSelectorActive.value = value;
-			this.empSelectorActive.text = text;
-		},
-		showEditEmp() {
-			this.editEmployeeProfile = this.editEmployeeProfile == false ? true : false;
-		},
-		showAddDependent() {
-			this.addDependentInfo = this.addDependentInfo == false ? true : false;
-		},
-		showRemoveEmp() {
-			this.editRemoveEmpInfo = this.editRemoveEmpInfo == false ? true : false;
-		},
-		showReplaceDependent() {
-			this.editReplaceDependentInfo = this.editReplaceDependentInfo == false ? true : false;
-		},
-		showRemoveDependent() {
-			this.withdrawEmployeeModal = this.withdrawEmployeeModal == false ? true : false;
-		},
-		showEditDependent() {
-			this.editDependentInfo = this.editDependentInfo == false ? true : false;
-		},
-		removeEmployeeBtn(data) {
-			let x = data;
-
-			if (x === "back") {
-				if (this.remove_step_active == 'remove-opt') {
-					this.removeBackBtn = false;
-					this.remove_step_active = 'remove-emp';
-				}
-
-				if (this.remove_step_active == 'replace-emp') {
-					this.remove_step_active = 'remove-opt';
-				}
-
-				if (this.remove_step_active == 'health-spending-summary') {
-					this.remove_step_active = 'remove-opt';
-				}
-
-				if (this.remove_step_active == 'health-spending-account') {
-					this.remove_step_active = 'health-spending-summary';
-				}
-			}
-
-			if (x === "next") {
-
-				if (this.remove_step_active == 'remove-emp') {
-					this.removeBackBtn = true;
-					this.remove_step_active = 'remove-opt';
-
-				} else if (this.remove_step_active == 'remove-opt') {
-
-					if (this.emp_details_replace) {
-						this.remove_step_active = 'replace-emp';
-					}
-
-					if (this.emp_details_reserve) {
-						this.remove_step_active = 'health-spending-summary';
-					}
-
-					if (this.emp_details_remove) {
-						this.remove_step_active = 'health-spending-summary';
-					}
-
-				} else if (this.remove_step_active == 'replace-emp') {
-					this.remove_step_active = 'health-spending-summary';
-
-				} else if (this.remove_step_active == 'health-spending-summary') {
-					this.remove_step_active = 'health-spending-account';
-				}
-
-			}
-
-
-		},
-		changeRemoveOption(opt) {
-			this.emp_details_replace = false;
-			this.emp_details_reserve = false;
-			this.emp_details_remove = false;
-
-			if (opt === 1) {
-				this.emp_details_replace = true;
-			}
-			if (opt === 2) {
-				this.emp_details_reserve = true;
-				console.log('2 ni siya');
-			}
-			if (opt === 3) {
-				this.emp_details_remove = true;
-				console.log('3 ni siya');
-			}
-		},
-		inNetworkSubmit() {
-			this.inNetworkClaimSummaryModal = this.inNetworkClaimSummaryModal == false ? true : false;
-		},
-		toggleShowInNetwork(data) {
-			let x = data;
-			if (x === "in-network") {
-				this.showInNetwork = true;
-			} else if (x === "cancel") {
-				this.showInNetwork = false;
-			}
-		},
-		toggleShowOutNetwork(data) {
-			let x = data;
-			if (x === "out-network") {
-				this.showOutNetwork = true;
-			} else if (x === "cancel") {
-				this.showOutNetwork = false;
-			}
-		},
-		editInNetworkOpt() {
-			this.showOutNetwork = true;
-		},
-		claimTypeListOption() {
-			this.showClaimTypeListOption = this.showClaimTypeListOption == false ? true : false;
-		},
-		memberListOption() {
-			this.showMemberListOption = this.showMemberListOption == false ? true : false;
-		},
-		setSpendingType(opt) {
-			this.spendingTypeOpt = opt;
-		},
-		clickedTimeVisitDropdown() {
-			this.showTimeVisitDropdown = this.showTimeVisitDropdown == false ? true : false;
-		},
-		clickedTimeOption() {
-			this.showTimeOption = this.showTimeOption == false ? true : false;
-		},
-		clickedDaytimeOption() {
-			this.showDaytimeOption = this.showDaytimeOption == false ? true : false;
-		},
-		empDetailsOutNetworkNextBackBtn(data) {
-			let x = data;
-			if (x === "next") {
-				if (this.step_active == 1) {
-					this.step_active = 2;
-				} else if (this.step_active == 2) {
-					this.step_active = 3;
-				}
-			}
-			if (x === "back") {
-				if (this.step_active == 2) {
-					this.step_active = 1;
-				} else if (this.step_active == 3) {
-					this.step_active = 2;
-				}
-			}
+		selectHealthPartnerView(){
+			this.$router.push({ name: 'HealthPartnerAccess', params: { type: 'employee', id: this.member_id } });
 		},
 		//SETTINGS BUTTON FOR SHOWING MODAL
 		selectedEmpDetailsSettingsClicked(value, data) {
@@ -265,6 +90,7 @@ let employeeSettings = {
 			if (y == 2) {
 				if (x === "manage-visit") {
 					this.showManageCapPerVisit = true;
+					console.log(this.data_cap);
 				} else if (x === "cancel") {
 					this.showManageCapPerVisit = false;
 				}
@@ -273,6 +99,11 @@ let employeeSettings = {
 			if (y == 3) {
 				if (x === "sms-update-notify") {
 					this.showSmsUpdateNotify = true;
+
+					this.toSmsData = {
+						phone_code: this.employee_info.phone_code,
+						phone_no: this.employee_info.phone_no
+					};
 				} else if (x === "cancel") {
 					this.showSmsUpdateNotify = false;
 				}
@@ -292,6 +123,7 @@ let employeeSettings = {
 			let x = data;
 			if (x === "credits-plans") {
 				this.showEmpCreditsPlan = true;
+				console.log(this.plan_type.plan_start);
 			} else if (x === "cancel") {
 				this.showEmpCreditsPlan = false;
 			}
@@ -311,18 +143,18 @@ let employeeSettings = {
 				this.$swal("Oops!", "Please input cap per visit", "error");
 				return false;
 			}
-			var data = {
+			this.data_cap = {
 				employee_id: this.member_id,
 				cap_amount: cap,
 			}
-
 			// console.log( data );
 
-			axios.post(axios.defaults.serverUrl + '/company/updateEmployeeCap', data)
+			axios.post(axios.defaults.serverUrl + '/company/updateEmployeeCap', this.data_cap)
 				.then(response => {
 					console.log(response);
 					this.$swal("Success!", response.data.message, "success");
 					this.showManageCapPerVisit = false;
+					this.cap_per_visit = this.data_cap.cap_amount;
 				})
 				.catch(err => {
 					this.$parent.hideLoading();
@@ -330,7 +162,7 @@ let employeeSettings = {
 				});
 		},
 
-		// employee details options
+		// employee details options - JAZ
 		showUpdatePass() {
 			this.emp_padd_reset_wrapper = !this.emp_padd_reset_wrapper;
 			this.emp_pass_update = !this.emp_pass_update;
@@ -371,7 +203,7 @@ let employeeSettings = {
 		resend_reset_account() {
 			// function here
 			this.showLoading();
-			let resend_employee_account = `${axios.defaults.serverUrl}/company/resend_employee_account`; 
+			let resend_employee_account = `${axios.defaults.serverUrl}/company/resend_employee_account`;
 			let data = {
 				member_id: this.member_id,
 			}
@@ -423,6 +255,58 @@ let employeeSettings = {
 				);
 			}
 		},
+		send_sms_notification(data) {
+			this.showLoading();
+			let send_sms_specific = `${axios.defaults.serverUrl}/company/send_sms_specific`;
+
+			if (this.send_sms_checkForm(data)) {
+				data.member_id = this.member_id;
+				axios.post(send_sms_specific, data)
+					.then(res => {
+						console.log(res);
+						if (res.data.status == true) {
+							this.hideLoading();
+							this.$swal("Success!", res.data.message, "success")
+								.then(res1 => {
+									this.selectedEmpDetailsSettingsClicked(3, 'cancel'); // cloase ang SMS MODAL
+									this.toSmsData = {}; // clear object
+								});
+						} else {
+							this.hideLoading();
+							this.$swal("Warning!", res.data.message, "warning");
+						}
+					})
+					.catch(err => {
+						this.$parent.hideLoading();
+						this.errorHandler(err);
+					});
+			}
+		},
+		send_sms_checkForm(data) {
+			this.error_sms_notif = [];
+
+			if (!data.phone_code) {
+				this.error_sms_notif.push("Area Code");
+			}
+			if (!data.phone_no) {
+				this.error_sms_notif.push("Mobile Number");
+			}
+
+			if (!this.error_sms_notif.length) {
+				return true;
+			} else {
+				console.log(this.error_sms_notif);
+				let new_error = [];
+				this.error_sms_notif.map(value => {
+					new_error.push(`<span class="block p-1 text-red-500 text-center w-1/2 mx-auto my-0">${value}</span>`);
+				});
+				this.$swal(
+					'Required',
+					new_error.join('\n\n'),
+					'warning'
+				);
+			}
+		},
 		//  -----------------------
 
 		// Renew Plan Modal
@@ -436,7 +320,7 @@ let employeeSettings = {
 				}
 			} else {
 				this.showEmpRenewPlanSummary = false;
-				this.new_plan_start_date = new Date(moment(this.new_plan_start_date,'MMMM DD,YYYY'));
+				this.new_plan_start_date = new Date(moment(this.new_plan_start_date, 'MMMM DD,YYYY'));
 				// console.log(this.new_plan_start_date);
 			}
 		},
@@ -450,19 +334,19 @@ let employeeSettings = {
 			this.showRenewModal = false;
 			this.showEmpRenewPlanSummary = false;
 
-			axios.put( axios.defaults.serverUrl + '/company/renew_plan', data ) 
-      .then(response => { 
-        console.log(response);
-				this.$swal("Success!", response.data.message, "success");
-				this.new_plan_start_date = new Date(data.plan_start);
-      })
-      .catch(err => {
-        this.$parent.hideLoading();
-        this.errorHandler( err );
-			});
-    },  
-		submitUserCreditAllocation( credit ) {
-			if ( credit && credit > 0 ) {
+			axios.put(axios.defaults.serverUrl + '/company/renew_plan', data)
+				.then(response => {
+					console.log(response);
+					this.$swal("Success!", response.data.message, "success");
+					this.new_plan_start_date = new Date(data.plan_start);
+				})
+				.catch(err => {
+					this.$parent.hideLoading();
+					this.errorHandler(err);
+				});
+		},
+		submitUserCreditAllocation(credit) {
+			if (credit && credit > 0) {
 				var data = {
 					member_id: this.member_id,
 					customer_id: this.customer_id,
@@ -475,7 +359,11 @@ let employeeSettings = {
 					.then(response => {
 						// console.log(response.data.status);
 						if (response.data.status) {
-							this.$swal("Success!", response.data.message, "success");
+							this.$swal("Success!", response.data.message, "success")
+							.then (response1 => { 
+								// this.getEmployeeDetails();
+								this.$emit('FromSettings', true);
+							});
 						} else {
 							this.$swal("Error!", response.data.message, "error");
 						}
@@ -492,15 +380,19 @@ let employeeSettings = {
 			var data = {
 				member_id: this.member_id,
 				plan_start: moment(this.plan_type.plan_start).format('YYYY-MM-DD'),
+				plan_start: this.plan_type.plan_start,
 				fixed: this.plan_type.fixed,
 				duration: this.plan_type.duration,
 			}
+
 			axios.put(axios.defaults.serverUrl + '/company/update_plan_employee', data)
 				.then(response => {
 					console.log(response);
+					console.log(data);
 					this.$swal("Success!", response.data.message, "success");
 				})
 				.catch(err => {
+					console.log(data);
 					this.$parent.hideLoading();
 					this.errorHandler(err);
 				});
@@ -517,7 +409,8 @@ let employeeSettings = {
 					console.log(res);
 					if (res.status == 200) {
 						this.member_email = res.data.data.work_email;
-						this.employee_info = res.data.data
+						this.employee_info = res.data.data;
+						// this.$emit('FromSettings', {from_settings: this.employee_info });
 						// localStorage.employee_email = this.employee_info.work_email;
 						console.log(this.employee_info);
 					}

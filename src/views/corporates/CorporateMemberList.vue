@@ -50,33 +50,30 @@
 							<div class="info-details no-margin-bottom">
 								<label class="block">Spending Account:</label>
 								<div class="flex flex-wrap justify-between">
-									<span class="w-12 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mr-2"></span>
-									<span class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2">Medical</span>
-									<span class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2">Wellness</span>
+									<span class="w-12 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mr-0"></span>
+									<span class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-1">Medical</span>
+									<span class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-1">Wellness</span>
 								</div>
 								<div class="flex flex-wrap justify-between">
-									<label class="w-12 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mr-2">Allocation</label>
-									<div class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2">
-										<span ng-bind="corprorate_details.credits.currency_type" class="currency-type">SGD</span>
-										<span>{{list.spending_account.medical.credits_allocation | currency('', 2, { thousandsSeparator: ',' }) }}</span>
+									<label class="w-12 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mr-0">Allocation</label>
+									<div class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-1">
+										<!-- <span class="currency-type">SGD</span> -->
+										<span class="uppercase">{{list.spending_account.medical.credits_allocation | currency(`${list.currency_type} `, 2, { thousandsSeparator: ',' }) }}</span>
 									</div>
-									<div class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2">
-										<span ng-bind="corprorate_details.credits.currency_type" class="currency-type">SGD</span>
-										<span
-											ng-bind="list.spending_account.wellness.credits_allocation">{{list.spending_account.wellness.credits_allocation_wellness | currency('', 2, { thousandsSeparator: ',' }) }}</span>
+									<div class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-1">
+										<!-- <span class="currency-type">SGD</span> -->
+										<span class="uppercase">{{list.spending_account.wellness.credits_allocation_wellness | currency(`${list.currency_type} `, 2, { thousandsSeparator: ',' }) }}</span>
 									</div>
 								</div>
 								<div class="flex flex-wrap justify-between">
-									<label class="w-12 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mr-2">Usage</label>
-									<div class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2">
-										<span ng-bind="corprorate_details.credits.currency_type" class="currency-type">SGD</span>
-										<span
-											ng-bind="list.spending_account.medical.credits_allocation">{{list.spending_account.medical.credits_spent | currency('', 2, { thousandsSeparator: ',' }) }}</span>
+									<label class="w-12 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mr-0">Usage</label>
+									<div class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-1">
+										<!-- <span ng-bind="corprorate_details.credits.currency_type" class="currency-type">SGD</span> -->
+										<span class="uppercase">{{list.spending_account.medical.credits_spent | currency(`${list.currency_type} `, 2, { thousandsSeparator: ',' }) }}</span>
 									</div>
-									<div class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-2">
-										<span ng-bind="corprorate_details.credits.currency_type" class="currency-type">SGD</span>
-										<span
-											ng-bind="list.spending_account.wellness.credits_allocation">{{list.spending_account.wellness.credits_spent_wellness | currency('', 2, { thousandsSeparator: ',' }) }}</span>
+									<div class="w-1/4 xs:1/3 sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mx-1">
+										<!-- <span ng-bind="corprorate_details.credits.currency_type" class="currency-type">SGD</span> -->
+										<span class="uppercase">{{list.spending_account.wellness.credits_spent_wellness | currency(`${list.currency_type} `, 2, { thousandsSeparator: ',' }) }}</span>
 									</div>
 								</div>
 							</div>
@@ -105,7 +102,7 @@
 							class="account-deactivated-status p-3 bg-red-300 text-center">
 							<span class="text-red-600 text-base">Account Deleted/Deactivated</span>
 						</div>
-						<button v-if="!list.deletion && list.active && !list.schedule" ng-if="!list.deletion && !list.schedule && list.member.Active == 1"
+						<button v-if="!list.deletion && list.active && !list.schedule" :disabled="!compnayList_done"
 							class="btn btn-transfer-company" @click="toggleTransferAccountModal(list)">Transfer Account</button>
 					</div>
 					<!-- end body -->
@@ -114,7 +111,7 @@
 		</div>
 
 		<!-- Pagination Start -->
-		<div v-show="corporate_pagination.data.length > 5 && !searchActive" class="custom-pagination-container">
+		<div v-show="corporate_pagination.totalPages > 1 && corporate_pagination.data.length > 0 && !searchActive" class="custom-pagination-container">
 			<div class="custom-pagination flex-wrap">
 				<div class="page-wrapper">
 					<div class="page-scroll-container m-0">
@@ -211,7 +208,7 @@
 						<div class="pb-3 pt-4">Transfer to:</div>
 
 						<div class="transfer-to-wrapper">
-							<input class="border border-gray-400 w-full h-10 rounded-sm" type="text"
+							<input class="border border-gray-400 w-full h-10 rounded-sm px-4" type="text"
 								v-model="selected_transfer_data.company"
 								@keypress="companyTransferTyping( selected_transfer_data.company )" />
 							<div v-show="showCompanyDrop" class="company-list-drop">
@@ -258,7 +255,7 @@
 					<span>Proceed</span>
 				</button>
 				<button v-if="showTransferCompanySummary" class="btn-primary mx-1"
-					@click="toggleTransferCompSummary()">Back</button>
+					@click="toggleTransferCompSummary('close')">Back</button>
 				<button v-if="showTransferCompanySummary" class="btn-primary mx-1" aria-label="s"
 					@click="updateTransferCompanyBtn(selected_transfer_data)">
 					<span>Submit</span>

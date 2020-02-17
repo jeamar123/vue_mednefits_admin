@@ -45,6 +45,7 @@
   .blocked-opened-header {
     padding: 0 20px;
     position: relative;
+    min-height: 31px;
 
     h3 {
       font-size: 16px;
@@ -102,6 +103,10 @@
 
     .btn-primary {
       height: 32px;
+    }
+    .btn-primary[disabled] {
+      opacity: .5;
+      cursor: not-allowed;
     }
   }
 
