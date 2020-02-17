@@ -15,6 +15,10 @@
 							<strong>Full Name</strong>
 							<span>{{employee_info.fullname || 'N/A'}}</span>
 						</div>
+						<div v-if="employee_info.nric">
+							<strong>NRIC/FIN</strong>
+							<span>{{employee_info.nric || 'N/A'}}</span>
+						</div>
 						<div>
 							<strong>Date of Birth</strong>
 							<span>{{ formatDate(employee_info.dob, null, 'DD-MM-YYYY') }}</span>
@@ -124,8 +128,14 @@
 							</div>
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Job Title</label>
-								<div class="date-container">
-									<input type="text" v-model="toEdit.job_title">
+								<div class="jobList-container">
+									<!-- <input type="text" v-model="toEdit.job_title"> -->
+									<select name="" id="" v-model="toEdit.job_title">
+										<option :value="jobs.job_title" v-for="jobs in jobList" :key="jobs.index">
+											{{jobs.job_title}}
+										</option>
+									</select>
+									<i class="fa fa-caret-down"></i>
 								</div>
 							</div>
 						</div>

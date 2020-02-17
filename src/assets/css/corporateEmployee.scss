@@ -250,7 +250,7 @@
       width: 120px;
       height: 40px;
       // background-color: #076086;
-      background-color: rgb(63,81,181);
+      background-color: rgb(63, 81, 181);
       border-radius: 2px;
       border: 0;
       color: #fff;
@@ -258,8 +258,8 @@
       margin: 0;
     }
 
-    .btn-submit[disabled]{
-      opacity: .5;
+    .btn-submit[disabled] {
+      opacity: 0.5;
       cursor: not-allowed;
     }
 
@@ -284,7 +284,7 @@
     }
   }
 
-  .xs-employee-tabs{
+  .xs-employee-tabs {
     display: none;
   }
 
@@ -636,12 +636,18 @@
   .country-code-container {
     position: relative;
     margin: 0 10px 0 0;
+
+    select {
+      position: relative;
+      z-index: 1;
+    }
   }
 
   .fa-caret-down {
     position: absolute;
     top: 7px;
     right: 0;
+    z-index: 0;
   }
 }
 .btn-network {
@@ -733,7 +739,7 @@
       padding: 5px 10px;
       font-size: 11px;
     }
-    .dropdown-menu li:hover{
+    .dropdown-menu li:hover {
       background: #f5f5f5;
     }
 
@@ -775,11 +781,11 @@
     position: relative;
     width: 90%;
 
-    .health-partner-drop{
+    .health-partner-drop {
       width: 250px;
       padding: 10px;
       border-radius: 2px;
-      background: #FFF;
+      background: #fff;
       border: 1px solid #ddd;
       box-sizing: border-box;
       position: absolute;
@@ -800,27 +806,27 @@
         background-color: #ddd;
       }
 
-      .health-partner-drop-row{
+      .health-partner-drop-row {
         display: flex;
         margin-bottom: 15px;
         cursor: pointer;
 
-        img{
+        img {
           width: 50px;
           height: 50px;
           border-radius: 50%;
         }
 
-        .partner-details{
+        .partner-details {
           flex: 1;
           padding-left: 10px;
 
-          p{
+          p {
             margin: 0;
-            color: #FFF;
+            color: #fff;
             font-size: 12px;
 
-            span{
+            span {
               display: inline-block;
               background-color: #d9edf7;
               color: #31708f;
@@ -831,18 +837,18 @@
     }
   }
 
-  .service-input-wrapper{
-    ul{
-      li{
+  .service-input-wrapper {
+    ul {
+      li {
         display: flex;
 
-        a{
+        a {
           flex: 1;
         }
-        .rmv-service{
+        .rmv-service {
           flex: none;
           width: 15px;
-          i{
+          i {
             font-size: 13px;
           }
         }
@@ -858,12 +864,12 @@
     padding: 10px 35px 10px 40px;
   }
 
-  .visit-time-input-wrapper{
-    .daytime-drop{
+  .visit-time-input-wrapper {
+    .daytime-drop {
       width: 35px;
       right: 0;
 
-      li{
+      li {
         text-align: center;
         padding: 5px 0;
       }
@@ -1074,7 +1080,7 @@
       color: #888;
     }
   }
-  
+
   .currency-opt {
     position: absolute;
     right: 0;
@@ -1102,7 +1108,7 @@
     padding: 6px 18px;
   }
 
-  .visit-date-container{
+  .visit-date-container {
     position: absolute;
     top: 0px;
     right: 0px;
@@ -1125,11 +1131,11 @@
     padding: 3px 0 0 0;
     color: #36aaec;
 
-    >span{
+    > span {
       display: block;
       height: 12px;
     }
-    >i{
+    > i {
       color: #888;
       font-size: 12px;
     }
@@ -1238,7 +1244,7 @@
       background-color: #1d9dd3;
       width: 10%;
 
-      &.progress-error{
+      &.progress-error {
         background-color: red;
       }
     }
@@ -1261,7 +1267,7 @@
 
   .label-item {
     color: #52b4de;
-    span.img-wrapper{
+    span.img-wrapper {
       display: inline-block;
       margin-right: 10px;
     }
@@ -1389,7 +1395,6 @@
   }
 }
 
-
 .employee-details-input-wrapper {
   label {
     display: block;
@@ -1399,7 +1404,8 @@
   }
 
   input,
-  select, .vDatepicker {
+  select,
+  .vDatepicker {
     border: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 0;
@@ -1407,15 +1413,37 @@
     height: 30px;
     margin: 0 0 20px;
     background: none;
-    
+    -webkit-appearance: none;
   }
 
-  select {
-    width: 100px;
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
+    margin: 0;
+  }
 
+  select, .vDatepicker .popover-container {
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+  }
+
+  .country-code-container select {
+    width: 100px;
+  }
+
+  .jobList-container {
+    position: relative;
+
+    .fa-caret-down {
+      position: absolute;
+      top: 7px;
+      right: 0;
+      z-index: 0;
+    }
   }
 }
+
 .credits-plans-wrapper {
   h1 {
     font-size: 24px;
@@ -1581,8 +1609,8 @@
     font-weight: 700;
     height: 38px;
 
-     &[disabled] {
-      opacity: .5;
+    &[disabled] {
+      opacity: 0.5;
     }
   }
 
@@ -1750,8 +1778,8 @@
 }
 
 @media (max-width: 1185px) {
-  .claim-submission-details{ 
-    .xs-in-network-form{
+  .claim-submission-details {
+    .xs-in-network-form {
       margin-right: -25px;
 
       .claim-form-div {
@@ -1762,7 +1790,7 @@
           width: 100%;
         }
       }
-    } 
+    }
   }
 }
 
@@ -1851,7 +1879,7 @@
     }
   }
 }
-  
+
 @media (max-width: 670px) {
   .entitlement-wrapper {
     padding: 20px;
@@ -1866,21 +1894,21 @@
       }
     }
   }
-  .employee-menu-container{
-    .emp-tab-wrapper{
+  .employee-menu-container {
+    .emp-tab-wrapper {
       display: none;
     }
   }
-  .employee-menu-container{
-    .xs-employee-tabs{
+  .employee-menu-container {
+    .xs-employee-tabs {
       display: flex;
       margin: 20px 0 0;
       padding: 10px 0 0 70px;
       position: relative;
-      .emp-tab-box{
+      .emp-tab-box {
         position: relative;
       }
-      .emp-tab-select{
+      .emp-tab-select {
         background: transparent;
         margin: 0 0 10px 0;
         font-weight: 700;
@@ -1888,7 +1916,7 @@
         padding: 0 20px 5px 0;
         border-radius: 0;
       }
-      i{
+      i {
         position: absolute;
         right: 10px;
         top: 5px;
