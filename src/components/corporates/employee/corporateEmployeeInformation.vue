@@ -73,6 +73,12 @@ let corporateEmployeeInformation = {
 			toEdit: {},
 			toRemove: {},
 			toReplace: {},
+			account_spending_summary: {
+				medical: {},
+				wellness: {},
+				date: {},
+			},
+			spending_account_next_disabled: false,
 			//dependent
 			toAddDep: {}
 			// ------------------------
@@ -152,7 +158,7 @@ let corporateEmployeeInformation = {
 		},
 		update_communication_type(value) {
 			let update_employee_details = `${axios.defaults.serverUrl}/company/update_employee_details`;
-			let data  = {
+			let data = {
 				member_id: this.member_id,
 				communication_type: value
 			}
@@ -203,6 +209,20 @@ let corporateEmployeeInformation = {
 					});
 			}
 		},
+		spending_calibration(data) {
+
+			if (data) {
+
+				this.account_spending_summary.calibrate_medical = true;
+				this.account_spending_summary.calibrate_wellness = true;
+			} else {
+
+				this.account_spending_summary.calibrate_medical = false;
+				this.account_spending_summary.calibrate_wellness = false;
+			}
+			this.$forceUpdate();
+
+		},
 		getEmployeeDetails() {
 			// for single  buttons or manual trigger
 			let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
@@ -211,7 +231,7 @@ let corporateEmployeeInformation = {
 					// Log the data to the console
 					// You would do something with both sets of data here
 					console.log(res);
-					if (res.status == 200) {
+					if (res.data.status == true) {
 						this.employee_info = res.data.data;
 						// localStorage.employee_email = this.employee_info.work_email;
 						console.log(this.employee_info);
@@ -222,6 +242,57 @@ let corporateEmployeeInformation = {
 					this.hideLoading();
 					this.errorHandler(err);
 				});
+		},
+		get_health_spending_account(type) {
+			this.showLoading();
+			let get_employee_account_spending_summary = `${axios.defaults.serverUrl}/company/get_employee_account_spending_summary?member_id=${this.member_id}`;
+
+			// Default
+			if (type == 'default') {
+				this.spending_account_next_disabled = false;
+				get_employee_account_spending_summary += `&last_date_of_coverage=${moment(this.toRemove.last_day).format('YYYY-MM-DD')}`;
+			}
+			//Pro allocation
+			if (type == 'Pro_allocation') {
+				this.spending_account_next_disabled = true;
+				get_employee_account_spending_summary += `&pro_allocation_start_date=${moment(this.account_spending_summary.date.pro_rated_start).format('YYYY-MM-DD')}`;
+				get_employee_account_spending_summary += `&pro_allocation_end_date=${moment(this.account_spending_summary.date.pro_rated_end).format('YYYY-MM-DD')}`;
+			}
+			//callibration
+			if (type == 'callibration') {
+				get_employee_account_spending_summary += `&pro_allocation_start_date=${moment(this.account_spending_summary.date.pro_rated_start).format('YYYY-MM-DD')}`;
+				get_employee_account_spending_summary += `&pro_allocation_end_date=${moment(this.account_spending_summary.date.pro_rated_end).format('YYYY-MM-DD')}`;
+				get_employee_account_spending_summary += `&calibrate_medical=${this.account_spending_summary.calibrate_medical}`;
+				get_employee_account_spending_summary += `&calibrate_wellness=${this.account_spending_summary.calibrate_wellness}`;
+			}
+
+			axios.get(get_employee_account_spending_summary)
+				.then(res => {
+					// Log the data to the console
+					// You would do something with both sets of data here
+					console.log(res);
+					if (res.data.status == true) {
+						this.account_spending_summary = res.data;
+						this.account_spending_summary.date.pro_rated_start = new Date(this.account_spending_summary.date.pro_rated_start);
+						this.account_spending_summary.date.pro_rated_end = new Date(this.account_spending_summary.date.pro_rated_end);
+						// localStorage.employee_email = this.employee_info.work_email;
+						console.log(this.account_spending_summary);
+
+						if (this.account_spending_summary.calibrate_medical == true) {
+							this.$swal('Success', res.data.message, 'success')
+								.then(res1 => {
+
+								});
+							this.showRemoveEmp();
+						}
+						this.hideLoading();
+					}
+					// this.hideLoading();
+				}).catch(err => {
+					this.hideLoading();
+					this.errorHandler(err);
+				});
+
 		},
 		checkForm_edit() {
 			this.error_updateEmployee = [];
@@ -311,10 +382,6 @@ let corporateEmployeeInformation = {
 
 			}
 		},
-		validEmail(email) {
-			let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-			return re.test(email);
-		},
 		//-------------
 		selectHealthPartnerView(opt) {
 			this.healthPartnerViewStatus = opt;
@@ -350,10 +417,15 @@ let corporateEmployeeInformation = {
 		showRemoveEmp() {
 			this.editRemoveEmpInfo = this.editRemoveEmpInfo == false ? true : false;
 
-			this.toRemove = {
-				member_id: this.employee_info.member_id,
-				fullname: this.employee_info.fullname,
-				last_day: new Date(moment().add(1, 'days')),
+			if (this.editRemoveEmpInfo == true) {
+				this.remove_step_active = 'remove-emp';
+				this.removeBackBtn = false;
+				
+				this.toRemove = {
+					member_id: this.employee_info.member_id,
+					fullname: this.employee_info.fullname,
+					last_day: new Date(moment().add(1, 'days')),
+				}
 			}
 		},
 		showReplaceDependent() {
@@ -404,15 +476,27 @@ let corporateEmployeeInformation = {
 						this.remove_step_active = "replace-emp";
 					} else if (this.emp_details_reserve) {
 						this.remove_step_active = "health-spending-summary";
+						this.get_health_spending_account('default');
 					} else if (this.emp_details_remove) {
 						this.remove_step_active = "health-spending-summary";
+						this.get_health_spending_account('default');
 					} else {
 						this.$swal('Warning', 'Select 1 Option', 'warning');
 					}
 				} else if (this.remove_step_active == "replace-emp") {
 					this.remove_step_active = "health-spending-summary";
+					this.get_health_spending_account('default');
 				} else if (this.remove_step_active == "health-spending-summary") {
 					this.remove_step_active = "health-spending-account";
+				} else if (this.remove_step_active == "health-spending-account") {
+					this.get_health_spending_account('callibration');
+					this.emp_details_replace = false;
+					this.emp_details_reserve = false;
+					this.emp_details_remove = false;
+
+					if (this.account_spending_summary.calibrate_medical == false) {
+						this.showRemoveEmp();
+					}
 				}
 			}
 		},
