@@ -5,7 +5,7 @@
 			<button @click="updateEntitlement()" class="btn-update">Update</button>
 		</div>
 		<div class="entitlement-information-details">
-			<div class="medical-container">
+			<div v-if="employee_info.medical_enable" class="medical-container">
 				<h4>Medical Entitlement</h4>
 				<div class="medical-entitlement-container">
 					<div class="entitlement-input-wrapper">
@@ -93,7 +93,7 @@
 				</div>
 			</div>
 
-			<div class="wellness-container">
+			<div v-if="employee_info.wellness_enable" class="wellness-container">
 				<h4>Wellness Entitlement</h4>
 				<div class="wellness-entitlement-container">
 					<div class="entitlement-input-wrapper">

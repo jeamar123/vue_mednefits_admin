@@ -128,7 +128,7 @@
         let get_calc_details = `${axios.defaults.serverUrl}/company/get_member_entitlement_calculation_details?member_id=${this.member_id}`;
         axios.get(get_calc_details)
 					.then(response => {
-            console.log(response);
+            // console.log(response);
             this.hideLoading();
             this.get_calc_medical = response.data.medical;
             this.get_calc_wellness = response.data.wellness;
@@ -145,17 +145,9 @@
               this.new_credits_wellness = this.get_calc_wellness.entitlement_status.new_entitlement_credits;
             }
             
-            
-            
-            
+                      
+            // console.log('reponse sa get calculate',response);
 
-            console.log(response.data.medical);
-            // console.log(response.data.medical.entitlement_status.old_entitlement_credits);
-            console.log(this.get_calc_medical);
-
-            // for( let value of this.create_company.company_contacts ){ 
-            //   console.log(value)
-            // }
 
             //trap for exceeding spending end date
             if ( new Date(this.med_effective_date) > new Date(this.get_calc_medical.medical_spending_validate_end_date) ) {
@@ -224,21 +216,21 @@
             }
 
             this.med_entitlement_duration = moment(new Date(this.get_calc_medical.medical_spending_validate_end_date)).diff(new Date(this.med_effective_date), 'months', false) + 1;
-            console.log('entitlement duration Months',this.med_entitlement_duration);
+            // console.log('entitlement duration Months',this.med_entitlement_duration);
           }
           if ( this.emp_entitlement.medical_proration == 'days' ) {
             console.log('days');
             this.medical_plan_duration = moment(new Date(this.get_calc_medical.medical_spending_validate_end_date)).diff(new Date(this.get_calc_medical.medical_usage_date), 'days', false) + 1;
-            console.log('medical_plan_duration Days',this.medical_plan_duration);
+            // console.log('medical_plan_duration Days',this.medical_plan_duration);
 
             if( new Date(this.med_effective_date) < new Date(this.get_calc_medical.medical_usage_date) ){
               console.log('true siya');
               this.med_plan_month_duration = moment(new Date(this.get_calc_medical.medical_usage_date)).diff(new Date(this.med_effective_date), 'days', false) + 1;
-              // console.log('plan month duration Days',this.med_plan_month_duration);
+              console.log('plan month duration Days',this.med_plan_month_duration);
             } else {
               console.log('false siya');
               this.med_plan_month_duration = moment(new Date(this.med_effective_date)).diff(new Date(this.get_calc_medical.medical_usage_date), 'days', false) + 1;
-              // console.log('plan month duration Days',this.med_plan_month_duration);
+              console.log('plan month duration Days',this.med_plan_month_duration);
             }  
 
             this.med_entitlement_duration = moment(new Date(this.get_calc_medical.medical_spending_validate_end_date)).diff(new Date(this.med_effective_date), 'days', false) + 1;
@@ -260,20 +252,20 @@
           if ( this.emp_entitlement.wellness_proration == 'months' ) {
             console.log('months');
             this.wellness_plan_duration = moment(new Date(this.get_calc_wellness.wellness_spending_validate_end_date)).diff(new Date(this.get_calc_wellness.wellness_usage_date), 'months', false) + 1;
-            console.log('wellness_plan_duration Months',this.wellness_plan_duration);
+            // console.log('wellness_plan_duration Months',this.wellness_plan_duration);
 
             if( new Date(this.well_effective_date) < new Date(this.get_calc_wellness.wellness_usage_date) ){
               // console.log('true siya');
               this.well_plan_month_duration = moment(new Date(this.get_calc_wellness.wellness_usage_date)).diff(new Date(this.well_effective_date), 'months', false) + 1;
-              console.log('plan month duration Months',this.well_plan_month_duration);
+              // console.log('plan month duration Months',this.well_plan_month_duration);
             } else {
               // console.log('false siya');
               this.well_plan_month_duration = moment(new Date(this.well_effective_date)).diff(new Date(this.get_calc_wellness.wellness_usage_date), 'months', false) + 1;
-              console.log('plan month duration Months',this.well_plan_month_duration);
+              // console.log('plan month duration Months',this.well_plan_month_duration);
             }
 
             this.well_entitlement_duration = moment(new Date(this.get_calc_wellness.wellness_spending_validate_end_date)).diff(new Date(this.well_effective_date), 'months', false) + 1;
-            console.log('entitlement duration Months',this.well_entitlement_duration);
+            // console.log('entitlement duration Months',this.well_entitlement_duration);
 
           }
           if ( this.emp_entitlement.wellness_proration == 'days' ) {
@@ -282,11 +274,11 @@
             // console.log(this.wellness_plan_duration);
 
             if( new Date(this.well_effective_date) < new Date(this.get_calc_wellness.wellness_usage_date) ){
-              console.log('true siya');
+              // console.log('true siya');
               this.well_plan_month_duration = moment(new Date(this.get_calc_wellness.wellness_usage_date)).diff(new Date(this.well_effective_date), 'days', false) + 1;
               // console.log('plan month duration Days',this.well_plan_month_duration);
             } else {
-              console.log('false siya');
+              // console.log('false siya');
               this.well_plan_month_duration = moment(new Date(this.well_effective_date)).diff(new Date(this.get_calc_wellness.wellness_usage_date), 'days', false) + 1;
               // console.log('plan month duration Days',this.well_plan_month_duration);
             }  
@@ -349,21 +341,14 @@
 
         if ( this.cal_one == true && this.cal_two == true ) {
           console.log('medical ug wellness');
-          // console.log(this.med_data);
-          // console.log(this.well_data);
-          // var data = {
-          //    med_data: this.med_data,
-          //    well_data: this.well_data
-          // }
-          // console.log(data);
-          // this.getMemberEntitlement();
 
           axios.post(axios.defaults.serverUrl + '/company/create_member_entitlement', this.med_data)
 					.then(response => { 
             if (response.data.status) {
               this.$swal("Success!", response.data.message, "success");
-              this.getEmployeeDetails();
-              this.getCalcData();
+              // this.getEmployeeDetails();
+              // this.getCalcData();
+              console.log('sulod sa medical');
               this.emp_entitlement.medical_new_entitlement = '';
             } else {
               this.$swal("Error!", response.data.message, "error");
@@ -379,6 +364,7 @@
               this.$swal("Success!", response.data.message, "success");
               this.getEmployeeDetails();
               this.getCalcData();
+              console.log('sulod sa wellness');
               this.emp_entitlement.wellness_new_entitlement = '';
             } else {
               this.$swal("Error!", response.data.message, "error");
