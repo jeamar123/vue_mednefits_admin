@@ -172,7 +172,7 @@ import moment, { locale } from "moment";
               this.open_selected_clinics.push({
                 clinic_id: this.open_clinic_list[key].clinic_id,
                 account_type: this.type,
-                status: 0
+                status: 1
               });
             });
           }
