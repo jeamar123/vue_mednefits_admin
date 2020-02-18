@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import router from '../router';
+import router from '../../router';
 
 export default {
   methods: {
@@ -22,15 +22,12 @@ export default {
       router.back();
     },
     showLoading : () =>{
-      console.log('sdfsd');
-      // router.app.$children[0].$children[0].showLoading();
+      router.app.$children[0].$children[0].showLoading();
     },
     hideLoading : () =>{
       router.app.$children[0].$children[0].hideLoading();
     },
-
-    // For validtaion with RegEx
-    validEmail: (email) => {
+    validEmail: (email) => { // For validtaion with RegEx
 			let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 			return re.test(email);
 		},

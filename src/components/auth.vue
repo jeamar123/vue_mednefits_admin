@@ -1,6 +1,5 @@
 <script>
-	import axios from 'axios'
-	import apiServices from '../common/functions/common_ApiServices';
+	import { _login_ } from '../common/functions/common_ApiServices';
 	
 	var auth = {
 		data() {
@@ -14,18 +13,18 @@
 			}
 		},
 		created() {
-			// console.log( apiServices );
+
 		},
 		methods: {
-      showLoading() {
+      showLoading: () => {
       	this.showLoader = true;
       },
-      hideLoading() {
-      	setTimeout(()=>{
-				  this.showLoader = false;
-				},100);
-      },
-      login( formData ){
+      // hideLoading() {
+      // 	setTimeout(()=>{
+			// 	  this.showLoader = false;
+			// 	},100);
+      // },
+      login: ( formData ) => {
 				if( !formData.username ){
 					this.$swal('Error!', 'Email is required.', 'error');
 					return false;
@@ -34,21 +33,19 @@
 					this.$swal('Error!', 'Password is required.', 'error');
 					return false;
 				}
-				// this.showLoading();
-				// axios.post( axios.defaults.serverUrl + '/login/signin' , formData )
-				// .then(res => {
-				// 	console.log( res );
-				// 	if( res.data.status ){
-				// 		localStorage.setItem('vue_admin_session', res.data.token);
-				// 		this.$router.push( { name: 'Corporates' } );
-				// 	}
-				// 	this.hideLoading();
-				// })
-				// .catch(err => {
-				// 	this.$parent.hideLoading();
-				// 	this.errorHandler( err );
-				// });
-				console.log( apiServices._login_() );
+				this.showLoading();
+				_login_( formData )
+					.then(( res ) => {
+						console.log( res );
+						if( res.status == 200 || res.status == 201 ){
+							// this.$swal( 'Success!', res.data.message, 'success' );
+							// localStorage.setItem('vue_admin_session', res.data.token);
+							// this.$router.push( { name: 'Corporates' } );
+						}else{
+							this.$swal( 'Error!', res.data.message, 'error' );
+						}
+						this.hideLoading();
+					});
       }
     }
 	}

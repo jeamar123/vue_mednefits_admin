@@ -1,7 +1,6 @@
 import * as Config from '../../config/config.js';
-import axios from 'axios'
+import axios from 'axios';
 
-console.log( Config );
 const defaultHeaders = {
   'Accept': 'application/json',
 	'Content-Type': 'application/json',
@@ -9,39 +8,45 @@ const defaultHeaders = {
 };
 
 
-let _axiosCall_	=	( params ) => {
-	axios(params)
+const _axiosCall_	=	( params ) => { // Axios HTTP Request
+	return axios(params)
 		.then(res => {
-			return Promise( res );
+			return res;
 		})
 		.catch(err => {
+			console.log( _apiServices._errorHandlers_( err ) );
 			return _errorHandlers_( err );
 		});
-}
-let _errorHandlers_ = ( err ) => {
-	console.log(err);
-	if (err.response) {
+};
+const _errorHandlers_ = ( err ) => { // Axios ERROR HANDLER
+	// console.log(err);
+	var err_data = {};
+	if	(err.response) {
 		console.log(err.response);
-		// Vue.swal('Error!', error.response.data.message, 'error');
-	} else if (err.request) {
-		// console.log('The request was made but no response was received. ', error.request);
-		// Vue.swal('Error!', 'Something went wrong. The request was made but no response was received.', 'error');
+		if	(err.response.status == 400 || err.response.status == 401 || err.response.status == 404 || err.response.status == 500){
+			err_data = { status: false, message: err.response.status + ' : ' + err.response.data.message };
+		}
+	} else if	(err.request) {
+		console.log(err.request);
+		err_data = { status: false, message: 'Something went wrong. The request was made but no response was received.' };
 	} else {
-		// console.log('Something happened in setting up the request that triggered an Error. ', error.message);
-		// Vue.swal('Error!', 'Something went wrong. Something happened in setting up the request that triggered an Error.', 'error');
+		console.log('Something happened in setting up the request that triggered an Error. ', error.message);
+		err_data = { status: false, message: 'Something went wrong. The request was made but no response was received.' };
 	}
-}
-let _login_ = ( params ) => {
+	return { data: err_data };
+};
+
+
+const	_login_	=  ( params ) => { // ADMIN LOGIN
 	let req = {
 		method: 'POST',
 		url: Config.AUTH_LOGIN,
 		data: params,
 		header: defaultHeaders,
 	};
-	_axiosCall_( req );
-}
+	return _axiosCall_( req );
+};
 
-
-module.exports = {
+export { 
 	_login_,
-}
+};
