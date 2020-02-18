@@ -1,6 +1,7 @@
 <script>
 	import axios from 'axios'
-
+	import apiServices from '../common/functions/common_ApiServices';
+	
 	var auth = {
 		data() {
 			return {
@@ -13,6 +14,7 @@
 			}
 		},
 		created() {
+			// console.log( apiServices );
 		},
 		methods: {
       showLoading() {
@@ -32,20 +34,21 @@
 					this.$swal('Error!', 'Password is required.', 'error');
 					return false;
 				}
-				this.showLoading();
-				axios.post( axios.defaults.serverUrl + '/login/signin' , formData )
-				.then(res => {
-					console.log( res );
-					if( res.data.status ){
-						localStorage.setItem('vue_admin_session', res.data.token);
-						this.$router.push( { name: 'Corporates' } );
-					}
-					this.hideLoading();
-				})
-				.catch(err => {
-					this.$parent.hideLoading();
-					this.errorHandler( err );
-				});
+				// this.showLoading();
+				// axios.post( axios.defaults.serverUrl + '/login/signin' , formData )
+				// .then(res => {
+				// 	console.log( res );
+				// 	if( res.data.status ){
+				// 		localStorage.setItem('vue_admin_session', res.data.token);
+				// 		this.$router.push( { name: 'Corporates' } );
+				// 	}
+				// 	this.hideLoading();
+				// })
+				// .catch(err => {
+				// 	this.$parent.hideLoading();
+				// 	this.errorHandler( err );
+				// });
+				console.log( apiServices._login_() );
       }
     }
 	}
