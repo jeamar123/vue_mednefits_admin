@@ -180,7 +180,10 @@ import moment, { locale } from "moment";
             this.clinic_type_list.map(( value, key ) => {
               if( value.block == 0 ){
                 value.selected = opt;
-                this.open_selected_clinic_types.push( value.provider_id );
+                this.open_selected_clinic_types.push({
+                  clinic_id : value.provider_id,
+                  status : 1,
+                });
               }
             });
           }
@@ -203,18 +206,63 @@ import moment, { locale } from "moment";
             this.clinic_type_list.map(( value, key ) => {
               if( value.block == 1 ){
                 value.selected = opt;
-                this.block_selected_clinic_types.push( value.provider_id );
+                this.block_selected_clinic_types.push( {
+                  clinic_id : value.provider_id,
+                  status : 0,
+                } );
               }
             });
           }
+        },
+        selectOne( opt, data ){
+          var clinic_name_data = { clinic_id: data.clinic_id, account_type: this.type, status: opt == 'open' ? 1 : 0 };
+          var clinic_type_data = { clinic_id: data.provider_id, status: opt == 'open' ? 1 : 0 };
+          if( opt == 'open' ){
+            if( this.open_clinic_opt == 'name' ){
+              var index = _.findIndex( this.open_selected_clinics , clinic_name_data);
+              if( index > -1 ){
+                this.open_selected_clinics.splice( index, 1 );
+              }else{
+                this.open_selected_clinics.push( clinic_name_data );
+              }
+            }else{
+              var index = _.findIndex( this.open_selected_clinic_types , clinic_type_data);
+              if( index > -1 ){
+                this.open_selected_clinic_types.splice( index, 1 );
+              }else{
+                this.open_selected_clinic_types.push( clinic_type_data );
+              }
+            }
+          }
+          if( opt == 'block' ){
+            if( this.open_clinic_opt == 'name' ){
+              var index = _.findIndex( this.block_selected_clinics , clinic_name_data);
+              if( index > -1 ){
+                this.block_selected_clinics.splice( index, 1 );
+              }else{
+                this.block_selected_clinics.push( clinic_name_data );
+              }
+            }else{
+              var index = _.findIndex( this.block_selected_clinic_types , clinic_type_data);
+              if( index > -1 ){
+                this.block_selected_clinic_types.splice( index, 1 );
+              }else{
+                this.block_selected_clinic_types.push( clinic_type_data );
+              }
+            }
+          }
+          console.log( this.open_selected_clinics );
+          console.log( this.open_selected_clinic_types );
+          console.log( this.block_selected_clinics );
+          console.log( this.block_selected_clinic_types );
         },
         
 
       resetValues(){
         this.allOpenSelected = false;
         this.allBlockSelected = false;
-        this.isOpenSearchShow = false;
-        this.isBlockSearchShow = false;
+        // this.isOpenSearchShow = false;
+        // this.isBlockSearchShow = false;
 
         this.open_selected_clinics = [];
         this.open_selected_clinic_types = [];
@@ -222,12 +270,12 @@ import moment, { locale } from "moment";
         this.block_selected_clinic_types = [];
       },
 
-      updateClinicStatus(){
+      updateClinicStatus( opt ){
         this.showLoading();
         var data = {
           corporate_id: 1,
-          clinic_details: this.open_selected_clinics, 
-          provider_type_ids: this.open_selected_clinic_types,
+          clinic_details: opt == 'toOpen' ? this.block_selected_clinics : this.open_selected_clinics, 
+          provider_type_ids: opt == 'toOpen' ? this.block_selected_clinic_types : this.open_selected_clinic_types,
         }
         console.log( data );
         axios.put( axios.defaults.serverUrl + '/company/clinic' , data )
@@ -243,7 +291,6 @@ import moment, { locale } from "moment";
       },
         
       getClinicList(){
-        this.resetValues();
         var url = axios.defaults.serverUrl + '/company/clinic?';
         url += '&token=' + localStorage.getItem('vue_admin_session');
         url += '&corporate_id=' + this.id;
@@ -267,6 +314,7 @@ import moment, { locale } from "moment";
         axios.get( url )
           .then(res => {
             console.log( res );
+            this.resetValues();
             this.block_clinic_list = res.data.block_list.docs;
             this.block_pagination = res.data.block_list;
             this.block_pagination.from = (this.block_active_page * this.block_page_limit) - this.block_page_limit + 1;

@@ -40,7 +40,7 @@
 	        		<option value="name">Clinic Name</option>
 	        	</select>
 	        </div>
-          <button class="btn-primary"
+          <button class="btn-primary" v-on:click="updateClinicStatus( 'toOpen' )"
 						:disabled="(block_clinic_opt == 'name' && block_selected_clinics.length == 0) || (block_clinic_opt == 'type' && block_selected_clinic_types.length == 0)"
 					>
           	<div class="xs-hide">OPEN</div>
@@ -52,7 +52,7 @@
         	<div v-if="block_clinic_opt == 'name'" v-for="list in block_clinic_list" class="clinic-name-container">
 	        	<label class="health-checkbox-container"> 
 	            <span>{{ list.clinic_name }}</span>
-	            <input type="checkbox" v-model="list.selected">
+	            <input type="checkbox" v-model="list.selected" v-on:change="selectOne( 'block', list )">
 	            <span class="health-checkmark"></span>
 	          </label>
 	          <div class="country">{{ list.currency_type == 'sgd' ? 'Singapore' : 'Malaysia' }}</div>
@@ -60,7 +60,7 @@
 					<div v-if="block_clinic_opt == 'type' && list.block == 1" v-for="list in clinic_type_list" class="clinic-name-container">
 	        	<label class="health-checkbox-container"> 
 	            <span>{{ list.provider_name }}</span>
-	            <input type="checkbox" v-model="list.selected">
+	            <input type="checkbox" v-model="list.selected" v-on:change="selectOne( 'block', list )">
 	            <span class="health-checkmark"></span>
 	          </label>
 						<div v-if="list.provider_region" class="country">{{ list.provider_region == 'sgd' ? 'Singapore' : 'Malaysia' }}</div>
@@ -150,7 +150,7 @@
 	        		<option value="name">Clinic Name</option>
 	        	</select>
 	        </div>
-          <button class="btn-primary" v-on:click="updateClinicStatus()" 
+          <button class="btn-primary" v-on:click="updateClinicStatus( 'toBlock' )" 
 						:disabled="(open_clinic_opt == 'name' && open_selected_clinics.length == 0) || (open_clinic_opt == 'type' && open_selected_clinic_types.length == 0)"
 					>
           	<div class="xs-hide">BLOCK</div>
@@ -161,7 +161,7 @@
 					<div v-if="open_clinic_opt == 'name'" v-for="list in open_clinic_list" class="clinic-name-container">
 	        	<label class="health-checkbox-container"> 
 	            <span>{{ list.clinic_name }}</span>
-	            <input type="checkbox" v-model="list.selected">
+	            <input type="checkbox" v-model="list.selected" v-on:change="selectOne( 'open', list )">
 	            <span class="health-checkmark"></span>
 	          </label>
 						<div v-if="list.currency_type" class="country">{{ list.currency_type == 'sgd' ? 'Singapore' : 'Malaysia' }}</div>
@@ -169,7 +169,7 @@
 					<div v-if="open_clinic_opt == 'type' && list.block == 0" v-for="list in clinic_type_list" class="clinic-name-container">
 	        	<label class="health-checkbox-container"> 
 	            <span>{{ list.provider_name }}</span>
-	            <input type="checkbox" v-model="list.selected">
+	            <input type="checkbox" v-model="list.selected" v-on:change="selectOne( 'open', list )">
 	            <span class="health-checkmark"></span>
 	          </label>
 						<div v-if="list.provider_region" class="country">{{ list.provider_region == 'sgd' ? 'Singapore' : 'Malaysia' }}</div>
