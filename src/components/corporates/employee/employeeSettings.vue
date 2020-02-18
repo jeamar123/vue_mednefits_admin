@@ -1,4 +1,6 @@
+
 <script>
+/* eslint-disable */
 import Modal from "../../../views/modal/Modal.vue";
 import axios from "axios";
 import moment from "moment";
@@ -12,7 +14,7 @@ let employeeSettings = {
 		member_id: [String, Number],
 		name: [String, Number]
 	},
-	data() {
+	data:	()	=>	{
 		return {
 			// Modal Update - Reset //
 			showSetupAccountModal: false,
@@ -51,9 +53,10 @@ let employeeSettings = {
 				end_date: '',
 			},
 			employee_info: {},
+			global_pinSetup:	{},
 		};
 	},
-	created() {
+	created(){
 		console.log(`${this.member_id} ug is ${this.name}`);
 		this.onLoad();
 	},
@@ -227,9 +230,6 @@ let employeeSettings = {
 					this.errorHandler(err);
 				});
 		},
-		unPinSetup() {
-			// function here
-		},
 		reset_pass_checkForm() {
 			this.error_updatePassword = [];
 
@@ -399,8 +399,9 @@ let employeeSettings = {
 				});
 		},
 
-		// Api calls
+		
 		getEmployeeDetails() {
+			// Api calls for get employeee details
 			// for single  buttons or manual trigger
 			let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
 			axios.get(get_employee_details)
@@ -422,10 +423,63 @@ let employeeSettings = {
 				});
 		},
 
+		_updatePin_(data)	{
+			// post to db new setup pin
+			const	URL	=	`${axios.defaults.serverUrl}/company/employee_pin_setup`;
+			data.member_id = this.member_id;
+
+			if	(data.pin == data.confirmPin && data.pin != null)	{
+				this.showLoading();
+				axios.put(URL,	data)
+				.then(res	=>	{
+					if	(res.status	==	200	||	res.status	==	201)	{
+						this.hideLoading();
+						this.$swal('Success',	res.data.message,	'success')
+							.then(sawlRes	=> {
+								this.global_pinSetup	=	{};
+								this.pinSetupShow();
+							});
+					}	else	{
+						this.hideLoading();
+						this.$swal('Warning',	res.data.message,	'warning');
+					}
+					
+				}).catch(	err	=>	{
+					this.hideLoading();
+					this.errorHandler(err);
+				})
+			}	else	{
+				this.$swal('Error',	'Please enter the same Pin as above',	'error');
+			}
+			
+		},
+
+		_unPinSetup_()	{
+			// unseet pin
+			const	URL	=	`${axios.defaults.serverUrl}/company/employee_unset_pin`;
+			let _data	=	{
+				member_id:	this.member_id,
+			}
+			this.showLoading();
+			axios.put(URL,	_data)
+			.then(res	=>	{
+				if	(res.status	==	200	||	res.status	==	201)	{
+					this.hideLoading();
+					this.$swal('Success',	res.data.message,	'success');
+				}	else	{
+					this.$swal('Warning',	res.data.message,	'warning');
+				}
+				
+			}).catch(	err	=>	{
+				this.hideLoading();
+				this.errorHandler(err);
+			})
+		},
 
 
-		// ipa Last rani ang onLoad()
-		onLoad() { // dri tawagon ang api na ipa load drtso
+		// new functions above this comment
+		// ipa last rani ang onLoad()
+		onLoad(){ // first function to load when page is loaded
 			this.showLoading();
 			axios.all([ // para sunod ang pag tawag sa api(In-Order)
 					this.getEmployeeDetails(),
@@ -443,7 +497,7 @@ let employeeSettings = {
 					this.hideLoading();
 					this.errorHandler(err);
 				});
-		}
+		},
 	}
 }
 
