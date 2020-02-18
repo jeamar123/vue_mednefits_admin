@@ -54,14 +54,14 @@
 									<div>
 										<div class="credit-item-detail">
 											<span>
-												<span>S$</span>
+												<span class="currency-type">{{ employee_info.currency_type }}</span>
 												<span>0.00</span>
 											</span>
 											<span>Allocation</span>
 										</div>
 										<div class="credit-item-detail">
 											<span>
-												<span>S$</span>
+												<span class="currency-type">{{ employee_info.currency_type }}</span>
 												<span>0.00</span>
 											</span>
 											<span>Usage</span>

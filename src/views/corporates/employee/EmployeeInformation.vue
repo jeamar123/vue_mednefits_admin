@@ -38,8 +38,8 @@
 						<div v-if="employee_info.medical_enable" class="entitlement-status-container">
 							<strong>Medical Entitlement</strong>
 							<span>
-								<span>{{employee_info.medical_entitlement}}</span>
-								<span v-if="employee_info.medical_entitlement_status" class="small">(The amount of <span class="currency-type">{{ employee_info.currency_type }} </span><span>{{ employee_info.medical_entitlement_status.new_entitlement_credits }}</span> will be updated on <span>{{ medEffectiveDate }}</span>)</span>
+								<span>{{employee_info.medical_entitlement | number('0,0') }}</span>
+								<span v-if="employee_info.medical_entitlement_status" class="small">(The amount of <span class="currency-type">{{ employee_info.currency_type }} </span><span>{{ employee_info.medical_entitlement_status.new_entitlement_credits | number('0,0') }}</span> will be updated on <span>{{ medEffectiveDate }}</span>)</span>
 							</span>
 							<div @click="updateEntitlement.isMedShowEntitlement = !updateEntitlement.isMedShowEntitlement" class="custom-ellipsis-wrapper">
 								<span class="custom-ellipsis">
@@ -83,8 +83,8 @@
 						<div v-if="employee_info.wellness_enable" class="entitlement-status-container">
 							<strong>Wellness Entitlement</strong>
 							<span>
-								<span>{{employee_info.wellness_entitlement}}</span>
-								<span v-if="employee_info.wellness_entitlement_status" class="small">(The amount of <span class="currency-type">{{ employee_info.currency_type }} </span><span>{{ employee_info.wellness_entitlement_status.new_entitlement_credits }}</span> will be updated on <span>{{ wellEffectiveDate }}</span>)</span>
+								<span>{{employee_info.wellness_entitlement | number('0,0') }}</span>
+								<span v-if="employee_info.wellness_entitlement_status" class="small">(The amount of <span class="currency-type">{{ employee_info.currency_type }} </span><span>{{ employee_info.wellness_entitlement_status.new_entitlement_credits | number('0,0') }}</span> will be updated on <span>{{ wellEffectiveDate }}</span>)</span>
 							</span>
 							<div @click="updateEntitlement.isWellShowEntitlement = !updateEntitlement.isWellShowEntitlement" class="custom-ellipsis-wrapper">
 								<span class="custom-ellipsis">

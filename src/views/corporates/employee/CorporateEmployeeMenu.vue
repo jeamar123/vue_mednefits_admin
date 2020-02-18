@@ -75,7 +75,7 @@
 								<p><span class="uppercase">{{employee_side_info.spending_account.medical.credits_allocation | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' })}}</span></p>
 							</div>
 						</div>
-						<p v-if="employee_side_info.medical_entitlement_status" class="small"> *The amount of <span class="currency-type">{{ employee_side_info.currency_type }} </span> <span>{{ employee_side_info.medical_entitlement_status.new_allocation_credits }} </span> will be update on <span>{{ medEffectiveDate }}</span></p>
+						<p v-if="employee_side_info.medical_entitlement_status" class="small"> *The amount of <span class="currency-type">{{ employee_side_info.currency_type }} </span> <span>{{ employee_side_info.medical_entitlement_status.new_allocation_credits  | number('0,0') }} </span> will be update on <span>{{ medEffectiveDate }}</span></p>
 					</div>
 					<div class="row-div block">
 						<div class="flex cursor-pointer" @click="spendingUsage('medical')">
@@ -133,7 +133,7 @@
 								<p><span class="uppercase">{{ employee_side_info.spending_account.wellness.credits_allocation_wellness | currency(`${employee_side_info.currency_type} `, 2, { thousandsSeparator: ',' }) }}</span></p>
 							</div>
 						</div>
-						<p v-if="employee_side_info.wellness_entitlement_status"  class="small"> *The amount of <span class="currency-type">{{ employee_side_info.currency_type }} </span> <span>{{ employee_side_info.wellness_entitlement_status.new_allocation_credits }} </span> will be update on <span>{{ wellEffectiveDate }}</span></p>
+						<p v-if="employee_side_info.wellness_entitlement_status"  class="small"> *The amount of <span class="currency-type">{{ employee_side_info.currency_type }} </span> <span>{{ employee_side_info.wellness_entitlement_status.new_allocation_credits | number('0,0') }} </span> will be update on <span>{{ wellEffectiveDate }}</span></p>
 					</div>
 					<div class="row-div block">
 						<div class="flex cursor-pointer" @click="spendingUsage('wellness')">
