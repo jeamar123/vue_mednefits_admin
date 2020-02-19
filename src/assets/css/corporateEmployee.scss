@@ -350,7 +350,7 @@
         font-size: 65%;
         line-height: 1.5;
         padding: 0 0 0 10px;
-        width: 200px;
+        width: 150px;
       }
       .custom-ellipsis-wrapper {
         display: flex;
@@ -1374,10 +1374,10 @@
       background-color: #3f51b5;
     }
 
-    &::-webkit-scrollbar-track {
-      /*background-color: transparent;*/
-      // background-color: #3f51b5;
-    }
+    // &::-webkit-scrollbar-track {
+    //   /*background-color: transparent;*/
+    //   // background-color: #3f51b5;
+    // }
   }
 }
 
@@ -2142,4 +2142,19 @@
 
 // ------------------------------------------------------ //
 
-/* -----------------------------------------------*/
+
+
+
+/* ------------------ PIN MODAL make---------------*/
+  // Make input type number disable appearance default design in pin input
+input[type=number].pinTypePassword::-webkit-inner-spin-button, 
+input[type=number].pinTypePassword::-webkit-outer-spin-button {
+    -webkit-appearance: none; 
+    margin: 0; 
+  }
+
+.pinTypePassword {
+  // make input type=number for pin like input type=password
+  -webkit-text-security: disc;
+}
+/* ---------------------------------------------*/

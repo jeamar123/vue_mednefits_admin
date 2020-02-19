@@ -54,14 +54,14 @@
 									<div>
 										<div class="credit-item-detail">
 											<span>
-												<span>S$</span>
+												<span class="currency-type">{{ employee_info.currency_type }}</span>
 												<span>0.00</span>
 											</span>
 											<span>Allocation</span>
 										</div>
 										<div class="credit-item-detail">
 											<span>
-												<span>S$</span>
+												<span class="currency-type">{{ employee_info.currency_type }}</span>
 												<span>0.00</span>
 											</span>
 											<span>Usage</span>
@@ -201,7 +201,7 @@
 				<div>
 					<label>GP cap per visit</label>
 					<div class="gp-cap-input-wrapper">
-						<input v-model="cap_per_visit" type="number" />
+						<input v-model="employee_info.cap_amount" type="number" />
 						<div class="icon-right">
 							<span class="currency-type">{{this.employee_info.currency_type}}</span>
 						</div>
@@ -210,7 +210,7 @@
 			</div>
 			<div slot="footer">
 				<button @click="selectedEmpDetailsSettingsClicked(2, 'cancel')" class="btn-close">CANCEL</button>
-				<button @click="updateCapPerVisit(cap_per_visit)" class="btn-primary settings-btn-submit">SUBMIT</button>
+				<button @click="updateCapPerVisit(employee_info.cap_amount)" class="btn-primary settings-btn-submit">SUBMIT</button>
 			</div>
 		</Modal>
 
@@ -235,7 +235,7 @@
 						<div class="white-space-20"></div>
 						<button class="btn-primary re-send-btn w-full" @click="pinSetupShow()">Pin Setup</button>
 						<div class="white-space-20"></div>
-						<button class="btn-primary re-send-btn w-full" @click="unPinSetup()">Unset Pin</button>
+						<button class="btn-primary re-send-btn w-full" @click="_unPinSetup_()">Unset Pin</button>
 					</div>
 				</template>
 
@@ -274,7 +274,7 @@
 
 				<template v-if="pin_setup_update">
 					<div class="px-6">
-						<a href="javascript:void(0)" @click="pinSetupShow()" class="pull-right">
+						<a @click="pinSetupShow()" class="pull-right">
 							<i class="fa fa-times"></i>
 						</a>
 						<div class="white-space-50"></div>
@@ -283,21 +283,19 @@
 								Pin
 								<span class="text-red-700">*</span>
 							</label>
-							<input type="text" ng-model="list.pin"
-								class="number-only bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
-								required />
+							<input type="number" v-model="global_pinSetup.pin" class="pinTypePassword number-only bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2" required />
 						</div>
 						<div class="input-container-padding py-1">
 							<label>
 								Re-Type Pin
 								<span class="text-red-700">*</span>
 							</label>
-							<input type="text" ng-model="list.re_pin"
-								class="number-only bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
+							<input type="number" v-model="global_pinSetup.confirmPin"
+								class="pinTypePassword number-only bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
 								required />
 						</div>
 
-						<button class="btn-primary re-send-btn w-full my-5" ng-click="updatePinEmp($event,list)">Update</button>
+						<button class="btn-primary re-send-btn w-full my-5" @click="_updatePin_(global_pinSetup)">Update</button>
 					</div>
 				</template>
 			</div>
