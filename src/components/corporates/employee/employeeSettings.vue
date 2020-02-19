@@ -90,7 +90,6 @@ let employeeSettings = {
 			if (y == 2) {
 				if (x === "manage-visit") {
 					this.showManageCapPerVisit = true;
-					console.log(this.data_cap);
 				} else if (x === "cancel") {
 					this.showManageCapPerVisit = false;
 				}
@@ -143,6 +142,7 @@ let employeeSettings = {
 				this.$swal("Oops!", "Please input cap per visit", "error");
 				return false;
 			}
+
 			this.data_cap = {
 				employee_id: this.member_id,
 				cap_amount: cap,
@@ -154,7 +154,7 @@ let employeeSettings = {
 					console.log(response);
 					this.$swal("Success!", response.data.message, "success");
 					this.showManageCapPerVisit = false;
-					this.cap_per_visit = this.data_cap.cap_amount;
+					// this.cap_per_visit = this.data_cap.cap_amount;
 				})
 				.catch(err => {
 					this.$parent.hideLoading();

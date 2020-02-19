@@ -201,7 +201,7 @@
 				<div>
 					<label>GP cap per visit</label>
 					<div class="gp-cap-input-wrapper">
-						<input v-model="cap_per_visit" type="number" />
+						<input v-model="employee_info.cap_amount" type="number" />
 						<div class="icon-right">
 							<span class="currency-type">{{this.employee_info.currency_type}}</span>
 						</div>
@@ -210,7 +210,7 @@
 			</div>
 			<div slot="footer">
 				<button @click="selectedEmpDetailsSettingsClicked(2, 'cancel')" class="btn-close">CANCEL</button>
-				<button @click="updateCapPerVisit(cap_per_visit)" class="btn-primary settings-btn-submit">SUBMIT</button>
+				<button @click="updateCapPerVisit(employee_info.cap_amount)" class="btn-primary settings-btn-submit">SUBMIT</button>
 			</div>
 		</Modal>
 
