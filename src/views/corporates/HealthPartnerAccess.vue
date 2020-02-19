@@ -57,13 +57,21 @@
 	          </label>
 	          <div class="country">{{ list.currency_type == 'sgd' ? 'Singapore' : 'Malaysia' }}</div>
           </div>
-					<div v-if="block_clinic_opt == 'type' && list.block == 1" v-for="list in clinic_type_list" class="clinic-name-container">
+					<div v-if="block_clinic_opt == 'type' && list.block == 1" v-for="list in filterBy( clinic_type_list, (block_clinic_region == 0 ? '' : block_clinic_region) )" class="clinic-name-container">
 	        	<label class="health-checkbox-container"> 
 	            <span>{{ list.provider_name }}</span>
 	            <input type="checkbox" v-model="list.selected" v-on:change="selectOne( 'block', list )">
 	            <span class="health-checkmark"></span>
 	          </label>
-						<div v-if="list.provider_region" class="country">{{ list.provider_region == 'sgd' ? 'Singapore' : 'Malaysia' }}</div>
+						<div v-if="list.currency == 'all'" class="country">
+							<span v-show="block_clinic_region == 0 || block_clinic_region == 'sgd'">Singapore</span>
+							<span v-show="block_clinic_region == 0 || block_clinic_region == 'myr'">Malaysia</span>
+						</div>
+						<div v-if="list.currency != 'all'" class="country">
+							<span>
+								{{ list.currency == 'sgd' ? 'Singapore' : 'Malaysia' }}
+							</span>
+						</div>
 	        </div>
         </div>
 
@@ -166,13 +174,21 @@
 	          </label>
 						<div v-if="list.currency_type" class="country">{{ list.currency_type == 'sgd' ? 'Singapore' : 'Malaysia' }}</div>
 	        </div>
-					<div v-if="open_clinic_opt == 'type' && list.block == 0" v-for="list in clinic_type_list" class="clinic-name-container">
+					<div v-if="open_clinic_opt == 'type' && list.block == 0" v-for="list in filterBy( clinic_type_list, (open_clinic_region == 0 ? '' : open_clinic_region) )" class="clinic-name-container">
 	        	<label class="health-checkbox-container"> 
 	            <span>{{ list.provider_name }}</span>
 	            <input type="checkbox" v-model="list.selected" v-on:change="selectOne( 'open', list )">
 	            <span class="health-checkmark"></span>
 	          </label>
-						<div v-if="list.provider_region" class="country">{{ list.provider_region == 'sgd' ? 'Singapore' : 'Malaysia' }}</div>
+						<div v-if="list.currency == 'all'" class="country">
+							<span v-show="open_clinic_region == 0 || open_clinic_region == 'sgd'">Singapore</span>
+							<span v-show="open_clinic_region == 0 || open_clinic_region == 'myr'">Malaysia</span>
+						</div>
+						<div v-if="list.currency != 'all'" class="country">
+							<span>
+								{{ list.currency == 'sgd' ? 'Singapore' : 'Malaysia' }}
+							</span>
+						</div>
 	        </div>
 				</div>
 				<div class="pagination-container">
