@@ -14,7 +14,7 @@
 					<div class="col-1-emp-info-details sm:w-full">
 						<div>
 							<strong>Full Name</strong>
-							<span>{{list.first_name || null }} {{list.last_name || null }}</span> 
+							<span>{{list.fullname || null }}</span> 
 							<!-- to change fullname -->
 						</div>
 						<div>

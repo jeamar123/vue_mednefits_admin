@@ -235,7 +235,7 @@
 						<div class="white-space-20"></div>
 						<button class="btn-primary re-send-btn w-full" @click="pinSetupShow()">Pin Setup</button>
 						<div class="white-space-20"></div>
-						<button class="btn-primary re-send-btn w-full" @click="unPinSetup()">Unset Pin</button>
+						<button class="btn-primary re-send-btn w-full" @click="_unPinSetup_()">Unset Pin</button>
 					</div>
 				</template>
 
@@ -274,7 +274,7 @@
 
 				<template v-if="pin_setup_update">
 					<div class="px-6">
-						<a href="javascript:void(0)" @click="pinSetupShow()" class="pull-right">
+						<a @click="pinSetupShow()" class="pull-right">
 							<i class="fa fa-times"></i>
 						</a>
 						<div class="white-space-50"></div>
@@ -283,21 +283,19 @@
 								Pin
 								<span class="text-red-700">*</span>
 							</label>
-							<input type="text" ng-model="list.pin"
-								class="number-only bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
-								required />
+							<input type="number" v-model="global_pinSetup.pin" class="pinTypePassword number-only bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2" required />
 						</div>
 						<div class="input-container-padding py-1">
 							<label>
 								Re-Type Pin
 								<span class="text-red-700">*</span>
 							</label>
-							<input type="text" ng-model="list.re_pin"
-								class="number-only bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
+							<input type="number" v-model="global_pinSetup.confirmPin"
+								class="pinTypePassword number-only bg-transparent border-solid border-b border-gray-500 text-gray-600 w-full py-2"
 								required />
 						</div>
 
-						<button class="btn-primary re-send-btn w-full my-5" ng-click="updatePinEmp($event,list)">Update</button>
+						<button class="btn-primary re-send-btn w-full my-5" @click="_updatePin_(global_pinSetup)">Update</button>
 					</div>
 				</template>
 			</div>

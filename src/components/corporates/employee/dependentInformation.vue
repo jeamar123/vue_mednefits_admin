@@ -101,6 +101,7 @@ let dependentInformation = {
 			if(list) {
 				console.log(list);
 				list.dob = new Date(list.dob);
+				list.plan_start = new Date(list.plan_start);
 				this.toEdit = list;
 			}
 		},
@@ -318,7 +319,7 @@ let dependentInformation = {
 					this.hideLoading();
 					
 					if (res.data.status == true) {
-						this.$swal('Success', res.data.message, 'succes')
+						this.$swal('Success', res.data.message, 'success')
 							.then(res1 => {
 								this.toEdit = {};
 								this.editDependentInfo = false;

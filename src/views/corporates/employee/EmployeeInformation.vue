@@ -15,6 +15,10 @@
 							<strong>Full Name</strong>
 							<span>{{employee_info.fullname || 'N/A'}}</span>
 						</div>
+						<div v-if="employee_info.nric">
+							<strong>NRIC/FIN</strong>
+							<span>{{employee_info.nric || 'N/A'}}</span>
+						</div>
 						<div>
 							<strong>Date of Birth</strong>
 							<span>{{ formatDate(employee_info.dob, null, 'DD-MM-YYYY') }}</span>
@@ -154,8 +158,14 @@
 							</div>
 							<div class="employee-details-input-wrapper md:m-0">
 								<label>Job Title</label>
-								<div class="date-container">
-									<input type="text" v-model="toEdit.job_title">
+								<div class="jobList-container">
+									<!-- <input type="text" v-model="toEdit.job_title"> -->
+									<select name="" id="" v-model="toEdit.job_title">
+										<option :value="jobs.job_title" v-for="jobs in jobList" :key="jobs.index">
+											{{jobs.job_title}}
+										</option>
+									</select>
+									<i class="fa fa-caret-down"></i>
 								</div>
 							</div>
 						</div>
@@ -498,7 +508,8 @@
 								</div>
 								<div class="health-spending-dpicker ">
 									<i class="fa fa-calendar"></i>
-									<v-date-picker popoverDirection="bottom" v-model="starDateDetails.null"
+									<v-date-picker popoverDirection="bottom" v-model="account_spending_summary.date.pro_rated_start"
+										:formats="formats"
 										:input-props='{class: "vDatepicker xl:px-2", placeholder: "DD/MM/YYYY", readonly: true, }'
 										popover-visibility="focus"></v-date-picker>
 									<i class="fa fa-caret-down"></i>
@@ -511,20 +522,21 @@
 								</div>
 								<div class="health-spending-dpicker ">
 									<i class="fa fa-calendar"></i>
-									<v-date-picker popoverDirection="bottom" v-model="starDateDetails.null"
+									<v-date-picker popoverDirection="bottom" v-model="account_spending_summary.date.pro_rated_end"
+										:formats="formats"
 										:input-props='{class: "vDatepicker xl:px-2", placeholder: "DD/MM/YYYY", readonly: true, }'
 										popover-visibility="focus"></v-date-picker>
 									<i class="fa fa-caret-down"></i>
 								</div>
 							</div>
-							<button class="btn-primary btn-calculate xl:mx-0 xl:my-2">Calculate</button>
+							<button class="btn-primary btn-calculate xl:mx-0 xl:my-2" @click="get_health_spending_account('Pro_allocation')">Calculate</button>
 						</div>
 						<div class="account-summary-usage">Usage from
 							<span>
-								<strong class="bold-text"> Start</strong> - <span class="account-summary-date">03/08/2019</span>
+								<strong class="bold-text"> Start</strong> - <span class="account-summary-date">{{account_spending_summary.date.usage_start}}</span>
 							</span> to
 							<span>
-								<strong class="bold-text">Current</strong> - <span class="account-summary-date">09/09/2019</span>
+								<strong class="bold-text">Current</strong> - <span class="account-summary-date">{{account_spending_summary.date.usage_end}}</span>
 							</span>
 						</div>
 					</div>
@@ -534,30 +546,49 @@
 							<div class="spending-account-details">
 								<div class="inital-allocation-container">
 									<strong class="bold-text">Initial Allocation</strong>
-									<span>S$ <span>1,000.00</span></span>
+									<!-- <span>S$ <span>1,000.00</span></span> -->
+									<span class="uppercase">
+										{{ account_spending_summary.medical.initial_allocation | currency(`${account_spending_summary.date.currency_type} `, 2, { thousandsSeparator: ',' }) }}
+									</span>
 								</div>
 								<div class="pro-rated-container">
 									<strong class="bold-text">Pro-rated Allocation</strong>
-									<span class="bold-text">S$ <span>221.31</span></span>
+									<span class="bold-text uppercase">
+										{{ account_spending_summary.medical.pro_allocation | currency(`${account_spending_summary.date.currency_type} `, 2, { thousandsSeparator: ',' }) }}
+									</span>
+									<!-- <span class="bold-text">S$ <span>221.31</span></span> -->
 								</div>
 								<div class="current-usage-container">
 									<strong class="bold-text">Current Usage</strong>
-									<span class="exceed">S$ <span>0.00</span></span>
+									<span class="exceed uppercase">
+										{{ account_spending_summary.medical.current_usage | currency(`${account_spending_summary.date.currency_type} `, 2, { thousandsSeparator: ',' }) }}
+									</span>
+									<!-- <span class="exceed">S$ <span>0.00</span></span> -->
 								</div>
 								<div class="spent-container">
 									Spent
-									<span>S$ <span>0.00</span></span>
+									<span class="uppercase">
+										{{ account_spending_summary.medical.spent | currency(`${account_spending_summary.date.currency_type} `, 2, { thousandsSeparator: ',' }) }}
+									</span>
+									<!-- <span>S$ <span>0.00</span></span> -->
 								</div>
 								<div class="pending-claim-container">
 									Pending claim
-									<span>S$ <span>0.00</span></span>
+									<span class="uppercase">
+										{{ account_spending_summary.medical.pending_e_claim | currency(`${account_spending_summary.date.currency_type} `, 2, { thousandsSeparator: ',' }) }}
+									</span>
+									<!-- <span>S$ <span>0.00</span></span> -->
 								</div>
 								<div class="balance-summary-container">
 									<strong class="bold-text">Balance</strong>
-									<span class="bold-text">S$ <span>221.31</span></span>
+									<span class="bold-text uppercase">
+										{{ account_spending_summary.medical.balance | currency(`${account_spending_summary.date.currency_type} `, 2, { thousandsSeparator: ',' }) }}
+									</span>
+									<!-- <span class="bold-text">S$ <span>221.31</span></span> -->
 								</div>
 							</div>
-							<span class="spending-account-status on-track">On Track</span>
+							<span v-if="!account_spending_summary.medical.exceed" class="spending-account-status on-track">On Track</span>
+							<span v-if="account_spending_summary.medical.exceed" class="spending-account-status exceed">Exceed</span>
 						</div>
 						<div class="separator"></div>
 						<div class="wellness-container">
@@ -565,30 +596,49 @@
 							<div class="spending-account-details">
 								<div class="inital-allocation-container">
 									<strong class="bold-text">Initial Allocation</strong>
-									<span>S$ <span>1,000.00</span></span>
+									<!-- <span>S$ <span>1,000.00</span></span> -->
+									<span class="uppercase">
+										{{ account_spending_summary.wellness.initial_allocation | currency(`${account_spending_summary.date.currency_type} `, 2, { thousandsSeparator: ',' }) }}
+									</span>
 								</div>
 								<div class="pro-rated-container">
 									<strong class="bold-text">Pro-rated Allocation</strong>
-									<span class="bold-text">S$ <span>221.31</span></span>
+									<!-- <span class="bold-text">S$ <span>221.31</span></span> -->
+									<span class="bold-text uppercase">
+										{{ account_spending_summary.wellness.pro_allocation | currency(`${account_spending_summary.date.currency_type} `, 2, { thousandsSeparator: ',' }) }}
+									</span>
 								</div>
 								<div class="current-usage-container">
 									<strong class="bold-text">Current Usage</strong>
-									<span class="on-track">S$ <span>0.00</span></span>
+									<!-- <span class="on-track">S$ <span>0.00</span></span> -->
+									<span class="uppercase">
+										{{ account_spending_summary.wellness.current_usage | currency(`${account_spending_summary.date.currency_type} `, 2, { thousandsSeparator: ',' }) }}
+									</span>
 								</div>
 								<div class="spent-container">
 									Spent
-									<span>S$ <span>0.00</span></span>
+									<!-- <span>S$ <span>0.00</span></span> -->
+									<span class="uppercase">
+										{{ account_spending_summary.wellness.spent | currency(`${account_spending_summary.date.currency_type} `, 2, { thousandsSeparator: ',' }) }}
+									</span>
 								</div>
 								<div class="pending-claim-container">
 									Pending claim
-									<span>S$ <span>0.00</span></span>
+									<!-- <span>S$ <span>0.00</span></span> -->
+									<span class="uppercase">
+										{{ account_spending_summary.wellness.pending_e_claim | currency(`${account_spending_summary.date.currency_type} `, 2, { thousandsSeparator: ',' }) }}
+									</span>
 								</div>
 								<div class="balance-summary-container">
 									<strong class="bold-text">Balance</strong>
-									<span class="bold-text">S$ <span>221.31</span></span>
+									<!-- <span class="bold-text">S$ <span>221.31</span></span> -->
+									<span class="bold-text uppercase">
+										{{ account_spending_summary.wellness.balance | currency(`${account_spending_summary.date.currency_type} `, 2, { thousandsSeparator: ',' }) }}
+									</span>
 								</div>
 							</div>
-							<span class="spending-account-status on-track">On Track</span>
+							<span v-if="!account_spending_summary.wellness.exceed" class="spending-account-status on-track">On Track</span>
+							<span v-if="account_spending_summary.wellness.exceed" class="spending-account-status exceed">Exceed</span>
 						</div>
 					</div>
 				</div>
@@ -604,8 +654,8 @@
 						<p class="members-wallet-note">(note: by doing so, this member might not be able to pay with credits if the
 							current usage exceeded the pro-rated allocation)</p>
 						<div>
-							<button class="btn btn-back active">NO</button>
-							<button class="btn btn-back">YES</button>
+							<button class="btn btn-back" :class="{active : !account_spending_summary.calibrate_medical}" @click="spending_calibration(false)">NO</button>
+							<button class="btn btn-back" :class="{ active: account_spending_summary.calibrate_medical}" @click="spending_calibration(true)">YES</button>
 						</div>
 					</div>
 				</div>
@@ -613,7 +663,9 @@
 				<div class="save-btn-footer sm:px-6">
 					<button @click="removeEmployeeBtn('back')" v-if="removeBackBtn"
 						class="btn btn-back xs:w-full xs:my-2">Back</button>
-					<button @click="removeEmployeeBtn('next')"
+					<button v-if="remove_step_active != 'health-spending-summary'" @click="removeEmployeeBtn('next')"
+						class="btn-primary btn-next xs:w-full xs:my-2 xs:float-none">Next</button>
+					<button v-if="remove_step_active == 'health-spending-summary'" :disabled="!spending_account_next_disabled" @click="removeEmployeeBtn('next')"
 						class="btn-primary btn-next xs:w-full xs:my-2 xs:float-none">Next</button>
 				</div>
 
