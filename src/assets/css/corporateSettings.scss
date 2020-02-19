@@ -39,6 +39,133 @@
 
 }
 
+.bulk-credit-alloc-wrapper {
+  
+  .credit-alloc-header {
+    text-align: center;
+
+    h1 {
+      font-size: 24px;
+      font-weight: 500;
+      margin: 0 0 20px;
+    }
+  }
+
+  .credit-search-container {
+    display: flex;
+    align-items: center;
+    >span {
+      padding: 0 5px 0 0;
+    }
+    >div {
+      width: 100%;
+    }
+    
+    >div input {
+      padding: 5px 10px 5px;
+      width: 270px;
+      border-bottom: 1px solid #888;
+    }
+    >div input::placeholder {
+      color: #666;
+    }
+  }
+}
+
+.credit-employee-wrapper {
+  width: 290px;
+  margin: 40px 0 0;
+  .employee-header {
+    background-color: rgb(63,81,181);
+    color: #fff;
+    padding: 12px 20px;
+
+    h3 {
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+  .employee-body {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+
+    .emp-info-row {
+      margin: 0 0 15px;
+    }
+    .emp-title {
+      color: #000;
+    }
+  }
+
+  .credit-toggle-btn button {
+    border: 2px solid #bbb3b3;
+    color: #a5a0a0;
+    width: 88px;
+    height: 40px;
+    font-size: 12px;
+    font-weight: 700;
+
+    &:nth-child(1) {
+      border-radius: 4px 0 0 4px;
+      border-width: 2px 1px 2px 2px;
+    }
+    &:nth-child(2) {
+      border-radius: 0 4px 4px 0;
+      border-width: 2px 2px 2px 1px;
+    }
+
+    &.active {
+      border: 2px solid #44a4cc;
+    }
+  }
+
+  .credit-toggle-btn.add-deduct-btn button {
+    width: 65px;
+    height: 32px;
+  }
+
+  .allocation-usage-container {
+    display: flex;
+    margin: 20px 0 0;
+
+    >div:nth-child(1) {
+      width: 45%;
+    }
+    
+    >div:nth-child(2) {
+      width: 55%;
+    }
+
+    span {
+      font-weight: 500;
+    }
+
+    .allocation-usage >div {
+      line-height: 1.3;
+      margin: 0 0 10px;
+    }
+  }
+
+  .add-deduct-input-wrapper {
+    margin: 0 0 40px;
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    input {
+      border-bottom: 1px solid rgba(0,0,0,0.12);
+    }
+  }
+
+  .employee-pagination {
+    position: absolute;
+    bottom: 70px;
+    display: flex;
+    align-items: center;
+  }
+}
+
 
 /* Extra Large (xl) */
 @media (min-width: 1450px) { 
