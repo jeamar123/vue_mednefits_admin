@@ -151,7 +151,6 @@
 					});
       },
       entitlementCalc( type, cal ) {
-        this.getCalcData();
         this.entitlement_calc_type = type;
 
         this.med_data = {
@@ -179,6 +178,7 @@
         }
 
         if ( type == 'medical' ) {
+          this.getCalcData();
           this.medicalCalculatedInfo = true;
          
           //medical calculate two dates
@@ -213,6 +213,7 @@
         }
 
         if ( type == 'wellness' ) {
+          this.getCalcData();
           this.wellnessCalculatedInfo = true;
 
           //wellness calculate two dates

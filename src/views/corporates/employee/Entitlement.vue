@@ -106,7 +106,7 @@
 		            </div>
 		            <p v-if="get_calc_wellness.entitlement_status" class="small">*Updated from <span class="currency-type">{{get_calc_wellness.currency_type}} </span>
 		            	<span>{{old_credits_wellness}}</span> to 
-		            	<span class="currency-type">{{get_calc_wellness.currency_type}} </span><span>{{new_credits_wellness}}</span> on 
+		            	<span class="currency-type">{{get_calc_wellness.currency_type}} </span><span>{{get_calc_wellness.entitlement_status.new_entitlement_credits}}</span> on 
 		            	<span>{{ effective_date_wellness }}</span></p>
 		          </div>
 						</div>
