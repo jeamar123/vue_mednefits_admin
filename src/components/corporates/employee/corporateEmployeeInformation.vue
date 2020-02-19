@@ -144,12 +144,13 @@ let corporateEmployeeInformation = {
 				axios.post(create_dependent_account, data)
 					.then(res => {
 						console.log(res);
-						if (res.data.status == true) {
+						if (res.data.status) {
 							console.log(res.data);
 							this.$swal("Success!", res.data.message, "success")
 								.then(res => {
-									// this.getEmployeeDetails();
-									this.showAddDependent();
+									this.$emit('FromEmployee', true);
+									this.toAddDep = {};
+									// this.showAddDependent();
 								});
 						} else {
 							this.$swal("Warning!", res.data.message, "warning");
@@ -411,6 +412,7 @@ let corporateEmployeeInformation = {
 
 			this.toEdit = {
 				fullname: this.employee_info.fullname,
+				nric: this.employee_info.nric,
 				phone_code: String(this.employee_info.phone_code),
 				phone_no: this.employee_info.phone_no,
 				member_id: this.employee_info.member_id,
@@ -661,8 +663,23 @@ let corporateEmployeeInformation = {
 export default corporateEmployeeInformation;
 </script>
 
+<style lang="scss"> // for none scope styles
+
+	.date-container.caret {
+		input.vDatepicker {
+			width: 100%;
+			position: relative;
+			z-index: 1;
+			cursor: pointer;
+		}
+	}
+	
+</style>
+
 <style lang="scss" scoped>
 @import "./src/assets/css/corporateEmployee.scss";
+
+
 // Responsive
 @media (max-width: 1279px) {
 	/* ... */
@@ -697,6 +714,15 @@ export default corporateEmployeeInformation;
 		display: grid;
 		grid-template-columns: 1fr;
 		grid-row-gap: 10px;
+	}
+
+	.edit-dependent-row {
+    display: grid;
+		grid-template-columns: 1fr;
+		
+		> div:nth-child(2) {
+    	margin: 0;
+  	}
 	}
 }
 
