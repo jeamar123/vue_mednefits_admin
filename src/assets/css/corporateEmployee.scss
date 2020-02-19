@@ -498,7 +498,8 @@
   }
 }
 .edit-dependent-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 
   > div:nth-child(1) {
     margin: 0 10px 0 0;
@@ -514,11 +515,22 @@
 
   .date-container {
     position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 0;
+    padding: 0 0 9px;
+
+    input.vDatepicker {
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      cursor: pointer;
+    }
 
     .fa-caret-down {
       position: absolute;
       top: 7px;
       right: 0;
+      z-index: 0;
     }
   }
 }
@@ -1438,6 +1450,14 @@
 }
 
 .employee-details-input-wrapper {
+
+  input.vDatepicker {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+  }
+
   label {
     display: block;
     color: rgba(0, 0, 0, 0.54);
@@ -1464,17 +1484,27 @@
     margin: 0;
   }
 
-  select, .vDatepicker .popover-container {
+  select, .vDatepicker input.vDatepicker {
+    width: 100%;
     position: relative;
     z-index: 1;
     cursor: pointer;
+  }
+
+  .date-container {
+    input.vDatepicker {
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      cursor: pointer;
+    }
   }
 
   .country-code-container select {
     width: 100px;
   }
 
-  .jobList-container {
+  .jobList-container, .relationship-container {
     position: relative;
 
     .fa-caret-down {

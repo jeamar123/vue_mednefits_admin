@@ -34,11 +34,11 @@
 										<button v-on:click="editOutNetworkOpt( list )">Edit</button>
 									</span>
 								</td>
-								<td>{{ list.out_of_network_transaction_id }}</td>
+								<td>{{ setTransID( list.out_of_network_transaction_id ) }}</td>
 								<td>{{ list.provider }}</td>
 								
 								<td>{{ list.claim_type }}</td>
-								<td><span class="txt-transform-uppercase">{{ list.currency_type }}</span> {{ list.claim_amount }}</td>
+								<td><span class="txt-transform-uppercase">{{ list.currency_type ? list.currency_type : $parent.$data.employee_side_info.currency_type }}</span> {{ list.claim_amount | number('0.00') }}</td>
 								<td>{{ list.spending_type }}</td>
 								<td>
 									<span v-if="list.claim_status == 0">Pending</span>
@@ -433,7 +433,7 @@
 									<label>Claim Amount*</label>
 								</div>
 								<div class="label-item">
-									<span><span>{{ outNetwork_data.currency }}</span> {{ outNetwork_data.claim_amount }}</span>
+									<span><span class="txt-transform-uppercase">{{ outNetwork_data.currency }}</span> {{ outNetwork_data.claim_amount }}</span>
 								</div>
 							</div>
 							<div class="summary-list-row">

@@ -31,7 +31,8 @@ import moment, { locale } from "moment";
         open_selected_clinics: [],
         open_selected_clinic_types: [],
 
-        clinic_type_list: [],
+        block_clinic_type_list: [],
+        open_clinic_type_list: [],
 
         isPageDropShow: [false,false],
         isLimitDropShow: [false,false],
@@ -62,7 +63,7 @@ import moment, { locale } from "moment";
         if( type == 'block' ){
           this.isBlockSearchShow = opt;
           if( opt == false ){
-            this.open_clinic_search = null;
+            this.block_clinic_search = null;
             this.getClinicList();
           }
         }
@@ -82,21 +83,19 @@ import moment, { locale } from "moment";
           Object.keys(this.open_clinic_list).map(( value, key ) => {
             this.open_clinic_list[key].selected = false;
           });
+          this.open_clinic_type_list.map(( value, key ) => {
+            value.selected = false;
+          });
         }
         if( type == 'block' ){
           this.allBlockSelected = false;
           Object.keys(this.block_clinic_list).map(( value, key ) => {
             this.block_clinic_list[key].selected = false;
           });
+          this.block_clinic_type_list.map(( value, key ) => {
+            value.selected = false;
+          });
         }
-        this.clinic_type_list.map(( value, key ) => {
-          if( type == 'open' && value.block == 0 ){
-            value.selected = false;
-          }
-          if( type == 'block' && value.block == 1 ){
-            value.selected = false;
-          }
-        });
       },
       // PAGINATION FUNCTIONS
         togglePageDrop( index, opt ){
@@ -164,7 +163,6 @@ import moment, { locale } from "moment";
         },
       // CHECKBOX FUNCTIONS
         selectAllOpen( opt ){
-          console.log( this.open_clinic_list );
           if( this.open_clinic_opt == 'name' ){
             this.open_selected_clinics = [];
             Object.keys(this.open_clinic_list).map(( value, key ) => {
@@ -177,21 +175,17 @@ import moment, { locale } from "moment";
             });
           }
           if( this.open_clinic_opt == 'type' ){
-            this.clinic_type_list.map(( value, key ) => {
-              if( value.block == 0 ){
-                value.selected = opt;
-                this.open_selected_clinic_types.push({
-                  type_id : value.provider_id,
-                  status : 1,
-                  account_type : this.type,
-                });
-              }
+            this.open_clinic_type_list.map(( value, key ) => {
+              value.selected = opt;
+              this.open_selected_clinic_types.push({
+                type_id : value.provider_id,
+                status : 1,
+                account_type : this.type,
+              });
             });
           }
         },
         selectAllBlock( opt ){
-          console.log( opt );
-          console.log( this.block_clinic_list );
           if( this.block_clinic_opt == 'name' ){
             this.block_selected_clinics = [];
             Object.keys(this.block_clinic_list).map(( value, key ) => {
@@ -204,19 +198,18 @@ import moment, { locale } from "moment";
             });
           }
           if( this.block_clinic_opt == 'type' ){
-            this.clinic_type_list.map(( value, key ) => {
-              if( value.block == 1 ){
-                value.selected = opt;
-                this.block_selected_clinic_types.push( {
-                  type_id : value.provider_id,
-                  status : 0,
-                  account_type : this.type,
-                } );
-              }
+            this.block_clinic_type_list.map(( value, key ) => {
+              value.selected = opt;
+              this.block_selected_clinic_types.push( {
+                type_id : value.provider_id,
+                status : 0,
+                account_type : this.type,
+              } );
             });
           }
         },
         selectOne( opt, data ){
+          console.log( data );
           var clinic_name_data = { 
             clinic_id: data.clinic_id, 
             account_type: this.type, 
@@ -229,14 +222,14 @@ import moment, { locale } from "moment";
           };
           if( opt == 'open' ){
             if( this.open_clinic_opt == 'name' ){
-              var index = _.findIndex( this.open_selected_clinics , clinic_name_data);
+              var index = _.findIndex( this.open_selected_clinics , [ 'clinic_id', data.clinic_id ]);
               if( index > -1 ){
                 this.open_selected_clinics.splice( index, 1 );
               }else{
                 this.open_selected_clinics.push( clinic_name_data );
               }
             }else{
-              var index = _.findIndex( this.open_selected_clinic_types , clinic_type_data);
+              var index = _.findIndex( this.open_selected_clinic_types , [ 'provider_id', data.provider_id ]);
               if( index > -1 ){
                 this.open_selected_clinic_types.splice( index, 1 );
               }else{
@@ -246,14 +239,14 @@ import moment, { locale } from "moment";
           }
           if( opt == 'block' ){
             if( this.open_clinic_opt == 'name' ){
-              var index = _.findIndex( this.block_selected_clinics , clinic_name_data);
+              var index = _.findIndex( this.block_selected_clinics , [ 'clinic_id', data.clinic_id ]);
               if( index > -1 ){
                 this.block_selected_clinics.splice( index, 1 );
               }else{
                 this.block_selected_clinics.push( clinic_name_data );
               }
             }else{
-              var index = _.findIndex( this.block_selected_clinic_types , clinic_type_data);
+              var index = _.findIndex( this.block_selected_clinic_types , [ 'provider_id', data.provider_id ]);
               if( index > -1 ){
                 this.block_selected_clinic_types.splice( index, 1 );
               }else{
@@ -261,9 +254,10 @@ import moment, { locale } from "moment";
               }
             }
           }
+
           console.log( this.open_selected_clinics );
           console.log( this.open_selected_clinic_types );
-          console.log( this.block_selected_clinics );
+          console.log( this.block_selected_clinic_types );
           console.log( this.block_selected_clinic_types );
         },
         
@@ -278,8 +272,9 @@ import moment, { locale } from "moment";
         this.open_selected_clinic_types = [];
         this.block_selected_clinics = [];
         this.block_selected_clinic_types = [];
+        this.open_clinic_type_list = [];
+        this.block_clinic_type_list = [];
       },
-
       updateClinicStatus( opt ){
         this.showLoading();
         var data = {
@@ -300,7 +295,6 @@ import moment, { locale } from "moment";
             this.errorHandler( err );
           });
       },
-        
       getClinicList(){
         var url = axios.defaults.serverUrl + '/company/clinic?';
         url += '&token=' + localStorage.getItem('vue_admin_session');
@@ -335,12 +329,28 @@ import moment, { locale } from "moment";
             this.open_pagination = res.data.open_list;
             this.open_pagination.from = (this.open_active_page * this.open_page_limit) - this.open_page_limit + 1;
             this.open_pagination.to = this.open_active_page == this.open_pagination.table_open_last_page ? this.open_pagination.table_open_total : (this.open_active_page * this.open_page_limit);
-            
-            this.clinic_type_list = _(res.data.clinic_type_list)
+                        
+            res.data.clinic_type_list.map(( value, key ) => {
+              if( value.block == 1 ){
+                this.block_clinic_type_list.push( value );
+              }
+              if( value.block == 0 ){
+                this.open_clinic_type_list.push( value );
+              }
+            });
+
+            this.block_clinic_type_list = _(this.block_clinic_type_list)
               .groupBy('provider_id')
               .map((items, value) => ({ ...items[0], provider_region : items.length > 1 ? ['sgd','myr'] : [ items[0].provider_region ], currency : items.length > 1 ? 'all' : items[0].provider_region }))
               .value();
-            console.log( this.clinic_type_list );
+
+            this.open_clinic_type_list = _(this.open_clinic_type_list)
+              .groupBy('provider_id')
+              .map((items, value) => ({ ...items[0], provider_region : items.length > 1 ? ['sgd','myr'] : [ items[0].provider_region ], currency : items.length > 1 ? 'all' : items[0].provider_region }))
+              .value();
+
+            console.log( this.block_clinic_type_list );
+            console.log( this.open_clinic_type_list );
 
             this.hideLoading();
           })

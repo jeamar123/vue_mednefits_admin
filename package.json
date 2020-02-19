@@ -51,12 +51,6 @@
       "parser": "babel-eslint"
     }
   },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {},
-      "tailwindcss": {}
-    }
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions"

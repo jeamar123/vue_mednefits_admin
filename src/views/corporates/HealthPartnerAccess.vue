@@ -57,7 +57,7 @@
 	          </label>
 	          <div class="country">{{ list.currency_type == 'sgd' ? 'Singapore' : 'Malaysia' }}</div>
           </div>
-					<div v-if="block_clinic_opt == 'type' && list.block == 1" v-for="list in filterBy( clinic_type_list, (block_clinic_region == 0 ? '' : block_clinic_region) )" class="clinic-name-container">
+					<div v-if="block_clinic_opt == 'type'" v-for="list in filterBy( block_clinic_type_list, (block_clinic_region == 0 ? '' : block_clinic_region) )" class="clinic-name-container">
 	        	<label class="health-checkbox-container"> 
 	            <span>{{ list.provider_name }}</span>
 	            <input type="checkbox" v-model="list.selected" v-on:change="selectOne( 'block', list )">
@@ -76,7 +76,7 @@
         </div>
 
         <div class="pagination-container">
-					<div v-if="Object.keys(block_clinic_list).length > 0" class="pagination-wrapper">
+					<div v-if="Object.keys(block_clinic_list).length > 0 && block_clinic_opt == 'name'" class="pagination-wrapper">
 						<div class="page">
 							<span class="page-text">Page:</span>
 							<div v-click-outside="hideAllDrop" class="page-select">
@@ -174,7 +174,7 @@
 	          </label>
 						<div v-if="list.currency_type" class="country">{{ list.currency_type == 'sgd' ? 'Singapore' : 'Malaysia' }}</div>
 	        </div>
-					<div v-if="open_clinic_opt == 'type' && list.block == 0" v-for="list in filterBy( clinic_type_list, (open_clinic_region == 0 ? '' : open_clinic_region) )" class="clinic-name-container">
+					<div v-if="open_clinic_opt == 'type'" v-for="list in filterBy( open_clinic_type_list, (open_clinic_region == 0 ? '' : open_clinic_region) )" class="clinic-name-container">
 	        	<label class="health-checkbox-container"> 
 	            <span>{{ list.provider_name }}</span>
 	            <input type="checkbox" v-model="list.selected" v-on:change="selectOne( 'open', list )">

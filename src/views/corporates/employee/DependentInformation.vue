@@ -107,26 +107,30 @@
 				<h3>Edit Dependent Details</h3>
 			</div>
 			<form class="md:w-full">
-				<div class="edit-dependent-row sm:flex sm:flex-wrap">
+				<div class="edit-dependent-row">
 					<div class="employee-details-input-wrapper sm:m-0">
 						<label>Full Name</label>
 						<input type="name" v-model="toEdit.fullname" required autocomplete="name">
 					</div>
 					<div class="employee-details-input-wrapper sm:m-0">
 						<label>Relationship</label>
-						<select v-model="toEdit.relationship">
-							<option value="spouse">Spouse</option>
-							<option value="child">Child</option>
-							<option value="family">Family</option>
-							<option value="parent">Parent</option>
-						</select>
+						<div class="relationship-container"> 
+							<select v-model="toEdit.relationship">
+								<option value="spouse">Spouse</option>
+								<option value="child">Child</option>
+								<option value="siblings">Siblings</option>
+								<option value="family">Family</option>
+								<option value="parent">Parent</option>
+							</select>
+							<i class="fa fa-caret-down"></i>
+						</div>
 					</div>
 				</div>
 
 				<div class="edit-dependent-row sm:flex sm:flex-wrap">
 					<div class="employee-details-input-wrapper sm:mx-0">
 						<label>Date of Birth</label>
-						<div class="date-container vDatepicker">
+						<div class="date-container caret vDatepicker">
 							<v-date-picker
                 popoverDirection="bottom"
                 v-model="toEdit.dob"
@@ -146,7 +150,8 @@
 				<div class="edit-dependent-row">
 					<div class="employee-details-input-wrapper  sm:mx-0">
 						<label>Plan Start</label>
-						<div class="date-container vDatepicker">
+						
+						<div class="date-container caret vDatepicker">
 							<v-date-picker
                 popoverDirection="bottom"
                 v-model="toEdit.plan_start"
