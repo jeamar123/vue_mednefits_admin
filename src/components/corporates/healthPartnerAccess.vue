@@ -181,8 +181,9 @@ import moment, { locale } from "moment";
               if( value.block == 0 ){
                 value.selected = opt;
                 this.open_selected_clinic_types.push({
-                  clinic_id : value.provider_id,
+                  type_id : value.provider_id,
                   status : 1,
+                  account_type : this.type,
                 });
               }
             });
@@ -207,33 +208,63 @@ import moment, { locale } from "moment";
               if( value.block == 1 ){
                 value.selected = opt;
                 this.block_selected_clinic_types.push( {
-                  clinic_id : value.provider_id,
+                  type_id : value.provider_id,
                   status : 0,
+                  account_type : this.type,
                 } );
               }
             });
           }
         },
         selectOne( opt, data ){
-          var push_data = { clinic_id: data.clinic_id, account_type: this.type, status: opt == 'open' ? 1 : 0 };
+          var clinic_name_data = { 
+            clinic_id: data.clinic_id, 
+            account_type: this.type, 
+            status: opt == 'open' ? 1 : 0 
+          };
+          var clinic_type_data = { 
+            type_id: data.provider_id, 
+            status: opt == 'open' ? 1 : 0, 
+            account_type : this.type,
+          };
           if( opt == 'open' ){
-            var index = _.findIndex( this.open_selected_clinics , push_data);
-            if( index > -1 ){
-              this.open_selected_clinics.splice( index, 1 );
+            if( this.open_clinic_opt == 'name' ){
+              var index = _.findIndex( this.open_selected_clinics , clinic_name_data);
+              if( index > -1 ){
+                this.open_selected_clinics.splice( index, 1 );
+              }else{
+                this.open_selected_clinics.push( clinic_name_data );
+              }
             }else{
-              this.open_selected_clinics.push( push_data );
+              var index = _.findIndex( this.open_selected_clinic_types , clinic_type_data);
+              if( index > -1 ){
+                this.open_selected_clinic_types.splice( index, 1 );
+              }else{
+                this.open_selected_clinic_types.push( clinic_type_data );
+              }
             }
           }
           if( opt == 'block' ){
-            var index = _.findIndex( this.block_selected_clinics , push_data);
-            if( index > -1 ){
-              this.block_selected_clinics.splice( index, 1 );
+            if( this.open_clinic_opt == 'name' ){
+              var index = _.findIndex( this.block_selected_clinics , clinic_name_data);
+              if( index > -1 ){
+                this.block_selected_clinics.splice( index, 1 );
+              }else{
+                this.block_selected_clinics.push( clinic_name_data );
+              }
             }else{
-              this.block_selected_clinics.push( push_data );
+              var index = _.findIndex( this.block_selected_clinic_types , clinic_type_data);
+              if( index > -1 ){
+                this.block_selected_clinic_types.splice( index, 1 );
+              }else{
+                this.block_selected_clinic_types.push( clinic_type_data );
+              }
             }
           }
           console.log( this.open_selected_clinics );
+          console.log( this.open_selected_clinic_types );
           console.log( this.block_selected_clinics );
+          console.log( this.block_selected_clinic_types );
         },
         
 
@@ -255,6 +286,7 @@ import moment, { locale } from "moment";
           corporate_id: 1,
           clinic_details: opt == 'toOpen' ? this.block_selected_clinics : this.open_selected_clinics, 
           provider_type_ids: opt == 'toOpen' ? this.block_selected_clinic_types : this.open_selected_clinic_types,
+          region : opt == 'toOpen' ? ( this.block_clinic_region == 0 ? 'all' : this.block_clinic_region ) : ( this.open_clinic_region == 0 ? 'all' : this.open_clinic_region ),
         }
         console.log( data );
         axios.put( axios.defaults.serverUrl + '/company/clinic' , data )
@@ -304,7 +336,11 @@ import moment, { locale } from "moment";
             this.open_pagination.from = (this.open_active_page * this.open_page_limit) - this.open_page_limit + 1;
             this.open_pagination.to = this.open_active_page == this.open_pagination.table_open_last_page ? this.open_pagination.table_open_total : (this.open_active_page * this.open_page_limit);
             
-            this.clinic_type_list = res.data.clinic_type_list;
+            this.clinic_type_list = _(res.data.clinic_type_list)
+              .groupBy('provider_id')
+              .map((items, value) => ({ ...items[0], provider_region : items.length > 1 ? ['sgd','myr'] : [ items[0].provider_region ], currency : items.length > 1 ? 'all' : items[0].provider_region }))
+              .value();
+            console.log( this.clinic_type_list );
 
             this.hideLoading();
           })
