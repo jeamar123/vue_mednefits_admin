@@ -62,7 +62,7 @@ import moment, { locale } from "moment";
         if( type == 'block' ){
           this.isBlockSearchShow = opt;
           if( opt == false ){
-            this.open_clinic_search = null;
+            this.block_clinic_search = null;
             this.getClinicList();
           }
         }
