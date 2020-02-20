@@ -139,7 +139,7 @@
 								<div class="country-code-mobile-container">
 									<div class="country-code-container">
 										<!-- <input type="text"> -->
-										<select name="relationship" id="" v-model="toEdit.phone_code">
+										<select name="country_code" id="" v-model="toEdit.phone_code">
 											<option value="+65">(SG) +65</option>
 											<option value="+63">(PH) +63</option>
 											<option value="+60">(MY) +60</option>
@@ -673,118 +673,6 @@
 		</div>
 
 		<div>
-			<Modal v-if="withdrawEmployeeModal" class="employee-details-options remove-dependent-container">
-				<div slot="header">
-					<h1>Withdraw Employee</h1>
-					<i @click="showRemoveDependent()" class="fa fa-times"></i>
-				</div>
-				<div slot="body" class="edit-employee-info-container">
-					<div class="edit-dependent-row">
-						<div class="employee-details-input-wrapper">
-							<label>Name</label>
-							<div class="name-text-value">Mike Vega</div>
-						</div>
-						<div class="employee-details-input-wrapper">
-							<label>Effective Date</label>
-							<div class="date-container">
-								<v-date-picker popoverDirection="bottom" v-model="starDateDetails.null"
-									:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
-									popover-visibility="focus"></v-date-picker>
-								<i class="fa fa-caret-down"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div slot="footer">
-					<button class="btn-primary btn-delete">DELETE</button>
-				</div>
-			</Modal>
-
-			<Modal v-if="showSetupAccountModal" class="employee-details-options">
-				<div slot="header">
-					<h1>Employee Details Options</h1>
-				</div>
-				<div slot="body">
-					<div v-if="selected_emp_details_opt == 0" class="btn-options-container">
-						<button @click="selectedEmpDetailsToggleOpt(1)" class="btn-primary">UPDATE PASSWORD</button>
-						<button class="btn-primary">RESEND/RESET ACCOUNT</button>
-						<button @click="selectedEmpDetailsToggleOpt(2)" class="btn-primary">PIN SETUP</button>
-						<button class="btn-primary">UNSET PIN</button>
-					</div>
-
-					<div v-if="selected_emp_details_opt == 1" class="update-password-container">
-						<div class="update-pass-header">
-							<i @click="selectedEmpDetailsToggleOpt(0)" class="fa fa-times"></i>
-						</div>
-						<div>
-							<div class="employee-details-input-wrapper">
-								<label>Email</label>
-								<input type="text">
-							</div>
-							<div class="employee-details-input-wrapper">
-								<label>Password*</label>
-								<input type="text">
-							</div>
-							<div class="employee-details-input-wrapper">
-								<label>Re-Type Password*</label>
-								<input type="text">
-							</div>
-							<div>
-								<button class="btn-primary btn-update">UPDATE</button>
-							</div>
-						</div>
-					</div>
-
-					<div v-if="selected_emp_details_opt == 2">
-						<div class="update-pass-header">
-							<i @click="selectedEmpDetailsToggleOpt(0)" class="fa fa-times"></i>
-						</div>
-						<div>
-							<div class="employee-details-input-wrapper">
-								<label>Pin*</label>
-								<input type="text">
-							</div>
-							<div class="employee-details-input-wrapper">
-								<label>Re-Type Pin*</label>
-								<input type="text">
-							</div>
-							<div>
-								<button class="btn-primary btn-update">UPDATE</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div slot="footer">
-					<button @click="selectedEmpDetailsSettingsClicked(0, 'cancel')" class="btn-close">CLOSE</button>
-				</div>
-			</Modal>
-
-			<!-- <Modal v-if="showSmsUpdateNotify" class="employee-details-options">
-				<div slot="header">
-					<h1>Send SMS Update Notification</h1>
-				</div>
-				<div slot="body">
-					<div class="sms-form">
-						<div>
-							<label>Country Code</label>
-							<div class="country-mobile-input-wrapper">
-								<input type="text">
-								<i class="fa fa-caret-down"></i>
-							</div>
-						</div>
-						<div>
-							<label>Mobile Number</label>
-							<div class="country-mobile-input-wrapper">
-								<input type="text">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div slot="footer">
-					<button @click="selectedEmpDetailsSettingsClicked(3, 'cancel')" class="btn-close">CANCEL</button>
-					<button class="btn-primary settings-btn-submit">SUBMIT</button>
-				</div>
-			</Modal> -->
 
 			<Modal v-if="false" class="fill-corporate-pass-container">
 				<div slot="body">

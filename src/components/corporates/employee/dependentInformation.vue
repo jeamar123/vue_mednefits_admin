@@ -30,7 +30,6 @@ let dependentInformation = {
 			remove_step_active: 'remove-emp',
 			removeBackBtn: false,
 			editReplaceDependentInfo: false,
-			withdrawEmployeeModal: false,
 			inNetworkClaimSummaryModal: false,
 			editDependentInfo: false,
 			showInNetwork: false,
@@ -58,6 +57,9 @@ let dependentInformation = {
 			// Depedents Global Variables
 			dependent_arr: {},
 			toEdit: {},
+			global_toRemoveDep: {},
+			global_withdrawEmployeeModal: false,
+			global_toReplaceDep: {},
 			// -------------------------
 		};
 	},
@@ -92,8 +94,13 @@ let dependentInformation = {
 		showReplaceDependent() {
 			this.editReplaceDependentInfo = this.editReplaceDependentInfo == false ? true : false;
 		},
-		showRemoveDependent() {
-			this.withdrawEmployeeModal = this.withdrawEmployeeModal == false ? true : false;
+		showRemoveDependent(list) {
+			this.global_withdrawEmployeeModal = this.global_withdrawEmployeeModal == false ? true : false;
+
+			if	(list)	{
+				this.global_toRemoveDep = list;
+				this.global_toRemoveDep.expiry_date = new Date();
+			}
 		},
 		showEditDependent(list) {
 			this.editDependentInfo = this.editDependentInfo == false ? true : false;
@@ -390,6 +397,63 @@ let dependentInformation = {
 					this.hideLoading();
 					this.errorHandler(err);
 				});
+		},
+
+		_deleteDependent_	(result)	{
+			console.log(result);
+			this.showLoading();
+			const URL = `${axios.defaults.serverUrl}/company/remove_dependent_account`;
+
+			let _data	=	{
+				member_id:	this.global_toRemoveDep.member_id,
+				expiry_date:	moment(this.global_toRemoveDep.expiry_date).format('YYYY-MM-DD'),
+				refund_status:	result,
+			}
+
+			axios.post(URL,	_data)
+				.then(res => {
+					// Log the data to the console
+					// You would do something with both sets of data here
+					console.log(res);
+					if	(res.status == 201) {
+						this.hideLoading();
+						this.$swal('Success', res.data.message, 'success')
+							.then(swalRes => {
+								this.$emit('FromEmployee', { from_employee: this.employee_info });
+							})
+					}else {
+						this.hideLoading();
+						this.$swal('Warning!', res.data.message, 'warning');
+					}
+					// this.hideLoading();
+				}).catch(err => {
+					this.hideLoading();
+					this.errorHandler(err);
+				});
+		},
+
+		_deleteDependentSwal_	()	{
+
+			this.$swal({
+				title: 'Confirm!',
+				text: "Do you want to create a refund for this dependent",
+				type: 'warning',
+				showCloseButton: true,
+				showCancelButton: true,
+				confirmButtonColor: '#25306c',
+				cancelButtonColor: '#C1C1C1',
+				cancelButtonText: 'No Refund.',
+				confirmButtonText: 'Yes, Make a Refund.',
+				reverseButtons: true,
+				allowOutsideClick: true,
+			}).then((swalResult) => {
+				if (swalResult.value) {
+					this._deleteDependent_(swalResult.value);
+				} else if	(swalResult.dismiss ==	'cancel')	{
+					swalResult.value	=	false;
+					this._deleteDependent_(swalResult.value);
+				}
+			})
 		},
 
 		onLoad() {

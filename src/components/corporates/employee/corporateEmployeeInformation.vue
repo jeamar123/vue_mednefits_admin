@@ -32,7 +32,6 @@ let corporateEmployeeInformation = {
 			remove_step_active: "remove-emp",
 			removeBackBtn: false,
 			editReplaceDependentInfo: false,
-			withdrawEmployeeModal: false,
 			inNetworkClaimSummaryModal: false,
 			editDependentInfo: false,
 			showInNetwork: false,
@@ -446,10 +445,6 @@ let corporateEmployeeInformation = {
 		showReplaceDependent() {
 			this.editReplaceDependentInfo =
 				this.editReplaceDependentInfo == false ? true : false;
-		},
-		showRemoveDependent() {
-			this.withdrawEmployeeModal =
-				this.withdrawEmployeeModal == false ? true : false;
 		},
 		showEditDependent() {
 			this.editDependentInfo = this.editDependentInfo == false ? true : false;
