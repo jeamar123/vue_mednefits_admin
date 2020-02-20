@@ -51,15 +51,19 @@
 						<button class="btn-primary">UPDATE</button>
 					</div>
 				</div>
-				<div class="employee-pagination">
-					<button class="btn-primary">PREV</button>
-					<div><span>2</span> of <span>18</span></div>
-					<button class="btn-primary">NEXT</button>
-					<div>
-						<span>per page: </span>
-						<span>5</span>
-					</div>
-				</div>
+			</div>
+		</div>
+		<div class="employee-pagination">
+			<div>
+				<button class="btn-primary">PREV</button>
+			</div>
+			<div class="range-pagination"><span>2</span> of <span>18</span></div>
+			<div>
+				<button class="btn-primary">NEXT</button>
+			</div>
+			<div class="per-page-container">
+				<span>per page : </span>
+				<span class="page-num-conainer"><span class="per-page-num">5</span> <span><i class="fa fa-caret-down" aria-hidden="true"></i></span></span>
 			</div>
 		</div>
 	</div>

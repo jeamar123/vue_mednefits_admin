@@ -70,10 +70,34 @@
       color: #666;
     }
   }
+
+  .employee-pagination {
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+
+    .range-pagination {
+      text-align: center;
+      flex: 1;
+    }
+    .per-page-container {
+      margin: 0 0 0 30px;
+    }
+
+    .page-num-conainer {
+      border-bottom: 1px solid #ccc;
+      padding: 0 0 2px;
+    }
+
+    .per-page-num {
+      padding: 0 10px 0 15px;
+    }
+  }
 }
 
 .credit-employee-wrapper {
   width: 290px;
+  height: 550px;
   margin: 40px 0 0;
   .employee-header {
     background-color: rgb(63,81,181);
@@ -156,13 +180,6 @@
     input {
       border-bottom: 1px solid rgba(0,0,0,0.12);
     }
-  }
-
-  .employee-pagination {
-    position: absolute;
-    bottom: 70px;
-    display: flex;
-    align-items: center;
   }
 }
 
