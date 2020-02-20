@@ -1,10 +1,11 @@
 <script>
-	import { _login_ } from '../common/functions/common_ApiServices';
+	import { 
+		_login_ 
+	} from '../common/functions/common_functions';
 	
 	var auth = {
 		data() {
 			return {
-				showLoader : false,
 				user_id : null,
 				formData : {
 					username : null,
@@ -16,15 +17,7 @@
 
 		},
 		methods: {
-      showLoading: () => {
-      	this.showLoader = true;
-      },
-      // hideLoading() {
-      // 	setTimeout(()=>{
-			// 	  this.showLoader = false;
-			// 	},100);
-      // },
-      login: ( formData ) => {
+      login( formData ){
 				if( !formData.username ){
 					this.$swal('Error!', 'Email is required.', 'error');
 					return false;
@@ -33,18 +26,14 @@
 					this.$swal('Error!', 'Password is required.', 'error');
 					return false;
 				}
-				this.showLoading();
 				_login_( formData )
 					.then(( res ) => {
 						console.log( res );
 						if( res.status == 200 || res.status == 201 ){
 							// this.$swal( 'Success!', res.data.message, 'success' );
-							// localStorage.setItem('vue_admin_session', res.data.token);
-							// this.$router.push( { name: 'Corporates' } );
-						}else{
-							this.$swal( 'Error!', res.data.message, 'error' );
+							localStorage.setItem('vue_admin_session', res.data.token);
+							this.$router.push( { name: 'Corporates' } );
 						}
-						this.hideLoading();
 					});
       }
     }

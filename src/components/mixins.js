@@ -22,8 +22,7 @@ export default {
       router.back();
     },
     showLoading : () =>{
-      console.log('sdfsd');
-      // router.app.$children[0].$children[0].showLoading();
+      router.app.$children[0].$children[0].showLoading();
     },
     hideLoading : () =>{
       router.app.$children[0].$children[0].hideLoading();
