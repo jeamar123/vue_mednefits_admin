@@ -32,7 +32,6 @@ let corporateEmployeeInformation = {
 			remove_step_active: "remove-emp",
 			removeBackBtn: false,
 			editReplaceDependentInfo: false,
-			withdrawEmployeeModal: false,
 			inNetworkClaimSummaryModal: false,
 			editDependentInfo: false,
 			showInNetwork: false,
@@ -76,9 +75,13 @@ let corporateEmployeeInformation = {
 			toReplace: {},
 			jobList: jobList,
 			account_spending_summary: {
-				medical: {},
-				wellness: {},
-				date: {},
+				medical:	{},
+				wellness:	{},
+				date:	{},
+			},
+			calibrate: {
+				medical:	false,
+				wellness:	false,
 			},
 			spending_account_next_disabled: false,
 			//dependent
@@ -191,10 +194,24 @@ let corporateEmployeeInformation = {
 		},
 		update_employee() {
 			let update_employee_details = `${axios.defaults.serverUrl}/company/update_employee_details`;
-			let data = this.toEdit;
 
-			if (this.checkForm_edit()) {
-				axios.put(update_employee_details, data)
+			let _data = {
+				fullname: this.toEdit.fullname ? this.toEdit.fullname : null,
+				nric: this.toEdit.nric ? this.toEdit.nric : null,
+				phone_code: this.toEdit.phone_code ? this.toEdit.phone_code : null,
+				phone_no: this.toEdit.phone_no ? this.toEdit.phone_no : null,
+				member_id: this.toEdit.member_id ? this.toEdit.member_id : null,
+				job_title: this.toEdit.job_title ? this.toEdit.job_title : null,
+				dob: this.toEdit.dob ? this.toEdit.dob : null,
+				bank_account_number: this.toEdit.bank_account_number ? this.toEdit.bank_account_number : null,
+				postal_code: this.toEdit.postal_code ? this.toEdit.postal_code : null,
+				bank_code: this.toEdit.bank_code ? this.toEdit.bank_code : null,
+				email: this.toEdit.email ? this.toEdit.email : null,
+				bank_brh: this.toEdit.bank_brh ? this.toEdit.bank_brh : null,
+			};
+			if (this._checkForm_(_data)) {
+				_data.dob = moment(_data.dob).format('YYYY-MM-DD');
+				axios.put(update_employee_details, _data)
 					.then(res => {
 						console.log(res);
 						if (res.status == 200) {
@@ -217,15 +234,14 @@ let corporateEmployeeInformation = {
 			}
 		},
 		spending_calibration(data) {
-
 			if (data) {
 
-				this.account_spending_summary.calibrate_medical = true;
-				this.account_spending_summary.calibrate_wellness = true;
+				this.calibrate.medical = data;
+				this.calibrate.wellness = data;
 			} else {
 
-				this.account_spending_summary.calibrate_medical = false;
-				this.account_spending_summary.calibrate_wellness = false;
+				this.calibrate.medical = data;
+				this.calibrate.wellness = data;
 			}
 			this.$forceUpdate();
 
@@ -278,8 +294,8 @@ let corporateEmployeeInformation = {
 			if (type == 'callibration') {
 				get_employee_account_spending_summary += `&pro_allocation_start_date=${moment(this.account_spending_summary.date.pro_rated_start).format('YYYY-MM-DD')}`;
 				get_employee_account_spending_summary += `&pro_allocation_end_date=${moment(this.account_spending_summary.date.pro_rated_end).format('YYYY-MM-DD')}`;
-				get_employee_account_spending_summary += `&calibrate_medical=${this.account_spending_summary.calibrate_medical}`;
-				get_employee_account_spending_summary += `&calibrate_wellness=${this.account_spending_summary.calibrate_wellness}`;
+				get_employee_account_spending_summary += `&calibrate_medical=${this.calibrate.medical}`;
+				get_employee_account_spending_summary += `&calibrate_wellness=${this.calibrate.wellness}`;
 			}
 
 			axios.get(get_employee_account_spending_summary)
@@ -294,12 +310,38 @@ let corporateEmployeeInformation = {
 						// localStorage.employee_email = this.employee_info.work_email;
 						console.log(this.account_spending_summary);
 
-						if (this.account_spending_summary.calibrate_medical == true) {
-							this.$swal('Success', res.data.message, 'success')
-								.then(res1 => {
 
-								});
-							this.showRemoveEmp();
+						if (type == 'callibration')	{
+							if (this.calibrate.medical == true && this.calibrate.wellness == true) {
+								this.hideLoading();
+								this.$swal('Success', res.data.message, 'success')
+									.then(res1 => {
+										console.log('diri ang error');
+										if (this.emp_details_replace == true)	{
+											this._replaceEmployeeAccount_();
+										} else if (this.emp_details_reserve == true)	{
+											this._removeEmployeeAccount_('hold');
+										} else if (this.emp_details_remove == true)	{
+											this._removeEmployeeAccount_('remove');
+										}
+
+										this.emp_details_replace = false;
+										this.emp_details_reserve = false;
+										this.emp_details_remove = false;
+									});
+							} else	{
+								console.log('diri ang error');
+								if (this.emp_details_replace == true)	{
+									this._replaceEmployeeAccount_();
+								} else if (this.emp_details_reserve == true)	{
+									this._removeEmployeeAccount_('hold');
+								} else if (this.emp_details_remove == true)	{
+									this._removeEmployeeAccount_('remove');
+								}
+								this.emp_details_replace = false;
+								this.emp_details_reserve = false;
+								this.emp_details_remove = false;
+							}
 						}
 						this.hideLoading();
 					}
@@ -310,57 +352,68 @@ let corporateEmployeeInformation = {
 				});
 
 		},
-		checkForm_edit() {
-			this.error_updateEmployee = [];
+		_checkForm_(data) {
+			// for replace and edit employee
+			this.error_checkForm = [];
+			console.log(data);
 
-			if (!this.toEdit.fullname) {
-				this.error_updateEmployee.push("Name.");
+			if (data.hasOwnProperty('fullname') && !data.fullname) {
+				this.error_checkForm.push("Name.");
 			}
-			if (!this.toEdit.phone_code) {
-				this.error_updateEmployee.push("Area Code.");
+			if (data.hasOwnProperty('phone_code') && !data.phone_code) {
+				this.error_checkForm.push("Area Code.");
 			}
-			if (!this.toEdit.phone_no) {
-				this.error_updateEmployee.push("Mobile Number.");
+			if (data.hasOwnProperty('phone_no') && !data.phone_no) {
+				this.error_checkForm.push("Mobile Number.");
 			}
-			if (!this.toEdit.member_id) {
-				this.error_updateEmployee.push("Member ID.");
-			}
-			if (!this.toEdit.job_title) {
-				this.error_updateEmployee.push("Job Title.");
-			}
-			if (!this.toEdit.dob) {
-				this.error_updateEmployee.push("Birthday.");
-			}
-			// if (!this.toEdit.bank_account_number) {
-			// 	this.error_updateEmployee.push("Bank Account Number.");
+			// if (!data.member_id) {
+			// 	this.error_checkForm.push("Member ID.");
 			// }
-			// if (!this.toEdit.postal_code) {
-			// 	this.error_updateEmployee.push("Postal Code.");
-			// }
-			// if (!this.toEdit.bank_code) {
-			// 	this.error_updateEmployee.push("Bank Code.");
-			// }
-			// if (!this.toEdit.bank_brh) {
-			// 	this.error_updateEmployee.push("Bank BRH.");
-			// }
-
-			if (!this.toEdit.email) {
-				this.error_updateEmployee.push('Email.');
-			} else if (!this.validEmail(this.toEdit.email)) {
-				this.error_updateEmployee.push('Valid email.');
+			if (data.hasOwnProperty('job_title') && !data.job_title) {
+				this.error_checkForm.push("Job Title.");
 			}
 
-			if (!this.error_updateEmployee.length) {
+			if (data.hasOwnProperty('dob') && !data.dob) {
+				this.error_checkForm.push("Birthday.");
+			}
+			// if (!data.bank_account_number) {
+			// 	this.error_checkForm.push("Bank Account Number.");
+			// }
+			// if (!data.postal_code) {
+			// 	this.error_checkForm.push("Postal Code.");
+			// }
+			// if (!data.bank_code) {
+			// 	this.error_checkForm.push("Bank Code.");
+			// }
+			// if (!data.bank_brh) {
+			// 	this.error_checkForm.push("Bank BRH.");
+			// }
+
+			if (data.hasOwnProperty('email') && !data.email) {
+				this.error_checkForm.push('Email.');
+			} else if (!this.validEmail(data.email)) {
+				this.error_checkForm.push('Valid email.');
+			}
+
+			if (data.hasOwnProperty('medical_credits') && !data.medical_credits)	{
+				this.error_checkForm.push('Medical Credits.');
+			}
+
+			if (data.hasOwnProperty('wellness_credits') && !data.wellness_credits)	{
+				this.error_checkForm.push('Wellness Credits.');
+			}
+
+			if (!this.error_checkForm.length) {
 				return true;
 			} else {
-				console.log(this.error_updateEmployee);
-				let new_error = [];
-				this.error_updateEmployee.map(value => {
-					new_error.push(`<span class="block p-1 text-red-500 text-center w-1/2 mx-auto my-0">${value}</span>`);
+				console.log(this.error_checkForm);
+				let _newError = [];
+				this.error_checkForm.map(value => {
+					_newError.push(`<span class="block p-1 text-red-500 text-center w-1/2 mx-auto my-0">${value}</span>`);
 				});
 				this.$swal(
 					'Required',
-					new_error.join('\n\n'),
+					_newError.join('\n\n'),
 					'warning'
 				);
 
@@ -449,10 +502,6 @@ let corporateEmployeeInformation = {
 			this.editReplaceDependentInfo =
 				this.editReplaceDependentInfo == false ? true : false;
 		},
-		showRemoveDependent() {
-			this.withdrawEmployeeModal =
-				this.withdrawEmployeeModal == false ? true : false;
-		},
 		showEditDependent() {
 			this.editDependentInfo = this.editDependentInfo == false ? true : false;
 		},
@@ -501,16 +550,28 @@ let corporateEmployeeInformation = {
 						this.$swal('Warning', 'Select 1 Option', 'warning');
 					}
 				} else if (this.remove_step_active == "replace-emp") {
-					this.remove_step_active = "health-spending-summary";
-					this.get_health_spending_account('default');
+
+					let _data	=	{
+						fullname: this.toReplace.fullname ? this.toReplace.fullname : null,
+						dob: this.toReplace.dob ? this.toReplace.dob : null,
+						phone_no: this.toReplace.phone_no ? this.toReplace.phone_no : null,
+						phone_code: this.toReplace.phone_code ? this.toReplace.phone_code : null,
+						postal_code: this.toReplace.postal_code ? this.toReplace.postal_code : null,
+						expiry_date: this.toRemove.last_day ? moment(this.toRemove.last_day).format('YYYY-MM-DD') : null,
+						plan_start:	this.toReplace.start_date ? moment(this.toReplace.start_date).format('YYYY-MM-DD') : null,
+						email: this.toReplace.email ? this.toReplace.email : null,
+						medical_credits: this.toReplace.medical_credits ? this.toReplace.medical_credits: null,
+						wellness_credits:	this.toReplace.wellness_credits ? this.toReplace.wellness_credits: null,
+					}
+
+					if (this._checkForm_(_data))	{
+						this.remove_step_active = "health-spending-summary";
+						this.get_health_spending_account('default');
+					}
 				} else if (this.remove_step_active == "health-spending-summary") {
 					this.remove_step_active = "health-spending-account";
 				} else if (this.remove_step_active == "health-spending-account") {
 					this.get_health_spending_account('callibration');
-					this.emp_details_replace = false;
-					this.emp_details_reserve = false;
-					this.emp_details_remove = false;
-
 					if (this.account_spending_summary.calibrate_medical == false) {
 						this.showRemoveEmp();
 					}
@@ -518,9 +579,9 @@ let corporateEmployeeInformation = {
 			}
 		},
 		changeRemoveOption(opt) {
-			this.emp_details_replace = false;
-			this.emp_details_reserve = false;
-			this.emp_details_remove = false;
+			// this.emp_details_replace = false;
+			// this.emp_details_reserve = false;
+			// this.emp_details_remove = false;
 
 			if (opt === 1) {
 				this.emp_details_replace = !this.emp_details_replace;
@@ -656,6 +717,64 @@ let corporateEmployeeInformation = {
 			} else if (x === "standard-one-year") {
 				this.showShortTermSelector = false;
 			}
+		},
+
+		_removeEmployeeAccount_	(type)	{
+			//remove employee check box 2 and 3.
+			const URL = `${axios.defaults.serverUrl}/company/remove_employee_account`;
+
+			let	_data	=	{
+				member_id:	this.member_id,
+				expiry_date: moment(this.toRemove.last_day).format('YYYY-MM-DD'),
+				type: type,
+			}
+			console.log(_data);
+			axios.post(URL, _data)
+				.then(res	=>	{
+					if (res.status == 201)	{
+						this.$swal('Success!', res.data.message, 'success')
+							.then(swalRes	=>	{
+								this.$emit('FromEmployee', true);
+								this.showRemoveEmp();
+							}) 
+					}
+				}).catch(err => {
+					this.hideLoading();
+					this.errorHandler(err);
+				});
+		},
+		_replaceEmployeeAccount_()	{
+			//remove employee check box 1
+			const URL = `${axios.defaults.serverUrl}/company/replace_employee_account`;
+
+			let	_data	=	{
+				member_id: this.member_id,
+				fullname: this.toReplace.fullname,
+				dob: this.toReplace.dob,
+				mobile: this.toReplace.phone_no,
+				country_code: this.toReplace.phone_code,
+				postal_code: this.toReplace.postal_code,
+				expiry_date: moment(this.toRemove.last_day).format('YYYY-MM-DD'),
+				plan_start: moment(this.toReplace.start_date).format('YYYY-MM-DD'),
+				email: this.toReplace.email,
+				medical_credits: this.toReplace.medical_credits ? this.toReplace.medical_credits: 0,
+				wellness_credits:	this.toReplace.wellness_credits ? this.toReplace.wellness_credits: 0,
+			}
+
+			console.log(_data);
+			axios.post(URL, _data)
+				.then(res	=>	{
+					if (res.status == 201)	{
+						this.$swal('Success!', res.data.message, 'success')
+							.then(swalRes	=>	{
+								this.$emit('FromEmployee', true);
+								this.showRemoveEmp();
+							}) 
+					}
+				}).catch(err => {
+					this.hideLoading();
+					this.errorHandler(err);
+				});
 		},
 	}
 };

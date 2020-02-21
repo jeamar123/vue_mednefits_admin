@@ -111,11 +111,12 @@
 								:src="'../assets/img/icons/add-employee.svg'">Add</button>
 					</div>
 					<div>
+						<!-- status removed -->
+						<button v-if="false" class="btn btn-remove-employee btn-restore">Restore Employee</button>
 						<button @click="showRemoveEmp()"
 							class="btn btn-remove-employee sm:relative sm:mt-4 sm:w-1/2 xs:w-full">Remove Employee <i
 								class="fa fa-trash"></i></button>
-						<!-- status removed -->
-						<button v-if="false" class="btn btn-remove-employee btn-restore">Restore Employee</button>
+					
 					</div>
 				</div>
 			</div>
@@ -175,7 +176,7 @@
 									<div class="country-code-mobile-container">
 										<div class="country-code-container">
 											<!-- <input type="text"> -->
-											<select name="relationship" id="" v-model="toEdit.phone_code">
+											<select name="country_code" id="" v-model="toEdit.phone_code">
 												<option value="+65">(SG) +65</option>
 												<option value="+63">(PH) +63</option>
 												<option value="+60">(MY) +60</option>
@@ -431,7 +432,7 @@
 								to a vacant seat.</p>
 							<span class="input-checkmark"></span>
 						</label>
-						<label class="review-container input-checkbox">
+						<label v-if="employee_info.refund_status" class="review-container input-checkbox">
 							<input @click="changeRemoveOption(3)" type="radio" name="check1">
 							<p>Please remove the seat completely, and proceed for refund.</p>
 							<span class="input-checkmark"></span>
@@ -454,7 +455,7 @@
 								<label>Date of Birth</label>
 								<div class="date-container">
 									<v-date-picker popoverDirection="bottom" v-model="toReplace.dob"
-										:input-props='{class: "vDatepicker mb-4 py-4 border-b w-full", placeholder: "DD/MM/YYYY", readonly: true, }'
+										:input-props='{class: "vDatepicker w-full", placeholder: "DD/MM/YYYY", readonly: true, }'
 										popover-visibility="focus" :formats='formats'></v-date-picker>
 								</div>
 							</div>
@@ -462,7 +463,7 @@
 						<div class="edit-dependent-row flex sm:flex-wrap">
 							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Work Email</label>
-								<input type="text" v-model="toReplace.work_email">
+								<input type="text" v-model="toReplace.email">
 							</div>
 							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Mobile Number</label>
@@ -488,7 +489,7 @@
 								<label>Start Date</label>
 								<div class="date-container">
 									<v-date-picker popoverDirection="bottom" v-model="toReplace.start_date"
-										:input-props='{class: "vDatepicker mb-4 py-4 border-b w-full", placeholder: "DD/MM/YYYY", readonly: true, }'
+										:input-props='{class: "vDatepicker w-full", placeholder: "DD/MM/YYYY", readonly: true, }'
 										popover-visibility="focus" :formats="formats"></v-date-picker>
 								</div>
 							</div>
@@ -667,8 +668,8 @@
 						<p class="members-wallet-note">(note: by doing so, this member might not be able to pay with credits if the
 							current usage exceeded the pro-rated allocation)</p>
 						<div>
-							<button class="btn btn-back" :class="{active : !account_spending_summary.calibrate_medical}" @click="spending_calibration(false)">NO</button>
-							<button class="btn btn-back" :class="{ active: account_spending_summary.calibrate_medical}" @click="spending_calibration(true)">YES</button>
+							<button class="btn btn-back" :class="{active : !calibrate.medical}" @click="spending_calibration(false)">NO</button>
+							<button class="btn btn-back" :class="{ active: calibrate.medical}" @click="spending_calibration(true)">YES</button>
 						</div>
 					</div>
 				</div>
@@ -686,118 +687,6 @@
 		</div>
 
 		<div>
-			<Modal v-if="withdrawEmployeeModal" class="employee-details-options remove-dependent-container">
-				<div slot="header">
-					<h1>Withdraw Employee</h1>
-					<i @click="showRemoveDependent()" class="fa fa-times"></i>
-				</div>
-				<div slot="body" class="edit-employee-info-container">
-					<div class="edit-dependent-row">
-						<div class="employee-details-input-wrapper">
-							<label>Name</label>
-							<div class="name-text-value">Mike Vega</div>
-						</div>
-						<div class="employee-details-input-wrapper">
-							<label>Effective Date</label>
-							<div class="date-container">
-								<v-date-picker popoverDirection="bottom" v-model="starDateDetails.null"
-									:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
-									popover-visibility="focus"></v-date-picker>
-								<i class="fa fa-caret-down"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div slot="footer">
-					<button class="btn-primary btn-delete">DELETE</button>
-				</div>
-			</Modal>
-
-			<Modal v-if="showSetupAccountModal" class="employee-details-options">
-				<div slot="header">
-					<h1>Employee Details Options</h1>
-				</div>
-				<div slot="body">
-					<div v-if="selected_emp_details_opt == 0" class="btn-options-container">
-						<button @click="selectedEmpDetailsToggleOpt(1)" class="btn-primary">UPDATE PASSWORD</button>
-						<button class="btn-primary">RESEND/RESET ACCOUNT</button>
-						<button @click="selectedEmpDetailsToggleOpt(2)" class="btn-primary">PIN SETUP</button>
-						<button class="btn-primary">UNSET PIN</button>
-					</div>
-
-					<div v-if="selected_emp_details_opt == 1" class="update-password-container">
-						<div class="update-pass-header">
-							<i @click="selectedEmpDetailsToggleOpt(0)" class="fa fa-times"></i>
-						</div>
-						<div>
-							<div class="employee-details-input-wrapper">
-								<label>Email</label>
-								<input type="text">
-							</div>
-							<div class="employee-details-input-wrapper">
-								<label>Password*</label>
-								<input type="text">
-							</div>
-							<div class="employee-details-input-wrapper">
-								<label>Re-Type Password*</label>
-								<input type="text">
-							</div>
-							<div>
-								<button class="btn-primary btn-update">UPDATE</button>
-							</div>
-						</div>
-					</div>
-
-					<div v-if="selected_emp_details_opt == 2">
-						<div class="update-pass-header">
-							<i @click="selectedEmpDetailsToggleOpt(0)" class="fa fa-times"></i>
-						</div>
-						<div>
-							<div class="employee-details-input-wrapper">
-								<label>Pin*</label>
-								<input type="text">
-							</div>
-							<div class="employee-details-input-wrapper">
-								<label>Re-Type Pin*</label>
-								<input type="text">
-							</div>
-							<div>
-								<button class="btn-primary btn-update">UPDATE</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div slot="footer">
-					<button @click="selectedEmpDetailsSettingsClicked(0, 'cancel')" class="btn-close">CLOSE</button>
-				</div>
-			</Modal>
-
-			<!-- <Modal v-if="showSmsUpdateNotify" class="employee-details-options">
-				<div slot="header">
-					<h1>Send SMS Update Notification</h1>
-				</div>
-				<div slot="body">
-					<div class="sms-form">
-						<div>
-							<label>Country Code</label>
-							<div class="country-mobile-input-wrapper">
-								<input type="text">
-								<i class="fa fa-caret-down"></i>
-							</div>
-						</div>
-						<div>
-							<label>Mobile Number</label>
-							<div class="country-mobile-input-wrapper">
-								<input type="text">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div slot="footer">
-					<button @click="selectedEmpDetailsSettingsClicked(3, 'cancel')" class="btn-close">CANCEL</button>
-					<button class="btn-primary settings-btn-submit">SUBMIT</button>
-				</div>
-			</Modal> -->
 
 			<Modal v-if="false" class="fill-corporate-pass-container">
 				<div slot="body">
