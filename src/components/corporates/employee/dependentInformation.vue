@@ -305,11 +305,13 @@ let dependentInformation = {
 				fullname: toEdit.fullname,
 				dob: moment(toEdit.dob).format('YYYY-MM-DD'),
 				relationship: toEdit.relationship,
-				plan_start: moment(toEdit.plant_start).format('YYYY-MM-DD'),
+				plan_start: toEdit.plan_start,
 			}
 
 			if(this.checkForm_editDep(data)) {
 				this.showLoading();
+
+				data.plan_start = moment(data.plan_start).format('YYYY-MM-DD')
 				
 				axios.put(update_dependent_details, data)
 				.then(res => {
@@ -321,8 +323,8 @@ let dependentInformation = {
 					if (res.data.status == true) {
 						this.$swal('Success', res.data.message, 'success')
 							.then(res1 => {
-								this.toEdit = {};
-								this.editDependentInfo = false;
+								// this.toEdit = {};
+								// this.editDependentInfo = false;
 							})
 					} else {
 						this.hideLoading();
