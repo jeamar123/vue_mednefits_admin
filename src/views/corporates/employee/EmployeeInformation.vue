@@ -111,11 +111,12 @@
 								:src="'../assets/img/icons/add-employee.svg'">Add</button>
 					</div>
 					<div>
+						<!-- status removed -->
+						<button v-if="false" class="btn btn-remove-employee btn-restore">Restore Employee</button>
 						<button @click="showRemoveEmp()"
 							class="btn btn-remove-employee sm:relative sm:mt-4 sm:w-1/2 xs:w-full">Remove Employee <i
 								class="fa fa-trash"></i></button>
-						<!-- status removed -->
-						<button v-if="false" class="btn btn-remove-employee btn-restore">Restore Employee</button>
+					
 					</div>
 				</div>
 			</div>
@@ -129,82 +130,91 @@
 				</div>
 				<div class="edit-emp-details-body sm:flex sm:flex-wrap">
 					<form class="md:w-full sm:pr-0">
-						<div class="edit-dependent-row flex md:flex-wrap">
-							<div class="employee-details-input-wrapper md:m-0">
-								<label>Full Name</label>
-								<input type="name" v-model="toEdit.fullname" required autocomplete="name">
+
+						<div class="edit-dependent-row">
+							<div class="col-left">
+								<div class="employee-details-input-wrapper md:m-0">
+									<label>Full Name</label>
+									<input type="name" name="name" v-model="toEdit.fullname" required autocomplete="name">
+								</div>
+
+								<div v-if="toEdit.nric" class="employee-details-input-wrapper md:m-0">
+									<label>NRIC/FIN</label>
+									<input type="text" name="nric" v-model="toEdit.nric" required autocomplete="name">
+								</div>
+
+								<div class="employee-details-input-wrapper md:m-0">
+									<label>Member ID</label>
+									<input type="number" v-model="toEdit.member_id" readonly="readonly">
+								</div>
+
+								<div class="employee-details-input-wrapper md:m-0">
+									<label>Date of Birth</label>
+									<div class="date-container vDatepicker">
+										<v-date-picker popoverDirection="bottom" v-model="toEdit.dob"
+											:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+											popover-visibility="focus" :formats='formats'></v-date-picker>
+										<i class="fa fa-caret-down"></i>
+									</div>
+								</div>
+
+								<div class="employee-details-input-wrapper md:m-0">
+									<label>Postal Code</label>
+									<input type="number" v-model="toEdit.postal_code">
+								</div>
+
+								<div class="employee-details-input-wrapper md:m-0">
+									<label>Work Email</label>
+									<input type="email" v-model="toEdit.email" required autocomplete="email">
+								</div>
+
 							</div>
-							<div class="employee-details-input-wrapper md:m-0">
-								<label>Mobile Number</label>
-								<div class="country-code-mobile-container">
-									<div class="country-code-container">
-										<!-- <input type="text"> -->
-										<select name="country_code" id="" v-model="toEdit.phone_code">
-											<option value="+65">(SG) +65</option>
-											<option value="+63">(PH) +63</option>
-											<option value="+60">(MY) +60</option>
+
+							<div class="col-right">
+								<div class="employee-details-input-wrapper md:m-0">
+									<label>Mobile Number</label>
+									<div class="country-code-mobile-container">
+										<div class="country-code-container">
+											<!-- <input type="text"> -->
+											<select name="country_code" id="" v-model="toEdit.phone_code">
+												<option value="+65">(SG) +65</option>
+												<option value="+63">(PH) +63</option>
+												<option value="+60">(MY) +60</option>
+											</select>
+											<i class="fa fa-caret-down"></i>
+										</div>
+										<input type="tel" name="phone" v-model="toEdit.phone_no" required autocomplete="tel">
+									</div>
+								</div>
+
+								<div class="employee-details-input-wrapper md:m-0">
+									<label>Job Title</label>
+									<div class="jobList-container">
+										<!-- <input type="text" v-model="toEdit.job_title"> -->
+										<select name="" id="" v-model="toEdit.job_title">
+											<option :value="jobs.job_title" v-for="jobs in jobList" :key="jobs.index">
+												{{jobs.job_title}}
+											</option>
 										</select>
 										<i class="fa fa-caret-down"></i>
 									</div>
-									<input type="tel" name="phone" v-model="toEdit.phone_no" required autocomplete="tel">
 								</div>
-							</div>
-						</div>
 
-						<div class="edit-dependent-row flex md:flex-wrap">
-							<div class="employee-details-input-wrapper md:m-0">
-								<label>Member ID</label>
-								<input type="number" v-model="toEdit.member_id" readonly="readonly">
-							</div>
-							<div class="employee-details-input-wrapper md:m-0">
-								<label>Job Title</label>
-								<div class="jobList-container">
-									<!-- <input type="text" v-model="toEdit.job_title"> -->
-									<select name="" id="" v-model="toEdit.job_title">
-										<option :value="jobs.job_title" v-for="jobs in jobList" :key="jobs.index">
-											{{jobs.job_title}}
-										</option>
-									</select>
-									<i class="fa fa-caret-down"></i>
+								<div class="employee-details-input-wrapper md:m-0">
+									<label>Bank Account Number</label>
+									<input type="number" v-model="toEdit.bank_account_number">
 								</div>
-							</div>
-						</div>
 
-						<div class="edit-dependent-row flex md:flex-wrap">
-							<div class="employee-details-input-wrapper md:m-0">
-								<label>Date of Birth</label>
-								<div class="date-container vDatepicker">
-									<v-date-picker popoverDirection="bottom" v-model="toEdit.dob"
-										:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
-										popover-visibility="focus" :formats='formats'></v-date-picker>
-									<i class="fa fa-caret-down"></i>
+								<div class="employee-details-input-wrapper md:m-0">
+									<label>Bank Code</label>
+									<input type="number" v-model="toEdit.bank_code">
 								</div>
-							</div>
-							<div class="employee-details-input-wrapper md:m-0">
-								<label>Bank Account Number</label>
-								<input type="number" v-model="toEdit.bank_account_number">
-							</div>
-						</div>
 
-						<div class="edit-dependent-row flex md:flex-wrap">
-							<div class="employee-details-input-wrapper md:m-0">
-								<label>Postal Code</label>
-								<input type="number" v-model="toEdit.postal_code">
-							</div>
-							<div class="employee-details-input-wrapper md:m-0">
-								<label>Bank Code</label>
-								<input type="number" v-model="toEdit.bank_code">
-							</div>
-						</div>
+								<div class="employee-details-input-wrapper md:m-0">
+									<label>Bank BRH</label>
+									<input type="number" v-model="toEdit.bank_brh">
+								</div>
 
-						<div class="edit-dependent-row flex md:flex-wrap">
-							<div class="employee-details-input-wrapper md:m-0">
-								<label>Work Email</label>
-								<input type="email" v-model="toEdit.email" required autocomplete="email">
-							</div>
-							<div class="employee-details-input-wrapper md:m-0">
-								<label>Bank BRH</label>
-								<input type="number" v-model="toEdit.bank_brh">
 							</div>
 						</div>
 						<!-- <div class="edit-dependent-row flex md:flex-wrap w-1/2">
@@ -230,7 +240,7 @@
 					<div class="package-plan-container md:w-1/2 sm:w-full">
 						<h4>Package Plan</h4>
 						<div>
-							<button class="btn-primary">Bundle Pro (Health Wallet)</button>
+							<button class="btn-primary w-full">Bundle Pro (Health Wallet)</button>
 						</div>
 						<div class="package-details-wrapper">
 							<div class="package-item-container">
@@ -319,7 +329,7 @@
 					</div>
 				</div>
 				<div class="save-btn-footer">
-					<button class="btn-primary" @click="update_employee()">SAVE & CONTINUE</button>
+					<button class="btn-primary xs:w-full" @click="update_employee()">SAVE & CONTINUE</button>
 				</div>
 			</div>
 
@@ -337,7 +347,7 @@
 						</div>
 						<div class="employee-details-input-wrapper md:m-0">
 							<label>Date of Birth</label>
-							<div class="date-container">
+							<div class="date-container caret vDatepicker">
 								<v-date-picker popoverDirection="bottom" v-model="toAddDep.dob"
 									:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 									popover-visibility="focus"
@@ -349,16 +359,20 @@
 					<div class="edit-dependent-row flex md:flex-wrap">
 						<div class="employee-details-input-wrapper md:m-0">
 							<label>Relationship</label>
-							<select v-model="toAddDep.relationship">
-								<option value="spouse">Spouse</option>
-								<option value="child">Child</option>
-								<option value="family">Family</option>
-								<option value="parent">Parent</option>
-							</select>
+							<div class="relationship-container">
+								<select v-model="toAddDep.relationship">
+									<option value="spouse">Spouse</option>
+									<option value="child">Child</option>
+									<option value="siblings">Siblings</option>
+									<option value="family">Family</option>
+									<option value="parent">Parent</option>
+								</select>
+								<i class="fa fa-caret-down"></i>
+							</div>
 						</div>
 						<div class="employee-details-input-wrapper md:m-0">
 							<label>Start Date</label>
-							<div class="date-container">
+							<div class="date-container caret vDatepicker">
 								<v-date-picker popoverDirection="bottom" v-model="toAddDep.plan_start"
 									:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 									popover-visibility="focus"
@@ -418,7 +432,7 @@
 								to a vacant seat.</p>
 							<span class="input-checkmark"></span>
 						</label>
-						<label class="review-container input-checkbox">
+						<label v-if="employee_info.refund_status" class="review-container input-checkbox">
 							<input @click="changeRemoveOption(3)" type="radio" name="check1">
 							<p>Please remove the seat completely, and proceed for refund.</p>
 							<span class="input-checkmark"></span>
@@ -441,7 +455,7 @@
 								<label>Date of Birth</label>
 								<div class="date-container">
 									<v-date-picker popoverDirection="bottom" v-model="toReplace.dob"
-										:input-props='{class: "vDatepicker mb-4 py-4 border-b w-full", placeholder: "DD/MM/YYYY", readonly: true, }'
+										:input-props='{class: "vDatepicker w-full", placeholder: "DD/MM/YYYY", readonly: true, }'
 										popover-visibility="focus" :formats='formats'></v-date-picker>
 								</div>
 							</div>
@@ -449,7 +463,7 @@
 						<div class="edit-dependent-row flex sm:flex-wrap">
 							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Work Email</label>
-								<input type="text" v-model="toReplace.work_email">
+								<input type="text" v-model="toReplace.email">
 							</div>
 							<div class="employee-details-input-wrapper sm:m-0">
 								<label>Mobile Number</label>
@@ -475,7 +489,7 @@
 								<label>Start Date</label>
 								<div class="date-container">
 									<v-date-picker popoverDirection="bottom" v-model="toReplace.start_date"
-										:input-props='{class: "vDatepicker mb-4 py-4 border-b w-full", placeholder: "DD/MM/YYYY", readonly: true, }'
+										:input-props='{class: "vDatepicker w-full", placeholder: "DD/MM/YYYY", readonly: true, }'
 										popover-visibility="focus" :formats="formats"></v-date-picker>
 								</div>
 							</div>
@@ -654,8 +668,8 @@
 						<p class="members-wallet-note">(note: by doing so, this member might not be able to pay with credits if the
 							current usage exceeded the pro-rated allocation)</p>
 						<div>
-							<button class="btn btn-back" :class="{active : !account_spending_summary.calibrate_medical}" @click="spending_calibration(false)">NO</button>
-							<button class="btn btn-back" :class="{ active: account_spending_summary.calibrate_medical}" @click="spending_calibration(true)">YES</button>
+							<button class="btn btn-back" :class="{active : !calibrate.medical}" @click="spending_calibration(false)">NO</button>
+							<button class="btn btn-back" :class="{ active: calibrate.medical}" @click="spending_calibration(true)">YES</button>
 						</div>
 					</div>
 				</div>

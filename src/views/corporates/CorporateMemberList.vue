@@ -31,13 +31,13 @@
 							</div>
 							<div class="info-details" v-if="!list.email">
 								<label>Mobile Number:</label>
-								<span class="info-bind">{{list.phone_code}}</span>
-								<span class="info-bind">{{list.phone_no }}</span>
+								<span class="info-bind">{{list.phone_code}} </span>
+								<span class="info-bind">{{list.phone_no }} </span>
 							</div>
 							<div class="info-details">
 								<label>Mobile Number:</label>
-								<span class="info-bind">{{list.phone_code}}</span>
-								<span class="info-bind">{{list.phone_no}}</span>
+								<span class="info-bind">{{list.phone_code}} </span>
+								<span class="info-bind">{{list.phone_no}} </span>
 							</div>
 							<!-- <div><label>NRIC:</label> <span ng-bind="list.member.NRIC"></span></div> -->
 							<!-- <div class="info-details no-margin-bottom">

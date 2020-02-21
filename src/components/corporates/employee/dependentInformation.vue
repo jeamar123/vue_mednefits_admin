@@ -91,8 +91,12 @@ let dependentInformation = {
 		showRemoveEmp() {
 			this.editRemoveEmpInfo = this.editRemoveEmpInfo == false ? true : false;
 		},
-		showReplaceDependent() {
+		showReplaceDependent(list) {
 			this.editReplaceDependentInfo = this.editReplaceDependentInfo == false ? true : false;
+
+			if	(list)	{
+				this.global_toReplaceDep.member_id = list.member_id;
+			}
 		},
 		showRemoveDependent(list) {
 			this.global_withdrawEmployeeModal = this.global_withdrawEmployeeModal == false ? true : false;
@@ -312,11 +316,13 @@ let dependentInformation = {
 				fullname: toEdit.fullname,
 				dob: moment(toEdit.dob).format('YYYY-MM-DD'),
 				relationship: toEdit.relationship,
-				plan_start: moment(toEdit.plant_start).format('YYYY-MM-DD'),
+				plan_start: toEdit.plan_start,
 			}
 
 			if(this.checkForm_editDep(data)) {
 				this.showLoading();
+
+				data.plan_start = moment(data.plan_start).format('YYYY-MM-DD')
 				
 				axios.put(update_dependent_details, data)
 				.then(res => {
@@ -328,8 +334,8 @@ let dependentInformation = {
 					if (res.data.status == true) {
 						this.$swal('Success', res.data.message, 'success')
 							.then(res1 => {
-								this.toEdit = {};
-								this.editDependentInfo = false;
+								// this.toEdit = {};
+								// this.editDependentInfo = false;
 							})
 					} else {
 						this.hideLoading();
@@ -454,6 +460,47 @@ let dependentInformation = {
 					this._deleteDependent_(swalResult.value);
 				}
 			})
+		},
+
+		_replaceDependet_	()	{
+			const URL = `${axios.defaults.serverUrl}/company/replace_dependent_account`;
+
+			let _data	=	{
+				member_id:	this.global_toReplaceDep.member_id,
+				fullname:	this.global_toReplaceDep.fullname,
+				dob:	this.global_toReplaceDep.dob,
+				relationship:	this.global_toReplaceDep.relationship,
+				expiry_date:	this.global_toReplaceDep.plan_start,
+				plan_start:	this.global_toReplaceDep.plan_start,
+			}
+
+			if	(this.checkForm_editDep(_data))	{
+
+				_data.dob	=	moment(this.global_toReplaceDep.dob).format('YYYY-MM-DD');
+				_data.expiry_date = moment(this.global_toReplaceDep.plan_start).format('YYYY-MM-DD');
+				_data.plan_start = moment(this.global_toReplaceDep.plan_start).format('YYYY-MM-DD');
+
+				axios.post(URL,	_data)
+				.then(res => {
+					// Log the data to the console
+					// You would do something with both sets of data here
+					console.log(res);
+					if	(res.status == 201) {
+						this.hideLoading();
+						this.$swal('Success', res.data.message, 'success')
+							.then(swalRes => {
+								this.$emit('FromEmployee', { from_employee: this.employee_info });
+							})
+					}else {
+						this.hideLoading();
+						this.$swal('Warning!', res.data.message, 'warning');
+					}
+					// this.hideLoading();
+				}).catch(err => {
+					this.hideLoading();
+					this.errorHandler(err);
+				});
+			}
 		},
 
 		onLoad() {

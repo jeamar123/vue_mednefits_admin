@@ -5,7 +5,7 @@
 			<template v-for="list in dependent_arr">
 				<div class="dep-info-header md:text-center" :key="list.index">
 					<div class="right-btn-container md:relative md:text-right">
-						<button @click="showReplaceDependent()" class="btn btn-edit xs:w-full xs:m-1"><img :src="'../assets/img/replace.png'">Replace</button>
+						<button @click="showReplaceDependent(list)" class="btn btn-edit xs:w-full xs:m-1"><img :src="'../assets/img/replace.png'">Replace</button>
 						<button @click="showRemoveDependent(list)" class="btn btn-edit btn-remove xs:w-full xs:m-1"><img :src="'../assets/img/icons/dustbin.png'">Remove</button>
 						<button @click="showEditDependent(list)" class="btn btn-edit xs:w-full xs:m-1"><img :src="'../assets/img/icons/edit.png'">Edit</button>
 					</div>
@@ -59,37 +59,42 @@
 					</div>
 					<div class="employee-details-input-wrapper sm:m-0">
 						<label>Relationship</label>
-						<select name="relation" v-model="global_toReplaceDep.relationship">
-							<option value="spouse">Spouse</option>
-							<option value="child">Child</option>
-							<option value="sibling">Sibling</option>
-							<option value="family">Family</option>
-							<option value="parent">Parent</option>
-						</select>
+						<div class="relationship-container"> 
+							<select v-model="global_toReplaceDep.relationship">
+								<option value="spouse">Spouse</option>
+								<option value="child">Child</option>
+								<option value="sibling">Sibling</option>
+								<option value="family">Family</option>
+								<option value="parent">Parent</option>
+							</select>
+							<i class="fa fa-caret-down"></i>
+						</div>
 					</div>
 				</div>
 
 				<div class="edit-dependent-row sm:flex-wrap">
 					<div class="employee-details-input-wrapper sm:m-0">
 						<label>Date of Birth</label>
-						<div class="date-container vDatepicker">
+						<div class="date-container caret vDatepicker">
 							<v-date-picker
                 popoverDirection="bottom"
                 v-model="global_toReplaceDep.dob"
                 :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
                 popover-visibility="focus"
+								:formats="formats"
               ></v-date-picker>
               <i class="fa fa-caret-down"></i>
             </div>
 					</div>
 					<div class="employee-details-input-wrapper sm:m-0">
 						<label>Plan Start</label>
-						<div class="date-container vDatepicker">
+						<div class="date-container caret vDatepicker">
 							<v-date-picker
                 popoverDirection="bottom"
                 v-model="global_toReplaceDep.plan_start"
                 :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
                 popover-visibility="focus"
+								:formats="formats"
               ></v-date-picker>
               <i class="fa fa-caret-down"></i>
             </div>
@@ -97,7 +102,7 @@
 				</div>
 
 				<div class="save-btn-footer">
-					<button class="btn-primary xs:w-full">SAVE & CONTINUE</button>
+					<button class="btn-primary xs:w-full" @click="_replaceDependet_()">SAVE & CONTINUE</button>
 				</div>
 			</form>
 		</div>
@@ -108,26 +113,30 @@
 				<h3>Edit Dependent Details</h3>
 			</div>
 			<form class="md:w-full">
-				<div class="edit-dependent-row sm:flex sm:flex-wrap">
+				<div class="edit-dependent-row">
 					<div class="employee-details-input-wrapper sm:m-0">
 						<label>Full Name</label>
 						<input type="name" v-model="toEdit.fullname" required autocomplete="name">
 					</div>
 					<div class="employee-details-input-wrapper sm:m-0">
 						<label>Relationship</label>
-						<select v-model="toEdit.relationship">
-							<option value="spouse">Spouse</option>
-							<option value="child">Child</option>
-							<option value="family">Family</option>
-							<option value="parent">Parent</option>
-						</select>
+						<div class="relationship-container"> 
+							<select v-model="toEdit.relationship">
+								<option value="spouse">Spouse</option>
+								<option value="child">Child</option>
+								<option value="sibling">Sibling</option>
+								<option value="family">Family</option>
+								<option value="parent">Parent</option>
+							</select>
+							<i class="fa fa-caret-down"></i>
+						</div>
 					</div>
 				</div>
 
 				<div class="edit-dependent-row sm:flex sm:flex-wrap">
 					<div class="employee-details-input-wrapper sm:mx-0">
 						<label>Date of Birth</label>
-						<div class="date-container vDatepicker">
+						<div class="date-container caret vDatepicker">
 							<v-date-picker
                 popoverDirection="bottom"
                 v-model="toEdit.dob"
@@ -147,7 +156,8 @@
 				<div class="edit-dependent-row">
 					<div class="employee-details-input-wrapper  sm:mx-0">
 						<label>Plan Start</label>
-						<div class="date-container vDatepicker">
+						
+						<div class="date-container caret vDatepicker">
 							<v-date-picker
                 popoverDirection="bottom"
                 v-model="toEdit.plan_start"
