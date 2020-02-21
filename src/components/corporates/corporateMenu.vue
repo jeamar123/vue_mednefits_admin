@@ -3,6 +3,11 @@ import axios from "axios";
 import moment from "moment"
 import Loader from "../../views/loader/Loader";
 
+import { 
+	_fetchCompanyDetails_ ,
+	_globalStorage_
+} from '../../common/functions/common_functions';
+
 let corporateMenu = {
 	components: {
 		Loader,
@@ -101,21 +106,32 @@ let corporateMenu = {
 		},
 
 		getCorporateDetails() {
-			// side info
-			let url = `${axios.defaults.serverUrl}/company/corporate_details?customer_id=${this.customer_id}`;
-			axios.get(url)
-				.then(res => {
+			// side info'
+			let params	=	{ 
+				customer_id :	this.customer_id 
+			};
+			_fetchCompanyDetails_(params)
+				.then(( res ) => {
+					console.log( res );
+					_globalStorage_.setStorage( 'global_corporateData', res.data );
 					if (res.status == 200) {
-						console.log('details', res);
 						this.corporateDetails_data = res.data;
-						// localStorage.company_name = this.corporateDetails_data.company_name;
-						// this.hideLoading();
 					}
-				})
-				.catch(err => {
-					this.$parent.hideLoading();
-					this.errorHandler(err);
 				});
+			// let url = `${axios.defaults.serverUrl}/company/corporate_details?customer_id=${this.customer_id}`;
+			// axios.get(url)
+			// 	.then(res => {
+			// 		if (res.status == 200) {
+			// 			console.log('details', res);
+			// 			this.corporateDetails_data = res.data;
+			// 			// localStorage.company_name = this.corporateDetails_data.company_name;
+			// 			// this.hideLoading();
+			// 		}
+			// 	})
+			// 	.catch(err => {
+			// 		this.$parent.hideLoading();
+			// 		this.errorHandler(err);
+			// 	});
 		},
 		getCorporateCreditsInfo() {
 			// side info

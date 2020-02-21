@@ -5,13 +5,12 @@ import * as Config from '../constant.js';
 import axios from 'axios';
 
 const	defaultHeaders	=		{
-	'Accept':	'application/json',
-	'Content-Type':	'application/json',
+	// 'Accept':	'application/json',
+	// 'Content-Type':	'application/json',
 	'Authorization':	localStorage.vue_admin_session
 };
 
-let global_corporateData	=	null;
-let global_employeeData	=	null
+let global_storage	=	{};
 
 const	_axiosCall_	=	(params)	=>	{ // Axios HTTP Request
 	return axios(params)
@@ -70,35 +69,35 @@ const _validateEmail_	=	(email)	=>	{ // For validtaion with RegEx
 	return re.test(email);
 }
 
-const _setCorporateData_	=	(data)	=>	{
-	global_corporateData = data;
+const _globalStorage_	=	{
+	getStorage: ( key )	=>	{
+		if( key ){
+			return global_storage[ key ];
+		}
+		return global_storage;
+	},
+	setStorage: ( key, value )	=>	{
+		global_storage[key] = value;
+	},
+	refreshStorage: ()	=>	{
+
+	}
 }
 
-const _getCorporateData_	=	()	=>	{
-	return global_corporateData;
-}
-
-const _deleteCorporateData_	=	()	=>	{
-	global_corporateData = null;
-}
-
-
+const _fetchCompanyDetails_	=	(params) => { // ADMIN LOGIN
+	let	req	=	{
+		method:	'GET',
+		url:	Config.COMPANY_DETAILS + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
 
 
 
 const _onLoad_	=	() =>{
-	if( global_corporateData == null ){
-		console.log('creating corporate data...');
-		_setCorporateData_({
-			name: 'Employee',
-			age: 2,
-			dob: '2015-05-05'
-		});
-	}
 	
-	console.log( _getCorporateData_() );
 }	
-
 _onLoad_();
 
 export	{
@@ -106,5 +105,7 @@ export	{
 	_goBack_,
 	_showPageLoading_,
 	_hidePageLoading_,
-	_validateEmail_
+	_validateEmail_,
+	_globalStorage_,
+	_fetchCompanyDetails_
 }
