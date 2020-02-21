@@ -2,21 +2,26 @@
   let bulkCreditAllocation = {
     data() {
       return {
-        empSelectorActive: {
-          value: 0,
-          text: ""
-        },
-        // corporateViewStatus : 'CorporateDetails',
+        // empSelectorActive: {
+        //   value: 0,
+        //   text: ""
+        // },
+        global_showCreditDp:  false,
       };
     },
     created(){
-      // this.corporateViewStatus = this.$route.name;
+      
     },
     methods: {
-      // selectCorporateView( opt ){
-      //   this.corporateViewStatus = opt;
-      //   this.$router.push( { name : opt } );
-      // }
+      ___selectedCreditPerPage() {
+        this.global_showCreditDp  = this.global_showCreditDp  ==  false ? true : false;
+      },
+      ___hideAllDrop( e ) {
+        if ($(e.target).parents(".per-page-container").length === 0) {
+          this.global_showCreditDp  = false;
+          console.log('click sa gawas');
+        }
+      },
     }
   }
   
@@ -24,5 +29,5 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "./src/assets/css/corporates.scss";
+	// @import "./src/assets/css/corporateSettings.scss";
 </style>

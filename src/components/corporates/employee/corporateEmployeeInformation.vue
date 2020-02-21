@@ -784,7 +784,7 @@ let corporateEmployeeInformation = {
 
 			this.$swal({
 				title: 'Confirm!',
-				text: "Do you want to restore this employee",
+				text: "Do you want to restore this employee?",
 				type: 'warning',
 				showCloseButton: true,
 				showCancelButton: true,
