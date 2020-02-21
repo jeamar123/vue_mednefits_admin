@@ -13053,15 +13053,16 @@ label.panel-block:hover {
 
 /* line 98, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .bulk-credit-alloc-wrapper .employee-pagination .page-num-container {
+  cursor: pointer;
   padding: 0 0 2px;
 }
 
-/* line 102, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 103, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .bulk-credit-alloc-wrapper .employee-pagination .per-page-num {
   padding: 0 10px 0 15px;
 }
 
-/* line 106, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 107, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .bulk-credit-alloc-wrapper .employee-pagination .per-page-dp {
   position: absolute;
   bottom: 0;
@@ -13069,13 +13070,13 @@ label.panel-block:hover {
   background-color: #ECF0F1;
   border-bottom: 1px solid #ccc;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
-  width: 120px;
+  width: 130px;
   height: 250px;
   padding: 20px 0;
   overflow: auto;
 }
 
-/* line 117, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 118, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .bulk-credit-alloc-wrapper .employee-pagination .per-page-dp > div {
   cursor: pointer;
   display: flex;
@@ -13084,43 +13085,43 @@ label.panel-block:hover {
   padding: 0 15px;
 }
 
-/* line 128, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 129, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper {
   width: 290px;
   height: 550px;
   padding: 0 10px 0 0;
 }
 
-/* line 132, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 133, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .employee-header {
   background-color: #3f51b5;
   color: #fff;
   padding: 12px 20px;
 }
 
-/* line 137, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 138, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .employee-header h3 {
   font-size: 20px;
   font-weight: 500;
 }
 
-/* line 142, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 143, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .employee-body {
   padding: 10px 20px;
   border: 1px solid #ccc;
 }
 
-/* line 146, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 147, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .employee-body .emp-info-row {
   margin: 0 0 15px;
 }
 
-/* line 149, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 150, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .employee-body .emp-title {
   color: #000;
 }
 
-/* line 154, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 155, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .credit-toggle-btn button {
   border: 2px solid #bbb3b3;
   color: #a5a0a0;
@@ -13130,90 +13131,90 @@ label.panel-block:hover {
   font-weight: 700;
 }
 
-/* line 162, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 163, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .credit-toggle-btn button:nth-child(1) {
   border-radius: 4px 0 0 4px;
   border-width: 2px 1px 2px 2px;
 }
 
-/* line 166, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 167, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .credit-toggle-btn button:nth-child(2) {
   border-radius: 0 4px 4px 0;
   border-width: 2px 2px 2px 1px;
 }
 
-/* line 171, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 172, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .credit-toggle-btn button.active {
   border: 2px solid #44a4cc;
 }
 
-/* line 176, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 177, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .credit-toggle-btn.add-deduct-btn button {
   width: 65px;
   height: 32px;
 }
 
-/* line 181, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 182, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .allocation-usage-container {
   display: flex;
   margin: 20px 0 0;
 }
 
-/* line 185, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 186, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .allocation-usage-container > div:nth-child(1) {
   width: 45%;
 }
 
-/* line 189, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 190, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .allocation-usage-container > div:nth-child(2) {
   width: 55%;
 }
 
-/* line 193, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 194, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .allocation-usage-container span {
   font-weight: 500;
 }
 
-/* line 197, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 198, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .allocation-usage-container .allocation-usage > div {
   line-height: 1.3;
   margin: 0 0 10px;
 }
 
-/* line 203, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 204, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .add-deduct-input-wrapper {
   margin: 0 0 40px;
 }
 
-/* line 205, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 206, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .add-deduct-input-wrapper label {
   display: block;
   font-size: 12px;
   font-weight: 500;
 }
 
-/* line 210, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+/* line 211, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
 .credit-employee-wrapper .add-deduct-input-wrapper input {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 /* Extra Large (xl) */
 @media (min-width: 1450px) {
-  /* line 220, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+  /* line 221, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
   .settings-wrapper .settings-menu-box {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
 
 @media (min-width: 1710px) {
-  /* line 227, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+  /* line 228, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
   .settings-wrapper .settings-menu-box {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
 }
 
 @media (max-width: 1280px) {
-  /* line 235, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+  /* line 236, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
   .settings-wrapper .settings-menu-box .menu-item {
     padding: 20px;
   }
@@ -13222,7 +13223,7 @@ label.panel-block:hover {
 /* Large (lg) */
 /* Medium (md) */
 @media (max-width: 768px) {
-  /* line 251, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+  /* line 252, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
   .settings-wrapper .settings-menu-box {
     grid-template-columns: 1fr 1fr;
   }
@@ -13230,26 +13231,26 @@ label.panel-block:hover {
 
 /* Small (sm) */
 @media (max-width: 520px) {
-  /* line 264, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+  /* line 265, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
   .settings-wrapper .settings-menu-box {
     grid-template-columns: 1fr;
   }
-  /* line 267, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+  /* line 268, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
   .settings-wrapper .settings-menu-box .menu-item {
     margin: 0 20px;
   }
 }
 
 @media (max-width: 400px) {
-  /* line 277, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+  /* line 278, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
   .bulk-credit-alloc-wrapper .credit-search-container > div input {
     width: 220px;
   }
-  /* line 281, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+  /* line 282, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
   .bulk-credit-alloc-wrapper .employee-pagination.dp-flex {
     display: block;
   }
-  /* line 284, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
+  /* line 285, ../../../../../../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/vue_mednefits_admin/src/assets/css/corporateSettings.scss */
   .bulk-credit-alloc-wrapper .employee-pagination .per-page-container {
     margin: 30px 0 0;
     text-align: center;

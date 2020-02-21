@@ -65,8 +65,8 @@
 			</div>
 			<div class="per-page-container">
 				<span>per page : </span>
-				<span class="page-num-container"><span class="per-page-num">5</span> <span><i class="fa fa-caret-down" aria-hidden="true"></i></span></span>
-				<div class="per-page-dp">
+				<span @click="___selectedCreditPerPage()" class="page-num-container"><span class="per-page-num">5</span> <span><i class="fa fa-caret-down" aria-hidden="true"></i></span></span>
+				<div v-click-outside="___hideAllDrop" v-if="global_showCreditDp" class="per-page-dp">
 					<div><span>6</span></div>
 					<div><span>12</span></div>
 					<div><span>24</span></div>
