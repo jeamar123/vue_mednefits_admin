@@ -72,6 +72,8 @@ let corporateMemberList = {
 		// 		clearInterval( intervalCtr );
 		// 	}
 		// }, 1000);
+
+		console.log( _globalStorage_.getStorage( 'global_corporateData' ) );
 	},
 	computed: {
 		limitPagination() {

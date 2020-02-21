@@ -116,6 +116,14 @@ import moment, { locale } from "moment";
       formatDate( date, from, to ){
         return moment( date, from ).format( to );
       },
+      setTransID( id ){
+        let str = 'MNF';
+        for( let i = 0; i < 6 - String(id).length; i++ ){
+          str += '0';
+        }
+        str += id;
+        return str;
+      },
       
 
       toggleShowInNetwork(data) {

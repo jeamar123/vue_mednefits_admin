@@ -3,6 +3,11 @@ import axios from "axios";
 import moment, { locale } from "moment";
 import Modal from "../views/modal/Modal.vue";
 
+import { 
+	_fetchCompanyDetails_ ,
+	_globalStorage_
+} from '../common/functions/common_functions';
+
 var corporates = {
   components: {
     Modal
@@ -282,13 +287,26 @@ var corporates = {
     },
     goToCompanyDetails(data) {
       // console.log( data );
-      this.$router.push({
-        name: "CorporateMenu",
-        params: {
-          customer_id: data.corporate.customer_id,
-          company_name: data.corporate.company_name
-				}
-			});
+      this.$parent.showLoading();
+      let params	=	{ 
+				customer_id :	data.corporate.customer_id 
+			};
+			_fetchCompanyDetails_(params)
+				.then(( res ) => {
+					console.log( res );
+					_globalStorage_.setStorage( 'global_corporateData', res.data );
+					if (res.status == 200) {
+						this.$router.push({
+            name: "CorporateMenu",
+            params: {
+              customer_id: data.corporate.customer_id,
+              company_name: data.corporate.company_name
+            }
+          });
+          }
+          this.$parent.hideLoading();
+				});
+      
       // localStorage.company_email = data.corporate.contact.email;
     },
     submitSearch(){
