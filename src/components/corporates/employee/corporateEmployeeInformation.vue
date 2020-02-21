@@ -305,12 +305,7 @@ let corporateEmployeeInformation = {
 					console.log(res);
 					if (res.data.status == true) {
 						this.account_spending_summary = res.data;
-						this.account_spending_summary.date.pro_rated_start = new Date(this.account_spending_summary.date.pro_rated_start);
-						this.account_spending_summary.date.pro_rated_end = new Date(this.account_spending_summary.date.pro_rated_end);
-						// localStorage.employee_email = this.employee_info.work_email;
-						console.log(this.account_spending_summary);
-
-
+						
 						if (type == 'callibration')	{
 							if (this.calibrate.medical == true && this.calibrate.wellness == true) {
 								this.hideLoading();
@@ -342,6 +337,11 @@ let corporateEmployeeInformation = {
 								this.emp_details_reserve = false;
 								this.emp_details_remove = false;
 							}
+						}	else	{
+							this.account_spending_summary.date.pro_rated_start = new Date(this.account_spending_summary.date.pro_rated_start);
+							this.account_spending_summary.date.pro_rated_end = new Date(this.account_spending_summary.date.pro_rated_end);
+							// localStorage.employee_email = this.employee_info.work_email;
+							console.log(this.account_spending_summary);
 						}
 						this.hideLoading();
 					}
@@ -735,6 +735,7 @@ let corporateEmployeeInformation = {
 						this.$swal('Success!', res.data.message, 'success')
 							.then(swalRes	=>	{
 								this.$emit('FromEmployee', true);
+								this.getEmployeeDetails();
 								this.showRemoveEmp();
 							}) 
 					}
@@ -768,6 +769,7 @@ let corporateEmployeeInformation = {
 						this.$swal('Success!', res.data.message, 'success')
 							.then(swalRes	=>	{
 								this.$emit('FromEmployee', true);
+								this.getEmployeeDetails();
 								this.showRemoveEmp();
 							}) 
 					}
@@ -776,6 +778,52 @@ let corporateEmployeeInformation = {
 					this.errorHandler(err);
 				});
 		},
+
+		_restoreSwal_()	{
+			// when button restore employee clicked
+
+			this.$swal({
+				title: 'Confirm!',
+				text: "Do you want to restore this employee",
+				type: 'warning',
+				showCloseButton: true,
+				showCancelButton: true,
+				confirmButtonColor: '#25306c',
+				cancelButtonColor: '#C1C1C1',
+				cancelButtonText: 'No',
+				confirmButtonText: 'Yes',
+				reverseButtons: true,
+				allowOutsideClick: true,
+			}).then((swalResult) => {
+				// if yes button click trigger restore employee function
+				if (swalResult.value) {
+					this._restoreEmployee_();
+				}
+			});
+		},
+		_restoreEmployee_	()	{
+			// restore  employee api trigger
+			const URL = `${axios.defaults.serverUrl}/company/restore_employee_account`;
+
+			let	_data	=	{
+				member_id: this.member_id,
+			}
+
+			console.log(_data);
+			axios.post(URL, _data)
+				.then(res	=>	{
+					if (res.status == 200)	{
+						this.$swal('Success!', res.data.message, 'success')
+							.then(swalRes	=>	{
+								this.$emit('FromEmployee', true);
+								this.getEmployeeDetails();
+							}) 
+					}
+				}).catch(err => {
+					this.hideLoading();
+					this.errorHandler(err);
+				});
+		}
 	}
 };
 
