@@ -245,12 +245,17 @@
       width: 140px;
     }
   }
-
-  table {
+  .gp-cap-body {
+    overflow: auto;
     margin: 20px 0 0;
+    .gp-cap-body-container {
+      height: 500px;
+    }
+  }
+  table {
     border: 1px solid #d0d0d0;
     font-size: 14px;
-
+    
     th {
       background-color: #eff2f4;
       font-family: 'Helvetica Light';

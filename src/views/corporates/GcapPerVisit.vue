@@ -11,34 +11,37 @@
 			</div>
 		</div>
 		<div class="gp-cap-body">
-			<table class="gp-cap-table-wrapper">
-				<thead>
-					<tr>
-						<th>Member ID</th>
-						<th>Name</th>
-						<th>Cap per Visit</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr v-for="x in 7" :key="x.index">
-						<td>4</td>
-						<td>Noelou Nagac</td>
-						<td>
-							<span>
-								<span>SGD </span>
-								<span>100.00</span>
-								<span v-if="false">
-									<input type="text">
-								</span>
-							</span>
-							<span v-if="false">
-								<span>Not Applicable</span>
-							</span>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="gp-cap-pagination dp-flex">
+			<div class="gp-cap-body-container">
+				<table class="gp-cap-table-wrapper">
+					<thead>
+						<tr>
+							<th>Member ID</th>
+							<th>Name</th>
+							<th>Cap per Visit</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="(list, index) of global_getGpData" :key="list.index">
+							<td>{{ list.id }}</td>
+							<td>{{ list.name }}</td>
+							<td>
+								<div @click="___editTable( list )">
+									<span>SGD </span>	
+									<span v-if="global_showText && !global_showInput">{{ list.amount }}</span>
+									<span v-if="global_showInput">
+										<input type="text">
+									</span>
+								</div>
+								<div v-if="false">
+									<span>Not Applicable</span>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="gp-cap-pagination dp-flex">
 				<div class="page-wrapper">
 					<div class="page-scroll-container dp-flex">
 						<span>
@@ -71,8 +74,7 @@
 						<div>100</div>
 					</div>
 				</div>
-			</div>
-		</div>	
+			</div>	
 	</div>
 </template>
 

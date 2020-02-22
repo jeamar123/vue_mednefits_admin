@@ -2,21 +2,35 @@
   let gcapPerVisit = {
     data() {
       return {
-        empSelectorActive: {
-          value: 0,
-          text: ""
-        },
-        // corporateViewStatus : 'CorporateDetails',
+        global_showInput: false,
+        global_showText: true,
+        global_getGpData: [
+          {
+            id: 0,
+            name: "Noelou Nagac",
+            amount: 100
+          },
+          {
+            id: 2,
+            name: "Agniez Permites",
+            amount: 250
+          }
+        ],
       };
     },
     created(){
       // this.corporateViewStatus = this.$route.name;
     },
     methods: {
-      // selectCorporateView( opt ){
-      //   this.corporateViewStatus = opt;
-      //   this.$router.push( { name : opt } );
-      // }
+      ___editTable( data ) { 
+
+          
+
+        _.forEach( [data], function(value) {
+          console.log(value);
+          
+        });
+      },
     }
   }
   
