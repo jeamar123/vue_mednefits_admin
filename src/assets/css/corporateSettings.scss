@@ -215,6 +215,118 @@
 }
 
 
+/* Gp cap per visit */
+.gp-cap-per-wrapper {
+  .gp-cap-header-title {
+    text-align: center;
+
+    h3 {
+      font-size: 18px;
+      margin: 15px 0;
+    }
+  }
+  .gp-header-btn {
+    align-items: center;
+
+    img {
+      cursor: pointer;
+      height: 17px;
+      width: 16px;
+      margin: 0 10px 0 0;
+    }
+    .save-continue-btn {
+      border: solid 2px #0392cf;
+      background-color: #0392cf;
+      color: #fff;
+      padding: 7px 0px;
+      border-radius: 2px;
+      font-size: 14px;
+      font-weight: 700;
+      width: 140px;
+    }
+  }
+
+  table {
+    margin: 20px 0 0;
+    border: 1px solid #d0d0d0;
+    font-size: 14px;
+
+    th {
+      background-color: #eff2f4;
+      font-family: 'Helvetica Light';
+      padding: 15px;
+      text-align: center;
+    }
+    th:nth-child(1) {
+      width: 20%;
+    }
+    th:nth-child(2) {
+      width: 60%;
+    }
+    td {
+      padding: 10px;
+    }
+
+    th,td {
+      border: 1px solid #d0d0d0;
+    }
+  }
+  .gp-cap-pagination {
+    font-size: 12px;
+    color: #777;
+    margin: 40px 0 0;
+    justify-content: flex-end;
+  }
+  .page-scroll-container {
+    align-items: center;
+    margin: 0 20px 0 0;
+    >span {
+      cursor: pointer;
+    }
+    i {
+      font-size: 14px;
+    }
+    .fa-angle-left {
+      margin: 0 5px 0 0;
+    } 
+    .fa-angle-right {
+      margin: 0 0 0 5px;
+    } 
+    >div {
+      margin: 0 10px;
+    }
+    .gp-page-num {
+      margin: 0 10px 0 0;
+      cursor: pointer;
+      padding: 3px 7px;
+    }
+    .gp-page-num.active {
+      background-color: #e8e8e8;
+    }
+  }
+  .rows-page-wrapper {
+    cursor: pointer;
+    position: relative;
+
+    .page-dp-container {
+      position: absolute;
+      right: 0;
+      background-color: #e8e6e6;
+      color: rgba(33,33,33,0.87);
+      font-size: 12px;
+      overflow-y: scroll;
+      max-height: 227px;
+      width: 137px;
+    }
+    .page-dp-container >div {
+      padding: 0 16px;
+      height: 48px;
+      cursor: pointer;
+      line-height: 4;
+    }
+  }
+}
+
 /* Extra Large (xl) */
 @media (min-width: 1450px) { 
   .settings-wrapper{
