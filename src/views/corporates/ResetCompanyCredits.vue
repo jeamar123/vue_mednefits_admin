@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="reset-company-body">
-      <div v-if="false" class="reset-first-step">
+      <div v-if="true" class="reset-first-step">
         <div class="effective-date-container dp-flex">
           <i class="fa fa-calendar-o"></i>
           <div class="reset-effective-date-input-wrapper">
@@ -48,7 +48,7 @@
           </div>
         </div>
       </div>
-      <div v-if="true" class="reset-second-step">
+      <div v-if="false" class="reset-second-step">
         <div class="drop-box">
           <img :src="'../assets/img/Upload-Receipt.png'">
           <div class="selected-file"></div>

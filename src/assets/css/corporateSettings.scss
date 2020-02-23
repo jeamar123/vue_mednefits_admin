@@ -270,7 +270,7 @@
       width: auto;
       height: 200px;
       text-align: center;
-      padding-top: 30px;
+      padding: 30px 0 20px;
       margin: 20px 10px 10px;
 
       img {
@@ -346,6 +346,12 @@
 
 }
 
+@media (max-width: 1023px) {
+  .reset-company-credits-wrapper {
+    margin: 40px 0 0
+  }
+}
+
 /* Medium (md) */
 @media (max-width: 768px) { 
   .settings-wrapper{
@@ -357,8 +363,14 @@
 
 /* Small (sm) */
 @media (max-width: 640px) { 
-  
-
+  .reset-company-credits-wrapper { 
+    .dp-flex-ai {
+      display: block;
+    }
+    .dp-flex-ai h2 {
+      margin: 0 0 20px;
+    }
+  } 
 }
 @media (max-width: 520px) { 
   .settings-wrapper{
