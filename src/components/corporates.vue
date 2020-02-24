@@ -402,7 +402,7 @@ var corporates = {
 			window.open( axios.defaults.serverUrl + '/company/corporate?isGetCSV=true' + params_download_type + '&token=' + localStorage.getItem('vue_admin_session') + '&' + params + params_header );
 		},
 		getCompanyList(){
-			this.showLoading();
+			this.$parent.showLoading();
 			this.isFilterModalShow = false;
 			var url = axios.defaults.serverUrl + '/company/corporate?page=' + this.page_active + '&limit=' + this.page_limit;
 			if( this.filterData.start != null && this.filterData.end != null ){
@@ -437,10 +437,10 @@ var corporates = {
 				// 	start: null,
 				// 	end: null,
 				// };
-				this.hideLoading();
+				this.$parent.hideLoading();
 			})
 			.catch(err => {
-        this.hideLoading();
+        this.$parent.hideLoading();
         this.errorHandler( err );
 			});
 		}

@@ -1,10 +1,11 @@
 <script>
-	import axios from 'axios'
-
+	import { 
+		_login_ 
+	} from '../common/functions/common_functions';
+	
 	var auth = {
 		data() {
 			return {
-				showLoader : false,
 				user_id : null,
 				formData : {
 					username : null,
@@ -13,16 +14,9 @@
 			}
 		},
 		created() {
+
 		},
 		methods: {
-      showLoading() {
-      	this.showLoader = true;
-      },
-      hideLoading() {
-      	setTimeout(()=>{
-				  this.showLoader = false;
-				},100);
-      },
       login( formData ){
 				if( !formData.username ){
 					this.$swal('Error!', 'Email is required.', 'error');
@@ -32,20 +26,15 @@
 					this.$swal('Error!', 'Password is required.', 'error');
 					return false;
 				}
-				this.showLoading();
-				axios.post( axios.defaults.serverUrl + '/login/signin' , formData )
-				.then(res => {
-					console.log( res );
-					if( res.data.status ){
-						localStorage.setItem('vue_admin_session', res.data.token);
-						this.$router.push( { name: 'Corporates' } );
-					}
-					this.hideLoading();
-				})
-				.catch(err => {
-					this.$parent.hideLoading();
-					this.errorHandler( err );
-				});
+				_login_( formData )
+					.then(( res ) => {
+						console.log( res );
+						if( res.status == 200 || res.status == 201 ){
+							// this.$swal( 'Success!', res.data.message, 'success' );
+							localStorage.setItem('vue_admin_session', res.data.token);
+							this.$router.push( { name: 'Corporates' } );
+						}
+					});
       }
     }
 	}
