@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-      <div v-if="false" class="reset-second-step">
+      <div v-if="true" class="reset-second-step">
         <div class="drop-box">
           <input type="file">
           <img :src="'../assets/img/Upload-Receipt.png'">
