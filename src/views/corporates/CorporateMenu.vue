@@ -170,7 +170,7 @@
 		</div>
 
 		<div class="right-box-wrapper transition-easeInOutCubic-300ms" :class="[sideBar.trigger ? 'sideBar-hide' : '']">
-			<div class="corporate-main-container sm:px-2">
+			<div class="corporate-main-container sm:px-4">
 				<div class="toggleResponsive-closeCorporate sm:px-3">
 					<div class="col-1">
 						<!-- <a href="#" :class="[sideBar.trigger ? 'hide' : '']" class="btn-menu" @click="toggleSideInfoBar()">

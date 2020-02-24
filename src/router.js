@@ -33,6 +33,7 @@ import CorporateMemberList from './views/corporates/CorporateMemberList.vue'
 import CorporatePlan from './views/corporates/CorporatePlan.vue'
 import SpendingInvoice from './views/corporates/SpendingInvoice.vue'
 import BulkCreditAllocation from './views/corporates/BulkCreditAllocation.vue'
+import ResetCompanyCredits from './views/corporates/ResetCompanyCredits.vue'
 import CorporateSettings from './views/corporates/CorporateSettings.vue'
 
   // Corporate Employee Information
@@ -109,6 +110,7 @@ export default new Router({
             { name: 'CorporatePlan', path: '/dashboard/corporates/:company_name-:customer_id/corporate-plan', components: { child : CorporatePlan } , props: { child: true}  },
             { name: 'SpendingInvoice', path: '/dashboard/corporates/:company_name-:customer_id/spending-invoice', components: { child : SpendingInvoice } , props: { child: true} },
             { name: 'BulkCreditAllocation', path: '/dashboard/corporates/:company_name-:customer_id/bulk-credit-allocation', components: { child : BulkCreditAllocation }, props: { child: true}  },
+            { name: 'ResetCompanyCredits', path: '/dashboard/corporates/:company_name-:customer_id/reset-company-credits', components: { child : ResetCompanyCredits }, props: { child: true}  },
             // { name: 'HealthPartnerAccess', path: '/dashboard/corporates/menu/health-partner-access', components: { child : HealthPartnerAccess} },
             { name: 'EclaimTypeService', path: '/dashboard/corporates/:company_name-:customer_id/eclaim-type-service', components: { child : EclaimTypeService} , props: { child: true} },
             { name: 'GcapPerVisit', path: '/dashboard/corporates/:company_name-:customer_id/gp-cap-per-visit', components: { child : GcapPerVisit}, props: { child: true} },
