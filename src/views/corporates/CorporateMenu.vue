@@ -170,7 +170,7 @@
 		</div>
 
 		<div class="right-box-wrapper transition-easeInOutCubic-300ms" :class="[sideBar.trigger ? 'sideBar-hide' : '']">
-			<div class="corporate-main-container sm:px-2">
+			<div class="corporate-main-container sm:px-4">
 				<div class="toggleResponsive-closeCorporate sm:px-3">
 					<div class="col-1">
 						<!-- <a href="#" :class="[sideBar.trigger ? 'hide' : '']" class="btn-menu" @click="toggleSideInfoBar()">
@@ -178,11 +178,14 @@
 						</a> -->
 					</div>
 					<div class="col-2">
-						<div v-if="$route.name == 'CorporateMemberList'" class="close-btn corporate" v-on:click="$router.push({ name: 'Corporates'})">
+						<!-- <div v-if="$route.name == 'CorporateMemberList'" class="close-btn corporate" v-on:click="$router.push({ name: 'Corporates'})">
 							<span class="oi" data-glyph="x" aria-hidden="true"></span>
 						</div>
 
 						<div v-else class="close-btn corporate" v-on:click="$router.push({ name: 'CorporateMemberList'})">
+							<span class="oi" data-glyph="x" aria-hidden="true"></span>
+						</div> -->
+						<div class="close-btn corporate" v-on:click="goBack()">
 							<span class="oi" data-glyph="x" aria-hidden="true"></span>
 						</div>
 					</div>

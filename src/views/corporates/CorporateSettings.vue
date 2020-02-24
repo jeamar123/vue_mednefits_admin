@@ -66,7 +66,7 @@
 				</div>
 			</div>
 
-			<router-link tag="div" class="menu-item" :to="{ name : 'GcapPerVisit' }">
+			<router-link tag="div" class="menu-item" :to="{ name : 'ResetCompanyCredits' }">
 				<div class="img-wrapper">
 					<img :src="'../assets/img/settings-icons/refresh.png'">
 				</div>
