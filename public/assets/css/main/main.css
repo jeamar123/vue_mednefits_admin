@@ -11023,6 +11023,101 @@ label.panel-block:hover {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
+.reset-company-credits-wrapper h2 {
+  font-size: 18px;
+  margin: 0 20px 0 0;
+}
+
+.reset-company-credits-wrapper .reset-label-text {
+  font-size: 12px;
+  color: #999;
+}
+
+.reset-company-credits-wrapper .effective-date-container {
+  margin: 40px 0;
+}
+
+.reset-company-credits-wrapper .effective-date-container .fa-calendar-o {
+  align-self: flex-end;
+  font-size: 18px;
+  margin: 0 20px 0 0;
+}
+
+.reset-company-credits-wrapper .effective-date-container .reset-date-picker {
+  position: relative;
+}
+
+.reset-company-credits-wrapper .effective-date-container .reset-date-picker .fa-caret-down {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.reset-company-credits-wrapper .reset-first-step input {
+  border-bottom: 1px solid #999;
+  padding: 5px 5px 5px 0;
+}
+
+.reset-company-credits-wrapper .new-company-credits-container h4 {
+  font-size: 16px;
+  margin: 0 0 20px;
+}
+
+.reset-company-credits-wrapper .new-company-credits-container .currency-type {
+  align-self: flex-end;
+  margin: 0 20px 0 0;
+}
+
+.reset-company-credits-wrapper .reset-second-step .drop-box {
+  background: #F8F8F8;
+  border: 3px dashed #DDD;
+  width: auto;
+  height: 200px;
+  text-align: center;
+  padding: 30px 0 20px;
+  margin: 20px 0 10px;
+}
+
+.reset-company-credits-wrapper .reset-second-step .drop-box img {
+  width: 100px;
+  margin: 0 auto;
+}
+
+.reset-company-credits-wrapper .reset-second-step .drop-box .selected-file {
+  color: green;
+  height: 10px;
+}
+
+.reset-company-credits-wrapper .reset-second-step .drop-box > div {
+  margin: 10px 0;
+}
+
+.reset-company-credits-wrapper .btn-gray-with-shadow {
+  background-color: #fafafa;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  border-radius: 2px;
+  font-weight: 700;
+}
+
+.reset-company-credits-wrapper .reset-company-footer {
+  margin: 50px 0 0;
+}
+
+.reset-company-credits-wrapper .reset-company-footer button {
+  padding: 8px 34px;
+}
+
+.download-emp-list-btn {
+  display: flex;
+  padding: 6px 20px;
+}
+
+.download-emp-list-btn img {
+  height: 18px;
+  width: 18px;
+  margin: 0 5px 0 0;
+}
+
 /* Gp cap per visit */
 .gp-cap-per-wrapper .gp-cap-header-title {
   text-align: center;
@@ -11274,6 +11369,12 @@ label.panel-block:hover {
 }
 
 /* Large (lg) */
+@media (max-width: 1023px) {
+  .reset-company-credits-wrapper {
+    margin: 40px 0 0;
+  }
+}
+
 /* Medium (md) */
 @media (max-width: 768px) {
   .settings-wrapper .settings-menu-box {
@@ -11283,6 +11384,12 @@ label.panel-block:hover {
 
 /* Small (sm) */
 @media (max-width: 640px) {
+  .reset-company-credits-wrapper .dp-flex-ai {
+    display: block;
+  }
+  .reset-company-credits-wrapper .dp-flex-ai h2 {
+    margin: 0 0 20px;
+  }
   .gp-cap-per-wrapper {
     margin: 50px 0 0;
   }
