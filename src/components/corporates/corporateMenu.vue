@@ -3,6 +3,11 @@ import axios from "axios";
 import moment from "moment"
 import Loader from "../../views/loader/Loader";
 
+import { 
+	_getCorporateDetailsData_ ,
+	_globalStorage_
+} from '../../common/functions/common_functions';
+
 let corporateMenu = {
 	components: {
 		Loader,
@@ -22,7 +27,7 @@ let corporateMenu = {
 				trigger: false
 			},
 			corporateDetails_data: {
-				employee: {
+				employee:{
 					// total_seats: 0,
 					// occupied_seats: 0,
 					// vacant_seats: 0,
@@ -100,22 +105,31 @@ let corporateMenu = {
 
 		},
 
-		getCorporateDetails() {
-			// side info
-			let url = `${axios.defaults.serverUrl}/company/corporate_details?customer_id=${this.customer_id}`;
-			axios.get(url)
-				.then(res => {
-					if (res.status == 200) {
-						console.log('details', res);
-						this.corporateDetails_data = res.data;
-						// localStorage.company_name = this.corporateDetails_data.company_name;
-						// this.hideLoading();
-					}
-				})
-				.catch(err => {
-					this.$parent.hideLoading();
-					this.errorHandler(err);
-				});
+		async getCorporateDetails() {
+			// side info'
+			
+			let params	=	{ 
+				customer_id :	this.customer_id 
+			};
+			this.corporateDetails_data = await _getCorporateDetailsData_(params);
+			console.log( this.corporateDetails_data );
+			
+
+
+			// let url = `${axios.defaults.serverUrl}/company/corporate_details?customer_id=${this.customer_id}`;
+			// axios.get(url)
+			// 	.then(res => {
+			// 		if (res.status == 200) {
+			// 			console.log('details', res);
+			// 			this.corporateDetails_data = res.data;
+			// 			// localStorage.company_name = this.corporateDetails_data.company_name;
+			// 			// this.hideLoading();
+			// 		}
+			// 	})
+			// 	.catch(err => {
+			// 		this.$parent.hideLoading();
+			// 		this.errorHandler(err);
+			// 	});
 		},
 		getCorporateCreditsInfo() {
 			// side info
