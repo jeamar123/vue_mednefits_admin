@@ -4,7 +4,7 @@ import moment from "moment"
 import Loader from "../../views/loader/Loader";
 
 import { 
-	_fetchCompanyDetails_ ,
+	_getCorporateDetailsData_ ,
 	_globalStorage_
 } from '../../common/functions/common_functions';
 
@@ -27,7 +27,7 @@ let corporateMenu = {
 				trigger: false
 			},
 			corporateDetails_data: {
-				employee: {
+				employee:{
 					// total_seats: 0,
 					// occupied_seats: 0,
 					// vacant_seats: 0,
@@ -105,19 +105,17 @@ let corporateMenu = {
 
 		},
 
-		getCorporateDetails() {
+		async getCorporateDetails() {
 			// side info'
+			
 			let params	=	{ 
 				customer_id :	this.customer_id 
 			};
-			_fetchCompanyDetails_(params)
-				.then(( res ) => {
-					console.log( res );
-					_globalStorage_.setStorage( 'global_corporateData', res.data );
-					if (res.status == 200) {
-						this.corporateDetails_data = res.data;
-					}
-				});
+			this.corporateDetails_data = await _getCorporateDetailsData_(params);
+			console.log( this.corporateDetails_data );
+			
+
+
 			// let url = `${axios.defaults.serverUrl}/company/corporate_details?customer_id=${this.customer_id}`;
 			// axios.get(url)
 			// 	.then(res => {

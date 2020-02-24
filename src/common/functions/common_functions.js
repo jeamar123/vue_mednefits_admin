@@ -70,9 +70,20 @@ const _validateEmail_	=	(email)	=>	{ // For validtaion with RegEx
 }
 
 const _globalStorage_	=	{
+	// checkStorage:	(key)	=>	{
+	// 	if (global_storage.hasOwnProperty(key)){
+	// 		let	_dataStorage	=	global_storage.getStorage(key);
+	// 		console.log(_dataStorage);
+			
+	// 	}
+	// },
 	getStorage: ( key )	=>	{
 		if( key ){
-			return global_storage[ key ];
+			if(global_storage.hasOwnProperty(key)){
+				return global_storage[ key ];
+			}else{
+				return null;
+			}
 		}
 		return global_storage;
 	},
@@ -84,19 +95,35 @@ const _globalStorage_	=	{
 	}
 }
 
-const _fetchCompanyDetails_	=	(params) => { // ADMIN LOGIN
+const _fetchCompanyDetails_	= (params) => { // ADMIN LOGIN
 	let	req	=	{
 		method:	'GET',
 		url:	Config.COMPANY_DETAILS + '?customer_id=' + params.customer_id,
 		header:	defaultHeaders,
 	};
-	return _axiosCall_(req);
+	return _axiosCall_(req)
+		.then((res)	=>	{
+			_globalStorage_.setStorage( 'global_corporateData', res.data );
+			return res.data;
+		});
 };
+
+const _getCorporateDetailsData_	=	(params)	=>	{
+	let storage = _globalStorage_.getStorage('global_corporateData');
+	if(storage == null){
+		return _fetchCompanyDetails_(params);
+	}else{
+		if( storage.customer_id != params.customer_id ){
+			return _fetchCompanyDetails_(params);
+		}
+	}
+	return storage;
+}
 
 
 
 const _onLoad_	=	() =>{
-	
+
 }	
 _onLoad_();
 
@@ -107,5 +134,5 @@ export	{
 	_hidePageLoading_,
 	_validateEmail_,
 	_globalStorage_,
-	_fetchCompanyDetails_
+	_getCorporateDetailsData_
 }
