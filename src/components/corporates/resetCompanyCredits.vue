@@ -1,5 +1,10 @@
 <script>
+  import Modal from "../../views/modal/Modal.vue";
+
   let resetCompanyCredits = {
+    components: {
+      Modal
+    },
     data() {
       return {
         // empSelectorActive: {
@@ -12,16 +17,17 @@
           data: ["DD/MM/YYYY"]
         },
         global_resetEffectiveDate:  undefined,
+        global_showEditEmp: false,
+        
       };
     },
     created(){
       // this.corporateViewStatus = this.$route.name;
     },
     methods: {
-      // selectCorporateView( opt ){
-      //   this.corporateViewStatus = opt;
-      //   this.$router.push( { name : opt } );
-      // }
+      ___editEmpDetails() {
+         this.global_showEditEmp = this.global_showEditEmp == false ? true : false;
+      }
     }
   }
   
