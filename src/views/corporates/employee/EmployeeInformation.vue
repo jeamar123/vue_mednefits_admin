@@ -112,8 +112,8 @@
 					</div>
 					<div>
 						<!-- status removed -->
-						<button v-if="false" class="btn btn-remove-employee btn-restore">Restore Employee</button>
-						<button @click="showRemoveEmp()"
+						<button v-if="employee_info.emp_status == 'deleted'" class="btn btn-remove-employee btn-restore" @click="_restoreSwal_();">Restore Employee</button>
+						<button v-if="employee_info.emp_status != 'deleted'" @click="showRemoveEmp()"
 							class="btn btn-remove-employee sm:relative sm:mt-4 sm:w-1/2 xs:w-full">Remove Employee <i
 								class="fa fa-trash"></i></button>
 					

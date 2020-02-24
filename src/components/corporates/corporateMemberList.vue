@@ -4,6 +4,9 @@ import moment from "moment";
 import axios from "axios";
 import Loader from "../../views/loader/Loader";
 //
+import { 
+	_globalStorage_
+} from '../../common/functions/common_functions';
 
 let corporateMemberList = {
 	components: {
@@ -62,7 +65,15 @@ let corporateMemberList = {
 		// localStorage.employee_email = '';
 		this.onLoad(localStorage.startMemberList);
 		// await this.hideLoading();
+		// clearInterval
+		// let intervalCtr = setInterval(() => {
+		// 	if( _globalStorage_.getStorage( 'global_corporateData' ) ){
+		// 		console.log( _globalStorage_.getStorage( 'global_corporateData' ) );
+		// 		clearInterval( intervalCtr );
+		// 	}
+		// }, 1000);
 
+		console.log( _globalStorage_.getStorage( 'global_corporateData' ) );
 	},
 	computed: {
 		limitPagination() {

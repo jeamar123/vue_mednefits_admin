@@ -21,7 +21,7 @@
 					<label>Status</label>
 				</div>
 				<div class="status-div active">
-					<p>{{employee_side_info.emp_status}} <span :class="{'text-green-500': employee_side_info.emp_status == 'active', 'text-red-500' : employee_side_info.emp_status == 'deleted', 'text-orange-400' : employee_side_info.emp_status == 'pending'  }" class="oi"
+					<p>{{employee_side_info.emp_status}} <span :class="{'text-green-500': employee_side_info.emp_status == 'active', 'text-red-500' : employee_side_info.emp_status == 'deleted', 'text-orange-400' : employee_side_info.emp_status == 'pending' || employee_side_info.emp_status == 'schedule'  }" class="oi"
 						    data-glyph="media-record" aria-hidden="true"></span></p>
 				</div>
 			</div>
