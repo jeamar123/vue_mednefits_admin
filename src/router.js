@@ -125,7 +125,7 @@ export default new Router({
             { name: 'CorporateSettings', path: '/dashboard/corporates/:company_name-:customer_id/settings', components: { child : CorporateSettings }, props: { child: true }  },
             { name: 'AddEmployeeEntitlementOption', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/entitlement', components: { child : AddEmployeeEntitlementOption }, props: { child: true}  },
             { name: 'EnrollmentMethodOption', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/method', components: { child : EnrollmentMethodOption }, props: { child: true}  },
-            { name: 'EnrollmentExcelImport', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/method', components: { child : EnrollmentExcelImport }, props: { child: true}  },
+            { name: 'EnrollmentExcelImport', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/excel', components: { child : EnrollmentExcelImport }, props: { child: true}  },
           ] 
         },
         { 

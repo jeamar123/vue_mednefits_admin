@@ -4,10 +4,12 @@
 
     <div class="columns enrollment-method-box txt-center">
       <div class="column excel-import-container">
-        <button class="enrollment-method-btn">
+        <!-- <button class="enrollment-method-btn" > -->
+        <router-link tag="button" class="enrollment-method-btn" :to="{ name : 'EnrollmentExcelImport' }">
           <img :src="'../assets/img/excel.png'">
           <p class="text-center weight-700">EXCEL IMPORT</p>
-        </button>
+        </router-link>
+        <!-- </button> -->
         <div class="enrollment-method-btn-text">
           <p class="below-text download-below-text">Upload employee details in a<br>excel file using the template<br>provided by us in the next step</p>
         </div>
@@ -15,10 +17,12 @@
       </div>
 
       <div class="column web-input-container">
-        <button class="enrollment-method-btn">
+        <!-- <button class="enrollment-method-btn"> -->
+        <router-link tag="button" class="enrollment-method-btn" :to="{ name : 'EnrollmentExcelImport' }">
           <img :src="'../assets/img/web-input.png'">
           <p class="text-center weight-700">WEB INPUT</p>
-        </button>
+        </router-link>
+        <!-- </button> -->
         <div class="enrollment-method-btn-text">
           <p class="below-text download-below-text">Input employee details<br>using our web enrollment form.</p>
         </div>
