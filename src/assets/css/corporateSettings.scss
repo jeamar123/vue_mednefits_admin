@@ -250,6 +250,7 @@
     margin: 20px 0 0;
     .gp-cap-body-container {
       height: 500px;
+      width: 700px;
     }
   }
   table {
@@ -268,8 +269,14 @@
     th:nth-child(2) {
       width: 60%;
     }
-    td {
-      padding: 10px;
+    tbody {
+      tr:first-child td,
+      tr td:first-child {
+        padding: 10px;
+      }
+      tr td {
+        padding: 10px;
+      }
     }
 
     th,td {
@@ -280,10 +287,8 @@
     font-size: 12px;
     color: #777;
     margin: 40px 0 0;
-    justify-content: flex-end;
   }
   .page-scroll-container {
-    align-items: center;
     margin: 0 20px 0 0;
     >span {
       cursor: pointer;
@@ -329,6 +334,80 @@
       cursor: pointer;
       line-height: 4;
     }
+  }
+}
+.file-upload-modal {
+  .modal-container {
+    width: 580px;
+  }
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 15px 20px;
+  }
+
+  .modal-header h4 {
+    flex: 1;
+  }
+  .modal-header img {
+    width: 14px;
+  }
+
+  .drop-box {
+    border: 2px dashed #408FCA;
+    width: initial;
+    height: 152px;
+    justify-content: center;
+    background-color: #fff;
+    position: relative;
+
+    >div {
+      width: 100%;
+      padding: 30px 20px;
+    }
+  }
+  .drop-file-upload {
+    justify-content: center;
+    img {
+      width: 23px;
+      height: 23px;
+    }
+    >span {
+      margin: 0 10px;
+    }
+  }
+  .progress-wrapper {
+    position: relative;
+    width: 100%;
+    height: 25px;
+    background-color: rgba(205, 205, 205, 0.3);
+    overflow: hidden;
+    margin: 15px 0 0;
+
+    .fa-file-o {
+      margin: 0 10px 0 0;
+    }
+    >span {
+      position: absolute;
+      left: 10px;
+      top: 3px;
+    }
+  }
+  .progress-bar {
+    background-color: #78E997;
+    height: 25px;
+    color: #2E4057;
+    width: 10%;
+    // width: 0%;
+    transition: all 1s ease-in-out;
+
+    &.error {
+      background-color: #d46448;
+    }
+  }
+  .cap-file-err {
+    font-size: 11px;
+    text-align: center;
   }
 }
 
