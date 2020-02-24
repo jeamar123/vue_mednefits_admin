@@ -11075,7 +11075,7 @@ label.panel-block:hover {
   height: 200px;
   text-align: center;
   padding: 30px 0 20px;
-  margin: 20px 10px 10px;
+  margin: 20px 0 10px;
 }
 
 .reset-company-credits-wrapper .reset-second-step .drop-box img {
@@ -11118,6 +11118,231 @@ label.panel-block:hover {
   margin: 0 5px 0 0;
 }
 
+/* Gp cap per visit */
+.gp-cap-per-wrapper .gp-cap-header-title {
+  text-align: center;
+}
+
+.gp-cap-per-wrapper .gp-cap-header-title h3 {
+  font-size: 18px;
+  margin: 15px 0;
+}
+
+.gp-cap-per-wrapper .gp-header-btn {
+  align-items: center;
+}
+
+.gp-cap-per-wrapper .gp-header-btn img {
+  cursor: pointer;
+  height: 17px;
+  width: 16px;
+  margin: 0 10px 0 0;
+}
+
+.gp-cap-per-wrapper .gp-header-btn .save-continue-btn {
+  border: solid 2px #0392cf;
+  background-color: #0392cf;
+  color: #fff;
+  padding: 7px 0px;
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: 700;
+  width: 140px;
+}
+
+.gp-cap-per-wrapper .gp-cap-body {
+  overflow: auto;
+  margin: 20px 0 0;
+}
+
+.gp-cap-per-wrapper .gp-cap-body .gp-cap-body-container {
+  height: 500px;
+  width: 700px;
+}
+
+.gp-cap-per-wrapper table {
+  border: 1px solid #d0d0d0;
+  font-size: 14px;
+}
+
+.gp-cap-per-wrapper table thead th {
+  background-color: #eff2f4;
+  font-family: 'Helvetica Light';
+  padding: 15px;
+  text-align: center;
+}
+
+.gp-cap-per-wrapper table thead th:first-child {
+  width: 20%;
+  padding: 10px;
+}
+
+.gp-cap-per-wrapper table thead th:last-child {
+  padding: 10px;
+}
+
+.gp-cap-per-wrapper table thead th:nth-child(2) {
+  width: 60%;
+}
+
+.gp-cap-per-wrapper table tbody tr:first-child td,
+.gp-cap-per-wrapper table tbody tr td:first-child {
+  padding: 10px;
+}
+
+.gp-cap-per-wrapper table tbody tr td {
+  padding: 10px;
+}
+
+.gp-cap-per-wrapper table th, .gp-cap-per-wrapper table td {
+  border: 1px solid #d0d0d0;
+}
+
+.gp-cap-per-wrapper .gp-cap-pagination {
+  font-size: 12px;
+  color: #777;
+  margin: 40px 0 0;
+}
+
+.gp-cap-per-wrapper .page-scroll-container {
+  margin: 0 20px 0 0;
+}
+
+.gp-cap-per-wrapper .page-scroll-container > span {
+  cursor: pointer;
+}
+
+.gp-cap-per-wrapper .page-scroll-container i {
+  font-size: 14px;
+}
+
+.gp-cap-per-wrapper .page-scroll-container .fa-angle-left {
+  margin: 0 5px 0 0;
+}
+
+.gp-cap-per-wrapper .page-scroll-container .fa-angle-right {
+  margin: 0 0 0 5px;
+}
+
+.gp-cap-per-wrapper .page-scroll-container > div {
+  margin: 0 10px;
+}
+
+.gp-cap-per-wrapper .page-scroll-container .gp-page-num {
+  margin: 0 10px 0 0;
+  cursor: pointer;
+  padding: 3px 7px;
+}
+
+.gp-cap-per-wrapper .page-scroll-container .gp-page-num.active {
+  background-color: #e8e8e8;
+}
+
+.gp-cap-per-wrapper .rows-page-wrapper {
+  cursor: pointer;
+  position: relative;
+}
+
+.gp-cap-per-wrapper .rows-page-wrapper .page-dp-container {
+  position: absolute;
+  right: 0;
+  background-color: #e8e6e6;
+  color: rgba(33, 33, 33, 0.87);
+  font-size: 12px;
+  overflow-y: scroll;
+  max-height: 227px;
+  width: 137px;
+}
+
+.gp-cap-per-wrapper .rows-page-wrapper .page-dp-container > div {
+  padding: 0 16px;
+  height: 48px;
+  cursor: pointer;
+  line-height: 4;
+}
+
+.file-upload-modal .modal-container {
+  width: 580px;
+}
+
+.file-upload-modal .modal-header,
+.file-upload-modal .modal-body,
+.file-upload-modal .modal-footer {
+  padding: 15px 20px;
+}
+
+.file-upload-modal .modal-header h4 {
+  flex: 1;
+}
+
+.file-upload-modal .modal-header img {
+  width: 14px;
+  cursor: pointer;
+}
+
+.file-upload-modal .drop-box {
+  border: 2px dashed #408FCA;
+  width: initial;
+  height: 152px;
+  justify-content: center;
+  background-color: #fff;
+  position: relative;
+}
+
+.file-upload-modal .drop-box > div {
+  width: 100%;
+  padding: 30px 20px;
+}
+
+.file-upload-modal .drop-file-upload {
+  justify-content: center;
+}
+
+.file-upload-modal .drop-file-upload img {
+  width: 23px;
+  height: 23px;
+}
+
+.file-upload-modal .drop-file-upload > span {
+  margin: 0 10px;
+}
+
+.file-upload-modal .progress-wrapper {
+  position: relative;
+  width: 100%;
+  height: 25px;
+  background-color: rgba(205, 205, 205, 0.3);
+  overflow: hidden;
+  margin: 15px 0 0;
+}
+
+.file-upload-modal .progress-wrapper .fa-file-o {
+  margin: 0 10px 0 0;
+}
+
+.file-upload-modal .progress-wrapper > span {
+  position: absolute;
+  left: 10px;
+  top: 3px;
+}
+
+.file-upload-modal .progress-bar {
+  background-color: #78E997;
+  height: 25px;
+  color: #2E4057;
+  width: 10%;
+  transition: all 1s ease-in-out;
+}
+
+.file-upload-modal .progress-bar.error {
+  background-color: #d46448;
+}
+
+.file-upload-modal .cap-file-err {
+  font-size: 11px;
+  text-align: center;
+}
+
 /* Extra Large (xl) */
 @media (min-width: 1450px) {
   .settings-wrapper .settings-menu-box {
@@ -11134,6 +11359,12 @@ label.panel-block:hover {
 @media (max-width: 1280px) {
   .settings-wrapper .settings-menu-box .menu-item {
     padding: 20px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .gp-cap-per-wrapper .gp-cap-body .gp-cap-body-container {
+    width: 100%;
   }
 }
 
@@ -11159,6 +11390,9 @@ label.panel-block:hover {
   .reset-company-credits-wrapper .dp-flex-ai h2 {
     margin: 0 0 20px;
   }
+  .gp-cap-per-wrapper {
+    margin: 50px 0 0;
+  }
 }
 
 @media (max-width: 520px) {
@@ -11167,6 +11401,30 @@ label.panel-block:hover {
   }
   .settings-wrapper .settings-menu-box .menu-item {
     margin: 0 20px;
+  }
+  .file-upload-modal .modal-container {
+    width: 100%;
+    margin: 0 15px;
+  }
+  .gp-cap-per-wrapper .gp-cap-body .gp-cap-body-container {
+    width: 479px;
+  }
+  .gp-cap-per-wrapper .gp-cap-body::-webkit-scrollbar {
+    height: 3px;
+  }
+  .file-upload-modal .modal-header,
+  .file-upload-modal .modal-body,
+  .file-upload-modal .modal-footer {
+    padding: 15px 10px;
+  }
+  .file-upload-modal .drop-box {
+    height: auto;
+  }
+  .file-upload-modal .drop-box > div {
+    padding: 30px 10px;
+  }
+  .file-upload-modal .drop-box .drop-file-upload > span {
+    margin: 0 5px;
   }
 }
 
