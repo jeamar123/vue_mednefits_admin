@@ -787,6 +787,7 @@
       color: #888;
       width: 100%;
       padding: 5px 0px;
+      display: block;
     }
 
     .dropdown-menu li {
@@ -1093,6 +1094,7 @@
     z-index: 1;
     padding: 5px 0;
     z-index: 999;
+    display: block;
 
     a:hover {
       background: #ddd;
@@ -1590,7 +1592,7 @@
     }
   }
 }
-.plan-type-selector .container {
+.plan-type-selector .selector-container {
   display: block;
   position: relative;
   padding-left: 35px;
@@ -1925,6 +1927,9 @@
       }
     }
   }
+  .employee-menu-container .dep-info-header .right-btn-container {
+    top: 0;
+  }
 }
 
 @media (max-width: 670px) {
@@ -2091,6 +2096,14 @@
 
     .entitlement-input-label .entitlement-date-picker {
       width: 100%;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .employee-menu-container .emp-information-details {
+    .entitlement-status-container .custom-ellipsis-wrapper {
+      width: auto;
     }
   }
 }
