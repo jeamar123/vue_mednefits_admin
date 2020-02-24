@@ -257,17 +257,23 @@
     border: 1px solid #d0d0d0;
     font-size: 14px;
     
-    th {
-      background-color: #eff2f4;
-      font-family: 'Helvetica Light';
-      padding: 15px;
-      text-align: center;
-    }
-    th:nth-child(1) {
-      width: 20%;
-    }
-    th:nth-child(2) {
-      width: 60%;
+    thead {
+      th {
+        background-color: #eff2f4;
+        font-family: 'Helvetica Light';
+        padding: 15px;
+        text-align: center;
+      }
+      th:first-child {
+        width: 20%;
+        padding: 10px;
+      }
+      th:last-child {
+        padding: 10px;
+      }
+      th:nth-child(2) {
+        width: 60%;
+      }
     }
     tbody {
       tr:first-child td,
@@ -351,6 +357,7 @@
   }
   .modal-header img {
     width: 14px;
+    cursor: pointer;
   }
 
   .drop-box {
@@ -435,6 +442,13 @@
     }
   }
 }
+@media (max-width: 1080px) {
+  .gp-cap-per-wrapper .gp-cap-body {
+    .gp-cap-body-container {
+      width: 100%;
+    }
+  }
+}
 
 /* Large (lg) */
 @media (max-width: 1024px) { 
@@ -453,7 +467,9 @@
 
 /* Small (sm) */
 @media (max-width: 640px) { 
-  
+  .gp-cap-per-wrapper {
+    margin: 50px 0 0;
+  }
 
 }
 @media (max-width: 520px) { 
@@ -466,7 +482,35 @@
       }
     }
   }
+  .file-upload-modal .modal-container {
+    width: 100%;
+    margin: 0 15px;
+  }
+  .gp-cap-per-wrapper .gp-cap-body {
+    .gp-cap-body-container {
+      width: 479px;
+    }
 
+    &::-webkit-scrollbar {
+      height: 3px;
+    }
+  }
+  .file-upload-modal {
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+      padding: 15px 10px;
+    }
+  }
+  .file-upload-modal .drop-box {
+    height: auto;
+    >div {
+      padding: 30px 10px;
+    }
+    .drop-file-upload > span {
+      margin: 0 5px;
+    }
+  }
 }
 
 @media (max-width: 400px) {

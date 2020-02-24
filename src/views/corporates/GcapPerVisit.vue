@@ -83,7 +83,7 @@
 		<Modal v-if="global_showFileUpload" class="file-upload-modal">
 			<div slot="header" class="dp-flex-ai">
 				<h4>File Uploader</h4>
-				<img :src="'../assets/img/cancel.png'">
+				<img @click="___fileUploadModal()" :src="'../assets/img/cancel.png'">
 			</div>
 			<div slot="body">
 				<div class="drop-box dp-flex">

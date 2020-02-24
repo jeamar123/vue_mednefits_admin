@@ -1,29 +1,3 @@
-@media (max-width: 1280px) {
-  /* ... */
-}
-
-/* Large (lg) */
-
-@media (max-width: 1024px) {
-  /* ... */
-}
-
-/* Medium (md) */
-
-@media (max-width: 768px) {
-  /* ... */
-}
-
-/* Small (sm) */
-
-@media (max-width: 640px) {
-  /* ... */
-  .modal-container {
-    width: 92% !important;
-    margin: 70px auto;
-  }
-}
-
 
 // ------ CORPORATE LIST ADD FILTER ------ //
   .add-filter-wrapper {
@@ -315,7 +289,7 @@
 
   .modal-container {
     padding: 16px 16px 0;
-    margin: 0 auto;
+    margin: auto;
   }
 
   h1 {
@@ -360,13 +334,6 @@
       padding: 0 15px;
       height: 36px;
     }
-  }
-}
-
-@media (max-width: 450px) {
-  .manage-cap-modal-wrapper .modal-container {
-    width: 100%;
-    margin: 0 20px;
   }
 }
 
@@ -620,26 +587,7 @@
   }
 }
 
-@media (max-width: 500px) {
-  .show-renewal-modal {
-    .modal-container {
-      width: 100%;
-      margin: 0 20px;
-    }
-
-    .popover-origin.direction-bottom.align-left, .popover-origin.direction-top.align-left {
-      left: -50px;
-    }
-
-    .popover-origin .popover-content-wrapper .popover-content.align-left:after {
-      left: 60px;
-    }
-
-  }
-}
-
 // ------------------------------------------------------ //
-
 
 
 //  ------------ Settings Update Reset Password --------- //
@@ -705,3 +653,73 @@
 }
 
 // ----------------------------------------------------- //
+
+@media (max-width: 1280px) {
+  /* ... */
+}
+
+/* Large (lg) */
+
+@media (max-width: 1024px) {
+  /* ... */
+}
+
+/* Medium (md) */
+
+@media (max-width: 768px) {
+  /* ... */
+}
+
+/* Small (sm) */
+
+@media (max-width: 640px) {
+  /* ... */
+  // .modal-container {
+  //   width: 92%;
+  //   margin: 70px auto;
+  // }
+}
+
+@media (max-width: 500px) {
+  .show-renewal-modal {
+    .modal-container {
+      width: 100%;
+      margin: 0 20px;
+    }
+
+    .popover-origin.direction-bottom.align-left, .popover-origin.direction-top.align-left {
+      left: -50px;
+    }
+
+    .popover-origin .popover-content-wrapper .popover-content.align-left:after {
+      left: 60px;
+    }
+
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-mask.update-reset .modal-container, 
+  .modal-mask.sms-notification .modal-container {
+    width: 100%;
+    margin: 0 40px;
+  }
+  .modal-mask.show-renewal-modal .modal-container {
+    width: 100%;
+    margin: 0 40px;
+  }
+}
+
+@media (max-width: 450px) {
+  .manage-cap-modal-wrapper .modal-container {
+    width: 100%;
+    margin: 0 20px;
+  }
+}
+
+@media (max-width: 420px) {
+  .employee-details-options .modal-container {
+    width: 100%;
+    margin: 0 20px;
+  }
+}
