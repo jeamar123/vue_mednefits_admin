@@ -12,7 +12,7 @@
 				</div>
 			</router-link>
 
-			<router-link tag="div" class="menu-item" :to="{ name : 'AddEmployeeEntitlementOption' }">
+			<router-link tag="div" class="menu-item" :to="{ name : 'EnrollmentMethodOption' }">
 				<div class="img-wrapper">
 					<img :src="'../assets/img/settings-icons/user.png'">
 				</div>

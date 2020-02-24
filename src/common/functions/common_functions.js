@@ -70,13 +70,6 @@ const _validateEmail_	=	(email)	=>	{ // For validtaion with RegEx
 }
 
 const _globalStorage_	=	{
-	// checkStorage:	(key)	=>	{
-	// 	if (global_storage.hasOwnProperty(key)){
-	// 		let	_dataStorage	=	global_storage.getStorage(key);
-	// 		console.log(_dataStorage);
-			
-	// 	}
-	// },
 	getStorage: ( key )	=>	{
 		if( key ){
 			if(global_storage.hasOwnProperty(key)){
@@ -90,9 +83,6 @@ const _globalStorage_	=	{
 	setStorage: ( key, value )	=>	{
 		global_storage[key] = value;
 	},
-	refreshStorage: ()	=>	{
-
-	}
 }
 
 const _fetchCompanyDetails_	= (params) => { // ADMIN LOGIN
