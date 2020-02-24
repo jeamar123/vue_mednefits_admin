@@ -5,8 +5,8 @@
 			<template v-for="list in dependent_arr">
 				<div class="dep-info-header md:text-center" :key="list.index">
 					<div class="right-btn-container md:relative md:text-right">
-						<button @click="showReplaceDependent()" class="btn btn-edit xs:w-full xs:m-1"><img :src="'../assets/img/replace.png'">Replace</button>
-						<button @click="showRemoveDependent()" class="btn btn-edit btn-remove xs:w-full xs:m-1"><img :src="'../assets/img/icons/dustbin.png'">Remove</button>
+						<button @click="showReplaceDependent(list)" class="btn btn-edit xs:w-full xs:m-1"><img :src="'../assets/img/replace.png'">Replace</button>
+						<button @click="showRemoveDependent(list)" class="btn btn-edit btn-remove xs:w-full xs:m-1"><img :src="'../assets/img/icons/dustbin.png'">Remove</button>
 						<button @click="showEditDependent(list)" class="btn btn-edit xs:w-full xs:m-1"><img :src="'../assets/img/icons/edit.png'">Edit</button>
 					</div>
 				</div>
@@ -55,40 +55,46 @@
 				<div class="edit-dependent-row sm:flex-wrap">
 					<div class="employee-details-input-wrapper sm:m-0">
 						<label>Full Name</label>
-						<input type="text">
+						<input type="text" name="name" v-model="global_toReplaceDep.fullname" autocomplete="name">
 					</div>
 					<div class="employee-details-input-wrapper sm:m-0">
 						<label>Relationship</label>
-						<select>
-							<option>Spouse</option>
-							<option>Child</option>
-							<option>Family</option>
-							<option>Parent</option>
-						</select>
+						<div class="relationship-container"> 
+							<select v-model="global_toReplaceDep.relationship">
+								<option value="spouse">Spouse</option>
+								<option value="child">Child</option>
+								<option value="sibling">Sibling</option>
+								<option value="family">Family</option>
+								<option value="parent">Parent</option>
+							</select>
+							<i class="fa fa-caret-down"></i>
+						</div>
 					</div>
 				</div>
 
 				<div class="edit-dependent-row sm:flex-wrap">
 					<div class="employee-details-input-wrapper sm:m-0">
 						<label>Date of Birth</label>
-						<div class="date-container vDatepicker">
+						<div class="date-container caret vDatepicker">
 							<v-date-picker
                 popoverDirection="bottom"
-                v-model="starDateDetails.null"
+                v-model="global_toReplaceDep.dob"
                 :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
                 popover-visibility="focus"
+								:formats="formats"
               ></v-date-picker>
               <i class="fa fa-caret-down"></i>
             </div>
 					</div>
 					<div class="employee-details-input-wrapper sm:m-0">
 						<label>Plan Start</label>
-						<div class="date-container vDatepicker">
+						<div class="date-container caret vDatepicker">
 							<v-date-picker
                 popoverDirection="bottom"
-                v-model="starDateDetails.null"
+                v-model="global_toReplaceDep.plan_start"
                 :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
                 popover-visibility="focus"
+								:formats="formats"
               ></v-date-picker>
               <i class="fa fa-caret-down"></i>
             </div>
@@ -96,7 +102,7 @@
 				</div>
 
 				<div class="save-btn-footer">
-					<button class="btn-primary xs:w-full">SAVE & CONTINUE</button>
+					<button class="btn-primary xs:w-full" @click="_replaceDependet_()">SAVE & CONTINUE</button>
 				</div>
 			</form>
 		</div>
@@ -118,7 +124,7 @@
 							<select v-model="toEdit.relationship">
 								<option value="spouse">Spouse</option>
 								<option value="child">Child</option>
-								<option value="siblings">Siblings</option>
+								<option value="sibling">Sibling</option>
 								<option value="family">Family</option>
 								<option value="parent">Parent</option>
 							</select>
@@ -170,6 +176,36 @@
 				</div>
 			</form>
 		</div>
+
+		<Modal v-if="global_withdrawEmployeeModal" class="employee-details-options remove-dependent-container">
+			<div slot="header">
+				<h1>Withdraw Employee</h1>
+				<i @click="showRemoveDependent()" class="fa fa-times"></i>
+			</div>
+			<div slot="body" class="edit-employee-info-container pb-6">
+				<div class="edit-dependent-row">
+					<div class="employee-details-input-wrapper">
+						<label>Name</label>
+						<div class="name-text-value">{{global_toRemoveDep.fullname}}</div>
+					</div>
+					<div class="employee-details-input-wrapper">
+						<label>Effective Date</label>
+						<div class="date-container vDatepicker">
+							<v-date-picker popoverDirection="bottom" v-model="global_toRemoveDep.expiry_date"
+								:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+								popover-visibility="focus"
+								:formats="formats"></v-date-picker>
+							<i class="fa fa-caret-down"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div slot="footer" class="px-2 py-4 text-left">
+				<button class="btn-primary bg-red-500 " @click="_deleteDependentSwal_()">DELETE</button>
+			</div>
+		</Modal>
+
+
 	</div>
 </template>
 

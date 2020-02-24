@@ -51,6 +51,11 @@
     }
   }
 
+  .credit-alloc-body {
+    margin: 40px 0 0;
+    flex-wrap: wrap;
+  }
+
   .credit-search-container {
     display: flex;
     align-items: center;
@@ -72,9 +77,14 @@
   }
 
   .employee-pagination {
-    display: flex;
     align-items: center;
-    padding: 20px 0;
+    padding: 20px 0 40px;
+    
+
+    .prev-next-container {
+      align-items: center;
+      flex: 1;
+    }
 
     .range-pagination {
       text-align: center;
@@ -82,15 +92,36 @@
     }
     .per-page-container {
       margin: 0 0 0 30px;
+      position: relative;
     }
 
-    .page-num-conainer {
-      border-bottom: 1px solid #ccc;
+    .page-num-container {
+      cursor: pointer;
       padding: 0 0 2px;
     }
 
     .per-page-num {
       padding: 0 10px 0 15px;
+    }
+
+    .per-page-dp {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background-color: #ECF0F1;
+      border-bottom: 1px solid #ccc;
+      box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+      width: 130px;
+      height: 250px;
+      padding: 20px 0;
+      overflow: auto;
+      >div {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        height: 48px;
+        padding: 0 15px;
+      }
     }
   }
 }
@@ -98,7 +129,7 @@
 .credit-employee-wrapper {
   width: 290px;
   height: 550px;
-  margin: 40px 0 0;
+  padding: 0 10px 0 0;
   .employee-header {
     background-color: rgb(63,81,181);
     color: #fff;
@@ -240,4 +271,20 @@
     }
   }
 
+}
+
+@media (max-width: 400px) {
+  .bulk-credit-alloc-wrapper {
+    .credit-search-container >div input {
+      width: 220px;
+    }
+
+    .employee-pagination.dp-flex {
+      display: block;
+    }
+    .employee-pagination .per-page-container {
+      margin: 30px 0 0;
+      text-align: center;
+    }
+  }
 }

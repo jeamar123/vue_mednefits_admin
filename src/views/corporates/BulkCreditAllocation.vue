@@ -9,8 +9,8 @@
 				<input type="text" placeholder="Search Employee and Hit Enter ...">
 			</div>
 		</div>
-		<div class="credit-alloc-body">
-			<div class="credit-employee-wrapper">
+		<div class="credit-alloc-body columns">
+			<div class="credit-employee-wrapper is-one-third" v-for="x in 6" :key="x.index">
 				<div class="employee-header">
 					<h3>Potter four</h3>
 				</div>
@@ -53,17 +53,27 @@
 				</div>
 			</div>
 		</div>
-		<div class="employee-pagination">
-			<div>
-				<button class="btn-primary">PREV</button>
-			</div>
-			<div class="range-pagination"><span>2</span> of <span>18</span></div>
-			<div>
-				<button class="btn-primary">NEXT</button>
+		<div class="employee-pagination dp-flex">
+			<div class="prev-next-container dp-flex">
+				<div>
+					<button class="btn-primary">PREV</button>
+				</div>
+				<div class="range-pagination"><span>2</span> of <span>18</span></div>
+				<div>
+					<button class="btn-primary">NEXT</button>
+				</div>
 			</div>
 			<div class="per-page-container">
 				<span>per page : </span>
-				<span class="page-num-conainer"><span class="per-page-num">5</span> <span><i class="fa fa-caret-down" aria-hidden="true"></i></span></span>
+				<span @click="___selectedCreditPerPage()" class="page-num-container"><span class="per-page-num">5</span> <span><i class="fa fa-caret-down" aria-hidden="true"></i></span></span>
+				<div v-click-outside="___hideAllDrop" v-if="global_showCreditDp" class="per-page-dp">
+					<div><span>6</span></div>
+					<div><span>12</span></div>
+					<div><span>24</span></div>
+					<div><span>30</span></div>
+					<div><span>36</span></div>
+					<div><span>60</span></div>
+				</div>
 			</div>
 		</div>
 	</div>

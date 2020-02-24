@@ -671,3 +671,37 @@
 // }
 
 // ----------------------------------------------------- //
+
+
+// ----------------------------------------------------- //
+//            MODAL FOR DELETE DEPENDET                  //
+// ----------------------------------------------------- //
+
+.modal-mask.remove-dependent-container {
+  position: absoulute;
+  z-index: 2;
+  .modal-header {
+    background-color: #ff6763;
+    position: relative;
+
+    .fa-times {
+      position: absolute;
+      top: 20px;
+      right: 15px;
+    }
+  }
+
+  .name-text-value {
+    margin: 5px 0 0;
+  }
+
+  .modal-footer {
+    padding: 10px 20px;
+  }
+
+  .btn-delete {
+    background-color: #ff6763;
+  }
+}
+
+// ----------------------------------------------------- //
