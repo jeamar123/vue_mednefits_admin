@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-      <div v-if="true" class="reset-second-step">
+      <div v-if="false" class="reset-second-step">
         <div class="drop-box">
           <input type="file">
           <img :src="'../assets/img/Upload-Receipt.png'">
@@ -63,33 +63,37 @@
         <div>
           <h4>Please check if the details below are correct <br> before we update them.</h4>
         </div>
-        <table class="review-excel-tbl">
-          <thead>
-            <tr>
-              <th></th>
-              <th></th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>New Medical Credits</th>
-              <th>New Wellness Credits</th>
-              <th>Start Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><i class="fa fa-trash"></i></td>
-              <td>
-                <img @click="___editEmpDetails()" :src="'../assets/img/pencil.png'">
-                <!-- <span class="oi pencil" data-glyph="pencil" title="pencil" aria-hidden="true"></span> -->
-              </td>
-              <td><span>Noelou Jan</span></td>
-              <td><span>Nagac</span></td>
-              <td><span>0.00</span></td>
-              <td><span>0.00</span></td>
-              <td><span>24/02/2020</span></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="review-excel-tbl-wrapper">
+          <div class="review-excel-tbl-container">
+            <table class="review-excel-tbl">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>New Medical Credits</th>
+                  <th>New Wellness Credits</th>
+                  <th>Start Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><i class="fa fa-trash"></i></td>
+                  <td>
+                    <img @click="___editEmpDetails()" :src="'../assets/img/pencil.png'">
+                    <!-- <span class="oi pencil" data-glyph="pencil" title="pencil" aria-hidden="true"></span> -->
+                  </td>
+                  <td><span>Noelou Jan</span></td>
+                  <td><span>Nagac</span></td>
+                  <td><span>0.00</span></td>
+                  <td><span>0.00</span></td>
+                  <td><span>24/02/2020</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
     <div class="reset-company-footer dp-flex">
@@ -112,23 +116,31 @@
         <h1>Edit Employee Details</h1>
       </div>
       <div slot="body">
-        <div>
+        <div class="edit-emp-input-wrapper">
           <label>Full Name</label>
           <input type="text">
         </div>
-        <div>
+        <div class="edit-emp-input-wrapper">
           <label>Medical Credits *</label>
           <input type="text">
         </div>
-        <div>
+        <div class="edit-emp-input-wrapper">
           <label>Wellness Credits *</label>
           <input type="text">
         </div>
-        <div>
+        <div class="edit-emp-input-wrapper dp-flex start-date">
           <img :src="'../assets/img/calendar.png'">
           <div>
             <label>Start Date</label>
-            <input type="text">
+            <div class="reset-date-picker">
+              <v-date-picker
+                popoverDirection="top"
+                v-model="global_resetEffectiveDate"
+                :formats='formats'
+                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+                popover-visibility="focus"
+              ></v-date-picker>
+            </div>
           </div>
         </div>
       </div>
