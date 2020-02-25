@@ -303,6 +303,11 @@ $font-gray: #888;
 
 // Responsive
 
+@media (min-width: 1024px) and (max-width: 1120px) {
+  .corporate-menu-container .right-box-wrapper .corporate-main-container {
+    padding: 10px;
+  }
+}
 @media (max-width: 1279px) {
   /* ... */
 }

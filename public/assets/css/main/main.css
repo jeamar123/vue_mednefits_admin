@@ -11076,6 +11076,16 @@ label.panel-block:hover {
   text-align: center;
   padding: 30px 0 20px;
   margin: 20px 0 10px;
+  position: relative;
+}
+
+.reset-company-credits-wrapper .reset-second-step .drop-box > input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
 }
 
 .reset-company-credits-wrapper .reset-second-step .drop-box img {
@@ -11090,6 +11100,66 @@ label.panel-block:hover {
 
 .reset-company-credits-wrapper .reset-second-step .drop-box > div {
   margin: 10px 0;
+}
+
+.reset-company-credits-wrapper .reset-third-step {
+  margin: 40px 0 0;
+}
+
+.reset-company-credits-wrapper .reset-third-step > div {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.reset-company-credits-wrapper .edit-emp-details label {
+  display: block;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.reset-company-credits-wrapper .edit-emp-details input {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.reset-company-credits-wrapper .edit-emp-details img {
+  height: 20px;
+  width: 20px;
+}
+
+.reset-company-credits-wrapper table.review-excel-tbl {
+  border: 1px solid #ccc;
+}
+
+.reset-company-credits-wrapper table.review-excel-tbl thead {
+  background-color: #F5F8FA;
+  font-size: 14px;
+}
+
+.reset-company-credits-wrapper table.review-excel-tbl thead tr th {
+  font-family: 'Helvetica Light';
+}
+
+.reset-company-credits-wrapper table.review-excel-tbl thead tr th:first-child,
+.reset-company-credits-wrapper table.review-excel-tbl thead tr th:last-child,
+.reset-company-credits-wrapper table.review-excel-tbl tbody tr td:first-child,
+.reset-company-credits-wrapper table.review-excel-tbl tbody tr td:last-child {
+  padding: 20px;
+}
+
+.reset-company-credits-wrapper table.review-excel-tbl tbody tr td {
+  padding: 20px;
+}
+
+.reset-company-credits-wrapper table.review-excel-tbl .fa-trash {
+  font-size: 20px;
+  color: red;
+  cursor: pointer;
+}
+
+.reset-company-credits-wrapper table.review-excel-tbl img {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
 }
 
 .reset-company-credits-wrapper .btn-gray-with-shadow {
