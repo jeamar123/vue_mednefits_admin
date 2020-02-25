@@ -178,11 +178,14 @@
 						</a> -->
 					</div>
 					<div class="col-2">
-						<div v-if="$route.name == 'CorporateMemberList'" class="close-btn corporate" v-on:click="$router.push({ name: 'Corporates'})">
+						<!-- <div v-if="$route.name == 'CorporateMemberList'" class="close-btn corporate" v-on:click="$router.push({ name: 'Corporates'})">
 							<span class="oi" data-glyph="x" aria-hidden="true"></span>
 						</div>
 
 						<div v-else class="close-btn corporate" v-on:click="$router.push({ name: 'CorporateMemberList'})">
+							<span class="oi" data-glyph="x" aria-hidden="true"></span>
+						</div> -->
+						<div class="close-btn corporate" v-on:click="goBack()">
 							<span class="oi" data-glyph="x" aria-hidden="true"></span>
 						</div>
 					</div>

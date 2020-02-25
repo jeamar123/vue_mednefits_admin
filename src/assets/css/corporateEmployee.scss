@@ -41,7 +41,8 @@
 
   overflow: hidden;
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  // grid-template-columns: 1fr 5fr;
+  grid-template-columns: 294px 5fr;
 
   .left-box-wrapper {
     width: 270px;

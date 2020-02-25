@@ -150,3 +150,451 @@
     }
   }
 }
+.enrollment-method-container{
+  h1{
+    font-size: 24px;
+    color: #2c3e50;
+    font-weight: 700;
+    text-align: center;
+    margin: 40px 0 35px 0;
+  }
+  .enrollment-method-box{
+    width: 450px;
+    margin: 0 auto;
+
+    .enrollment-method-btn{
+      width: 200px;
+      padding: 45px 20px 10px 20px;
+      border: solid 2px #ccc;
+      border-radius: 8px;
+      text-align: center;
+      img{
+        height: 80px;
+        margin: 0 auto;
+      }
+      p{
+        margin: 35px 0 0 0;
+        font-weight: 700;
+        color: #727272;
+        font-size: 16px;
+      }
+    }
+    .enrollment-method-btn-text{
+      padding: 30px 0 20px 15px;
+      width: 200px;
+      p{
+        text-align: left;
+        line-height: 1.3;
+      }
+    }
+  }
+}
+.enrollment-excel-import-container{
+  .excel-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    label{
+      font-size: 20px;
+      width: 180px;
+    }
+    .download-btn-container{
+      flex: 1;
+
+      .btn{
+        margin-right: 10px;
+
+        background-color: #FAFAFA;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+        border-radius: 2px;
+        font-weight: 700;
+        padding: 8px 20px;
+        text-transform: uppercase;
+
+        img{
+          display: inline-block;
+          margin-right: 5px;
+          width: 15px;
+        }
+      }
+    }
+  }
+  .drop-upload-container{
+    background: #F8F8F8;
+    border: 3px dashed #DDD;
+    width: 100%;
+    height: 230px;
+    text-align: center;
+    padding-top: 30px;
+    margin: 30px 0;
+    position: relative;
+
+    input{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+    }
+    img{
+      width: 100px;
+      margin-bottom: 5px;
+      margin: 0 auto;
+    }
+    p{
+      margin: 16px 0;
+      min-height: 16px;
+      &.filename{
+        color: green;
+      }
+    }
+  }
+  .btn-gray-with-shadow {
+    background-color: rgb(250,250,250);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+    border-radius: 2px;
+    font-weight: 700;
+    padding: 8px 34px;
+    margin-top: 20px;
+  }
+}
+.enrollment-summary-container{
+  >h1{
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 50px;
+  }
+  .tbl-scroll-wrapper{
+    max-width: calc(100vw - 380px);
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      height: 10px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      border-radius: 6px;
+      background-color: #aaa;
+      border: 2px solid #ddd;
+    }
+  
+    &::-webkit-scrollbar-track {
+      /*background-color: transparent;*/
+      background-color: #ddd;
+    }
+
+    table{
+      border: 1px solid #ccc;
+      font-family: 'Helvetica Light';
+
+      thead{
+        tr{
+          div.dependents{
+            display: contents;
+          }
+          th{
+            padding: 5px 10px;
+            font-size: 14px;
+            color: #444;
+            min-width: 130px;
+            text-align: left;
+            white-space: nowrap;
+            border-bottom: 1px solid #d9d9d9;
+            background: #F5F8FA;
+            font-family: 'Helvetica Light';
+
+            input{
+              width: 16px;
+              height: 16px;
+              position: relative;
+              top: 2px;
+            }
+            &:first-child{
+              min-width: unset;
+            }
+          }
+        }
+      }
+      tbody{
+        tr{
+          &.has-error{
+            background-color: #FBE1E2;
+          }
+          div.dependents{
+            display: contents;
+          }
+          td{
+            padding: 12px 10px;
+            min-width: 130px;
+            text-align: left;
+            font-size: 12px;
+            white-space: nowrap;
+            vertical-align: middle;
+            color: #777;
+            .fullname-box{
+              display: flex;
+              .fullname-text{
+                flex: 1;
+                margin-right: 15px;
+              }
+              .edit-icon{
+                cursor: pointer;
+                width: 20px;
+                i{
+                  font-size: 18px;
+                }
+              }
+            }
+            input{
+              width: 16px;
+              height: 16px;
+              position: relative;
+              top: 0px;
+            }
+            &:first-child{
+              min-width: unset;
+            }
+          }
+        }
+      }
+    }
+  }
+  .footer-options{
+    margin-top: 60px;
+
+    .checkbox-container{
+      flex-wrap: wrap;
+    }
+    .label-checkbox{
+      display: flex;
+      width: 250px;
+
+      input{
+        width: 16px;
+        height: 16px;
+        position: relative;
+        top: 2px;
+      }
+    }
+    .password-check-input{
+      width: 350px;
+      flex-wrap: wrap;
+
+      label{
+        width: 180px;
+        margin-right: 20px;
+      }
+      .password-input{
+        width: 140px;
+  
+        label{
+          display: block;
+          font-size: 10px;
+          
+        }
+        input{
+          border-bottom: 2px solid #eee;
+          padding: 2px;
+          font-weight: 700;
+          font-size: 12px;
+          width: 100%;
+        }
+      }
+    }
+    
+  }
+  .xs-footer-btns{
+    margin-top: 50px;
+    display: none;
+  }
+  .btn-gray-with-shadow {
+    background-color: rgb(250,250,250);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+    border-radius: 2px;
+    font-weight: 700;
+    padding: 8px 34px;
+
+    &[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+
+
+
+
+
+@media (max-width: 1365px) {
+  .footer-options{
+    .label-checkbox:first-child{
+      width: 100%;
+      flex: none !important;
+    }
+    .password-input{
+      label{
+        display: block;
+        font-size: 10px;
+      }
+      input{
+        border-bottom: 2px solid #eee;
+        padding: 2px;
+        font-weight: 700;
+        font-size: 12px;
+      }
+    }
+  }
+}
+@media (max-width: 1190px) {
+  .enrollment-summary-container{
+    .xs-hide{
+      display: none;
+    }
+    .xs-footer-btns{
+      display: flex;
+    }
+  }
+  
+}
+@media (max-width: 1025px) {
+  .excel-header{
+    margin-top: 35px;
+  }
+  .enrollment-summary-container{
+    >h1{
+      margin-top: 40px;
+    }
+    .tbl-scroll-wrapper{
+      max-width: unset;
+      overflow-x: auto;
+  
+      table{
+        border: 1px solid #ccc;
+        font-family: 'Helvetica Light';
+  
+        thead{
+          tr{
+            div.dependents{
+              display: contents;
+            }
+            th{
+              padding: 5px 10px;
+              font-size: 14px;
+              color: #444;
+              min-width: 130px;
+              text-align: left;
+              white-space: nowrap;
+              border-bottom: 1px solid #d9d9d9;
+              background: #F5F8FA;
+              font-family: 'Helvetica Light';
+  
+              input{
+                width: 16px;
+                height: 16px;
+                position: relative;
+                top: 3px;
+              }
+              &:first-child{
+                min-width: unset;
+              }
+            }
+          }
+        }
+        tbody{
+          tr{
+            &.has-error{
+              background-color: #FBE1E2;
+            }
+            div.dependents{
+              display: contents;
+            }
+            td{
+              padding: 12px 10px;
+              min-width: 130px;
+              text-align: left;
+              font-size: 12px;
+              white-space: nowrap;
+              vertical-align: middle;
+              color: #777;
+  
+              input{
+                width: 16px;
+                height: 16px;
+                position: relative;
+                top: 3px;
+              }
+              &:first-child{
+                min-width: unset;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 760px) {
+  .enrollment-method-container{
+    .enrollment-method-box{
+      .enrollment-method-btn-text{
+        width: auto;
+        padding: 30px 0;
+        p{
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 705px) {
+  .enrollment-excel-import-container{
+    .excel-header{
+      label{
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      .download-btn-container{
+        .btn{
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 480px) {
+  .enrollment-method-container{
+    h1{
+      font-size: 14px;
+    }
+    .enrollment-method-box{
+      width: auto;
+      .enrollment-method-btn-text{
+        width: auto;
+        padding: 30px 0;
+        p{
+          text-align: center;
+        }
+      }
+    }
+  }
+  .enrollment-summary-container{
+    .footer-options{
+      .password-check-input{
+        margin-top: 10px;
+        label{
+          width: 100%;
+        }
+        .password-input{
+          margin-top: 15px;
+          width: 140px;
+        }
+      }
+    }
+  }
+  
+}
