@@ -212,7 +212,7 @@
 				<div slot="footer">
 					<button v-on:click="_toggleSummaryEditModal_()" class="btn-close">CANCEL</button>
 					<button v-on:click="_toggleSummaryEditModal_()" class="btn-delete">DELETE</button>
-	  			<button class="btn-primary settings-btn-submit" v-on:click="submitInNetwork( inNetwork_data )">Update</button>
+	  			<button class="btn-primary" v-on:click="submitInNetwork( inNetwork_data )">Update</button>
 				</div>
 			</Modal>
 
