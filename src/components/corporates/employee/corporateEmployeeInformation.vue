@@ -4,6 +4,11 @@ import jobList from '../../../assets/json/job.json';
 import axios from "axios";
 import moment from "moment"
 
+import { 
+	_getEmployeeDetailsData_ ,
+	_globalStorage_
+} from '../../../common/functions/common_functions';
+
 
 let corporateEmployeeInformation = {
 	components: {
@@ -96,7 +101,7 @@ let corporateEmployeeInformation = {
 	created() {
 		// console.log(jobList);
 		this.healthPartnerViewStatus = this.$route.name;
-
+		console.log( _globalStorage_.getStorage('global_employeeData') );
 		this.onLoad();
 	},
 	methods: {

@@ -110,6 +110,31 @@ const _getCorporateDetailsData_	=	(params)	=>	{
 	return storage;
 }
 
+const _fetchEmployeeDetails_	= (params) => { // ADMIN LOGIN
+	let	req	=	{
+		method:	'GET',
+		url:	Config.EMPLOYEE_DETAILS + '?member_id=' + params.member_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req)
+		.then((res)	=>	{
+			_globalStorage_.setStorage( 'global_employeeData', res.data.data );
+			return res.data.data;
+		});
+};
+
+const _getEmployeeDetailsData_	=	(params)	=>	{
+	let storage = _globalStorage_.getStorage('global_employeeData');
+	if(storage == null){
+		return _fetchEmployeeDetails_(params);
+	}else{
+		if( storage.member_id != params.member_id ){
+			return _fetchEmployeeDetails_(params);
+		}
+	}
+	return storage;
+}
+
 
 
 const _onLoad_	=	() =>{
@@ -124,5 +149,6 @@ export	{
 	_hidePageLoading_,
 	_validateEmail_,
 	_globalStorage_,
-	_getCorporateDetailsData_
+	_getCorporateDetailsData_,
+	_getEmployeeDetailsData_
 }

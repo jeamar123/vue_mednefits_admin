@@ -3,6 +3,11 @@ import axios from "axios";
 import moment from "moment"
 import Loader from "../../../views/loader/Loader";
 
+import { 
+	_getEmployeeDetailsData_ ,
+	_globalStorage_
+} from '../../../common/functions/common_functions';
+
 let corporateEmployeeMenu = {
 	components: {
 		Loader,
@@ -116,35 +121,47 @@ let corporateEmployeeMenu = {
 				// this.parent.hideLoading();
 			});
 		},
-		getEmployeeSideDetails() {
+		async getEmployeeSideDetails() {
 			// for single  buttons or manual trigger
-			let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
-			axios.get(get_employee_details)
-				.then(res => {
-					// Log the data to the console
-					// You would do something with both sets of data here
-					console.log(res);
-					if (res.data.status == true) {
-						this.employee_side_info = res.data.data;
-						// localStorage.employee_email = this.employee_side_info.work_email;
+			let params	=	{ 
+				member_id :	this.member_id 
+			};
+			this.employee_side_info = await _getEmployeeDetailsData_(params);
+			console.log( this.employee_side_info );
+			if ( this.employee_side_info.medical_entitlement_status != null ) {
+				this.medEffectiveDate = moment(this.employee_side_info.medical_entitlement_status.effective_date).format('DD/MM/YYYY');
+			}
+			if ( this.employee_side_info.wellness_entitlement_status != null ) {
+				this.wellEffectiveDate = moment(this.employee_side_info.wellness_entitlement_status.effective_date).format('DD/MM/YYYY');
+			}
 
-						if ( this.employee_side_info.medical_entitlement_status != null ) {
-							this.medEffectiveDate = moment(this.employee_side_info.medical_entitlement_status.effective_date).format('DD/MM/YYYY');
+			// let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
+			// axios.get(get_employee_details)
+			// 	.then(res => {
+			// 		// Log the data to the console
+			// 		// You would do something with both sets of data here
+			// 		console.log(res);
+			// 		if (res.data.status == true) {
+			// 			this.employee_side_info = res.data.data;
+			// 			// localStorage.employee_email = this.employee_side_info.work_email;
+
+			// 			if ( this.employee_side_info.medical_entitlement_status != null ) {
+			// 				this.medEffectiveDate = moment(this.employee_side_info.medical_entitlement_status.effective_date).format('DD/MM/YYYY');
 							
-						}
-						if ( this.employee_side_info.wellness_entitlement_status != null ) {
-							this.wellEffectiveDate = moment(this.employee_side_info.wellness_entitlement_status.effective_date).format('DD/MM/YYYY');
-						}
+			// 			}
+			// 			if ( this.employee_side_info.wellness_entitlement_status != null ) {
+			// 				this.wellEffectiveDate = moment(this.employee_side_info.wellness_entitlement_status.effective_date).format('DD/MM/YYYY');
+			// 			}
 						
-						this.hideLoading();
-						console.log(this.employee_side_info);
-					}
-					// this.$parent.hideLoading();
-				}).catch(error => {
-					// if there's an error, log it
-					console.log(error);
-					// this.$parent.hideLoading();
-				});
+			// 			this.hideLoading();
+			// 			console.log(this.employee_side_info);
+			// 		}
+			// 		// this.$parent.hideLoading();
+			// 	}).catch(error => {
+			// 		// if there's an error, log it
+			// 		console.log(error);
+			// 		// this.$parent.hideLoading();
+			// 	});
 		}
 	}
 }
