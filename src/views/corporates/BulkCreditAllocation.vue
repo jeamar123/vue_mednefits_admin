@@ -10,9 +10,9 @@
 			</div>
 		</div>
 		<div class="credit-alloc-body columns">
-			<div class="credit-employee-wrapper is-one-third" v-for="x in 6" :key="x.index">
+			<div class="credit-employee-wrapper is-one-third" v-for="list in employee_list" :key="list.index">
 				<div class="employee-header">
-					<h3>Potter four</h3>
+					<h3>{{ list.fullname }}</h3>
 				</div>
 				<div class="employee-body">
 					<div class="emp-info-row">
