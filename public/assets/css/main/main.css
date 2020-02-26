@@ -11126,6 +11126,23 @@ label.panel-block:hover {
   width: 20px;
 }
 
+.reset-company-credits-wrapper .edit-emp-details .btn-close {
+  margin: 10px 10px 10px 0;
+}
+
+.reset-company-credits-wrapper .edit-emp-input-wrapper {
+  margin: 0 0 20px;
+}
+
+.reset-company-credits-wrapper .edit-emp-input-wrapper.start-date img {
+  align-self: flex-end;
+  margin: 0 10px 0 0;
+}
+
+.reset-company-credits-wrapper .edit-emp-input-wrapper.start-date > div {
+  width: 122px;
+}
+
 .reset-company-credits-wrapper table.review-excel-tbl {
   border: 1px solid #ccc;
 }
@@ -11413,6 +11430,18 @@ label.panel-block:hover {
   text-align: center;
 }
 
+@media (min-width: 1024px) and (max-width: 1120px) {
+  .reset-company-credits-wrapper table.review-excel-tbl tbody tr td {
+    padding: 20px 10px;
+  }
+  .reset-company-credits-wrapper table.review-excel-tbl thead tr th:first-child,
+  .reset-company-credits-wrapper table.review-excel-tbl thead tr th:last-child,
+  .reset-company-credits-wrapper table.review-excel-tbl tbody tr td:first-child,
+  .reset-company-credits-wrapper table.review-excel-tbl tbody tr td:last-child {
+    padding: 20px 10px;
+  }
+}
+
 /* Extra Large (xl) */
 @media (min-width: 1450px) {
   .settings-wrapper .settings-menu-box {
@@ -11442,6 +11471,15 @@ label.panel-block:hover {
 @media (max-width: 1023px) {
   .reset-company-credits-wrapper {
     margin: 40px 0 0;
+  }
+  .review-excel-tbl-wrapper {
+    overflow: auto;
+  }
+  .review-excel-tbl-wrapper .review-excel-tbl-container {
+    width: 936px;
+  }
+  .review-excel-tbl-wrapper::-webkit-scrollbar {
+    height: 3px;
   }
 }
 
@@ -11496,6 +11534,9 @@ label.panel-block:hover {
   .file-upload-modal .drop-box .drop-file-upload > span {
     margin: 0 5px;
   }
+  .reset-company-credits-wrapper .reset-second-step .drop-box img {
+    width: 70px;
+  }
 }
 
 @media (max-width: 400px) {
@@ -11508,5 +11549,11 @@ label.panel-block:hover {
   .bulk-credit-alloc-wrapper .employee-pagination .per-page-container {
     margin: 30px 0 0;
     text-align: center;
+  }
+  .reset-company-credits-wrapper .reset-third-step {
+    margin: 20px 0 0;
+  }
+  .reset-company-credits-wrapper .reset-third-step h4 {
+    font-size: 13px;
   }
 }

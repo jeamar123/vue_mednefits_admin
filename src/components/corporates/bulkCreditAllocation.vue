@@ -7,6 +7,8 @@
         //   text: ""
         // },
         global_showCreditDp:  false,
+        global_creditSpendingType: 0,
+        global_creditAllocationType: 0,
       };
     },
     created(){
@@ -21,6 +23,12 @@
           this.global_showCreditDp  = false;
           console.log('click sa gawas');
         }
+      },
+      ___selectCreditAllocationSpending( opt ) {
+        this.global_creditSpendingType = opt;
+      },
+      ___selectCreditAllocationType( opt ) {
+        this.global_creditAllocationType = opt;
       },
     }
   }
