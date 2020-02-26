@@ -135,6 +135,22 @@ const _getEmployeeDetailsData_	=	(params)	=>	{
 	return storage;
 }
 
+const _childGetStorage_	=	(key)	=>	{
+	
+	let promise = new Promise((resolve, reject)	=>	{
+		let interval	=	setInterval(() => {
+			let storage	=	_globalStorage_.getStorage(key);
+			if( storage != null ){
+				clearInterval(interval);
+				resolve(storage);
+				return storage;
+			}
+		}, 1000);
+	});
+	return promise;
+			
+}
+
 
 
 const _onLoad_	=	() =>{
@@ -150,5 +166,6 @@ export	{
 	_validateEmail_,
 	_globalStorage_,
 	_getCorporateDetailsData_,
-	_getEmployeeDetailsData_
+	_getEmployeeDetailsData_,
+	_childGetStorage_
 }

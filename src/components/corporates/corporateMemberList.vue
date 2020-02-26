@@ -5,7 +5,8 @@ import axios from "axios";
 import Loader from "../../views/loader/Loader";
 //
 import { 
-	_globalStorage_
+	_globalStorage_,
+	_childGetStorage_,
 } from '../../common/functions/common_functions';
 
 let corporateMemberList = {
@@ -56,7 +57,7 @@ let corporateMemberList = {
 			// -----------------------
 		};
 	},
-	created() {
+	async created() {
 		console.log(this.customer_id);
 		// this.customer_id = this.selectedCorporate.corporate.customer_id;
 
@@ -64,16 +65,9 @@ let corporateMemberList = {
 		// this.getCompanyList();
 		// localStorage.employee_email = '';
 		this.onLoad(localStorage.startMemberList);
-		// await this.hideLoading();
-		// clearInterval
-		// let intervalCtr = setInterval(() => {
-		// 	if( _globalStorage_.getStorage( 'global_corporateData' ) ){
-		// 		console.log( _globalStorage_.getStorage( 'global_corporateData' ) );
-		// 		clearInterval( intervalCtr );
-		// 	}
-		// }, 1000);
-
-		console.log( _globalStorage_.getStorage( 'global_corporateData' ) );
+		
+		let getDetails = await _childGetStorage_( 'global_corporateData' );
+		console.log(getDetails);
 	},
 	computed: {
 		limitPagination() {
