@@ -72,8 +72,6 @@ const _validateEmail_	=	(email)	=>	{ // For validtaion with RegEx
 const _globalStorage_	=	{
 	getStorage: ( key )	=>	{
 		if( key ){
-			console.log( key );
-			console.log( global_storage.hasOwnProperty(key) );
 			if(global_storage.hasOwnProperty(key)){
 				return global_storage[ key ];
 			}else{

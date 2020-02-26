@@ -65,18 +65,7 @@ let corporateMemberList = {
 		// this.getCompanyList();
 		// localStorage.employee_email = '';
 		this.onLoad(localStorage.startMemberList);
-		// await this.hideLoading();
-		// clearInterval
-		// let intervalCtr = setInterval(() => {
-		// 	if( _globalStorage_.getStorage( 'global_corporateData' ) ){
-		// 		console.log( _globalStorage_.getStorage( 'global_corporateData' ) );
-		// 		clearInterval( intervalCtr );
-		// 	}
-		// }, 1000);
-		// await _childGetStorage_( 'global_corporateData' )
-		// 	.then((res)	=>	{
-		// 		console.log(res);
-		// 	}); 
+		
 		let getDetails = await _childGetStorage_( 'global_corporateData' );
 		console.log(getDetails);
 	},
