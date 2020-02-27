@@ -21,7 +21,7 @@
 				</div>
 			</router-link>
 
-			<router-link tag="div" class="menu-item" :to="{ name : 'GcapPerVisit' }">
+			<router-link tag="div" class="menu-item" :to="{ name : 'AddEmployeeDependent' }">
 				<div class="img-wrapper">
 					<img :src="'../assets/img/settings-icons/user.png'">
 				</div>
