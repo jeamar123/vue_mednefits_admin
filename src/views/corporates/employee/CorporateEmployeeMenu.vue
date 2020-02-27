@@ -212,7 +212,8 @@
 						<i class="fa fa-caret-down"></i>
 					</div>
 	
-					<router-link tag="a" :to="{ name: 'CorporateMemberList', params: {customer_id: customer_id} }" class="close-btn"><span class="oi" data-glyph="x" aria-hidden="true"></span></router-link>
+					<!-- <router-link tag="a" :to="{ name: 'CorporateMemberList', params: {customer_id: customer_id} }" class="close-btn"><span class="oi" data-glyph="x" aria-hidden="true"></span></router-link> -->
+					<a class="close-btn" v-on:click="goBack()"><span class="oi" data-glyph="x" aria-hidden="true"></span></a>
 				</div>
 	
 				<router-view name="child" @FromEmployee="fromEmployee" @FromSettings="fromSettings" @FromEntitlement="fromEntitlement"></router-view>
