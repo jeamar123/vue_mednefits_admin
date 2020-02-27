@@ -18,7 +18,7 @@
 
       <div class="column web-input-container">
         <!-- <button class="enrollment-method-btn"> -->
-        <router-link tag="button" class="enrollment-method-btn" :to="{ name : 'EnrollmentExcelImport' }">
+        <router-link tag="button" class="enrollment-method-btn" :to="{ name : 'EnrollmentWebInput' }">
           <img :src="'../assets/img/web-input.png'">
           <p class="text-center weight-700">WEB INPUT</p>
         </router-link>
