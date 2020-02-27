@@ -11025,7 +11025,6 @@ label.panel-block:hover {
 
 .reset-company-credits-wrapper h2 {
   font-size: 18px;
-  margin: 0 20px 0 0;
 }
 
 .reset-company-credits-wrapper .reset-label-text {
@@ -11066,40 +11065,6 @@ label.panel-block:hover {
 .reset-company-credits-wrapper .new-company-credits-container .currency-type {
   align-self: flex-end;
   margin: 0 20px 0 0;
-}
-
-.reset-company-credits-wrapper .reset-second-step .drop-box {
-  background: #F8F8F8;
-  border: 3px dashed #DDD;
-  width: auto;
-  height: 200px;
-  text-align: center;
-  padding: 30px 0 20px;
-  margin: 20px 0 10px;
-  position: relative;
-}
-
-.reset-company-credits-wrapper .reset-second-step .drop-box > input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-}
-
-.reset-company-credits-wrapper .reset-second-step .drop-box img {
-  width: 100px;
-  margin: 0 auto;
-}
-
-.reset-company-credits-wrapper .reset-second-step .drop-box .selected-file {
-  color: green;
-  height: 10px;
-}
-
-.reset-company-credits-wrapper .reset-second-step .drop-box > div {
-  margin: 10px 0;
 }
 
 .reset-company-credits-wrapper .reset-third-step {
@@ -11143,55 +11108,96 @@ label.panel-block:hover {
   width: 122px;
 }
 
-.reset-company-credits-wrapper table.review-excel-tbl {
+table.review-excel-tbl,
+table.add-dependent-tbl {
   border: 1px solid #ccc;
 }
 
-.reset-company-credits-wrapper table.review-excel-tbl thead {
+table.review-excel-tbl thead,
+table.add-dependent-tbl thead {
   background-color: #F5F8FA;
   font-size: 14px;
 }
 
-.reset-company-credits-wrapper table.review-excel-tbl thead tr th {
+table.review-excel-tbl thead tr th,
+table.add-dependent-tbl thead tr th {
   font-family: 'Helvetica Light';
 }
 
-.reset-company-credits-wrapper table.review-excel-tbl thead tr th:first-child,
-.reset-company-credits-wrapper table.review-excel-tbl thead tr th:last-child,
-.reset-company-credits-wrapper table.review-excel-tbl tbody tr td:first-child,
-.reset-company-credits-wrapper table.review-excel-tbl tbody tr td:last-child {
+table.review-excel-tbl thead tr th:first-child,
+table.review-excel-tbl thead tr th:last-child,
+table.review-excel-tbl tbody tr td:first-child,
+table.review-excel-tbl tbody tr td:last-child,
+table.add-dependent-tbl thead tr th:first-child,
+table.add-dependent-tbl thead tr th:last-child,
+table.add-dependent-tbl tbody tr td:first-child,
+table.add-dependent-tbl tbody tr td:last-child {
   padding: 20px;
 }
 
-.reset-company-credits-wrapper table.review-excel-tbl tbody tr td {
+table.review-excel-tbl tbody tr td,
+table.add-dependent-tbl tbody tr td {
   padding: 20px;
 }
 
-.reset-company-credits-wrapper table.review-excel-tbl .fa-trash {
+table.review-excel-tbl .fa-trash,
+table.add-dependent-tbl .fa-trash {
   font-size: 20px;
   color: red;
   cursor: pointer;
 }
 
-.reset-company-credits-wrapper table.review-excel-tbl img {
+table.review-excel-tbl img,
+table.add-dependent-tbl img {
   width: 16px;
   height: 16px;
   cursor: pointer;
 }
 
-.reset-company-credits-wrapper .btn-gray-with-shadow {
+.add-dependent-tbl-wrapper {
+  margin: 50px 0 0;
+}
+
+.drop-box-wrapper .drop-box {
+  background: #F8F8F8;
+  border: 3px dashed #DDD;
+  width: auto;
+  height: 200px;
+  text-align: center;
+  padding: 30px 0 20px;
+  margin: 20px 0 10px;
+  position: relative;
+}
+
+.drop-box-wrapper .drop-box > input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.drop-box-wrapper .drop-box img {
+  width: 80px;
+  margin: 0 auto;
+}
+
+.drop-box-wrapper .drop-box .selected-file {
+  color: green;
+  height: 10px;
+}
+
+.drop-box-wrapper .drop-box > div {
+  margin: 10px 0;
+}
+
+.btn-gray-with-shadow {
   background-color: #fafafa;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   border-radius: 2px;
   font-weight: 700;
-}
-
-.reset-company-credits-wrapper .reset-company-footer {
-  margin: 50px 0 0;
-}
-
-.reset-company-credits-wrapper .reset-company-footer button {
-  padding: 8px 34px;
+  margin: 0 0 0 20px;
 }
 
 .download-emp-list-btn {
@@ -11203,6 +11209,20 @@ label.panel-block:hover {
   height: 18px;
   width: 18px;
   margin: 0 5px 0 0;
+}
+
+.reset-company-footer,
+.add-dependent-footer {
+  margin: 50px 0 0;
+}
+
+.reset-company-footer button,
+.add-dependent-footer button {
+  padding: 8px 34px;
+}
+
+.add-dependent-footer {
+  text-align: right;
 }
 
 /* Gp cap per visit */
@@ -11431,13 +11451,22 @@ label.panel-block:hover {
 }
 
 @media (min-width: 1024px) and (max-width: 1120px) {
-  .reset-company-credits-wrapper table.review-excel-tbl tbody tr td {
+  table.review-excel-tbl tbody tr td,
+  table.add-dependent-tbl tbody tr td {
     padding: 20px 10px;
   }
-  .reset-company-credits-wrapper table.review-excel-tbl thead tr th:first-child,
-  .reset-company-credits-wrapper table.review-excel-tbl thead tr th:last-child,
-  .reset-company-credits-wrapper table.review-excel-tbl tbody tr td:first-child,
-  .reset-company-credits-wrapper table.review-excel-tbl tbody tr td:last-child {
+  table.review-excel-tbl thead tr th,
+  table.add-dependent-tbl thead tr th {
+    padding: 20px 10px;
+  }
+  table.review-excel-tbl thead tr th:first-child,
+  table.review-excel-tbl thead tr th:last-child,
+  table.review-excel-tbl tbody tr td:first-child,
+  table.review-excel-tbl tbody tr td:last-child,
+  table.add-dependent-tbl thead tr th:first-child,
+  table.add-dependent-tbl thead tr th:last-child,
+  table.add-dependent-tbl tbody tr td:first-child,
+  table.add-dependent-tbl tbody tr td:last-child {
     padding: 20px 10px;
   }
 }
@@ -11469,16 +11498,22 @@ label.panel-block:hover {
 
 /* Large (lg) */
 @media (max-width: 1023px) {
-  .reset-company-credits-wrapper {
+  .reset-company-credits-wrapper,
+  .add-dependent-wrapper {
     margin: 40px 0 0;
   }
-  .review-excel-tbl-wrapper {
+  .review-excel-tbl-wrapper,
+  .add-dependent-tbl-wrapper {
     overflow: auto;
   }
-  .review-excel-tbl-wrapper .review-excel-tbl-container {
+  .review-excel-tbl-wrapper .review-excel-tbl-container,
+  .review-excel-tbl-wrapper .add-dependent-tbl-container,
+  .add-dependent-tbl-wrapper .review-excel-tbl-container,
+  .add-dependent-tbl-wrapper .add-dependent-tbl-container {
     width: 936px;
   }
-  .review-excel-tbl-wrapper::-webkit-scrollbar {
+  .review-excel-tbl-wrapper::-webkit-scrollbar,
+  .add-dependent-tbl-wrapper::-webkit-scrollbar {
     height: 3px;
   }
 }
@@ -11492,11 +11527,16 @@ label.panel-block:hover {
 
 /* Small (sm) */
 @media (max-width: 640px) {
-  .reset-company-credits-wrapper .dp-flex-ai {
+  .reset-company-credits-wrapper .dp-flex-ai,
+  .add-dependent-wrapper .dp-flex-ai {
     display: block;
   }
-  .reset-company-credits-wrapper .dp-flex-ai h2 {
+  .reset-company-credits-wrapper .dp-flex-ai h2,
+  .add-dependent-wrapper .dp-flex-ai h2 {
     margin: 0 0 20px;
+  }
+  .add-dependent-wrapper .download-emp-list-btn {
+    margin: 0;
   }
   .gp-cap-per-wrapper {
     margin: 50px 0 0;
@@ -11534,7 +11574,7 @@ label.panel-block:hover {
   .file-upload-modal .drop-box .drop-file-upload > span {
     margin: 0 5px;
   }
-  .reset-company-credits-wrapper .reset-second-step .drop-box img {
+  .drop-box-wrapper .drop-box img {
     width: 70px;
   }
 }
