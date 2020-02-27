@@ -613,6 +613,132 @@ table.add-dependent-tbl {
   }
 }
 
+// Add head count and plan
+.add-head-count-wrapper {
+
+  .checkbox-child {
+    padding: 0 0 0 35px;
+  }
+  .num-employees-wrapper {
+    label {
+      display: block;
+    }
+
+    input {
+      background-color: transparent;
+      border-bottom: 1px solid rgba(0,0,0,0.12);
+      padding: 2px;
+      width: 50%;
+    }
+  }
+  .emp-plan-start-container {
+    margin: 20px 0;
+    .fa-calendar-o {
+      font-size: 18px;
+      align-self: flex-end;
+      margin: 0 20px 0 0;
+    }
+  }
+  .add-head-count-box {
+    background-color: #eee;
+    padding: 15px 30px;
+  }
+  
+  .num-employees-wrapper {
+    margin: 20px 0 0;
+  }
+
+  h3 {
+    padding: 20px 30px;
+  }
+
+  .spending-account,
+  .emp-plan-start-container,
+  .input-individual-price-container {
+    h4 {
+      margin: 0 0 20px;
+    }
+    label {
+      display: block;
+      color: rgba(0,0,0,0.54);
+      font-size: 12px;
+    }
+    input {
+      background-color: transparent;
+      border-bottom: 1px solid rgba(0,0,0,0.12);
+      padding: 2px;
+      width: 100%;
+    }
+
+    .date-container {
+      position: relative;
+    }
+    .fa-caret-down {
+      position: absolute;
+      top: 10px;
+      right: 0;
+    }
+  }
+
+  .spending-account {
+    margin: 0 0 40px;
+    >div >div {
+      width: 50%;
+
+      &:nth-child(1) {
+        margin: 0 20px 0 0;
+      }
+    }
+  }
+
+  .input-individual-price-container input {
+    width: 30%;
+  }
+}
+
+//custom checkbox 
+.custom-checkbox-selector .selector-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 16px;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  input:checked ~ .custom-checkbox-checkmark:after {
+    display: block;
+  }
+
+  .custom-checkbox-checkmark {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: transparent;
+    border: 2px solid rgba(0, 0, 0, 0.54);
+    border-radius: 50%;
+  }
+
+  .custom-checkbox-checkmark:after {
+    display: none;
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(63, 81, 181, 0.87);
+  }
+}
+
 @media (min-width: 1024px) and (max-width: 1120px) {
   table.review-excel-tbl,
   table.add-dependent-tbl {
