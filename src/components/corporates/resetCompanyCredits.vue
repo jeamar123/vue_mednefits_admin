@@ -36,7 +36,7 @@
 
 <style lang="scss">
 	/*// @import "./src/assets/css/corporates.scss";*/
-  @import "./src/assets/css/corporateSettings.scss";
+  // @import "./src/assets/css/corporateSettings.scss";
 
   .edit-emp-input-wrapper {
     .popover-origin.direction-bottom.align-left, .popover-origin.direction-top.align-left {

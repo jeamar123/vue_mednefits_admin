@@ -32,8 +32,6 @@ import CorporateMemberList from './views/corporates/CorporateMemberList.vue'
 
 import CorporatePlan from './views/corporates/CorporatePlan.vue'
 import SpendingInvoice from './views/corporates/SpendingInvoice.vue'
-import BulkCreditAllocation from './views/corporates/BulkCreditAllocation.vue'
-import ResetCompanyCredits from './views/corporates/ResetCompanyCredits.vue'
 import CorporateSettings from './views/corporates/CorporateSettings.vue'
 
   // Corporate Employee Information
@@ -47,6 +45,7 @@ import CorporateSettings from './views/corporates/CorporateSettings.vue'
   import AddEmployeeEntitlementOption from './views/corporates/enrollment/AddEmployeeEntitlementOption.vue' 
   import EnrollmentMethodOption from './views/corporates/enrollment/EnrollmentMethodOption.vue' 
   import EnrollmentExcelImport from './views/corporates/enrollment/EnrollmentExcelImport.vue' 
+  import EnrollmentWebInput from './views/corporates/enrollment/EnrollmentWebInput.vue' 
   import EnrollmentSummaryPreview from './views/corporates/enrollment/EnrollmentSummaryPreview.vue' 
 
   // Corporate Settings
@@ -54,6 +53,10 @@ import CorporateSettings from './views/corporates/CorporateSettings.vue'
   import EclaimTypeService from './views/corporates/EclaimTypeService.vue'
   import GcapPerVisit from './views/corporates/GcapPerVisit.vue'
   import ClaimTypeServices from './views/corporates/ClaimTypeServices.vue'
+  import BulkCreditAllocation from './views/corporates/BulkCreditAllocation.vue'
+  import ResetCompanyCredits from './views/corporates/ResetCompanyCredits.vue'
+  import AddEmployeeDependent from './views/corporates/AddEmployeeDependent.vue'
+
   // Plan Renewal Feature
   import PlanRenewal from './views/corporates/PlanRenewal.vue'
   import PlanDetails from './views/corporates/plan-renewal/PlanDetails.vue'
@@ -116,6 +119,7 @@ export default new Router({
             { name: 'BulkCreditAllocation', path: '/dashboard/corporates/:company_name-:customer_id/bulk-credit-allocation', components: { child : BulkCreditAllocation }, props: { child: true}  },
             { name: 'ResetCompanyCredits', path: '/dashboard/corporates/:company_name-:customer_id/reset-company-credits', components: { child : ResetCompanyCredits }, props: { child: true}  },
             { name: 'ClaimTypeServices', path: '/dashboard/corporates/:company_name-:customer_id/claim-type-services', components: { child : ClaimTypeServices }, props: { child: true}  },
+            { name: 'AddEmployeeDependent', path: '/dashboard/corporates/:company_name-:customer_id/add-employee-dependent', components: { child : AddEmployeeDependent }, props: { child: true}  },
             // { name: 'HealthPartnerAccess', path: '/dashboard/corporates/menu/health-partner-access', components: { child : HealthPartnerAccess} },
             { name: 'EclaimTypeService', path: '/dashboard/corporates/:company_name-:customer_id/eclaim-type-service', components: { child : EclaimTypeService} , props: { child: true} },
             { name: 'GcapPerVisit', path: '/dashboard/corporates/:company_name-:customer_id/gp-cap-per-visit', components: { child : GcapPerVisit}, props: { child: true} },
@@ -131,6 +135,7 @@ export default new Router({
             { name: 'AddEmployeeEntitlementOption', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/entitlement', components: { child : AddEmployeeEntitlementOption }, props: { child: true}  },
             { name: 'EnrollmentMethodOption', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/method', components: { child : EnrollmentMethodOption }, props: { child: true}  },
             { name: 'EnrollmentExcelImport', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/excel', components: { child : EnrollmentExcelImport }, props: { child: true}  },
+            { name: 'EnrollmentWebInput', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/web-input', components: { child : EnrollmentWebInput }, props: { child: true}  },
             { name: 'EnrollmentSummaryPreview', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/summary', components: { child : EnrollmentSummaryPreview }, props: { child: true}  },
           ] 
         },

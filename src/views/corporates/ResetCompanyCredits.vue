@@ -6,7 +6,7 @@
         <button class="btn-gray-with-shadow download-emp-list-btn"><img :src="'../assets/img/download_emp.png'">DOWNLOAD EMPLOYEE LIST</button>
       </div>
     </div>
-    <div>
+    <div v-if="true">
       <h2>Review</h2>
     </div>
     <div class="reset-company-body">
@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-      <div v-if="false" class="reset-second-step">
+      <div v-if="false" class="reset-second-step drop-box-wrapper">
         <div class="drop-box">
           <input type="file">
           <img :src="'../assets/img/Upload-Receipt.png'">

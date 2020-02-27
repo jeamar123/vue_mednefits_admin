@@ -94,6 +94,8 @@ const _fetchCompanyDetails_	= (params) => { // ADMIN LOGIN
 	return _axiosCall_(req)
 		.then((res)	=>	{
 			_globalStorage_.setStorage( 'global_corporateData', res.data );
+			// _globalStorage_.setStorage('global_employeeListData', );
+			delete global_storage['global_employeeListData'];
 			return res.data;
 		});
 };
@@ -151,6 +153,16 @@ const _childGetStorage_	=	(key)	=>	{
 			
 }
 
+const _fetchEmployeeList_	= (params)	=> {
+	console.log(params);
+	let	req	=	{
+		method:	'GET',
+		url:	Config.EMPLOYEE_LIST + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
 
 
 const _onLoad_	=	() =>{
@@ -167,5 +179,6 @@ export	{
 	_globalStorage_,
 	_getCorporateDetailsData_,
 	_getEmployeeDetailsData_,
-	_childGetStorage_
+	_childGetStorage_,
+	_fetchEmployeeList_,
 }

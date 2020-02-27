@@ -10,9 +10,9 @@
 			</div>
 		</div>
 		<div class="credit-alloc-body columns">
-			<div class="credit-employee-wrapper is-one-third" v-for="x in 6" :key="x.index">
+			<div class="credit-employee-wrapper is-one-third" v-for="list in employee_list" :key="list.index">
 				<div class="employee-header">
-					<h3>Potter four</h3>
+					<h3>{{ list.fullname }}</h3>
 				</div>
 				<div class="employee-body">
 					<div class="emp-info-row">
@@ -24,8 +24,8 @@
 						<span>Other</span>
 					</div>
 					<div class="credit-toggle-btn">
-						<button class="active">MEDICAL</button>
-						<button>WELLNESS</button>
+						<button @click="___selectCreditAllocationSpending(0)" v-bind:class="{ active : global_creditSpendingType == 0}">MEDICAL</button>
+						<button @click="___selectCreditAllocationSpending(1)" v-bind:class="{ active : global_creditSpendingType == 1}">WELLNESS</button>
 					</div>
 					<div class="allocation-usage-container">
 						<div class="allocation-usage">
@@ -39,12 +39,12 @@
 							</div>
 						</div>
 						<div class="credit-toggle-btn add-deduct-btn">
-							<button class="active">ADD</button>
-							<button>DEDUCT</button>
+							<button @click="___selectCreditAllocationType(0)" v-bind:class="{active : global_creditAllocationType == 0}">ADD</button>
+							<button @click="___selectCreditAllocationType(1)" v-bind:class="{active : global_creditAllocationType == 1}">DEDUCT</button>
 						</div>
 					</div>
 					<div class="add-deduct-input-wrapper">
-						<label>Credit to Add*</label>
+						<label>Credit to <span v-if="global_creditAllocationType == 0">Add*</span><span v-if="global_creditAllocationType == 1">Deduct</span></label>
 						<input type="number">	
 					</div>
 					<div>
