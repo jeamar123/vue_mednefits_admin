@@ -53,6 +53,7 @@ import CorporateSettings from './views/corporates/CorporateSettings.vue'
   import HealthPartnerAccess from './views/corporates/HealthPartnerAccess.vue'
   import EclaimTypeService from './views/corporates/EclaimTypeService.vue'
   import GcapPerVisit from './views/corporates/GcapPerVisit.vue'
+  import ClaimTypeServices from './views/corporates/ClaimTypeServices.vue'
   // Plan Renewal Feature
   import PlanRenewal from './views/corporates/PlanRenewal.vue'
   import PlanDetails from './views/corporates/plan-renewal/PlanDetails.vue'
@@ -114,6 +115,7 @@ export default new Router({
             { name: 'SpendingInvoice', path: '/dashboard/corporates/:company_name-:customer_id/spending-invoice', components: { child : SpendingInvoice } , props: { child: true} },
             { name: 'BulkCreditAllocation', path: '/dashboard/corporates/:company_name-:customer_id/bulk-credit-allocation', components: { child : BulkCreditAllocation }, props: { child: true}  },
             { name: 'ResetCompanyCredits', path: '/dashboard/corporates/:company_name-:customer_id/reset-company-credits', components: { child : ResetCompanyCredits }, props: { child: true}  },
+            { name: 'ClaimTypeServices', path: '/dashboard/corporates/:company_name-:customer_id/claim-type-services', components: { child : ClaimTypeServices }, props: { child: true}  },
             // { name: 'HealthPartnerAccess', path: '/dashboard/corporates/menu/health-partner-access', components: { child : HealthPartnerAccess} },
             { name: 'EclaimTypeService', path: '/dashboard/corporates/:company_name-:customer_id/eclaim-type-service', components: { child : EclaimTypeService} , props: { child: true} },
             { name: 'GcapPerVisit', path: '/dashboard/corporates/:company_name-:customer_id/gp-cap-per-visit', components: { child : GcapPerVisit}, props: { child: true} },
