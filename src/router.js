@@ -45,6 +45,7 @@ import CorporateSettings from './views/corporates/CorporateSettings.vue'
   import AddEmployeeEntitlementOption from './views/corporates/enrollment/AddEmployeeEntitlementOption.vue' 
   import EnrollmentMethodOption from './views/corporates/enrollment/EnrollmentMethodOption.vue' 
   import EnrollmentExcelImport from './views/corporates/enrollment/EnrollmentExcelImport.vue' 
+  import EnrollmentWebInput from './views/corporates/enrollment/EnrollmentWebInput.vue' 
   import EnrollmentSummaryPreview from './views/corporates/enrollment/EnrollmentSummaryPreview.vue' 
 
   // Corporate Settings
@@ -132,6 +133,7 @@ export default new Router({
             { name: 'AddEmployeeEntitlementOption', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/entitlement', components: { child : AddEmployeeEntitlementOption }, props: { child: true}  },
             { name: 'EnrollmentMethodOption', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/method', components: { child : EnrollmentMethodOption }, props: { child: true}  },
             { name: 'EnrollmentExcelImport', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/excel', components: { child : EnrollmentExcelImport }, props: { child: true}  },
+            { name: 'EnrollmentWebInput', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/web-input', components: { child : EnrollmentWebInput }, props: { child: true}  },
             { name: 'EnrollmentSummaryPreview', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/summary', components: { child : EnrollmentSummaryPreview }, props: { child: true}  },
           ] 
         },
