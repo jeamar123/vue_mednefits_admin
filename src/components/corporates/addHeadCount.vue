@@ -1,21 +1,27 @@
 <script>
+  import VueSlider from 'vue-slider-component'
 
   let addHeadCount = {
+    components: {
+      VueSlider
+    },
     props: {
       customer_id: [String, Number],
       company_name: [String, Number],
     },
-    formats: {
-      input: ["DD/MM/YYYY"],
-      data: ["DD/MM/YYYY"]
-    },
-    global_empPlanStart:  new Date(),
     data() {
       return {
         // empSelectorActive: {
         //   value: 0,
         //   text: ""
         // },
+        global_medicalSlider:  0,
+        global_wellnessSlider:  0,
+        formats: {
+          input: ["DD/MM/YYYY"],
+          data: ["DD/MM/YYYY"]
+        },
+        global_empPlanStart:  new Date(),
       };
     },
     created(){

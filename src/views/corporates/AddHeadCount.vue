@@ -129,7 +129,10 @@
               <label>Allocate Credits*</label>
               <input type="number">
             </div>
-            <div></div>
+            <div class="deposit-slider">
+              <label>Deposit : <span>{{ global_medicalSlider }} </span>% </label>
+              <vue-slider v-model="global_medicalSlider" />
+            </div>
           </div>
         </div>
         <div class="spending-account">
@@ -139,7 +142,10 @@
               <label>Allocate Credits*</label>
               <input type="number">
             </div>
-            <div></div>
+            <div class="deposit-slider">
+              <label>Deposit : <span>{{ global_wellnessSlider }} </span>% </label>
+              <vue-slider v-model="global_wellnessSlider" />
+            </div>
           </div>
         </div>
       </div>

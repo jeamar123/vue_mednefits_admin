@@ -689,6 +689,9 @@ table.add-dependent-tbl {
         margin: 0 20px 0 0;
       }
     }
+    .deposit-slider label {
+      margin: 0 0 15px;
+    }
   }
 
   .input-individual-price-container input {
@@ -798,7 +801,8 @@ table.add-dependent-tbl {
 
 @media (max-width: 1023px) {
   .reset-company-credits-wrapper,
-  .add-dependent-wrapper {
+  .add-dependent-wrapper,
+  .add-head-count-wrapper {
     margin: 40px 0 0
   }
   .review-excel-tbl-wrapper,
@@ -843,7 +847,31 @@ table.add-dependent-tbl {
   .gp-cap-per-wrapper {
     margin: 50px 0 0;
   }
-
+  .add-head-count-wrapper {
+    .add-head-count-box {
+      padding: 15px 10px;
+    }
+    .emp-plan-start-container .fa-calendar-o {
+      margin: 0 10px 0 0;
+    }
+    .emp-plan-start-container label {
+      font-size: 10.5px;
+    }
+    .spending-account >div {
+      display: block;
+    }
+    .spending-account > div > div:nth-child(1) {
+      margin: 0;
+    }
+    .num-employees-wrapper input,
+    .input-individual-price-container input,
+    .spending-account > div > div {
+      width: 100%;
+    }
+    .deposit-slider {
+      margin: 20px 0 0;
+    }
+  }
 }
 @media (max-width: 520px) { 
   .settings-wrapper{
