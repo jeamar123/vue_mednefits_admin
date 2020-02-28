@@ -93,7 +93,7 @@
 				</div>
 			</div>
 
-			<router-link tag="div" class="menu-item" :to="{ name : 'GcapPerVisit' }">
+			<router-link tag="div" class="menu-item" :to="{ name : 'ClaimTypeServices' }">
 				<div class="img-wrapper">
 					<img :src="'../assets/img/settings-icons/claim-type.png'">
 				</div>

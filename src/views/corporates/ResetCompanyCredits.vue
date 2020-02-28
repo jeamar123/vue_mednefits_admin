@@ -116,19 +116,19 @@
         <h1>Edit Employee Details</h1>
       </div>
       <div slot="body">
-        <div class="edit-emp-input-wrapper">
+        <div class="edit-emp-input-wrapper settings-input-wrapper">
           <label>Full Name</label>
           <input type="text">
         </div>
-        <div class="edit-emp-input-wrapper">
+        <div class="edit-emp-input-wrapper settings-input-wrapper">
           <label>Medical Credits *</label>
           <input type="text">
         </div>
-        <div class="edit-emp-input-wrapper">
+        <div class="edit-emp-input-wrapper settings-input-wrapper">
           <label>Wellness Credits *</label>
           <input type="text">
         </div>
-        <div class="edit-emp-input-wrapper dp-flex start-date">
+        <div class="edit-emp-input-wrapper dp-flex start-date settings-input-wrapper">
           <img :src="'../assets/img/calendar.png'">
           <div>
             <label>Start Date</label>
