@@ -6,7 +6,7 @@
         <button class="btn-gray-with-shadow download-emp-list-btn"><img :src="'../assets/img/download_emp.png'">DOWNLOAD EMPLOYEE LIST</button>
       </div>
     </div>
-    <div>
+    <div v-if="true">
       <h2>Review</h2>
     </div>
     <div class="reset-company-body">
@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-      <div v-if="false" class="reset-second-step">
+      <div v-if="false" class="reset-second-step drop-box-wrapper">
         <div class="drop-box">
           <input type="file">
           <img :src="'../assets/img/Upload-Receipt.png'">
@@ -116,19 +116,19 @@
         <h1>Edit Employee Details</h1>
       </div>
       <div slot="body">
-        <div class="edit-emp-input-wrapper">
+        <div class="edit-emp-input-wrapper settings-input-wrapper">
           <label>Full Name</label>
           <input type="text">
         </div>
-        <div class="edit-emp-input-wrapper">
+        <div class="edit-emp-input-wrapper settings-input-wrapper">
           <label>Medical Credits *</label>
           <input type="text">
         </div>
-        <div class="edit-emp-input-wrapper">
+        <div class="edit-emp-input-wrapper settings-input-wrapper">
           <label>Wellness Credits *</label>
           <input type="text">
         </div>
-        <div class="edit-emp-input-wrapper dp-flex start-date">
+        <div class="edit-emp-input-wrapper dp-flex start-date settings-input-wrapper">
           <img :src="'../assets/img/calendar.png'">
           <div>
             <label>Start Date</label>

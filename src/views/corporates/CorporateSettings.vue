@@ -3,7 +3,7 @@
 		<h1 class="header-title">Settings</h1>
 
 		<div class="settings-menu-box">
-			<router-link tag="div" class="menu-item" :to="{ name : 'GcapPerVisit' }">
+			<router-link tag="div" class="menu-item" :to="{ name : 'AddHeadCount' }">
 				<div class="img-wrapper">
 					<img :src="'../assets/img/settings-icons/group.png'">
 				</div>
@@ -21,7 +21,7 @@
 				</div>
 			</router-link>
 
-			<router-link tag="div" class="menu-item" :to="{ name : 'GcapPerVisit' }">
+			<router-link tag="div" class="menu-item" :to="{ name : 'AddEmployeeDependent' }">
 				<div class="img-wrapper">
 					<img :src="'../assets/img/settings-icons/user.png'">
 				</div>
@@ -93,7 +93,7 @@
 				</div>
 			</div>
 
-			<router-link tag="div" class="menu-item" :to="{ name : 'GcapPerVisit' }">
+			<router-link tag="div" class="menu-item" :to="{ name : 'ClaimTypeServices' }">
 				<div class="img-wrapper">
 					<img :src="'../assets/img/settings-icons/claim-type.png'">
 				</div>
