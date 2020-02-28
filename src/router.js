@@ -52,6 +52,7 @@ import CorporateSettings from './views/corporates/CorporateSettings.vue'
   import HealthPartnerAccess from './views/corporates/HealthPartnerAccess.vue'
   import EclaimTypeService from './views/corporates/EclaimTypeService.vue'
   import GcapPerVisit from './views/corporates/GcapPerVisit.vue'
+  import ClaimTypeServices from './views/corporates/ClaimTypeServices.vue'
   import BulkCreditAllocation from './views/corporates/BulkCreditAllocation.vue'
   import ResetCompanyCredits from './views/corporates/ResetCompanyCredits.vue'
   import AddEmployeeDependent from './views/corporates/AddEmployeeDependent.vue'
@@ -118,6 +119,7 @@ export default new Router({
             { name: 'SpendingInvoice', path: '/dashboard/corporates/:company_name-:customer_id/spending-invoice', components: { child : SpendingInvoice } , props: { child: true} },
             { name: 'BulkCreditAllocation', path: '/dashboard/corporates/:company_name-:customer_id/bulk-credit-allocation', components: { child : BulkCreditAllocation }, props: { child: true}  },
             { name: 'ResetCompanyCredits', path: '/dashboard/corporates/:company_name-:customer_id/reset-company-credits', components: { child : ResetCompanyCredits }, props: { child: true}  },
+            { name: 'ClaimTypeServices', path: '/dashboard/corporates/:company_name-:customer_id/claim-type-services', components: { child : ClaimTypeServices }, props: { child: true}  },
             { name: 'AddEmployeeDependent', path: '/dashboard/corporates/:company_name-:customer_id/add-employee-dependent', components: { child : AddEmployeeDependent }, props: { child: true}  },
             { name: 'AddHeadCount', path: '/dashboard/corporates/:company_name-:customer_id/add-head-count', components: { child : AddHeadCount }, props: { child: true}  },
             // { name: 'HealthPartnerAccess', path: '/dashboard/corporates/menu/health-partner-access', components: { child : HealthPartnerAccess} },

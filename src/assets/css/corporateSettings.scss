@@ -270,14 +270,6 @@
     }
   }
   .edit-emp-details {
-    label {
-      display: block;
-      font-size: 12px;
-      color: rgba(0,0,0,0.54);
-    }
-    input {
-      border-bottom: 1px solid rgba(0,0,0,0.12);
-    }
     img {
       height: 20px;
       width: 20px;
@@ -409,6 +401,16 @@ table.add-dependent-tbl {
   text-align: right;
 }
 
+.settings-input-wrapper {
+  label {
+    display: block;
+    font-size: 12px;
+    color: rgba(0,0,0,0.54);
+  }
+  input {
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+  }
+}
 
 /* Gp cap per visit */
 .gp-cap-per-wrapper {
@@ -739,6 +741,112 @@ table.add-dependent-tbl {
     height: 10px;
     border-radius: 50%;
     background-color: rgba(63, 81, 181, 0.87);
+// Claim type services
+.claim-type-services-wrapper {
+
+  .claim-type-header {
+    margin: 20px 0 0;
+    h1 {
+      font-weight: 500;
+    }
+    img {
+      height: 18px;
+      width: 18px;
+      cursor: pointer;
+    }
+  }
+  .claim-type-tbl-wrapper {
+    margin: 20px 0 0;
+  }
+  table {
+    thead tr th {
+      color: rgba(0,0,0,.54);
+      font-family: 'Helvetica Light';
+      border: 0;
+    }
+    button {
+      width: 88px;
+    }
+    button:first-child {
+      margin: 0 10px 0 0;
+    }
+    thead tr th:first-child,
+    thead tr th:last-child,
+    tbody tr td:first-child,
+    tbody tr td:last-child {
+      padding: 10px 0px;
+    }
+    thead tr th,
+    tbody tr td {
+      padding: 10px 20px;
+    }
+    tbody tr {
+      border-top: 1px rgba(0,0,0,.12) solid;
+    }
+  }
+  
+  .claim-type-modal {
+    .modal-body >div >div {
+      >div:nth-child(1) {
+        margin: 0 30px 0 0;
+      }
+    }
+    .settings-input-wrapper {
+      margin: 0 0 20px;
+    }
+    .modal-footer {
+      padding: 10px;
+    }
+    .btn-close {
+      margin: 0 10px 0 0;
+    }
+    .btn-primary {
+      width: 83px;
+    }
+  }
+  .spending-type-selector {
+    margin: 20px 0 0;
+  }
+  .spending-type-selector .selector-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+  
+    input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+  
+    input:checked ~ .spending-type-checkmark:after {
+      display: block;
+    }
+  
+    .spending-type-checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 18px;
+      width: 18px;
+      background-color: transparent;
+      border: 2px solid rgba(0, 0, 0, 0.54);
+      border-radius: 50%;
+    }
+  
+    .spending-type-checkmark:after {
+      display: none;
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: rgba(63, 81, 181, 0.87);
+    }
   }
 }
 
@@ -813,6 +921,21 @@ table.add-dependent-tbl {
       width: 936px;
     }
 
+    &::-webkit-scrollbar {
+      height: 3px;
+    }
+  }
+
+  .claim-type-services-wrapper .claim-type-header {
+    margin: 40px 0 0;
+  }
+
+  .claim-type-tbl-wrapper {
+    overflow: auto;
+
+    .claim-type-tbl-container {
+      width: 936px
+    }
     &::-webkit-scrollbar {
       height: 3px;
     }
@@ -936,5 +1059,8 @@ table.add-dependent-tbl {
     h4 {
       font-size: 13px;
     }
+  }
+  .claim-type-services-wrapper .claim-type-header h1 {
+    font-size: 16px;
   }
 }
