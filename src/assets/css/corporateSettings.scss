@@ -741,6 +741,8 @@ table.add-dependent-tbl {
     height: 10px;
     border-radius: 50%;
     background-color: rgba(63, 81, 181, 0.87);
+  }
+}    
 // Claim type services
 .claim-type-services-wrapper {
 
@@ -804,49 +806,8 @@ table.add-dependent-tbl {
       width: 83px;
     }
   }
-  .spending-type-selector {
+  .custom-checkbox-selector {
     margin: 20px 0 0;
-  }
-  .spending-type-selector .selector-container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 16px;
-  
-    input {
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-    }
-  
-    input:checked ~ .spending-type-checkmark:after {
-      display: block;
-    }
-  
-    .spending-type-checkmark {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 18px;
-      width: 18px;
-      background-color: transparent;
-      border: 2px solid rgba(0, 0, 0, 0.54);
-      border-radius: 50%;
-    }
-  
-    .spending-type-checkmark:after {
-      display: none;
-      content: "";
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background-color: rgba(63, 81, 181, 0.87);
-    }
   }
 }
 

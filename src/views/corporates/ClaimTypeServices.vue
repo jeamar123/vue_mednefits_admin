@@ -51,16 +51,16 @@
           </div>
           <div>
             <h4>Spending Account Type</h4>
-            <div class="spending-type-selector">
+            <div class="custom-checkbox-selector">
               <label class="selector-container">
                 <span>Medical</span>
                 <input value="0" type="radio" name="radio">
-                <span class="spending-type-checkmark"></span>
+                <span class="custom-checkbox-checkmark"></span>
               </label>
               <label class="selector-container">
                 <span>Wellness</span>
                 <input value="1" type="radio" name="radio">
-                <span class="spending-type-checkmark"></span>
+                <span class="custom-checkbox-checkmark"></span>
               </label>
             </div>
           </div>
