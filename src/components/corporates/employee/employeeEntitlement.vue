@@ -354,11 +354,16 @@
   export default employeeEntitlement
 </script>
 
-<style lang="scss" scoped>
-	@import "./src/assets/css/corporateEmployee.scss";
-</style>
+<style lang="scss">
+  @import "./src/assets/css/corporateEmployee.scss";
+  .entitlement-wrapper .usage{
+    .entitlement-input-label input,
+    .entitlement-date-picker input {
+      border: 0;
+      height: auto;
+    }
+  }
 
-<style type="text/css">
   @media( max-width: 400px ) {
     .entitlement-date-picker  .popover-origin .popover-content-wrapper .popover-content {
       left: -63px;
@@ -368,5 +373,4 @@
       left: 75px;
     }
   }
-  
 </style>

@@ -213,6 +213,13 @@
       border-bottom: 1px solid rgba(0,0,0,0.12);
     }
   }
+
+  .btn-account-removed[disabled] {
+    opacity: .5;
+    height: 36px;
+    background-color: rgba(0,0,0,0.12);
+    padding: 0 20px;
+  }
 }
 
 // reset company credits
