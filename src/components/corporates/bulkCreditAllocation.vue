@@ -1,6 +1,7 @@
 <script>
   import { 
-		_fetchEmployeeList_ 
+    _fetchEmployeeList_,
+    _searchEmployeeList_ 
   } from '../../common/functions/common_functions';
   
   let bulkCreditAllocation = {
@@ -12,6 +13,7 @@
       return {
         employee_list: {},
         global_showCreditDp:  false,
+        global_searchEmp: undefined,
       };
     },
     created(){
@@ -42,19 +44,45 @@
         this.$parent.showLoading();
         _fetchEmployeeList_(params)
 					.then(( res ) => {
-            this.$parent.hideLoading();
-            this.employee_list = res.data.data;
-
-            this.employee_list.map((value,index) => {
-              value.global_creditSpendingType = 0;
-              value.global_creditAllocationType = 0;
-            });
-            
-            console.log(this.employee_list);
 						if( res.status == 200 || res.status == 201 ){
-							
+              this.$parent.hideLoading();
+              this.employee_list = res.data.data;
+
+              this.employee_list.map((value,index) => {
+                value.global_creditSpendingType = 0;
+                value.global_creditAllocationType = 0;
+              });
+              
+              console.log(this.employee_list);
 						}
 					});
+      },
+      _searchMemberList_( item ) {
+        let params	=	{ 
+          customer_id :	this.customer_id,
+          search: item 
+        };
+        this.$parent.showLoading();
+        _searchEmployeeList_(params)
+					.then(( res ) => {
+						if( res.status == 200 || res.status == 201 ){
+              this.$parent.hideLoading();
+              this.employee_list = res.data.data;
+
+              this.employee_list.map((value,index) => {
+                value.global_creditSpendingType = 0;
+                value.global_creditAllocationType = 0;
+              });
+              
+              console.log(this.employee_list);
+						}
+					});
+      },
+      _searchEmpty_(data) {
+        // console.log(data);
+        if (data == "") {
+          this._getMemberList_();
+        }
       }
     }
   }

@@ -6,7 +6,8 @@
 		<div class="credit-search-container">
 			<span class="oi" data-glyph="magnifying-glass" aria-hidden="true"></span>
 			<div>
-				<input type="text" placeholder="Search Employee and Hit Enter ...">
+				<input type="text" placeholder="Search Employee and Hit Enter ..." v-model="global_searchEmp" 
+				@keypress.enter="_searchMemberList_(global_searchEmp)" @input="_searchEmpty_(global_searchEmp)">
 			</div>
 		</div>
 		<div class="credit-alloc-body columns">

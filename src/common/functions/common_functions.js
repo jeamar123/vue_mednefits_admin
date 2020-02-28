@@ -163,6 +163,16 @@ const _fetchEmployeeList_	= (params)	=> {
 	return _axiosCall_(req);
 };
 
+const _searchEmployeeList_	= (params)	=> {
+	console.log(params);
+	let	req	=	{
+		method:	'GET',
+		url:	Config.SEARCH_EMPLOYEE_LIST + '?customer_id=' + params.customer_id + '&search=' + params.search,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
 
 
 const _onLoad_	=	() =>{
@@ -181,4 +191,5 @@ export	{
 	_getEmployeeDetailsData_,
 	_childGetStorage_,
 	_fetchEmployeeList_,
+	_searchEmployeeList_,
 }

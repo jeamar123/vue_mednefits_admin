@@ -15,9 +15,12 @@ const EMPLOYEE_DETAILS = SERVERURL + '/company/get_employee_details';
 
 const EMPLOYEE_LIST = `${SERVERURL}/company/employee_lists`;
 
+const SEARCH_EMPLOYEE_LIST = `${SERVERURL}/company/employee_lists`;
+
 module.exports = {
 	AUTH_LOGIN,
 	COMPANY_DETAILS,
 	EMPLOYEE_DETAILS,
-	EMPLOYEE_LIST
+	EMPLOYEE_LIST,
+	SEARCH_EMPLOYEE_LIST
 }
