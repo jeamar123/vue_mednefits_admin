@@ -11025,10 +11025,7 @@ label.panel-block:hover {
 
 .reset-company-credits-wrapper h2 {
   font-size: 18px;
-<<<<<<< HEAD
   margin: 0 20px 0 0;
-=======
->>>>>>> d7220932b3b727a8e1b65f490dc6f4193e996a9c
 }
 
 .reset-company-credits-wrapper .reset-label-text {
@@ -11071,7 +11068,6 @@ label.panel-block:hover {
   margin: 0 20px 0 0;
 }
 
-<<<<<<< HEAD
 .reset-company-credits-wrapper .reset-second-step .drop-box {
   background: #F8F8F8;
   border: 3px dashed #DDD;
@@ -11106,8 +11102,6 @@ label.panel-block:hover {
   margin: 10px 0;
 }
 
-=======
->>>>>>> d7220932b3b727a8e1b65f490dc6f4193e996a9c
 .reset-company-credits-wrapper .reset-third-step {
   margin: 40px 0 0;
 }
@@ -11149,13 +11143,6 @@ label.panel-block:hover {
   width: 122px;
 }
 
-<<<<<<< HEAD
-.reset-company-credits-wrapper table.review-excel-tbl {
-  border: 1px solid #ccc;
-}
-
-.reset-company-credits-wrapper table.review-excel-tbl thead {
-=======
 table.review-excel-tbl,
 table.add-dependent-tbl {
   border: 1px solid #ccc;
@@ -11163,29 +11150,10 @@ table.add-dependent-tbl {
 
 table.review-excel-tbl thead,
 table.add-dependent-tbl thead {
->>>>>>> d7220932b3b727a8e1b65f490dc6f4193e996a9c
   background-color: #F5F8FA;
   font-size: 14px;
 }
 
-<<<<<<< HEAD
-.reset-company-credits-wrapper table.review-excel-tbl thead tr th {
-  font-family: 'Helvetica Light';
-}
-
-.reset-company-credits-wrapper table.review-excel-tbl thead tr th:first-child,
-.reset-company-credits-wrapper table.review-excel-tbl thead tr th:last-child,
-.reset-company-credits-wrapper table.review-excel-tbl tbody tr td:first-child,
-.reset-company-credits-wrapper table.review-excel-tbl tbody tr td:last-child {
-  padding: 20px;
-}
-
-.reset-company-credits-wrapper table.review-excel-tbl tbody tr td {
-  padding: 20px;
-}
-
-.reset-company-credits-wrapper table.review-excel-tbl .fa-trash {
-=======
 table.review-excel-tbl thead tr th,
 table.add-dependent-tbl thead tr th {
   font-family: 'Helvetica Light';
@@ -11209,24 +11177,18 @@ table.add-dependent-tbl tbody tr td {
 
 table.review-excel-tbl .fa-trash,
 table.add-dependent-tbl .fa-trash {
->>>>>>> d7220932b3b727a8e1b65f490dc6f4193e996a9c
   font-size: 20px;
   color: red;
   cursor: pointer;
 }
 
-<<<<<<< HEAD
-.reset-company-credits-wrapper table.review-excel-tbl img {
-=======
 table.review-excel-tbl img,
 table.add-dependent-tbl img {
->>>>>>> d7220932b3b727a8e1b65f490dc6f4193e996a9c
   width: 16px;
   height: 16px;
   cursor: pointer;
 }
 
-<<<<<<< HEAD
 .reset-company-credits-wrapper .btn-gray-with-shadow {
   background-color: #fafafa;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
@@ -11240,7 +11202,6 @@ table.add-dependent-tbl img {
 
 .reset-company-credits-wrapper .reset-company-footer button {
   padding: 8px 34px;
-=======
 .add-dependent-tbl-wrapper {
   margin: 50px 0 0;
 }
@@ -11285,7 +11246,6 @@ table.add-dependent-tbl img {
   border-radius: 2px;
   font-weight: 700;
   margin: 0 0 0 20px;
->>>>>>> d7220932b3b727a8e1b65f490dc6f4193e996a9c
 }
 
 .download-emp-list-btn {
@@ -11299,8 +11259,6 @@ table.add-dependent-tbl img {
   margin: 0 5px 0 0;
 }
 
-<<<<<<< HEAD
-=======
 .reset-company-footer,
 .add-dependent-footer {
   margin: 50px 0 0;
@@ -11315,7 +11273,6 @@ table.add-dependent-tbl img {
   text-align: right;
 }
 
->>>>>>> d7220932b3b727a8e1b65f490dc6f4193e996a9c
 /* Gp cap per visit */
 .gp-cap-per-wrapper .gp-cap-header-title {
   text-align: center;
@@ -11542,15 +11499,6 @@ table.add-dependent-tbl img {
 }
 
 @media (min-width: 1024px) and (max-width: 1120px) {
-<<<<<<< HEAD
-  .reset-company-credits-wrapper table.review-excel-tbl tbody tr td {
-    padding: 20px 10px;
-  }
-  .reset-company-credits-wrapper table.review-excel-tbl thead tr th:first-child,
-  .reset-company-credits-wrapper table.review-excel-tbl thead tr th:last-child,
-  .reset-company-credits-wrapper table.review-excel-tbl tbody tr td:first-child,
-  .reset-company-credits-wrapper table.review-excel-tbl tbody tr td:last-child {
-=======
   table.review-excel-tbl tbody tr td,
   table.add-dependent-tbl tbody tr td {
     padding: 20px 10px;
@@ -11567,7 +11515,6 @@ table.add-dependent-tbl img {
   table.add-dependent-tbl thead tr th:last-child,
   table.add-dependent-tbl tbody tr td:first-child,
   table.add-dependent-tbl tbody tr td:last-child {
->>>>>>> d7220932b3b727a8e1b65f490dc6f4193e996a9c
     padding: 20px 10px;
   }
 }
@@ -11599,18 +11546,6 @@ table.add-dependent-tbl img {
 
 /* Large (lg) */
 @media (max-width: 1023px) {
-<<<<<<< HEAD
-  .reset-company-credits-wrapper {
-    margin: 40px 0 0;
-  }
-  .review-excel-tbl-wrapper {
-    overflow: auto;
-  }
-  .review-excel-tbl-wrapper .review-excel-tbl-container {
-    width: 936px;
-  }
-  .review-excel-tbl-wrapper::-webkit-scrollbar {
-=======
   .reset-company-credits-wrapper,
   .add-dependent-wrapper {
     margin: 40px 0 0;
@@ -11627,7 +11562,6 @@ table.add-dependent-tbl img {
   }
   .review-excel-tbl-wrapper::-webkit-scrollbar,
   .add-dependent-tbl-wrapper::-webkit-scrollbar {
->>>>>>> d7220932b3b727a8e1b65f490dc6f4193e996a9c
     height: 3px;
   }
 }
@@ -11641,14 +11575,6 @@ table.add-dependent-tbl img {
 
 /* Small (sm) */
 @media (max-width: 640px) {
-<<<<<<< HEAD
-  .reset-company-credits-wrapper .dp-flex-ai {
-    display: block;
-  }
-  .reset-company-credits-wrapper .dp-flex-ai h2 {
-    margin: 0 0 20px;
-  }
-=======
   .reset-company-credits-wrapper .dp-flex-ai,
   .add-dependent-wrapper .dp-flex-ai {
     display: block;
@@ -11660,7 +11586,6 @@ table.add-dependent-tbl img {
   .add-dependent-wrapper .download-emp-list-btn {
     margin: 0;
   }
->>>>>>> d7220932b3b727a8e1b65f490dc6f4193e996a9c
   .gp-cap-per-wrapper {
     margin: 50px 0 0;
   }
@@ -11697,11 +11622,7 @@ table.add-dependent-tbl img {
   .file-upload-modal .drop-box .drop-file-upload > span {
     margin: 0 5px;
   }
-<<<<<<< HEAD
-  .reset-company-credits-wrapper .reset-second-step .drop-box img {
-=======
   .drop-box-wrapper .drop-box img {
->>>>>>> d7220932b3b727a8e1b65f490dc6f4193e996a9c
     width: 70px;
   }
 }
