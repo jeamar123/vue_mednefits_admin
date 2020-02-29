@@ -84,7 +84,7 @@
 				</div>
 			</router-link>
 
-			<div class="menu-item">
+			<div class="menu-item" v-on:click="_toggleDownloadEclaimModal()">
 				<div class="img-wrapper">
 					<img :src="'../assets/img/settings-icons/download.png'">
 				</div>
@@ -111,6 +111,70 @@
 				</div>
 			</router-link>
 
+		</div>
+
+		<div>
+			<Modal v-if="global_isEclaimDownloadModalShow" class="download-eclaim-receipts-modal">
+				<div slot="header">
+					<h1>Download Eclaim Receipts</h1>
+				</div>
+				<div slot="body">
+					<div class="columns">
+						<div class="column is-8 date-selection">
+							<div class="form-box">
+								<label>Choose Dates</label>
+								<div class="dp-flex">
+									<div class="date-container vDatepicker flex-1">
+										<v-date-picker 
+											popoverDirection="bottom" 
+											v-model="global_downloadEclaimData.selected_date"
+											:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+											popover-visibility="focus" 
+											:formats='formats'></v-date-picker>
+										<i class="fa fa-caret-down"></i>
+									</div>
+									<button class="btn-primary btn-add" :disabled="true">Add</button>
+								</div>
+							</div>
+
+							<div class="selected-month-list">
+								<div v-for="list in [1,2,3,4]" class="month">
+									January 2020 <i class="fa fa-times"></i>
+								</div>
+							</div>
+						</div>
+						<div class="column is-4">
+							<p class="filter-text">Filters:</p>
+							<div class="filter-list">
+								<label>
+									<input type="checkbox" ng-model="global_downloadEclaimData.filters.all">
+									All
+									<span class="checkmark"></span>
+								</label>
+								<label>
+									<input type="checkbox" ng-model="global_downloadEclaimData.filters.approved">
+									Approved
+									<span class="checkmark"></span>
+								</label>
+								<label>
+									<input type="checkbox" ng-model="global_downloadEclaimData.filters.rejected">
+									Rejected
+									<span class="checkmark"></span>
+								</label>
+								<label>
+									<input type="checkbox" ng-model="global_downloadEclaimData.filters.pending">
+									Pending
+									<span class="checkmark"></span>
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div slot="footer">
+					<button v-on:click="_toggleDownloadEclaimModal()" class="btn-close">CANCEL</button>
+					<button class="btn-primary" :disabled="true" v-on:click="_downloadEclaimReceipts( )">SUBMIT</button>
+				</div>
+			</Modal>
 		</div>
 	</div>
 </template>
