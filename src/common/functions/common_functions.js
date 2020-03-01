@@ -157,7 +157,7 @@ const _fetchEmployeeList_	= (params)	=> {
 	console.log(params);
 	let	req	=	{
 		method:	'GET',
-		url:	Config.EMPLOYEE_LIST + '?customer_id=' + params.customer_id,
+		url:	Config.EMPLOYEE_LIST + '?customer_id=' + params.customer_id + '&page=' + params.page + '&limit=' + params.limit,
 		header:	defaultHeaders,
 	};
 	return _axiosCall_(req);
