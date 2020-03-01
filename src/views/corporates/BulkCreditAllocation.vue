@@ -66,7 +66,7 @@
 		<div class="employee-pagination dp-flex">
 			<div class="prev-next-container dp-flex">
 				<div>
-					<button @click="___prevPage()" class="btn-primary">PREV</button>
+					<button @click="___prevPage()" v-if="global_employeeListPagination.hasPrevPage" class="btn-primary">PREV</button>
 				</div>
 				<div class="range-pagination"><span>{{ global_employeeListPagination.page }}</span> of <span>{{ global_employeeListPagination.totalPages }}</span></div>
 				<div>
