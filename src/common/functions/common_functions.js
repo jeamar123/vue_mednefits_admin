@@ -173,6 +173,16 @@ const _searchEmployeeList_	= (params)	=> {
 	return _axiosCall_(req);
 };
 
+const _updateBulkCredit_ = (params)	=> {
+	console.log(params);
+	let	req	=	{
+		method:	'POST',
+		url:	Config.UPDATE_BULK_CREDIT,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
 
 
 const _onLoad_	=	() =>{
@@ -192,4 +202,5 @@ export	{
 	_childGetStorage_,
 	_fetchEmployeeList_,
 	_searchEmployeeList_,
+	_updateBulkCredit_,
 }

@@ -1,12 +1,14 @@
 <script>
   import { 
     _fetchEmployeeList_,
-    _searchEmployeeList_ 
+    _searchEmployeeList_,
+    _updateBulkCredit_
   } from '../../common/functions/common_functions';
   
   let bulkCreditAllocation = {
     props: {
       customer_id: [String, Number],
+      member_id: [String, Number],
       company_name: [String, Number],
     },
     data() {
@@ -17,6 +19,9 @@
         global_searchEmp: undefined,
         global_pageActive: 1,
         global_pageLimit: 5, 
+        list: {
+          credit_amount: 0,
+        }
       };
     },
     created(){
@@ -54,13 +59,15 @@
               this.$parent.hideLoading();
               this.employee_list = res.data.data;
               this.global_employeeListPagination = res.data;
-              this.employee_list.map((value,index) => {
-                value.global_creditSpendingType = 0;
-                value.global_creditAllocationType = 0;
-              });
               
+              this.employee_list.map((value,index) => {
+                value.global_creditSpendingType = 'medical';
+                value.global_creditAllocationType = 'add';
+                value.credit_amount = 0;
+              });
+
               console.log(this.employee_list);
-						}
+            }
 					});
       },
       _searchMemberList_( item ) {
@@ -76,8 +83,8 @@
               this.employee_list = res.data.data;
 
               this.employee_list.map((value,index) => {
-                value.global_creditSpendingType = 0;
-                value.global_creditAllocationType = 0;
+                value.global_creditSpendingType = 'medical';
+                value.global_creditAllocationType = 'add';
               });
               
               console.log(this.employee_list);
@@ -106,6 +113,47 @@
         if (this.global_employeeListPagination.hasNextPage) {
           this.global_pageActive = this.global_employeeListPagination.nextPage;
           this._getMemberList_();
+        }
+      },
+      ___updateCreditAllocation( list, index ) {
+        console.log(list);
+        if ( list.credit_amount || list.credit_amount > 0 ) {
+          console.log('sulod');
+          this.$swal({
+          title: "",
+          text: "Are you sure you want to update credits this account?",
+          type: "warning",
+          confirmButtonColor: "#25306C",
+          cancelButtonColor: "#C1C1C1",
+          showCancelButton: true,
+          showCloseButton: false,
+          confirmButtonText: "Yes, Update it!",
+          reverseButtons: true,
+          }).then(result => {
+            if (result) {
+              console.log(result);
+              let params	=	{ 
+                customer_id :	Number(this.customer_id),
+                member_id: list.member_id,
+                spending_type: list.global_creditSpendingType,
+                allocation_type: list.global_creditAllocationType,
+                credits: Number(list.credit_amount), 
+              };
+              console.log( params );
+              _updateBulkCredit_(params)
+              .then(( res ) => {
+                if( res.status == 200 || res.status == 201 ){      
+                  this.$swal("Success!", res.data.message, "success");
+                  
+                  list.credit_amount = 0;
+                  this._getMemberList_();
+                  console.log(list);
+                }
+              });
+            } 
+          });
+        } else {
+          this.$swal( "Error!", "Please assign credits", "error" );
         }
       },
     }

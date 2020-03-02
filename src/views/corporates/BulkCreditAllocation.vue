@@ -25,8 +25,8 @@
 						<span>{{ list.job_title }}</span>
 					</div>
 					<div class="credit-toggle-btn">
-						<button @click="___selectCreditAllocationSpending(0,index)" v-bind:class="{ active : list.global_creditSpendingType == 0}">MEDICAL</button>
-						<button @click="___selectCreditAllocationSpending(1,index)" v-bind:class="{ active : list.global_creditSpendingType == 1}">WELLNESS</button>
+						<button @click="___selectCreditAllocationSpending('medical',index)" v-bind:class="{ active : list.global_creditSpendingType == 'medical'}">MEDICAL</button>
+						<button @click="___selectCreditAllocationSpending('wellness',index)" v-bind:class="{ active : list.global_creditSpendingType == 'wellness'}">WELLNESS</button>
 					</div>
 					<div class="allocation-usage-container">
 						<div class="allocation-usage">
@@ -34,30 +34,30 @@
 								<div class="emp-title">Allocation:</div>
 								<span>
 									<span class="currency-type">{{ list.currency_type }} </span> 
-									<span v-if="list.global_creditSpendingType == 0">{{ list.spending_account.medical.credits_allocation | number('0.00') }}</span>
-									<span v-if="list.global_creditSpendingType == 1">{{ list.spending_account.wellness.credits_allocation_wellness | number('0.00') }}</span>
+									<span v-if="list.global_creditSpendingType == 'medical'">{{ list.spending_account.medical.credits_allocation | number('0.00') }}</span>
+									<span v-if="list.global_creditSpendingType == 'wellness'">{{ list.spending_account.wellness.credits_allocation_wellness | number('0.00') }}</span>
 								</span>
 							</div>
 							<div>
 								<div class="emp-title">Usage:</div>
 								<span>
 									<span class="currency-type">{{ list.currency_type }} </span> 
-									<span v-if="list.global_creditSpendingType == 0">{{ list.spending_account.medical.credits_spent | number('0.00') }}</span>
-									<span v-if="list.global_creditSpendingType == 1">{{ list.spending_account.wellness.credits_spent_wellness | number('0.00') }}</span>
+									<span v-if="list.global_creditSpendingType == 'medical'">{{ list.spending_account.medical.credits_spent | number('0.00') }}</span>
+									<span v-if="list.global_creditSpendingType == 'wellness'">{{ list.spending_account.wellness.credits_spent_wellness | number('0.00') }}</span>
 									</span>
 							</div>
 						</div>
 						<div class="credit-toggle-btn add-deduct-btn">
-							<button @click="___selectCreditAllocationType(0,index)" v-bind:class="{active : list.global_creditAllocationType == 0}">ADD</button>
-							<button @click="___selectCreditAllocationType(1,index)" v-bind:class="{active : list.global_creditAllocationType == 1}">DEDUCT</button>
+							<button @click="___selectCreditAllocationType('add',index)" v-bind:class="{active : list.global_creditAllocationType == 'add'}">ADD</button>
+							<button @click="___selectCreditAllocationType('deduct',index)" v-bind:class="{active : list.global_creditAllocationType == 'deduct'}">DEDUCT</button>
 						</div>
 					</div>
 					<div class="add-deduct-input-wrapper">
-						<label>Credit to <span v-if="list.global_creditAllocationType == 0">Add*</span><span v-if="list.global_creditAllocationType == 1">Deduct</span></label>
-						<input type="number">	
+						<label>Credit to <span v-if="list.global_creditAllocationType == 'add'">Add*</span><span v-if="list.global_creditAllocationType == 'deduct'">Deduct</span></label>
+						<input v-model="list.credit_amount" type="number">	
 					</div>
 					<div>
-						<button v-if="list.active == true" class="btn-primary">UPDATE</button>
+						<button v-if="list.active == true" @click="___updateCreditAllocation( list,index )" class="btn-primary">UPDATE</button>
 						<button v-if="list.active == false" :disabled="list.active == false" class="btn-account-removed">ACCOUNT REMOVED</button>
 					</div>
 				</div>
