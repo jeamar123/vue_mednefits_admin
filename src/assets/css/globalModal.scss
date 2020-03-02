@@ -187,6 +187,17 @@
     }
   }
 
+// GP CAP PER VISIT 
+  .file-upload-modal {
+    .modal-container {
+      width: 580px;
+    }
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+      padding: 15px 20px;
+    }
+  }
   @media (max-width: 768px) {
     .export-modal-wrapper{
       .modal-container {

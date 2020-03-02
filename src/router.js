@@ -51,7 +51,7 @@ import CorporateSettings from './views/corporates/CorporateSettings.vue'
   // Corporate Settings
   import HealthPartnerAccess from './views/corporates/HealthPartnerAccess.vue'
   import EclaimTypeService from './views/corporates/EclaimTypeService.vue'
-  import GcapPerVisit from './views/corporates/GcapPerVisit.vue'
+  import GpcapPerVisit from './views/corporates/GpcapPerVisit.vue'
   import ClaimTypeServices from './views/corporates/ClaimTypeServices.vue'
   import BulkCreditAllocation from './views/corporates/BulkCreditAllocation.vue'
   import ResetCompanyCredits from './views/corporates/ResetCompanyCredits.vue'
@@ -124,7 +124,7 @@ export default new Router({
             { name: 'AddHeadCount', path: '/dashboard/corporates/:company_name-:customer_id/add-head-count', components: { child : AddHeadCount }, props: { child: true}  },
             // { name: 'HealthPartnerAccess', path: '/dashboard/corporates/menu/health-partner-access', components: { child : HealthPartnerAccess} },
             { name: 'EclaimTypeService', path: '/dashboard/corporates/:company_name-:customer_id/eclaim-type-service', components: { child : EclaimTypeService} , props: { child: true} },
-            { name: 'GcapPerVisit', path: '/dashboard/corporates/:company_name-:customer_id/gp-cap-per-visit', components: { child : GcapPerVisit}, props: { child: true} },
+            { name: 'GpcapPerVisit', path: '/dashboard/corporates/:company_name-:customer_id/gp-cap-per-visit', components: { child : GpcapPerVisit}, props: { child: true} },
             { name: 'PlanRenewal', path: '/dashboard/corporates/:company_name-:customer_id/plan-renewal', components: { child : PlanRenewal}, props: { child: true},
               children : [
                 { name: 'PlanRenewalDetails', path: '/dashboard/corporates/:company_name-:customer_id/plan-renewal/details', components: { child : PlanDetails} },
