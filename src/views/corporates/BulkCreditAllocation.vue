@@ -66,23 +66,23 @@
 		<div class="employee-pagination dp-flex">
 			<div class="prev-next-container dp-flex">
 				<div>
-					<button class="btn-primary">PREV</button>
+					<button @click="___prevPage()" v-if="global_employeeListPagination.hasPrevPage" class="btn-primary">PREV</button>
 				</div>
-				<div class="range-pagination"><span>2</span> of <span>18</span></div>
+				<div class="range-pagination"><span>{{ global_employeeListPagination.page }}</span> of <span>{{ global_employeeListPagination.totalPages }}</span></div>
 				<div>
-					<button class="btn-primary">NEXT</button>
+					<button @click="___nextPage()" class="btn-primary">NEXT</button>
 				</div>
 			</div>
 			<div class="per-page-container">
 				<span>per page : </span>
 				<span @click="___selectedCreditPerPage()" class="page-num-container"><span class="per-page-num">5</span> <span><i class="fa fa-caret-down" aria-hidden="true"></i></span></span>
 				<div v-click-outside="___hideAllDrop" v-if="global_showCreditDp" class="per-page-dp">
-					<div><span>6</span></div>
-					<div><span>12</span></div>
-					<div><span>24</span></div>
-					<div><span>30</span></div>
-					<div><span>36</span></div>
-					<div><span>60</span></div>
+					<div><span @click="___setPageLimit( 5 )">5</span></div>
+					<div><span @click="___setPageLimit( 10 )">10</span></div>
+					<div><span @click="___setPageLimit( 15 )">15</span></div>
+					<div><span @click="___setPageLimit( 20 )">20</span></div>
+					<div><span @click="___setPageLimit( 25 )">25</span></div>
+					<div><span @click="___setPageLimit( 30 )">30</span></div>
 				</div>
 			</div>
 		</div>
