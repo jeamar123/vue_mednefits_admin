@@ -615,92 +615,6 @@ table.add-dependent-tbl {
   }
 }
 
-// Add head count and plan
-.add-head-count-wrapper {
-
-  .checkbox-child {
-    padding: 0 0 0 35px;
-  }
-  .num-employees-wrapper {
-    label {
-      display: block;
-    }
-
-    input {
-      background-color: transparent;
-      border-bottom: 1px solid rgba(0,0,0,0.12);
-      padding: 2px;
-      width: 50%;
-    }
-  }
-  .emp-plan-start-container {
-    margin: 20px 0;
-    .fa-calendar-o {
-      font-size: 18px;
-      align-self: flex-end;
-      margin: 0 20px 0 0;
-    }
-  }
-  .add-head-count-box {
-    background-color: #eee;
-    padding: 15px 30px;
-  }
-  
-  .num-employees-wrapper {
-    margin: 20px 0 0;
-  }
-
-  h3 {
-    padding: 20px 30px;
-  }
-
-  .spending-account,
-  .emp-plan-start-container,
-  .input-individual-price-container {
-    h4 {
-      margin: 0 0 20px;
-    }
-    label {
-      display: block;
-      color: rgba(0,0,0,0.54);
-      font-size: 12px;
-    }
-    input {
-      background-color: transparent;
-      border-bottom: 1px solid rgba(0,0,0,0.12);
-      padding: 2px;
-      width: 100%;
-    }
-
-    .date-container {
-      position: relative;
-    }
-    .fa-caret-down {
-      position: absolute;
-      top: 10px;
-      right: 0;
-    }
-  }
-
-  .spending-account {
-    margin: 0 0 40px;
-    >div >div {
-      width: 50%;
-
-      &:nth-child(1) {
-        margin: 0 20px 0 0;
-      }
-    }
-    .deposit-slider label {
-      margin: 0 0 15px;
-    }
-  }
-
-  .input-individual-price-container input {
-    width: 30%;
-  }
-}
-
 //custom checkbox 
 .custom-checkbox-selector .selector-container {
   display: block;
@@ -870,8 +784,7 @@ table.add-dependent-tbl {
 
 @media (max-width: 1023px) {
   .reset-company-credits-wrapper,
-  .add-dependent-wrapper,
-  .add-head-count-wrapper {
+  .add-dependent-wrapper{
     margin: 40px 0 0
   }
   .review-excel-tbl-wrapper,

@@ -60,7 +60,8 @@ let corporateMenu = {
 		// emits
 		fromMemberList(data) {
 			if(data) {
-				this.getCorporateDetails();
+				console.log(data);
+				this.getCorporateDetails(true);
 			}
 		},
 		// -----
@@ -105,13 +106,13 @@ let corporateMenu = {
 
 		},
 
-		async getCorporateDetails() {
+		async getCorporateDetails(isRefresh) {
 			// side info'
 			
 			let params	=	{ 
 				customer_id :	this.customer_id 
 			};
-			this.corporateDetails_data = await _getCorporateDetailsData_(params);
+			this.corporateDetails_data = await _getCorporateDetailsData_(params, isRefresh);
 			console.log( this.corporateDetails_data );
 			
 
