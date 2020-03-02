@@ -91,5 +91,5 @@
 </script>
 
 <style lang="scss" scoped>
-	// @import "./src/assets/css/corporateSettings.scss";
+	@import "./src/assets/css/bulkCreditAllocation.scss";
 </style>
