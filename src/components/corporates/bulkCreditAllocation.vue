@@ -147,6 +147,7 @@
                   
                   list.credit_amount = 0;
                   this._getMemberList_();
+                  this.$emit('FromBulkCredits', true);
                   console.log(list);
                 }
               });

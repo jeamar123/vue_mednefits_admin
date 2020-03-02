@@ -63,6 +63,13 @@ let corporateMenu = {
 				this.getCorporateDetails();
 			}
 		},
+		fromBulkCredits(data) {
+			if(data) {
+				console.log(data);
+				this.getCorporateDetails();
+				this.getCorporateCreditsInfo();
+			}
+		},
 		// -----
 		formatDate(date, from, to) {
 			if (date != null) {
