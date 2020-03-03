@@ -142,10 +142,14 @@
     justify-content: center;
     background-color: #fff;
     position: relative;
-
+    cursor: initial;
     >div {
       width: 100%;
       padding: 30px 20px;
+    }
+    input {
+      top: 0;
+      width: 100%;
     }
   }
   .drop-file-upload {

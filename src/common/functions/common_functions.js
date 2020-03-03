@@ -265,7 +265,7 @@ const _fetchCapVisitList_	= (params)	=> {
 	console.log(params);
 	let	req	=	{
 		method:	'GET',
-		url:	Config.CAP_VISIT_LIST + '?company_id=' + params.company_id,
+		url:	Config.CAP_VISIT_LIST + '?company_id=' + params.company_id + '&page=' + params.page + '&limit=' + params.limit + '&token=' + params.token,
 		header:	defaultHeaders,
 	};
 	return _axiosCall_(req);

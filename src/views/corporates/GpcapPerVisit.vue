@@ -48,34 +48,28 @@
 			<div class="gp-cap-pagination dp-flex">
 					<div class="page-wrapper">
 						<div class="page-scroll-container dp-flex-ai">
-							<span>
+							<span @click="___prevPage()">
 								<i class="fa fa-angle-left"></i>
 								<span class="prev-page">Prev</span>
 							</span>
 							<div>
-								<span class="gp-page-num active">1</span>
-								<span class="gp-page-num">2</span>
-								<span class="gp-page-num">3</span>
+								<span v-for="(list,index) of ___limitPagination" class="gp-page-num" v-bind:class="{'active' : list + 1 == page_active}" v-on:click="goToPage( list + 1 )">{{ list + 1 }}</span>
 							</div>
-							<span>
+							<span @click="___nextPage()">
 								<span class="prev-page">Next</span>
 								<i class="fa fa-angle-right"></i>
 							</span>
 						</div>
 					</div>
 					<div class="rows-page-wrapper">
-						<span>10 per page <span><i class="fa fa-caret-down"></i></span></span>
-						<div v-if="false" class="page-dp-container">
-							<div>10</div>
-							<div>20</div>
-							<div>30</div>
-							<div>40</div>
-							<div>50</div>
-							<div>60</div>
-							<div>70</div>
-							<div>80</div>
-							<div>90</div>
-							<div>100</div>
+						<span @click="___selectedCapPerPage()">10 per page <span><i class="fa fa-caret-down"></i></span></span>
+						<div v-click-outside="___hideAllDrop" v-if="global_showCapDp" class="page-dp-container">
+							<div @click="___setPageLimit(10)">10</div>
+							<div @click="___setPageLimit(20)">20</div>
+							<div @click="___setPageLimit(30)">30</div>
+							<div @click="___setPageLimit(40)">40</div>
+							<div @click="___setPageLimit(50)">50</div>
+							<div @click="___setPageLimit(60)">60</div>
 						</div>
 					</div>
 				</div>	
@@ -89,6 +83,7 @@
 				<div class="drop-box dp-flex">
 					<div>
 						<div class="drop-file-upload dp-flex-ai">
+							<input type="file" class="upload-file">
 							<img :src="'../assets/img/fileupload.png'">
 							<span>Drop afile to uload, or </span>
 							<button class="btn-primary">Browse</button>
