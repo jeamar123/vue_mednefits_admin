@@ -191,7 +191,7 @@
 					</div>
 				</div>
 
-				<router-view name="child" @FromMemberList="fromMemberList"></router-view>
+				<router-view name="child" @FromMemberList="fromMemberList" @FromBulkCredits="fromBulkCredits"></router-view>
 			</div>
 		</div>
 

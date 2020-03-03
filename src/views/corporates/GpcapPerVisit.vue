@@ -114,6 +114,6 @@
 </template>
 
 <script>
-	import gcapPerVisit from '@/components/corporates/gcapPerVisit'
+	import gcapPerVisit from '@/components/corporates/gpcapPerVisit'
 	export default gcapPerVisit
 </script>

@@ -1,0 +1,113 @@
+// bulk credit allocation
+.bulk-credit-alloc-wrapper {
+  
+  .credit-alloc-header {
+    text-align: center;
+
+    h1 {
+      font-size: 24px;
+      font-weight: 500;
+      margin: 0 0 20px;
+    }
+  }
+
+  .credit-alloc-body {
+    margin: 40px 0 0;
+    flex-wrap: wrap;
+  }
+
+  .credit-search-container {
+    display: flex;
+    align-items: center;
+    >span {
+      padding: 0 5px 0 0;
+    }
+    >div {
+      width: 100%;
+    }
+    
+    >div input {
+      padding: 5px 10px 5px;
+      width: 270px;
+      border-bottom: 1px solid #888;
+    }
+    >div input::placeholder {
+      color: #666;
+    }
+  }
+
+  .employee-pagination {
+    align-items: center;
+    padding: 20px 0 40px;
+    
+
+    .prev-next-container {
+      align-items: center;
+      flex: 1;
+    }
+
+    .range-pagination {
+      text-align: center;
+      flex: 1;
+    }
+    .per-page-container {
+      margin: 0 0 0 30px;
+      position: relative;
+    }
+
+    .page-num-container {
+      cursor: pointer;
+      padding: 0 0 2px;
+    }
+
+    .per-page-num {
+      padding: 0 10px 0 15px;
+    }
+
+    .per-page-dp {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background-color: #ECF0F1;
+      border-bottom: 1px solid #ccc;
+      box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+      width: 130px;
+      height: 250px;
+      padding: 20px 0;
+      overflow: auto;
+      >div {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        height: 48px;
+        padding: 0 15px;
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) { 
+  .bulk-credit-alloc-wrapper {
+    .credit-search-container >div input {
+      width: 220px;
+    }
+
+    .employee-pagination.dp-flex {
+      display: block;
+    }
+    .employee-pagination .per-page-container {
+      margin: 30px 0 0;
+      text-align: center;
+    }
+  }
+  
+  .credit-employee-wrapper {
+    width: 100%;
+    padding: 0;
+
+    .employee-header,
+    .employee-body {
+      padding: 10px;
+    }
+  }
+}

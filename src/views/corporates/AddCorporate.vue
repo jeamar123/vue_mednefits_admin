@@ -279,7 +279,7 @@
 	                popoverDirection="bottom"
 	                v-model="create_company.emmployee_plan_start"
 	                :formats='formats'
-	                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+	                :input-props='{class: "", placeholder: "DD/MM/YYYY", readonly: true, }'
 	                popover-visibility="focus"
 	              ></v-date-picker>
 	              <img :src="'../assets/img/calendar-gray.png'">
@@ -328,7 +328,7 @@
 	                popoverDirection="bottom"
 	                v-model="create_company.main_plan_invoice_date"
 	                :formats='formats'
-	                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+	                :input-props='{class: "", placeholder: "DD/MM/YYYY", readonly: true, }'
 	                popover-visibility="focus"
 	              ></v-date-picker>
 	              <img :src="'../assets/img/calendar-gray.png'">
@@ -356,7 +356,7 @@
 									<v-date-picker
 		                popoverDirection="bottom"
 		                v-model="create_company.plan_start_extension"
-		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :input-props='{class: "", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                :formats = 'formats'
 		                popover-visibility="focus"
 		              ></v-date-picker>
@@ -539,7 +539,7 @@
 									<v-date-picker
 		                popoverDirection="bottom"
 		                v-model="create_company.employee_plan_start_extension"
-		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :input-props='{class: "", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                :formats = 'formats'
 		                popover-visibility="focus"
 		              ></v-date-picker>
@@ -719,7 +719,7 @@
 			                popoverDirection="bottom"
 			                v-model="create_company.plan_start_extension_dependents"
 			                :formats='formats'
-			                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+			                :input-props='{class: "", placeholder: "DD/MM/YYYY", readonly: true, }'
 			                popover-visibility="focus"
 			              ></v-date-picker>
 			              <img :src="'../assets/img/calendar-gray.png'">
@@ -910,7 +910,7 @@
 									<v-date-picker
 		                popoverDirection="bottom"
 		                v-model="create_company.send_account_email_date"
-		                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+		                :input-props='{class: "", placeholder: "DD/MM/YYYY", readonly: true, }'
 		                :formats='formats'
 		                popover-visibility="focus"
 		              ></v-date-picker>

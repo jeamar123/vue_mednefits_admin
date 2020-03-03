@@ -46,5 +46,5 @@
 
 <style lang="scss" scoped>
 	/*@import "./src/assets/css/corporates.scss";*/
-  // @import "./src/assets/css/corporateSettings.scss";
+  @import "./src/assets/css/gpCapPerVisit.scss";
 </style>

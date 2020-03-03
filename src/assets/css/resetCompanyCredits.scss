@@ -1,0 +1,77 @@
+.reset-company-credits-wrapper {
+  h2 {
+    font-size: 18px;
+  }
+
+  .reset-label-text {
+    font-size: 12px;
+    color: #999;
+  }
+  .effective-date-container {
+    margin: 40px 0;
+
+    .fa-calendar-o {
+      align-self: flex-end;
+      font-size: 18px;
+      margin: 0 20px 0 0;
+    }
+
+    .reset-date-picker {
+      position: relative;
+
+      .fa-caret-down {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
+  }
+  .reset-first-step {
+    input {
+      border-bottom: 1px solid #999;
+      padding: 5px 5px 5px 0;
+    }
+  }
+
+  .new-company-credits-container {
+    h4 {
+      font-size: 16px;
+      margin: 0 0 20px;
+    }
+    .currency-type {
+      align-self: flex-end;
+      margin: 0 20px 0 0;
+    }
+  }
+
+  .reset-third-step {
+    margin: 40px 0 0;
+    >div {
+      text-align: center;
+      margin: 10px 0;
+    }
+  }
+  .edit-emp-details {
+    img {
+      height: 20px;
+      width: 20px;
+    }
+    .btn-close {
+      margin: 10px 10px 10px 0;
+    }
+  }
+
+ .edit-emp-input-wrapper {
+    margin: 0 0 20px;
+
+    &.start-date {
+      img {
+        align-self: flex-end;
+        margin: 0 10px 0 0;
+      }
+      >div {
+        width: 122px;
+      }
+    }
+  }
+}

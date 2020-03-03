@@ -164,12 +164,31 @@ const _fetchEmployeeList_	= (params)	=> { // EMPLOYEE LIST API
 	console.log(params);
 	let	req	=	{
 		method:	'GET',
-		url:	Config.EMPLOYEE_LIST + '?customer_id=' + params.customer_id,
+		url:	Config.EMPLOYEE_LIST + '?customer_id=' + params.customer_id + '&page=' + params.page + '&limit=' + params.limit,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+const _searchEmployeeList_	= (params)	=> {
+	console.log(params);
+	let	req	=	{
+		method:	'GET',
+		url:	Config.SEARCH_EMPLOYEE_LIST + '?customer_id=' + params.customer_id + '&search=' + params.search,
 		header:	defaultHeaders,
 	};
 	return _axiosCall_(req);
 };
 
+const _updateBulkCredit_ = (params)	=> {
+	console.log(params);
+	let	req	=	{
+		method:	'POST',
+		url:	Config.UPDATE_BULK_CREDIT,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
 const _addHeadCount_	=	(params) => { // CORPORATE ADD HEADCOUNT API
 	let	req	=	{
 		method:	'POST',
@@ -242,12 +261,6 @@ const _formChecker_	=	(formData)	=>	{
 	}
 }
 
-
-
-
-
-
-
 const _onLoad_	=	() =>{
 
 }	
@@ -264,6 +277,8 @@ export	{
 	_getEmployeeDetailsData_,
 	_childGetStorage_,
 	_fetchEmployeeList_,
+	_searchEmployeeList_,
+	_updateBulkCredit_,
 	_addHeadCount_,
 	_formChecker_
 }

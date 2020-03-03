@@ -39,94 +39,6 @@
 
 }
 
-// bulk credit allocation
-.bulk-credit-alloc-wrapper {
-  
-  .credit-alloc-header {
-    text-align: center;
-
-    h1 {
-      font-size: 24px;
-      font-weight: 500;
-      margin: 0 0 20px;
-    }
-  }
-
-  .credit-alloc-body {
-    margin: 40px 0 0;
-    flex-wrap: wrap;
-  }
-
-  .credit-search-container {
-    display: flex;
-    align-items: center;
-    >span {
-      padding: 0 5px 0 0;
-    }
-    >div {
-      width: 100%;
-    }
-    
-    >div input {
-      padding: 5px 10px 5px;
-      width: 270px;
-      border-bottom: 1px solid #888;
-    }
-    >div input::placeholder {
-      color: #666;
-    }
-  }
-
-  .employee-pagination {
-    align-items: center;
-    padding: 20px 0 40px;
-    
-
-    .prev-next-container {
-      align-items: center;
-      flex: 1;
-    }
-
-    .range-pagination {
-      text-align: center;
-      flex: 1;
-    }
-    .per-page-container {
-      margin: 0 0 0 30px;
-      position: relative;
-    }
-
-    .page-num-container {
-      cursor: pointer;
-      padding: 0 0 2px;
-    }
-
-    .per-page-num {
-      padding: 0 10px 0 15px;
-    }
-
-    .per-page-dp {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      background-color: #ECF0F1;
-      border-bottom: 1px solid #ccc;
-      box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
-      width: 130px;
-      height: 250px;
-      padding: 20px 0;
-      overflow: auto;
-      >div {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        height: 48px;
-        padding: 0 15px;
-      }
-    }
-  }
-}
-
 .credit-employee-wrapper {
   width: 290px;
   height: 550px;
@@ -213,84 +125,12 @@
       border-bottom: 1px solid rgba(0,0,0,0.12);
     }
   }
-}
 
-// reset company credits
-.reset-company-credits-wrapper {
-  h2 {
-    font-size: 18px;
-  }
-
-  .reset-label-text {
-    font-size: 12px;
-    color: #999;
-  }
-  .effective-date-container {
-    margin: 40px 0;
-
-    .fa-calendar-o {
-      align-self: flex-end;
-      font-size: 18px;
-      margin: 0 20px 0 0;
-    }
-
-    .reset-date-picker {
-      position: relative;
-
-      .fa-caret-down {
-        position: absolute;
-        top: 0;
-        right: 0;
-      }
-    }
-  }
-  .reset-first-step {
-    input {
-      border-bottom: 1px solid #999;
-      padding: 5px 5px 5px 0;
-    }
-  }
-
-  .new-company-credits-container {
-    h4 {
-      font-size: 16px;
-      margin: 0 0 20px;
-    }
-    .currency-type {
-      align-self: flex-end;
-      margin: 0 20px 0 0;
-    }
-  }
-
-  .reset-third-step {
-    margin: 40px 0 0;
-    >div {
-      text-align: center;
-      margin: 10px 0;
-    }
-  }
-  .edit-emp-details {
-    img {
-      height: 20px;
-      width: 20px;
-    }
-    .btn-close {
-      margin: 10px 10px 10px 0;
-    }
-  }
-
- .edit-emp-input-wrapper {
-    margin: 0 0 20px;
-
-    &.start-date {
-      img {
-        align-self: flex-end;
-        margin: 0 10px 0 0;
-      }
-      >div {
-        width: 122px;
-      }
-    }
+  .btn-account-removed[disabled] {
+    opacity: .5;
+    height: 36px;
+    background-color: rgba(0,0,0,0.12);
+    padding: 0 20px;
   }
 }
 
@@ -412,206 +252,89 @@ table.add-dependent-tbl {
   }
 }
 
-/* Gp cap per visit */
-.gp-cap-per-wrapper {
-  .gp-cap-header-title {
-    text-align: center;
+// Add head count and plan
+.add-head-count-wrapper {
 
-    h3 {
+  .checkbox-child {
+    padding: 0 0 0 35px;
+  }
+  .num-employees-wrapper {
+    label {
+      display: block;
+    }
+
+    input {
+      background-color: transparent;
+      border-bottom: 1px solid rgba(0,0,0,0.12);
+      padding: 2px;
+      width: 50%;
+    }
+  }
+  .emp-plan-start-container {
+    margin: 20px 0;
+    .fa-calendar-o {
       font-size: 18px;
-      margin: 15px 0;
+      align-self: flex-end;
+      margin: 0 20px 0 0;
     }
   }
-  .gp-header-btn {
-    align-items: center;
-
-    img {
-      cursor: pointer;
-      height: 17px;
-      width: 16px;
-      margin: 0 10px 0 0;
-    }
-    .save-continue-btn {
-      border: solid 2px #0392cf;
-      background-color: #0392cf;
-      color: #fff;
-      padding: 7px 0px;
-      border-radius: 2px;
-      font-size: 14px;
-      font-weight: 700;
-      width: 140px;
-    }
+  .add-head-count-box {
+    background-color: #eee;
+    padding: 15px 30px;
   }
-  .gp-cap-body {
-    overflow: auto;
+  
+  .num-employees-wrapper {
     margin: 20px 0 0;
-    .gp-cap-body-container {
-      height: 500px;
-      width: 700px;
-    }
   }
-  table {
-    border: 1px solid #d0d0d0;
-    font-size: 14px;
-    
-    thead {
-      th {
-        background-color: #eff2f4;
-        font-family: 'Helvetica Light';
-        padding: 15px;
-        text-align: center;
-      }
-      th:first-child {
-        width: 20%;
-        padding: 10px;
-      }
-      th:last-child {
-        padding: 10px;
-      }
-      th:nth-child(2) {
-        width: 60%;
-      }
-    }
-    tbody {
-      tr:first-child td,
-      tr td:first-child {
-        padding: 10px;
-      }
-      tr td {
-        padding: 10px;
-      }
-    }
 
-    th,td {
-      border: 1px solid #d0d0d0;
-    }
+  h3 {
+    padding: 20px 30px;
   }
-  .gp-cap-pagination {
-    font-size: 12px;
-    color: #777;
-    margin: 40px 0 0;
-  }
-  .page-scroll-container {
-    margin: 0 20px 0 0;
-    >span {
-      cursor: pointer;
-    }
-    i {
-      font-size: 14px;
-    }
-    .fa-angle-left {
-      margin: 0 5px 0 0;
-    } 
-    .fa-angle-right {
-      margin: 0 0 0 5px;
-    } 
-    >div {
-      margin: 0 10px;
-    }
-    .gp-page-num {
-      margin: 0 10px 0 0;
-      cursor: pointer;
-      padding: 3px 7px;
-    }
-    .gp-page-num.active {
-      background-color: #e8e8e8;
-    }
-  }
-  .rows-page-wrapper {
-    cursor: pointer;
-    position: relative;
 
-    .page-dp-container {
-      position: absolute;
-      right: 0;
-      background-color: #e8e6e6;
-      color: rgba(33,33,33,0.87);
+  .spending-account,
+  .emp-plan-start-container,
+  .input-individual-price-container {
+    h4 {
+      margin: 0 0 20px;
+    }
+    label {
+      display: block;
+      color: rgba(0,0,0,0.54);
       font-size: 12px;
-      overflow-y: scroll;
-      max-height: 227px;
-      width: 137px;
     }
-    .page-dp-container >div {
-      padding: 0 16px;
-      height: 48px;
-      cursor: pointer;
-      line-height: 4;
-    }
-  }
-}
-.file-upload-modal {
-  .modal-container {
-    width: 580px;
-  }
-  .modal-header,
-  .modal-body,
-  .modal-footer {
-    padding: 15px 20px;
-  }
-
-  .modal-header h4 {
-    flex: 1;
-  }
-  .modal-header img {
-    width: 14px;
-    cursor: pointer;
-  }
-
-  .drop-box {
-    border: 2px dashed #408FCA;
-    width: initial;
-    height: 152px;
-    justify-content: center;
-    background-color: #fff;
-    position: relative;
-
-    >div {
+    input {
+      background-color: transparent;
+      border-bottom: 1px solid rgba(0,0,0,0.12);
+      padding: 2px;
       width: 100%;
-      padding: 30px 20px;
     }
-  }
-  .drop-file-upload {
-    justify-content: center;
-    img {
-      width: 23px;
-      height: 23px;
-    }
-    >span {
-      margin: 0 10px;
-    }
-  }
-  .progress-wrapper {
-    position: relative;
-    width: 100%;
-    height: 25px;
-    background-color: rgba(205, 205, 205, 0.3);
-    overflow: hidden;
-    margin: 15px 0 0;
 
-    .fa-file-o {
-      margin: 0 10px 0 0;
+    .date-container {
+      position: relative;
     }
-    >span {
+    .fa-caret-down {
       position: absolute;
-      left: 10px;
-      top: 3px;
+      top: 10px;
+      right: 0;
     }
   }
-  .progress-bar {
-    background-color: #78E997;
-    height: 25px;
-    color: #2E4057;
-    width: 10%;
-    // width: 0%;
-    transition: all 1s ease-in-out;
 
-    &.error {
-      background-color: #d46448;
+  .spending-account {
+    margin: 0 0 40px;
+    >div >div {
+      width: 50%;
+
+      &:nth-child(1) {
+        margin: 0 20px 0 0;
+      }
+    }
+    .deposit-slider label {
+      margin: 0 0 15px;
     }
   }
-  .cap-file-err {
-    font-size: 11px;
-    text-align: center;
+
+  .input-individual-price-container input {
+    width: 30%;
   }
 }
 
@@ -768,14 +491,6 @@ table.add-dependent-tbl {
     }
   }
 }
-@media (max-width: 1080px) {
-  .gp-cap-per-wrapper .gp-cap-body {
-    .gp-cap-body-container {
-      width: 100%;
-    }
-  }
-}
-
 /* Large (lg) */
 @media (max-width: 1024px) { 
   
@@ -784,7 +499,8 @@ table.add-dependent-tbl {
 
 @media (max-width: 1023px) {
   .reset-company-credits-wrapper,
-  .add-dependent-wrapper{
+  .add-dependent-wrapper,
+  .add-head-count-wrapper {
     margin: 40px 0 0
   }
   .review-excel-tbl-wrapper,
@@ -841,9 +557,6 @@ table.add-dependent-tbl {
     margin: 0;
   }
 
-  .gp-cap-per-wrapper {
-    margin: 50px 0 0;
-  }
   .add-head-count-wrapper {
     .add-head-count-box {
       padding: 15px 10px;
@@ -880,54 +593,13 @@ table.add-dependent-tbl {
       }
     }
   }
-  .file-upload-modal .modal-container {
-    width: 100%;
-    margin: 0 15px;
-  }
-  .gp-cap-per-wrapper .gp-cap-body {
-    .gp-cap-body-container {
-      width: 479px;
-    }
-
-    &::-webkit-scrollbar {
-      height: 3px;
-    }
-  }
-  .file-upload-modal {
-    .modal-header,
-    .modal-body,
-    .modal-footer {
-      padding: 15px 10px;
-    }
-  }
-  .file-upload-modal .drop-box {
-    height: auto;
-    >div {
-      padding: 30px 10px;
-    }
-    .drop-file-upload > span {
-      margin: 0 5px;
-    }
-  }
+  
   .drop-box-wrapper .drop-box img {
     width: 70px;
   }
 }
 
 @media (max-width: 400px) {
-  .bulk-credit-alloc-wrapper {
-    .credit-search-container >div input {
-      width: 220px;
-    }
-
-    .employee-pagination.dp-flex {
-      display: block;
-    }
-    .employee-pagination .per-page-container {
-      margin: 30px 0 0;
-      text-align: center;
-    }
-  }
   .reset-company-credits-wrapper .reset-third-step {
     margin: 20px 0 0;
     h4 {

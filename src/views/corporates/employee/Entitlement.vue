@@ -36,7 +36,6 @@
 							<div class="entitlement-input-container usage">
 	              <h5>Effective Date of New Entitlement</h5>
 	              <div class="entitlement-input-label">
-	                <label class="entitlement-label currency-type">{{employee_info.currency_type}} </label>
 	                <div class="entitlement-date-picker">
 		                <v-date-picker
 				              popoverDirection="bottom"
@@ -124,7 +123,6 @@
 							<div class="entitlement-input-container usage">
 		            <h5>Effective Date of New Entitlement</h5>
 		            <div class="entitlement-input-label">
-		              <label class="entitlement-label currency-type">{{employee_info.currency_type}} </label>
 		              <div class="entitlement-date-picker">
 			              <v-date-picker
 				              popoverDirection="bottom"
