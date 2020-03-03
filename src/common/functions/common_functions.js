@@ -30,7 +30,7 @@ const	_errorHandlers_	=	(err)	=>	{ // Axios ERROR HANDLER
 	if	(err.response) {
 		console.log(err.response);
 		if	(err.response.status == 400 || err.response.status == 401 || err.response.status == 404 || err.response.status == 500){
-			err_data	=	{status: false, message: err.response.status + ' : ' + err.response.data.message};
+			err_data	=	{status: false, message: err.response.data.message};
 		}
 	} else if	(err.request) {
 		console.log(err.request);
@@ -42,7 +42,7 @@ const	_errorHandlers_	=	(err)	=>	{ // Axios ERROR HANDLER
 	return {data:	err_data};
 };
 
-const _login_	=	(params) => { // ADMIN LOGIN
+const _login_	=	(params) => { // ADMIN LOGIN API
 	let	req	=	{
 		method:	'POST',
 		url:	Config.AUTH_LOGIN,
@@ -52,16 +52,16 @@ const _login_	=	(params) => { // ADMIN LOGIN
 	return	_axiosCall_(req);
 };
 
-const _goBack_	=	()	=>	{
+const _goBack_	=	()	=>	{ // ROUTER BACK LAST STATE
 	router.back();
 }
 
 const _showPageLoading_	=	()	=>{
-	// router.app.$children[0].$children[0].showLoading();
+	router.app.$children[0].$children[0].showLoading();
 }
 
 const _hidePageLoading_  =  () =>{
-	// router.app.$children[0].$children[0].hideLoading();
+	router.app.$children[0].$children[0].hideLoading();
 }
 
 const _validateEmail_	=	(email)	=>	{ // For validtaion with RegEx
@@ -69,7 +69,7 @@ const _validateEmail_	=	(email)	=>	{ // For validtaion with RegEx
 	return re.test(email);
 }
 
-const _globalStorage_	=	{
+const _globalStorage_	=	{ // CUSTOM LOCAL STORAGE
 	getStorage: ( key )	=>	{
 		if( key ){
 			if(global_storage.hasOwnProperty(key)){
@@ -85,7 +85,7 @@ const _globalStorage_	=	{
 	},
 }
 
-const _fetchCompanyDetails_	= (params) => { // ADMIN LOGIN
+const _fetchCompanyDetails_	= (params) => { // COMPANY DETAILS API
 	let	req	=	{
 		method:	'GET',
 		url:	Config.COMPANY_DETAILS + '?customer_id=' + params.customer_id,
@@ -100,7 +100,10 @@ const _fetchCompanyDetails_	= (params) => { // ADMIN LOGIN
 		});
 };
 
-const _getCorporateDetailsData_	=	(params)	=>	{
+const _getCorporateDetailsData_	=	(params, isRefresh)	=>	{ // STORAGE CHECKER FOR COMPANY DETAILS
+	if( isRefresh ){
+		return _fetchCompanyDetails_(params);
+	}
 	let storage = _globalStorage_.getStorage('global_corporateData');
 	if(storage == null){
 		return _fetchCompanyDetails_(params);
@@ -112,7 +115,7 @@ const _getCorporateDetailsData_	=	(params)	=>	{
 	return storage;
 }
 
-const _fetchEmployeeDetails_	= (params) => { // ADMIN LOGIN
+const _fetchEmployeeDetails_	= (params) => { // EMPLOYEE DETAILS API
 	let	req	=	{
 		method:	'GET',
 		url:	Config.EMPLOYEE_DETAILS + '?member_id=' + params.member_id,
@@ -125,7 +128,11 @@ const _fetchEmployeeDetails_	= (params) => { // ADMIN LOGIN
 		});
 };
 
-const _getEmployeeDetailsData_	=	(params)	=>	{
+const _getEmployeeDetailsData_	=	(params, isRefresh)	=>	{ // STORAGE CHECKER FOR EMPLOYEE DETAILS
+	console.log(isRefresh);
+	if( isRefresh ){
+		return _fetchEmployeeDetails_(params);
+	}
 	let storage = _globalStorage_.getStorage('global_employeeData');
 	if(storage == null){
 		return _fetchEmployeeDetails_(params);
@@ -137,7 +144,7 @@ const _getEmployeeDetailsData_	=	(params)	=>	{
 	return storage;
 }
 
-const _childGetStorage_	=	(key)	=>	{
+const _childGetStorage_	=	(key)	=>	{ // CHILD STATE/ROUTE STORAGE
 	
 	let promise = new Promise((resolve, reject)	=>	{
 		let interval	=	setInterval(() => {
@@ -153,7 +160,7 @@ const _childGetStorage_	=	(key)	=>	{
 			
 }
 
-const _fetchEmployeeList_	= (params)	=> {
+const _fetchEmployeeList_	= (params)	=> { // EMPLOYEE LIST API
 	console.log(params);
 	let	req	=	{
 		method:	'GET',
@@ -162,7 +169,6 @@ const _fetchEmployeeList_	= (params)	=> {
 	};
 	return _axiosCall_(req);
 };
-
 const _searchEmployeeList_	= (params)	=> {
 	console.log(params);
 	let	req	=	{
@@ -183,7 +189,77 @@ const _updateBulkCredit_ = (params)	=> {
 	};
 	return _axiosCall_(req);
 };
+const _addHeadCount_	=	(params) => { // CORPORATE ADD HEADCOUNT API
+	let	req	=	{
+		method:	'POST',
+		url:	Config.COMPANY_PLAN_HEADCOUNT,
+		data:	params,
+		header:	defaultHeaders,
+	};
+	return	_axiosCall_(req);
+};
 
+const _formChecker_	=	(formData)	=>	{
+	let error_checkForm = [];
+	console.log(formData);
+	if (formData.hasOwnProperty('fullname') && !formData.fullname) {
+		error_checkForm.push("Name.");
+	}
+	if (formData.hasOwnProperty('phone_code') && !formData.phone_code) {
+		error_checkForm.push("Area Code.");
+	}
+	if (formData.hasOwnProperty('phone_no') && !formData.phone_no) {
+		error_checkForm.push("Mobile Number.");
+	}
+	if (formData.hasOwnProperty('job_title') && !formData.job_title) {
+		error_checkForm.push("Job Title.");
+	}
+	if (formData.hasOwnProperty('dob') && !formData.dob) {
+		error_checkForm.push("Birthday.");
+	}
+	if (formData.hasOwnProperty('email') && !formData.email) {
+		error_checkForm.push('Email.');
+	} else if (formData.hasOwnProperty('email')) {
+		if( !_validateEmail_(formData.email) ){
+			error_checkForm.push('Valid email.');
+		}
+	}
+	if (formData.hasOwnProperty('plan_start') && !formData.plan_start) {
+		error_checkForm.push("Plan Start.");
+	}
+	if (formData.hasOwnProperty('employees') && formData.employees === undefined) {
+		error_checkForm.push("Employees.");
+	}else if( formData.hasOwnProperty('employees') ){
+		if( formData.employees < 3 ){
+			error_checkForm.push("Employees should be at least 3.");
+		}
+	}
+	if (formData.hasOwnProperty('account_type') && !formData.account_type) {
+		error_checkForm.push("Account Type.");
+	}
+	if (formData.hasOwnProperty('payment_status') && formData.payment_status === undefined) {
+		error_checkForm.push("Payment Status.");
+	}
+	if (formData.hasOwnProperty('medical_credits') && formData.medical_credits === undefined)	{
+		error_checkForm.push('Medical Credits.');
+	}
+	if (formData.hasOwnProperty('wellness_credits') && formData.wellness_credits === undefined)	{
+		error_checkForm.push('Wellness Credits.');
+	}
+
+	
+	if (!error_checkForm.length) {
+		return true;
+	} else {
+		console.log(error_checkForm);
+		let _newError = [];
+		error_checkForm.map(value => {
+			_newError.push(`<span class="block p-1 text-red-500 text-center w-1/2 mx-auto my-0">${value}</span>`);
+		});
+		Vue.swal( 'Required', _newError.join('\n\n'), 'warning' );
+		return false;
+	}
+}
 
 const _onLoad_	=	() =>{
 
@@ -203,4 +279,6 @@ export	{
 	_fetchEmployeeList_,
 	_searchEmployeeList_,
 	_updateBulkCredit_,
+	_addHeadCount_,
+	_formChecker_
 }

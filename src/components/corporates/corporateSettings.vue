@@ -1,16 +1,31 @@
 <script>
+  import Modal from "../../views/modal/Modal.vue";
+
   let corporateSettings = {
+    components: {
+      Modal
+    },
     props: {
       customer_id: [String, Number],
 		  company_name: [String, Number],
     },
     data() {
       return {
-        empSelectorActive: {
-          value: 0,
-          text: ""
+        formats: {
+          input: ["DD/MM/YYYY"],
+          data: ["DD/MM/YYYY"]
         },
-        // corporateViewStatus : 'CorporateDetails',
+        global_isEclaimDownloadModalShow: false,
+        global_downloadEclaimData:  {
+          selected_date:  new Date(),
+          date_list:  [],
+          filters:  {
+            approved: true,
+            rejected: true,
+            pending: true,
+            all: true,
+          }
+        },
       };
     },
     created(){
@@ -19,10 +34,9 @@
       console.log( this.company_name );
     },
     methods: {
-      // selectCorporateView( opt ){
-      //   this.corporateViewStatus = opt;
-      //   this.$router.push( { name : opt } );
-      // }
+      _toggleDownloadEclaimModal(){
+        this.global_isEclaimDownloadModalShow = this.global_isEclaimDownloadModalShow == true ? false : true;
+      },
     }
   }
   
