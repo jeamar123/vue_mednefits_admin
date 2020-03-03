@@ -33,5 +33,5 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "./src/assets/css/corporates.scss";
+	@import "./src/assets/css/planDetails.scss";
 </style>

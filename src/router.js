@@ -117,7 +117,6 @@ export default new Router({
           children: [
             { name: 'CorporateInformation', path: '/dashboard/corporates/:company_name-:customer_id/info', components: { child : CorporateInformation }  },
             { name: 'CorporateMemberList', path: '/dashboard/corporates/:company_name-:customer_id/member-list', components: { child : CorporateMemberList }, props: { child: true}  },
-            { name: 'CorporatePlan', path: '/dashboard/corporates/:company_name-:customer_id/corporate-plan', components: { child : CorporatePlan } , props: { child: true}  },
             { name: 'SpendingInvoice', path: '/dashboard/corporates/:company_name-:customer_id/spending-invoice', components: { child : SpendingInvoice } , props: { child: true} },
             { name: 'BulkCreditAllocation', path: '/dashboard/corporates/:company_name-:customer_id/bulk-credit-allocation', components: { child : BulkCreditAllocation }, props: { child: true}  },
             { name: 'ResetCompanyCredits', path: '/dashboard/corporates/:company_name-:customer_id/reset-company-credits', components: { child : ResetCompanyCredits }, props: { child: true}  },
@@ -149,6 +148,7 @@ export default new Router({
               props: { child: true},
               children: [
                 { name: 'BusinessDetails', path: '/dashboard/corporates/:company_name-:customer_id/corporate_details/details', components: { childTab : BusinessDetails }, props: { child: true}  },
+                { name: 'CorporatePlan', path: '/dashboard/corporates/:company_name-:customer_id/corporate_details/plan', components: { childTab : CorporatePlan } , props: { child: true}  },
               ]
             },
           ] 

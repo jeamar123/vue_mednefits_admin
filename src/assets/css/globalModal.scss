@@ -419,7 +419,7 @@
     }
 
     .modal-header {
-
+      position: relative;
       background-color: #4657cc;
       /*background-color: rgb(63,81,181);*/
       color: #fff;
@@ -507,6 +507,10 @@
         top: 6px;
         right: 0;
       }
+    }
+    &.claim-type-modal .modal-footer,
+    &.select-account-plan-type .modal-footer {
+      padding: 0 10px 10px 10px;
     }
   }
 // ------------------------------ //
@@ -1053,4 +1057,38 @@
       }
     }
   }
+// -------------------------------------------- //
+
+// ------ SELECT ACCOUNT/PLAN TYPE MODAL ----- //
+.select-account-plan-type {
+
+  .modal-container {
+    width: 300px;
+  }
+
+  .modal-header {
+    position: relative;
+
+    .fa-times {
+      position: absolute;
+      right: 20px;
+      top: 22px;
+    }
+  }
+
+  .modal-body {
+    padding: 20px 32px;
+  }
+
+  .modal-footer {
+    text-align: center;
+    padding: 0 0 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .select-account-plan-type .modal-container {
+    width: 100%;
+  }
+}
 // -------------------------------------------- //

@@ -337,49 +337,7 @@ table.add-dependent-tbl {
     width: 30%;
   }
 }
-
-//custom checkbox 
-.custom-checkbox-selector .selector-container {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 16px;
-
-  input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
-
-  input:checked ~ .custom-checkbox-checkmark:after {
-    display: block;
-  }
-
-  .custom-checkbox-checkmark {
-    position: absolute;
-    top: 3px;
-    left: 0;
-    height: 18px;
-    width: 18px;
-    background-color: transparent;
-    border: 2px solid rgba(0, 0, 0, 0.54);
-    border-radius: 50%;
-  }
-
-  .custom-checkbox-checkmark:after {
-    display: none;
-    content: "";
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: rgba(63, 81, 181, 0.87);
-  }
-}    
+ 
 // Claim type services
 .claim-type-services-wrapper {
 
@@ -432,9 +390,6 @@ table.add-dependent-tbl {
     }
     .settings-input-wrapper {
       margin: 0 0 20px;
-    }
-    .modal-footer {
-      padding: 10px;
     }
     .btn-close {
       margin: 0 10px 0 0;

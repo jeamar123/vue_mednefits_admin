@@ -2,7 +2,7 @@
 	<div class="corporate-details-wrapper">
     <div class="tab-container">
       <div class="tab" v-bind:class="{ 'active' : $route.name == 'BusinessDetails' }">Business Details</div>
-      <div class="tab" v-bind:class="{ 'active' : $route.name == 'CorporatePlans' }">Plan</div>
+      <div class="tab" v-bind:class="{ 'active' : $route.name == 'CorporatePlan' }">Plan</div>
       <div class="tab" v-bind:class="{ 'active' : $route.name == 'CorporateCredentials' }">Credentials</div>
       <div class="tab" v-bind:class="{ 'active' : $route.name == 'CorporateSpendingInvoice' }">Spending Invoice</div>
     </div>

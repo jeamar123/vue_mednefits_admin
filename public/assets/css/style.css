@@ -1551,3 +1551,47 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
     transform: rotate(45deg);
   }
 /* --------------------------------------- */
+
+/* ----------- CUSTOM CHECKBOX RADIO ----------- */
+  .custom-checkbox-selector .selector-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+  }  
+
+  .custom-checkbox-selector .selector-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .custom-checkbox-selector .selector-container input:checked ~ .custom-checkbox-checkmark:after {
+    display: block;
+  }
+
+  .custom-checkbox-selector .selector-container .custom-checkbox-checkmark {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: transparent;
+    border: 2px solid rgba(0, 0, 0, 0.54);
+    border-radius: 50%;
+  }
+
+  .custom-checkbox-selector .selector-container .custom-checkbox-checkmark:after {
+    display: none;
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(63, 81, 181, 0.87);
+  }
+/* --------------------------------------- */
