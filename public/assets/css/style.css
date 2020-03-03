@@ -1467,3 +1467,87 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
 .currency-type {
   text-transform: uppercase;
 }
+
+
+/* ------- CUSTOM TOGGLE --------- */
+  .custom-toggle-container{
+    display: flex;
+  }
+  .custom-toggle-container .toggle{
+    flex: 1;
+    border-radius: 2px 0 0 2px;
+    background: #FFF;
+    border: 1px solid #dedede;
+    padding: 5px 15px;
+    font-size: 14px;
+    color: #969696;
+    cursor: pointer;
+  }
+  .custom-toggle-container .toggle.toggle-on{
+    border-radius: 2px 0 0 2px;
+  }
+  .custom-toggle-container .toggle.toggle-off{
+    border-radius: 0 2px 2px 0;
+  }
+  .custom-toggle-container .toggle.active{
+    background: #0392CF;
+    border: 1px solid #0392CF;
+    color: #fff;
+  }
+/* ------------------------------- */
+
+/* ----------- CUSTOM CHECKBOX ----------- */
+  label.custom-checkbox{
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  label.custom-checkbox span {
+    display: block;
+  }
+  label.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  .checkmark {
+    position: absolute;
+    top: -2px;
+    left: 0;
+    height: 23px;
+    width: 23px;
+    border: 2px solid #d6d6d6;
+    border-radius: 4px;
+  }
+  label.custom-checkbox input:checked ~ .checkmark {
+    border: 2px solid #4154AF;
+    border-radius: 4px;
+  }
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  label.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+  }
+  label.custom-checkbox .checkmark:after {
+    left: 6px;
+    top: 1px;
+    width: 7px;
+    height: 14px;
+    border: solid #4154AF;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+/* --------------------------------------- */
