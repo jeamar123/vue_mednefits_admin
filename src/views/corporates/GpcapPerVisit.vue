@@ -6,7 +6,7 @@
 					<h3>GP - Cap per Visit</h3>
 				</div>
 				<div class="dp-flex gp-header-btn">
-					<img :src="'../assets/img/download_emp.png'">
+					<img @click="___dowloadEmployeeDependent()" :src="'../assets/img/download_emp.png'">
 					<img @click="___fileUploadModal()" :src="'../assets/img/Import icon.svg'">
 					<button class="save-continue-btn">SAVE & CONTINUE</button>
 				</div>
@@ -22,13 +22,13 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr v-for="(list, index) of global_getGpData" :key="list.index">
-								<td>{{ list.id }}</td>
-								<td>{{ list.name }}</td>
+							<tr v-for="(list, index) of global_getCapList" :key="list.index">
+								<td>{{ list.memeber_id }}</td>
+								<td>{{ list.fullname }}</td>
 								<td>
 									<div @click="___editTable( list, index )">
 										<span>SGD </span>	
-										<span v-if="global_showText && !global_showInput" >{{ list.amount }}</span>
+										<span v-if="global_showText && !global_showInput" >{{ list.cap_amount }}</span>
 										<span v-if="global_showInput">
 											<input type="text">
 										<!-- <span v-if="global_showInput && global_selectedIndex == index">

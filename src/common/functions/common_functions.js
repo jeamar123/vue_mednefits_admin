@@ -261,6 +261,26 @@ const _formChecker_	=	(formData)	=>	{
 	}
 }
 
+const _fetchCapVisitList_	= (params)	=> { 
+	console.log(params);
+	let	req	=	{
+		method:	'GET',
+		url:	Config.CAP_VISIT_LIST + '?company_id=' + params.company_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const _downloadEmployeeDependent_	= (params)	=> { 
+	console.log(params);
+	let	req	=	{
+		method:	'GET',
+		url:	Config.DOWNLOAD_EMP_DEPENDENT + '?company_id=' + params.company_id + '&token=' + params.token,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
 const _onLoad_	=	() =>{
 
 }	
@@ -280,5 +300,7 @@ export	{
 	_searchEmployeeList_,
 	_updateBulkCredit_,
 	_addHeadCount_,
-	_formChecker_
+	_formChecker_,
+	_fetchCapVisitList_,
+	_downloadEmployeeDependent_
 }
