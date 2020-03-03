@@ -30,6 +30,23 @@
       right: 0;
       z-index: 0;
     }
+    .toggle-form{
+      min-height: 47px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .toggle.active{
+        background-color: #4154AF;
+        border: 1px solid #4154AF;
+      }
+      label{
+        flex: 1;
+        margin-left: 20px;
+        font-size: 14px;
+      }
+    }
+
+    
   }
   .date-container {
     position: relative;
@@ -51,6 +68,38 @@
   .column{
     >h1{
       font-size: 18px;
+      margin: 20px 0;
+    }
+  }
+  .company-contacts-text{
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  .company-contacts-container{
+    border: 1px solid #e5e5e5;
+    padding: 20px;
+    background: #fafafa;
+    margin: 0 -20px 30px -20px;
+
+    .btn-remove{
+      background-color: #d63129a6;
+    }
+  }
+  .btn-container{
+    text-align: right;
+    button{
+      margin-left: 20px;
+    }
+  }
+}
+
+@media (max-width: 340px) { 
+  .business-details-wrapper{
+    .btn-container{
+      text-align: center;
+      button{
+        margin: 0 5px;
+      }
     }
   }
 }
