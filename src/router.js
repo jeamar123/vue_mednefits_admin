@@ -33,6 +33,8 @@ import CorporateMemberList from './views/corporates/CorporateMemberList.vue'
 import CorporatePlan from './views/corporates/CorporatePlan.vue'
 import SpendingInvoice from './views/corporates/SpendingInvoice.vue'
 import CorporateSettings from './views/corporates/CorporateSettings.vue'
+import CorporateDetails from './views/corporates/CorporateDetails.vue'
+import BusinessDetails from './views/corporates/BusinessDetails.vue'
 
   // Corporate Employee Information
   import CorporateEmployeeMenu from './views/corporates/employee/CorporateEmployeeMenu.vue'
@@ -139,6 +141,16 @@ export default new Router({
             { name: 'EnrollmentExcelImport', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/excel', components: { child : EnrollmentExcelImport }, props: { child: true}  },
             { name: 'EnrollmentWebInput', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/web-input', components: { child : EnrollmentWebInput }, props: { child: true}  },
             { name: 'EnrollmentSummaryPreview', path: '/dashboard/corporates/:company_name-:customer_id/enrollment/summary', components: { child : EnrollmentSummaryPreview }, props: { child: true}  },
+            { 
+              name: 'CorporateDetails', 
+              path: '/dashboard/corporates/:company_name-:customer_id/corporate_details', 
+              components: { child : CorporateDetails }, 
+              redirect: '/dashboard/corporates/:company_name-:customer_id/corporate_details/details',
+              props: { child: true},
+              children: [
+                { name: 'BusinessDetails', path: '/dashboard/corporates/:company_name-:customer_id/corporate_details/details', components: { childTab : BusinessDetails }, props: { child: true}  },
+              ]
+            },
           ] 
         },
         { 
