@@ -28,8 +28,8 @@
 								<td>
 									<div @click="___editTable( list, index )">
 										<span>SGD </span>	
-										<span v-if="global_showText && !global_showInput" >{{ list.cap_amount }}</span>
-										<span v-if="global_showInput">
+										<span v-if="global_showText[index]">{{ list.cap_amount }}</span>
+										<span v-if="global_showInput[index]">
 											<input type="text">
 										<!-- <span v-if="global_showInput && global_selectedIndex == index">
 											<input type="text" :value="list.amount"> -->
@@ -95,8 +95,8 @@
 									<!-- <span>Empoyee Cap.xls</span> -->
 									<span>{{ global_selectedFile.name }}</span>
 								</span>
-								<div v-for="(img,index) in uploading_files">
-									<div class="progress-bar"></div>
+								<div>
+									<div v-show="global_selectedFile.uploading == 100 || global_selectedFile.uploading == 10" class="progress-bar" v-bind:class="{error : global_selectedFile.uploading == 10, success : global_selectedFile.uploading == 100}"></div>
 								</div>
 							</div>
 							<div v-if="uploadCapData == false" class="cap-file-err">Excel is invalid format. Please download the recommended file for Employee Cap Per Visit.</div>
@@ -105,7 +105,7 @@
 				</div>
 			</div>
 			<div slot="footer">
-				<button @click="___uploadGpCapPerVisit()" class="btn-primary">Upload</button>
+				<button @click="___uploadGpCapPerVisit( global_selectedFile )" class="btn-primary">Upload</button>
 			</div>
 		</Modal>
 	</div>

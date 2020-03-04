@@ -19,6 +19,8 @@
         global_getCapList: {},
         global_showInput: false,
         global_showText:  true,
+        global_showInput: [],
+        global_showText:  [],
         global_selectedIndex: 0,
         // global_getGpData: [
         //   {
@@ -41,10 +43,11 @@
           last_page: 7,
         },
         global_selectedFile: {
-          name: undefined,
+          name: '',
         },
         uploadCapData: {},
         uploading_files : [],
+        uploading: false,
       };
     },
     created(){
@@ -65,13 +68,21 @@
     },
     methods: {
       ___editTable( data, index ) { 
-        // console.log(index);
-        this.global_showText = false;
-        this.global_showInput  = true;
+        console.log(index);
+        this.global_showText[index] = false;
+        this.global_showInput[index]  = true;
+        this.$forceUpdate();
         // this.global_selectedIndex = index;
       },
       ___fileUploadModal() {
-        this.global_showFileUpload = this.global_showFileUpload == false ? true : false;
+        if ( this.global_showFileUpload == false ) {
+          this.global_showFileUpload = true;
+        } else {
+          this.global_showFileUpload = false;
+          this.global_selectedFile = {
+            name: '',
+          };      
+        }  
       },
       ___getCapVisitList() {
         let params = {
@@ -89,6 +100,12 @@
             this.global_getCapList = res.data.docs;
             this.global_capListPagination = res.data;
             // console.log(this.global_capListPagination.last_page);
+
+            for (let i = 0;i < this.global_getCapList.length; i++) {
+              this.global_showInput[i] = false,
+              this.global_showText[i] = true,
+              console.log(this.global_showInput[i]);
+            }
           }
         });
       },
@@ -151,7 +168,7 @@
         this.global_selectedFile = data[0];
         console.log(this.global_selectedFile);
       },
-      ___uploadGpCapPerVisit () {
+      ___uploadGpCapPerVisit ( file ) {
         let formData = new FormData();
         let params = {
           filename: this.global_selectedFile,
@@ -166,9 +183,16 @@
             this.uploadCapData = res;
             console.log(this.uploadCapData);
             if( res.status == 200 || res.status == 201 ){
+              console.log(formData);
               this.$parent.hideLoading();
+              file.uploading = 100;
+              setTimeout(() => {
+                this.global_showFileUpload = false;
+              }, 2000);
+              this.$forceUpdate();
               this.___getCapVisitList();
             } else {
+              file.uploading = 10;
               this.$parent.hideLoading();
             }
           })

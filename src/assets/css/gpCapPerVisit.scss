@@ -181,17 +181,21 @@
     }
   }
   .progress-bar {
-    background-color: #78E997;
     height: 25px;
     color: #2E4057;
-    width: 10%;
     margin: 0;
     // width: 0%;
     transition: all 1s ease-in-out;
     position: absolute;
 
+    &.success {
+      width: 100%;
+      background-color: #78E997;
+    }
+
     &.error {
       background-color: #d46448;
+      width: 10%;
     }
   }
   .cap-file-err {
