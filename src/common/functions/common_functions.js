@@ -9,6 +9,12 @@ const	defaultHeaders	=		{
 	// 'Content-Type':	'application/json',
 	'Authorization':	localStorage.vue_admin_session
 };
+const	uploadHeaders	=		{
+	// 'Accept':	'application/json',
+	// 'Content-Type':	'application/json',
+	'Authorization':	localStorage.vue_admin_session,
+	'Content-Type': 'multipart/form-data'
+};
 
 let global_storage	=	{};
 
@@ -281,6 +287,17 @@ const _downloadEmployeeDependent_	= (params)	=> {
 	return _axiosCall_(req);
 };
 
+const _uploadFileCap_ = (params)	=> { 
+	console.log(params);
+	let	req	=	{
+		method:	'POST',
+		url:	Config.UPLOAD_FILE_CAP,
+		data: params,
+		header:	uploadHeaders,
+	};
+	return _axiosCall_(req);
+};
+
 const _onLoad_	=	() =>{
 
 }	
@@ -302,5 +319,6 @@ export	{
 	_addHeadCount_,
 	_formChecker_,
 	_fetchCapVisitList_,
-	_downloadEmployeeDependent_
+	_downloadEmployeeDependent_,
+	_uploadFileCap_
 }

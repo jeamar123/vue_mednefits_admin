@@ -177,6 +177,7 @@
       position: absolute;
       left: 10px;
       top: 3px;
+      z-index: 1;
     }
   }
   .progress-bar {
@@ -187,6 +188,7 @@
     margin: 0;
     // width: 0%;
     transition: all 1s ease-in-out;
+    position: absolute;
 
     &.error {
       background-color: #d46448;

@@ -80,29 +80,32 @@
 				<img @click="___fileUploadModal()" :src="'../assets/img/cancel.png'">
 			</div>
 			<div slot="body">
-				<div class="drop-box dp-flex">
+				<div class="drop-box dp-flex" >
 					<div>
 						<div class="drop-file-upload dp-flex-ai">
-							<input type="file" class="upload-file">
+							<input ref="excelUploader" type="file" class="upload-file" v-on:change="___uploadGpCapChanged($event.target.files);">
 							<img :src="'../assets/img/fileupload.png'">
-							<span>Drop afile to uload, or </span>
+							<span>Drop a file to upload, or </span>
 							<button class="btn-primary">Browse</button>
 						</div>
-						<div>
+						<div v-if="global_selectedFile.name">
 							<div class="progress-wrapper">
 								<span>
 									<i class="fa fa-file-o"></i>
-									<span>Empoyee Cap.xls</span>
+									<!-- <span>Empoyee Cap.xls</span> -->
+									<span>{{ global_selectedFile.name }}</span>
 								</span>
-								<div class="progress-bar error"></div>
+								<div v-for="(img,index) in uploading_files">
+									<div class="progress-bar"></div>
+								</div>
 							</div>
-							<div class="cap-file-err">Excel is invalid format. Please download the recommended file for Employee Cap Per Visit.</div>
+							<div v-if="uploadCapData == false" class="cap-file-err">Excel is invalid format. Please download the recommended file for Employee Cap Per Visit.</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div slot="footer">
-				<button class="btn-primary">Upload</button>
+				<button @click="___uploadGpCapPerVisit()" class="btn-primary">Upload</button>
 			</div>
 		</Modal>
 	</div>

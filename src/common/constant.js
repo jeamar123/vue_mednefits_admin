@@ -24,6 +24,8 @@ const CAP_VISIT_LIST = `${SERVERURL}/company/getCapVisitList`;
 
 const DOWNLOAD_EMP_DEPENDENT = `${SERVERURL}/company/downloadEmployeeDependent`;
 
+const UPLOAD_FILE_CAP = `${SERVERURL}/company/uploadCapVisitFile`;
+
 module.exports = {
 	AUTH_LOGIN,
 	COMPANY_DETAILS,
@@ -33,5 +35,6 @@ module.exports = {
 	UPDATE_BULK_CREDIT,
 	COMPANY_PLAN_HEADCOUNT,
 	CAP_VISIT_LIST,
-	DOWNLOAD_EMP_DEPENDENT
+	DOWNLOAD_EMP_DEPENDENT,
+	UPLOAD_FILE_CAP
 }

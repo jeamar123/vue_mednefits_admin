@@ -3,12 +3,13 @@
   import Modal from "../../views/modal/Modal.vue";
   import { 
     _fetchCapVisitList_,
-    _downloadEmployeeDependent_
+    _downloadEmployeeDependent_,
+    _uploadFileCap_
   } from '../../common/functions/common_functions';
 
   let gcapPerVisit = {
     components: {
-      Modal
+      Modal,
     },
     props: {
       customer_id: [String, Number],
@@ -38,7 +39,12 @@
         page_limit: 10,
         global_capListPagination: {
           last_page: 7,
-        }
+        },
+        global_selectedFile: {
+          name: undefined,
+        },
+        uploadCapData: {},
+        uploading_files : [],
       };
     },
     created(){
@@ -87,7 +93,7 @@
         });
       },
       ___dowloadEmployeeDependent() {
-        window.open( axios.defaults.serverUrl + '/company/downloadEmployeeDependent?token=' + localStorage.getItem('vue_admin_session') + '&company_id=' + this.customer_id );
+        window.open( axios.defaults.serverUrl + '/company/downloadCapVisitList?token=' + localStorage.getItem('vue_admin_session') + '&company_id=' + this.customer_id );
       },
       ___hideAllDrop( e ) {
         if ($(e.target).parents(".gp-cap-pagination").length === 0) {
@@ -139,6 +145,34 @@
         this.global_showCapDp = false;
         this.___getCapVisitList();
       },
+      ___uploadGpCapChanged ( data ) {
+        console.log(data);
+        this.global_selectedFileName = data[0];
+        this.global_selectedFile = data[0];
+        console.log(this.global_selectedFile);
+      },
+      ___uploadGpCapPerVisit () {
+        let formData = new FormData();
+        let params = {
+          filename: this.global_selectedFile,
+          // token: localStorage.getItem('vue_admin_session'),
+        }
+        Object.keys( params ).map(( key ) => {
+          formData.append(key, params[ key ]);
+        });
+        this.$parent.showLoading();
+        _uploadFileCap_(formData)
+					.then(( res ) => {
+            this.uploadCapData = res;
+            console.log(this.uploadCapData);
+            if( res.status == 200 || res.status == 201 ){
+              this.$parent.hideLoading();
+              this.___getCapVisitList();
+            } else {
+              this.$parent.hideLoading();
+            }
+          })
+      }
     }
   }
   
