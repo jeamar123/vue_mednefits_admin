@@ -4,7 +4,8 @@
   import { 
     _fetchCapVisitList_,
     _downloadEmployeeDependent_,
-    _uploadFileCap_
+    _uploadFileCap_,
+    _updateCapVisit_
   } from '../../common/functions/common_functions';
 
   let gcapPerVisit = {
@@ -19,21 +20,11 @@
         global_getCapList: {},
         global_showInput: false,
         global_showText:  true,
+        global_showZeroValue: false,
         global_showInput: [],
         global_showText:  [],
+        global_showZeroValue: [],
         global_selectedIndex: 0,
-        // global_getGpData: [
-        //   {
-        //     id: 0,
-        //     name: "Noelou Nagac",
-        //     amount: 100
-        //   },
-        //   {
-        //     id: 2,
-        //     name: "Agniez Permites",
-        //     amount: 250
-        //   }
-        // ],
         global_showFileUpload:  false,
         global_showCapDp: false,
         pagesToDisplay: 7,
@@ -48,10 +39,21 @@
         uploadCapData: {},
         uploading_files : [],
         uploading: false,
+
+        global_activeBtn: false,
+        capAmount: [],
       };
     },
     created(){
       this.___getCapVisitList();
+    },
+    watch: {
+      
+      capAmount: function(nv, ov,) {
+        if ( nv == ov ) {
+          this.global_activeBtn = true;
+        }
+      }
     },
     computed: {
       ___limitPagination() {
@@ -68,11 +70,15 @@
     },
     methods: {
       ___editTable( data, index ) { 
-        console.log(index);
+        // console.log(index);
         this.global_showText[index] = false;
         this.global_showInput[index]  = true;
+        this.global_showZeroValue[index] = true;
+        this.capAmount[index] = data.cap_amount;
+        if ( this.capAmount[index] == null ) {
+          this.capAmount[index] = 0;
+        }
         this.$forceUpdate();
-        // this.global_selectedIndex = index;
       },
       ___fileUploadModal() {
         if ( this.global_showFileUpload == false ) {
@@ -84,29 +90,30 @@
           };      
         }  
       },
-      ___getCapVisitList() {
+      ___getCapVisitList(index) {
         let params = {
           company_id: this.customer_id,
           page: this.page_active,
           limit: this.page_limit,
           token: localStorage.getItem('vue_admin_session'),
         }
+
         this.$parent.showLoading();
         _fetchCapVisitList_(params)
 					.then(( res ) => {
-          console.log(res);
           if( res.status == 200 || res.status == 201 ){
             this.$parent.hideLoading();
             this.global_getCapList = res.data.docs;
             this.global_capListPagination = res.data;
-            // console.log(this.global_capListPagination.last_page);
-
+            
             for (let i = 0;i < this.global_getCapList.length; i++) {
               this.global_showInput[i] = false,
               this.global_showText[i] = true,
-              console.log(this.global_showInput[i]);
+              this.global_showZeroValue[i] = false;
+              this.capAmount[i] = this.global_getCapList[i].cap_amount;
             }
           }
+          
         });
       },
       ___dowloadEmployeeDependent() {
@@ -196,6 +203,36 @@
               this.$parent.hideLoading();
             }
           })
+      },
+      ___updateCapVisitAmount( data ) {
+        let err_ctr = 0;
+        data.map((value,key) => {
+
+          let params = {
+            company_id: this.customer_id,
+            capList: [{
+              member_id: value.memeber_id,
+              cap_amount: Number(this.capAmount[key]),
+              // cap_amount: Number(value.cap_amount),
+            }],
+          }
+          this.$parent.showLoading();
+          _updateCapVisit_(params)
+            .then(( res ) => {
+            // console.log(res);
+            if( res.status == 200 || res.status == 201 ){
+            }
+          });
+
+          if (data.length - 1 == key && err_ctr == 0) {
+            this.___getCapVisitList();
+            this.global_activeBtn = false;
+            this.$parent.hideLoading();
+            this.$swal('Success!', 'Cap updated', 'success');
+          }
+        });
+
+      
       }
     }
   }

@@ -8,7 +8,8 @@
 				<div class="dp-flex gp-header-btn">
 					<img @click="___dowloadEmployeeDependent()" :src="'../assets/img/download_emp.png'">
 					<img @click="___fileUploadModal()" :src="'../assets/img/Import icon.svg'">
-					<button class="save-continue-btn">SAVE & CONTINUE</button>
+					<button @click="___updateCapVisitAmount(global_getCapList)" v-bind:class="{active: global_activeBtn == true }" class="save-continue-btn">SAVE & CONTINUE</button>
+					<!-- <button @click="___updateCapVisitAmount(global_getCapList)" class="save-continue-btn">SAVE & CONTINUE</button> -->
 				</div>
 			</div>
 			<div class="gp-cap-body">
@@ -27,17 +28,18 @@
 								<td>{{ list.fullname }}</td>
 								<td>
 									<div @click="___editTable( list, index )">
-										<span>SGD </span>	
-										<span v-if="global_showText[index]">{{ list.cap_amount }}</span>
-										<span v-if="global_showInput[index]">
-											<input type="text">
-										<!-- <span v-if="global_showInput && global_selectedIndex == index">
-											<input type="text" :value="list.amount"> -->
+										<span class="cap-per-visit-amount">
+											<span v-if="global_showZeroValue[index] || list.cap_amount !== 0 && list.cap_amount !== null">SGD </span>
+											<span v-if="global_showText[index]"><span v-if="list.cap_amount !== 0">{{ list.cap_amount }}</span> <span v-if="list.cap_amount == 0 || list.cap_amount == null" class="not-applicable-text">Not Applicable</span></span>
+											<span v-if="global_showInput[index]">
+												<!-- <input type="number" v-model="list.cap_amount"> -->
+												<input type="number" v-model="capAmount[index]">
+												<!-- {{ capAmount[index] }} -->
+											<!-- <span v-if="global_showInput && global_selectedIndex == index">
+												<input type="text" :value="list.amount"> -->
+											</span>
 										</span>
 										<!-- <span v-else>{{ list.amount }}</span> -->
-									</div>
-									<div v-if="false">
-										<span>Not Applicable</span>
 									</div>
 								</td>
 							</tr>

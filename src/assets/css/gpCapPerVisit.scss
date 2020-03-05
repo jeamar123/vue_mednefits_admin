@@ -18,14 +18,22 @@
       margin: 0 10px 0 0;
     }
     .save-continue-btn {
-      border: solid 2px #0392cf;
-      background-color: #0392cf;
+      // border: solid 2px #0392cf;
+      // background-color: #0392cf;
       color: #fff;
       padding: 7px 0px;
       border-radius: 2px;
       font-size: 14px;
       font-weight: 700;
       width: 140px;
+      background-color: #9dc8e4;
+      // border-color: #9dc8e4;
+      pointer-events: none;
+    }
+
+    .save-continue-btn.active {
+      background-color: #0392cf;
+      pointer-events: initial;
     }
   }
   .gp-cap-body {
@@ -65,6 +73,15 @@
       }
       tr td {
         padding: 10px;
+      }
+      input {
+        width: 85px;
+        font-weight: 700;
+        border-left: 1px solid #ddd;
+        padding: 0 4px;
+      }
+      .not-applicable-text {
+        color: rgba(0,0,0,.54); 
       }
     }
 

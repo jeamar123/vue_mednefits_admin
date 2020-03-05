@@ -298,6 +298,17 @@ const _uploadFileCap_ = (params)	=> {
 	return _axiosCall_(req);
 };
 
+const _updateCapVisit_ = (params)	=> { 
+	console.log(params);
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_CAP_VISIT,
+		data: params,
+		header:	uploadHeaders,
+	};
+	return _axiosCall_(req);
+}
+
 const _onLoad_	=	() =>{
 
 }	
@@ -320,5 +331,6 @@ export	{
 	_formChecker_,
 	_fetchCapVisitList_,
 	_downloadEmployeeDependent_,
-	_uploadFileCap_
+	_uploadFileCap_,
+	_updateCapVisit_
 }
