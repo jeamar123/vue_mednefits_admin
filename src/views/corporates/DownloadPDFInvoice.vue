@@ -1,10 +1,14 @@
 <template>
 	<div class="download-pdf-container">
     <div class="download-btn-container">
-			<button class="btn-gray">Download <img :src="'../assets/img/download_emp.png'"/></button>
+			<button class="btn-gray" v-on:click="_downloadAsPdf_()">Download <img :src="'../assets/img/download_emp.png'"/></button>
 		</div>
 
-		<div class="download-pdf-content">
+		<table id="my-table">
+  <!-- ... -->
+</table>
+
+		<div id="print-content" class="download-pdf-content">
 			<p class="paid-text">PAID</p>
 			<div class="header-box">
 				<div class="div-col">

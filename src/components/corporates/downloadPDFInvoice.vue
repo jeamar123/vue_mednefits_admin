@@ -1,4 +1,6 @@
 <script>
+  import jsPDF from 'jspdf'
+  import 'jspdf-autotable'
 
   let downloadPDFInvoice = {
     props: {
@@ -13,7 +15,19 @@
 
     },
     methods: {
-      
+      _downloadAsPdf_(){
+        const doc = new jsPDF()
+        doc.autoTable({ html: '#my-table' })
+        doc.autoTable({
+          body: [
+            ['David', 'david@example.com', 'Sweden'],
+            ['Castille', 'castille@example.com', 'Norway'],
+            // ...
+          ],
+        })
+        // doc.save('table.pdf')
+        window.open(doc.output('bloburl'), '_blank');
+      }
     }
   }
   
