@@ -66,6 +66,10 @@ import BusinessDetails from './views/corporates/BusinessDetails.vue'
   import MemberDetails from './views/corporates/plan-renewal/MemberDetails.vue'
   import SpendingRenewalDetails from './views/corporates/plan-renewal/SpendingRenewalDetails.vue'
   import SpendingAccountRenewal from './views/corporates/plan-renewal/SpendingAccountRenewal.vue'
+
+  // Corporate Details
+  import DownloadPDFInvoice from './views/corporates/DownloadPDFInvoice.vue'
+  import DownloadPDFReceipt from './views/corporates/DownloadPDFReceipt.vue'
 // End Corporates
 
 import Analytics from './views/Analytics.vue'
@@ -147,8 +151,8 @@ export default new Router({
               redirect: '/dashboard/corporates/:company_name-:customer_id/corporate_details/details',
               props: { child: true},
               children: [
-                { name: 'BusinessDetails', path: '/dashboard/corporates/:company_name-:customer_id/corporate_details/details', components: { childTab : BusinessDetails }, props: { child: true}  },
-                { name: 'CorporatePlan', path: '/dashboard/corporates/:company_name-:customer_id/corporate_details/plan', components: { childTab : CorporatePlan } , props: { child: true}  },
+                { name: 'BusinessDetails', path: '/dashboard/corporates/:company_name-:customer_id/corporate_details/details', components: { childTab : BusinessDetails }, props: { childTab: true}  },
+                { name: 'CorporatePlan', path: '/dashboard/corporates/:company_name-:customer_id/corporate_details/plan', components: { childTab : CorporatePlan } , props: { childTab: true}  },
               ]
             },
           ] 
@@ -169,7 +173,8 @@ export default new Router({
         },
         { name: 'AddCorporate', path: '/dashboard/corporates/add', component: AddCorporate },
         { name: 'HealthPartnerAccess', path: '/dashboard/health-partner-access/:type-:id', component: HealthPartnerAccess , props: true},
-
+        { name: 'DownloadPDFInvoice', path: '/dashboard/download-pdf/:customer_id', component: DownloadPDFInvoice, props: true },
+        { name: 'DownloadPDFReceipt', path: '/dashboard/download-receipt/:customer_id', component: DownloadPDFReceipt, props: true },
         { name: 'Analytics', path: '/dashboard/analytics', component: Analytics },
       ]
     },
