@@ -1,5 +1,8 @@
 <script>
   import Modal from "../../views/modal/Modal.vue";
+  import { 
+    _loginAccessAccount_
+  } from '../../common/functions/common_functions';
 
   let corporateSettings = {
     components: {
@@ -37,6 +40,18 @@
       _toggleDownloadEclaimModal(){
         this.global_isEclaimDownloadModalShow = this.global_isEclaimDownloadModalShow == true ? false : true;
       },
+      ___loginCompanyAccount() {
+        let params = {
+          customer_id:  this.customer_id,
+        }
+        console.log('test');
+        _loginAccessAccount_(params)
+					.then(( res ) => {
+          if( res.status == 200 || res.status == 201 ){
+           
+          }  
+        });
+      }
     }
   }
   

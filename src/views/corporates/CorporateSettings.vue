@@ -57,7 +57,7 @@
 				</div>
 			</div>
 
-			<div class="menu-item">
+			<div @click="___loginCompanyAccount()" class="menu-item">
 				<div class="img-wrapper">
 					<img :src="'../assets/img/settings-icons/unlocked.png'">
 				</div>
