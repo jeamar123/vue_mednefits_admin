@@ -9,6 +9,12 @@ const	defaultHeaders	=		{
 	// 'Content-Type':	'application/json',
 	'Authorization':	localStorage.vue_admin_session
 };
+const	uploadHeaders	=		{
+	// 'Accept':	'application/json',
+	// 'Content-Type':	'application/json',
+	'Authorization':	localStorage.vue_admin_session,
+	'Content-Type': 'multipart/form-data'
+};
 
 let global_storage	=	{};
 
@@ -261,6 +267,48 @@ const _formChecker_	=	(formData)	=>	{
 	}
 }
 
+const _fetchCapVisitList_	= (params)	=> { 
+	console.log(params);
+	let	req	=	{
+		method:	'GET',
+		url:	Config.CAP_VISIT_LIST + '?company_id=' + params.company_id + '&page=' + params.page + '&limit=' + params.limit + '&token=' + params.token,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const _downloadEmployeeDependent_	= (params)	=> { 
+	console.log(params);
+	let	req	=	{
+		method:	'GET',
+		url:	Config.DOWNLOAD_EMP_DEPENDENT + '?company_id=' + params.company_id + '&token=' + params.token,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const _uploadFileCap_ = (params)	=> { 
+	console.log(params);
+	let	req	=	{
+		method:	'POST',
+		url:	Config.UPLOAD_FILE_CAP,
+		data: params,
+		header:	uploadHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const _updateCapVisit_ = (params)	=> { 
+	console.log(params);
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_CAP_VISIT,
+		data: params,
+		header:	uploadHeaders,
+	};
+	return _axiosCall_(req);
+}
+
 const _onLoad_	=	() =>{
 
 }	
@@ -280,5 +328,9 @@ export	{
 	_searchEmployeeList_,
 	_updateBulkCredit_,
 	_addHeadCount_,
-	_formChecker_
+	_formChecker_,
+	_fetchCapVisitList_,
+	_downloadEmployeeDependent_,
+	_uploadFileCap_,
+	_updateCapVisit_
 }

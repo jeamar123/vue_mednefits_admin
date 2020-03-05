@@ -20,6 +20,14 @@ const SEARCH_EMPLOYEE_LIST = `${SERVERURL}/company/employee_lists`;
 
 const UPDATE_BULK_CREDIT = `${SERVERURL}/company/employee_allocate_credits`;
 
+const CAP_VISIT_LIST = `${SERVERURL}/company/getCapVisitList`;
+
+const DOWNLOAD_EMP_DEPENDENT = `${SERVERURL}/company/downloadEmployeeDependent`;
+
+const UPLOAD_FILE_CAP = `${SERVERURL}/company/uploadCapVisitFile`;
+
+const UPDATE_CAP_VISIT = `${SERVERURL}/company/CapVisit`;
+
 module.exports = {
 	AUTH_LOGIN,
 	COMPANY_DETAILS,
@@ -27,5 +35,9 @@ module.exports = {
 	EMPLOYEE_LIST,
 	SEARCH_EMPLOYEE_LIST,
 	UPDATE_BULK_CREDIT,
-	COMPANY_PLAN_HEADCOUNT
+	COMPANY_PLAN_HEADCOUNT,
+	CAP_VISIT_LIST,
+	DOWNLOAD_EMP_DEPENDENT,
+	UPLOAD_FILE_CAP,
+	UPDATE_CAP_VISIT
 }

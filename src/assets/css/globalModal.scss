@@ -188,7 +188,8 @@
   }
 
 // GP CAP PER VISIT 
-  .file-upload-modal {
+  .modal-mask.file-upload-modal {
+    z-index: 0;
     .modal-container {
       width: 580px;
     }
