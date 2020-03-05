@@ -191,7 +191,7 @@
 							<button class="btn-primary">CREATE DEPEDENT ACCOUNT</button>
 							<button class="btn-primary">SPENDING ACCOUNT SETTINGS</button>
 							<button class="btn-primary">CREDIT ALLOCATION</button>
-							<button class="btn-primary">VIEW PLAN</button>
+							<button class="btn-primary" v-on:click="toggleViewPlanModal()">VIEW PLAN</button>
 						</div>
 					</div>
 					<div class="old-plan-active">
@@ -433,6 +433,194 @@
 				</div>
 				<div slot="footer">
 					<button class="btn-primary">UPDATE ACCOUNT/PLAN TYPE</button>
+				</div>
+			</Modal>
+
+			<Modal v-if="global_isViewPlanModalShow" class="view-plans-modal">
+				<div slot="header">
+					<h1 v-if="!global_isRecordPaymentShow">View Plan</h1>
+					<h1 v-if="global_isRecordPaymentShow">Record Payment</h1>
+				</div>
+				<div slot="body">
+					<div v-if="!global_isRecordPaymentShow" class="account-list-container">
+						<div class="account-list-box employee-accounts-container">
+							<div class="header-title">
+								Transactions
+							</div>
+							<div class="columns transaction-box align-items-center">
+								<div class="column">
+									<p class="col-title"><label>Employee Account</label></p>
+									<p><label>Plan Type:</label> <span>Pro Plan</span></p>
+									<p><label>Invoice:</label> <span>OMC000012</span></p>
+									<p><label>Start Date:</label> <span>2018-01-03</span></p>
+									<p><label>Plan Duration:</label> <span>12 months</span></p>
+									<p><label>Total Seats:</label> <span>4</span></p>
+									<p><label>Occupied Seats:</label> <span>4</span></p>
+									<p><label>Vacant Seats:</label> <span>0</span></p>
+									<p><label>Plan Amount:</label> <span><span class="txt-uppercase">SGD</span> 360.00</span></p>
+									<p><label>Payment Status:</label> <span>PENDING</span></p>
+								</div>
+								<div class="column">
+									<button class="btn-blue">Edit Plan</button>
+									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
+									<button class="btn-blue">0 Pending Enrollment</button>
+									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="account-list-box dependent-accounts-container">
+							<div class="header-title">
+								Dependent Account
+							</div>
+							<div v-for="list in 3" class="columns transaction-box align-items-center">
+								<div class="column">
+									<p class="col-title"><label>Plan Account Type:</label> <span>Lite Plan</span></p>
+									<p><label>Account Plan Type:</label> <span>Active Plan</span></p>
+									<p><label>Start Date:</label> <span>2018-01-03</span></p>
+									<p><label>Total Seats:</label> <span>4</span></p>
+									<p><label>Occupied Seats:</label> <span>4</span></p>
+									<p><label>Vacant Seats:</label> <span>0</span></p>
+									<p><label>Plan Amount:</label> <span><span class="txt-uppercase">SGD</span> 360.00</span></p>
+									<p><label>Payment Status:</label> <span>PENDING</span></p>
+								</div>
+								<div class="column">
+									<button class="btn-blue">Edit Plan</button>
+									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
+									<button class="btn-blue">0 Pending Enrollment</button>
+									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="account-list-box spending-deposit-accounts-container">
+							<div class="header-title">
+								Spending Deposit Account
+							</div>
+							<div v-for="list in 2" class="columns transaction-box align-items-center">
+								<div class="column">
+									<p><label>Invoice:</label> <span>DEP000016</span></p>
+									<p><label>Total Credits:</label> <span><span class="txt-uppercase">SGD</span> 10,000.00</span></p>
+									<p><label>(Wellness)</label></p>
+									<p><label>Deposit:</label> <span><span class="txt-uppercase">SGD</span> 360.00</span></p>
+									<p><label>Payment Status:</label> <span>PENDING</span></p>
+								</div>
+								<div class="column">
+									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
+									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
+									<button class="btn-primary">Edit Deposit</button>
+									<button class="btn-primary">Mark as unpaid</button>
+								</div>
+							</div>
+						</div>
+						
+						<div class="account-list-box employee-refunds-container">
+							<div class="header-title">
+								Employee Refund
+							</div>
+							<div v-for="list in 2" class="columns transaction-box align-items-center">
+								<div class="column">
+									<p><label>Cancellation No.:</label> <span>OMC000010A</span></p>
+									<p><label>Employees:</label> <span>1</span></p>
+									<p><label>Refund Amount:</label> <span><span class="txt-uppercase">SGD</span> 00.00</span></p>
+									<p><label>Payment Status:</label> <span>PENDING</span></p>
+									<p><label>Paid Amount:</label> <span>0</span></p>
+									<p><label>Date Refunded:</label> <span>2018-01-04</span></p>
+									<p><label>Date Paid:</label> <span>2018-01-04</span></p>
+									<p><label>Payment Remarks:</label> <span>Notes</span></p>
+								</div>
+								<div class="column">
+									<button class="btn-gray">Download</button>
+									<button class="btn-primary">Record Refund</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="account-list-box dependent-refunds-container">
+							<div class="header-title">
+								Dependent Refund
+							</div>
+							<div v-for="list in 2" class="columns transaction-box align-items-center">
+								<div class="column">
+									<p><label>Cancellation No.:</label> <span>OMC000010A</span></p>
+									<p><label>Employees:</label> <span>1</span></p>
+									<p><label>Refund Amount:</label> <span><span class="txt-uppercase">SGD</span> 00.00</span></p>
+									<p><label>Payment Status:</label> <span>PENDING</span></p>
+									<p><label>Paid Amount:</label> <span>0</span></p>
+									<p><label>Date Refunded:</label> <span>2018-01-04</span></p>
+									<p><label>Date Paid:</label> <span>2018-01-04</span></p>
+									<p><label>Payment Remarks:</label> <span>Notes</span></p>
+								</div>
+								<div class="column">
+									<button class="btn-gray">Download</button>
+									<button class="btn-primary">Record Refund</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="account-list-box plan-extension-container">
+							<div class="header-title">
+								Plan Extension
+							</div>
+							<div v-for="list in 1" class="columns transaction-box align-items-center">
+								<div class="column">
+									<p><label>Account Type:</label> <span>Pro Plan</span></p>
+									<p><label>Invoice:</label> <span>OMC000039</span></p>
+									<p><label>Plan Duration:</label> <span>12 months</span></p>
+									<p><label>Employees:</label> <span>1</span></p>
+									<p><label>Plan Amount:</label> <span><span class="txt-uppercase">SGD</span> 00.00</span></p>
+									<p><label>Payment Status:</label> <span>PENDING</span></p>
+
+								</div>
+								<div class="column">
+									<button class="btn-blue">Edit Plan</button>
+									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
+									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
+									<button class="btn-gray" v-on:click="_downloadInvoice_(null,'receipt')">Download Receipt</button>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div v-if="global_isRecordPaymentShow" class="record-payment-container">
+						<div class="columns">
+							<div class="column is-6">
+								<div class="form-box">
+									<label>Paid Amount</label>
+									<input type="number">
+								</div>
+							</div>
+							<div class="column is-6">
+								<div class="form-box">
+									<label>Date Received</label>
+									<div class="date-container vDatepicker">
+										<v-date-picker 
+											popoverDirection="bottom" 
+											v-model="global_recordPayment.date_received"
+											:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+											popover-visibility="focus" 
+											:formats='formats'></v-date-picker>
+										<i class="fa fa-caret-down"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="columns">
+							<div class="column is-6">
+								<div class="form-box">
+									<label>Payment Remarks</label>
+									<input type="text">
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<div slot="footer">
+					<button v-if="global_isRecordPaymentShow" class="btn-close" v-on:click="toggleRecordPayment()">Back</button>
+					<button v-if="global_isRecordPaymentShow" class="btn-primary" v-on:click="toggleRecordPayment()">Update</button>
+					<button v-if="!global_isRecordPaymentShow" class="btn-close" v-on:click="toggleViewPlanModal()">Close</button>
 				</div>
 			</Modal>
 		</div>

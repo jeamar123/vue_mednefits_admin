@@ -1,0 +1,280 @@
+.download-pdf-container,.download-receipt-container{
+  padding: 10px;
+  position: relative;
+
+  .download-btn-container{
+    text-align: center;
+
+    .btn-gray{
+      border: none;
+      // line-height: 1;
+      padding: 10px 15px;
+      font-size: 14px;
+      border-radius: 2px;
+      height: 40px;
+      transition: all .3s ease-in;
+      font-family: inherit;
+      font-weight: 700;
+      width: 170px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      color: #666;
+      background-color: rgba(250, 250, 250, 0.67);
+      box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+
+      img{
+        display: inline-block;
+        height: 20px;
+        margin-left: 5px;
+        vertical-align: top;
+      }
+    }
+  }
+
+  .download-pdf-content{
+    width: 809px;
+    margin: 0px auto 50px;
+    display: block;
+    border: 1px solid #EEE;
+    margin-bottom: 50px;
+    box-shadow: 0px 0px 10px #CCC;
+    position: relative;
+    background-color: #FFF;
+
+    .paid-text{
+      position: absolute;
+      font-size: 200px;
+      -webkit-transform: rotate(-30deg);
+      transform: rotate(-30deg);
+      top: 130px;
+      left: 200px;
+      color: #cccccc;
+      z-index: 1;
+      opacity: 0.4;
+    }
+    .div-col{
+      flex: 1;
+    }
+    .header-box{
+      display: flex;
+      align-items: center;
+      padding: 20px 30px;
+      border-bottom: 1px solid #DCDFE0;
+      img{
+        width: 250px;
+      }
+      .div-col:nth-child(2){
+        text-align: right;
+      }
+      p{
+        font-weight: 300;
+        margin-bottom: 3px;
+      }
+      .pdf-title{
+        font-size: 35px;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        font-family: 'Helvetica Medium';
+      }
+      .fw-700{
+        font-weight: 700;
+      }
+    }
+    .body-one-box{
+      display: flex;
+      padding: 20px 30px;
+      .div-col:nth-child(2){
+        text-align: right;
+        p{
+          display: inline-block;
+          margin-bottom: 12px;
+          color: #222;
+          span{
+            display: inline-block;
+            text-align: left;
+            width: 150px;
+            font-weight: 300;
+            margin-left: 20px;
+            
+          }
+          &.with-bg-gray{
+            background: #f0f0f0;
+            padding: 10px 0px 10px 10px;
+          }
+        }
+      }
+    }
+    .body-tbl-box{
+      table{
+        font-size: 14px;
+        border-bottom: 2px solid #DCDFE0;
+      }
+      thead{
+        tr{
+          th{
+            padding: 10px 30px;
+            background: #0392CF;
+            color: #FFF;
+            border-color: #0392CF;
+            font-size: 16px;
+            font-family: 'Helvetica Light';
+            &:not(:first-child){
+              text-align: center;
+            }
+            &:first-child{
+              width: 40%;
+            }
+          }
+        }
+      }
+      tbody{
+        tr{
+          td{
+            padding: 20px 30px;
+            color: #222;
+            font-size: 16px;
+
+            p{
+              color: #444;
+              font-size: 14px;
+              &.plan-name{
+                font-size: 16px;
+                font-family: 'Helvetica Medium';
+                margin-bottom: 10px;
+              }
+              label{
+                display: inline-block;
+                margin-right: 10px;
+                color: #222;
+              }
+              span{
+                color: #666;
+              }
+            }
+            &:not(:first-child){
+              text-align: center;
+            }
+          }
+          &:nth-child(2){
+            td{
+              border-top: 1px solid #eee;
+            }
+          }
+        }
+      }
+    }
+    .total-box{
+      display: flex;
+      padding: 30px 30px 0px 30px;
+      .total-space{
+        flex: 1;
+      }
+      .total-container{
+        width: 300px;
+        text-align: right;
+        p{
+          >span{
+            display: inline-block;
+            margin-left: 10px;
+          }
+        }
+
+        .total-separator{
+          border-bottom: 2px solid #aaa;
+          width: 100%;
+          margin: 15px 0;
+        }
+      }
+    }
+    .notes-box{
+      padding: 0px 30px 0px 30px;
+      p{
+        color: #999;
+        font-size: 14px;
+        label{
+          margin-right: 5px;
+        }
+      }
+      .text-blue{
+        color: #009EC8;
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+      .text-bold-black{
+        font-family: 'Helvetica Medium';
+        font-size: 16px;
+        color: #222;
+      }
+      .fs-12{
+        font-size: 12px;
+      }
+    }
+    .copyright{
+      padding: 20px 30px;
+      text-align: center;
+      color: #999;
+      font-size: 13px;
+    }
+  }
+
+  .download-receipt-content{
+    width: 475px;
+    border: 1px solid rgb(224, 230, 234);
+    box-shadow: rgb(224, 230, 234) 0px 1px 1px;
+    margin: 0 auto;
+    position: relative;
+    background-color: #FFF;
+    min-height: 200px;
+    font-size: 16px;
+    .header-box{
+      padding: 50px 50px 20px 50px;
+      text-align: center;
+      border-bottom: 1px solid #e0e6ea;
+      img{
+        display: inline-block;
+        width: 200px;
+        margin: 10px 0 10px 0;
+      }
+      .receipt-title{
+        margin: 21px;
+        font-size: 32px;
+        color: #444;
+      }
+      p.text-gray{
+        color: #cbcfd1;
+      }
+    }
+    .body-box{
+      padding: 30px;
+      font-size: 17px;
+      color: #464d52;
+      border-bottom: 1px solid #e8eaeb;
+      .fs-18{
+        font-size: 18px;
+      }
+    }
+    .payment-box{
+      border-bottom: 1px solid #e8eaeb;
+      padding: 30px;
+      text-align: center;
+      .note-text{
+        margin-top: 20px;
+        font-size: 14px;
+      }
+    }
+    .payment-method-box{
+      padding: 30px;
+      text-align: center;
+
+      img{
+        width: 25%;
+        display: inline-block;
+        -ms-transform: rotate(-23deg);
+        -webkit-transform: rotate(-23deg);
+        transform: rotate(-23deg);
+        margin-bottom: 50px;
+        margin-top: 46px;
+      }
+    }
+  }
+}
