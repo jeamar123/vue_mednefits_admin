@@ -12,7 +12,7 @@
 			<p class="paid-text">PAID</p>
 			<div class="header-box">
 				<div class="div-col">
-					<img :src="'../assets/img/latest logo/Mednefits Logo V1.svg'"/>
+					<img id="medne_logo" :src="'../assets/img/latest logo/Mednefits Logo V1.svg'"/>
 				</div>
 				<div class="div-col">
 					<p class="pdf-title">Invoice</p>
