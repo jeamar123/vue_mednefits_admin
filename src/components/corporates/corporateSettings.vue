@@ -1,8 +1,9 @@
 <script>
   import Modal from "../../views/modal/Modal.vue";
-  import { 
-    _loginAccessAccount_
-  } from '../../common/functions/common_functions';
+  import axios from "axios";
+  // import { 
+  //   _loginAccessAccount_
+  // } from '../../common/functions/common_functions';
 
   let corporateSettings = {
     components: {
@@ -41,17 +42,11 @@
         this.global_isEclaimDownloadModalShow = this.global_isEclaimDownloadModalShow == true ? false : true;
       },
       ___loginCompanyAccount() {
-        let params = {
-          customer_id:  this.customer_id,
-        }
-        console.log('test');
-        _loginAccessAccount_(params)
-					.then(( res ) => {
-          if( res.status == 200 || res.status == 201 ){
-           
-          }  
-        });
-      }
+        window.open( axios.defaults.serverUrl + '/company/settings_access_account?token=' + localStorage.getItem('vue_admin_session') + '&customer_id=' + this.customer_id );
+      },
+      ___downloadEmployeeLists() {
+        window.location.href = axios.defaults.serverUrl + '/company/download_employee_list_credits?token=' + localStorage.getItem('vue_admin_session') + '&customer_id=' + this.customer_id;
+      },
     }
   }
   

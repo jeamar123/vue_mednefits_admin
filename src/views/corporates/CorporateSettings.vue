@@ -39,7 +39,7 @@
 				</div>
 			</router-link>
 			
-			<div class="menu-item">
+			<div @click="___downloadEmployeeLists()" class="menu-item">
 				<div class="img-wrapper">
 					<img :src="'../assets/img/settings-icons/download.png'">
 				</div>
