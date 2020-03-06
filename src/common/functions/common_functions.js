@@ -309,6 +309,17 @@ const _updateCapVisit_ = (params)	=> {
 	return _axiosCall_(req);
 }
 
+// const _loginAccessAccount_ = (params)	=> { 
+// 	console.log(params);
+// 	let	req	=	{
+// 		method:	'POST',
+// 		url:	Config.LOGIN_ACCESS_ACCOUNT,
+// 		data: params,
+// 		header:	uploadHeaders,
+// 	};
+// 	return _axiosCall_(req);
+// };
+
 const _onLoad_	=	() =>{
 
 }	
@@ -332,5 +343,6 @@ export	{
 	_fetchCapVisitList_,
 	_downloadEmployeeDependent_,
 	_uploadFileCap_,
-	_updateCapVisit_
+	_updateCapVisit_,
+	// _loginAccessAccount_
 }
