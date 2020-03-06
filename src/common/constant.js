@@ -28,7 +28,6 @@ const UPLOAD_FILE_CAP = `${SERVERURL}/company/uploadCapVisitFile`;
 
 const UPDATE_CAP_VISIT = `${SERVERURL}/company/CapVisit`;
 
-const LOGIN_ACCESS_ACCOUNT = `${SERVERURL}/company/settings_access_account`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -42,5 +41,4 @@ module.exports = {
 	DOWNLOAD_EMP_DEPENDENT,
 	UPLOAD_FILE_CAP,
 	UPDATE_CAP_VISIT,
-	LOGIN_ACCESS_ACCOUNT
 }

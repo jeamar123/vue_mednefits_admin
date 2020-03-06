@@ -48,7 +48,7 @@
 				</div>
 			</div>
 
-			<div class="menu-item">
+			<div @click="___resendEmpWelcomeEmail()" class="menu-item">
 				<div class="img-wrapper">
 					<img :src="'../assets/img/settings-icons/send.png'">
 				</div>
