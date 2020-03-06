@@ -28,7 +28,8 @@
             rejected: true,
             pending: true,
             all: true,
-          }
+          },
+          deviceOs: null,
         },
       };
     },
@@ -42,14 +43,40 @@
         this.global_isEclaimDownloadModalShow = this.global_isEclaimDownloadModalShow == true ? false : true;
       },
       ___loginCompanyAccount() {
-        window.open( axios.defaults.serverUrl + '/company/settings_access_account?token=' + localStorage.getItem('vue_admin_session') + '&customer_id=' + this.customer_id );
+        if (this.device0s == 'iOS') {
+          window.location.assign( axios.defaults.serverUrl + '/company/settings_access_account?token=' + localStorage.getItem('vue_admin_session') + '&customer_id=' + this.customer_id );
+        } else {
+          console.log('access account');
+          window.open( axios.defaults.serverUrl + '/company/settings_access_account?token=' + localStorage.getItem('vue_admin_session') + '&customer_id=' + this.customer_id );
+        }
       },
       ___downloadEmployeeLists() {
         window.location.href = axios.defaults.serverUrl + '/company/download_employee_list_credits?token=' + localStorage.getItem('vue_admin_session') + '&customer_id=' + this.customer_id;
       },
+      getOs() {
+        let userAgent = window.navigator.userAgent,
+            platform = window.navigator.platform,
+            macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+            windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+            iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+            os = null;
+
+            if (macosPlatforms.indexOf(platform) !== -1) {
+              os = 'Mac OS';
+            } else if (iosPlatforms.indexOf(platform) !== -1) {
+              os = 'iOS';
+            } else if (windowsPlatforms.indexOf(platform) !== -1) {
+              os = 'Windows';
+            } else if (/Android/.test(userAgent)) {
+              os = 'Android';
+            } else if (!os && /Linux/.test(platform)) {
+              os = 'Linux';
+            }
+            
+            this.deviceOs = os;
+      }
     }
   }
-  
   export default corporateSettings
 </script>
 
