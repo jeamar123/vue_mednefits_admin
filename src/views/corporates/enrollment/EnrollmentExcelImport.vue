@@ -3,11 +3,11 @@
 		<div class="excel-header">
       <label>Excel Import</label>
       <div class="download-btn-container">
-        <button class="btn">
+        <button class="btn" v-on:click="_downloadExcelTemplate(true)">
           <img :src="'../assets/img/download_emp.png'">
           Employee Only
         </button>
-        <button class="btn">
+        <button class="btn" v-on:click="_downloadExcelTemplate(false)">
           <img :src="'../assets/img/download_emp.png'">
           Employee + Dependents
         </button>
@@ -25,7 +25,7 @@
       <div class="flex-1">
       </div>
       <div>
-        <button class="btn-gray-with-shadow" v-on:click="_uploadfile_()">UPLOAD</button>
+        <button class="btn-gray-with-shadow" :disabled="!global_uploadFile.name" v-on:click="_uploadfile_()">UPLOAD</button>
       </div>
     </div>
 	</div>
