@@ -701,15 +701,43 @@
 				</div>
 			</Modal>
 
-			<Modal v-if="global_isCreditAllocationModalShow" class="create-dependent-account-modal">
+			<Modal v-if="global_isCreditAllocationModalShow" class="credit-allocation-modal corporate-details-modal">
 				<div slot="header">
 					<h1>Credit Allocation</h1>					
 				</div>
 				<div slot="body">
-									
+					<div>
+						<button class="active">MEDICAL</button>
+						<button>WELLNESS</button>
+					</div>
+					<div class="dp-flex total-details-container">
+						<div>
+							<div>
+								<span>Total: </span>
+								<span>SGD <span>55,892.64</span></span>
+							</div>
+							<div>
+								<span>Unallocated: </span>
+								<span>SGD <span>55,892.64</span></span>
+							</div>
+						</div>
+						<div>
+							<button class="active">ADD</button>
+							<button>DEDUCT</button>
+						</div>
+					</div>
+					<div class="credit-add-container">
+						<label>Credit to Add*</label>
+						<input type="number">
+					</div>
+					<div class="deposit-slider">
+						<label>Deposit : <span>{{ global_creditAllocationDeposit }} </span>% </label>
+						<vue-slider v-model="global_creditAllocationDeposit" :min="0" :max="10" :interval=".5"/>
+					</div>
 				</div>
 				<div slot="footer">
-								
+					<button class="btn-primary">UPDATE</button>
+					<button @click="toggleClosePlanModal()" class="btn-close">CLOSE</button>
 				</div>
 			</Modal>
 		</div>

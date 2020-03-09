@@ -1424,3 +1424,71 @@
     }
   }
 // -------------------------------------------- //
+
+// ------ CREDIT ALLOCATION MODAL ------ //
+.credit-allocation-modal {
+  .modal-container {
+    width: 550px;
+  }
+  .modal-body button {
+    color: #777;
+    border: 2px solid #bbb3b3;
+    width: 88px;
+    height: 36px;
+    font-size: 12px;
+    
+    &:nth-child(1) {
+      border-radius: 4px 0 0 4px;
+      border-width: 2px 1px 2px 2px;
+    }
+    &:nth-child(2) {
+      border-radius: 0 4px 4px 0;
+      border-width: 2px 2px 2px 1px;
+    }
+    &.active {
+      border: 2px solid #44a4cc;
+    }
+  }
+  .total-details-container {
+    >div {
+      margin: 0 20px 0 0;
+    }
+    >div >div:nth-child(1) {
+      margin: 0 0 10px;
+    }
+  }
+  .credit-add-container,
+  .deposit-slider {
+    width: 40%;
+  }
+  .deposit-slider label {
+    margin: 0 0 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .credit-allocation-modal {
+    .modal-container {
+      width: 100%;
+      margin: 0 20px;
+    }
+    .modal-body >div >div {
+      margin: 0 0 30px;
+    }
+    .total-details-container {
+      display: block;
+    }
+    .total-details-container >div {
+      margin: 0;
+
+      &:nth-child(2) {
+        margin: 20px 0 0;
+      }
+    }
+    .credit-add-container,
+    .deposit-slider {
+      width: 100%;
+    }
+  }
+}
+// ------------------------------------ //

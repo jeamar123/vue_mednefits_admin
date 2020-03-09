@@ -27,6 +27,7 @@
         global_isCreateDependentModalShow: false,
         global_isSpendingAccountModalShow: false,
         global_isCreditAllocationModalShow: false,
+        global_creditAllocationDeposit: 0,
       };
     },
     created(){
