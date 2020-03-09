@@ -20,6 +20,13 @@
         global_recordPayment: {},
         global_isRecordPaymentShow: false,
         // corporateViewStatus : 'CorporateDetails',
+        formats: {
+          input: ["DD/MM/YYYY"],
+          data: ["DD/MM/YYYY"]
+        },
+        global_isCreateDependentModalShow: false,
+        global_isSpendingAccountModalShow: false,
+        global_isCreditAllocationModalShow: false,
       };
     },
     created(){
@@ -33,8 +40,11 @@
       showAccountPlanType() {
         this.accountPlanTypeModal = this.accountPlanTypeModal == false ? true : false;
       },
-      toggleViewPlanModal()  {
-        this.global_isViewPlanModalShow = this.global_isViewPlanModalShow == false ? true : false;
+      toggleClosePlanModal()  {
+        this.global_isViewPlanModalShow = false;
+        this.global_isCreateDependentModalShow = false;
+        this.global_isCreditAllocationModalShow = false;
+        this.global_isCreditAllocationModalShow = false;
       },
       toggleRecordPayment()  {
         this.global_isRecordPaymentShow = this.global_isRecordPaymentShow == false ? true : false;
@@ -45,7 +55,22 @@
         }else{
           window.open( window.location.origin + '/#/dashboard/download-pdf/' + this.customer_id );
         }
-      }
+      },
+      _showCorporatePlanModal_( opt ) {
+        console.log(opt);
+        if ( opt == 'create-dependent-account' ) {
+          this.global_isCreateDependentModalShow = this.global_isCreateDependentModalShow == false ? true : false;
+        }
+        if ( opt == 'spending-account-settings' ) {
+          this.global_isSpendingAccountModalShow = this.global_isSpendingAccountModalShow == false ? true : false;
+        }
+        if ( opt == 'credit-allocation' ) {
+          this.global_isCreditAllocationModalShow = this.global_isCreditAllocationModalShow == false ? true : false;
+        }
+        if ( opt == 'view-plan' ) {
+          this.global_isViewPlanModalShow = this.global_isViewPlanModalShow == false ? true : false;
+        }
+      },
     }
   }
   
