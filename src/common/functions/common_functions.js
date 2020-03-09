@@ -356,6 +356,16 @@ const _updateTempEmployees_ = (params)	=> {
 	return _axiosCall_(req);
 }
 
+const _updateTempDependents_ = (params)	=> { 
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_TEMP_DEPENDENTS,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
 const _deleteTempEmployees_ = (params)	=> { 
 	let	req	=	{
 		method:	'DELETE',
@@ -395,6 +405,16 @@ const _getCompanySpendingAccountStatus_	=	(params, isRefresh)	=>	{
 	return storage;
 }
 
+const _enrollTempEmployees_	=	(params) => { 
+	let	req	=	{
+		method:	'POST',
+		url:	Config.ENROLL_TEMP_EMPLOYEES,
+		data:	params,
+		header:	defaultHeaders,
+	};
+	return	_axiosCall_(req);
+};
+
 const _onLoad_	=	() =>{
 
 }	
@@ -424,7 +444,9 @@ export	{
 	_fetchPreviewTempEmployees_,
 	_formatDate_,
 	_updateTempEmployees_,
+	_updateTempDependents_,
 	_deleteTempEmployees_,
 	_fetchCompanySpendingAccountStatus_,
 	_getCompanySpendingAccountStatus_,
+	_enrollTempEmployees_,
 }
