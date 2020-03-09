@@ -74,6 +74,35 @@
             }
             
             this.deviceOs = os;
+      },
+      ___resendEmpWelcomeEmail() {
+        this.$swal({
+          title: "",
+          text: "Are you sure you want to resend employee welcome email?",
+          type: "warning",
+          confirmButtonColor: "#25306C",
+          cancelButtonColor: "#C1C1C1",
+          showCancelButton: true,
+          showCloseButton: false,
+          confirmButtonText: "Yes, Send it!",
+          reverseButtons: true,
+        }).then(result => {
+          if (result) {
+            // console.log(result);
+            let data =  {
+              customer_id: this.customer_id,
+            }
+            this.$parent.showLoading();
+            axios.post( axios.defaults.serverUrl + '/company/resend_welcome_email', data )
+              .then(( res ) => {
+                if( res.status == 200 || res.status == 201 ){ 
+                  this.$parent.hideLoading();
+                  this.$swal( "Success!", res.data.message, "success" );
+                }
+              })
+              
+          } 
+        });
       }
     }
   }
