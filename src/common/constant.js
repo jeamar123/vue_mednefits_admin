@@ -22,7 +22,8 @@ const LOGIN_ACCESS_ACCOUNT = `${SERVERURL}/company/settings_access_account`;
 const ENROLL_EMPLOYEE_EXCEL = `${SERVERURL}/company/excel_enrollment`;
 const ENROLLMENT_TEMP_EMPLOYEES = `${SERVERURL}/company/get_temp_enrollees`;
 const UPDATE_TEMP_EMPLOYEES = `${SERVERURL}/company/update_employee_enrollment`;
-const DELETE_TEMP_EMPLOYEES = `${SERVERURL}/company/remove_enrollee?`;
+const DELETE_TEMP_EMPLOYEES = `${SERVERURL}/company/remove_enrollee`;
+const COMPANY_SPENDING_ACCOUNT_STATUS = `${SERVERURL}/company/get_spending_account_status`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -40,5 +41,6 @@ module.exports = {
 	ENROLL_EMPLOYEE_EXCEL,
 	ENROLLMENT_TEMP_EMPLOYEES,
 	UPDATE_TEMP_EMPLOYEES,
-	DELETE_TEMP_EMPLOYEES
+	DELETE_TEMP_EMPLOYEES,
+	COMPANY_SPENDING_ACCOUNT_STATUS
 }

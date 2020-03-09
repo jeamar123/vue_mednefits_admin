@@ -366,6 +366,35 @@ const _deleteTempEmployees_ = (params)	=> {
 	return _axiosCall_(req);
 }
 
+const _fetchCompanySpendingAccountStatus_ = (params)	=> { 
+	let	req	=	{
+		method:	'GET',
+		url:	Config.COMPANY_SPENDING_ACCOUNT_STATUS + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req)
+		.then((res)	=>	{
+			console.log(res);
+			_globalStorage_.setStorage( 'global_corporateSpendingAccountStatus', res.data );
+			return res.data;
+		});
+}
+
+const _getCompanySpendingAccountStatus_	=	(params, isRefresh)	=>	{ 
+	if( isRefresh ){
+		return _fetchCompanySpendingAccountStatus_(params);
+	}
+	let storage = _globalStorage_.getStorage('global_corporateSpendingAccountStatus');
+	if(storage == null){
+		return _fetchCompanySpendingAccountStatus_(params);
+	}else{
+		if( storage.customer_id != params.customer_id ){
+			return _fetchCompanySpendingAccountStatus_(params);
+		}
+	}
+	return storage;
+}
+
 const _onLoad_	=	() =>{
 
 }	
@@ -395,5 +424,7 @@ export	{
 	_fetchPreviewTempEmployees_,
 	_formatDate_,
 	_updateTempEmployees_,
-	_deleteTempEmployees_
+	_deleteTempEmployees_,
+	_fetchCompanySpendingAccountStatus_,
+	_getCompanySpendingAccountStatus_,
 }

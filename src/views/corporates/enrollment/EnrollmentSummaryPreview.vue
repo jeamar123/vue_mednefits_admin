@@ -207,7 +207,7 @@
 				</div>
 				<div slot="footer">
 					<button v-on:click="_toggleSummaryEditModal_()" class="btn-close">CANCEL</button>
-					<button v-on:click="_toggleSummaryEditModal_()" class="btn-delete">DELETE</button>
+					<button v-on:click="_removeSelectedEmployees_(global_selectedEmployee.temp_enrollment_id)" class="btn-delete">DELETE</button>
 	  			<button class="btn-primary" v-on:click="_updateEmployeeDependents_( global_selectedEmployee )">Update</button>
 				</div>
 			</Modal>

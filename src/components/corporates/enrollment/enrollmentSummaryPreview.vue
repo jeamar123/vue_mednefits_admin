@@ -83,6 +83,7 @@ import {
         }
       },
       _getTempEmployeeList_(){
+        this._resetValues_();
         let params  = {
           customer_id: this.customer_id,
         }
@@ -152,7 +153,7 @@ import {
         }
         this.$forceUpdate();
       },
-      _removeSelectedEmployees_(){
+      _removeSelectedEmployees_(id){
         this.$swal({
           title: 'Confirm',
           text: "Are you sure you want to remove this Enrollee/s?",
@@ -164,6 +165,11 @@ import {
         }).then((result) => {
           console.log(result);
           if (result.value) {
+            if(id){
+              this.global_selectedIds.push(id);
+            }
+            this._toggleSummaryEditModal_();
+            _showPageLoading_();
             this._removeEmployee_();
           }
         })
@@ -181,11 +187,16 @@ import {
               this._removeEmployee_();
             }else{
               this._getTempEmployeeList_();
+              _hidePageLoading_();
               this.$swal('Success!', res.data.message, 'success');
               this.global_deleteCtr = 0;
             }
           });
-      }
+      },
+      _resetValues_(){
+        this.global_selectedIds = [];
+        this.global_isAllCheckBoxChecked =  false;
+      },
     }
   }
   
