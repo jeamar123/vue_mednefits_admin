@@ -76,7 +76,6 @@
             this.deviceOs = os;
       },
       ___resendEmpWelcomeEmail() {
-        
         this.$swal({
           title: "",
           text: "Are you sure you want to resend employee welcome email?",
