@@ -87,8 +87,7 @@
           confirmButtonText: "Yes, Send it!",
           reverseButtons: true,
         }).then(result => {
-          if (result) {
-            // console.log(result);
+          if (result.value == true) {
             let data =  {
               customer_id: this.customer_id,
             }
@@ -100,8 +99,7 @@
                   this.$swal( "Success!", res.data.message, "success" );
                 }
               })
-              
-          } 
+          }
         });
       }
     }

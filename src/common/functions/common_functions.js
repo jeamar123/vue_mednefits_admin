@@ -379,7 +379,6 @@ export	{
 	_downloadEmployeeDependent_,
 	_uploadFileCap_,
 	_updateCapVisit_,
-	// _loginAccessAccount_
 	_uploadEmployeeEnrollmentExcel_,
 	_fetchPreviewTempEmployees_,
 	_formatDate_,
