@@ -188,10 +188,10 @@
 							</div>
 						</div>
 						<div>
-							<button class="btn-primary">CREATE DEPEDENT ACCOUNT</button>
-							<button class="btn-primary">SPENDING ACCOUNT SETTINGS</button>
-							<button class="btn-primary">CREDIT ALLOCATION</button>
-							<button class="btn-primary" v-on:click="toggleViewPlanModal()">VIEW PLAN</button>
+							<button @click="_showCorporatePlanModal_('create-dependent-account')" class="btn-primary">CREATE DEPEDENT ACCOUNT</button>
+							<button @click="_showCorporatePlanModal_('spending-account-settings')" class="btn-primary">SPENDING ACCOUNT SETTINGS</button>
+							<button @click="_showCorporatePlanModal_('credit-allocation')" class="btn-primary">CREDIT ALLOCATION</button>
+							<button @click="_showCorporatePlanModal_('view-plan')" class="btn-primary">VIEW PLAN</button>
 						</div>
 					</div>
 					<div class="old-plan-active">
@@ -620,7 +620,96 @@
 				<div slot="footer">
 					<button v-if="global_isRecordPaymentShow" class="btn-close" v-on:click="toggleRecordPayment()">Back</button>
 					<button v-if="global_isRecordPaymentShow" class="btn-primary" v-on:click="toggleRecordPayment()">Update</button>
-					<button v-if="!global_isRecordPaymentShow" class="btn-close" v-on:click="toggleViewPlanModal()">Close</button>
+					<button v-if="!global_isRecordPaymentShow" class="btn-close" v-on:click="toggleClosePlanModal()">Close</button>
+				</div>
+			</Modal>
+
+			<Modal v-if="global_isCreateDependentModalShow" class="create-dependent-account-modal corporate-details-modal">
+				<div slot="header">
+					<h1>Create Dependent Account</h1>					
+				</div>
+				<div slot="body">
+					<h4>Dependent Account</h4>
+					<div class="row-div dp-flex">			
+						<div class="start-date-container create-dependent-input-wrapper">
+							<label>Start Date</label>
+							<div class="date-container vDatepicker">
+								<v-date-picker 
+									popoverDirection="bottom" 
+									v-model="global_recordPayment.date_received"
+									:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+									popover-visibility="focus" 
+									:formats='formats'></v-date-picker>
+								<i class="fa fa-caret-down"></i>
+							</div>
+						</div>
+						<div></div>
+						<div></div>
+					</div>
+					<div class="row-div dp-flex">
+						<div class="create-dependent-input-wrapper">
+							<label>Total Number of Dependents</label>
+							<input type="number">
+						</div>
+						<div class="create-dependent-input-wrapper">
+							<label>Plan Type</label>
+							<select>
+								<option>Trial Plan</option>
+								<option>Insurance Bundle</option>
+								<option>Pro Plan</option>
+								<option>Lite Plan</option>
+								<option>Enterpirse Plan</option>
+							</select>
+						</div>
+						<div class="create-dependent-input-wrapper">
+							<label>Secondary Plan Type</label>
+							<select>
+								<option>Trial - Pro Plan</option>
+								<option>Trial - Lite Plan</option>
+							</select>
+						</div>
+					</div>
+					<div class="dp-flex">
+						<div class="plan-price-input-wrapper create-dependent-input-wrapper">
+							<label>Plan Price</label>
+							<input type="number">
+						</div>
+						<div class="payment-status-selector dp-flex-ai">
+							<span>Payment Status?</span>
+							<div>
+								<button class="active">Paid</button>
+								<button>Pending</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div slot="footer">
+					<button class="btn-primary">SUBMIT</button>
+					<button @click="toggleClosePlanModal()" class="btn-close">CLOSE</button>		
+				</div>
+			</Modal>
+
+			<Modal v-if="global_isSpendingAccountModalShow" class="create-dependent-account-modal">
+				<div slot="header">
+					<h1>Spending Account Settings</h1>					
+				</div>
+				<div slot="body">
+									
+				</div>
+				<div slot="footer">
+								
+				</div>
+			</Modal>
+
+			<Modal v-if="global_isCreditAllocationModalShow" class="create-dependent-account-modal">
+				<div slot="header">
+					<h1>Credit Allocation</h1>					
+				</div>
+				<div slot="body">
+									
+				</div>
+				<div slot="footer">
+								
 				</div>
 			</Modal>
 		</div>
