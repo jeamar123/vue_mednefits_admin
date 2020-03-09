@@ -2,7 +2,8 @@
 import { 
   _showPageLoading_,
   _hidePageLoading_,
-	_uploadEmployeeEnrollmentExcel_ ,
+  _uploadEmployeeEnrollmentExcel_,
+  _getCompanySpendingAccountStatus_
 } from '../../../common/functions/common_functions';
 
   let enrollmentExcelImport = {
@@ -12,11 +13,20 @@ import {
     data() {
       return {
         global_uploadFile:  {},
+        global_spendingStatus: {},
       };
     },
     created(){
+      this._getSpendingStatus_();
     },
     methods: {
+      async _getSpendingStatus_(){
+        let params	=	{ 
+          customer_id :	this.customer_id 
+        };
+        this.global_spendingStatus = await _getCompanySpendingAccountStatus_(params);
+        console.log( this.global_spendingStatus );
+      },
       _uploadExcel_(data){
         this.global_uploadFile = data[0];
       },
@@ -44,9 +54,25 @@ import {
       },
       _downloadExcelTemplate(isEmpOnly){
         if(isEmpOnly){
-          window.location.href = 'https://mednefits.s3-ap-southeast-1.amazonaws.com/excel/Employee+Enrollment+Listing+-+With+Medical+Spending+Account+-+No+Medical+Entitlement+Balance+-+No+Wellness+Spending+Account.xlsx';
+          if(this.global_spendingStatus.medical_enable && this.global_spendingStatus.wellness_enable){
+            window.location.href = 'https://mednefits.s3-ap-southeast-1.amazonaws.com/excel/v2/employees/Employee-Enrollment-Listing-With-Medical-With-Wellness.xlsx';
+          }else if(this.global_spendingStatus.medical_enable){
+            window.location.href = 'https://mednefits.s3-ap-southeast-1.amazonaws.com/excel/v2/employees/Employee-Enrollment-Listing-With-Medical.xlsx';
+          }else if(this.global_spendingStatus.wellness_enable){
+            window.location.href = 'https://mednefits.s3-ap-southeast-1.amazonaws.com/excel/v2/employees/Employee-Enrollment-Listing-With-Wellness.xlsx';
+          }else{
+            window.location.href = 'https://mednefits.s3-ap-southeast-1.amazonaws.com/excel/v2/employees/Employee-Enrollment-Listing.xlsx';
+          }
         }else{
-          window.location.href = 'https://mednefits.s3-ap-southeast-1.amazonaws.com/excel/Employees+and+Dependents+-+With+Medical+Spending+Account+-+No+Medical+Entitlement+Balance+-+No+Wellness+Spending+Account.xlsx';
+          if(this.global_spendingStatus.medical_enable && this.global_spendingStatus.wellness_enable){
+            window.location.href = 'https://mednefits.s3-ap-southeast-1.amazonaws.com/excel/v2/dependents/Employees-and-Dependents-With-Medical-With-Wellness.xlsx';
+          }else if(this.global_spendingStatus.medical_enable){
+            window.location.href = 'https://mednefits.s3-ap-southeast-1.amazonaws.com/excel/v2/dependents/Employees-and-Dependents-With-Medical.xlsx';
+          }else if(this.global_spendingStatus.wellness_enable){
+            window.location.href = 'https://mednefits.s3-ap-southeast-1.amazonaws.com/excel/v2/dependents/Employees-and-Dependents-With-Wellness.xlsx';
+          }else{
+            window.location.href = 'https://mednefits.s3-ap-southeast-1.amazonaws.com/excel/v2/dependents/Employees-and-Dependents.xlsx';
+          }
         }
       },
     }

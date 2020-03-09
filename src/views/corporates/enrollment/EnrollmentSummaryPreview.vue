@@ -16,7 +16,7 @@
             <th>Mobile</th>
             <th>Medical Entitlement</th>
             <th>Wellness Entitlement</th>
-            <div class="dependents" v-for="(list, index) in 0">
+            <div class="dependents" v-for="(list, index) in global_DepCtr">
               <th>Dependent {{index+1}}<br>Fullname</th>
               <th>Dependent {{index+1}}<br>Date of Birth</th>
               <th>Dependent {{index+1}}<br>Relationship</th>
@@ -41,11 +41,12 @@
             <td>{{ list.mobile }}</td>
             <td>{{ list.medical_credits }}</td>
             <td>{{ list.wellness_credits }}</td>
-            <div class="dependents" v-for="(dep, dep_index) in 0">
-              <td>{{index}}</td>
-              <td>{{index}}</td>
-              <td>{{index}}</td>
+            <div class="dependents" v-for="(dep, dep_index) in list.dependent">
+              <td>{{dep.fullname}}</td>
+              <td>{{ _formatDate_( dep.dob, null, 'DD/MM/YYYY' ) }}</td>
+              <td class="txt-transform-capitalize">{{dep.relationship}}</td>
             </div>
+            <td v-if="list.dependent.length != global_DepCtr" :colspan="((global_DepCtr - list.dependent.length) * 3)"></td>
             <td>{{ _formatDate_( list.start_date, null, 'DD/MM/YYYY' ) }}</td>
           </tr>
         </tbody>
@@ -76,7 +77,7 @@
         
       </div>
       <div class="flex-1 txt-right justify-content-end xs-hide">
-        <button class="btn-gray-with-shadow" disabled="true">ENROLL</button>
+        <button class="btn-gray-with-shadow" :disabled="global_hasError" v-on:click="_submitEnrollTempEmployees_()">ENROLL</button>
       </div>
     </div>
     <div class="xs-footer-btns">
@@ -84,7 +85,7 @@
         <button class="btn-gray-with-shadow" :disabled="global_selectedIds.length == 0" v-on:click="_removeSelectedEmployees_()">DELETE</button>
       </div>
       <div class="flex-1 txt-right">
-        <button class="btn-gray-with-shadow" disabled="true">ENROLL</button>
+        <button class="btn-gray-with-shadow" :disabled="global_hasError" v-on:click="_submitEnrollTempEmployees_()">ENROLL</button>
       </div>
     </div>
 
@@ -98,6 +99,7 @@
             <div class="form-box">
               <label>Full Name*</label>
               <input type="text" v-model="global_selectedEmployee.fullname">
+              <span v-if="global_selectedEmployee.error_logs.fullname_error" class="err-message">{{ global_selectedEmployee.error_logs.fullname_message }}</span>
             </div>
             <div class="form-box">
               <label>Date of Birth</label>
@@ -110,10 +112,12 @@
                   :formats='formats'></v-date-picker>
                 <i class="fa fa-caret-down"></i>
               </div>
+              <span v-if="global_selectedEmployee.error_logs.dob_error" class="err-message">{{ global_selectedEmployee.error_logs.dob_message }}</span>
             </div>
             <div class="form-box">
               <label>Work Email</label>
               <input type="text" v-model="global_selectedEmployee.email">
+              <span v-if="global_selectedEmployee.error_logs.email_error" class="err-message">{{ global_selectedEmployee.error_logs.email_message }}</span>
             </div>
             <div class="form-box">
               <label>Mobile Area Code</label>
@@ -124,10 +128,12 @@
                 <option value="60">(MY) +60</option>
               </select>
               <i class="fa fa-caret-down"></i>
+              <span v-if="global_selectedEmployee.error_logs.mobile_area_code_error" class="err-message">{{ global_selectedEmployee.error_logs.mobile_area_code_message }}</span>
             </div>
             <div class="form-box">
               <label>Mobile</label>
               <input type="text" v-model="global_selectedEmployee.mobile">
+              <span v-if="global_selectedEmployee.error_logs.mobile_error" class="err-message">{{ global_selectedEmployee.error_logs.mobile_message }}</span>
             </div>
             <div class="form-box">
               <label>Job Title</label>
@@ -138,14 +144,17 @@
                 </option>
               </select>
               <i class="fa fa-caret-down"></i>
+              <span v-if="global_selectedEmployee.error_logs.job_title_error" class="err-message">{{ global_selectedEmployee.error_logs.job_title_message }}</span>
             </div>
             <div class="form-box">
               <label>Medical Credits</label>
               <input type="text" v-model="global_selectedEmployee.medical_credits">
+              <span v-if="global_selectedEmployee.error_logs.credits_medical_error" class="err-message">{{ global_selectedEmployee.error_logs.credits_medical_message }}</span>
             </div>
             <div class="form-box">
               <label>Wellness Credits</label>
               <input type="text" v-model="global_selectedEmployee.wellness_credits">
+              <span v-if="global_selectedEmployee.error_logs.credits_wellness_error" class="err-message">{{ global_selectedEmployee.error_logs.credits_wellness_message }}</span>
             </div>
             <div class="form-box">
               <label>Start Date</label>
@@ -158,13 +167,15 @@
                   :formats='formats'></v-date-picker>
                 <i class="fa fa-caret-down"></i>
               </div>
+              <span v-if="global_selectedEmployee.error_logs.start_date_error" class="err-message">{{ global_selectedEmployee.error_logs.start_date_message }}</span>
             </div>
 
-            <div v-for="(dep, dep_index) in global_selectedEmployee.dependents" class="dependent-form">
-              <p>Dependent {{index+1}}</p>
+            <div v-for="(dep, dep_index) in global_selectedEmployee.dependent" class="dependent-form">
+              <p>Dependent {{dep_index+1}}</p>
               <div class="form-box">
                 <label>Full Name*</label>
                 <input type="text" v-model="dep.fullname">
+                <span v-if="dep.error_logs.fullname_error" class="err-message">{{ dep.error_logs.fullname_message }}</span>
               </div>
               <div class="form-box">
                 <label>Date of Birth</label>
@@ -177,6 +188,7 @@
                     :formats='formats'></v-date-picker>
                   <i class="fa fa-caret-down"></i>
                 </div>
+                <span v-if="dep.error_logs.dob_error" class="err-message">{{ dep.error_logs.dob_message }}</span>
               </div>
               <div class="form-box">
                 <label>Relationship</label>
@@ -189,25 +201,27 @@
                   <option value="family">Family</option>
                 </select>
                 <i class="fa fa-caret-down"></i>
+                <span v-if="dep.error_logs.relationship_error" class="err-message">{{ dep.error_logs.relationship_message }}</span>
               </div>
               <div class="form-box">
                 <label>Start Date</label>
                 <div class="date-container vDatepicker">
                   <v-date-picker 
                     popoverDirection="top" 
-                    v-model="dep.start_date"
+                    v-model="dep.plan_start"
                     :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
                     popover-visibility="focus" 
                     :formats='formats'></v-date-picker>
                   <i class="fa fa-caret-down"></i>
                 </div>
+                <span v-if="dep.error_logs.start_date_error" class="err-message">{{ dep.error_logs.start_date_message }}</span>
               </div>
             </div>
           </div>
 				</div>
 				<div slot="footer">
 					<button v-on:click="_toggleSummaryEditModal_()" class="btn-close">CANCEL</button>
-					<button v-on:click="_toggleSummaryEditModal_()" class="btn-delete">DELETE</button>
+					<button v-on:click="_removeSelectedEmployees_(global_selectedEmployee.temp_enrollment_id)" class="btn-delete">DELETE</button>
 	  			<button class="btn-primary" v-on:click="_updateEmployeeDependents_( global_selectedEmployee )">Update</button>
 				</div>
 			</Modal>
