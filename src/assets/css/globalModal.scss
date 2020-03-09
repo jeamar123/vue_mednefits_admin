@@ -1492,3 +1492,176 @@
   }
 }
 // ------------------------------------ //
+
+// ------ SPENDING ACCOUNT SETTINGS MODAL ------ //
+.spending-account-settings-modal {
+  .modal-container {
+    padding: 20px;
+    width: 570px;
+  }
+
+  h1 {
+    font-family: 'Helvetica Medium';
+    font-size: 20px;
+  }
+  .medical-wellness-on-off-container {
+    img {
+      width: 8px;
+    }
+    button {
+      background-color: #fff;
+      border: 1px solid #d0d0d0;
+      display: flex;
+      height: 20px;
+      position: relative;
+      width: 24px;
+      padding: 0 7px;
+    }
+    button:nth-child(1) {
+      border-radius: 2px 0 0 2px;
+    }
+    button:nth-child(2) {
+      border-radius: 0 2px 2px 0;
+      
+    }
+    button.on {
+      background-color: #3192cf;
+      border-color: #3192cf;
+    }
+    button.off {
+      background-color: #848484;
+      border-color: #848484;
+    }
+    span {
+      width: 170px;
+    }
+    >div {
+      margin: 0 0 20px;
+    }
+    .check-mark {
+      content: "";
+      position: absolute;
+      display: block;
+      left: 8px;
+      top: 1px;
+      width: 7px;
+      height: 12px;
+      border: solid white;
+      border-width: 0 2px 2px 0px;
+      transform: rotate(45deg);
+      border-radius: 2px;
+    }
+  }
+
+  .medical-wellness-spending-container {
+    border-top: 1px solid #d0d0d0;
+    padding: 20px 0 0;
+
+    .spending-account-text-title {
+      margin: 0 0 20px;
+    }
+
+    .row-item >div:nth-child(1) {
+      width: 60%;
+      margin: 0 15px 0 0;
+    }
+    .row-item >div:nth-child(2) {
+      width: 40%;
+    }
+
+    .item-div {
+      display: flex;
+      margin: 0 0 20px;
+    }
+    .input-div {
+      flex: 1;
+    }
+    .input-div:nth-child(2) {
+      margin: 0 0 0 20px;
+    }
+    .input-div label {
+      display: block;
+      margin: 0 0 10px;
+    }
+  }
+
+  .input-div {
+    input {
+      width: 100%;
+      border-radius: 3px;
+      border: 1px solid #E0E0E0;
+      height: 35px;
+      padding: 0 10px 0 30px;
+      line-height: 35px;
+    }
+  }
+  .supplementary-input-wrapper, 
+  .deposit-input-wrapper {
+    width: 70px;
+
+    span {
+      display: block;
+      margin: 0 0 0 10px;
+    }
+  }
+
+  .datepicker-div {
+    position: relative;
+
+    img {
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      width: 17px;
+      height: 17px;
+    }
+  }
+
+  .modal-body {
+    margin: 30px 0;
+  }
+
+  .spending-account-container {
+    margin: 0 40px 0 0;
+    label {
+      display: block;
+      margin: 0 0 10px;
+    }
+  }
+  .spending-selector-container {
+    position: relative;
+  }
+  .spending-selector-container i {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+  }
+  select {
+    background-color: #fff;
+    -webkit-appearance: none;
+    padding: 6px 10px;
+    width: 100px;
+    border-radius: 3px;
+    border: 1px solid #E0E0E0;
+  }
+
+  .rollover-input-wrapper {
+    width: 100px;
+    i {
+      right: 10px;
+    }
+  }
+
+  .modal-footer {
+    text-align: right;
+    .btn-primary {
+      margin: 0 10px 0 0;
+    }
+    button:nth-child(2) {
+      width: 100px;
+      margin: 0;
+    }
+  }
+}
+
+// -------------------------------------------  //

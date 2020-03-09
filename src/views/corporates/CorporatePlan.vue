@@ -689,15 +689,117 @@
 				</div>
 			</Modal>
 
-			<Modal v-if="global_isSpendingAccountModalShow" class="create-dependent-account-modal">
+			<Modal v-if="global_isSpendingAccountModalShow" class="spending-account-settings-modal">
 				<div slot="header">
 					<h1>Spending Account Settings</h1>					
 				</div>
 				<div slot="body">
-									
+					<div class="dp-flex">
+						<div class="spending-account-container">
+							<label>Spending Account</label>
+							<div class="spending-selector-container">
+								<select>
+									<option>No</option>
+									<option>Yes</option>
+								</select>
+								<i class="fa fa-angle-down"></i>
+							</div>
+						</div>
+						<div class="medical-wellness-on-off-container">
+							<div class="dp-flex-ai">
+								<span>Medical</span>
+								<div class="dp-flex">
+									<button @click="___medicalSelector(true)" v-bind:class="{on : global_getSpendingSettings.medical_enable == true}"><span class="check-mark"></span></button>
+									<button @click="___medicalSelector(false)" v-bind:class="{off : global_getSpendingSettings.medical_enable == false}"><img :src="'../assets/img/close.svg'"></button>
+								</div>
+							</div>
+							<div class="dp-flex">
+								<span>Wellness</span>
+								<div class="dp-flex">
+									<button @click="___wellnessSelector(true)" v-bind:class="{on : global_getSpendingSettings.wellness_enable == true}"><span class="check-mark"></span></button>
+									<button @click="___wellnessSelector(false)" v-bind:class="{off : global_getSpendingSettings.wellness_enable == false}"><img :src="'../assets/img/close.svg'"></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div v-if="global_getSpendingSettings.medical_enable == true" class="medical-wellness-spending-container">
+						<div class="row-item dp-flex">
+							<div>
+								<div class="spending-account-text-title">
+									<span>Medical Spending Account</span>
+								</div>
+								<div class="item-div">
+									<div class="input-div">
+										<label>Start Date</label>
+										<div class="datepicker-div">
+											<img :src="'../assets/img/calendar-gray.png'">
+											<v-date-picker 
+											popoverDirection="bottom" 
+											v-model="global_recordPayment.date_received"
+											:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+											popover-visibility="focus" 
+											:formats='formats'></v-date-picker>
+										</div>
+									</div>
+									<div class="input-div">
+										<label>End Date</label>
+										<div class="datepicker-div">
+											<img :src="'../assets/img/calendar-gray.png'">
+											<v-date-picker 
+											popoverDirection="bottom" 
+											v-model="global_recordPayment.date_received"
+											:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+											popover-visibility="focus" 
+											:formats='formats'></v-date-picker>
+										</div>
+									</div>
+								</div>
+								<div class="item-div">
+									<div class="input-div">
+										<label>Supplementary Credits</label>
+										<div class="supplementary-input-wrapper dp-flex-ai">
+											<input type="number">
+											<span>%</span>
+										</div>
+									</div>
+									<div class="input-div">
+										<label>Deposit</label>
+										<div class="deposit-input-wrapper dp-flex-ai">
+											<input type="number">
+											<span>%</span>
+										</div>
+									</div>
+								</div>
+								<div class="item-div">
+									<div class="input-div">
+										<label>Rollover</label>
+										<div class="rollover-input-wrapper spending-selector-container">
+											<select>
+												<option>No</option>
+												<option>Yes</option>
+											</select>
+											<i class="fa fa-angle-down"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div></div>
+						</div>
+					</div>
+					<div v-if="global_getSpendingSettings.wellness_enable == true" class="medical-wellness-spending-container">
+						<div class="row-item dp-flex">
+							<div>
+								<div class="spending-account-text-title">
+									<span>Wellness Spending Account</span>
+								</div>
+							</div>
+							<div></div>
+						</div>
+					</div>
 				</div>
 				<div slot="footer">
-								
+					<button @click="toggleClosePlanModal()" class="btn-primary">Cancel</button>
+					<button class="btn-primary">Update</button>
 				</div>
 			</Modal>
 

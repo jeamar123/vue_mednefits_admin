@@ -28,6 +28,10 @@
         global_isSpendingAccountModalShow: false,
         global_isCreditAllocationModalShow: false,
         global_creditAllocationDeposit: 0,
+        global_getSpendingSettings: {
+          medical_enable: false,
+          wellness_enable: false,
+        }
       };
     },
     created(){
@@ -72,6 +76,20 @@
           this.global_isViewPlanModalShow = this.global_isViewPlanModalShow == false ? true : false;
         }
       },
+      ___medicalSelector( opt ) {
+        if ( opt == true ) {
+          this.global_getSpendingSettings.medical_enable = true;
+        } else {
+          this.global_getSpendingSettings.medical_enable = false;
+        }
+      },
+      ___wellnessSelector( opt ) {
+        if ( opt == true ) {
+          this.global_getSpendingSettings.wellness_enable = true;
+        } else {
+          this.global_getSpendingSettings.wellness_enable = false;
+        }
+      }
     }
   }
   
