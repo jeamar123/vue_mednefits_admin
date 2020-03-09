@@ -3,6 +3,7 @@ import Vue from 'vue';
 import router from '../../router';
 import * as Config from '../constant.js';
 import axios from 'axios';
+import moment from "moment";
 
 const	defaultHeaders	=		{
 	// 'Accept':	'application/json',
@@ -175,6 +176,7 @@ const _fetchEmployeeList_	= (params)	=> { // EMPLOYEE LIST API
 	};
 	return _axiosCall_(req);
 };
+
 const _searchEmployeeList_	= (params)	=> {
 	console.log(params);
 	let	req	=	{
@@ -195,6 +197,7 @@ const _updateBulkCredit_ = (params)	=> {
 	};
 	return _axiosCall_(req);
 };
+
 const _addHeadCount_	=	(params) => { // CORPORATE ADD HEADCOUNT API
 	let	req	=	{
 		method:	'POST',
@@ -309,6 +312,49 @@ const _updateCapVisit_ = (params)	=> {
 	return _axiosCall_(req);
 }
 
+const _uploadEmployeeEnrollmentExcel_ = (params)	=> { 
+	let	req	=	{
+		method:	'POST',
+		url:	Config.ENROLL_EMPLOYEE_EXCEL,
+		data: params,
+		header:	uploadHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const _fetchPreviewTempEmployees_	= (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.ENROLLMENT_TEMP_EMPLOYEES + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const	_formatDate_	=	( date, from, to )	=>	{
+	return moment( date, from ).format( to );
+}
+
+const _updateTempEmployees_ = (params)	=> { 
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_TEMP_EMPLOYEES,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _deleteTempEmployees_ = (params)	=> { 
+	let	req	=	{
+		method:	'DELETE',
+		url:	Config.DELETE_TEMP_EMPLOYEES + '?id=' + params.id,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
 const _onLoad_	=	() =>{
 
 }	
@@ -333,4 +379,10 @@ export	{
 	_downloadEmployeeDependent_,
 	_uploadFileCap_,
 	_updateCapVisit_,
+	// _loginAccessAccount_
+	_uploadEmployeeEnrollmentExcel_,
+	_fetchPreviewTempEmployees_,
+	_formatDate_,
+	_updateTempEmployees_,
+	_deleteTempEmployees_
 }

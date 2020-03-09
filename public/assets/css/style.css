@@ -86,6 +86,9 @@ a:focus{
 }
 
 body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: visible !important; }
+.swal2-container.swal2-shown {
+  z-index: 99999;
+}
 
 /*---------- NAVBAR -----------*/
   .navbar-line{
