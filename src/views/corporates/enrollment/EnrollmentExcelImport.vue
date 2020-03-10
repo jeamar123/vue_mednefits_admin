@@ -16,7 +16,7 @@
 
     <div class="drop-upload-container">
       <input ref="excelUploader" type="file" v-on:change="_uploadExcel_($event.target.files);">
-      <img :src="'../../assets/img/upload-receipt.png'" class="drop-img">
+      <img :src="'./assets/img/upload-receipt.png'" class="drop-img">
       <p class="filename">{{ global_uploadFile.name }}</p>
       <p class="info-text">Drop .xlxs file here or click to upload</p>
     </div>
