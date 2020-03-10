@@ -741,7 +741,7 @@
 											:formats='formats'></v-date-picker>
 										</div>
 									</div>
-									<div class="input-div">
+									<div class="input-div end-date-container">
 										<label>End Date</label>
 										<div class="datepicker-div">
 											<img :src="'../assets/img/calendar-gray.png'">
@@ -783,7 +783,18 @@
 									</div>
 								</div>
 							</div>
-							<div></div>
+							<div>
+								<div class="change-total-cost">
+									<div>
+										<label>Total Allocated Credits</label>
+										<div>SGD <span>30000.00</span></div>
+									</div>
+									<div>
+										<label>Supplementary Credits</label>
+										<div>SGD <span>0.00</span></div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div v-if="global_getSpendingSettings.wellness_enable == true" class="medical-wellness-spending-container">
@@ -792,8 +803,73 @@
 								<div class="spending-account-text-title">
 									<span>Wellness Spending Account</span>
 								</div>
+								<div class="item-div">
+									<div class="input-div">
+										<label>Start Date</label>
+										<div class="datepicker-div">
+											<img :src="'../assets/img/calendar-gray.png'">
+											<v-date-picker 
+											popoverDirection="bottom" 
+											v-model="global_recordPayment.date_received"
+											:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+											popover-visibility="focus" 
+											:formats='formats'></v-date-picker>
+										</div>
+									</div>
+									<div class="input-div end-date-container">
+										<label>End Date</label>
+										<div class="datepicker-div">
+											<img :src="'../assets/img/calendar-gray.png'">
+											<v-date-picker 
+											popoverDirection="bottom" 
+											v-model="global_recordPayment.date_received"
+											:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+											popover-visibility="focus" 
+											:formats='formats'></v-date-picker>
+										</div>
+									</div>
+								</div>
+								<div class="item-div">
+									<div class="input-div">
+										<label>Supplementary Credits</label>
+										<div class="supplementary-input-wrapper dp-flex-ai">
+											<input type="number">
+											<span>%</span>
+										</div>
+									</div>
+									<div class="input-div">
+										<label>Deposit</label>
+										<div class="deposit-input-wrapper dp-flex-ai">
+											<input type="number">
+											<span>%</span>
+										</div>
+									</div>
+								</div>
+								<div class="item-div">
+									<div class="input-div">
+										<label>Rollover</label>
+										<div class="rollover-input-wrapper spending-selector-container">
+											<select>
+												<option>No</option>
+												<option>Yes</option>
+											</select>
+											<i class="fa fa-angle-down"></i>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div></div>
+							<div>
+								<div class="change-total-cost">
+									<div>
+										<label>Total Allocated Credits</label>
+										<div>SGD <span>30000.00</span></div>
+									</div>
+									<div>
+										<label>Supplementary Credits</label>
+										<div>SGD <span>0.00</span></div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

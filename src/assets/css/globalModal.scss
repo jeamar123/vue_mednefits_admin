@@ -1344,6 +1344,15 @@
     }
   }
 }
+@media (max-width: 600px) {
+  .create-dependent-account-modal.corporate-details-modal,
+  .credit-allocation-modal.corporate-details-modal {
+    .modal-container {
+      width: 100%;
+      margin: 0 20px;
+    }
+  }
+}
 // ------------------------------------------------------ //
 
 // ------ CREATE DEPENDENT ACCOUNT MODAL ------ //
@@ -1398,10 +1407,6 @@
 
   @media (max-width: 600px) {
     .create-dependent-account-modal {
-      .modal-container {
-        width: 100%;
-        margin: 0 20px;
-      }
       .modal-body .row-div > div,
       .modal-body .row-div > div:last-child,
       .create-dependent-input-wrapper {
@@ -1468,10 +1473,6 @@
 
 @media (max-width: 600px) {
   .credit-allocation-modal {
-    .modal-container {
-      width: 100%;
-      margin: 0 20px;
-    }
     .modal-body >div >div {
       margin: 0 0 30px;
     }
@@ -1495,9 +1496,15 @@
 
 // ------ SPENDING ACCOUNT SETTINGS MODAL ------ //
 .spending-account-settings-modal {
+  .modal-wrapper {
+    overflow: initial;
+  }
+
   .modal-container {
     padding: 20px;
     width: 570px;
+    max-height: 780px;
+    overflow: auto;
   }
 
   h1 {
@@ -1603,6 +1610,9 @@
       display: block;
       margin: 0 0 0 10px;
     }
+    input {
+      padding: 0 10px;
+    }
   }
 
   .datepicker-div {
@@ -1651,6 +1661,19 @@
       right: 10px;
     }
   }
+  
+  .change-total-cost {
+    background: #EFF2F4;
+    padding: 12px;
+    >div >div {
+      font-family: 'Helvetica Medium';
+      font-size: 18px;
+      margin: 8px 0;
+    }
+    >div:first-child {
+      margin: 0 0 20px;
+    }
+  }
 
   .modal-footer {
     text-align: right;
@@ -1663,5 +1686,43 @@
     }
   }
 }
-
+@media(max-width: 600px) {
+  .spending-account-settings-modal .modal-container {
+    width: 100%;
+    margin: 35px 20px auto;
+    
+    .medical-wellness-spending-container .row-item {
+      display: block;
+    }
+    .medical-wellness-spending-container .row-item >div:nth-child(1) {
+      width: 100%;
+    }
+    .medical-wellness-spending-container .row-item >div:nth-child(2) { 
+      margin: 0 0 20px;
+    }
+  }
+}
+@media(max-width: 400px) {
+  .spending-account-settings-modal {
+    .modal-container {
+      padding: 10px;
+      margin: 35px 10px auto;
+      .medical-wellness-spending-container .row-item > div:nth-child(2) {
+        width: 100%;
+      }
+    }
+    .spending-account-container {
+      margin: 0 20px 0 0;
+    }
+    .medical-wellness-on-off-container >div >div {
+      justify-content: center;
+    }
+    .medical-wellness-on-off-container span {
+      width: 90px;
+    }
+    .medical-wellness-spending-container .input-div label {
+      font-size: 12px;
+    }
+  }
+}
 // -------------------------------------------  //

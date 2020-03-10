@@ -48,7 +48,7 @@
       toggleClosePlanModal()  {
         this.global_isViewPlanModalShow = false;
         this.global_isCreateDependentModalShow = false;
-        this.global_isCreditAllocationModalShow = false;
+        this.global_isSpendingAccountModalShow = false;
         this.global_isCreditAllocationModalShow = false;
       },
       toggleRecordPayment()  {
@@ -96,6 +96,16 @@
   export default corporatePlan
 </script>
 
-<style lang="scss" scoped>
-	@import "./src/assets/css/planDetails.scss";
+<style lang="scss">
+  @import "./src/assets/css/planDetails.scss";
+  
+  .end-date-container {
+    .popover-origin.direction-bottom.align-left {
+      right: 0;
+      left: inherit;
+    }
+    .popover-origin .popover-content-wrapper .popover-content.align-left:after {
+      left: 145px
+    }
+  }
 </style>
