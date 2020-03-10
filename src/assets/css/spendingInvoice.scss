@@ -1,0 +1,65 @@
+
+
+.spending-invoice-wrapper {
+  .spending-tbl-wrapper {
+    margin: 20px 0 0;
+  }
+  table {
+    thead tr th,
+    tbody tr td {
+      padding: 10px;
+    }
+
+    th {
+      color: rgba(0,0,0,.54);
+      font-family: 'Helvetica Light';
+      border: 0;
+    }
+    th:first-child {
+      width: 9%;
+    }
+    td {
+      border-top: 1px rgba(0,0,0,.12) solid;
+      position: relative;
+    }
+    td:last-child {
+      text-align: center;
+      cursor: pointer;
+    }
+    i {
+      display: block;
+      font-size: 14px;
+      height: 24px;
+      line-height: 1.9;
+    }
+  }
+  .status-card {
+    text-align: center;
+    border-radius: 3px;
+    padding: 3px;
+    width: 100%;
+    &.paid {
+      background: #8FAC1B;
+      color: #FFF;
+    }
+  }
+  .actions-selector {
+    background: #fff;
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+    padding: 8px 0;
+
+    >div {
+      padding: 15px;
+      cursor: pointer;
+    }
+    >div:hover {
+      background-color: rgba(158,158,158,0.2);
+    }
+  }
+}

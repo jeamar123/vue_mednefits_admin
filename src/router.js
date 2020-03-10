@@ -35,6 +35,7 @@ import SpendingInvoice from './views/corporates/SpendingInvoice.vue'
 import CorporateSettings from './views/corporates/CorporateSettings.vue'
 import CorporateDetails from './views/corporates/CorporateDetails.vue'
 import BusinessDetails from './views/corporates/BusinessDetails.vue'
+import CorporateSpendingInvoice from './views/corporates/CorporateSpendingInvoice.vue'
 
   // Corporate Employee Information
   import CorporateEmployeeMenu from './views/corporates/employee/CorporateEmployeeMenu.vue'
@@ -153,6 +154,7 @@ export default new Router({
               children: [
                 { name: 'BusinessDetails', path: '/dashboard/corporates/:company_name-:customer_id/corporate_details/details', components: { childTab : BusinessDetails }, props: { childTab: true}  },
                 { name: 'CorporatePlan', path: '/dashboard/corporates/:company_name-:customer_id/corporate_details/plan', components: { childTab : CorporatePlan } , props: { childTab: true}  },
+                { name: 'CorporateSpendingInvoice', path: '/dashboard/corporates/:company_name-:customer_id/corporate_details/spending-invoice', components: { childTab : CorporateSpendingInvoice } , props: { childTab: true}  },
               ]
             },
           ] 
