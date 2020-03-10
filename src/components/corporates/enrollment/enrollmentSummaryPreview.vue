@@ -90,6 +90,7 @@ import {
       },
       _getTempEmployeeList_(){
         this._resetValues_();
+        let errCtr = 0;
         let params  = {
           customer_id: this.customer_id,
         }
@@ -98,16 +99,24 @@ import {
           .then((res)  =>  {
             console.log(res);
             this.global_tempEmployeeList = res.data.data;
-            this.global_hasError = _.some(this.global_tempEmployeeList, { 'error_status': true });
             _.forIn( this.global_tempEmployeeList, (value,key) =>  {
+              errCtr = _.some(value, { 'error_status': true }) == true ? errCtr + 1 : errCtr;
               value.dob = new Date( moment( value.dob, ['DD/MM/YYYY','YYYY-MM-DD'] ).format('YYYY-MM-DD') );
               value.start_date = new Date( moment( value.start_date, ['DD/MM/YYYY','YYYY-MM-DD'] ).format('YYYY-MM-DD') );
               if(value.dependent){
-                value.dependent.map((dep,key)  =>  {
+                value.dependent.map((dep,dep_key)  =>  {
+                  errCtr = _.some(dep, { 'error_status': true }) == true ? errCtr + 1 : errCtr;
                   dep.dob = new Date( moment( dep.dob, ['DD/MM/YYYY','YYYY-MM-DD'] ).format('YYYY-MM-DD') );
                   dep.plan_start = new Date( moment( dep.plan_start, ['DD/MM/YYYY','YYYY-MM-DD'] ).format('YYYY-MM-DD') );
+                  if(dep_key == value.dependent.length - 1){
+                    this.global_hasError = errCtr > 0 ? true : false;
+                  }
                 });
                 this.global_DepCtr = value.dependent.length > this.global_DepCtr ? value.dependent.length : this.global_DepCtr;
+              }else{
+                if(key == this.global_tempEmployeeList.length - 1){
+                  this.global_hasError = errCtr > 0 ? true : false;
+                }
               }
             });
             _hidePageLoading_();
@@ -216,7 +225,9 @@ import {
       },
       _submitEnrollTempEmployees_(){
         let params  = {
-          temp_enrollment_id: this.global_tempEmployeeList[this.global_enrollCtr].temp_enrollment_id
+          temp_enrollment_id: this.global_tempEmployeeList[this.global_enrollCtr].temp_enrollment_id,
+          send_email : this.global_enrollOptions.isSendWelcomeEmail,
+	        default_password : this.global_enrollOptions.defaultPassword == '' || !this.global_enrollOptions.defaultPassword ? null : this.global_enrollOptions.defaultPassword,
         }
         _showPageLoading_();
         _enrollTempEmployees_(params)
