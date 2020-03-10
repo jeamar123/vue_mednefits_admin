@@ -28,6 +28,10 @@
         global_isSpendingAccountModalShow: false,
         global_isCreditAllocationModalShow: false,
         global_creditAllocationDeposit: 0,
+        global_getSpendingSettings: {
+          medical_enable: false,
+          wellness_enable: false,
+        }
       };
     },
     created(){
@@ -44,7 +48,7 @@
       toggleClosePlanModal()  {
         this.global_isViewPlanModalShow = false;
         this.global_isCreateDependentModalShow = false;
-        this.global_isCreditAllocationModalShow = false;
+        this.global_isSpendingAccountModalShow = false;
         this.global_isCreditAllocationModalShow = false;
       },
       toggleRecordPayment()  {
@@ -72,12 +76,36 @@
           this.global_isViewPlanModalShow = this.global_isViewPlanModalShow == false ? true : false;
         }
       },
+      ___medicalSelector( opt ) {
+        if ( opt == true ) {
+          this.global_getSpendingSettings.medical_enable = true;
+        } else {
+          this.global_getSpendingSettings.medical_enable = false;
+        }
+      },
+      ___wellnessSelector( opt ) {
+        if ( opt == true ) {
+          this.global_getSpendingSettings.wellness_enable = true;
+        } else {
+          this.global_getSpendingSettings.wellness_enable = false;
+        }
+      }
     }
   }
   
   export default corporatePlan
 </script>
 
-<style lang="scss" scoped>
-	@import "./src/assets/css/planDetails.scss";
+<style lang="scss">
+  @import "./src/assets/css/planDetails.scss";
+  
+  .end-date-container {
+    .popover-origin.direction-bottom.align-left {
+      right: 0;
+      left: inherit;
+    }
+    .popover-origin .popover-content-wrapper .popover-content.align-left:after {
+      left: 145px
+    }
+  }
 </style>
