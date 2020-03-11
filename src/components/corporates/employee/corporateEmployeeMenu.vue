@@ -38,6 +38,7 @@ let corporateEmployeeMenu = {
 				trigger: false,
 			},
 			activeTab: this.$route.name,
+			isRefresh: false,
 		};
 	},
 	created() {
@@ -52,6 +53,7 @@ let corporateEmployeeMenu = {
 			// this.employee_side_info = data.from_settings;
 			console.log(data);
 			if (data) {
+				this.isRefresh = true;
 				this.onLoad();
 				console.log('sulod');
 			}
@@ -126,7 +128,7 @@ let corporateEmployeeMenu = {
 			let params	=	{ 
 				member_id :	this.member_id 
 			};
-			this.employee_side_info = await _getEmployeeDetailsData_(params);
+			this.employee_side_info = await _getEmployeeDetailsData_(params,this.isRefresh);
 			console.log( this.employee_side_info );
 			if ( this.employee_side_info.medical_entitlement_status != null ) {
 				this.medEffectiveDate = moment(this.employee_side_info.medical_entitlement_status.effective_date).format('DD/MM/YYYY');
@@ -134,6 +136,7 @@ let corporateEmployeeMenu = {
 			if ( this.employee_side_info.wellness_entitlement_status != null ) {
 				this.wellEffectiveDate = moment(this.employee_side_info.wellness_entitlement_status.effective_date).format('DD/MM/YYYY');
 			}
+			this.isRefresh = false;
 
 			// let get_employee_details = `${axios.defaults.serverUrl}/company/get_employee_details?member_id=${this.member_id}`;
 			// axios.get(get_employee_details)
