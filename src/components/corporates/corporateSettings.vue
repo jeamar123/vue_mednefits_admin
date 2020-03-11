@@ -1,13 +1,17 @@
 <script>
   import Modal from "../../views/modal/Modal.vue";
   import axios from "axios";
-  // import { 
-  //   _loginAccessAccount_
-  // } from '../../common/functions/common_functions';
+  import moment, { locale } from "moment";
+  import jszip from "jszip";
+  import { 
+    _showPageLoading_,
+	  _hidePageLoading_,
+    _fetchDownloadEclaimReceipts_
+  } from '../../common/functions/common_functions';
 
   let corporateSettings = {
     components: {
-      Modal
+      Modal,
     },
     props: {
       customer_id: [String, Number],
@@ -21,7 +25,7 @@
         },
         global_isEclaimDownloadModalShow: false,
         global_downloadEclaimData:  {
-          selected_date:  new Date(),
+          selected_date:  null,
           date_list:  [],
           filters:  {
             approved: true,
@@ -31,16 +35,33 @@
           },
           deviceOs: null,
         },
+        monthLabels:  ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        global_receiptArr: [],
       };
     },
     created(){
-      // this.corporateViewStatus = this.$route.name;
-      console.log( this.customer_id );
-      console.log( this.company_name );
+
     },
     methods: {
+      _formatDate_( date, from, to ){
+        return moment( date, from ).format( to );
+      },
       _toggleDownloadEclaimModal(){
         this.global_isEclaimDownloadModalShow = this.global_isEclaimDownloadModalShow == true ? false : true;
+        if(this.global_isEclaimDownloadModalShow == false){
+          this.global_downloadEclaimData =  {
+            selected_date:  null,
+            date_list:  [],
+            filters:  {
+              approved: true,
+              rejected: true,
+              pending: true,
+              all: true,
+            },
+            deviceOs: null,
+          };
+          this.global_receiptArr = [];
+        }
       },
       ___loginCompanyAccount() {
         if (this.device0s == 'iOS') {
@@ -101,6 +122,79 @@
               })
           }
         });
+      },
+      _downloadEclaimReceipts_(){
+        let params  = {
+          customer_id: this.customer_id,
+          dates:  this.global_downloadEclaimData.date_list,
+          filters:  [],
+        }
+        if(this.global_downloadEclaimData.filters.approved){
+          params.filters.push(1);
+        }
+        if(this.global_downloadEclaimData.filters.rejected){
+          params.filters.push(0);
+        }
+        if(this.global_downloadEclaimData.filters.pending){
+          params.filters.push(2);
+        }
+        if(this.global_downloadEclaimData.filters.all){
+          params.filters.push(3);
+        }
+        _fetchDownloadEclaimReceipts_(params)
+          .then((res)  =>  {
+            console.log(res);
+            res.data.data.data.map((value, key) =>  {
+              if( value.out_of_networks.length > 0 ){
+                value.out_of_networks.map((receipt, receipt_key) =>  {
+                  this.global_receiptArr.push(receipt);
+                  if(receipt_key == value.out_of_networks.length - 1){
+                    this._downloadAllReceipts_();
+                  }
+                });
+              }else{
+                if(key == res.data.data.data.length - 1){
+                  this._downloadAllReceipts_();
+                }
+              }
+            });
+          });
+      },
+      _addDate_(date){
+        if(_.includes(this.global_downloadEclaimData.date_list, moment(date).format('YYYY-MM-DD')) == false){
+          this.global_downloadEclaimData.date_list.push( moment(date).format('YYYY-MM-DD') );
+        }
+        this.global_downloadEclaimData.selected_date = null;
+      },
+      _removeDate_(date){
+        _.pull(this.global_downloadEclaimData.date_list, date);
+        this.$forceUpdate();
+      },
+      _filterChange_(isAll){
+        if(isAll){
+          this.global_downloadEclaimData.filters = {
+            approved: true,
+            rejected: true,
+            pending: true,
+            all: true,
+          };
+        }
+        if(!this.global_downloadEclaimData.filters.approved || !this.global_downloadEclaimData.filters.rejected || !this.global_downloadEclaimData.filters.pending){
+          this.global_downloadEclaimData.filters.all = false;
+        }else{
+          this.global_downloadEclaimData.filters = {
+            approved: true,
+            rejected: true,
+            pending: true,
+            all: true,
+          };
+        }
+      },
+      _downloadAllReceipts_(){
+        console.log(this.global_receiptArr);
+        let companyZip = 'StackYawa';
+        let monthFolder = 'January 2020';
+        let transactionFolder = 'MNF000826 - MemberName - SpendingType - Status'
       }
     }
   }
