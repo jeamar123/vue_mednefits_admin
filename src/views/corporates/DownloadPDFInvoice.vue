@@ -24,7 +24,10 @@
 
 			<div class="body-one-box">
 				<div class="div-col">
-					<p>BILL TO</p>
+					<p v-if="true">BILL TO</p>
+					<!-- Spending Invoice in corporate details -->
+					<p v-if="false">Team Benefits Statement</p>
+
 					<p>StackGeckos</p>
 					<p>Allans Alzulas</p>
 					<p>test, 1222</p>
@@ -33,14 +36,19 @@
 					<p>allan.alzula@gmail.com</p>
 				</div>
 				<div class="div-col">
-					<p><label>Invoice Number:</label> <span>OMC000012</span></p>
-					<p><label>Invoice Date:</label> <span>04 January, 2018</span></p>
+					<p v-if="true"><label>Invoice Number:</label> <span>OMC000012</span></p>
+					<p v-if="true"><label>Invoice Date:</label> <span>04 January, 2018</span></p>
+
+					<!-- Spending Invoice in corporate details -->
+					<p v-if="false"><label>Statement Number:</label> <span>OMC000012</span></p>
+					<p v-if="false"><label>Statement Date:</label> <span>04 January, 2018</span></p>
+
 					<p><label>Payment Due:</label> <span>27 December, 2017</span></p>
 					<p class="with-bg-gray"><label>Amount Due (SGD):</label> <span>410</span></p>
 				</div>
 			</div>
 
-			<div class="body-tbl-box">
+			<div v-if="true" class="body-tbl-box">
 				<table>
 					<thead>
 						<tr>
@@ -90,12 +98,34 @@
 				</table>	
 			</div>
 
-			<div class="total-box">
+			<div v-if="true" class="total-box">
 				<div class="total-space"></div>
 				<div class="total-container">
 					<p><label>Total:</label> <span><span class="txt-uppercase">SGD</span> 410.00</span></p>
 					<div class="total-separator"></div>
 					<p><label>Amount Due (SGD):</label> <span>410.00</span></p>
+				</div>
+			</div>
+
+			<!-- Spending Invoice in corporate details -->
+			<div v-if="false" class="summary-charges">
+				<h4>Summary of Charges</h4>
+				<div class="charges-row dp-flex">
+					<div class="flex-1">
+						<div>Panel Spending Account Usage</div>
+						<p>Statement for 01 February to 28 February 2018</p>
+					</div>
+					<div>SGD 89.00</div>					
+				</div>
+				<div class="sub-total-row dp-flex">
+					<div class="flex-1">Sub Total</div>
+					<div>SGD 89.00</div>
+				</div>
+				<div class="total-due-row">
+					<div class="dp-flex">
+						<div class="flex-1">Total Due</div>
+						<div>SGD 89.00</div>
+					</div>
 				</div>
 			</div>
 

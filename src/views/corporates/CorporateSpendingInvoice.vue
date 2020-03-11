@@ -33,7 +33,7 @@
               <td>
                 <i @click="___showActionsSelector()" class="fa fa-caret-down"></i>
                 <div v-click-outside="___hideAllDrop" v-if="global_isActionsSelectorShow" class="actions-selector">
-                  <div>View as PDF</div>
+                  <div @click="_downloadInvoice_()">View as PDF</div>
                   <div>Download Statement</div>
                   <div>Payment Method</div>
                   <div>View Transactions</div>
