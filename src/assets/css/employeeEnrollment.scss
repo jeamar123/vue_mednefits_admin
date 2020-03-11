@@ -430,7 +430,7 @@
 }
 .enrollment-web-input-container{
   padding-bottom: 50px;
-  >h1{
+  .top-h1{
     font-size: 22px;
     font-weight: 700;
     margin-top: 10px;
@@ -446,7 +446,10 @@
     margin-bottom: 25px;
     position: relative;
     min-height: 47px;
-    z-index: 0;
+
+    &.z-index-0{
+      z-index: 0;
+    }
     >label{
       display: block;
       font-size: 12px;
@@ -579,8 +582,26 @@
   }
   .add-dependent-form{
     width: 100%;
-    max-width: 650px;
+    max-width: 730px;
+    padding: 0 70px;
     margin: 0 auto;
+    position: relative;
+    .side-arrows{
+      position: absolute;
+      i{
+        color: #eaeaea;
+        font-size: 60px;
+        cursor: pointer;
+      }
+      &.left{
+        top: 11rem;
+        left: 0;
+      }
+      &.right{
+        top: 11rem;
+        right: 0;
+      }
+    }
     .p-count{
       text-align: center;
       font-size: 16px;
@@ -605,7 +626,7 @@
         text-transform: uppercase;
       }
       .left{
-        flex: 1;
+        width: 100px;
       }
       .right{
         flex: 1;
@@ -614,6 +635,10 @@
           border: 2px solid #0291CE;
           color: #fff;
           background-color: #0291CE;
+          &:disabled{
+            opacity: .5;
+            cursor: not-allowed;
+          }
         }
         button{
           margin-left: 10px;
@@ -649,7 +674,7 @@
 }
 @media (max-width: 1190px) {
   .enrollment-summary-container{
-    .xs-hide{
+    .-btn{
       display: none;
     }
     .xs-footer-btns{
@@ -661,6 +686,11 @@
 @media (max-width: 1025px) {
   .excel-header{
     margin-top: 35px;
+  }
+  .enrollment-web-input-container{
+    .top-h1{
+      margin-top: 40px;
+    }
   }
   .enrollment-summary-container{
     >h1{
@@ -763,6 +793,11 @@
     }
   }
 }
+@media (max-width: 530px) {
+  .xs-btn-hide{
+    display: none;
+  }
+}
 @media (max-width: 480px) {
   .enrollment-method-container{
     h1{
@@ -793,5 +828,22 @@
       }
     }
   }
-  
+  .enrollment-web-input-container{
+    .add-dependent-form{
+      padding: 0 10px;
+      .footer-buttons{
+        margin-top: 50px;
+      }
+      .side-arrows{
+        &.left{
+          top: 28rem;
+          left: 50px;
+        }
+        &.right{
+          top: 28rem;
+          right: 50px;
+        }
+      }
+    }
+  }
 }

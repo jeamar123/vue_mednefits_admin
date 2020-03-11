@@ -25,7 +25,6 @@ import {
           customer_id :	this.customer_id 
         };
         this.global_spendingStatus = await _getCompanySpendingAccountStatus_(params);
-        console.log( this.global_spendingStatus );
       },
       _uploadExcel_(data){
         this.global_uploadFile = data[0];

@@ -26,6 +26,8 @@ const DELETE_TEMP_EMPLOYEES = `${SERVERURL}/company/remove_enrollee`;
 const COMPANY_SPENDING_ACCOUNT_STATUS = `${SERVERURL}/company/get_spending_account_status`;
 const UPDATE_TEMP_DEPENDENTS = `${SERVERURL}/company/updateDependentEnrolleeDetails`;
 const ENROLL_TEMP_EMPLOYEES = `${SERVERURL}/company/finish_enroll_employee`;
+const COMPANY_PACKAGE_PLAN_LIST = `${SERVERURL}/company/get_company_package_plan_lists`;
+const WEB_INPUT_ADD_EMPLOYEE = `${SERVERURL}/company/create_employee_web_input_method`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -46,5 +48,7 @@ module.exports = {
 	DELETE_TEMP_EMPLOYEES,
 	COMPANY_SPENDING_ACCOUNT_STATUS,
 	UPDATE_TEMP_DEPENDENTS,
-	ENROLL_TEMP_EMPLOYEES
+	ENROLL_TEMP_EMPLOYEES,
+	COMPANY_PACKAGE_PLAN_LIST,
+	WEB_INPUT_ADD_EMPLOYEE,
 }
