@@ -224,7 +224,7 @@ const _formChecker_	=	(formData)	=>	{
 		error_checkForm.push("Job Title.");
 	}
 	if (formData.hasOwnProperty('dob') && !formData.dob) {
-		error_checkForm.push("Birthday.");
+		error_checkForm.push("Date of Birth.");
 	}
 	if (formData.hasOwnProperty('email') && !formData.email) {
 		error_checkForm.push('Email.');
@@ -235,6 +235,12 @@ const _formChecker_	=	(formData)	=>	{
 	}
 	if (formData.hasOwnProperty('plan_start') && !formData.plan_start) {
 		error_checkForm.push("Plan Start.");
+	}
+	if (formData.hasOwnProperty('postal_code') && !formData.postal_code) {
+		error_checkForm.push("Postal Code.");
+	}
+	if (formData.hasOwnProperty('relationship') && !formData.relationship) {
+		error_checkForm.push("Relationship.");
 	}
 	if (formData.hasOwnProperty('employees') && formData.employees === undefined) {
 		error_checkForm.push("Employees.");
@@ -253,6 +259,12 @@ const _formChecker_	=	(formData)	=>	{
 		error_checkForm.push('Medical Credits.');
 	}
 	if (formData.hasOwnProperty('wellness_credits') && formData.wellness_credits === undefined)	{
+		error_checkForm.push('Wellness Credits.');
+	}
+	if (formData.hasOwnProperty('medical_allocation') && formData.medical_allocation === undefined)	{
+		error_checkForm.push('Medical Credits.');
+	}
+	if (formData.hasOwnProperty('wellness_allocation') && formData.wellness_allocation === undefined)	{
 		error_checkForm.push('Wellness Credits.');
 	}
 
@@ -373,9 +385,8 @@ const _fetchCompanySpendingAccountStatus_ = (params)	=> {
 	};
 	return _axiosCall_(req)
 		.then((res)	=>	{
-			console.log(res);
-			_globalStorage_.setStorage( 'global_corporateSpendingAccountStatus', res.data );
-			return res.data;
+			_globalStorage_.setStorage( 'global_corporateSpendingAccountStatus', res.data.data );
+			return res.data.data;
 		});
 }
 
@@ -398,6 +409,25 @@ const _enrollTempEmployees_	=	(params) => {
 	let	req	=	{
 		method:	'POST',
 		url:	Config.ENROLL_TEMP_EMPLOYEES,
+		data:	params,
+		header:	defaultHeaders,
+	};
+	return	_axiosCall_(req);
+};
+
+const _fetchPackagePlanList_	= (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.COMPANY_PACKAGE_PLAN_LIST + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const _enrollEmployeeWebInput_	=	(params) => { 
+	let	req	=	{
+		method:	'POST',
+		url:	Config.WEB_INPUT_ADD_EMPLOYEE,
 		data:	params,
 		header:	defaultHeaders,
 	};
@@ -437,4 +467,6 @@ export	{
 	_fetchCompanySpendingAccountStatus_,
 	_getCompanySpendingAccountStatus_,
 	_enrollTempEmployees_,
+	_fetchPackagePlanList_,
+	_enrollEmployeeWebInput_,
 }
