@@ -463,7 +463,7 @@
 								<div class="column">
 									<button class="btn-blue">Edit Plan</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
-									<button @click="_showPendingEnrollment_()" class="btn-blue">0 Pending Enrollment</button>
+									<button @click="_showViewPlanModal_('pending-enrollment')" class="btn-blue">0 Pending Enrollment</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
 								</div>
 							</div>
@@ -553,7 +553,7 @@
 								</div>
 								<div class="column">
 									<button class="btn-gray">Download</button>
-									<button class="btn-primary">Record Refund</button>
+									<button @click="_showViewPlanModal_('record-refund')" class="btn-primary">Record Refund</button>
 								</div>
 							</div>
 						</div>
@@ -990,6 +990,39 @@
 				</div>
 				<div slot="footer">
 					<button @click="toggleClosePlanModal()" class="btn-close">CLOSE</button>
+				</div>
+			</Modal>
+
+			<Modal v-if="global_isRecordFundModalShow" class="record-refund-modal corporate-details-modal">
+				<div slot="header">
+					<h1>Record Refund</h1>
+				</div>
+				<div slot="body">
+					<div>
+						<label>Paid Amount</label>
+						<input type="number">
+					</div>
+					<div>
+						<label>Date Received</label>
+						<div class="date-container vDatepicker dp-flex">
+							<i class="fa fa-calendar-o"></i>
+							<v-date-picker 
+								popoverDirection="bottom" 
+								v-model="global_recordPayment.date_received"
+								:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+								popover-visibility="focus" 
+								:formats='formats'></v-date-picker>
+							<i class="fa fa-caret-down"></i>
+						</div>
+					</div>
+					<div>
+						<label>Payment Remarks</label>
+						<input type="text">
+					</div>
+				</div>
+				<div slot="footer">
+					<button @click="_showCorporatePlanModal_('view-plan')" class="btn-close">BACK</button>
+						<button class="btn-primary">UPDATE</button>
 				</div>
 			</Modal>
 		</div>

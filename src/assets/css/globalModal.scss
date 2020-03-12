@@ -1952,3 +1952,55 @@
   }
 }
 // --------------------------------------------------  //
+
+// ------ RECORD REFUND MODAl IN VIEW PLAN ------ //
+.record-refund-modal {
+  .modal-container {
+    width: 610px;
+  }
+  .modal-footer {
+    padding: 10px;
+    text-align: right;
+
+    .btn-close {
+      margin: 0 10px 0 0;
+    }
+  }
+  .date-container {
+    position: relative;
+
+    .popover-container {
+      width: 100%;
+    }
+  }
+  .date-container i {
+    align-self: flex-end;
+    margin: 0 10px 0 0;
+    font-size: 16px;
+  }
+  .modal-body {
+    >div {
+      width: 50%;
+    }
+    >div >div {
+      margin: 0 0 20px;
+    }
+    .fa-caret-down {
+      top: 5px;
+    }
+  }
+}
+@media (max-width: 700px) {
+  .record-refund-modal {
+    .modal-container {
+      width: 100%;
+      margin: 0 20px
+    }
+    .modal-body {
+      >div {
+        width: 100%;
+      }
+    }
+  }
+}
+// ---------------------------------------------  //
