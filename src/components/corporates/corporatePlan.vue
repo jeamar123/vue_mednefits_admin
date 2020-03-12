@@ -31,7 +31,8 @@
         global_getSpendingSettings: {
           medical_enable: false,
           wellness_enable: false,
-        }
+        },
+        global_isPendingEnrollmentModalShow: false,
       };
     },
     created(){
@@ -50,6 +51,7 @@
         this.global_isCreateDependentModalShow = false;
         this.global_isSpendingAccountModalShow = false;
         this.global_isCreditAllocationModalShow = false;
+        this.global_isPendingEnrollmentModalShow = false;
       },
       toggleRecordPayment()  {
         this.global_isRecordPaymentShow = this.global_isRecordPaymentShow == false ? true : false;
@@ -89,6 +91,10 @@
         } else {
           this.global_getSpendingSettings.wellness_enable = false;
         }
+      },
+      _showPendingEnrollment_() {
+        this.global_isViewPlanModalShow = false;
+        this.global_isPendingEnrollmentModalShow = true;
       }
     }
   }
