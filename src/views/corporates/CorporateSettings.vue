@@ -124,22 +124,25 @@
 							<div class="form-box">
 								<label>Choose Dates</label>
 								<div class="dp-flex">
-									<div class="date-container vDatepicker flex-1">
-										<v-date-picker 
-											popoverDirection="bottom" 
+									<div class="date-container flex-1">
+										<vue-monthly-picker 
 											v-model="global_downloadEclaimData.selected_date"
-											:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
-											popover-visibility="focus" 
-											:formats='formats'></v-date-picker>
+											dateFormat="MMMM YYYY"
+											inputClass="vDatepicker"
+											placeHolder="Select Month"
+											:monthLabels="monthLabels"
+											:clearOption="false"
+										>
+										</vue-monthly-picker>
 										<i class="fa fa-caret-down"></i>
 									</div>
-									<button class="btn-primary btn-add" :disabled="true">Add</button>
+									<button class="btn-primary btn-add" :disabled="!global_downloadEclaimData.selected_date" v-on:click="_addDate_(global_downloadEclaimData.selected_date)">Add</button>
 								</div>
 							</div>
 
 							<div class="selected-month-list">
-								<div v-for="list in [1,2,3,4]" class="month">
-									January 2020 <i class="fa fa-times"></i>
+								<div v-for="list in global_downloadEclaimData.date_list" class="month">
+									{{_formatDate_(list, 'YYYY-MM-DD', 'MMMM YYYY')}} <i class="fa fa-times" v-on:click="_removeDate_(list)"></i>
 								</div>
 							</div>
 						</div>
@@ -147,22 +150,22 @@
 							<p class="filter-text">Filters:</p>
 							<div class="filter-list">
 								<label>
-									<input type="checkbox" ng-model="global_downloadEclaimData.filters.all">
+									<input type="checkbox" v-model="global_downloadEclaimData.filters.all" v-on:change="_filterChange_(true)">
 									All
 									<span class="checkmark"></span>
 								</label>
 								<label>
-									<input type="checkbox" ng-model="global_downloadEclaimData.filters.approved">
+									<input type="checkbox" v-model="global_downloadEclaimData.filters.approved" v-on:change="_filterChange_()">
 									Approved
 									<span class="checkmark"></span>
 								</label>
 								<label>
-									<input type="checkbox" ng-model="global_downloadEclaimData.filters.rejected">
+									<input type="checkbox" v-model="global_downloadEclaimData.filters.rejected" v-on:change="_filterChange_()">
 									Rejected
 									<span class="checkmark"></span>
 								</label>
 								<label>
-									<input type="checkbox" ng-model="global_downloadEclaimData.filters.pending">
+									<input type="checkbox" v-model="global_downloadEclaimData.filters.pending" v-on:change="_filterChange_()">
 									Pending
 									<span class="checkmark"></span>
 								</label>
@@ -172,7 +175,9 @@
 				</div>
 				<div slot="footer">
 					<button v-on:click="_toggleDownloadEclaimModal()" class="btn-close">CANCEL</button>
-					<button class="btn-primary" :disabled="true" v-on:click="_downloadEclaimReceipts( )">SUBMIT</button>
+					<button class="btn-primary" v-on:click="_downloadEclaimReceipts_( )"
+						:disabled="global_downloadEclaimData.date_list.length == 0 || (!global_downloadEclaimData.filters.approved && !global_downloadEclaimData.filters.rejected && !global_downloadEclaimData.filters.pending && !global_downloadEclaimData.filters.all)" 
+					>SUBMIT</button>
 				</div>
 			</Modal>
 		</div>

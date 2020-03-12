@@ -898,7 +898,7 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
     background-color: rgba(0, 0, 0, .5);
     display: table;
     transition: opacity .3s ease;
-    z-index: 99999;
+    z-index: 9;
   }
 
   .modal-wrapper {

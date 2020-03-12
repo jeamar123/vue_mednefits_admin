@@ -434,6 +434,22 @@ const _enrollEmployeeWebInput_	=	(params) => {
 	return	_axiosCall_(req);
 };
 
+const _fetchDownloadEclaimReceipts_	= (params)	=> {
+	let query = '?customer_id=' + params.customer_id;
+	params.dates.map((value, key)	=>	{
+		query += '&dates[]=' + value;
+	});
+	params.filters.map((value, key)	=>	{
+		query += '&filter[]=' + value;
+	});
+	let	req	=	{
+		method:	'GET',
+		url:	Config.DOWNLOAD_ECLAIM_RECEIPTS + query,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
 const _onLoad_	=	() =>{
 
 }	
@@ -469,4 +485,5 @@ export	{
 	_enrollTempEmployees_,
 	_fetchPackagePlanList_,
 	_enrollEmployeeWebInput_,
+	_fetchDownloadEclaimReceipts_
 }
