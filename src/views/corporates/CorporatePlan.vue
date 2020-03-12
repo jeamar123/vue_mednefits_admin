@@ -463,7 +463,7 @@
 								<div class="column">
 									<button class="btn-blue">Edit Plan</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
-									<button class="btn-blue">0 Pending Enrollment</button>
+									<button @click="_showPendingEnrollment_()" class="btn-blue">0 Pending Enrollment</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
 								</div>
 							</div>
@@ -915,6 +915,80 @@
 				</div>
 				<div slot="footer">
 					<button class="btn-primary">UPDATE</button>
+					<button @click="toggleClosePlanModal()" class="btn-close">CLOSE</button>
+				</div>
+			</Modal>
+
+			<Modal v-if="global_isPendingEnrollmentModalShow" class="pending-enrollment-modal">
+				<div slot="header">
+					<h1>Active Plan - Enrolled Employees</h1>
+				</div>
+				<div slot="body">
+					<div class="search-emp-container">
+						<i class="fa fa-search" aria-hidden="true"></i>
+						<input type="text" placeholder="Search Employee">
+					</div>
+					<div class="enrolled-emp-wrapper">
+						<div v-for="x in 8" :key="x.index" class="enrolled-emp-container-box">
+							<div class="emp-header-container">
+								<h4>Medone Exel Dep</h4>
+							</div>
+							<div class="emp-body-container">
+								<div class="email-add-container emp-row-info">
+									<label>Email Address:</label>
+									<div>mednefits.test@gmail.com</div>
+								</div>
+								<div class="family-coverage-container emp-row-info">
+									<label>Family Coverage:</label>
+									<div class="dp-flex">
+										<div>Spouse</div>
+										<div> - </div>
+									</div>
+									<div class="dp-flex">
+										<div>Dependent</div>
+										<div> 8 </div>
+									</div>
+								</div>
+								<div class="emp-row-info">
+									<label>Spending Account:</label>
+									<div class="spending-account-container">
+										<div class="dp-flex">
+											<div></div>
+											<div>Medical</div>
+											<div>Wellness</div>
+										</div>
+										<div class="dp-flex">
+											<div>Allocation</div>
+											<div class="allocation-amount">SGD 500.00</div>
+											<div class="allocation-amount">SGD 500.00</div>
+										</div>
+										<div class="dp-flex">
+											<div>Usage</div>
+											<div class="usage-amount">SGD 500.00</div>
+											<div class="usage-amount">SGD 500.00</div>
+										</div>
+									</div>
+								</div>
+								<div class="date-emp-container">
+									<label>Start Date: </label> 
+									<span>March 18, 2020</span>
+								</div>
+								<div class="date-emp-container">
+									<label>End Date: </label> 
+									<span>April 12, 2020</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="enrolled-emp-pagination">
+						<div class="dp-flex-ai">
+							<button>PREV</button>
+							<span>1 of 8</span>
+							<button>NEXT</button>
+						</div>
+					</div>
+				</div>
+				<div slot="footer">
 					<button @click="toggleClosePlanModal()" class="btn-close">CLOSE</button>
 				</div>
 			</Modal>
