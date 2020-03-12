@@ -11,7 +11,11 @@
 					<img :src="'../assets/img/latest logo/Mednefits Logo V1.svg'"/>
 				</div>
 				<div class="div-col">
-					<p class="pdf-title">Invoice</p>
+					<p v-if="true" class="pdf-title">Invoice</p>
+
+					<!-- Employee refund invoice download in spending invoice -->
+					<p v-if="false" class="pdf-title">CANCELLATION</p>
+
 					<p class="fw-700 fs-16">Medicloud Pte Ltd</p>
 					<p>7 Temasek Boulevard</p>
 					<p>#18-02 Suntec Tower One</p>
@@ -24,7 +28,10 @@
 
 			<div class="body-one-box">
 				<div class="div-col">
-					<p>BILL TO</p>
+					<p v-if="true">BILL TO</p>
+					<!-- Spending Invoice in corporate details -->
+					<p v-if="false">Team Benefits Statement</p>
+
 					<p>StackGeckos</p>
 					<p>Allans Alzulas</p>
 					<p>test, 1222</p>
@@ -33,14 +40,19 @@
 					<p>allan.alzula@gmail.com</p>
 				</div>
 				<div class="div-col">
-					<p><label>Invoice Number:</label> <span>OMC000012</span></p>
-					<p><label>Invoice Date:</label> <span>04 January, 2018</span></p>
+					<p v-if="true"><label>Invoice Number:</label> <span>OMC000012</span></p>
+					<p v-if="true"><label>Invoice Date:</label> <span>04 January, 2018</span></p>
+
+					<!-- Spending Invoice in corporate details -->
+					<p v-if="false"><label>Statement Number:</label> <span>OMC000012</span></p>
+					<p v-if="false"><label>Statement Date:</label> <span>04 January, 2018</span></p>
+
 					<p><label>Payment Due:</label> <span>27 December, 2017</span></p>
 					<p class="with-bg-gray"><label>Amount Due (SGD):</label> <span>410</span></p>
 				</div>
 			</div>
 
-			<div class="body-tbl-box">
+			<div v-if="true" class="body-tbl-box">
 				<table>
 					<thead>
 						<tr>
@@ -51,7 +63,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<tr v-if="true">
 							<td>
 								<p class="plan-name">Standalone Mednefits Care (Corporate)</p>
 								<p><label>Active Type:</label> <span>Pro Plan</span></p>
@@ -70,7 +82,7 @@
 								<span class="txt-uppercase">SGD</span> 360.00
 							</td>
 						</tr>
-						<tr>
+						<tr v-if="true">
 							<td>
 								<p><label>Active Plan Type:</label> <span>Lite Plan</span></p>
 								<p><label>No. of dependents:</label> <span>4</span></p>
@@ -86,16 +98,50 @@
 								<span class="txt-uppercase">SGD</span> 50.00
 							</td>
 						</tr>
+						<!-- Employee refund invoice download in spending invoice -->
+						<tr v-if="false">
+							<td>
+								<p><label>Cancellation - </label> <span>Allan Cheam Alzula</span></p>
+								<p><label>Member: </label> <span>Allan Cheam Alzula</span></p>
+								<p><label>Period of use: </label> <span>01/01/2018</span> <span>04/01/2018</span></p>
+								<p><label>Refund: </label> <span>70% of unused period(<span>04/01/2018</span> - <span>02/01/2019</span>)</span></p>
+							</td>
+							<td>1</td>
+							<td>SGD <span>62.31</span></td>
+							<td>SGD <span>62.31</span></td>
+						</tr>
 					</tbody>
 				</table>	
 			</div>
 
-			<div class="total-box">
+			<div v-if="true" class="total-box">
 				<div class="total-space"></div>
 				<div class="total-container">
 					<p><label>Total:</label> <span><span class="txt-uppercase">SGD</span> 410.00</span></p>
 					<div class="total-separator"></div>
 					<p><label>Amount Due (SGD):</label> <span>410.00</span></p>
+				</div>
+			</div>
+
+			<!-- Spending Invoice in corporate details -->
+			<div v-if="false" class="summary-charges">
+				<h4>Summary of Charges</h4>
+				<div class="charges-row dp-flex">
+					<div class="flex-1">
+						<div>Panel Spending Account Usage</div>
+						<p>Statement for 01 February to 28 February 2018</p>
+					</div>
+					<div>SGD 89.00</div>					
+				</div>
+				<div class="sub-total-row dp-flex">
+					<div class="flex-1">Sub Total</div>
+					<div>SGD 89.00</div>
+				</div>
+				<div class="total-due-row">
+					<div class="dp-flex">
+						<div class="flex-1">Total Due</div>
+						<div>SGD 89.00</div>
+					</div>
 				</div>
 			</div>
 
@@ -113,7 +159,12 @@
 				<div class="white-space-10"></div>
 				<p class="text-black">Please contact us for any questions related to your invoice/contract at</p>
 				<p class="text-black">happiness@mednefits.com</p>
-				<p class="note-text"><label>Notes:</label> <span>Note for this invoice</span></p>
+				<p class="note-text"><label>Notes:</label> 
+					<span v-if="true">Note for this invoice</span>
+					
+					<!-- Employee refund invoice download in spending invoice -->
+					<span v-if="false">Cancellation refund will be made to the company by cheque in 10 - 14 working days</span>
+				</p>
 				<p class="text-black fs-12">Please send all payment advice to finance@mednefits.com</p>
 			</div>
 

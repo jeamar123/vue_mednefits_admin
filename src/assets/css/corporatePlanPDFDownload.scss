@@ -112,7 +112,7 @@
       thead{
         tr{
           th{
-            padding: 10px 30px;
+            padding: 10px 20px;
             background: #0392CF;
             color: #FFF;
             border-color: #0392CF;
@@ -275,6 +275,39 @@
         margin-bottom: 50px;
         margin-top: 46px;
       }
+    }
+  }
+
+  .summary-charges {
+    padding: 20px 30px;
+    h4 {
+      font-size: 20px;
+      border-bottom: 2px solid #009EC8;
+      padding: 0 0 15px;
+      color: #009EC8;
+    }
+    .charges-row {
+      padding: 20px 30px;
+      margin: 20px 0;
+      background: #f1f1f1;
+    }
+    p {
+      font-size: 12px;
+    }
+    .sub-total-row {
+      padding: 0px 30px;
+      color: #009EC8;
+    }
+    .total-due-row {
+      // text-align: right;
+      margin: 20px 0 40px;
+    }
+    .total-due-row >div {
+      margin: 0 0 0 auto;
+      width: 350px;
+      background: #0086D3;
+      padding: 15px 30px;
+      color: #eee;
     }
   }
 }

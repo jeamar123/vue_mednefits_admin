@@ -1730,3 +1730,74 @@
   }
 }
 // -------------------------------------------  //
+
+// ------ EDIT INVOICE DATES SPENDING INVOICE MODAL ------ //
+.edit-invoice-modal {
+  .modal-container {
+    width: 450px;
+  }
+  
+  .fa-calendar-o {
+    font-size: 18px;
+  }
+
+  .modal-header {
+    padding: 18px 15px;
+    background-color: rgb(63,81,181);
+    border-radius: 4px 4px 0 0;
+
+    h1 {
+      font-size: 20px;
+      font-weight: 500;
+      color: #fff;
+    }
+  }
+
+  .date-container {
+    position: relative;
+
+    i {
+      position: absolute;
+      top: 4px;
+      right: 0;
+    }
+  }
+  .modal-body {
+    padding: 30px;
+  }
+  .edit-invoice-input-wrapper {
+    margin: 0 0 20px;
+
+    >div:nth-child(1) {
+      align-self: flex-end;
+      margin: 0 10px 0 0;
+    }
+    label {
+      font-size: 12px;
+      color: rgba(0,0,0,0.54);
+    }
+  }
+  .modal-footer {
+    padding: 0 10px 10px;
+    text-align: right;
+
+    .btn-close {
+      box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+      padding: 10px 15px;
+      padding: 0 15px;
+      height: 36px;
+      margin: 0 10px 0 0;
+    }
+  }
+}
+
+@media ( max-width: 600px ) {
+  .edit-invoice-modal {
+    .modal-container {
+      width: 100%;
+      margin: 0 20px;
+    }
+  }
+}
+
+// -----------------------------------------------------  //
