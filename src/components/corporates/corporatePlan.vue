@@ -33,6 +33,7 @@
           wellness_enable: false,
         },
         global_isPendingEnrollmentModalShow: false,
+        global_isRecordFundModalShow: false,
       };
     },
     created(){
@@ -76,6 +77,7 @@
         }
         if ( opt == 'view-plan' ) {
           this.global_isViewPlanModalShow = this.global_isViewPlanModalShow == false ? true : false;
+          this.global_isRecordFundModalShow = false;
         }
       },
       ___medicalSelector( opt ) {
@@ -92,10 +94,17 @@
           this.global_getSpendingSettings.wellness_enable = false;
         }
       },
-      _showPendingEnrollment_() {
+      _showViewPlanModal_( type ) {
         this.global_isViewPlanModalShow = false;
-        this.global_isPendingEnrollmentModalShow = true;
-      }
+
+        if ( type == 'pending-enrollment' ) {
+          this.global_isPendingEnrollmentModalShow = true;
+        }
+        if ( type == 'record-refund' ) {
+          this.global_isRecordFundModalShow = true;
+        }
+        
+      },
     }
   }
   
@@ -112,6 +121,13 @@
     }
     .popover-origin .popover-content-wrapper .popover-content.align-left:after {
       left: 145px
+    }
+  }
+
+  .record-refund-modal .date-container {
+    .popover-origin.direction-bottom.align-left {
+      right: 0;
+      left: inherit;
     }
   }
 </style>
