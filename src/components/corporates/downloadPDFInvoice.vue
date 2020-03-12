@@ -1,7 +1,7 @@
 <script>
   import jsPDF from 'jspdf'
   import 'jspdf-autotable'
-  import htmlToImage from 'html-to-image';
+  // import htmlToImage from 'html-to-image';
 
   let downloadPDFInvoice = {
     props: {
