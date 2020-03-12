@@ -2,7 +2,8 @@
   import Modal from "../../views/modal/Modal.vue";
   import axios from "axios";
   import moment, { locale } from "moment";
-  import jszip from "jszip";
+  import JSZip from "jszip";
+  import FileSaver from "file-saver";
   import { 
     _showPageLoading_,
 	  _hidePageLoading_,
@@ -36,7 +37,9 @@
           deviceOs: null,
         },
         monthLabels:  ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        global_receiptArr: [],
+        global_downloadTransactions: [],
+        global_downloadCtr: 0,
+        zip: new JSZip(),
       };
     },
     created(){
@@ -49,25 +52,13 @@
       _toggleDownloadEclaimModal(){
         this.global_isEclaimDownloadModalShow = this.global_isEclaimDownloadModalShow == true ? false : true;
         if(this.global_isEclaimDownloadModalShow == false){
-          this.global_downloadEclaimData =  {
-            selected_date:  null,
-            date_list:  [],
-            filters:  {
-              approved: true,
-              rejected: true,
-              pending: true,
-              all: true,
-            },
-            deviceOs: null,
-          };
-          this.global_receiptArr = [];
+          this._resetValues_();
         }
       },
       ___loginCompanyAccount() {
         if (this.device0s == 'iOS') {
           window.location.assign( axios.defaults.serverUrl + '/company/settings_access_account?token=' + localStorage.getItem('vue_admin_session') + '&customer_id=' + this.customer_id );
         } else {
-          console.log('access account');
           window.open( axios.defaults.serverUrl + '/company/settings_access_account?token=' + localStorage.getItem('vue_admin_session') + '&customer_id=' + this.customer_id );
         }
       },
@@ -143,21 +134,13 @@
         }
         _fetchDownloadEclaimReceipts_(params)
           .then((res)  =>  {
-            console.log(res);
-            res.data.data.data.map((value, key) =>  {
-              if( value.out_of_networks.length > 0 ){
-                value.out_of_networks.map((receipt, receipt_key) =>  {
-                  this.global_receiptArr.push(receipt);
-                  if(receipt_key == value.out_of_networks.length - 1){
-                    this._downloadAllReceipts_();
-                  }
-                });
-              }else{
-                if(key == res.data.data.data.length - 1){
-                  this._downloadAllReceipts_();
-                }
-              }
-            });
+            this.global_downloadTransactions = res.data.data.data;
+            if(res.data.data.receipt_count > 0){
+              this._downloadAllReceipts_();
+            }else{
+              this.$swal('Error!', 'No receipts for the selected month/s', 'error');
+            }
+            
           });
       },
       _addDate_(date){
@@ -191,11 +174,77 @@
         }
       },
       _downloadAllReceipts_(){
-        console.log(this.global_receiptArr);
-        let companyZip = 'StackYawa';
-        let monthFolder = 'January 2020';
-        let transactionFolder = 'MNF000826 - MemberName - SpendingType - Status'
-      }
+        if(this.global_downloadCtr == 0){
+          _showPageLoading_();
+        }
+        let companyFolder = this.zip.folder(this.company_name);
+        let transaction = this.global_downloadTransactions[this.global_downloadCtr];
+        
+        if(transaction.out_of_networks.length > 0){
+          let monthFolder = companyFolder.folder(transaction.date_format);
+          transaction.out_of_networks.map((value, key)  =>  {
+            if(value.docs.length > 0){
+              let transactionFolder = monthFolder.folder(value.folder_name);
+              value.docs.map((receipt, receipt_key) =>  {
+                let filename = $.trim( receipt.file_name.split('/').pop().replace(/\.*/,'') );
+                filename = ( filename.indexOf("?") >= 0 ) ? filename.substring(0, filename.indexOf('?')) : filename;
+                let promise = $.ajax({
+                  url: receipt.doc_file,
+                  method: 'GET',
+                  xhrFields: {
+                    responseType: 'blob'
+                  }
+                });
+                transactionFolder.file(filename, promise);
+                if(receipt_key == value.docs.length - 1){
+                  if(key == transaction.out_of_networks.length - 1){
+                    this._saveZip_();
+                  }
+                }
+              });
+            }else{
+              if(key == transaction.out_of_networks.length - 1){
+                this._saveZip_();
+              }
+            }
+          });
+        }else{
+          this._saveZip_();
+        }
+      },
+      _saveZip_(){
+        if(this.global_downloadCtr == this.global_downloadTransactions.length -1){
+          setTimeout(() => {
+            this.zip.generateAsync({type:"blob"})
+              .then((content) => {
+                FileSaver.saveAs(content, this.company_name + ".zip");
+              });
+            this._resetValues_();
+            _hidePageLoading_();
+          }, 100);
+        }else{
+          setTimeout(() => {
+            this.global_downloadCtr += 1;
+            this._downloadAllReceipts_();
+          }, 100);
+        }
+      },
+      _resetValues_(){
+        this.global_downloadEclaimData =  {
+          selected_date:  null,
+          date_list:  [],
+          filters:  {
+            approved: true,
+            rejected: true,
+            pending: true,
+            all: true,
+          },
+          deviceOs: null,
+        };
+        this.global_downloadTransactions = [];
+        this.global_downloadCtr = 0;
+        this.zip = new JSZip();
+      },
     }
   }
   export default corporateSettings
