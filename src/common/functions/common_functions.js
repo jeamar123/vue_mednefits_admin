@@ -456,9 +456,45 @@ const _uploadEmployeeDependent_	= (params)	=> {
 		url:	Config.UPLOAD_EMPLOYEE_DEPENDENT,
 		data: params,
 		header:	uploadHeaders,
+    };
+	return _axiosCall_(req);
+};
+const _fetchEclaimList_	= (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.ECLAIM_TYPE_LIST + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
 	};
 	return _axiosCall_(req);
 };
+
+const _createEclaimType_	= (params)	=> {
+	let	req	=	{
+		method:	'POST',
+		url:	Config.CREATE_ECLAIM_TYPE,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const _updateEclaimType_	= (params)	=> {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_ECLAIM_TYPE,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const _deleteEclaimType_	= (params)	=> {
+	let	req	=	{
+		method:	'DELETE',
+		url:	Config.DELETE_ECLAIM_TYPE + '?e_claim_service_type_id=' + params.e_claim_service_type_id + '&customer_id=' + params.customer_id,
+		data: params,
+		header:	defaultHeaders,
+	
 
 const _onLoad_	=	() =>{
 
@@ -497,4 +533,8 @@ export	{
 	_enrollEmployeeWebInput_,
 	_fetchDownloadEclaimReceipts_,
 	_uploadEmployeeDependent_,
+	_fetchEclaimList_,
+	_createEclaimType_,
+	_updateEclaimType_,
+	_deleteEclaimType_,
 }
