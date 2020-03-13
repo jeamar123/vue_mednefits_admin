@@ -450,6 +450,16 @@ const _fetchDownloadEclaimReceipts_	= (params)	=> {
 	return _axiosCall_(req);
 };
 
+const _uploadEmployeeDependent_	= (params)	=> {
+	let	req	=	{
+		method:	'POST',
+		url:	Config.UPLOAD_EMPLOYEE_DEPENDENT + '?token=' + params.token + '&companyID=' + params.customer_id,
+		data: params,
+		header:	uploadHeaders,
+	};
+	return _axiosCall_(req);
+};
+
 const _onLoad_	=	() =>{
 
 }	
@@ -485,5 +495,6 @@ export	{
 	_enrollTempEmployees_,
 	_fetchPackagePlanList_,
 	_enrollEmployeeWebInput_,
-	_fetchDownloadEclaimReceipts_
+	_fetchDownloadEclaimReceipts_,
+	_uploadEmployeeDependent_,
 }
