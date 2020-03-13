@@ -36,7 +36,7 @@
                   <div @click="___selectActionsSelector('download-invoice')">View as PDF</div>
                   <div>Download Statement</div>
                   <div @click="___selectActionsSelector('payment-method')">Payment Method</div>
-                  <div>View Transactions</div>
+                  <div @click="___selectActionsSelector('view-transactions')">View Transactions</div>
                   <div>Download Transactions</div>
                   <div @click="___selectActionsSelector('edit-invoice-dates')">Edit Invoice Dates</div>
                 </div>

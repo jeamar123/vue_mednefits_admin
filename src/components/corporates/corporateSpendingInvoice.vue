@@ -49,6 +49,9 @@
         if ( type == 'edit-invoice-dates' ) {
           this.global_isEditInvoiceModalShow = this.global_isEditInvoiceModalShow == false ? true : false;
         }
+        if ( type == 'view-transactions' ) {
+          window.open( window.location.origin + '/#/dashboard/download-transactions/' + this.customer_id );
+        }
       }
     }
   }
