@@ -16,14 +16,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="x in 7" :key="x.index">
-              <td>General Practice Practice</td>
-              <td>medical</td>
-              <td>0</td>
+            <tr v-for="list in global_claimTypes" :key="list.index">
+              <td>{{ list.name }}</td>
+              <td>{{ list.type }}</td>
+              <td>{{ list.cap_amount }}</td>
               <td>
                 <span>
-                  <button @click="___openClaimTypesModal('update')" class="btn-primary">EDIT</button>
-                  <button class="btn-primary">REMOVE</button>
+                  <button @click="___openClaimTypesModal('update', list)" class="btn-primary">EDIT</button>
+                  <button class="btn-primary" v-on:click="_removeClaimType_(list)">REMOVE</button>
                 </span>
               </td>
             </tr>
@@ -42,11 +42,11 @@
           <div>
             <div class="settings-input-wrapper">
               <label>Claim Type*</label>
-              <input type="text">
+              <input type="text" v-model="global_claimTypeData.name">
             </div>
             <div class="settings-input-wrapper">
               <label>Cap Claim Amount*</label>
-              <input type="text">
+              <input type="number" v-model="global_claimTypeData.cap_amount">
             </div>
           </div>
           <div>
@@ -54,12 +54,12 @@
             <div class="custom-checkbox-selector">
               <label class="selector-container">
                 <span>Medical</span>
-                <input value="0" type="radio" name="radio">
+                <input value="medical" type="radio" name="radio" v-model="global_claimTypeData.type">
                 <span class="custom-checkbox-checkmark"></span>
               </label>
               <label class="selector-container">
                 <span>Wellness</span>
-                <input value="1" type="radio" name="radio">
+                <input value="wellness" type="radio" name="radio" v-model="global_claimTypeData.type">
                 <span class="custom-checkbox-checkmark"></span>
               </label>
             </div>
@@ -68,8 +68,7 @@
       </div>
       <div slot="footer">
         <button @click="___openClaimTypesModal()" class="btn-close">CANCEL</button>
-        <button v-if="global_updateClaimType" class="btn-primary">UPDATE</button>
-        <button v-if="global_addClaimType" class="btn-primary">ADD</button>
+        <button class="btn-primary" v-on:click="_addUpdateDeleteClaimType_()" :disabled="!global_claimTypeData.name || global_claimTypeData.cap_amount == '' || !global_claimTypeData.type">{{ global_updateClaimType ? 'UPDATE' : 'ADD' }}</button>
       </div>
     </Modal>
     
