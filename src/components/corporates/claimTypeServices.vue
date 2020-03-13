@@ -39,6 +39,7 @@
             name: data.name,
             type: data.type,
             cap_amount: data.cap_amount,
+            e_claim_service_type_id: data.e_claim_service_type_id,
             health_type_id: data.health_type_id,
           }
           this.global_claimTypeData = claim_data;
@@ -50,7 +51,7 @@
         }
         if(this.global_showClaimTypeModal == false){
           this.global_deleteClaimType = false;
-          this.global_updateClaimType = true;
+          this.global_updateClaimType = false;
           this.global_addClaimType = false;
         }
       },
@@ -74,6 +75,7 @@
           cap_amount: Number(this.global_claimTypeData.cap_amount),
         }
         if(this.global_updateClaimType == true || this.global_deleteClaimType == true){
+          params.e_claim_service_type_id = this.global_claimTypeData.e_claim_service_type_id;
           params.health_type_id = this.global_claimTypeData.health_type_id;
         }
         let promise = null;
@@ -107,6 +109,8 @@
         }).then(result => {
           if (result.value) {
             this.global_claimTypeData = data;
+            this.global_updateClaimType = false;
+            this.global_addClaimType = false;
             this.global_deleteClaimType = true;
             this._addUpdateDeleteClaimType_();
           } 

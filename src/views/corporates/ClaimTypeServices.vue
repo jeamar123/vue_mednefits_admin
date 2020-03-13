@@ -68,7 +68,7 @@
       </div>
       <div slot="footer">
         <button @click="___openClaimTypesModal()" class="btn-close">CANCEL</button>
-        <button class="btn-primary" v-on:click="_addUpdateDeleteClaimType_()" :disabled="!global_claimTypeData.name || global_claimTypeData.cap_amount == '' || !global_claimTypeData.type">{{ global_updateClaimType ? 'UPDATE' : 'ADD' }}</button>
+        <button class="btn-primary" v-on:click="_addUpdateDeleteClaimType_()" :disabled="!global_claimTypeData.name || global_claimTypeData.cap_amount == undefined || global_claimTypeData.cap_amount == '' || !global_claimTypeData.type">{{ global_updateClaimType ? 'UPDATE' : 'ADD' }}</button>
       </div>
     </Modal>
     
