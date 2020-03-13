@@ -453,7 +453,7 @@ const _fetchDownloadEclaimReceipts_	= (params)	=> {
 const _uploadEmployeeDependent_	= (params)	=> {
 	let	req	=	{
 		method:	'POST',
-		url:	Config.UPLOAD_EMPLOYEE_DEPENDENT + '?token=' + params.token + '&companyID=' + params.customer_id,
+		url:	Config.UPLOAD_EMPLOYEE_DEPENDENT,
 		data: params,
 		header:	uploadHeaders,
 	};

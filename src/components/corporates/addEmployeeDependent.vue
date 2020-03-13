@@ -26,8 +26,8 @@ import {
       _uploadEmployeeDependentExcel_(){
         let formData = new FormData();
         let params = {
-          token: localStorage.getItem('vue_admin_session'),
-          customer_id: this.customer_id
+          company_id: this.customer_id,
+          filename: this.global_uploadFile,
         }
         Object.keys( params ).map(( key ) => {
           formData.append(key, params[ key ]);

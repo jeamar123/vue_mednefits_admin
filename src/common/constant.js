@@ -29,7 +29,7 @@ const ENROLL_TEMP_EMPLOYEES = `${SERVERURL}/company/finish_enroll_employee`;
 const COMPANY_PACKAGE_PLAN_LIST = `${SERVERURL}/company/get_company_package_plan_lists`;
 const WEB_INPUT_ADD_EMPLOYEE = `${SERVERURL}/company/create_employee_web_input_method`;
 const DOWNLOAD_ECLAIM_RECEIPTS = `${SERVERURL}/company/download_company_out_of_network_receipts`;
-const UPLOAD_EMPLOYEE_DEPENDENT = `${SERVERURL}/company/downloadEmployeeDependent`;
+const UPLOAD_EMPLOYEE_DEPENDENT = `${SERVERURL}/company/UploadEmployeeDependent`;
 
 module.exports = {
 	AUTH_LOGIN,
