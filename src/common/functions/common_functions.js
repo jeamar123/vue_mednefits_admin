@@ -482,7 +482,7 @@ const _updateEclaimType_	= (params)	=> {
 const _deleteEclaimType_	= (params)	=> {
 	let	req	=	{
 		method:	'DELETE',
-		url:	Config.DELETE_ECLAIM_TYPE + '?health_type_id=' + params.health_type_id + '&customer_id=' + params.customer_id,
+		url:	Config.DELETE_ECLAIM_TYPE + '?e_claim_service_type_id=' + params.e_claim_service_type_id + '&customer_id=' + params.customer_id,
 		data: params,
 		header:	defaultHeaders,
 	};
