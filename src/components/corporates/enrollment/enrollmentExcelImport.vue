@@ -44,7 +44,7 @@ import {
             console.log(res);
             if( res.status == 200 || res.status == 201 ){
               this.$router.push({ name: 'EnrollmentSummaryPreview' });
-              this.global_uploadFile = null;
+              this.global_uploadFile = {};
             } else {
               this.$swal('Error!', res.data.message, 'error');
             }

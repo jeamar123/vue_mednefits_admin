@@ -386,6 +386,8 @@
           return false;
         }
 
+        this.create_company.employee_employees = Number(this.create_company.employee_employees);
+        this.create_company.dependents_employees = Number(this.create_company.dependents_employees);
         this.create_company.emmployee_plan_start = moment(this.create_company.emmployee_plan_start).format('YYYY-MM-DD');
         this.create_company.main_plan_invoice_date = moment(this.create_company.main_plan_invoice_date).format('YYYY-MM-DD');
         this.create_company.plan_start_extension = moment(this.create_company.plan_start_extension).format('YYYY-MM-DD');

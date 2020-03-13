@@ -450,6 +450,15 @@ const _fetchDownloadEclaimReceipts_	= (params)	=> {
 	return _axiosCall_(req);
 };
 
+const _uploadEmployeeDependent_	= (params)	=> {
+	let	req	=	{
+		method:	'POST',
+		url:	Config.UPLOAD_EMPLOYEE_DEPENDENT,
+		data: params,
+		header:	uploadHeaders,
+    };
+	return _axiosCall_(req);
+};
 const _fetchEclaimList_	= (params)	=> {
 	let	req	=	{
 		method:	'GET',
@@ -485,9 +494,7 @@ const _deleteEclaimType_	= (params)	=> {
 		url:	Config.DELETE_ECLAIM_TYPE + '?e_claim_service_type_id=' + params.e_claim_service_type_id + '&customer_id=' + params.customer_id,
 		data: params,
 		header:	defaultHeaders,
-	};
-	return _axiosCall_(req);
-};
+	
 
 const _onLoad_	=	() =>{
 
@@ -525,6 +532,7 @@ export	{
 	_fetchPackagePlanList_,
 	_enrollEmployeeWebInput_,
 	_fetchDownloadEclaimReceipts_,
+	_uploadEmployeeDependent_,
 	_fetchEclaimList_,
 	_createEclaimType_,
 	_updateEclaimType_,
