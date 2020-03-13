@@ -494,6 +494,8 @@ const _deleteEclaimType_	= (params)	=> {
 		url:	Config.DELETE_ECLAIM_TYPE + '?e_claim_service_type_id=' + params.e_claim_service_type_id + '&customer_id=' + params.customer_id,
 		data: params,
 		header:	defaultHeaders,
+	}
+}
 	
 
 const _onLoad_	=	() =>{
