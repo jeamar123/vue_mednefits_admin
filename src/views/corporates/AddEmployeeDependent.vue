@@ -28,12 +28,12 @@
               <th>Status</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Alla Cheam</td>
-              <td>Unique</td>
-              <td>Spouse</td>
-              <td>New Account</td>
+          <tbody v-for="(list, index) in global_empDepList" :key="list.index">
+            <tr v-for="dep in list.dependents">
+              <td>{{ index == 0 ? list.employee_name : '' }}</td>
+              <td>{{ dep.dependent_name }}</td>
+              <td>{{ dep.relationship }}</td>
+              <td>{{ dep.status }}</td>
             </tr>
           </tbody>
         </table>

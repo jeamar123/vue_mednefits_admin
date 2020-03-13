@@ -39,7 +39,11 @@ import {
             if( res.status == 200 || res.status == 201 ){
               this.global_isShowPreview = true;
               this.global_uploadFile = {};
-              this.global_empDepList = res.data.data;
+              this.global_empDepList = _.chain(res.data.data)
+                                        .groupBy("employee_name")
+                                        .map((value, key) => ({ employee_name: key, dependents: value }))
+                                        .value();
+              console.log(this.global_empDepList);
             } else {
               this.$swal('Error!', res.data.message, 'error');
             }
