@@ -101,11 +101,12 @@
         this.$parent.showLoading();
         _fetchCapVisitList_(params)
 					.then(( res ) => {
+            console.log(res);
           if( res.status == 200 || res.status == 201 ){
             this.$parent.hideLoading();
-            this.global_getCapList = res.data.docs;
-            this.global_capListPagination = res.data;
-            
+            this.global_getCapList = res.data.data.docs;
+            this.global_capListPagination = res.data.data;
+            console.log(this.global_getCapList);
             for (let i = 0;i < this.global_getCapList.length; i++) {
               this.global_showInput[i] = false,
               this.global_showText[i] = true,
