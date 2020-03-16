@@ -1025,6 +1025,64 @@
 						<button class="btn-primary">UPDATE</button>
 				</div>
 			</Modal>
+
+			<Modal v-if="global_isEditDepositModalShow" class="edit-deposit-modal">
+				<div slot="header">
+					<h1>Edit Spending Deposit</h1>
+				</div>
+				<div slot="body">
+					<div>
+						<h4>Medical Spending Account</h4>
+						<div class="dp-flex">
+							<div>
+								<label>Allocate Credits*</label>
+								<input type="number"> 
+							</div>
+							<div></div>
+						</div>
+					</div>
+					<div>
+						<h4>Medical Spending Account</h4>
+						<div class="dp-flex">
+							<div>
+								<label>Allocate Credits*</label>
+								<input type="number"> 
+							</div>
+							<div></div>
+						</div>
+					</div>
+					<div>
+						<label>Invoice Date</label>
+						<div class="date-container vDatepicker dp-flex">
+							<i class="fa fa-calendar-o"></i>
+							<v-date-picker 
+								popoverDirection="bottom" 
+								v-model="global_recordPayment.date_received"
+								:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+								popover-visibility="focus" 
+								:formats='formats'></v-date-picker>
+							<i class="fa fa-caret-down"></i>
+						</div>
+					</div>
+					<div>
+						<label>Invoice Date</label>
+						<div class="date-container vDatepicker dp-flex">
+							<i class="fa fa-calendar-o"></i>
+							<v-date-picker 
+								popoverDirection="bottom" 
+								v-model="global_recordPayment.date_received"
+								:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+								popover-visibility="focus" 
+								:formats='formats'></v-date-picker>
+							<i class="fa fa-caret-down"></i>
+						</div>
+					</div>
+				</div>
+				<div slot="footer">
+					<button>BACK</button>
+					<button>UPDATE</button>
+				</div>
+			</Modal>
 		</div>
 
 	</div>
