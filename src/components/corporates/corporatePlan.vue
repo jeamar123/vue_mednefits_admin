@@ -34,6 +34,8 @@
         },
         global_isPendingEnrollmentModalShow: false,
         global_isRecordFundModalShow: false,
+        global_isEditDepositModalShow: false,
+        global_isEditPlanModalShow: false,
       };
     },
     created(){
@@ -53,6 +55,7 @@
         this.global_isSpendingAccountModalShow = false;
         this.global_isCreditAllocationModalShow = false;
         this.global_isPendingEnrollmentModalShow = false;
+        this.global_isEditDepositModalShow = false;
       },
       toggleRecordPayment()  {
         this.global_isRecordPaymentShow = this.global_isRecordPaymentShow == false ? true : false;
@@ -78,6 +81,8 @@
         if ( opt == 'view-plan' ) {
           this.global_isViewPlanModalShow = this.global_isViewPlanModalShow == false ? true : false;
           this.global_isRecordFundModalShow = false;
+          this.global_isEditDepositModalShow = false;
+          this.global_isEditPlanModalShow = false;
         }
       },
       ___medicalSelector( opt ) {
@@ -103,7 +108,12 @@
         if ( type == 'record-refund' ) {
           this.global_isRecordFundModalShow = true;
         }
-        
+        if ( type == 'edit-deposit' ) {
+          this.global_isEditDepositModalShow = true;
+        }
+        if ( type == 'edit-plan' ) {
+          this.global_isEditPlanModalShow = true;
+        }
       },
     }
   }
@@ -124,10 +134,24 @@
     }
   }
 
-  .record-refund-modal .date-container {
+  .edit-deposit-modal .date-container {
     .popover-origin.direction-bottom.align-left {
       right: 0;
       left: inherit;
+    }
+  }
+  
+  @media (max-width: 320px) { 
+    .record-refund-modal .date-container {
+      .popover-origin.direction-bottom.align-left {
+        right: 0;
+        left: inherit;
+      }
+    }
+    .edit-deposit-modal {
+      .popover-origin .popover-content-wrapper .popover-content.align-left:after {
+        left: 50px;
+      }
     }
   }
 </style>

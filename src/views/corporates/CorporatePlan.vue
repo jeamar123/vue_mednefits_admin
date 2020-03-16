@@ -508,7 +508,7 @@
 								<div class="column">
 									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
-									<button class="btn-primary">Edit Deposit</button>
+									<button class="btn-primary" @click="_showViewPlanModal_('edit-deposit')">Edit Deposit</button>
 									<button class="btn-primary">Mark as unpaid</button>
 								</div>
 							</div>
@@ -573,7 +573,7 @@
 
 								</div>
 								<div class="column">
-									<button class="btn-blue">Edit Plan</button>
+									<button class="btn-blue" @click="_showViewPlanModal_('edit-plan')">Edit Plan</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_(null,'receipt')">Download Receipt</button>
@@ -1026,61 +1026,238 @@
 				</div>
 			</Modal>
 
-			<Modal v-if="global_isEditDepositModalShow" class="edit-deposit-modal">
+			<Modal v-if="global_isEditDepositModalShow" class="edit-deposit-modal corporate-details-modal">
 				<div slot="header">
 					<h1>Edit Spending Deposit</h1>
 				</div>
 				<div slot="body">
-					<div>
+					<div class="spending-account-container">
 						<h4>Medical Spending Account</h4>
 						<div class="dp-flex">
 							<div>
 								<label>Allocate Credits*</label>
 								<input type="number"> 
 							</div>
-							<div></div>
+							<div class="deposit-slider">
+								<label>Deposit : <span>{{ global_creditAllocationDeposit }} </span>% </label>
+								<vue-slider v-model="global_creditAllocationDeposit" :min="0" :max="10" :interval=".5"/>
+							</div>
 						</div>
 					</div>
-					<div>
-						<h4>Medical Spending Account</h4>
+					<div class="spending-account-container">
+						<h4>Wellness Spending Account</h4>
 						<div class="dp-flex">
 							<div>
 								<label>Allocate Credits*</label>
 								<input type="number"> 
 							</div>
-							<div></div>
+							<div class="deposit-slider">
+								<label>Deposit : <span>{{ global_creditAllocationDeposit }} </span>% </label>
+								<vue-slider v-model="global_creditAllocationDeposit" :min="0" :max="10" :interval=".5"/>
+							</div>
 						</div>
 					</div>
-					<div>
-						<label>Invoice Date</label>
-						<div class="date-container vDatepicker dp-flex">
-							<i class="fa fa-calendar-o"></i>
-							<v-date-picker 
-								popoverDirection="bottom" 
-								v-model="global_recordPayment.date_received"
-								:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
-								popover-visibility="focus" 
-								:formats='formats'></v-date-picker>
-							<i class="fa fa-caret-down"></i>
+					<div class="dp-flex invoice-date-container">
+						<div>
+							<label>Invoice Date</label>
+							<div class="date-container vDatepicker dp-flex">
+								<i class="fa fa-calendar-o"></i>
+								<v-date-picker 
+									popoverDirection="bottom" 
+									v-model="global_recordPayment.date_received"
+									:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+									popover-visibility="focus" 
+									:formats='formats'></v-date-picker>
+								<i class="fa fa-caret-down"></i>
+							</div>
 						</div>
-					</div>
-					<div>
-						<label>Invoice Date</label>
-						<div class="date-container vDatepicker dp-flex">
-							<i class="fa fa-calendar-o"></i>
-							<v-date-picker 
-								popoverDirection="bottom" 
-								v-model="global_recordPayment.date_received"
-								:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
-								popover-visibility="focus" 
-								:formats='formats'></v-date-picker>
-							<i class="fa fa-caret-down"></i>
+						<div>
+							<label>Invoice Date</label>
+							<div class="date-container vDatepicker dp-flex">
+								<i class="fa fa-calendar-o"></i>
+								<v-date-picker 
+									popoverDirection="bottom" 
+									v-model="global_recordPayment.date_received"
+									:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+									popover-visibility="focus" 
+									:formats='formats'></v-date-picker>
+								<i class="fa fa-caret-down"></i>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div slot="footer">
-					<button>BACK</button>
-					<button>UPDATE</button>
+					<button @click="_showCorporatePlanModal_('view-plan')" class="btn-close">BACK</button>
+					<button class="btn-primary">UPDATE</button>
+				</div>
+			</Modal>
+
+			<Modal v-if="global_isEditPlanModalShow" class="edit-plan-modal corporate-details-modal">
+				<div slot="header">
+					<h1>Edit Plan</h1>
+				</div>
+				<div slot="body">
+					<h4>Employee Account</h4>
+					<div class="dp-flex employee-account-container">
+						<div>
+							<div>
+								<label>Employee</label>
+								<input type="number">
+							</div>
+							<div>
+								<label>Plan Date</label>
+								<div class="date-container vDatepicker dp-flex">
+									<i class="fa fa-calendar-o"></i>
+									<v-date-picker 
+										popoverDirection="bottom" 
+										v-model="global_recordPayment.date_received"
+										:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+										popover-visibility="focus" 
+										:formats='formats'></v-date-picker>
+									<i class="fa fa-caret-down"></i>
+								</div>
+							</div>
+							<div>
+								<label>Invoice Start Date</label>
+								<div class="date-container vDatepicker dp-flex">
+									<i class="fa fa-calendar-o"></i>
+									<v-date-picker 
+										popoverDirection="bottom" 
+										v-model="global_recordPayment.date_received"
+										:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+										popover-visibility="focus" 
+										:formats='formats'></v-date-picker>
+									<i class="fa fa-caret-down"></i>
+								</div>
+							</div>
+							<div>
+								<label>Invoice Due Date</label>
+								<div class="date-container vDatepicker dp-flex">
+									<i class="fa fa-calendar-o"></i>
+									<v-date-picker 
+										popoverDirection="bottom" 
+										v-model="global_recordPayment.date_received"
+										:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+										popover-visibility="focus" 
+										:formats='formats'></v-date-picker>
+									<i class="fa fa-caret-down"></i>
+								</div>
+							</div>
+							<div>
+								<label>Price Per Employee</label>
+								<input type="number">
+							</div>
+							<div>
+								<div class="custom-checkbox-container">
+									<label class="checkbox-input">
+										<span>Override Price Per Employee Amount</span>
+										<input value="true" type="checkbox">
+										<span class="checkbox-mark"></span>
+									</label>
+								</div>
+								<div>
+									<label>Price Per Employee Amount</label>
+									<input type="number">
+								</div>
+							</div>
+						</div>
+						<div>
+							<label>Account Type</label>
+							<div class="custom-checkbox-selector">
+								<label class="selector-container">
+									<span>Trial Plan</span>
+									<input value="trial_plan" type="radio"/>
+									<span class="custom-checkbox-checkmark"></span>
+								</label>
+								<div class="checkbox-child">
+									<label class="selector-container">
+										<span>Trial - Pro Plan</span>
+										<input value="pro_trial_plan_bundle" type="radio"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+									<label class="selector-container">
+										<span>Trial - Lite Plan</span>
+										<input value="trial_plan_lite" type="radio"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+								</div>
+								<label class="selector-container">
+									<span>Insurance Bundle</span>
+									<input value="insurance_bundle" type="radio"/>
+									<span class="custom-checkbox-checkmark"></span>
+								</label>
+								<div class="checkbox-child">
+									<label class="selector-container">
+										<span>Pro Plan Bundle</span>
+										<input value="pro_plan_bundle" type="radio"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+									<label class="selector-container">
+										<span>Insurance Bundle Lite</span>
+										<input value="insurance_bundle_lite" type="radio"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+								</div>
+								<label class="selector-container">
+									<span>Pro Plan</span>
+									<input value="stand_alone_plan" type="radio"/>
+									<span class="custom-checkbox-checkmark"></span>
+								</label>
+								<!-- <div class="checkbox-child">
+									<label class="selector-container">
+										<span>Default (SGD 99.00)</span>
+										<input value="default_price" type="radio"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+									<label class="selector-container">
+										<span>Individual Price</span>
+										<input value="fixed_price" type="radio"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+									<div class="input-individual-price-container">
+										<label>Input Individual Price*</label>
+										<input type="number"> 
+									</div>
+								</div> -->
+								<label class="selector-container">
+									<span>Lite Plan</span>
+									<input value="lite_plan" type="radio"/>
+									<span class="custom-checkbox-checkmark"></span>
+								</label>
+								<!-- <div class="checkbox-child">
+									<label class="selector-container">
+										<span>Individual Price</span>
+										<input value="fixed_price" type="radio" />
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+									<div class="input-individual-price-container">
+										<label>Input Individual Price*</label>
+										<input type="number"> 
+									</div>
+								</div> -->
+								<label class="selector-container">
+									<span>Enterprise Plan</span>
+									<input value="enterprise_plan" type="radio"/>
+									<span class="custom-checkbox-checkmark"></span>
+								</label>
+								<!-- <div class="checkbox-child">
+									<label class="selector-container">
+										<span>Individual Price</span>
+										<input value="fixed_price" type="radio"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+									<div class="input-individual-price-container">
+										<label>Input Individual Price*</label>
+										<input type="number"> 
+									</div>
+								</div> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div slot="footer">
+					<button @click="_showCorporatePlanModal_('view-plan')" class="btn-close">BACK</button>
+					<button class="btn-primary">UPDATE</button>
 				</div>
 			</Modal>
 		</div>
