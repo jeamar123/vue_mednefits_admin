@@ -34,6 +34,12 @@
         },
         global_isPendingEnrollmentModalShow: false,
         global_isRecordFundModalShow: false,
+        global_isEditDepositModalShow: false,
+        global_isEditPlanModalShow: false,
+        global_editPlan: {
+          payment_status: false,
+          
+        }
       };
     },
     created(){
@@ -53,6 +59,7 @@
         this.global_isSpendingAccountModalShow = false;
         this.global_isCreditAllocationModalShow = false;
         this.global_isPendingEnrollmentModalShow = false;
+        this.global_isEditDepositModalShow = false;
       },
       toggleRecordPayment()  {
         this.global_isRecordPaymentShow = this.global_isRecordPaymentShow == false ? true : false;
@@ -78,6 +85,8 @@
         if ( opt == 'view-plan' ) {
           this.global_isViewPlanModalShow = this.global_isViewPlanModalShow == false ? true : false;
           this.global_isRecordFundModalShow = false;
+          this.global_isEditDepositModalShow = false;
+          this.global_isEditPlanModalShow = false;
         }
       },
       ___medicalSelector( opt ) {
@@ -103,7 +112,44 @@
         if ( type == 'record-refund' ) {
           this.global_isRecordFundModalShow = true;
         }
-        
+        if ( type == 'edit-deposit' ) {
+          this.global_isEditDepositModalShow = true;
+        }
+        if ( type == 'edit-plan' ) {
+          this.global_isEditPlanModalShow = true;
+        }
+      },
+      _setAccountType_(account_type)  {
+        if (account_type == "trial_plan") {
+          this.global_editPlan.payment_status = true;
+          this.global_editPlan.secondary_account_type = "pro_trial_plan_bundle";
+        } else {
+          this.global_editPlan.payment_status = false;
+        }
+        if (account_type == "insurance_bundle") {
+          this.global_editPlan.secondary_account_type = 'pro_plan_bundle';
+          this.global_editPlan.payment_status = true;
+        } else {
+          this.global_editPlan.payment_status = false;
+        }
+        if (account_type == "stand_alone_plan") {
+          this.global_editPlan.secondary_account_type = "default_price";
+          this.global_editPlan.price_per_employee = 99;
+        } 
+        if (account_type == "lite_plan") {
+          this.global_editPlan.secondary_account_type = "fixed_price";
+          this.global_editPlan.price_per_employee = 5;
+          this.global_editPlan.payment_status = false;
+        }
+        if (account_type == "enterprise_plan") {
+          this.global_editPlan.payment_status = false;
+          this.global_editPlan.secondary_account_type = "fixed_price";
+          this.global_editPlan.price_per_employee = 100;
+        }
+        this.$forceUpdate();
+      },
+      _setSecondaryAccountType_(account_type)  {
+        this.$forceUpdate();
       },
     }
   }
@@ -124,10 +170,37 @@
     }
   }
 
-  .record-refund-modal .date-container {
+  .edit-deposit-modal .date-container {
     .popover-origin.direction-bottom.align-left {
       right: 0;
       left: inherit;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .edit-plan-modal .date-container {
+      .popover-origin.direction-bottom.align-left {
+        left: -35px;
+      }
+    }
+    .edit-plan-modal {
+      .popover-origin .popover-content-wrapper .popover-content.align-left:after {
+        left: 50px;
+      }
+    }  
+  }
+  
+  @media (max-width: 320px) { 
+    .record-refund-modal .date-container {
+      .popover-origin.direction-bottom.align-left {
+        right: 0;
+        left: inherit;
+      }
+    }
+    .edit-deposit-modal {
+      .popover-origin .popover-content-wrapper .popover-content.align-left:after {
+        left: 50px;
+      }
     }
   }
 </style>
