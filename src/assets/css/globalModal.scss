@@ -1359,6 +1359,9 @@
 
 // ------ GLOBAL CSS FOR MODAL IN CORPORATE DETAILS ------ //
 .corporate-details-modal {
+  .modal-container {
+    width: 610px;
+  }
   .modal-header {
     background-color: rgb(63,81,181);
     padding: 18px 20px;
@@ -1371,9 +1374,6 @@
   }
   .modal-body {
     padding: 20px 20px 0;
-    >div >div {
-      margin: 0 0 40px;
-    }
     label {
       display: block;
       font-size: 12px;
@@ -1399,7 +1399,7 @@
       box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
       background-color: transparent;
       border: 0;
-      margin: 0 0 0 10px;
+      margin: 0 10px;
       min-height: 36px;
       min-width: 88px;
     }
@@ -1418,10 +1418,10 @@
 
 // ------ CREATE DEPENDENT ACCOUNT MODAL ------ //
   .create-dependent-account-modal {
-    .modal-container {
-      width: 600px;
-    }
     .modal-body {
+      >div >div {
+        margin: 0 0 40px;
+      }
       h4 {
         font-size: 16px;
         margin: 0 0 20px;
@@ -1493,8 +1493,10 @@
 
 // ------ CREDIT ALLOCATION MODAL ------ //
 .credit-allocation-modal {
-  .modal-container {
-    width: 550px;
+  .modal-body {
+    >div >div {
+      margin: 0 0 40px;
+    }
   }
   .modal-body button {
     color: #777;
@@ -1563,8 +1565,8 @@
 
   .modal-container {
     padding: 20px;
-    width: 570px;
     max-height: 780px;
+    width: 570px;
     overflow: auto;
   }
 
@@ -2012,16 +2014,9 @@
 
 // ------ RECORD REFUND MODAl IN VIEW PLAN ------ //
 .record-refund-modal {
-  .modal-container {
-    width: 610px;
-  }
   .modal-footer {
     padding: 10px;
     text-align: right;
-
-    .btn-close {
-      margin: 0 10px 0 0;
-    }
   }
   .date-container {
     position: relative;
@@ -2058,6 +2053,193 @@
         width: 100%;
       }
     }
+  }
+}
+// ---------------------------------------------  //
+
+// ------ EDIT SPENDING DEPOSIT IN VIEW PLAN ------ //
+.edit-deposit-modal {
+  .spending-account-container >div >div,
+  .invoice-date-container >div {
+    width: 50%;
+
+    &:first-child {
+      margin: 0 40px 0 0;
+    }
+  }
+  .modal-body >div >div {
+    margin: 0 0 20px;
+    h4 {
+      margin: 0 0 10px;
+    }
+  }
+  .modal-footer {
+    text-align: right;
+  }
+  .deposit-slider label {
+    margin: 0 0 20px;
+  }
+  .date-container {
+    position: relative;
+    width: 150px;
+
+    .fa-calendar-o {
+      align-self: flex-end;
+      margin: 0 10px 0 0;
+      font-size: 18px;
+    }
+
+    .fa-caret-down {
+      position: absolute;
+      top: 8px;
+      right: 0;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .edit-deposit-modal {
+    .modal-container {
+      width: 100%;
+      margin: 0 20px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .edit-deposit-modal {
+    .modal-wrapper {
+      height: 100%;
+    }
+    .modal-container {
+      width: 100%;
+      margin: 0 20px;
+    }
+    .spending-account-container >div {
+      display: block;
+      >div {
+        width: 100%;
+      }
+      >div:first-child {
+        margin: 0 0 20px;
+      }
+    }
+    .invoice-date-container {
+      display: block;
+
+      >div:first-child, >div {
+        width: 100%;
+        margin: 0 0 20px;
+      }
+    }
+    .date-container {
+      width: 100%;
+      .popover-container {
+        width: 100%;
+      }
+    }
+  }
+}
+// ----------------------------------------------  //
+
+// ------ EDIT PLAN EXTENSION IN VIEW PLAN ------ //
+.edit-plan-modal {
+  .modal-body {
+    height: 500px;
+    overflow: auto;
+    
+    h4 {
+      margin: 0 0 20px;
+    }
+    select {
+      -webkit-appearance: none;
+    }
+    .custom-checkbox-selector {
+      margin: 10px 0 20px;
+
+      input { width: auto; }
+    }
+    .custom-checkbox-selector label {
+      font-size: 14px;
+      color: #333;
+    }
+    .popover-container {
+      width: 100%;
+    }
+    .fa-caret-down {
+      position: absolute;
+      top: 7px;
+    }
+    .input-individual-price-container {
+      margin: 0 0 10px;
+      label {
+        font-size: 12px;
+        color: #888;
+      }
+    }
+  }
+  .checkbox-child {
+    padding: 0 0 0 35px;
+  }
+  .employee-account-container >div{
+    width: 50%;
+
+    &:nth-child(1) {
+      margin: 0 40px 0 0;
+    }
+
+    >div {
+      margin: 0 0 20px;
+    }
+  }
+  .override-price-container h4 {
+    padding: 0 0 0 30px;
+  }
+  .date-container {
+    position: relative;
+
+    .fa-calendar-o {
+      align-self: flex-end;
+      margin: 0 10px 0 0;
+      font-size: 18px;
+    }
+  }
+  .modal-footer {
+    text-align: right;
+  }
+  .custom-checkbox-container label {
+    color: #333;
+    font-size: 14px;
+    >span:first-child {
+      padding: 0 0 0 30px;
+    }
+  }
+  .payment-status-container >div,
+  .spending-invoice-date-container >div >div:first-child {
+    width: 50%;
+    margin: 0 10px 0 0;
+    position: relative;
+  }
+}
+@media ( max-width: 700px ) {
+  .edit-plan-modal {
+    .modal-container {
+      width: 100%;
+      margin: 0 20px 0;
+    }
+  }
+}
+
+@media ( max-width: 600px ) {
+  .edit-plan-modal {
+    .employee-account-container {
+      display: block;
+    }
+    .employee-account-container >div,
+    .payment-status-container >div {
+      width: 100%;
+    }
+    .custom-checkbox-container span { font-size: 12px; }
   }
 }
 // ---------------------------------------------  //
