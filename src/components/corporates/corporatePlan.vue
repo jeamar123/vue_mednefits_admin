@@ -54,7 +54,7 @@
           },
         },
         global_addDependentData: {
-          start_date: new Date(),
+          start_date: undefined,
           total_dependents: 0,
           account_type: undefined,
           secondary_account_type: undefined,
@@ -99,8 +99,6 @@
         console.log(opt);
         if ( opt == 'create-dependent-account' ) {
           this.global_isCreateDependentModalShow = this.global_isCreateDependentModalShow == false ? true : false;
-          this.global_addDependentData = {};
-          this.global_addDependentData.is_paid = 0;
         }
         if ( opt == 'spending-account-settings' ) {
           this.global_isSpendingAccountModalShow = this.global_isSpendingAccountModalShow == false ? true : false;
@@ -208,9 +206,20 @@
             console.log(res);
             if( res.status == 200 || res.status == 201 ){ 
               this.$swal("Success!", res.data.message, "success");
+              this._resetAddDependents_();
+              this.global_isCreateDependentModalShow = false;
             }
 					});
       },
+      _resetAddDependents_() {
+        this.global_addDependentData = {
+          is_paid: 0,
+          total_dependents: 0,
+          individual_price: 0,
+          account_type: '',
+          secondary_account_type: '',
+        }
+      }
     }
   }
   
