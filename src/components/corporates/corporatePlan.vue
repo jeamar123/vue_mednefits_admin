@@ -99,8 +99,6 @@
         console.log(opt);
         if ( opt == 'create-dependent-account' ) {
           this.global_isCreateDependentModalShow = this.global_isCreateDependentModalShow == false ? true : false;
-          // this.global_addDependentData = {};
-          // this.global_addDependentData.is_paid = 0;
         }
         if ( opt == 'spending-account-settings' ) {
           this.global_isSpendingAccountModalShow = this.global_isSpendingAccountModalShow == false ? true : false;
