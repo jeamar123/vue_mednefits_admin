@@ -1,6 +1,11 @@
 <script>
   import Modal from "../../views/modal/Modal.vue";
-  import axios from 'axios'
+  import axios from 'axios';
+  import moment, { locale } from "moment";
+  import { 
+    _getActivePlans_,
+    _createDependentAccount_,
+  } from '../../common/functions/common_functions';
    
   let corporatePlan = {
     components: {
@@ -39,11 +44,28 @@
         global_editPlan: {
           payment_status: false,
           
+        },
+        global_getPlans: {
+          current_plan: {
+            plan_start: undefined,
+          },
+          old_plans: {
+            plan_start: undefined,
+          },
+        },
+        global_addDependentData: {
+          start_date: new Date(),
+          total_dependents: 0,
+          account_type: undefined,
+          secondary_account_type: undefined,
+          is_paid: 0,
+          individual_price: 0,
         }
       };
     },
     created(){
       // this.corporateViewStatus = this.$route.name;
+      this._fecthPlanList_();
     },
     methods: {
       showPlanActive(value,text) {
@@ -60,6 +82,8 @@
         this.global_isCreditAllocationModalShow = false;
         this.global_isPendingEnrollmentModalShow = false;
         this.global_isEditDepositModalShow = false;
+
+        // this.global_addDependentData = {};
       },
       toggleRecordPayment()  {
         this.global_isRecordPaymentShow = this.global_isRecordPaymentShow == false ? true : false;
@@ -75,6 +99,8 @@
         console.log(opt);
         if ( opt == 'create-dependent-account' ) {
           this.global_isCreateDependentModalShow = this.global_isCreateDependentModalShow == false ? true : false;
+          this.global_addDependentData = {};
+          this.global_addDependentData.is_paid = 0;
         }
         if ( opt == 'spending-account-settings' ) {
           this.global_isSpendingAccountModalShow = this.global_isSpendingAccountModalShow == false ? true : false;
@@ -150,6 +176,40 @@
       },
       _setSecondaryAccountType_(account_type)  {
         this.$forceUpdate();
+      },
+      _fecthPlanList_() {
+        let params = {
+          customer_id :	Number(this.customer_id),
+        };
+        _getActivePlans_(params)
+					.then(( res ) => {
+            console.log(res);
+            this.global_getPlans = res.data.data;
+            this.global_getPlans.current_plan.plan_start = moment(this.global_getPlans.current_plan.plan_start).format("DD MMMM, YYYY");
+            this.global_getPlans.old_plans.plan_start = moment(this.global_getPlans.old_plans.plan_start).format("DD MMMM, YYYY");
+
+					});
+      },
+      _dependentActiveButton_( opt ) {
+        this.global_addDependentData.is_paid = opt;
+      },
+      _submitDependentAccount_() {
+        let params = {
+          customer_id :	Number(this.customer_id),
+          total_dependents: this.global_addDependentData.total_dependents,
+          plan_start: moment(this.global_addDependentData.start_date).format('YYYY-MM-DD'),
+          account_type: this.global_addDependentData.account_type,
+          secondary_account_type: this.global_addDependentData.secondary_account_type,
+          isPaid: this.global_addDependentData.is_paid,
+          individual_price: this.global_addDependentData.individual_price,
+        };
+        _createDependentAccount_(params)
+					.then(( res ) => {
+            console.log(res);
+            if( res.status == 200 || res.status == 201 ){ 
+              this.$swal("Success!", res.data.message, "success");
+            }
+					});
       },
     }
   }

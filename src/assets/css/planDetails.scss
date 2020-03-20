@@ -217,6 +217,9 @@
 
   .account-container {
     margin: 0 0 20px;
+    >div:first-child {
+      margin: 0 0 20px;
+    }
   }
 
   .active-plans-info {
