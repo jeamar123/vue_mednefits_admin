@@ -659,9 +659,9 @@
 						<div class="spending-account-container">
 							<label>Spending Account</label>
 							<div class="spending-selector-container">
-								<select>
-									<option>No</option>
-									<option>Yes</option>
+								<select v-model="global_getSpendingData.spending_account" v-on:change="_spendingAccountWallet_( global_getSpendingData.spending_account )">
+									<option value="false">No</option>
+									<option value="true">Yes</option>
 								</select>
 								<i class="fa fa-angle-down"></i>
 							</div>
@@ -670,20 +670,20 @@
 							<div class="dp-flex-ai">
 								<span>Medical</span>
 								<div class="dp-flex">
-									<button @click="___medicalSelector(true)" v-bind:class="{on : global_getSpendingSettings.medical_enable == true}"><span class="check-mark"></span></button>
-									<button @click="___medicalSelector(false)" v-bind:class="{off : global_getSpendingSettings.medical_enable == false}"><img :src="'../assets/img/close.svg'"></button>
+									<button @click="___medicalSelector(true)" v-bind:class="{on : global_getSpendingData.medical_enable == true}" :disabled="global_getSpendingData.spending_account === false"><span class="check-mark"></span></button>
+									<button @click="___medicalSelector(false)" v-bind:class="{off : global_getSpendingData.medical_enable == false}"><img :src="'../assets/img/close.svg'"></button>
 								</div>
 							</div>
 							<div class="dp-flex">
 								<span>Wellness</span>
 								<div class="dp-flex">
-									<button @click="___wellnessSelector(true)" v-bind:class="{on : global_getSpendingSettings.wellness_enable == true}"><span class="check-mark"></span></button>
-									<button @click="___wellnessSelector(false)" v-bind:class="{off : global_getSpendingSettings.wellness_enable == false}"><img :src="'../assets/img/close.svg'"></button>
+									<button @click="___wellnessSelector(true)" v-bind:class="{on : global_getSpendingData.wellness_enable == true}" :disabled="global_getSpendingData.spending_account === false"><span class="check-mark"></span></button>
+									<button @click="___wellnessSelector(false)" v-bind:class="{off : global_getSpendingData.wellness_enable == false}"><img :src="'../assets/img/close.svg'"></button>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div v-if="global_getSpendingSettings.medical_enable == true" class="medical-wellness-spending-container">
+					<div v-if="global_getSpendingData.medical_enable == true && global_getSpendingData.medical_enable == true" class="medical-wellness-spending-container">
 						<div class="row-item dp-flex">
 							<div>
 								<div class="spending-account-text-title">
@@ -696,7 +696,7 @@
 											<img :src="'../assets/img/calendar-gray.png'">
 											<v-date-picker 
 											popoverDirection="bottom" 
-											v-model="global_recordPayment.date_received"
+											v-model="global_getSpendingData.medical_spending_start_date"
 											:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 											popover-visibility="focus" 
 											:formats='formats'></v-date-picker>
@@ -708,7 +708,7 @@
 											<img :src="'../assets/img/calendar-gray.png'">
 											<v-date-picker 
 											popoverDirection="bottom" 
-											v-model="global_recordPayment.date_received"
+											v-model="global_getSpendingData.medical_spending_end_date"
 											:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 											popover-visibility="focus" 
 											:formats='formats'></v-date-picker>
@@ -719,14 +719,14 @@
 									<div class="input-div">
 										<label>Supplementary Credits</label>
 										<div class="supplementary-input-wrapper dp-flex-ai">
-											<input type="number">
+											<input v-model="global_getSpendingData.medical_supplementary_credits" type="number">
 											<span>%</span>
 										</div>
 									</div>
 									<div class="input-div">
 										<label>Deposit</label>
 										<div class="deposit-input-wrapper dp-flex-ai">
-											<input type="number">
+											<input v-model="global_getSpendingData.medical_deposit" type="number">
 											<span>%</span>
 										</div>
 									</div>
@@ -735,9 +735,9 @@
 									<div class="input-div">
 										<label>Rollover</label>
 										<div class="rollover-input-wrapper spending-selector-container">
-											<select>
-												<option>No</option>
-												<option>Yes</option>
+											<select v-model="global_getSpendingData.medical_roll_over">
+												<option value="false">No</option>
+												<option value="true">Yes</option>
 											</select>
 											<i class="fa fa-angle-down"></i>
 										</div>
@@ -748,17 +748,17 @@
 								<div class="change-total-cost">
 									<div>
 										<label>Total Allocated Credits</label>
-										<div>SGD <span>30000.00</span></div>
+										<div class="currency-type">{{ global_getSpendingData.currency_type }} <span>{{ global_getSpendingData.total_medical_allocated_credits }}</span></div>
 									</div>
 									<div>
 										<label>Supplementary Credits</label>
-										<div>SGD <span>0.00</span></div>
+										<div class="currency-type">{{ global_getSpendingData.currency_type }} <span>{{ global_getSpendingData.medical_supplementary_credits_value }}</span></div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div v-if="global_getSpendingSettings.wellness_enable == true" class="medical-wellness-spending-container">
+					<div v-if="global_getSpendingData.wellness_enable == true && global_getSpendingData.wellness_enable == true" class="medical-wellness-spending-container">
 						<div class="row-item dp-flex">
 							<div>
 								<div class="spending-account-text-title">
@@ -771,7 +771,7 @@
 											<img :src="'../assets/img/calendar-gray.png'">
 											<v-date-picker 
 											popoverDirection="bottom" 
-											v-model="global_recordPayment.date_received"
+											v-model="global_getSpendingData.wellness_spending_start_date"
 											:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 											popover-visibility="focus" 
 											:formats='formats'></v-date-picker>
@@ -783,7 +783,7 @@
 											<img :src="'../assets/img/calendar-gray.png'">
 											<v-date-picker 
 											popoverDirection="bottom" 
-											v-model="global_recordPayment.date_received"
+											v-model="global_getSpendingData.wellness_spending_end_date"
 											:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 											popover-visibility="focus" 
 											:formats='formats'></v-date-picker>
@@ -794,14 +794,14 @@
 									<div class="input-div">
 										<label>Supplementary Credits</label>
 										<div class="supplementary-input-wrapper dp-flex-ai">
-											<input type="number">
+											<input v-model="global_getSpendingData.wellness_supplementary_credits" type="number">
 											<span>%</span>
 										</div>
 									</div>
 									<div class="input-div">
 										<label>Deposit</label>
 										<div class="deposit-input-wrapper dp-flex-ai">
-											<input type="number">
+											<input v-model="global_getSpendingData.wellness_deposit" type="number">
 											<span>%</span>
 										</div>
 									</div>
@@ -810,9 +810,9 @@
 									<div class="input-div">
 										<label>Rollover</label>
 										<div class="rollover-input-wrapper spending-selector-container">
-											<select>
-												<option>No</option>
-												<option>Yes</option>
+											<select v-model="global_getSpendingData.wellness_roll_over">
+												<option value="false">No</option>
+												<option value="true">Yes</option>
 											</select>
 											<i class="fa fa-angle-down"></i>
 										</div>
@@ -823,11 +823,11 @@
 								<div class="change-total-cost">
 									<div>
 										<label>Total Allocated Credits</label>
-										<div>SGD <span>30000.00</span></div>
+										<div class="currency-type">{{ global_getSpendingData.currency_type }} <span>{{ global_getSpendingData.total_wellness_allocated_credits }}</span></div>
 									</div>
 									<div>
 										<label>Supplementary Credits</label>
-										<div>SGD <span>0.00</span></div>
+										<div class="currency-type">{{ global_getSpendingData.currency_type }} <span>{{ global_getSpendingData.wellness_supplementary_credits_value }}</span></div>
 									</div>
 								</div>
 							</div>

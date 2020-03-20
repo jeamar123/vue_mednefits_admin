@@ -5,6 +5,7 @@
   import { 
     _getActivePlans_,
     _createDependentAccount_,
+    _getSpendingSetttingsData_,
   } from '../../common/functions/common_functions';
    
   let corporatePlan = {
@@ -33,10 +34,6 @@
         global_isSpendingAccountModalShow: false,
         global_isCreditAllocationModalShow: false,
         global_creditAllocationDeposit: 0,
-        global_getSpendingSettings: {
-          medical_enable: false,
-          wellness_enable: false,
-        },
         global_isPendingEnrollmentModalShow: false,
         global_isRecordFundModalShow: false,
         global_isEditDepositModalShow: false,
@@ -60,6 +57,13 @@
           secondary_account_type: undefined,
           is_paid: 0,
           individual_price: 0,
+        },
+        global_getSpendingData: {
+          spending_account: false,
+          medical_spending_start_date: new Date(),
+          medical_spending_end_date: new Date(),
+          wellness_spending_start_date: new Date(),
+          wellness_spending_end_date: new Date(),
         }
       };
     },
@@ -102,6 +106,7 @@
         }
         if ( opt == 'spending-account-settings' ) {
           this.global_isSpendingAccountModalShow = this.global_isSpendingAccountModalShow == false ? true : false;
+          this._fetchSpendingData_();
         }
         if ( opt == 'credit-allocation' ) {
           this.global_isCreditAllocationModalShow = this.global_isCreditAllocationModalShow == false ? true : false;
@@ -115,16 +120,16 @@
       },
       ___medicalSelector( opt ) {
         if ( opt == true ) {
-          this.global_getSpendingSettings.medical_enable = true;
+          this.global_getSpendingData.medical_enable = true;
         } else {
-          this.global_getSpendingSettings.medical_enable = false;
+          this.global_getSpendingData.medical_enable = false;
         }
       },
       ___wellnessSelector( opt ) {
         if ( opt == true ) {
-          this.global_getSpendingSettings.wellness_enable = true;
+          this.global_getSpendingData.wellness_enable = true;
         } else {
-          this.global_getSpendingSettings.wellness_enable = false;
+          this.global_getSpendingData.wellness_enable = false;
         }
       },
       _showViewPlanModal_( type ) {
@@ -219,6 +224,37 @@
           account_type: '',
           secondary_account_type: '',
         }
+      },
+      _spendingAccountWallet_( opt ) {
+        console.log(opt);
+
+        if ( opt === 'false' ) {
+          this.global_getSpendingData.spending_account = (this.global_getSpendingData.spending_account === false);
+          console.log(this.global_getSpendingData.spending_account);
+          this.global_getSpendingData.medical_enable = false;
+          this.global_getSpendingData.wellness_enable = false;
+        }
+      },
+      _fetchSpendingData_() {
+        let params = {
+          customer_id :	Number(this.customer_id),
+        };
+        this.$parent.showLoading();
+        _getSpendingSetttingsData_(params)
+					.then(( res ) => {
+            // console.log(res);
+            if( res.status == 200 || res.status == 201 ){
+              this.$parent.hideLoading(); 
+              this.global_getSpendingData = res.data.data;
+              console.log(this.global_getSpendingData);
+
+              this.global_getSpendingData.medical_spending_start_date = new Date(moment(this.global_getSpendingData.medical_spending_start_date));
+              this.global_getSpendingData.medical_spending_end_date = new Date(moment(this.global_getSpendingData.medical_spending_end_date));
+              this.global_getSpendingData.wellness_spending_start_date = new Date(moment(this.global_getSpendingData.wellness_spending_start_date));
+              this.global_getSpendingData.wellness_spending_end_date = new Date(moment(this.global_getSpendingData.wellness_spending_end_date));
+              
+            }
+					});
       }
     }
   }
