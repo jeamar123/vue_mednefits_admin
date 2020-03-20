@@ -496,6 +496,25 @@ const _deleteEclaimType_	= (params)	=> {
 		header:	defaultHeaders,
 	}
 }
+
+const _getActivePlans_ = (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.GET_ACTIVE_PLANS + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _createDependentAccount_ = (params)	=> {
+	let	req	=	{
+		method:	'POST',
+		url:	Config.CREATE_DEPENDENT_ACCOUNT,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
 	
 
 const _onLoad_	=	() =>{
@@ -539,4 +558,6 @@ export	{
 	_createEclaimType_,
 	_updateEclaimType_,
 	_deleteEclaimType_,
+	_getActivePlans_,
+	_createDependentAccount_,
 }

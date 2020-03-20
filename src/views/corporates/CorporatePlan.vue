@@ -3,20 +3,20 @@
 		
 		<div class="plan-body">
 			<div>
-				<div class="current-plan-text">Current Plan: <span>Jan 2, 2019</span></div>
+				<div class="current-plan-text">Current Plan: <span>{{ global_getPlans.current_plan.plan_start }}</span></div>
 				<div class="current-active-text">
 					<h4>Current Active Plans</h4>
 				</div>
 				<div class="active-cards-wrapper">
-					<div v-for="x in 4" :key="x.index" class="active-plans-info">
+					<div v-for="(list,index) in global_getPlans.current_plan.customer_active_plans" :key="list.index" class="active-plans-info">
 						<div class="plan-header-container">
 							<div>
-								<span>Active Plan #1</span>
+								<span>Active Plan #{{ index + 1 }}</span>
 							</div>
 							<div>
-								<span>Active Plan ID #1</span>
+								<span>Active Plan ID #{{ list.customer_active_plan_id }}</span>
 							</div>
-							<div class="cog-container">
+							<div v-if="list.new_head_count == 0" class="cog-container">
 								<i @click="showAccountPlanType()" class="fa fa-cog"></i>
 							</div>
 						</div>
@@ -24,143 +24,116 @@
 							<div class="account-title">Employee Account</div>
 							<div>
 								<span>Plan Type: </span>
-								<span>Pro Plan</span>
+								<span v-if="list.account_type == 'stand_alone_plan'">Pro Plan</span>
+								<span v-if="list.account_type == 'insurance_bundle'">Insurance Bundle</span>
+								<span v-if="list.account_type == 'trial_plan'">Trial Plan</span>
+								<span v-if="list.account_type == 'lite_plan'">Lite Plan</span>
+								<span v-if="list.account_type == 'enterprise_plan'">Enterprise Plan</span>
 							</div>
 							<div>
 								<span>Start Date: </span>
-								<span>2018-01-03</span>
+								<span>{{ list.plan_start }}</span>
 							</div>
 							<div>
 								<span>Plan Duration: </span>
-								<span>12 months</span>
+								<span>{{ list.duration }}</span>
 							</div>
 							<div>
 								<span>Total Seats: </span>
-								<span>4</span>
+								<span>{{ list.total_seats }}</span>
 							</div>
 							<div>
 								<span>Occupied Seats: </span>
-								<span>0</span>
+								<span>{{ list.occupied_seats }}</span>
 							</div>
 							<div>
 								<span>Vacant Seats: </span>
-								<span>0</span>
+								<span>{{ list.vacant_seats }}</span>
 							</div>
 							<div>
 								<span>Plan Amount: </span>
-								<span><span>SGD </span> <span>360.00</span></span>
+								<span><span class="currency-type">{{ list.currency_type }} </span> <span>{{ list.amount }}</span></span>
 							</div>
 							<div>
 								<span>Payment Status: </span>
-								<span>PENDING</span>
+								<span v-if="list.paid == true">PAID</span>
+								<span v-if="list.paid == false">PENDING</span>
 							</div>
 						</div>
-						<div class="account-container dependent-account-container">
+						<div v-if="list.dependents.length > 0" class="account-container dependent-account-container">
 							<div class="account-title">Dependent Accounts</div>
 							<div class="dependent-list-info-wrapper">
-								<div class="dependent-list-info">
+								<div v-for="list in list.dependents" :key="list.index" class="dependent-list-info">
 									<div>
 										<span>Plan Type: </span>
-										<span>Pro Plan</span>
+										<span v-if="list.account_type == 'stand_alone_plan'">Pro Plan</span>
+										<span v-if="list.account_type == 'insurance_bundle'">Insurance Bundle</span>
+										<span v-if="list.account_type == 'trial_plan'">Trial Plan</span>
+										<span v-if="list.account_type == 'lite_plan'">Lite Plan</span>
+										<span v-if="list.account_type == 'enterprise_plan'">Enterprise Plan</span>
 									</div>
 									<div>
 										<span>Start Date: </span>
-										<span>2018-01-03</span>
+										<span>{{ list.plan_start }}</span>
 									</div>
 									<div>
 										<span>Plan Duration: </span>
-										<span>12 months</span>
+										<span>{{ list.duration }}</span>
 									</div>
 									<div>
 										<span>Total Seats: </span>
-										<span>4</span>
+										<span>{{ list.total_seats }}</span>
 									</div>
 									<div>
 										<span>Occupied Seats: </span>
-										<span>0</span>
+										<span>{{ list.occupied_seats }}</span>
 									</div>
 									<div>
 										<span>Vacant Seats: </span>
-										<span>0</span>
+										<span>{{ list.vacant_seats }}</span>
 									</div>
 									<div>
 										<span>Plan Amount: </span>
-										<span><span>SGD </span> <span>360.00</span></span>
+										<span><span class="currency-type">{{ list.currency_type }} </span> <span>{{ list.amount }}</span></span>
 									</div>
 									<div>
 										<span>Payment Status: </span>
-										<span>PENDING</span>
-									</div>
-								</div>
-								<div class="dependent-list-info">
-									<div>
-										<span>Plan Type: </span>
-										<span>Pro Plan</span>
-									</div>
-									<div>
-										<span>Start Date: </span>
-										<span>2018-01-03</span>
-									</div>
-									<div>
-										<span>Plan Duration: </span>
-										<span>12 months</span>
-									</div>
-									<div>
-										<span>Total Seats: </span>
-										<span>4</span>
-									</div>
-									<div>
-										<span>Occupied Seats: </span>
-										<span>0</span>
-									</div>
-									<div>
-										<span>Vacant Seats: </span>
-										<span>0</span>
-									</div>
-									<div>
-										<span>Plan Amount: </span>
-										<span><span>SGD </span> <span>360.00</span></span>
-									</div>
-									<div>
-										<span>Payment Status: </span>
-										<span>PENDING</span>
+										<span v-if="list.paid == true">PAID</span>
+										<span v-if="list.paid == false">PENDING</span>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="account-container plan-extension-container">
+						<div v-if="list.plan_extension" class="account-container plan-extension-container">
 							<div class="account-title">Plan Extension</div>
 							<div>
 								<span>Plan Type: </span>
-								<span>Pro Plan</span>
+								<span v-if="list.plan_extension.account_type == 'stand_alone_plan'">Pro Plan</span>
+								<span v-if="list.plan_extension.account_type == 'insurance_bundle'">Insurance Bundle</span>
+								<span v-if="list.plan_extension.account_type == 'trial_plan'">Trial Plan</span>
+								<span v-if="list.plan_extension.account_type == 'lite_plan'">Lite Plan</span>
+								<span v-if="list.plan_extension.account_type == 'enterprise_plan'">Enterprise Plan</span>
 							</div>
 							<div>
 								<span>Start Date: </span>
-								<span>2018-01-03</span>
+								<span>{{ list.plan_extension.plan_start }}</span>
 							</div>
 							<div>
 								<span>Plan Duration: </span>
-								<span>12 months</span>
+								<span>{{ list.plan_extension.duration }}</span>
 							</div>
 							<div>
-								<span>Total Seats: </span>
-								<span>4</span>
-							</div>
-							<div>
-								<span>Occupied Seats: </span>
-								<span>0</span>
-							</div>
-							<div>
-								<span>Vacant Seats: </span>
-								<span>0</span>
+								<span>Employees: </span>
+								<span>{{ list.plan_extension.employees }}</span>
 							</div>
 							<div>
 								<span>Plan Amount: </span>
-								<span><span>SGD </span> <span>360.00</span></span>
+								<span><span class="currency-type">{{ list.plan_extension.currency_type }} </span> <span>{{ list.plan_extension.amount }}</span></span>
 							</div>
 							<div>
 								<span>Payment Status: </span>
-								<span>PENDING</span>
+								<span v-if="list.plan_extension.paid == true">PAID</span>
+								<span v-if="list.plan_extension.paid == false">PENDING</span>
 							</div>
 						</div>
 						<div class="account-container spending-account-container">
@@ -168,22 +141,22 @@
 								<div class="account-title">Medical Spending Account:</div>
 								<div>
 									<span>Total: </span>
-									<span><span>SGD </span>1,074,509.90</span>
+									<span><span class="currency-type">{{ list.currency_type }} </span>{{ list.total_allocated_medical }}</span>
 								</div>
 								<div>
 									<span>Unallocated: </span>
-									<span><span>SGD </span>1,074,509.90</span>
+									<span><span class="currency-type">{{ list.currency_type }} </span>{{ list.total_unallocated_medical }}</span>
 								</div>
 							</div>
 							<div>
 								<div class="account-title">Wellness Spending Account:</div>
 								<div>
 									<span>Total: </span>
-									<span><span>SGD </span>1,074,509.90</span>
+									<span><span class="currency-type">{{ list.currency_type }} </span>{{ list.total_allocated_wellness }}</span>
 								</div>
 								<div>
 									<span>Unallocated: </span>
-									<span><span>SGD </span>1,074,509.90</span>
+									<span><span class="currency-type">{{ list.currency_type }} </span>{{ list.total_unallocated_wellness }}</span>
 								</div>
 							</div>
 						</div>
@@ -194,197 +167,181 @@
 							<button @click="_showCorporatePlanModal_('view-plan')" class="btn-primary">VIEW PLAN</button>
 						</div>
 					</div>
-					<div class="old-plan-active">
-						<div class="current-plan-text">
+					<div class="old-plan-active-wrapper">
+						<div v-if="global_getPlans.old_plans.length > 0" class="current-plan-text">
 							<h4>Old Active Plans</h4>
 						</div>
-						<div class="current-plan-text">
-							<h4>Plan Date: <span>Feb 18, 2020</span></h4>
-						</div>
-						<div v-for="x in 4" :key="x.index" class="active-plans-info">
-							<div class="plan-header-container">
-								<div>
-									<span>Active Plan #1</span>
-								</div>
-								<div>
-									<span>Active Plan ID #1</span>
-								</div>
-								<div class="cog-container">
-									<i @click="showAccountPlanType()" class="fa fa-cog"></i>
-								</div>
+						<div v-for="list in global_getPlans.current_plan.old_plans" :key="list.index" class="old-plan-active">
+							<div class="current-plan-text">
+								<h4>Plan Date: <span>{{ global_getPlans.old_plans.plan_start }}</span></h4>
 							</div>
-							<div class="account-container employee-account-container">
-								<div class="account-title">Employee Account</div>
-								<div>
-									<span>Plan Type: </span>
-									<span>Pro Plan</span>
-								</div>
-								<div>
-									<span>Start Date: </span>
-									<span>2018-01-03</span>
-								</div>
-								<div>
-									<span>Plan Duration: </span>
-									<span>12 months</span>
-								</div>
-								<div>
-									<span>Total Seats: </span>
-									<span>4</span>
-								</div>
-								<div>
-									<span>Occupied Seats: </span>
-									<span>0</span>
-								</div>
-								<div>
-									<span>Vacant Seats: </span>
-									<span>0</span>
-								</div>
-								<div>
-									<span>Plan Amount: </span>
-									<span><span>SGD </span> <span>360.00</span></span>
-								</div>
-								<div>
-									<span>Payment Status: </span>
-									<span>PENDING</span>
-								</div>
-							</div>
-							<div class="account-container dependent-account-container">
-								<div class="account-title">Dependent Accounts</div>
-								<div class="dependent-list-info-wrapper">
-									<div class="dependent-list-info">
-										<div>
-											<span>Plan Type: </span>
-											<span>Pro Plan</span>
-										</div>
-										<div>
-											<span>Start Date: </span>
-											<span>2018-01-03</span>
-										</div>
-										<div>
-											<span>Plan Duration: </span>
-											<span>12 months</span>
-										</div>
-										<div>
-											<span>Total Seats: </span>
-											<span>4</span>
-										</div>
-										<div>
-											<span>Occupied Seats: </span>
-											<span>0</span>
-										</div>
-										<div>
-											<span>Vacant Seats: </span>
-											<span>0</span>
-										</div>
-										<div>
-											<span>Plan Amount: </span>
-											<span><span>SGD </span> <span>360.00</span></span>
-										</div>
-										<div>
-											<span>Payment Status: </span>
-											<span>PENDING</span>
-										</div>
-									</div>
-									<div class="dependent-list-info">
-										<div>
-											<span>Plan Type: </span>
-											<span>Pro Plan</span>
-										</div>
-										<div>
-											<span>Start Date: </span>
-											<span>2018-01-03</span>
-										</div>
-										<div>
-											<span>Plan Duration: </span>
-											<span>12 months</span>
-										</div>
-										<div>
-											<span>Total Seats: </span>
-											<span>4</span>
-										</div>
-										<div>
-											<span>Occupied Seats: </span>
-											<span>0</span>
-										</div>
-										<div>
-											<span>Vacant Seats: </span>
-											<span>0</span>
-										</div>
-										<div>
-											<span>Plan Amount: </span>
-											<span><span>SGD </span> <span>360.00</span></span>
-										</div>
-										<div>
-											<span>Payment Status: </span>
-											<span>PENDING</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="account-container plan-extension-container">
-								<div class="account-title">Plan Extension</div>
-								<div>
-									<span>Plan Type: </span>
-									<span>Pro Plan</span>
-								</div>
-								<div>
-									<span>Start Date: </span>
-									<span>2018-01-03</span>
-								</div>
-								<div>
-									<span>Plan Duration: </span>
-									<span>12 months</span>
-								</div>
-								<div>
-									<span>Total Seats: </span>
-									<span>4</span>
-								</div>
-								<div>
-									<span>Occupied Seats: </span>
-									<span>0</span>
-								</div>
-								<div>
-									<span>Vacant Seats: </span>
-									<span>0</span>
-								</div>
-								<div>
-									<span>Plan Amount: </span>
-									<span><span>SGD </span> <span>360.00</span></span>
-								</div>
-								<div>
-									<span>Payment Status: </span>
-									<span>PENDING</span>
-								</div>
-							</div>
-							<div class="account-container spending-account-container">
-								<div>
-									<div class="account-title">Medical Spending Account:</div>
+							<div v-for="list in old.old_active" :key="list.index" class="active-plans-info">
+								<div class="plan-header-container">
 									<div>
-										<span>Total: </span>
-										<span><span>SGD </span>1,074,509.90</span>
+										<span>Active Plan #1</span>
 									</div>
 									<div>
-										<span>Unallocated: </span>
-										<span><span>SGD </span>1,074,509.90</span>
+										<span>Active Plan ID #{{ list.customer_active_plan_id }}</span>
+									</div>
+									<div class="cog-container">
+										<i @click="showAccountPlanType()" class="fa fa-cog"></i>
+									</div>
+								</div>
+								<div class="account-container employee-account-container">
+									<div class="account-title">Employee Account</div>
+									<div>
+										<span>Plan Type: </span>
+										<span v-if="list.account_type == 'stand_alone_plan'">Pro Plan</span>
+										<span v-if="list.account_type == 'insurance_bundle'">Insurance Bundle</span>
+										<span v-if="list.account_type == 'trial_plan'">Trial Plan</span>
+										<span v-if="list.account_type == 'lite_plan'">Lite Plan</span>
+										<span v-if="list.account_type == 'enterprise_plan'">Enterprise Plan</span>
+									</div>
+									<div>
+										<span>Start Date: </span>
+										<span>{{ list.plan_start }}</span>
+									</div>
+									<div>
+										<span>Plan Duration: </span>
+										<span>{{ list.duration }}</span>
+									</div>
+									<div>
+										<span>Total Seats: </span>
+										<span>{{ list.total_seats }}</span>
+									</div>
+									<div>
+										<span>Occupied Seats: </span>
+										<span>{{ list.occupied_seats }}</span>
+									</div>
+									<div>
+										<span>Vacant Seats: </span>
+										<span>{{ list.vacant_seats }}</span>
+									</div>
+									<div>
+										<span>Plan Amount: </span>
+										<span><span class="currency-type">{{ list.currency_type }} </span> <span>{{ list.amount }}</span></span>
+									</div>
+									<div>
+										<span>Payment Status: </span>
+										<span v-if="list.paid == true">PAID</span>
+										<span v-if="list.paid == false">PENDING</span>
+									</div>
+								</div>
+								<!-- <div v-if="list.dependents.length > 0" class="account-container dependent-account-container"> -->
+								<div class="account-container dependent-account-container">
+									<div class="account-title">Dependent Accounts</div>
+									<div class="dependent-list-info-wrapper">
+										<div v-for="list in list.dependents" :key="list.index" class="dependent-list-info">
+											<div>
+												<span>Plan Type: </span>
+												<span v-if="list.account_type == 'stand_alone_plan'">Pro Plan</span>
+												<span v-if="list.account_type == 'insurance_bundle'">Insurance Bundle</span>
+												<span v-if="list.account_type == 'trial_plan'">Trial Plan</span>
+												<span v-if="list.account_type == 'lite_plan'">Lite Plan</span>
+												<span v-if="list.account_type == 'enterprise_plan'">Enterprise Plan</span>
+											</div>
+											<div>
+												<span>Start Date: </span>
+												<span>{{ list.plan_start }}</span>
+											</div>
+											<div>
+												<span>Plan Duration: </span>
+												<span>{{ list.duration }}</span>
+											</div>
+											<div>
+												<span>Total Seats: </span>
+												<span>{{ list.total_seats }}</span>
+											</div>
+											<div>
+												<span>Occupied Seats: </span>
+												<span>{{ list.occupied_seats }}</span>
+											</div>
+											<div>
+												<span>Vacant Seats: </span>
+												<span>{{ list.vacant_seats }}</span>
+											</div>
+											<div>
+												<span>Plan Amount: </span>
+												<span><span class="currency-type">{{ list.currency_type }} </span> <span>{{ list.amount }}</span></span>
+											</div>
+											<div>
+												<span>Payment Status: </span>
+												<span v-if="list.paid == true">PAID</span>
+												<span v-if="list.paid == false">PENDING</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div v-if="list.plan_extension" class="account-container plan-extension-container">
+									<div class="account-title">Plan Extension</div>
+									<div>
+										<span>Plan Type: </span>
+										<span v-if="list.plan_extension.account_type == 'stand_alone_plan'">Pro Plan</span>
+										<span v-if="list.plan_extension.account_type == 'insurance_bundle'">Insurance Bundle</span>
+										<span v-if="list.plan_extension.account_type == 'trial_plan'">Trial Plan</span>
+										<span v-if="list.plan_extension.account_type == 'lite_plan'">Lite Plan</span>
+										<span v-if="list.plan_extension.account_type == 'enterprise_plan'">Enterprise Plan</span>
+									</div>
+									<div>
+										<span>Start Date: </span>
+										<span>{{ list.plan_extension.plan_start }}</span>
+									</div>
+									<div>
+										<span>Plan Duration: </span>
+										<span>{{ list.plan_extension.duration }}</span>
+									</div>
+									<div>
+										<span>Total Seats: </span>
+										<span>{{ list.plan_extension.total_seats }}</span>
+									</div>
+									<div>
+										<span>Occupied Seats: </span>
+										<span>{{ list.plan_extension.occupied_seats }}</span>
+									</div>
+									<div>
+										<span>Vacant Seats: </span>
+										<span>{{ list.plan_extension.vacant_seats }}</span>
+									</div>
+									<div>
+										<span>Plan Amount: </span>
+										<span><span class="currency-type">{{ list.plan_extension.currency_type }} </span> <span>{{ list.amount }}</span></span>
+									</div>
+									<div>
+										<span>Payment Status: </span>
+										<span v-if="list.plan_extension.paid == true">PAID</span>
+										<span v-if="list.plan_extension.paid == false">PENDING</span>
+									</div>
+								</div>
+								<div class="account-container spending-account-container">
+									<div>
+										<div class="account-title">Medical Spending Account:</div>
+										<div>
+											<span>Total: </span>
+											<span><span class="currency-type">{{ list.currency_type }} </span>{{ list.total_allocated_medical }}</span>
+										</div>
+										<div>
+											<span>Unallocated: </span>
+											<span><span class="currency-type">{{ list.currency_type }} </span>{{ list.total_unallocated_medical }}</span>
+										</div>
+									</div>
+									<div>
+										<div class="account-title">Wellness Spending Account:</div>
+										<div>
+											<span>Total: </span>
+											<span><span class="currency-type">{{ list.currency_type }} </span>{{ list.total_allocated_wellness }}</span>
+										</div>
+										<div>
+											<span>Unallocated: </span>
+											<span><span class="currency-type">{{ list.currency_type }} </span>{{ list.total_unallocated_wellness }}</span>
+										</div>
 									</div>
 								</div>
 								<div>
-									<div class="account-title">Wellness Spending Account:</div>
-									<div>
-										<span>Total: </span>
-										<span><span>SGD </span>1,074,509.90</span>
-									</div>
-									<div>
-										<span>Unallocated: </span>
-										<span><span>SGD </span>1,074,509.90</span>
-									</div>
+									<!-- <button class="btn-primary">CREATE DEPEDENT ACCOUNT</button>
+									<button class="btn-primary">SPENDING ACCOUNT SETTINGS</button>
+									<button class="btn-primary">CREDIT ALLOCATION</button> -->
+									<button class="btn-primary">VIEW PLAN</button>
 								</div>
-							</div>
-							<div>
-								<button class="btn-primary">CREATE DEPEDENT ACCOUNT</button>
-								<button class="btn-primary">SPENDING ACCOUNT SETTINGS</button>
-								<button class="btn-primary">CREDIT ALLOCATION</button>
-								<button class="btn-primary">VIEW PLAN</button>
 							</div>
 						</div>
 					</div>
@@ -636,7 +593,7 @@
 							<div class="date-container vDatepicker">
 								<v-date-picker 
 									popoverDirection="bottom" 
-									v-model="global_recordPayment.date_received"
+									v-model="global_addDependentData.start_date"
 									:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 									popover-visibility="focus" 
 									:formats='formats'></v-date-picker>
@@ -649,42 +606,46 @@
 					<div class="row-div dp-flex">
 						<div class="create-dependent-input-wrapper">
 							<label>Total Number of Dependents</label>
-							<input type="number">
+							<input v-model="global_addDependentData.total_dependents" type="number">
 						</div>
 						<div class="create-dependent-input-wrapper">
 							<label>Plan Type</label>
-							<select>
-								<option>Trial Plan</option>
-								<option>Insurance Bundle</option>
-								<option>Pro Plan</option>
-								<option>Lite Plan</option>
-								<option>Enterpirse Plan</option>
+							<select v-model="global_addDependentData.account_type">
+								<option value="trial_plan">Trial Plan</option>
+								<option value="insurance_bundle">Insurance Bundle</option>
+								<option value="stand_alone_plan">Pro Plan</option>
+								<option value="lite_plan">Lite Plan</option>
+								<option value="enterprise_plan">Enterprise Plan</option>
 							</select>
 						</div>
 						<div class="create-dependent-input-wrapper">
 							<label>Secondary Plan Type</label>
-							<select>
-								<option>Trial - Pro Plan</option>
-								<option>Trial - Lite Plan</option>
+							<select v-model="global_addDependentData.secondary_account_type" :disabled="!global_addDependentData.account_type || global_addDependentData.account_type == 'lite_plan' || global_addDependentData.account_type == 'stand_alone_plan' || global_addDependentData.account_type == 'enterprise_plan'">
+								<option></option>
+								<option v-if="global_addDependentData.account_type == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
+								<option v-if="global_addDependentData.account_type == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
+
+								<option v-if="global_addDependentData.account_type == 'insurance_bundle'" value="pro_plan_bundle">Pro Plan Bundle</option>
+								<option v-if="global_addDependentData.account_type == 'insurance_bundle'" value="insurance_bundle_lite">Insurance Bundle Lite</option>
 							</select>
 						</div>
 					</div>
 					<div class="dp-flex">
 						<div class="plan-price-input-wrapper create-dependent-input-wrapper">
 							<label>Plan Price</label>
-							<input type="number">
+							<input v-model="global_addDependentData.individual_price" type="number">
 						</div>
 						<div class="payment-status-selector dp-flex-ai">
 							<span>Payment Status?</span>
 							<div>
-								<button class="active">Paid</button>
-								<button>Pending</button>
+								<button @click="_dependentActiveButton_(1)" v-bind:class="{ 'active' : global_addDependentData.is_paid == 1 }">Paid</button>
+								<button @click="_dependentActiveButton_(0)" v-bind:class="{ 'active' : global_addDependentData.is_paid == 0 }">Pending</button>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div slot="footer">
-					<button class="btn-primary">SUBMIT</button>
+					<button @click="_submitDependentAccount_()" class="btn-primary">SUBMIT</button>
 					<button @click="toggleClosePlanModal()" class="btn-close">CLOSE</button>		
 				</div>
 			</Modal>
