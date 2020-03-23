@@ -1,14 +1,14 @@
 <template>
 	<div class="enrollment-web-input-container">
     <div v-if="!global_isDependentInputShow">
-      <h1>Employee And Plan Details</h1>
+      <h1 class="top-h1">Employee And Plan Details</h1>
       <div class="columns">
         <div class="column">
           <p class="label-title">Employee Details</p>
 
           <div class="form-box">
             <label>Full Name*</label>
-            <input type="text">
+            <input type="text" v-model="global_addEmployeeData.fullname">
           </div>
           <div class="form-box">
             <label>Date of Birth</label>
@@ -16,7 +16,7 @@
               <v-date-picker 
                 popoverDirection="bottom" 
                 v-model="global_addEmployeeData.dob"
-                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: false, }'
                 popover-visibility="focus" 
                 :formats='formats'></v-date-picker>
               <i class="fa fa-caret-down"></i>
@@ -24,45 +24,37 @@
           </div>
           <div class="form-box">
             <label>Email Address</label>
-            <input type="text">
+            <input type="text" v-model="global_addEmployeeData.email">
           </div>
-          <div class="form-box">
+          <div class="form-box ">
             <label>Phone Area Code</label>
-            <select>
+            <select v-model="global_addEmployeeData.phone_code">
               <option value=""></option>
-              <option value="+65">(SG) +65</option>
-              <option value="+63">(PH) +63</option>
-              <option value="+60">(MY) +60</option>
+              <option value="65">(SG) +65</option>
+              <option value="63">(PH) +63</option>
+              <option value="60">(MY) +60</option>
             </select>
             <i class="fa fa-caret-down"></i>
           </div>
           <div class="form-box">
             <label>Phone Number</label>
-            <input type="number">
+            <input type="number" v-model="global_addEmployeeData.phone_no">
           </div>
           <div class="form-box">
             <label>Postal Code</label>
-            <input type="text">
+            <input type="text" v-model="global_addEmployeeData.postal_code">
           </div>
         </div>
-        <div class="column">
+        <div v-if="global_spendingStatus.medical_enable || global_spendingStatus.wellness_enable" class="column">
           <p class="label-title">&nbsp;</p>
 
-          <div class="form-box">
+          <div v-if="global_spendingStatus.medical_enable" class="form-box">
             <label>Medical Entitlement</label>
-            <input type="number">
+            <input type="number" v-model="global_addEmployeeData.medical_allocation">
           </div>
-          <div class="form-box">
-            <label>Medical Entitlement Balance</label>
-            <input type="number">
-          </div>
-          <div class="form-box">
+          <div v-if="global_spendingStatus.wellness_enable" class="form-box">
             <label>Wellness Entitlement</label>
-            <input type="number">
-          </div>
-          <div class="form-box">
-            <label>Wellness Entitlement Balance</label>
-            <input type="number">
+            <input type="number" v-model="global_addEmployeeData.wellness_allocation">
           </div>
         </div>
         <div class="column is-5">
@@ -73,8 +65,8 @@
             <div class="date-container vDatepicker">
               <v-date-picker 
                 popoverDirection="bottom" 
-                v-model="global_addEmployeeData.dob"
-                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+                v-model="global_addEmployeeData.plan_start"
+                :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: false, }'
                 popover-visibility="focus" 
                 :formats='formats'></v-date-picker>
               <i class="fa fa-caret-down"></i>
@@ -82,7 +74,7 @@
           </div>
           <div class="form-box plan-end-date">
             <label class="label-sub-title">Plan End Date:</label>
-            <p>07 April, 2020</p>
+            <p>{{ _formatDate_(global_addEmployeeData.plan_end, null, 'DD MMMM, YYYY') }}</p>
           </div>
           <div class="form-box plan-term">
             <label>
@@ -94,9 +86,9 @@
               Short Term
             </label>
           </div>
-          <div v-if="global_addEmployeeData.fixed == 0" class="form-box">
+          <div v-if="global_addEmployeeData.fixed == 0" class="form-box z-index-0">
             <label>Employee Plan Duration</label>
-            <select>
+            <select global_addEmployeeData.duration>
               <option value=""></option>
               <option value="1 month"> 1 month </option>
               <option value="2 months"> 2 months </option>
@@ -111,15 +103,16 @@
               <option value="11 months"> 11 months </option>
               <option value="1 year"> 12 months </option>
             </select>
+            <i class="fa fa-caret-down"></i>
           </div>
           <div class="form-box package-form-box">
             <label class="label-sub-title">Package Plan</label>
             <div class="package-box">
-              <div class="package-name">Standalone Mednefits care (health wallet)</div>
-              <div v-for="list in [1,2,3]" class="package-services">
+              <div class="package-name">{{ global_package.package.name }}</div>
+              <div v-for="(list, index) in global_package.lists" class="package-services">
                 <div class="service-list">
-                  <label><i class="fa fa-bookmark"></i> Outpatient GP</label>
-                  <p>Consultation: S$0, covered by us. Medicine & Treatment: Pay using Medical Credits.</p>
+                  <label><i class="fa fa-bookmark"></i> {{list.package_name}}</label>
+                  <p>{{list.package_description}}</p>
                 </div>
               </div>
             </div>
@@ -130,12 +123,12 @@
         <div class="columns">
           <div class="column">
             <label>Add a Dependent?</label>
-            <button class="btn-add-dependent"><img :src="'../assets/img/icons/add-employee.svg'">Add</button>
+            <button class="btn-add-dependent" v-on:click="_toggleAddDependentForm_()"><img :src="'../assets/img/icons/add-employee.svg'">Add</button>
           </div>
           <div class="column">
             <div class="btn-container">
               <button class="btn-cancel">Cancel</button>
-              <button class="btn-primary">Add Employee</button>
+              <button class="btn-primary" v-on:click="_enrollEmployee_()">Add Employee</button>
             </div>
           </div>
         </div>
@@ -143,37 +136,43 @@
     </div>
 
     <div v-if="global_isDependentInputShow" class="add-dependent-form">
-      <p class="p-count">Dependent 1 of 24</p>
+      <p class="p-count">Dependent {{global_dependentCtr+1}} of {{corporateDetails_data.dependent.vacant_seats - global_addEmployeeData.dependents.length}}</p>
       <p class="title">Dependent details</p>
+
+      <div v-if="global_dependentCtr > 0" class="side-arrows left">
+        <i class="fa fa-angle-left" v-on:click="_nextPrevArrow_(false)"></i>
+      </div>
+
+      <div v-if="global_dependentArr.length > 0 && global_dependentCtr != global_dependentArr.length" class="side-arrows right">
+        <i class="fa fa-angle-right" v-on:click="_nextPrevArrow_(true)"></i>
+      </div>
 
       <div class="columns">
         <div class="column">
           <div class="form-box">
-            <div class="form-box">
-              <label>Full Name*</label>
-              <input type="text">
-            </div>
-            <div class="form-box">
-              <label>Relationship</label>
-              <select>
-                <option value=""></option>
-                <option value="spouse">Spouse</option>
-                <option value="child">Child</option>
-                <option value="parent">Parent</option>
-                <option value="sibling">Sibling</option>
-                <option value="family">Family</option>
-              </select>
-              <i class="fa fa-caret-down"></i>
-            </div>
+            <label>Full Name*</label>
+            <input type="text" v-model="global_addDependentData.fullname">
+          </div>
+          <div class="form-box z-index-0">
+            <label>Relationship</label>
+            <select v-model="global_addDependentData.relationship">
+              <option value=""></option>
+              <option value="spouse">Spouse</option>
+              <option value="child">Child</option>
+              <option value="parent">Parent</option>
+              <option value="sibling">Sibling</option>
+              <option value="family">Family</option>
+            </select>
+            <i class="fa fa-caret-down"></i>
           </div>
         </div>
         <div class="column">
-          <div class="form-box">
+          <div class="form-box ">
             <label>Date of Birth</label>
             <div class="date-container vDatepicker">
               <v-date-picker 
                 popoverDirection="bottom" 
-                v-model="global_addEmployeeData.dob"
+                v-model="global_addDependentData.dob"
                 :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
                 popover-visibility="focus" 
                 :formats='formats'></v-date-picker>
@@ -185,7 +184,7 @@
             <div class="date-container vDatepicker">
               <v-date-picker 
                 popoverDirection="bottom" 
-                v-model="global_addEmployeeData.dob"
+                v-model="global_addDependentData.plan_start"
                 :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
                 popover-visibility="focus" 
                 :formats='formats'></v-date-picker>
@@ -197,11 +196,11 @@
 
       <div class="footer-buttons">
         <div class="left">
-          <button class="btn-cancel">Cancel</button>
+          <button class="btn-cancel" v-on:click="_toggleAddDependentForm_()">Cancel</button>
         </div>
         <div class="right">
-          <button class="btn-save">Save & Continue</button>
-          <button class="btn-add">Add</button>
+          <button class="btn-save" v-on:click="_saveDependentData_()">Save <span class="xs-btn-hide">& Continue</span></button>
+          <button class="btn-add" v-on:click="_addDependentData_(global_addDependentData)">Add</button>
         </div>
       </div>
     </div>

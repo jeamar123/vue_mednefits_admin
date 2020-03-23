@@ -27,46 +27,26 @@ let corporateMenu = {
 				trigger: false
 			},
 			corporateDetails_data: {
-				employee:{
-					// total_seats: 0,
-					// occupied_seats: 0,
-					// vacant_seats: 0,
-				},
-				dependent: {
-					// total_seats: 0,
-					// occupied_seats: 0,
-					// vacant_seats: 0,
-				}
+				employee:{},
+				dependent: {}
 			},
 			corporateCreditsInfo_data: {},
 			corporateRenewalStatus_data: {},
-			// selectedCorporate: JSON.parse(localStorage.selected_corporate),
-			// customer_id: null,
-
 		};
 	},
 	created() {
-		// this.customer_id = this.selectedCorporate.corporate.customer_id;
 		this.corporateViewStatus = this.$route.name;
-		console.log('id gikan sa corporate list', this.customer_id, 'data pd niya', this.selectedCorporate);
-
 		this.onLoad();
-		// trigger api onLoad
-		// this.getCorporateDetails();
-		// this.getCorporateCreditsInfo();
-		// this.getCustomerRenewalStatus();
 	},
 	methods: {
 		// emits
 		fromMemberList(data) {
 			if(data) {
-				console.log(data);
 				this.getCorporateDetails(true);
 			}
 		},
 		fromBulkCredits(data) {
 			if(data) {
-				console.log(data);
 				this.getCorporateDetails();
 				this.getCorporateCreditsInfo();
 			}
@@ -104,52 +84,26 @@ let corporateMenu = {
 				this.getCustomerRenewalStatus(),
 				this.getCorporateCreditsInfo(),
 			]).then(res => {
-				console.log('success all api');
 				localStorage.startMemberList = true;
 			}).catch(err => {
 				this.$parent.hideLoading();
 				this.errorHandler(err);
 			});
-
 		},
-
 		async getCorporateDetails(isRefresh) {
 			// side info'
-			
 			let params	=	{ 
 				customer_id :	this.customer_id 
 			};
 			this.corporateDetails_data = await _getCorporateDetailsData_(params, isRefresh);
-			console.log( this.corporateDetails_data );
-			
-
-
-			// let url = `${axios.defaults.serverUrl}/company/corporate_details?customer_id=${this.customer_id}`;
-			// axios.get(url)
-			// 	.then(res => {
-			// 		if (res.status == 200) {
-			// 			console.log('details', res);
-			// 			this.corporateDetails_data = res.data;
-			// 			// localStorage.company_name = this.corporateDetails_data.company_name;
-			// 			// this.hideLoading();
-			// 		}
-			// 	})
-			// 	.catch(err => {
-			// 		this.$parent.hideLoading();
-			// 		this.errorHandler(err);
-			// 	});
 		},
 		getCorporateCreditsInfo() {
 			// side info
 			let url = `${axios.defaults.serverUrl}/company/corporate_credits_info?customer_id=${this.customer_id}`;
 			axios.get(url)
 				.then(res => {
-
 					if (res.status == 200) {
-						console.log('credits info', res);
 						this.corporateCreditsInfo_data = res.data;
-
-						// this.hideLoading();
 					}
 				})
 				.catch(err => {
@@ -163,9 +117,7 @@ let corporateMenu = {
 			axios.get(url)
 				.then(res => {
 					if (res.status == 200) {
-						console.log('renewal status', res);
 						this.corporateRenewalStatus_data = res.data;
-						// this.hideLoading();
 					}
 				})
 				.catch(err => {
@@ -182,7 +134,6 @@ let corporateMenu = {
 			}
 			axios.post(url,data)
 				.then(res => {
-					console.log(res);
 					if (res.status == 200) {
 						this.$parent.hideLoading();
 						this.$swal('Success', res.data.message, 'success');
@@ -201,7 +152,4 @@ export default corporateMenu;
 
 <style lang="scss" scoped>
 @import "./src/assets/css/corporateMenu.scss";
-//global css
-//button container
-/* Extra Large (xl) */
 </style>

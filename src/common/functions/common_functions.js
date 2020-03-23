@@ -3,11 +3,18 @@ import Vue from 'vue';
 import router from '../../router';
 import * as Config from '../constant.js';
 import axios from 'axios';
+import moment from "moment";
 
 const	defaultHeaders	=		{
 	// 'Accept':	'application/json',
 	// 'Content-Type':	'application/json',
 	'Authorization':	localStorage.vue_admin_session
+};
+const	uploadHeaders	=		{
+	// 'Accept':	'application/json',
+	// 'Content-Type':	'application/json',
+	'Authorization':	localStorage.vue_admin_session,
+	'Content-Type': 'multipart/form-data'
 };
 
 let global_storage	=	{};
@@ -169,6 +176,7 @@ const _fetchEmployeeList_	= (params)	=> { // EMPLOYEE LIST API
 	};
 	return _axiosCall_(req);
 };
+
 const _searchEmployeeList_	= (params)	=> {
 	console.log(params);
 	let	req	=	{
@@ -189,6 +197,7 @@ const _updateBulkCredit_ = (params)	=> {
 	};
 	return _axiosCall_(req);
 };
+
 const _addHeadCount_	=	(params) => { // CORPORATE ADD HEADCOUNT API
 	let	req	=	{
 		method:	'POST',
@@ -215,7 +224,7 @@ const _formChecker_	=	(formData)	=>	{
 		error_checkForm.push("Job Title.");
 	}
 	if (formData.hasOwnProperty('dob') && !formData.dob) {
-		error_checkForm.push("Birthday.");
+		error_checkForm.push("Date of Birth.");
 	}
 	if (formData.hasOwnProperty('email') && !formData.email) {
 		error_checkForm.push('Email.');
@@ -226,6 +235,12 @@ const _formChecker_	=	(formData)	=>	{
 	}
 	if (formData.hasOwnProperty('plan_start') && !formData.plan_start) {
 		error_checkForm.push("Plan Start.");
+	}
+	if (formData.hasOwnProperty('postal_code') && !formData.postal_code) {
+		error_checkForm.push("Postal Code.");
+	}
+	if (formData.hasOwnProperty('relationship') && !formData.relationship) {
+		error_checkForm.push("Relationship.");
 	}
 	if (formData.hasOwnProperty('employees') && formData.employees === undefined) {
 		error_checkForm.push("Employees.");
@@ -246,6 +261,12 @@ const _formChecker_	=	(formData)	=>	{
 	if (formData.hasOwnProperty('wellness_credits') && formData.wellness_credits === undefined)	{
 		error_checkForm.push('Wellness Credits.');
 	}
+	if (formData.hasOwnProperty('medical_allocation') && formData.medical_allocation === undefined)	{
+		error_checkForm.push('Medical Credits.');
+	}
+	if (formData.hasOwnProperty('wellness_allocation') && formData.wellness_allocation === undefined)	{
+		error_checkForm.push('Wellness Credits.');
+	}
 
 	
 	if (!error_checkForm.length) {
@@ -260,6 +281,222 @@ const _formChecker_	=	(formData)	=>	{
 		return false;
 	}
 }
+
+const _fetchCapVisitList_	= (params)	=> { 
+	console.log(params);
+	let	req	=	{
+		method:	'GET',
+		url:	Config.CAP_VISIT_LIST + '?company_id=' + params.company_id + '&page=' + params.page + '&limit=' + params.limit + '&token=' + params.token,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const _downloadEmployeeDependent_	= (params)	=> { 
+	console.log(params);
+	let	req	=	{
+		method:	'GET',
+		url:	Config.DOWNLOAD_EMP_DEPENDENT + '?company_id=' + params.company_id + '&token=' + params.token,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const _uploadFileCap_ = (params)	=> { 
+	console.log(params);
+	let	req	=	{
+		method:	'POST',
+		url:	Config.UPLOAD_FILE_CAP,
+		data: params,
+		header:	uploadHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const _updateCapVisit_ = (params)	=> { 
+	console.log(params);
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_CAP_VISIT,
+		data: params,
+		header:	uploadHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _uploadEmployeeEnrollmentExcel_ = (params)	=> { 
+	let	req	=	{
+		method:	'POST',
+		url:	Config.ENROLL_EMPLOYEE_EXCEL,
+		data: params,
+		header:	uploadHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const _fetchPreviewTempEmployees_	= (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.ENROLLMENT_TEMP_EMPLOYEES + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const	_formatDate_	=	( date, from, to )	=>	{
+	return moment( date, from ).format( to );
+}
+
+const _updateTempEmployees_ = (params)	=> { 
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_TEMP_EMPLOYEES,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _updateTempDependents_ = (params)	=> { 
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_TEMP_DEPENDENTS,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _deleteTempEmployees_ = (params)	=> { 
+	let	req	=	{
+		method:	'DELETE',
+		url:	Config.DELETE_TEMP_EMPLOYEES + '?id=' + params.id,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _fetchCompanySpendingAccountStatus_ = (params)	=> { 
+	let	req	=	{
+		method:	'GET',
+		url:	Config.COMPANY_SPENDING_ACCOUNT_STATUS + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req)
+		.then((res)	=>	{
+			_globalStorage_.setStorage( 'global_corporateSpendingAccountStatus', res.data.data );
+			return res.data.data;
+		});
+}
+
+const _getCompanySpendingAccountStatus_	=	(params, isRefresh)	=>	{ 
+	if( isRefresh ){
+		return _fetchCompanySpendingAccountStatus_(params);
+	}
+	let storage = _globalStorage_.getStorage('global_corporateSpendingAccountStatus');
+	if(storage == null){
+		return _fetchCompanySpendingAccountStatus_(params);
+	}else{
+		if( storage.customer_id != params.customer_id ){
+			return _fetchCompanySpendingAccountStatus_(params);
+		}
+	}
+	return storage;
+}
+
+const _enrollTempEmployees_	=	(params) => { 
+	let	req	=	{
+		method:	'POST',
+		url:	Config.ENROLL_TEMP_EMPLOYEES,
+		data:	params,
+		header:	defaultHeaders,
+	};
+	return	_axiosCall_(req);
+};
+
+const _fetchPackagePlanList_	= (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.COMPANY_PACKAGE_PLAN_LIST + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const _enrollEmployeeWebInput_	=	(params) => { 
+	let	req	=	{
+		method:	'POST',
+		url:	Config.WEB_INPUT_ADD_EMPLOYEE,
+		data:	params,
+		header:	defaultHeaders,
+	};
+	return	_axiosCall_(req);
+};
+
+const _fetchDownloadEclaimReceipts_	= (params)	=> {
+	let query = '?customer_id=' + params.customer_id;
+	params.dates.map((value, key)	=>	{
+		query += '&dates[]=' + value;
+	});
+	params.filters.map((value, key)	=>	{
+		query += '&filter[]=' + value;
+	});
+	let	req	=	{
+		method:	'GET',
+		url:	Config.DOWNLOAD_ECLAIM_RECEIPTS + query,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const _uploadEmployeeDependent_	= (params)	=> {
+	let	req	=	{
+		method:	'POST',
+		url:	Config.UPLOAD_EMPLOYEE_DEPENDENT,
+		data: params,
+		header:	uploadHeaders,
+    };
+	return _axiosCall_(req);
+};
+const _fetchEclaimList_	= (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.ECLAIM_TYPE_LIST + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const _createEclaimType_	= (params)	=> {
+	let	req	=	{
+		method:	'POST',
+		url:	Config.CREATE_ECLAIM_TYPE,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const _updateEclaimType_	= (params)	=> {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_ECLAIM_TYPE,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+};
+
+const _deleteEclaimType_	= (params)	=> {
+	let	req	=	{
+		method:	'DELETE',
+		url:	Config.DELETE_ECLAIM_TYPE + '?e_claim_service_type_id=' + params.e_claim_service_type_id + '&customer_id=' + params.customer_id,
+		data: params,
+		header:	defaultHeaders,
+	}
+}
+	
 
 const _onLoad_	=	() =>{
 
@@ -280,5 +517,26 @@ export	{
 	_searchEmployeeList_,
 	_updateBulkCredit_,
 	_addHeadCount_,
-	_formChecker_
+	_formChecker_,
+	_fetchCapVisitList_,
+	_downloadEmployeeDependent_,
+	_uploadFileCap_,
+	_updateCapVisit_,
+	_uploadEmployeeEnrollmentExcel_,
+	_fetchPreviewTempEmployees_,
+	_formatDate_,
+	_updateTempEmployees_,
+	_updateTempDependents_,
+	_deleteTempEmployees_,
+	_fetchCompanySpendingAccountStatus_,
+	_getCompanySpendingAccountStatus_,
+	_enrollTempEmployees_,
+	_fetchPackagePlanList_,
+	_enrollEmployeeWebInput_,
+	_fetchDownloadEclaimReceipts_,
+	_uploadEmployeeDependent_,
+	_fetchEclaimList_,
+	_createEclaimType_,
+	_updateEclaimType_,
+	_deleteEclaimType_,
 }

@@ -188,10 +188,10 @@
 							</div>
 						</div>
 						<div>
-							<button class="btn-primary">CREATE DEPEDENT ACCOUNT</button>
-							<button class="btn-primary">SPENDING ACCOUNT SETTINGS</button>
-							<button class="btn-primary">CREDIT ALLOCATION</button>
-							<button class="btn-primary" v-on:click="toggleViewPlanModal()">VIEW PLAN</button>
+							<button @click="_showCorporatePlanModal_('create-dependent-account')" class="btn-primary">CREATE DEPEDENT ACCOUNT</button>
+							<button @click="_showCorporatePlanModal_('spending-account-settings')" class="btn-primary">SPENDING ACCOUNT SETTINGS</button>
+							<button @click="_showCorporatePlanModal_('credit-allocation')" class="btn-primary">CREDIT ALLOCATION</button>
+							<button @click="_showCorporatePlanModal_('view-plan')" class="btn-primary">VIEW PLAN</button>
 						</div>
 					</div>
 					<div class="old-plan-active">
@@ -463,7 +463,7 @@
 								<div class="column">
 									<button class="btn-blue">Edit Plan</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
-									<button class="btn-blue">0 Pending Enrollment</button>
+									<button @click="_showViewPlanModal_('pending-enrollment')" class="btn-blue">0 Pending Enrollment</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
 								</div>
 							</div>
@@ -508,7 +508,7 @@
 								<div class="column">
 									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
-									<button class="btn-primary">Edit Deposit</button>
+									<button class="btn-primary" @click="_showViewPlanModal_('edit-deposit')">Edit Deposit</button>
 									<button class="btn-primary">Mark as unpaid</button>
 								</div>
 							</div>
@@ -553,7 +553,7 @@
 								</div>
 								<div class="column">
 									<button class="btn-gray">Download</button>
-									<button class="btn-primary">Record Refund</button>
+									<button @click="_showViewPlanModal_('record-refund')" class="btn-primary">Record Refund</button>
 								</div>
 							</div>
 						</div>
@@ -573,7 +573,7 @@
 
 								</div>
 								<div class="column">
-									<button class="btn-blue">Edit Plan</button>
+									<button class="btn-blue" @click="_showViewPlanModal_('edit-plan')">Edit Plan</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_(null,'receipt')">Download Receipt</button>
@@ -620,7 +620,670 @@
 				<div slot="footer">
 					<button v-if="global_isRecordPaymentShow" class="btn-close" v-on:click="toggleRecordPayment()">Back</button>
 					<button v-if="global_isRecordPaymentShow" class="btn-primary" v-on:click="toggleRecordPayment()">Update</button>
-					<button v-if="!global_isRecordPaymentShow" class="btn-close" v-on:click="toggleViewPlanModal()">Close</button>
+					<button v-if="!global_isRecordPaymentShow" class="btn-close" v-on:click="toggleClosePlanModal()">Close</button>
+				</div>
+			</Modal>
+
+			<Modal v-if="global_isCreateDependentModalShow" class="create-dependent-account-modal corporate-details-modal">
+				<div slot="header">
+					<h1>Create Dependent Account</h1>					
+				</div>
+				<div slot="body">
+					<h4>Dependent Account</h4>
+					<div class="row-div dp-flex">			
+						<div class="start-date-container create-dependent-input-wrapper">
+							<label>Start Date</label>
+							<div class="date-container vDatepicker">
+								<v-date-picker 
+									popoverDirection="bottom" 
+									v-model="global_recordPayment.date_received"
+									:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+									popover-visibility="focus" 
+									:formats='formats'></v-date-picker>
+								<i class="fa fa-caret-down"></i>
+							</div>
+						</div>
+						<div></div>
+						<div></div>
+					</div>
+					<div class="row-div dp-flex">
+						<div class="create-dependent-input-wrapper">
+							<label>Total Number of Dependents</label>
+							<input type="number">
+						</div>
+						<div class="create-dependent-input-wrapper">
+							<label>Plan Type</label>
+							<select>
+								<option>Trial Plan</option>
+								<option>Insurance Bundle</option>
+								<option>Pro Plan</option>
+								<option>Lite Plan</option>
+								<option>Enterpirse Plan</option>
+							</select>
+						</div>
+						<div class="create-dependent-input-wrapper">
+							<label>Secondary Plan Type</label>
+							<select>
+								<option>Trial - Pro Plan</option>
+								<option>Trial - Lite Plan</option>
+							</select>
+						</div>
+					</div>
+					<div class="dp-flex">
+						<div class="plan-price-input-wrapper create-dependent-input-wrapper">
+							<label>Plan Price</label>
+							<input type="number">
+						</div>
+						<div class="payment-status-selector dp-flex-ai">
+							<span>Payment Status?</span>
+							<div>
+								<button class="active">Paid</button>
+								<button>Pending</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div slot="footer">
+					<button class="btn-primary">SUBMIT</button>
+					<button @click="toggleClosePlanModal()" class="btn-close">CLOSE</button>		
+				</div>
+			</Modal>
+
+			<Modal v-if="global_isSpendingAccountModalShow" class="spending-account-settings-modal">
+				<div slot="header">
+					<h1>Spending Account Settings</h1>					
+				</div>
+				<div slot="body">
+					<div class="dp-flex">
+						<div class="spending-account-container">
+							<label>Spending Account</label>
+							<div class="spending-selector-container">
+								<select>
+									<option>No</option>
+									<option>Yes</option>
+								</select>
+								<i class="fa fa-angle-down"></i>
+							</div>
+						</div>
+						<div class="medical-wellness-on-off-container">
+							<div class="dp-flex-ai">
+								<span>Medical</span>
+								<div class="dp-flex">
+									<button @click="___medicalSelector(true)" v-bind:class="{on : global_getSpendingSettings.medical_enable == true}"><span class="check-mark"></span></button>
+									<button @click="___medicalSelector(false)" v-bind:class="{off : global_getSpendingSettings.medical_enable == false}"><img :src="'../assets/img/close.svg'"></button>
+								</div>
+							</div>
+							<div class="dp-flex">
+								<span>Wellness</span>
+								<div class="dp-flex">
+									<button @click="___wellnessSelector(true)" v-bind:class="{on : global_getSpendingSettings.wellness_enable == true}"><span class="check-mark"></span></button>
+									<button @click="___wellnessSelector(false)" v-bind:class="{off : global_getSpendingSettings.wellness_enable == false}"><img :src="'../assets/img/close.svg'"></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div v-if="global_getSpendingSettings.medical_enable == true" class="medical-wellness-spending-container">
+						<div class="row-item dp-flex">
+							<div>
+								<div class="spending-account-text-title">
+									<span>Medical Spending Account</span>
+								</div>
+								<div class="item-div">
+									<div class="input-div">
+										<label>Start Date</label>
+										<div class="datepicker-div">
+											<img :src="'../assets/img/calendar-gray.png'">
+											<v-date-picker 
+											popoverDirection="bottom" 
+											v-model="global_recordPayment.date_received"
+											:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+											popover-visibility="focus" 
+											:formats='formats'></v-date-picker>
+										</div>
+									</div>
+									<div class="input-div end-date-container">
+										<label>End Date</label>
+										<div class="datepicker-div">
+											<img :src="'../assets/img/calendar-gray.png'">
+											<v-date-picker 
+											popoverDirection="bottom" 
+											v-model="global_recordPayment.date_received"
+											:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+											popover-visibility="focus" 
+											:formats='formats'></v-date-picker>
+										</div>
+									</div>
+								</div>
+								<div class="item-div">
+									<div class="input-div">
+										<label>Supplementary Credits</label>
+										<div class="supplementary-input-wrapper dp-flex-ai">
+											<input type="number">
+											<span>%</span>
+										</div>
+									</div>
+									<div class="input-div">
+										<label>Deposit</label>
+										<div class="deposit-input-wrapper dp-flex-ai">
+											<input type="number">
+											<span>%</span>
+										</div>
+									</div>
+								</div>
+								<div class="item-div">
+									<div class="input-div">
+										<label>Rollover</label>
+										<div class="rollover-input-wrapper spending-selector-container">
+											<select>
+												<option>No</option>
+												<option>Yes</option>
+											</select>
+											<i class="fa fa-angle-down"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div>
+								<div class="change-total-cost">
+									<div>
+										<label>Total Allocated Credits</label>
+										<div>SGD <span>30000.00</span></div>
+									</div>
+									<div>
+										<label>Supplementary Credits</label>
+										<div>SGD <span>0.00</span></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div v-if="global_getSpendingSettings.wellness_enable == true" class="medical-wellness-spending-container">
+						<div class="row-item dp-flex">
+							<div>
+								<div class="spending-account-text-title">
+									<span>Wellness Spending Account</span>
+								</div>
+								<div class="item-div">
+									<div class="input-div">
+										<label>Start Date</label>
+										<div class="datepicker-div">
+											<img :src="'../assets/img/calendar-gray.png'">
+											<v-date-picker 
+											popoverDirection="bottom" 
+											v-model="global_recordPayment.date_received"
+											:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+											popover-visibility="focus" 
+											:formats='formats'></v-date-picker>
+										</div>
+									</div>
+									<div class="input-div end-date-container">
+										<label>End Date</label>
+										<div class="datepicker-div">
+											<img :src="'../assets/img/calendar-gray.png'">
+											<v-date-picker 
+											popoverDirection="bottom" 
+											v-model="global_recordPayment.date_received"
+											:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+											popover-visibility="focus" 
+											:formats='formats'></v-date-picker>
+										</div>
+									</div>
+								</div>
+								<div class="item-div">
+									<div class="input-div">
+										<label>Supplementary Credits</label>
+										<div class="supplementary-input-wrapper dp-flex-ai">
+											<input type="number">
+											<span>%</span>
+										</div>
+									</div>
+									<div class="input-div">
+										<label>Deposit</label>
+										<div class="deposit-input-wrapper dp-flex-ai">
+											<input type="number">
+											<span>%</span>
+										</div>
+									</div>
+								</div>
+								<div class="item-div">
+									<div class="input-div">
+										<label>Rollover</label>
+										<div class="rollover-input-wrapper spending-selector-container">
+											<select>
+												<option>No</option>
+												<option>Yes</option>
+											</select>
+											<i class="fa fa-angle-down"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div>
+								<div class="change-total-cost">
+									<div>
+										<label>Total Allocated Credits</label>
+										<div>SGD <span>30000.00</span></div>
+									</div>
+									<div>
+										<label>Supplementary Credits</label>
+										<div>SGD <span>0.00</span></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div slot="footer">
+					<button @click="toggleClosePlanModal()" class="btn-primary">Cancel</button>
+					<button class="btn-primary">Update</button>
+				</div>
+			</Modal>
+
+			<Modal v-if="global_isCreditAllocationModalShow" class="credit-allocation-modal corporate-details-modal">
+				<div slot="header">
+					<h1>Credit Allocation</h1>					
+				</div>
+				<div slot="body">
+					<div>
+						<button class="active">MEDICAL</button>
+						<button>WELLNESS</button>
+					</div>
+					<div class="dp-flex total-details-container">
+						<div>
+							<div>
+								<span>Total: </span>
+								<span>SGD <span>55,892.64</span></span>
+							</div>
+							<div>
+								<span>Unallocated: </span>
+								<span>SGD <span>55,892.64</span></span>
+							</div>
+						</div>
+						<div>
+							<button class="active">ADD</button>
+							<button>DEDUCT</button>
+						</div>
+					</div>
+					<div class="credit-add-container">
+						<label>Credit to Add*</label>
+						<input type="number">
+					</div>
+					<div class="deposit-slider">
+						<label>Deposit : <span>{{ global_creditAllocationDeposit }} </span>% </label>
+						<vue-slider v-model="global_creditAllocationDeposit" :min="0" :max="10" :interval=".5"/>
+					</div>
+				</div>
+				<div slot="footer">
+					<button class="btn-primary">UPDATE</button>
+					<button @click="toggleClosePlanModal()" class="btn-close">CLOSE</button>
+				</div>
+			</Modal>
+
+			<Modal v-if="global_isPendingEnrollmentModalShow" class="pending-enrollment-modal">
+				<div slot="header">
+					<h1>Active Plan - Enrolled Employees</h1>
+				</div>
+				<div slot="body">
+					<div class="search-emp-container">
+						<i class="fa fa-search" aria-hidden="true"></i>
+						<input type="text" placeholder="Search Employee">
+					</div>
+					<div class="enrolled-emp-wrapper">
+						<div v-for="x in 8" :key="x.index" class="enrolled-emp-container-box">
+							<div class="emp-header-container">
+								<h4>Medone Exel Dep</h4>
+							</div>
+							<div class="emp-body-container">
+								<div class="email-add-container emp-row-info">
+									<label>Email Address:</label>
+									<div>mednefits.test@gmail.com</div>
+								</div>
+								<div class="family-coverage-container emp-row-info">
+									<label>Family Coverage:</label>
+									<div class="dp-flex">
+										<div>Spouse</div>
+										<div> - </div>
+									</div>
+									<div class="dp-flex">
+										<div>Dependent</div>
+										<div> 8 </div>
+									</div>
+								</div>
+								<div class="emp-row-info">
+									<label>Spending Account:</label>
+									<div class="spending-account-container">
+										<div class="dp-flex">
+											<div></div>
+											<div>Medical</div>
+											<div>Wellness</div>
+										</div>
+										<div class="dp-flex">
+											<div>Allocation</div>
+											<div class="allocation-amount">SGD 500.00</div>
+											<div class="allocation-amount">SGD 500.00</div>
+										</div>
+										<div class="dp-flex">
+											<div>Usage</div>
+											<div class="usage-amount">SGD 500.00</div>
+											<div class="usage-amount">SGD 500.00</div>
+										</div>
+									</div>
+								</div>
+								<div class="date-emp-container">
+									<label>Start Date: </label> 
+									<span>March 18, 2020</span>
+								</div>
+								<div class="date-emp-container">
+									<label>End Date: </label> 
+									<span>April 12, 2020</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="enrolled-emp-pagination">
+						<div class="dp-flex-ai">
+							<button>PREV</button>
+							<span>1 of 8</span>
+							<button>NEXT</button>
+						</div>
+					</div>
+				</div>
+				<div slot="footer">
+					<button @click="toggleClosePlanModal()" class="btn-close">CLOSE</button>
+				</div>
+			</Modal>
+
+			<Modal v-if="global_isRecordFundModalShow" class="record-refund-modal corporate-details-modal">
+				<div slot="header">
+					<h1>Record Refund</h1>
+				</div>
+				<div slot="body">
+					<div>
+						<label>Paid Amount</label>
+						<input type="number">
+					</div>
+					<div>
+						<label>Date Received</label>
+						<div class="date-container vDatepicker dp-flex">
+							<i class="fa fa-calendar-o"></i>
+							<v-date-picker 
+								popoverDirection="bottom" 
+								v-model="global_recordPayment.date_received"
+								:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+								popover-visibility="focus" 
+								:formats='formats'></v-date-picker>
+							<i class="fa fa-caret-down"></i>
+						</div>
+					</div>
+					<div>
+						<label>Payment Remarks</label>
+						<input type="text">
+					</div>
+				</div>
+				<div slot="footer">
+					<button @click="_showCorporatePlanModal_('view-plan')" class="btn-close">BACK</button>
+						<button class="btn-primary">UPDATE</button>
+				</div>
+			</Modal>
+
+			<Modal v-if="global_isEditDepositModalShow" class="edit-deposit-modal corporate-details-modal">
+				<div slot="header">
+					<h1>Edit Spending Deposit</h1>
+				</div>
+				<div slot="body">
+					<div class="spending-account-container">
+						<h4>Medical Spending Account</h4>
+						<div class="dp-flex">
+							<div>
+								<label>Allocate Credits*</label>
+								<input type="number"> 
+							</div>
+							<div class="deposit-slider">
+								<label>Deposit : <span>{{ global_creditAllocationDeposit }} </span>% </label>
+								<vue-slider v-model="global_creditAllocationDeposit" :min="0" :max="10" :interval=".5"/>
+							</div>
+						</div>
+					</div>
+					<div class="spending-account-container">
+						<h4>Wellness Spending Account</h4>
+						<div class="dp-flex">
+							<div>
+								<label>Allocate Credits*</label>
+								<input type="number"> 
+							</div>
+							<div class="deposit-slider">
+								<label>Deposit : <span>{{ global_creditAllocationDeposit }} </span>% </label>
+								<vue-slider v-model="global_creditAllocationDeposit" :min="0" :max="10" :interval=".5"/>
+							</div>
+						</div>
+					</div>
+					<div class="dp-flex invoice-date-container">
+						<div>
+							<label>Invoice Date</label>
+							<div class="date-container vDatepicker dp-flex">
+								<i class="fa fa-calendar-o"></i>
+								<v-date-picker 
+									popoverDirection="bottom" 
+									v-model="global_recordPayment.date_received"
+									:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+									popover-visibility="focus" 
+									:formats='formats'></v-date-picker>
+								<i class="fa fa-caret-down"></i>
+							</div>
+						</div>
+						<div>
+							<label>Invoice Date</label>
+							<div class="date-container vDatepicker dp-flex">
+								<i class="fa fa-calendar-o"></i>
+								<v-date-picker 
+									popoverDirection="bottom" 
+									v-model="global_recordPayment.date_received"
+									:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+									popover-visibility="focus" 
+									:formats='formats'></v-date-picker>
+								<i class="fa fa-caret-down"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div slot="footer">
+					<button @click="_showCorporatePlanModal_('view-plan')" class="btn-close">BACK</button>
+					<button class="btn-primary">UPDATE</button>
+				</div>
+			</Modal>
+
+			<Modal v-if="global_isEditPlanModalShow" class="edit-plan-modal corporate-details-modal">
+				<div slot="header">
+					<h1>Edit Plan</h1>
+				</div>
+				<div slot="body">
+					<h4>Employee Account</h4>
+					<div class="dp-flex employee-account-container">
+						<div>
+							<div>
+								<label>Employee</label>
+								<input type="number">
+							</div>
+							<div>
+								<label>Plan Date</label>
+								<div class="date-container vDatepicker dp-flex">
+									<i class="fa fa-calendar-o"></i>
+									<v-date-picker 
+										popoverDirection="bottom" 
+										v-model="global_recordPayment.date_received"
+										:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+										popover-visibility="focus" 
+										:formats='formats'></v-date-picker>
+									<i class="fa fa-caret-down"></i>
+								</div>
+							</div>
+							<div>
+								<label>Invoice Start Date</label>
+								<div class="date-container vDatepicker dp-flex">
+									<i class="fa fa-calendar-o"></i>
+									<v-date-picker 
+										popoverDirection="bottom" 
+										v-model="global_recordPayment.date_received"
+										:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+										popover-visibility="focus" 
+										:formats='formats'></v-date-picker>
+									<i class="fa fa-caret-down"></i>
+								</div>
+							</div>
+							<div>
+								<label>Invoice Due Date</label>
+								<div class="date-container vDatepicker dp-flex">
+									<i class="fa fa-calendar-o"></i>
+									<v-date-picker 
+										popoverDirection="bottom" 
+										v-model="global_recordPayment.date_received"
+										:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+										popover-visibility="focus" 
+										:formats='formats'></v-date-picker>
+									<i class="fa fa-caret-down"></i>
+								</div>
+							</div>
+							<div>
+								<label>Price Per Employee</label>
+								<input type="number">
+							</div>
+							<div>
+								<div class="custom-checkbox-container">
+									<label class="checkbox-input">
+										<span>Override Price Per Employee Amount</span>
+										<input value="true" type="checkbox">
+										<span class="checkbox-mark"></span>
+									</label>
+								</div>
+								<div>
+									<label>Price Per Employee Amount</label>
+									<input type="number">
+								</div>
+							</div>
+						</div>
+						<div>
+							<label>Account Type</label>
+							<div class="custom-checkbox-selector">
+								<label class="selector-container">
+									<span>Trial Plan</span>
+									<input v-model="global_editPlan.account_type" v-on:change="_setAccountType_(global_editPlan.account_type)" value="trial_plan" type="radio"/>
+									<span class="custom-checkbox-checkmark"></span>
+								</label>
+								<div v-show="global_editPlan.account_type == 'trial_plan'" class="checkbox-child">
+									<label class="selector-container">
+										<span>Trial - Pro Plan</span>
+										<input value="pro_trial_plan_bundle" type="radio" v-model="global_editPlan.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_editPlan.secondary_account_type)"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+									<label class="selector-container">
+										<span>Trial - Lite Plan</span>
+										<input value="trial_plan_lite" type="radio" v-model="global_editPlan.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_editPlan.secondary_account_type)"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+								</div>
+								<label class="selector-container">
+									<span>Insurance Bundle</span>
+									<input value="insurance_bundle" type="radio" v-model="global_editPlan.account_type" v-on:change="_setAccountType_(global_editPlan.account_type)"/>
+									<span class="custom-checkbox-checkmark"></span>
+								</label>
+								<div v-show="global_editPlan.account_type == 'insurance_bundle'" class="checkbox-child">
+									<label class="selector-container">
+										<span>Pro Plan Bundle</span>
+										<input value="pro_plan_bundle" type="radio" v-model="global_editPlan.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_editPlan.secondary_account_type)"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+									<label class="selector-container">
+										<span>Insurance Bundle Lite</span>
+										<input value="insurance_bundle_lite" type="radio" v-model="global_editPlan.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_editPlan.secondary_account_type)"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+								</div>
+								<label class="selector-container">
+									<span>Pro Plan</span>
+									<input value="stand_alone_plan" type="radio" v-model="global_editPlan.account_type" v-on:change="_setAccountType_(global_editPlan.account_type)"/>
+									<span class="custom-checkbox-checkmark"></span>
+								</label>
+								<div v-show="global_editPlan.account_type == 'stand_alone_plan'" class="checkbox-child">
+									<label class="selector-container">
+										<span>Default (SGD 99.00)</span>
+										<input value="default_price" type="radio" v-model="global_editPlan.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_editPlan.secondary_account_type)"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+									<label class="selector-container">
+										<span>Individual Price</span>
+										<input value="fixed_price" type="radio" v-model="global_editPlan.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_editPlan.secondary_account_type)"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+									<div v-show="global_editPlan.secondary_account_type == 'fixed_price'" class="input-individual-price-container">
+										<label>Input Individual Price*</label>
+										<input type="number" v-model="global_editPlan.price_per_employee"> 
+									</div>
+								</div>
+								<label class="selector-container">
+									<span>Lite Plan</span>
+									<input value="lite_plan" type="radio" v-model="global_editPlan.account_type" v-on:change="_setAccountType_(global_editPlan.account_type)"/>
+									<span class="custom-checkbox-checkmark"></span>
+								</label>
+								<div v-show="global_editPlan.account_type == 'lite_plan'" class="checkbox-child">
+									<label class="selector-container">
+										<span>Individual Price</span>
+										<input value="fixed_price" type="radio" v-model="global_editPlan.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_editPlan.secondary_account_type)"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+									<div class="input-individual-price-container">
+										<label>Input Individual Price*</label>
+										<input type="number" v-model="global_editPlan.price_per_employee"> 
+									</div>
+								</div>
+								<label class="selector-container">
+									<span>Enterprise Plan</span>
+									<input value="enterprise_plan" type="radio" v-model="global_editPlan.account_type" v-on:change="_setAccountType_(global_editPlan.account_type)"/>
+									<span class="custom-checkbox-checkmark"></span>
+								</label>
+								<div v-show="global_editPlan.account_type == 'enterprise_plan'" class="checkbox-child">
+									<label class="selector-container">
+										<span>Individual Price</span>
+										<input value="fixed_price" type="radio" v-model="global_editPlan.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_editPlan.secondary_account_type)"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+									<div class="input-individual-price-container">
+										<label>Input Individual Price*</label>
+										<input type="number" v-model="global_editPlan.price_per_employee"> 
+									</div>
+								</div>
+							</div>
+							<div class="payment-status-container">
+								<label>Payment Status</label>
+								<div>
+									<select>
+										<option>PAID</option>
+										<option>PENDING</option>
+									</select>
+									<i class="fa fa-caret-down"></i>
+								</div>
+							</div>
+							<div class="spending-invoice-date-container">
+								<h4>Spending Account Invoice Date</h4>
+								<div class="dp-flex-ai">
+									<div>
+										<select>
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+										</select>
+										<i class="fa fa-caret-down"></i>
+									</div>
+									<span>of every month</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div slot="footer">
+					<button @click="_showCorporatePlanModal_('view-plan')" class="btn-close">BACK</button>
+					<button class="btn-primary">UPDATE</button>
 				</div>
 			</Modal>
 		</div>

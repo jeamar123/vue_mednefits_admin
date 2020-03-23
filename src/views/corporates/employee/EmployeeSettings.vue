@@ -123,7 +123,7 @@
 									<img :src="'../assets/img/calendar.png'" />
 									<div class="start-date-input-wrapper">
 										<v-date-picker popoverDirection="bottom" v-model="plan_type.plan_start"
-											:input-props='{class: "vDatepicker start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
+											:input-props='{class: "start-date-input", placeholder: "DD/MM/YYYY", readonly: true, }'
 											:formats="formats" popover-visibility="focus"></v-date-picker>
 										<i class="fa fa-caret-down"></i>
 									</div>

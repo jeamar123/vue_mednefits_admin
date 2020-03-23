@@ -188,7 +188,8 @@
   }
 
 // GP CAP PER VISIT 
-  .file-upload-modal {
+  .modal-mask.file-upload-modal {
+    z-index: 0;
     .modal-container {
       width: 580px;
     }
@@ -447,6 +448,13 @@
       padding: 0 10px;
       position: relative;
       text-align: right;
+
+      button{
+        &:disabled{
+          cursor: not-allowed;
+          opacity: .5;
+        }
+      }
 
       .btn-close {
         box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
@@ -813,6 +821,10 @@
             right: 0;
             z-index: 0;
           }
+          span.err-message{
+            color: #bf4d4d;
+            font-size: 11px;
+          }
         }
         .date-container {
           position: relative;
@@ -847,6 +859,7 @@
       border-top: 1px solid #d9d9d9;
       button{
         margin-left: 10px;
+        text-transform: uppercase;
       }
       .btn-close {
         box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
@@ -893,6 +906,9 @@
 
 // ------ DOWNLOAD ECLAIM RECEIPTS MODAL ------ //
   .download-eclaim-receipts-modal{
+    &.modal-mask{
+      z-index: 100;
+    }
     .modal-container {
       width: 600px;
       margin: 0px auto;
@@ -910,9 +926,17 @@
     }
     .modal-body {
       padding: 20px;
-      max-height: 70vh;
-      overflow-y: auto;
-      overflow-x: hidden;
+      // min-height: 300px;
+      // max-height: 70vh;
+      // overflow-y: auto;
+      // overflow-x: hidden;
+      button{
+        cursor: pointer;
+        &:disabled{
+          opacity: .5;
+          cursor: not-allowed;
+        }
+      }
       &::-webkit-scrollbar {
         width: 10px;
       }
@@ -930,6 +954,12 @@
           display: block;
           font-size: 12px;
           color: #888;
+          margin-bottom: 15px;
+        }
+        .vDatepicker{
+          background-color: transparent;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+          padding: 2px;
         }
       }
       .date-selection{
@@ -937,23 +967,46 @@
         .btn-add{
           width: 88px;
           margin-left: 35px;
+          position: relative;
+          top: -8px;
         }
       }
       .date-container {
         position: relative;
-    
-        input.vDatepicker {
-          width: 100%;
-          position: relative;
-          z-index: 1;
-          cursor: pointer;
-        }
-    
         .fa-caret-down {
           position: absolute;
           top: 7px;
           right: 0;
           z-index: 0;
+        }
+      }
+      .vue-monthly-picker {
+        .date-popover{
+          margin-top: 10px;
+          box-shadow: none;
+          background-color: rgb(250, 250, 250);
+          border: 1px solid rgb(218, 218, 218);
+        }
+        .picker {
+          font-weight: 700;
+          color: #393d46;
+          .flexbox div {
+            padding: 10px 0;
+          }
+        }
+        .prev:after {
+          border: 2px solid #777;
+          border-width: 0 0 2px 2px;
+          height: 10px;
+          width: 10px;
+          transform: rotate(45deg) translateX(-20%) translateY(-50%);
+        }
+        .next:after {
+          border: 2px solid #777;
+          border-width: 2px 2px 0 0;
+          height: 10px;
+          width: 10px;
+          transform: rotate(45deg) translateX(-120%) translateY(50%);
         }
       }
       .filter-text{
@@ -992,7 +1045,7 @@
           border-radius: 4px;
         }
         label input:checked ~ .checkmark {
-          border: 2px solid #26a69a;
+          border: 2px solid #3f51b5;
           border-radius: 4px;
         }
         .checkmark:after {
@@ -1008,7 +1061,7 @@
           top: 1px;
           width: 7px;
           height: 14px;
-          border: solid #26a69a;
+          border: solid #3f51b5;
           border-width: 0 2px 2px 0;
           -webkit-transform: rotate(45deg);
           -ms-transform: rotate(45deg);
@@ -1016,17 +1069,23 @@
         }
       }
       .selected-month-list{
-        margin-top: 30px;
+        margin-top: 10px;
         .month{
           background: #FFF;
           border: 2px solid #e9e9e9;
           padding: 8px 10px;
           border-radius: 4px;
-          width: 125px;
+          width: 140px;
           text-align: left;
           color: #666;
           margin-bottom: 5px;
           font-size: 14px;
+          position: relative;
+          i{
+            position: absolute;
+            right: 8px;
+            top: 11px;
+          }
         }
       }
     }
@@ -1036,6 +1095,10 @@
       text-align: right;
       button{
         margin-left: 10px;
+        &:disabled{
+          opacity: .5;
+          cursor: not-allowed;
+        }
       }
       .btn-close {
         box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
@@ -1293,3 +1356,890 @@
     }
   }
 // -------------------------------------------- //
+
+// ------ GLOBAL CSS FOR MODAL IN CORPORATE DETAILS ------ //
+.corporate-details-modal {
+  .modal-container {
+    width: 610px;
+  }
+  .modal-header {
+    background-color: rgb(63,81,181);
+    padding: 18px 20px;
+    color: #fff;
+    
+    h1 {
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+  .modal-body {
+    padding: 20px 20px 0;
+    label {
+      display: block;
+      font-size: 12px;
+      color: #888;
+    }
+    input,select {
+      background-color: transparent;
+      border: 0;
+      border-bottom: 1px solid #e2e8f0;
+      width: 100%;
+      height: 30px;
+    }
+    .fa-caret-down {
+      position: absolute;
+      top: 25px;
+      right: 0;
+    }
+  }
+  .modal-footer {
+    padding: 20px 20px;
+
+    .btn-close {
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+      background-color: transparent;
+      border: 0;
+      margin: 0 10px;
+      min-height: 36px;
+      min-width: 88px;
+    }
+  }
+}
+@media (max-width: 600px) {
+  .create-dependent-account-modal.corporate-details-modal,
+  .credit-allocation-modal.corporate-details-modal {
+    .modal-container {
+      width: 100%;
+      margin: 0 20px;
+    }
+  }
+}
+// ------------------------------------------------------ //
+
+// ------ CREATE DEPENDENT ACCOUNT MODAL ------ //
+  .create-dependent-account-modal {
+    .modal-body {
+      >div >div {
+        margin: 0 0 40px;
+      }
+      h4 {
+        font-size: 16px;
+        margin: 0 0 20px;
+      }
+      .row-div >div {
+        width: 33.33%;
+        margin: 0 10px 0 0;
+      }
+      .row-div >div:last-child {
+        margin: 0;
+      }
+    }
+    .payment-status-selector span {
+      margin: 0 20px 0;
+    }
+    .payment-status-selector button {
+      width: 80px;
+      padding: 8px 0;
+      color: #777;
+      background-color: transparent;
+      border: 1px solid #d8d8d8;
+      border-radius: 4px;
+      font-size: 12px;
+
+      &:nth-child(1) {
+        border-radius: 4px 0 0 4px;
+      }
+      &:nth-child(2) {
+        border-radius: 0 4px 4px 0;
+      }
+      &.active {
+        background-color: #0392CF;
+        color: #fff;
+        border-color: #0392CF;
+      }
+    }
+    .start-date-container {
+      position: relative;
+    }
+    .plan-price-input-wrapper {
+      width: 265px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .create-dependent-account-modal {
+      .modal-body .row-div > div,
+      .modal-body .row-div > div:last-child,
+      .create-dependent-input-wrapper {
+        width: 100%;
+        margin: 0 0 20px;
+      }
+      .modal-body >div >div {
+        margin: 0;
+      }
+      .dp-flex {
+        display: block;
+      }
+      .payment-status-selector span {
+        margin: 0 10px 0 0;
+        font-size: 12px;
+      }
+      .payment-status-selector button {
+        width: 68px;
+      }
+    }
+  }
+// -------------------------------------------- //
+
+// ------ CREDIT ALLOCATION MODAL ------ //
+.credit-allocation-modal {
+  .modal-body {
+    >div >div {
+      margin: 0 0 40px;
+    }
+  }
+  .modal-body button {
+    color: #777;
+    border: 2px solid #bbb3b3;
+    width: 88px;
+    height: 36px;
+    font-size: 12px;
+    
+    &:nth-child(1) {
+      border-radius: 4px 0 0 4px;
+      border-width: 2px 1px 2px 2px;
+    }
+    &:nth-child(2) {
+      border-radius: 0 4px 4px 0;
+      border-width: 2px 2px 2px 1px;
+    }
+    &.active {
+      border: 2px solid #44a4cc;
+    }
+  }
+  .total-details-container {
+    >div {
+      margin: 0 20px 0 0;
+    }
+    >div >div:nth-child(1) {
+      margin: 0 0 10px;
+    }
+  }
+  .credit-add-container,
+  .deposit-slider {
+    width: 40%;
+  }
+  .deposit-slider label {
+    margin: 0 0 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .credit-allocation-modal {
+    .modal-body >div >div {
+      margin: 0 0 30px;
+    }
+    .total-details-container {
+      display: block;
+    }
+    .total-details-container >div {
+      margin: 0;
+
+      &:nth-child(2) {
+        margin: 20px 0 0;
+      }
+    }
+    .credit-add-container,
+    .deposit-slider {
+      width: 100%;
+    }
+  }
+}
+// ------------------------------------ //
+
+// ------ SPENDING ACCOUNT SETTINGS MODAL ------ //
+.spending-account-settings-modal {
+  .modal-wrapper {
+    overflow: initial;
+  }
+
+  .modal-container {
+    padding: 20px;
+    max-height: 780px;
+    width: 570px;
+    overflow: auto;
+  }
+
+  h1 {
+    font-family: 'Helvetica Medium';
+    font-size: 20px;
+  }
+  .medical-wellness-on-off-container {
+    img {
+      width: 8px;
+    }
+    button {
+      background-color: #fff;
+      border: 1px solid #d0d0d0;
+      display: flex;
+      height: 20px;
+      position: relative;
+      width: 24px;
+      padding: 0 7px;
+    }
+    button:nth-child(1) {
+      border-radius: 2px 0 0 2px;
+    }
+    button:nth-child(2) {
+      border-radius: 0 2px 2px 0;
+      
+    }
+    button.on {
+      background-color: #3192cf;
+      border-color: #3192cf;
+    }
+    button.off {
+      background-color: #848484;
+      border-color: #848484;
+    }
+    span {
+      width: 170px;
+    }
+    >div {
+      margin: 0 0 20px;
+    }
+    .check-mark {
+      content: "";
+      position: absolute;
+      display: block;
+      left: 8px;
+      top: 1px;
+      width: 7px;
+      height: 12px;
+      border: solid white;
+      border-width: 0 2px 2px 0px;
+      transform: rotate(45deg);
+      border-radius: 2px;
+    }
+  }
+
+  .medical-wellness-spending-container {
+    border-top: 1px solid #d0d0d0;
+    padding: 20px 0 0;
+
+    .spending-account-text-title {
+      margin: 0 0 20px;
+    }
+
+    .row-item >div:nth-child(1) {
+      width: 60%;
+      margin: 0 15px 0 0;
+    }
+    .row-item >div:nth-child(2) {
+      width: 40%;
+    }
+
+    .item-div {
+      display: flex;
+      margin: 0 0 20px;
+    }
+    .input-div {
+      flex: 1;
+    }
+    .input-div:nth-child(2) {
+      margin: 0 0 0 20px;
+    }
+    .input-div label {
+      display: block;
+      margin: 0 0 10px;
+    }
+  }
+
+  .input-div {
+    input {
+      width: 100%;
+      border-radius: 3px;
+      border: 1px solid #E0E0E0;
+      height: 35px;
+      padding: 0 10px 0 30px;
+      line-height: 35px;
+    }
+  }
+  .supplementary-input-wrapper, 
+  .deposit-input-wrapper {
+    width: 70px;
+
+    span {
+      display: block;
+      margin: 0 0 0 10px;
+    }
+    input {
+      padding: 0 10px;
+    }
+  }
+
+  .datepicker-div {
+    position: relative;
+
+    img {
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      width: 17px;
+      height: 17px;
+    }
+  }
+
+  .modal-body {
+    margin: 30px 0;
+  }
+
+  .spending-account-container {
+    margin: 0 40px 0 0;
+    label {
+      display: block;
+      margin: 0 0 10px;
+    }
+  }
+  .spending-selector-container {
+    position: relative;
+  }
+  .spending-selector-container i {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+  }
+  select {
+    background-color: #fff;
+    -webkit-appearance: none;
+    padding: 6px 10px;
+    width: 100px;
+    border-radius: 3px;
+    border: 1px solid #E0E0E0;
+  }
+
+  .rollover-input-wrapper {
+    width: 100px;
+    i {
+      right: 10px;
+    }
+  }
+  
+  .change-total-cost {
+    background: #EFF2F4;
+    padding: 12px;
+    >div >div {
+      font-family: 'Helvetica Medium';
+      font-size: 18px;
+      margin: 8px 0;
+    }
+    >div:first-child {
+      margin: 0 0 20px;
+    }
+  }
+
+  .modal-footer {
+    text-align: right;
+    .btn-primary {
+      margin: 0 10px 0 0;
+    }
+    button:nth-child(2) {
+      width: 100px;
+      margin: 0;
+    }
+  }
+}
+@media(max-width: 600px) {
+  .spending-account-settings-modal .modal-container {
+    width: 100%;
+    margin: 35px 20px auto;
+    
+    .medical-wellness-spending-container .row-item {
+      display: block;
+    }
+    .medical-wellness-spending-container .row-item >div:nth-child(1) {
+      width: 100%;
+    }
+    .medical-wellness-spending-container .row-item >div:nth-child(2) { 
+      margin: 0 0 20px;
+    }
+  }
+}
+@media(max-width: 400px) {
+  .spending-account-settings-modal {
+    .modal-container {
+      padding: 10px;
+      margin: 35px 10px auto;
+      .medical-wellness-spending-container .row-item > div:nth-child(2) {
+        width: 100%;
+      }
+    }
+    .spending-account-container {
+      margin: 0 20px 0 0;
+    }
+    .medical-wellness-on-off-container >div >div {
+      justify-content: center;
+    }
+    .medical-wellness-on-off-container span {
+      width: 90px;
+    }
+    .medical-wellness-spending-container .input-div label {
+      font-size: 12px;
+    }
+  }
+}
+// -------------------------------------------  //
+
+// ------ EDIT INVOICE DATES SPENDING INVOICE MODAL ------ //
+.edit-invoice-modal {
+  .modal-container {
+    width: 450px;
+  }
+  
+  .fa-calendar-o {
+    font-size: 18px;
+  }
+
+  .modal-header {
+    padding: 18px 15px;
+    background-color: rgb(63,81,181);
+    border-radius: 4px 4px 0 0;
+
+    h1 {
+      font-size: 20px;
+      font-weight: 500;
+      color: #fff;
+    }
+  }
+
+  .date-container {
+    position: relative;
+
+    i {
+      position: absolute;
+      top: 4px;
+      right: 0;
+    }
+  }
+  .modal-body {
+    padding: 30px;
+  }
+  .edit-invoice-input-wrapper {
+    margin: 0 0 20px;
+
+    >div:nth-child(1) {
+      align-self: flex-end;
+      margin: 0 10px 0 0;
+    }
+    label {
+      font-size: 12px;
+      color: rgba(0,0,0,0.54);
+    }
+  }
+  .modal-footer {
+    padding: 0 10px 10px;
+    text-align: right;
+
+    .btn-close {
+      box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+      padding: 10px 15px;
+      padding: 0 15px;
+      height: 36px;
+      margin: 0 10px 0 0;
+    }
+  }
+}
+
+@media ( max-width: 600px ) {
+  .edit-invoice-modal {
+    .modal-container {
+      width: 100%;
+      margin: 0 20px;
+    }
+  }
+}
+
+// -----------------------------------------------------  //
+
+// ------ PENDING ENROLLMENT MODAl IN VIEW PLAN ------ //
+.pending-enrollment-modal {
+  .modal-container {
+    width: 1000px;
+  }
+  .modal-header {
+    padding: 18px 15px;
+    background-color: rgb(63,81,181);
+    border-radius: 4px 4px 0 0;
+
+    h1 {
+      font-size: 20px;
+      font-weight: 500;
+      color: #fff;
+    }
+  }
+  .modal-body {
+    padding: 20px;
+    height: 400px;
+    overflow: auto;
+
+    .search-emp-container,
+    input::placeholder {
+      color: rgba(0,0,0,.54);
+    }
+
+    .fa-search {
+      font-size: 18px;
+      margin: 0 10px 0 0;
+    }
+
+    input {
+      border-bottom: 1px solid rgb(170, 170, 170);
+      padding: 5px; 
+      color: rgba(0, 0, 0, 0.87);
+      font-size: 16px;
+      width: 250px;
+    }
+     
+  }
+  .modal-footer {
+    text-align: left;
+    padding: 10px 15px;
+
+    .btn-close {
+      box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+      padding: 10px 15px;
+      padding: 0 15px;
+      height: 36px;
+      margin: 0 10px 0 0;
+    }
+  }
+  .enrolled-emp-wrapper {
+    margin: 20px 0;
+    font-size: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    
+    .spending-account-container >div {
+      margin: 0 0 5px;
+    }
+    .spending-account-container >div >div {
+      width: 33.33%;
+    }
+    .allocation-amount {
+      color: #555;
+      font-weight: 700;
+    }
+    .emp-row-info label {
+      margin: 0 0 5px;
+      color: #000;
+      display: block;
+    }
+  }
+  .enrolled-emp-container-box {
+    width: 280px;
+    height: 440px;
+    box-shadow: 2px 2px 10px #949393;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 0 20px 20px 0;
+  }
+  .emp-header-container {
+    padding: 15px;
+    background: #1667ac;
+    color: #FFF;
+    border-radius: 3px 3px 0 0;
+  }
+  .emp-body-container {
+    padding: 15px;
+
+    >div {
+      margin: 0 0 10px;
+    }
+  }
+  .email-add-container >div,
+  .date-emp-container >span {
+    font-size: 16px;
+    font-weight: 700;
+    color: #555;
+  }
+  .family-coverage-container >div >div {
+    width: 40%;
+  }
+  .enrolled-emp-pagination >div {
+    justify-content: center;
+
+    button {
+      padding: 8px 27px;
+      background-color: rgb(250,250,250);
+      box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+    }
+    span {
+      margin: 0 20px;
+    }
+  }
+}
+
+@media (max-width: 1023px) {
+  .pending-enrollment-modal {
+    .modal-container {
+      width: 100%;
+      margin: 0 20px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .pending-enrollment-modal {
+
+    .modal-header h1 {
+      font-size: 16px;
+    }
+    .search-emp-container {
+      display: flex;
+      align-items: center;
+    }
+    .modal-body input {
+      width: 100%;
+    }
+    .enrolled-emp-container-box {
+      width: 100%;
+      margin: 0 0 20px
+    }
+    .enrolled-emp-pagination > div button {
+      padding: 8px 15px;
+    }
+  }
+}
+// --------------------------------------------------  //
+
+// ------ RECORD REFUND MODAl IN VIEW PLAN ------ //
+.record-refund-modal {
+  .modal-footer {
+    padding: 10px;
+    text-align: right;
+  }
+  .date-container {
+    position: relative;
+
+    .popover-container {
+      width: 100%;
+    }
+  }
+  .date-container i {
+    align-self: flex-end;
+    margin: 0 10px 0 0;
+    font-size: 16px;
+  }
+  .modal-body {
+    >div {
+      width: 50%;
+    }
+    >div >div {
+      margin: 0 0 20px;
+    }
+    .fa-caret-down {
+      top: 5px;
+    }
+  }
+}
+@media (max-width: 700px) {
+  .record-refund-modal {
+    .modal-container {
+      width: 100%;
+      margin: 0 20px
+    }
+    .modal-body {
+      >div {
+        width: 100%;
+      }
+    }
+  }
+}
+// ---------------------------------------------  //
+
+// ------ EDIT SPENDING DEPOSIT IN VIEW PLAN ------ //
+.edit-deposit-modal {
+  .spending-account-container >div >div,
+  .invoice-date-container >div {
+    width: 50%;
+
+    &:first-child {
+      margin: 0 40px 0 0;
+    }
+  }
+  .modal-body >div >div {
+    margin: 0 0 20px;
+    h4 {
+      margin: 0 0 10px;
+    }
+  }
+  .modal-footer {
+    text-align: right;
+  }
+  .deposit-slider label {
+    margin: 0 0 20px;
+  }
+  .date-container {
+    position: relative;
+    width: 150px;
+
+    .fa-calendar-o {
+      align-self: flex-end;
+      margin: 0 10px 0 0;
+      font-size: 18px;
+    }
+
+    .fa-caret-down {
+      position: absolute;
+      top: 8px;
+      right: 0;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .edit-deposit-modal {
+    .modal-container {
+      width: 100%;
+      margin: 0 20px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .edit-deposit-modal {
+    .modal-wrapper {
+      height: 100%;
+    }
+    .modal-container {
+      width: 100%;
+      margin: 0 20px;
+    }
+    .spending-account-container >div {
+      display: block;
+      >div {
+        width: 100%;
+      }
+      >div:first-child {
+        margin: 0 0 20px;
+      }
+    }
+    .invoice-date-container {
+      display: block;
+
+      >div:first-child, >div {
+        width: 100%;
+        margin: 0 0 20px;
+      }
+    }
+    .date-container {
+      width: 100%;
+      .popover-container {
+        width: 100%;
+      }
+    }
+  }
+}
+// ----------------------------------------------  //
+
+// ------ EDIT PLAN EXTENSION IN VIEW PLAN ------ //
+.edit-plan-modal {
+  .modal-body {
+    height: 500px;
+    overflow: auto;
+    
+    h4 {
+      margin: 0 0 20px;
+    }
+    select {
+      -webkit-appearance: none;
+    }
+    .custom-checkbox-selector {
+      margin: 10px 0 20px;
+
+      input { width: auto; }
+    }
+    .custom-checkbox-selector label {
+      font-size: 14px;
+      color: #333;
+    }
+    .popover-container {
+      width: 100%;
+    }
+    .fa-caret-down {
+      position: absolute;
+      top: 7px;
+    }
+    .input-individual-price-container {
+      margin: 0 0 10px;
+      label {
+        font-size: 12px;
+        color: #888;
+      }
+    }
+  }
+  .checkbox-child {
+    padding: 0 0 0 35px;
+  }
+  .employee-account-container >div{
+    width: 50%;
+
+    &:nth-child(1) {
+      margin: 0 40px 0 0;
+    }
+
+    >div {
+      margin: 0 0 20px;
+    }
+  }
+  .override-price-container h4 {
+    padding: 0 0 0 30px;
+  }
+  .date-container {
+    position: relative;
+
+    .fa-calendar-o {
+      align-self: flex-end;
+      margin: 0 10px 0 0;
+      font-size: 18px;
+    }
+  }
+  .modal-footer {
+    text-align: right;
+  }
+  .custom-checkbox-container label {
+    color: #333;
+    font-size: 14px;
+    >span:first-child {
+      padding: 0 0 0 30px;
+    }
+  }
+  .payment-status-container >div,
+  .spending-invoice-date-container >div >div:first-child {
+    width: 50%;
+    margin: 0 10px 0 0;
+    position: relative;
+  }
+}
+@media ( max-width: 700px ) {
+  .edit-plan-modal {
+    .modal-container {
+      width: 100%;
+      margin: 0 20px 0;
+    }
+  }
+}
+
+@media ( max-width: 600px ) {
+  .edit-plan-modal {
+    .employee-account-container {
+      display: block;
+    }
+    .employee-account-container >div,
+    .payment-status-container >div {
+      width: 100%;
+    }
+    .custom-checkbox-container span { font-size: 12px; }
+  }
+}
+// ---------------------------------------------  //
