@@ -37,6 +37,7 @@ const DELETE_ECLAIM_TYPE = `${SERVERURL}/company/remove_claim_type_service`;
 const GET_ACTIVE_PLANS = `${SERVERURL}/company/getPlanLists`;
 const CREATE_DEPENDENT_ACCOUNT = `${SERVERURL}/company/createDependentAccount`;
 const GET_SPENDING_SETTINGS_DATA = `${SERVERURL}/company/getSpendingAccountSettings`;
+const UPLOAD_CREDIT_ALLOCATION = `${SERVERURL}/company/companyAllocateCredits`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -69,4 +70,5 @@ module.exports = {
 	GET_ACTIVE_PLANS,
 	CREATE_DEPENDENT_ACCOUNT,
 	GET_SPENDING_SETTINGS_DATA,
+	UPLOAD_CREDIT_ALLOCATION,
 }

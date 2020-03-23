@@ -524,6 +524,16 @@ const _getSpendingSetttingsData_ = (params)	=> {
 	};
 	return _axiosCall_(req);
 }
+
+const _uploadCreditAllocation_	= (params)	=> {
+	let	req	=	{
+		method:	'POST',
+		url:	Config.UPLOAD_CREDIT_ALLOCATION,
+		data: params,
+		header:	uploadHeaders,
+    };
+	return _axiosCall_(req);
+};
 	
 
 const _onLoad_	=	() =>{
@@ -570,4 +580,5 @@ export	{
 	_getActivePlans_,
 	_createDependentAccount_,
 	_getSpendingSetttingsData_,
+	_uploadCreditAllocation_,
 }
