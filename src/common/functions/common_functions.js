@@ -515,6 +515,15 @@ const _createDependentAccount_ = (params)	=> {
 	};
 	return _axiosCall_(req);
 }
+
+const _getSpendingSetttingsData_ = (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.GET_SPENDING_SETTINGS_DATA + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
 	
 
 const _onLoad_	=	() =>{
@@ -560,4 +569,5 @@ export	{
 	_deleteEclaimType_,
 	_getActivePlans_,
 	_createDependentAccount_,
+	_getSpendingSetttingsData_,
 }

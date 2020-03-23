@@ -36,6 +36,7 @@ const UPDATE_ECLAIM_TYPE = `${SERVERURL}/company/update_claim_type_service`;
 const DELETE_ECLAIM_TYPE = `${SERVERURL}/company/remove_claim_type_service`;
 const GET_ACTIVE_PLANS = `${SERVERURL}/company/getPlanLists`;
 const CREATE_DEPENDENT_ACCOUNT = `${SERVERURL}/company/createDependentAccount`;
+const GET_SPENDING_SETTINGS_DATA = `${SERVERURL}/company/getSpendingAccountSettings`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -66,5 +67,6 @@ module.exports = {
 	UPDATE_ECLAIM_TYPE,
 	DELETE_ECLAIM_TYPE,
 	GET_ACTIVE_PLANS,
-	CREATE_DEPENDENT_ACCOUNT
+	CREATE_DEPENDENT_ACCOUNT,
+	GET_SPENDING_SETTINGS_DATA,
 }
