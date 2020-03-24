@@ -40,6 +40,7 @@
         global_isRecordFundModalShow: false,
         global_isEditDepositModalShow: false,
         global_isEditPlanModalShow: false,
+        global_isEditPlanDependetModalShow: false,
         global_editPlan: {
           payment_status: false,
           
@@ -179,7 +180,7 @@
           console.log('employee');
         }
         if ( type == 'edit-plan-dependent' ) {
-          this.global_isEditPlanModalShow = true;
+          this.global_isEditPlanDependetModalShow = true;
           console.log('dependent');
         }
         if ( type == 'edit-plan-extension' ) {

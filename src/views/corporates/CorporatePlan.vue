@@ -1099,16 +1099,16 @@
 				</div>
 			</Modal>
 
-			<Modal v-if="global_isEditPlanModalShow" class="edit-plan-modal corporate-details-modal">
+			<Modal v-if="global_isEditPlanModalShow || global_isEditPlanDependetModalShow" class="edit-plan-modal corporate-details-modal">
 				<div slot="header">
 					<h1>Edit Plan</h1>
 				</div>
 				<div slot="body">
-					<h4>Employee Account</h4>
+					<h4>{{ global_isEditPlanDependetModalShow ? 'Dependent' : 'Employee' }} Account</h4>
 					<div class="dp-flex employee-account-container">
 						<div>
 							<div>
-								<label>Employee</label>
+								<label>{{ global_isEditPlanDependetModalShow ? 'Dependent' : 'Employee' }}</label>
 								<input type="number">
 							</div>
 							<div>
@@ -1124,7 +1124,7 @@
 									<i class="fa fa-caret-down"></i>
 								</div>
 							</div>
-							<div>
+							<div v-if="global_isEditPlanModalShow">
 								<label>Invoice Start Date</label>
 								<div class="date-container vDatepicker dp-flex">
 									<i class="fa fa-calendar-o"></i>
@@ -1137,7 +1137,7 @@
 									<i class="fa fa-caret-down"></i>
 								</div>
 							</div>
-							<div>
+							<div v-if="global_isEditPlanModalShow">
 								<label>Invoice Due Date</label>
 								<div class="date-container vDatepicker dp-flex">
 									<i class="fa fa-calendar-o"></i>
@@ -1151,18 +1151,18 @@
 								</div>
 							</div>
 							<div>
-								<label>Price Per Employee</label>
+								<label>Price Per {{ global_isEditPlanDependetModalShow ? 'Dependent' : 'Employee' }}</label>
 								<input type="number">
 							</div>
 							<div>
-								<div class="custom-checkbox-container">
+								<div v-if="global_isEditPlanModalShow" class="custom-checkbox-container">
 									<label class="checkbox-input">
 										<span>Override Price Per Employee Amount</span>
 										<input value="true" type="checkbox">
 										<span class="checkbox-mark"></span>
 									</label>
 								</div>
-								<div>
+								<div v-if="global_isEditPlanModalShow"> 
 									<label>Price Per Employee Amount</label>
 									<input type="number">
 								</div>
@@ -1279,7 +1279,7 @@
 									<i class="fa fa-caret-down"></i>
 								</div>
 							</div>
-							<div class="spending-invoice-date-container">
+							<div v-if="global_isEditPlanModalShow" class="spending-invoice-date-container">
 								<h4>Spending Account Invoice Date</h4>
 								<div class="dp-flex-ai">
 									<div>
