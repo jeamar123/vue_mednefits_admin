@@ -38,6 +38,7 @@ const GET_ACTIVE_PLANS = `${SERVERURL}/company/getPlanLists`;
 const CREATE_DEPENDENT_ACCOUNT = `${SERVERURL}/company/createDependentAccount`;
 const GET_SPENDING_SETTINGS_DATA = `${SERVERURL}/company/getSpendingAccountSettings`;
 const UPLOAD_CREDIT_ALLOCATION = `${SERVERURL}/company/companyAllocateCredits`;
+const FETCH_VIEW_PLAN_DATA = `${SERVERURL}/company/getCustomerActivePlanDetails`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -71,4 +72,5 @@ module.exports = {
 	CREATE_DEPENDENT_ACCOUNT,
 	GET_SPENDING_SETTINGS_DATA,
 	UPLOAD_CREDIT_ALLOCATION,
+	FETCH_VIEW_PLAN_DATA,
 }
