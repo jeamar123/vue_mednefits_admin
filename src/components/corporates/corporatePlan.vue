@@ -215,12 +215,11 @@
               );
             });
             
-            for (let i = 0;i < this.global_customerActivePlansOld.length; i++) {
-              this.global_oldPlanCustomerAtivePlan = this.global_customerActivePlansOld[i].customer_active_plans;
-              // console.log(this.global_oldPlanCustomerAtivePlan);
-
-              console.log(this.global_customerActivePlansOld[i].customer_active_plans[i].dependents);
-            }
+            // for (let i = 0;i < this.global_customerActivePlansOld.length; i++) {
+            //   this.global_oldPlanCustomerAtivePlan = this.global_customerActivePlansOld[i].customer_active_plans;
+            //   console.log(this.global_oldPlanCustomerAtivePlan);
+            //   console.log(this.global_customerActivePlansOld[i].customer_active_plans[i].dependents[i]);
+            // }
 
 					});
       },
