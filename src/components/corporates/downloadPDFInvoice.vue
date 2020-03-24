@@ -1,4 +1,5 @@
 <script>
+  import axios from 'axios';
   import jsPDF from 'jspdf'
   import 'jspdf-autotable'
   // import htmlToImage from 'html-to-image';
@@ -9,24 +10,22 @@
     },
     data() {
       return {
-        
+        logo : this._getBase64Image_( window.location.origin + '/assets/img/latest logo/mobile-logo-blue-latest.png' ),
       };
     },
     created(){
 
     },
     methods: {
-      _downloadAsPdf_(){
+      async _downloadAsPdf_(){
         const doc = new jsPDF('p','mm');
-        console.log( doc.internal.pageSize.getWidth() );
-        console.log( doc.internal.pageSize.getHeight() );
         doc.setDrawColor(238, 238, 238);
         doc.rect(5,5,doc.internal.pageSize.width - 10, doc.internal.pageSize.height - 10, 'S');
-        doc.autoTable({ html: '#my-table' })
+        doc.autoTable({ html: '#my-table' });
         let content = [
           [
             { 
-              content: 'MEDNEFITS', 
+              content: '', 
               rowSpan: 10,
               styles: { 
                 fontStyle: 'bold',
@@ -95,8 +94,8 @@
             }
           },
           body: content,
-          didDrawCell: function (data) {
-            console.log( data );
+          didDrawCell: (data) => {
+            // console.log( data );
           },
         })
 
@@ -601,9 +600,25 @@
         })
         
         // doc.save('table.pdf')
+        console.log(this.logo);
+        doc.addImage(this.logo, "JPEG", 60,50); 
         window.open(doc.output('bloburl'), '_blank');
-        
-      }
+      },
+       _getBase64Image_(url){
+        let img = new Image();
+        let dataURL;
+        img.src = url;
+        img.onload = () => {
+          let canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          let context = canvas.getContext('2d');
+          context.drawImage(img, 0, 0);
+          dataURL = canvas.toDataURL('image/jpeg');
+          console.log(dataURL);
+          return dataURL;
+        }
+      },
     }
   }
   
