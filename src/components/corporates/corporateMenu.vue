@@ -40,6 +40,10 @@ let corporateMenu = {
 	},
 	methods: {
 		// emits
+		refreshCorporateDetails(){
+			console.log('refreshiing corporate details...');
+			this.getCorporateDetails(true);
+		},
 		fromMemberList(data) {
 			if(data) {
 				this.getCorporateDetails(true);
@@ -47,7 +51,7 @@ let corporateMenu = {
 		},
 		fromBulkCredits(data) {
 			if(data) {
-				this.getCorporateDetails();
+				this.getCorporateDetails(true);
 				this.getCorporateCreditsInfo();
 			}
 		},
