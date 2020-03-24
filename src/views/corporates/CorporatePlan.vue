@@ -8,7 +8,7 @@
 					<h4>Current Active Plans</h4>
 				</div>
 				<div class="active-cards-wrapper">
-					<div v-for="(list,index) in global_getPlans.current_plan.customer_active_plans" :key="list.index" class="active-plans-info">
+					<div v-for="(list,index) in global_getPlans.current_plan.customer_active_plans" class="active-plans-info">
 						<div class="plan-header-container">
 							<div>
 								<span>Active Plan #{{ index + 1 }}</span>
@@ -52,7 +52,7 @@
 							</div>
 							<div>
 								<span>Plan Amount: </span>
-								<span><span class="currency-type">{{ list.currency_type }} </span> <span>{{ list.amount }}</span></span>
+								<span><span class="currency-type">{{ list.currency_type }} </span> <span>{{ list.amount | number('0.00') }}</span></span>
 							</div>
 							<div>
 								<span>Payment Status: </span>
@@ -63,7 +63,7 @@
 						<div v-if="list.dependents.length > 0" class="account-container dependent-account-container">
 							<div class="account-title">Dependent Accounts</div>
 							<div class="dependent-list-info-wrapper">
-								<div v-for="list in list.dependents" :key="list.index" class="dependent-list-info">
+								<div v-for="list in list.dependents" class="dependent-list-info">
 									<div>
 										<span>Plan Type: </span>
 										<span v-if="list.account_type == 'stand_alone_plan'">Pro Plan</span>
@@ -163,7 +163,7 @@
 						<div>
 							<button @click="_showCorporatePlanModal_('create-dependent-account')" class="btn-primary">CREATE DEPEDENT ACCOUNT</button>
 							<button @click="_showCorporatePlanModal_('spending-account-settings')" class="btn-primary">SPENDING ACCOUNT SETTINGS</button>
-							<button @click="_showCorporatePlanModal_('credit-allocation')" class="btn-primary">CREDIT ALLOCATION</button>
+							<button @click="_showCorporatePlanModal_('credit-allocation',list)" class="btn-primary">CREDIT ALLOCATION</button>
 							<button @click="_showCorporatePlanModal_('view-plan')" class="btn-primary">VIEW PLAN</button>
 						</div>
 					</div>
@@ -171,20 +171,18 @@
 						<div v-if="global_getPlans.old_plans.length > 0" class="current-plan-text">
 							<h4>Old Active Plans</h4>
 						</div>
-						<div v-for="list in global_getPlans.current_plan.old_plans" :key="list.index" class="old-plan-active">
+						<div v-for="list in global_getPlans.old_plans" class="old-plan-active">
 							<div class="current-plan-text">
-								<h4>Plan Date: <span>{{ global_getPlans.old_plans.plan_start }}</span></h4>
+								<h4>Plan Date: <span>{{ list.plan_start }}</span></h4>
 							</div>
-							<div v-for="list in old.old_active" :key="list.index" class="active-plans-info">
+							<div v-for="(list,index) in list.customer_active_plans" class="active-plans-info">
+							<!-- <div v-for="(list,index) in global_oldPlanCustomerAtivePlan" class="active-plans-info"> -->
 								<div class="plan-header-container">
 									<div>
-										<span>Active Plan #1</span>
+										<span>Active Plan #{{ index + 1 }}</span>
 									</div>
 									<div>
 										<span>Active Plan ID #{{ list.customer_active_plan_id }}</span>
-									</div>
-									<div class="cog-container">
-										<i @click="showAccountPlanType()" class="fa fa-cog"></i>
 									</div>
 								</div>
 								<div class="account-container employee-account-container">
@@ -219,7 +217,7 @@
 									</div>
 									<div>
 										<span>Plan Amount: </span>
-										<span><span class="currency-type">{{ list.currency_type }} </span> <span>{{ list.amount }}</span></span>
+										<span><span class="currency-type">{{ list.currency_type }} </span> <span>{{ list.amount | number('0.00') }}</span></span>
 									</div>
 									<div>
 										<span>Payment Status: </span>
@@ -227,11 +225,10 @@
 										<span v-if="list.paid == false">PENDING</span>
 									</div>
 								</div>
-								<!-- <div v-if="list.dependents.length > 0" class="account-container dependent-account-container"> -->
-								<div class="account-container dependent-account-container">
+								<div v-if="list.dependents.length > 0" class="account-container dependent-account-container">
 									<div class="account-title">Dependent Accounts</div>
 									<div class="dependent-list-info-wrapper">
-										<div v-for="list in list.dependents" :key="list.index" class="dependent-list-info">
+										<div v-for="(list,index) in list.dependents" class="dependent-list-info">
 											<div>
 												<span>Plan Type: </span>
 												<span v-if="list.account_type == 'stand_alone_plan'">Pro Plan</span>
@@ -262,7 +259,7 @@
 											</div>
 											<div>
 												<span>Plan Amount: </span>
-												<span><span class="currency-type">{{ list.currency_type }} </span> <span>{{ list.amount }}</span></span>
+												<span><span class="currency-type">{{ list.currency_type }} </span> <span>{{ list.amount | number('0.00') }}</span></span>
 											</div>
 											<div>
 												<span>Payment Status: </span>
@@ -304,7 +301,7 @@
 									</div>
 									<div>
 										<span>Plan Amount: </span>
-										<span><span class="currency-type">{{ list.plan_extension.currency_type }} </span> <span>{{ list.amount }}</span></span>
+										<span><span class="currency-type">{{ list.plan_extension.currency_type }} </span> <span>{{ list.amount | number('0.00') }}</span></span>
 									</div>
 									<div>
 										<span>Payment Status: </span>
@@ -337,9 +334,6 @@
 									</div>
 								</div>
 								<div>
-									<!-- <button class="btn-primary">CREATE DEPEDENT ACCOUNT</button>
-									<button class="btn-primary">SPENDING ACCOUNT SETTINGS</button>
-									<button class="btn-primary">CREDIT ALLOCATION</button> -->
 									<button class="btn-primary">VIEW PLAN</button>
 								</div>
 							</div>
@@ -846,36 +840,42 @@
 				</div>
 				<div slot="body">
 					<div>
-						<button class="active">MEDICAL</button>
-						<button>WELLNESS</button>
+						<button v-bind:class="{ 'active' : global_creditSpendingType == 'medical' }" @click="_selectCreditAllocationSpending_('medical')">MEDICAL</button>
+						<button v-bind:class="{ 'active' : global_creditSpendingType == 'wellness' }" @click="_selectCreditAllocationSpending_('wellness')">WELLNESS</button>
 					</div>
 					<div class="dp-flex total-details-container">
 						<div>
 							<div>
 								<span>Total: </span>
-								<span>SGD <span>55,892.64</span></span>
+								<span v-if="global_creditSpendingType == 'medical'" class="currency-type">{{ global_customerPlanData.currency_type }} <span>{{ global_customerPlanData.total_allocated_medical }}</span></span>
+								<span v-if="global_creditSpendingType == 'wellness'" class="currency-type">{{ global_customerPlanData.currency_type }} <span>{{ global_customerPlanData.total_allocated_wellness }}</span></span>
 							</div>
 							<div>
 								<span>Unallocated: </span>
-								<span>SGD <span>55,892.64</span></span>
+								<span v-if="global_creditSpendingType == 'medical'" class="currency-type">{{ global_customerPlanData.currency_type }} <span>{{ global_customerPlanData.total_unallocated_medical }}</span></span>
+								<span v-if="global_creditSpendingType == 'wellness'" class="currency-type">{{ global_customerPlanData.currency_type }} <span>{{ global_customerPlanData.total_unallocated_wellness }}</span></span>
 							</div>
 						</div>
 						<div>
-							<button class="active">ADD</button>
-							<button>DEDUCT</button>
+							<button @click="_selectCreditAllocationType_('add')" v-bind:class="{ 'active' : global_creditAllocationType == 'add' }">ADD</button>
+							<button @click="_selectCreditAllocationType_('deduct')" v-bind:class="{ 'active' : global_creditAllocationType == 'deduct' }">DEDUCT</button>
 						</div>
 					</div>
 					<div class="credit-add-container">
-						<label>Credit to Add*</label>
-						<input type="number">
+						<label>Credit to <span v-if="global_creditAllocationType == 'add'">Add</span><span v-if="global_creditAllocationType == 'deduct'">Deduct</span>*</label>
+						<input v-model="global_creditAllocationData.credit_amount" type="number">
 					</div>
-					<div class="deposit-slider">
-						<label>Deposit : <span>{{ global_creditAllocationDeposit }} </span>% </label>
-						<vue-slider v-model="global_creditAllocationDeposit" :min="0" :max="10" :interval=".5"/>
+					<div v-if="global_creditSpendingType == 'medical'" class="deposit-slider">
+						<label>Deposit : <span>{{ global_spendingDeposit.medical_deposit }} </span>% </label>
+						<vue-slider v-model="global_spendingDeposit.medical_deposit" :min="0" :max="10" :interval=".5"/>
+					</div>
+					<div v-if="global_creditSpendingType == 'wellness'" class="deposit-slider">
+						<label>Deposit : <span>{{ global_spendingDeposit.wellness_deposit }} </span>% </label>
+						<vue-slider v-model="global_spendingDeposit.wellness_deposit" :min="0" :max="10" :interval=".5"/>
 					</div>
 				</div>
 				<div slot="footer">
-					<button class="btn-primary">UPDATE</button>
+					<button @click="_updateCreditAllocation_()" class="btn-primary">UPDATE</button>
 					<button @click="toggleClosePlanModal()" class="btn-close">CLOSE</button>
 				</div>
 			</Modal>

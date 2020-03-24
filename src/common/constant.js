@@ -41,6 +41,7 @@ const COMPANY_BUSINESS_DETAILS = `${SERVERURL}/company/companyBusinessDetails`;
 const COMPANY_STATUS = `${SERVERURL}/company/companyStatus`;
 const COMPANY_CONTACT = `${SERVERURL}/company/companyContact`;
 const COMPANY_BENEFITS_SPECIALIST = `${SERVERURL}/company/companyBenefitsSpecialist`;
+const UPLOAD_CREDIT_ALLOCATION = `${SERVERURL}/company/companyAllocateCredits`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -76,5 +77,6 @@ module.exports = {
 	COMPANY_BUSINESS_DETAILS,
 	COMPANY_STATUS,
 	COMPANY_CONTACT,
-	COMPANY_BENEFITS_SPECIALIST
+	COMPANY_BENEFITS_SPECIALIST,
+	UPLOAD_CREDIT_ALLOCATION,
 }
