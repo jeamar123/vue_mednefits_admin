@@ -579,6 +579,15 @@ const _uploadCreditAllocation_	= (params)	=> {
     };
 	return _axiosCall_(req);
 };
+
+const _fetchViewPlanData_ = (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.FETCH_VIEW_PLAN_DATA + '?customer_active_plan_id=' + params.customer_active_plan_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
 	
 const _fetchCompanyBusinessDetails_ = (params)	=> {
 	let	req	=	{
@@ -674,4 +683,5 @@ export	{
 	_deleteCompanyContact_,
 	_addBenefitsSpecialist_,
 	_uploadCreditAllocation_,
+	_fetchViewPlanData_,
 }

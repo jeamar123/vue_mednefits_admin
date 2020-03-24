@@ -164,7 +164,7 @@
 							<button @click="_showCorporatePlanModal_('create-dependent-account')" class="btn-primary">CREATE DEPEDENT ACCOUNT</button>
 							<button @click="_showCorporatePlanModal_('spending-account-settings')" class="btn-primary">SPENDING ACCOUNT SETTINGS</button>
 							<button @click="_showCorporatePlanModal_('credit-allocation',list)" class="btn-primary">CREDIT ALLOCATION</button>
-							<button @click="_showCorporatePlanModal_('view-plan')" class="btn-primary">VIEW PLAN</button>
+							<button @click="_showCorporatePlanModal_('view-plan',list)" class="btn-primary">VIEW PLAN</button>
 						</div>
 					</div>
 					<div class="old-plan-active-wrapper">
@@ -334,7 +334,7 @@
 									</div>
 								</div>
 								<div>
-									<button class="btn-primary">VIEW PLAN</button>
+									<button @click="_showCorporatePlanModal_('view-plan',list)" class="btn-primary">VIEW PLAN</button>
 								</div>
 							</div>
 						</div>
@@ -401,18 +401,28 @@
 							<div class="columns transaction-box align-items-center">
 								<div class="column">
 									<p class="col-title"><label>Employee Account</label></p>
-									<p><label>Plan Type:</label> <span>Pro Plan</span></p>
-									<p><label>Invoice:</label> <span>OMC000012</span></p>
-									<p><label>Start Date:</label> <span>2018-01-03</span></p>
-									<p><label>Plan Duration:</label> <span>12 months</span></p>
-									<p><label>Total Seats:</label> <span>4</span></p>
-									<p><label>Occupied Seats:</label> <span>4</span></p>
-									<p><label>Vacant Seats:</label> <span>0</span></p>
-									<p><label>Plan Amount:</label> <span><span class="txt-uppercase">SGD</span> 360.00</span></p>
-									<p><label>Payment Status:</label> <span>PENDING</span></p>
+									<p>
+										<label>Plan Type:</label> 
+										<span v-if="global_viewPlanData.employee_plan.account_type == 'stand_alone_plan'">Pro Plan</span>
+										<span v-if="global_viewPlanData.employee_plan.account_type == 'insurance_bundle'">Insurance Bundle</span>
+										<span v-if="global_viewPlanData.employee_plan.account_type == 'trial_plan'">Trial Plan</span>
+										<span v-if="global_viewPlanData.employee_plan.account_type == 'lite_plan'">Lite Plan</span>
+									</p>
+									<p><label>Invoice:</label> <span>{{ global_viewPlanData.employee_plan.invoice_number }}</span></p>
+									<p><label>Start Date:</label> <span>{{ global_viewPlanData.employee_plan.plan_start }}</span></p>
+									<p><label>Plan Duration:</label> <span>{{ global_viewPlanData.employee_plan.duration }}</span></p>
+									<p><label>Total Seats:</label> <span>{{ global_viewPlanData.employee_plan.total_seats }}</span></p>
+									<p><label>Occupied Seats:</label> <span>{{ global_viewPlanData.employee_plan.occupied_seats }}</span></p>
+									<p><label>Vacant Seats:</label> <span>{{ global_viewPlanData.employee_plan.vacant_seats }}</span></p>
+									<p><label>Plan Amount:</label> <span><span class="currency-type">{{ global_viewPlanData.employee_plan.currency_type }}</span> {{ global_viewPlanData.employee_plan.amount | number('0.00') }}</span></p>
+									<p>
+										<label>Payment Status:</label> 
+										<span v-if="global_viewPlanData.employee_plan.paid == true">PAID</span>
+										<span v-if="global_viewPlanData.employee_plan.paid == false">PENDING</span>
+									</p>
 								</div>
 								<div class="column">
-									<button class="btn-blue">Edit Plan</button>
+									<button @click="_showViewPlanModal_('edit-plan-employee')" class="btn-blue">Edit Plan</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
 									<button @click="_showViewPlanModal_('pending-enrollment')" class="btn-blue">0 Pending Enrollment</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
@@ -420,23 +430,33 @@
 							</div>
 						</div>
 
-						<div class="account-list-box dependent-accounts-container">
+						<div v-if="global_viewPlanData.dependent_plans.length > 0" class="account-list-box dependent-accounts-container">
 							<div class="header-title">
 								Dependent Account
 							</div>
-							<div v-for="list in 3" class="columns transaction-box align-items-center">
+							<div v-for="list in global_viewPlanData.dependent_plans" class="columns transaction-box align-items-center">
 								<div class="column">
-									<p class="col-title"><label>Plan Account Type:</label> <span>Lite Plan</span></p>
-									<p><label>Account Plan Type:</label> <span>Active Plan</span></p>
-									<p><label>Start Date:</label> <span>2018-01-03</span></p>
-									<p><label>Total Seats:</label> <span>4</span></p>
-									<p><label>Occupied Seats:</label> <span>4</span></p>
-									<p><label>Vacant Seats:</label> <span>0</span></p>
-									<p><label>Plan Amount:</label> <span><span class="txt-uppercase">SGD</span> 360.00</span></p>
-									<p><label>Payment Status:</label> <span>PENDING</span></p>
+									<p class="col-title">
+										<label>Plan Account Type:</label> 
+										<span v-if="list.account_type == 'stand_alone_plan'">Pro Plan</span>
+										<span v-if="list.account_type == 'insurance_bundle'">Insurance Bundle</span>
+										<span v-if="list.account_type == 'trial_plan'">Trial Plan</span>
+										<span v-if="list.account_type == 'lite_plan'">Lite Plan</span>
+									</p>
+									<p><label>Account Plan Type:</label> <span>{{ list.type }}</span></p>
+									<p><label>Start Date:</label> <span>{{ list.plan_start }}</span></p>
+									<p><label>Total Seats:</label> <span>{{ list.total_seats }}</span></p>
+									<p><label>Occupied Seats:</label> <span>{{ list.occupied_seats }}</span></p>
+									<p><label>Vacant Seats:</label> <span>{{ list.vacant_seats }}</span></p>
+									<p><label>Plan Amount:</label> <span><span class="currency-type">{{ list.currency_type }}</span> {{ list.amount | number('0.00') }}</span></p>
+									<p>
+										<label>Payment Status:</label> 
+										<span v-if="list.paid == true">PAID</span>
+										<span v-if="list.paid == false">PENDING</span>
+									</p>
 								</div>
 								<div class="column">
-									<button class="btn-blue">Edit Plan</button>
+									<button @click="_showViewPlanModal_('edit-plan-dependent')" class="btn-blue">Edit Plan</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
 									<button class="btn-blue">0 Pending Enrollment</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
@@ -444,17 +464,21 @@
 							</div>
 						</div>
 
-						<div class="account-list-box spending-deposit-accounts-container">
+						<div v-if="global_viewPlanData.spending_deposits.length > 0" class="account-list-box spending-deposit-accounts-container">
 							<div class="header-title">
 								Spending Deposit Account
 							</div>
-							<div v-for="list in 2" class="columns transaction-box align-items-center">
+							<div v-for="list in global_viewPlanData.spending_deposits" class="columns transaction-box align-items-center">
 								<div class="column">
-									<p><label>Invoice:</label> <span>DEP000016</span></p>
-									<p><label>Total Credits:</label> <span><span class="txt-uppercase">SGD</span> 10,000.00</span></p>
-									<p><label>(Wellness)</label></p>
-									<p><label>Deposit:</label> <span><span class="txt-uppercase">SGD</span> 360.00</span></p>
-									<p><label>Payment Status:</label> <span>PENDING</span></p>
+									<p><label>Invoice:</label> <span>{{ list.invoice_number }}</span></p>
+									<p><label>Total Credits:</label> <span><span class="currency-type">{{ list.currency_type }}</span> {{ list.total_credits | number('0.00') }}</span></p>
+									<p><label>{{ list.total_credits_text }}</label></p>
+									<p><label>Deposit:</label> <span><span class="currency-type">{{ list.currency_type }}</span> {{ list.deposit | number('0.00') }}</span></p>
+									<p>
+										<label>Payment Status:</label> 
+										<span v-if="list.payment_status == true">PAID</span>
+										<span v-if="list.payment_status == false">PENDING</span>
+									</p>
 								</div>
 								<div class="column">
 									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
@@ -465,20 +489,24 @@
 							</div>
 						</div>
 						
-						<div class="account-list-box employee-refunds-container">
+						<div v-if="global_viewPlanData.employee_refunds.length > 0" class="account-list-box employee-refunds-container">
 							<div class="header-title">
 								Employee Refund
 							</div>
-							<div v-for="list in 2" class="columns transaction-box align-items-center">
+							<div v-for="list in global_viewPlanData.employee_refunds" class="columns transaction-box align-items-center">
 								<div class="column">
-									<p><label>Cancellation No.:</label> <span>OMC000010A</span></p>
-									<p><label>Employees:</label> <span>1</span></p>
-									<p><label>Refund Amount:</label> <span><span class="txt-uppercase">SGD</span> 00.00</span></p>
-									<p><label>Payment Status:</label> <span>PENDING</span></p>
-									<p><label>Paid Amount:</label> <span>0</span></p>
-									<p><label>Date Refunded:</label> <span>2018-01-04</span></p>
-									<p><label>Date Paid:</label> <span>2018-01-04</span></p>
-									<p><label>Payment Remarks:</label> <span>Notes</span></p>
+									<p><label>Cancellation No.:</label> <span>{{ list.invoice_number }}</span></p>
+									<p><label>Employees:</label> <span>{{ list.employees }}</span></p>
+									<p><label>Refund Amount:</label> <span><span class="currency-type">{{ list.currency_type }}</span> {{ list.refund_amount | number('0.00') }}</span></p>
+									<p>
+										<label>Payment Status:</label> 
+										<span v-if="list.payment_status == true">payment_status</span>
+										<span v-if="list.payment_status == false">PENDING</span>
+									</p>
+									<p><label>Paid Amount:</label> <span>{{ list.paid_amount }}</span></p>
+									<p><label>Date Refunded:</label> <span>{{ list.date_refund }}</span></p>
+									<p><label>Date Paid:</label> <span>{{ list.date_paid }}</span></p>
+									<p><label>Payment Remarks:</label> <span>{{ list.payment_remarks }}</span></p>
 								</div>
 								<div class="column">
 									<button class="btn-gray">Download</button>
@@ -487,20 +515,24 @@
 							</div>
 						</div>
 
-						<div class="account-list-box dependent-refunds-container">
+						<div v-if="global_viewPlanData.dependent_refunds.length > 0" class="account-list-box dependent-refunds-container">
 							<div class="header-title">
 								Dependent Refund
 							</div>
-							<div v-for="list in 2" class="columns transaction-box align-items-center">
+							<div v-for="list in global_viewPlanData.dependent_refunds" class="columns transaction-box align-items-center">
 								<div class="column">
-									<p><label>Cancellation No.:</label> <span>OMC000010A</span></p>
-									<p><label>Employees:</label> <span>1</span></p>
-									<p><label>Refund Amount:</label> <span><span class="txt-uppercase">SGD</span> 00.00</span></p>
-									<p><label>Payment Status:</label> <span>PENDING</span></p>
-									<p><label>Paid Amount:</label> <span>0</span></p>
-									<p><label>Date Refunded:</label> <span>2018-01-04</span></p>
-									<p><label>Date Paid:</label> <span>2018-01-04</span></p>
-									<p><label>Payment Remarks:</label> <span>Notes</span></p>
+									<p><label>Cancellation No.:</label> <span>{{ list.invoice_number }}</span></p>
+									<p><label>Employees:</label> <span>{{ list.employees }}</span></p>
+									<p><label>Refund Amount:</label> <span><span class="currency-type">{{ list.currency_type }}</span> {{ list.refund_amount | number('0.00') }}</span></p>
+									<p>
+										<label>Payment Status:</label> 
+										<span v-if="list.payment_status == true">PAID</span>
+										<span v-if="list.payment_status == false">PENDING</span>
+									</p>
+									<p><label>Paid Amount:</label> <span>{{ list.paid_amount | number('0.00') }}</span></p>
+									<p><label>Date Refunded:</label> <span>{{ list.date_refund }}</span></p>
+									<p><label>Date Paid:</label> <span>{{ list.date_paid }}</span></p>
+									<p><label>Payment Remarks:</label> <span>{{ list.payment_remarks }}</span></p>
 								</div>
 								<div class="column">
 									<button class="btn-gray">Download</button>
@@ -509,22 +541,32 @@
 							</div>
 						</div>
 
-						<div class="account-list-box plan-extension-container">
+						<div v-if="global_viewPlanData.plan_extension" class="account-list-box plan-extension-container">
 							<div class="header-title">
 								Plan Extension
 							</div>
-							<div v-for="list in 1" class="columns transaction-box align-items-center">
+							<div class="columns transaction-box align-items-center">
 								<div class="column">
-									<p><label>Account Type:</label> <span>Pro Plan</span></p>
-									<p><label>Invoice:</label> <span>OMC000039</span></p>
-									<p><label>Plan Duration:</label> <span>12 months</span></p>
-									<p><label>Employees:</label> <span>1</span></p>
-									<p><label>Plan Amount:</label> <span><span class="txt-uppercase">SGD</span> 00.00</span></p>
-									<p><label>Payment Status:</label> <span>PENDING</span></p>
+									<p>
+										<label>Account Type:</label> 
+										<span v-if="global_viewPlanData.plan_extension.account_type == 'stand_alone_plan'">Pro Plan</span>
+										<span v-if="global_viewPlanData.plan_extension.account_type == 'insurance_bundle'">Insurance Bundle</span>
+										<span v-if="global_viewPlanData.plan_extension.account_type == 'trial_plan'">Trial Plan</span>
+										<span v-if="global_viewPlanData.plan_extension.account_type == 'lite_plan'">Lite Plan</span>
+									</p>
+									<!-- <p><label>Invoice:</label> <span>{{ global_viewPlanData.plan_extension.invoice_number }}</span></p> -->
+									<p><label>Plan Duration:</label> <span>{{ global_viewPlanData.plan_extension.duration }}</span></p>
+									<p><label>Employees:</label> <span>{{ global_viewPlanData.plan_extension.employees }}</span></p>
+									<p><label>Plan Amount:</label> <span><span class="currency-type">{{ global_viewPlanData.plan_extension.currency_type }}</span> {{ global_viewPlanData.plan_extension.amount | number('0.00') }}</span></p>
+									<p>
+										<label>Payment Status:</label> 
+										<span v-if="global_viewPlanData.plan_extension.paid == true">payment_status</span>
+										<span v-if="global_viewPlanData.plan_extension.paid == false">PENDING</span>
+									</p>
 
 								</div>
 								<div class="column">
-									<button class="btn-blue" @click="_showViewPlanModal_('edit-plan')">Edit Plan</button>
+									<button class="btn-blue" @click="_showViewPlanModal_('edit-plan-extension')">Edit Plan</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_(null,'receipt')">Download Receipt</button>
@@ -1120,6 +1162,16 @@
 									<label>Price Per Employee Amount</label>
 									<input type="number">
 								</div>
+								<div>
+									<label>Plan Duration</label>
+									<div class="date-container">
+										<select>
+											<option>12 months</option>
+											<option>10 months</option>
+										</select>
+										<i class="fa fa-caret-down"></i>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div>
@@ -1243,7 +1295,7 @@
 					</div>
 				</div>
 				<div slot="footer">
-					<button @click="_showCorporatePlanModal_('view-plan')" class="btn-close">BACK</button>
+					<button @click="_showCorporatePlanModal_('view-plan',global_customerActivePlanData)" class="btn-close">BACK</button>
 					<button class="btn-primary">UPDATE</button>
 				</div>
 			</Modal>

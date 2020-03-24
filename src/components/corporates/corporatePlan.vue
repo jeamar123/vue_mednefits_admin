@@ -7,6 +7,7 @@
     _createDependentAccount_,
     _getSpendingSetttingsData_,
     _uploadCreditAllocation_,
+    _fetchViewPlanData_,
   } from '../../common/functions/common_functions';
    
   let corporatePlan = {
@@ -76,6 +77,13 @@
           wellness_deposit: 0,
         },
         global_customerActivePlansOld: {},
+        global_viewPlanData: {
+          employee_plan: {},
+          dependent_plans: [],
+          spending_deposits: [],
+          employee_refunds: [],
+          dependent_refunds: [],
+        },
       };
     },
     created(){
@@ -124,14 +132,20 @@
           this.global_creditAllocationData = {};
           this.global_creditAllocationData.amount = 0;
           this.global_creditAllocationData.deposit = 0;
-          console.log(list);
+          // console.log(list);
           this.global_customerPlanData = list;
         }
-        if ( opt == 'view-plan' ) {
+        if ( opt == 'view-plan' ) { 
           this.global_isViewPlanModalShow = this.global_isViewPlanModalShow == false ? true : false;
           this.global_isRecordFundModalShow = false;
           this.global_isEditDepositModalShow = false;
           this.global_isEditPlanModalShow = false;
+          this.global_customerActiveId = list.customer_active_plan_id;
+          // console.log(this.global_customerActiveId);
+
+          //declaring a global_customerActivePlanData variable for back button in edit plan
+          this.global_customerActivePlanData = list;
+          this._getViewPlanData_();
         }
       },
       ___medicalSelector( opt ) {
@@ -160,8 +174,17 @@
         if ( type == 'edit-deposit' ) {
           this.global_isEditDepositModalShow = true;
         }
-        if ( type == 'edit-plan' ) {
+        if ( type == 'edit-plan-employee' ) {
           this.global_isEditPlanModalShow = true;
+          console.log('employee');
+        }
+        if ( type == 'edit-plan-dependent' ) {
+          this.global_isEditPlanModalShow = true;
+          console.log('dependent');
+        }
+        if ( type == 'edit-plan-extension' ) {
+          this.global_isEditPlanModalShow = true;
+          console.log('extension');
         }
       },
       _setAccountType_(account_type)  {
@@ -208,13 +231,7 @@
             this.global_getPlans = res.data.data;
             this.global_customerActivePlansOld = this.global_getPlans.old_plans;
             this.global_getPlans.current_plan.plan_start = moment(this.global_getPlans.current_plan.plan_start).format("DD MMMM, YYYY");
-          
-            this.global_customerActivePlansOld.map((value, index) => {
-							value.plan_start = moment(value.plan_start).format(
-								"DD MMMM, YYYY"
-              );
-            });
-            
+
             // for (let i = 0;i < this.global_customerActivePlansOld.length; i++) {
             //   this.global_oldPlanCustomerAtivePlan = this.global_customerActivePlansOld[i].customer_active_plans;
             //   console.log(this.global_oldPlanCustomerAtivePlan);
@@ -315,7 +332,20 @@
               }
             }
 					});
-      }
+      },
+      _getViewPlanData_() {
+        let params = {
+          customer_active_plan_id: this.global_customerActiveId,
+        }
+        _fetchViewPlanData_(params)
+					.then(( res ) => {
+            // console.log(res);
+            if( res.status == 200 || res.status == 201 ){
+              this.global_viewPlanData = res.data.data;
+              console.log(this.global_viewPlanData);
+            }
+					});
+      },
     }
   }
   
