@@ -406,22 +406,20 @@
         this.create_company.dependent_plan_duration = `${ this.create_company.duration_value } ${ this.create_company.duration_type }`
         this.create_company.duration_extension_dependents = `${ this.create_company.duration_value_extension } ${ this.create_company.employee_duration_extension_type }`
 
-        // let data = {
-        //   company_name = this.create_company.billing_name;
-        // }
-
-        axios.post( axios.defaults.serverUrl + '/company/create_company', this.create_company ) 
-          .then(response => { 
-            console.log(response);
-            this.$swal("Success!", response.data.message, "success");
-            this.resetCreateCorporateData();
-            this.$router.push({ path: '/dashboard/corporates' })
-          })
-          .catch(err => {
-            this.resetCreateCorporateData();
-            this.$parent.hideLoading();
-            this.errorHandler( err );
-          });
+        console.log(this.create_company);
+        // this.$parent.hideLoading();
+        // axios.post( axios.defaults.serverUrl + '/company/create_company', this.create_company ) 
+        //   .then(response => { 
+        //     console.log(response);
+        //     this.$swal("Success!", response.data.message, "success");
+        //     this.resetCreateCorporateData();
+        //     this.$router.push({ path: '/dashboard/corporates' })
+        //   })
+        //   .catch(err => {
+        //     this.resetCreateCorporateData();
+        //     this.$parent.hideLoading();
+        //     this.errorHandler( err );
+        //   });
         
       },
       checkAddCorpForm( data ) {
