@@ -443,7 +443,11 @@
 										<span v-if="list.account_type == 'trial_plan'">Trial Plan</span>
 										<span v-if="list.account_type == 'lite_plan'">Lite Plan</span>
 									</p>
-									<p><label>Account Plan Type:</label> <span>{{ list.type }}</span></p>
+									<p>
+										<label>Account Plan Type:</label> 
+										<span v-if="list.type == 'active_plan'">Active Plan</span>
+										<span v-if="list.type == 'extension_plan'">Extension Plan</span>
+									</p>
 									<p><label>Start Date:</label> <span>{{ list.plan_start }}</span></p>
 									<p><label>Total Seats:</label> <span>{{ list.total_seats }}</span></p>
 									<p><label>Occupied Seats:</label> <span>{{ list.occupied_seats }}</span></p>
