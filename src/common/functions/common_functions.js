@@ -169,12 +169,23 @@ const _childGetStorage_	=	(key)	=>	{ // CHILD STATE/ROUTE STORAGE
 
 const _fetchEmployeeList_	= (params)	=> { // EMPLOYEE LIST API
 	console.log(params);
-	let	req	=	{
-		method:	'GET',
-		url:	Config.EMPLOYEE_LIST + '?customer_id=' + params.customer_id + '&page=' + params.page + '&limit=' + params.limit,
-		header:	defaultHeaders,
-	};
-	return _axiosCall_(req);
+	if ( params.customer_active_plan_id ) {
+		let	req	=	{ 
+			method:	'GET',
+			url:	Config.EMPLOYEE_LIST + '?customer_id=' + params.customer_id + '&page=' + params.page + '&limit=' + params.limit + '&customer_active_plan_id=' + params.customer_active_plan_id,
+			header:	defaultHeaders,
+		};
+		console.log('naa siya gipasa nga customer id');
+		return _axiosCall_(req);
+	} else {
+		let	req	=	{
+			method:	'GET',
+			url:	Config.EMPLOYEE_LIST + '?customer_id=' + params.customer_id + '&page=' + params.page + '&limit=' + params.limit,
+			header:	defaultHeaders,
+		};
+		return _axiosCall_(req);
+	}
+	
 };
 
 const _searchEmployeeList_	= (params)	=> {
