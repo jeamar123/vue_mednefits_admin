@@ -9,7 +9,7 @@
     _uploadCreditAllocation_,
     _fetchViewPlanData_,
     _fetchEmployeeList_,
-    _searchEmployeeList_
+    _searchEmployeeList_,
     _updateDependentPlan_,
     _showPageLoading_,
     _hidePageLoading_,
