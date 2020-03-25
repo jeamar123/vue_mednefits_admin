@@ -424,7 +424,7 @@
 								<div class="column">
 									<button @click="_showViewPlanModal_('edit-plan-employee', global_viewPlanData.employee_plan)" class="btn-blue">Edit Plan</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
-									<button @click="_showViewPlanModal_('pending-enrollment')" class="btn-blue">0 Pending Enrollment</button>
+									<button @click="_showViewPlanModal_('pending-enrollment')" :disabled="global_viewPlanData.employee_plan.vacant_seats == 0" class="btn-blue">{{ global_viewPlanData.employee_plan.vacant_seats }} Pending Enrollment</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment('employee', global_viewPlanData.employee_plan)">Record Payment</button>
 								</div>
 							</div>
@@ -462,7 +462,7 @@
 								<div class="column">
 									<button @click="_showViewPlanModal_('edit-plan-dependent', list)" class="btn-blue">Edit Plan</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
-									<button class="btn-blue">0 Pending Enrollment</button>
+									<button @click="_showViewPlanModal_('pending-enrollment')" :disabled="list.vacant_seats == 0" class="btn-blue">{{ list.vacant_seats }} Pending Enrollment</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment('dependent', list)">Record Payment</button>
 								</div>
 							</div>
@@ -514,7 +514,7 @@
 								</div>
 								<div class="column">
 									<button class="btn-gray">Download</button>
-									<button class="btn-primary">Record Refund</button>
+									<button v-on:click="toggleRecordPayment()" class="btn-primary">Record Refund</button>
 								</div>
 							</div>
 						</div>
@@ -540,7 +540,7 @@
 								</div>
 								<div class="column">
 									<button class="btn-gray">Download</button>
-									<button @click="_showViewPlanModal_('record-refund')" class="btn-primary">Record Refund</button>
+									<button v-on:click="toggleRecordPayment()" class="btn-primary">Record Refund</button>
 								</div>
 							</div>
 						</div>
@@ -933,27 +933,28 @@
 				<div slot="body">
 					<div class="search-emp-container">
 						<i class="fa fa-search" aria-hidden="true"></i>
-						<input type="text" placeholder="Search Employee">
+						<input type="text" placeholder="Search Employee and Hit Enter ..." v-model="global_searchEmp" 
+						@keypress.enter="_searchMemberList_(global_searchEmp)" @input="_searchEmpty_(global_searchEmp)">
 					</div>
 					<div class="enrolled-emp-wrapper">
-						<div v-for="x in 8" :key="x.index" class="enrolled-emp-container-box">
+						<div v-for="list in global_activePlanEnrolled" class="enrolled-emp-container-box">
 							<div class="emp-header-container">
-								<h4>Medone Exel Dep</h4>
+								<h4>{{ list.fullname }}</h4>
 							</div>
 							<div class="emp-body-container">
 								<div class="email-add-container emp-row-info">
 									<label>Email Address:</label>
-									<div>mednefits.test@gmail.com</div>
+									<div>{{ list.email }}</div>
 								</div>
 								<div class="family-coverage-container emp-row-info">
 									<label>Family Coverage:</label>
-									<div class="dp-flex">
+									<!-- <div class="dp-flex">
 										<div>Spouse</div>
 										<div> - </div>
-									</div>
+									</div> -->
 									<div class="dp-flex">
 										<div>Dependent</div>
-										<div> 8 </div>
+										<div> {{ list.dependents }} </div>
 									</div>
 								</div>
 								<div class="emp-row-info">
@@ -966,32 +967,32 @@
 										</div>
 										<div class="dp-flex">
 											<div>Allocation</div>
-											<div class="allocation-amount">SGD 500.00</div>
-											<div class="allocation-amount">SGD 500.00</div>
+											<div class="allocation-amount"><span class="currency-type">{{ list.currency_type }}</span> {{ list.spending_account.medical.credits_allocation | number('0.00') }}</div>
+											<div class="allocation-amount"><span class="currency-type">{{ list.currency_type }}</span> {{ list.spending_account.wellness.credits_allocation_wellness | number('0.00') }}</div>
 										</div>
 										<div class="dp-flex">
 											<div>Usage</div>
-											<div class="usage-amount">SGD 500.00</div>
-											<div class="usage-amount">SGD 500.00</div>
+											<div class="usage-amount"><span class="currency-type">{{ list.currency_type }}</span> {{ list.spending_account.medical.credits_spent | number('0.00') }}</div>
+											<div class="usage-amount"><span class="currency-type">{{ list.currency_type }}</span> {{ list.spending_account.wellness.credits_spent_wellness | number('0.00') }}</div>
 										</div>
 									</div>
 								</div>
 								<div class="date-emp-container">
 									<label>Start Date: </label> 
-									<span>March 18, 2020</span>
+									<span>{{ list.start_date }}</span>
 								</div>
 								<div class="date-emp-container">
 									<label>End Date: </label> 
-									<span>April 12, 2020</span>
+									<span>{{ list.expiry_date }}</span>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="enrolled-emp-pagination">
+					<div v-show="!searchActive" class="enrolled-emp-pagination">
 						<div class="dp-flex-ai">
-							<button>PREV</button>
-							<span>1 of 8</span>
-							<button>NEXT</button>
+							<button @click="_prevPage_()" v-if="global_activePlanPagination.hasPrevPage">PREV</button>
+							<span>{{ global_activePlanPagination.page }} of {{ global_activePlanPagination.totalPages }}</span>
+							<button @click="_nextPage_()" v-if="global_activePlanPagination.hasNextPage">NEXT</button>
 						</div>
 					</div>
 				</div>
@@ -1000,7 +1001,7 @@
 				</div>
 			</Modal>
 
-			<Modal v-if="global_isRecordFundModalShow" class="record-refund-modal corporate-details-modal">
+			<!-- <Modal v-if="global_isRecordFundModalShow" class="record-refund-modal corporate-details-modal">
 				<div slot="header">
 					<h1>Record Refund</h1>
 				</div>
@@ -1031,7 +1032,7 @@
 					<button @click="_showCorporatePlanModal_('edit-close')" class="btn-close">BACK</button>
 						<button class="btn-primary">UPDATE</button>
 				</div>
-			</Modal>
+			</Modal> -->
 
 			<Modal v-if="global_isEditDepositModalShow" class="edit-deposit-modal corporate-details-modal">
 				<div slot="header">

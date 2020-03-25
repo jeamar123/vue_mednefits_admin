@@ -8,6 +8,8 @@
     _getSpendingSetttingsData_,
     _uploadCreditAllocation_,
     _fetchViewPlanData_,
+    _fetchEmployeeList_,
+    _searchEmployeeList_
     _updateDependentPlan_,
     _showPageLoading_,
     _hidePageLoading_,
@@ -44,7 +46,7 @@
         global_isCreditAllocationModalShow: false,
         global_creditAllocationDeposit: 0,
         global_isPendingEnrollmentModalShow: false,
-        global_isRecordFundModalShow: false,
+        // global_isRecordFundModalShow: false,
         global_isEditDepositModalShow: false,
         global_isEditPlanModalShow: false,
         global_isEditPlanDependetModalShow: false,
@@ -92,6 +94,12 @@
           employee_refunds: [],
           dependent_refunds: [],
         },
+        global_activePlanEnrolled: {},
+        global_activePlanPagination: {},
+        global_pageActive: 1,
+        global_pageLimit: 10,
+        global_searchEmp: undefined, 
+        searchActive: false,
         global_isEmployeeRecordPayment: false,
         global_isDependentRecordPayment: false,
       };
@@ -115,6 +123,7 @@
         this.global_isCreditAllocationModalShow = false;
         this.global_isPendingEnrollmentModalShow = false;
         this.global_isEditDepositModalShow = false;
+        this.global_pageActive = 1;
 
         // this.global_addDependentData = {};
       },
@@ -157,7 +166,7 @@
         }
         if ( opt == 'view-plan' || opt == 'edit-close' ) { 
           this.global_isViewPlanModalShow = this.global_isViewPlanModalShow == false ? true : false;
-          this.global_isRecordFundModalShow = false;
+          // this.global_isRecordFundModalShow = false;
           this.global_isEditDepositModalShow = false;
           this.global_isEditPlanModalShow = false;
           this.global_isEditPlanDependetModalShow = false;
@@ -191,10 +200,11 @@
 
         if ( type == 'pending-enrollment' ) {
           this.global_isPendingEnrollmentModalShow = true;
+          this._getEmployeeList_();
         }
-        if ( type == 'record-refund' ) {
-          this.global_isRecordFundModalShow = true;
-        }
+        // if ( type == 'record-refund' ) {
+        //   this.global_isRecordFundModalShow = true;
+        // }
         if ( type == 'edit-deposit' ) {
           this.global_isEditDepositModalShow = true;
         }
@@ -377,6 +387,67 @@
             }
             _hidePageLoading_();
 					});
+      },
+      _getEmployeeList_() {
+        let params = {
+          customer_id: this.customer_id,
+          page: this.global_pageActive,
+          limit: this.global_pageLimit,
+          customer_active_plan_id: this.global_customerActiveId,
+        }
+        _showPageLoading_();
+        _fetchEmployeeList_(params)
+          .then(( res ) => {
+            console.log(res);
+            if( res.status == 200 || res.status == 201 ){
+              this.global_activePlanEnrolled = res.data.data;
+              this.global_activePlanPagination = res.data;
+
+              this.global_activePlanEnrolled.map((value, index) => {
+                value.start_date = moment(value.start_date).format(
+                  "DD MMMM, YYYY"
+                );
+                value.expiry_date = moment(value.expiry_date).format(
+                  "DD MMMM, YYYY"
+                );
+              });
+               this.searchActive = false;  
+              _hidePageLoading_();
+            }
+          });
+      },
+      _prevPage_() {
+        if (this.global_activePlanPagination.hasPrevPage) {
+          this.global_pageActive = this.global_activePlanPagination.prevPage;
+          this._getEmployeeList_();
+        }
+      },
+      _nextPage_() {
+        if (this.global_activePlanPagination.hasNextPage) {
+          this.global_pageActive = this.global_activePlanPagination.nextPage;
+          this._getEmployeeList_();
+        }
+      },
+      _searchMemberList_( item ) {
+        let params	=	{ 
+          customer_id :	this.customer_id,
+          search: item 
+        };
+        _showPageLoading_();
+        _searchEmployeeList_(params)
+					.then(( res ) => {
+						if( res.status == 200 || res.status == 201 ){
+              this.global_activePlanEnrolled = res.data.data;
+              // console.log(this.global_activePlanEnrolled);
+              this.searchActive = true;
+              _hidePageLoading_();
+						}
+					});
+      },
+      _searchEmpty_( data ) {
+        if (data == "") {
+          this._getEmployeeList_();
+        }
       },
       _updatePlan_(){
         let request = null;
