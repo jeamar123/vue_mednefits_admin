@@ -43,6 +43,10 @@ const COMPANY_CONTACT = `${SERVERURL}/company/companyContact`;
 const COMPANY_BENEFITS_SPECIALIST = `${SERVERURL}/company/companyBenefitsSpecialist`;
 const UPLOAD_CREDIT_ALLOCATION = `${SERVERURL}/company/companyAllocateCredits`;
 const FETCH_VIEW_PLAN_DATA = `${SERVERURL}/company/getCustomerActivePlanDetails`;
+const UPDATE_PLAN_DEPENDENT = `${SERVERURL}/company/updateDependentPlanEdit`;
+const DEPENDENT_RECORD_PAYMENT = `${SERVERURL}/company/updateDependentPlanRecordPayment`;
+const UPDATE_PLAN_EMPLOYEE = `${SERVERURL}/company/updateEmployeePlanEdit`;
+const EMPLOYEE_RECORD_PAYMENT = `${SERVERURL}/company/updatePlanRecordPayment`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -81,4 +85,8 @@ module.exports = {
 	COMPANY_BENEFITS_SPECIALIST,
 	UPLOAD_CREDIT_ALLOCATION,
 	FETCH_VIEW_PLAN_DATA,
+	UPDATE_PLAN_DEPENDENT,
+	DEPENDENT_RECORD_PAYMENT,
+	UPDATE_PLAN_EMPLOYEE,
+	EMPLOYEE_RECORD_PAYMENT,
 }

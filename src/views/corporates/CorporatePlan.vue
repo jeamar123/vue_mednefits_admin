@@ -422,10 +422,10 @@
 									</p>
 								</div>
 								<div class="column">
-									<button @click="_showViewPlanModal_('edit-plan-employee')" class="btn-blue">Edit Plan</button>
+									<button @click="_showViewPlanModal_('edit-plan-employee', global_viewPlanData.employee_plan)" class="btn-blue">Edit Plan</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
 									<button @click="_showViewPlanModal_('pending-enrollment')" :disabled="global_viewPlanData.employee_plan.vacant_seats == 0" class="btn-blue">{{ global_viewPlanData.employee_plan.vacant_seats }} Pending Enrollment</button>
-									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
+									<button class="btn-primary" v-on:click="toggleRecordPayment('employee', global_viewPlanData.employee_plan)">Record Payment</button>
 								</div>
 							</div>
 						</div>
@@ -460,10 +460,10 @@
 									</p>
 								</div>
 								<div class="column">
-									<button @click="_showViewPlanModal_('edit-plan-dependent')" class="btn-blue">Edit Plan</button>
+									<button @click="_showViewPlanModal_('edit-plan-dependent', list)" class="btn-blue">Edit Plan</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
 									<button @click="_showViewPlanModal_('pending-enrollment')" :disabled="list.vacant_seats == 0" class="btn-blue">{{ list.vacant_seats }} Pending Enrollment</button>
-									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
+									<button class="btn-primary" v-on:click="toggleRecordPayment('dependent', list)">Record Payment</button>
 								</div>
 							</div>
 						</div>
@@ -585,7 +585,7 @@
 							<div class="column is-6">
 								<div class="form-box">
 									<label>Paid Amount</label>
-									<input type="number">
+									<input type="number" v-model="global_recordPayment.paid_amount">
 								</div>
 							</div>
 							<div class="column is-6">
@@ -594,7 +594,7 @@
 									<div class="date-container vDatepicker">
 										<v-date-picker 
 											popoverDirection="bottom" 
-											v-model="global_recordPayment.date_received"
+											v-model="global_recordPayment.transaction_date"
 											:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 											popover-visibility="focus" 
 											:formats='formats'></v-date-picker>
@@ -607,7 +607,7 @@
 							<div class="column is-6">
 								<div class="form-box">
 									<label>Payment Remarks</label>
-									<input type="text">
+									<input type="text" v-model="global_recordPayment.remarks">
 								</div>
 							</div>
 						</div>
@@ -616,7 +616,7 @@
 				</div>
 				<div slot="footer">
 					<button v-if="global_isRecordPaymentShow" class="btn-close" v-on:click="toggleRecordPayment()">Back</button>
-					<button v-if="global_isRecordPaymentShow" class="btn-primary" v-on:click="toggleRecordPayment()">Update</button>
+					<button v-if="global_isRecordPaymentShow" class="btn-primary" v-on:click="_updateRecordPayments_()">Update</button>
 					<button v-if="!global_isRecordPaymentShow" class="btn-close" v-on:click="toggleClosePlanModal()">Close</button>
 				</div>
 			</Modal>
@@ -1029,7 +1029,7 @@
 					</div>
 				</div>
 				<div slot="footer">
-					<button @click="_showCorporatePlanModal_('view-plan')" class="btn-close">BACK</button>
+					<button @click="_showCorporatePlanModal_('edit-close')" class="btn-close">BACK</button>
 						<button class="btn-primary">UPDATE</button>
 				</div>
 			</Modal> -->
@@ -1095,7 +1095,7 @@
 					</div>
 				</div>
 				<div slot="footer">
-					<button @click="_showCorporatePlanModal_('view-plan')" class="btn-close">BACK</button>
+					<button @click="_showCorporatePlanModal_('edit-close')" class="btn-close">BACK</button>
 					<button class="btn-primary">UPDATE</button>
 				</div>
 			</Modal>
@@ -1110,7 +1110,8 @@
 						<div>
 							<div>
 								<label>{{ global_isEditPlanDependetModalShow ? 'Dependent' : 'Employee' }}</label>
-								<input type="number">
+								<input v-if="global_isEditPlanDependetModalShow" type="number" v-model="global_editPlan.total_dependents">
+								<input v-if="global_isEditPlanModalShow" type="number" v-model="global_editPlan.employees">
 							</div>
 							<div>
 								<label>Plan Date</label>
@@ -1118,7 +1119,7 @@
 									<i class="fa fa-calendar-o"></i>
 									<v-date-picker 
 										popoverDirection="bottom" 
-										v-model="global_recordPayment.date_received"
+										v-model="global_editPlan.plan_start"
 										:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 										popover-visibility="focus" 
 										:formats='formats'></v-date-picker>
@@ -1131,7 +1132,7 @@
 									<i class="fa fa-calendar-o"></i>
 									<v-date-picker 
 										popoverDirection="bottom" 
-										v-model="global_recordPayment.date_received"
+										v-model="global_editPlan.invoice_date"
 										:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 										popover-visibility="focus" 
 										:formats='formats'></v-date-picker>
@@ -1144,7 +1145,7 @@
 									<i class="fa fa-calendar-o"></i>
 									<v-date-picker 
 										popoverDirection="bottom" 
-										v-model="global_recordPayment.date_received"
+										v-model="global_editPlan.invoice_due_date"
 										:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 										popover-visibility="focus" 
 										:formats='formats'></v-date-picker>
@@ -1153,26 +1154,25 @@
 							</div>
 							<div>
 								<label>Price Per {{ global_isEditPlanDependetModalShow ? 'Dependent' : 'Employee' }}</label>
-								<input type="number">
+								<input type="number" v-model="global_editPlan.individual_price">
 							</div>
 							<div>
 								<div v-if="global_isEditPlanModalShow" class="custom-checkbox-container">
 									<label class="checkbox-input">
 										<span>Override Price Per Employee Amount</span>
-										<input value="true" type="checkbox">
+										<input :value="true" type="checkbox" v-model="global_editPlan.override_total_amount_status">
 										<span class="checkbox-mark"></span>
 									</label>
 								</div>
-								<div v-if="global_isEditPlanModalShow"> 
+								<div v-if="global_editPlan.override_total_amount_status"> 
 									<label>Price Per Employee Amount</label>
-									<input type="number">
+									<input type="number" v-model="global_editPlan.override_total_amount">
 								</div>
 								<div>
 									<label>Plan Duration</label>
 									<div class="date-container">
-										<select>
-											<option>12 months</option>
-											<option>10 months</option>
+										<select v-model="global_editPlan.duration">
+											<option v-for="list in 12" :key="list.index">{{list}} months</option>
 										</select>
 										<i class="fa fa-caret-down"></i>
 									</div>
@@ -1227,7 +1227,7 @@
 										<input value="default_price" type="radio" v-model="global_editPlan.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_editPlan.secondary_account_type)"/>
 										<span class="custom-checkbox-checkmark"></span>
 									</label>
-									<label class="selector-container">
+									<!-- <label class="selector-container">
 										<span>Individual Price</span>
 										<input value="fixed_price" type="radio" v-model="global_editPlan.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_editPlan.secondary_account_type)"/>
 										<span class="custom-checkbox-checkmark"></span>
@@ -1235,14 +1235,14 @@
 									<div v-show="global_editPlan.secondary_account_type == 'fixed_price'" class="input-individual-price-container">
 										<label>Input Individual Price*</label>
 										<input type="number" v-model="global_editPlan.price_per_employee"> 
-									</div>
+									</div> -->
 								</div>
 								<label class="selector-container">
 									<span>Lite Plan</span>
 									<input value="lite_plan" type="radio" v-model="global_editPlan.account_type" v-on:change="_setAccountType_(global_editPlan.account_type)"/>
 									<span class="custom-checkbox-checkmark"></span>
 								</label>
-								<div v-show="global_editPlan.account_type == 'lite_plan'" class="checkbox-child">
+								<!-- <div v-show="global_editPlan.account_type == 'lite_plan'" class="checkbox-child">
 									<label class="selector-container">
 										<span>Individual Price</span>
 										<input value="fixed_price" type="radio" v-model="global_editPlan.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_editPlan.secondary_account_type)"/>
@@ -1252,13 +1252,13 @@
 										<label>Input Individual Price*</label>
 										<input type="number" v-model="global_editPlan.price_per_employee"> 
 									</div>
-								</div>
+								</div> -->
 								<label class="selector-container">
 									<span>Enterprise Plan</span>
 									<input value="enterprise_plan" type="radio" v-model="global_editPlan.account_type" v-on:change="_setAccountType_(global_editPlan.account_type)"/>
 									<span class="custom-checkbox-checkmark"></span>
 								</label>
-								<div v-show="global_editPlan.account_type == 'enterprise_plan'" class="checkbox-child">
+								<!-- <div v-show="global_editPlan.account_type == 'enterprise_plan'" class="checkbox-child">
 									<label class="selector-container">
 										<span>Individual Price</span>
 										<input value="fixed_price" type="radio" v-model="global_editPlan.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_editPlan.secondary_account_type)"/>
@@ -1268,14 +1268,14 @@
 										<label>Input Individual Price*</label>
 										<input type="number" v-model="global_editPlan.price_per_employee"> 
 									</div>
-								</div>
+								</div> -->
 							</div>
 							<div class="payment-status-container">
 								<label>Payment Status</label>
 								<div>
-									<select>
-										<option>PAID</option>
-										<option>PENDING</option>
+									<select v-model="global_editPlan.paid">
+										<option :value="true">PAID</option>
+										<option :value="false">PENDING</option>
 									</select>
 									<i class="fa fa-caret-down"></i>
 								</div>
@@ -1300,8 +1300,8 @@
 					</div>
 				</div>
 				<div slot="footer">
-					<button @click="_showCorporatePlanModal_('view-plan',global_customerActivePlanData)" class="btn-close">BACK</button>
-					<button class="btn-primary">UPDATE</button>
+					<button @click="_showCorporatePlanModal_('edit-close',global_customerActivePlanData)" class="btn-close">BACK</button>
+					<button class="btn-primary" v-on:click="_updatePlan_()">UPDATE</button>
 				</div>
 			</Modal>
 		</div>

@@ -306,7 +306,6 @@ const _formChecker_	=	(formData)	=>	{
 	if (formData.hasOwnProperty('billing_phone') && !formData.billing_phone)	{
 		error_checkForm.push('Billing Phone Number.');
 	}
-	
 	if (formData.hasOwnProperty('companyContacts'))	{
 		formData.companyContacts.map((value, key)	=>	{
 			if (value.hasOwnProperty('first_name') && !value.first_name)	{
@@ -322,6 +321,22 @@ const _formChecker_	=	(formData)	=>	{
 				error_checkForm.push('Contact Phone Number.');
 			}
 		});
+	}
+
+	if (formData.hasOwnProperty('paid_amount') && !formData.paid_amount)	{
+		error_checkForm.push('Paid Amount.');
+	}
+	if (formData.hasOwnProperty('transaction_date') && !formData.transaction_date)	{
+		error_checkForm.push('Date Received.');
+	}
+	if (formData.hasOwnProperty('invoice_due_date') && !formData.invoice_due_date)	{
+		error_checkForm.push('Invoice Due Date.');
+	}
+	if (formData.hasOwnProperty('invoice_date') && !formData.invoice_date)	{
+		error_checkForm.push('Invoice Date.');
+	}
+	if (formData.hasOwnProperty('individual_price') && !formData.individual_price)	{
+		error_checkForm.push('Individual Price.');
 	}
 	
 	
@@ -649,6 +664,46 @@ const _addBenefitsSpecialist_ = (params)	=> {
 	return _axiosCall_(req);
 }
 
+const _updateDependentPlan_ = (params)	=> {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_PLAN_DEPENDENT,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _updateDependentRecordPayment_ = (params)	=> {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.DEPENDENT_RECORD_PAYMENT,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _updateEmployeeRecordPayment_ = (params)	=> {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.EMPLOYEE_RECORD_PAYMENT,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _updateEmployeePlan_ = (params)	=> {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_PLAN_EMPLOYEE,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
 export	{
 	_login_,
 	_goBack_,
@@ -695,4 +750,8 @@ export	{
 	_addBenefitsSpecialist_,
 	_uploadCreditAllocation_,
 	_fetchViewPlanData_,
+	_updateDependentPlan_,
+	_updateDependentRecordPayment_,
+	_updateEmployeePlan_,
+	_updateEmployeeRecordPayment_,
 }

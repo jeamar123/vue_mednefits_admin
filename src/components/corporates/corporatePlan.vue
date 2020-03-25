@@ -9,9 +9,14 @@
     _uploadCreditAllocation_,
     _fetchViewPlanData_,
     _fetchEmployeeList_,
+    _searchEmployeeList_
+    _updateDependentPlan_,
     _showPageLoading_,
     _hidePageLoading_,
-    _searchEmployeeList_
+    _updateDependentRecordPayment_,
+    _formChecker_,
+    _updateEmployeePlan_,
+    _updateEmployeeRecordPayment_,
   } from '../../common/functions/common_functions';
    
   let corporatePlan = {
@@ -95,6 +100,8 @@
         global_pageLimit: 10,
         global_searchEmp: undefined, 
         searchActive: false,
+        global_isEmployeeRecordPayment: false,
+        global_isDependentRecordPayment: false,
       };
     },
     created(){
@@ -120,8 +127,18 @@
 
         // this.global_addDependentData = {};
       },
-      toggleRecordPayment()  {
+      toggleRecordPayment(type, data)  {
+        this.global_recordPayment = {};
         this.global_isRecordPaymentShow = this.global_isRecordPaymentShow == false ? true : false;
+        this.global_editPlan = data;
+        this.global_isEmployeeRecordPayment = false;
+        this.global_isDependentRecordPayment = false;
+        if(type == 'dependent'){
+          this.global_isDependentRecordPayment = true;
+        }
+        if(type == 'employee'){
+          this.global_isEmployeeRecordPayment = true;
+        }
       },
       _downloadInvoice_(data,type) {
         if( type == 'receipt' ){
@@ -147,17 +164,21 @@
           // console.log(list);
           this.global_customerPlanData = list;
         }
-        if ( opt == 'view-plan',list ) { 
+        if ( opt == 'view-plan' || opt == 'edit-close' ) { 
           this.global_isViewPlanModalShow = this.global_isViewPlanModalShow == false ? true : false;
           // this.global_isRecordFundModalShow = false;
           this.global_isEditDepositModalShow = false;
           this.global_isEditPlanModalShow = false;
+          this.global_isEditPlanDependetModalShow = false;
+          this.global_isDependentRecordPayment = false;
           this.global_customerActiveId = list.customer_active_plan_id;
           // console.log(this.global_customerActiveId);
 
           //declaring a global_customerActivePlanData variable for back button in edit plan
           this.global_customerActivePlanData = list;
-          this._getViewPlanData_();
+          if(opt == 'view-plan'){
+            this._getViewPlanData_();
+          }
         }
       },
       ___medicalSelector( opt ) {
@@ -174,7 +195,7 @@
           this.global_getSpendingData.wellness_enable = false;
         }
       },
-      _showViewPlanModal_( type ) {
+      _showViewPlanModal_( type, data ) {
         this.global_isViewPlanModalShow = false;
 
         if ( type == 'pending-enrollment' ) {
@@ -189,10 +210,16 @@
         }
         if ( type == 'edit-plan-employee' ) {
           this.global_isEditPlanModalShow = true;
+          this.global_editPlan = data;
+          this.global_editPlan.plan_start = new Date(this.global_editPlan.plan_start);
+          this.global_editPlan.invoice_date = new Date(this.global_editPlan.invoice_date);
+          this.global_editPlan.invoice_due_date = new Date(this.global_editPlan.invoice_due_date);
           console.log('employee');
         }
         if ( type == 'edit-plan-dependent' ) {
           this.global_isEditPlanDependetModalShow = true;
+          this.global_editPlan = data;
+          this.global_editPlan.plan_start = new Date(this.global_editPlan.plan_start);
           console.log('dependent');
         }
         if ( type == 'edit-plan-extension' ) {
@@ -350,6 +377,7 @@
         let params = {
           customer_active_plan_id: this.global_customerActiveId,
         }
+        _showPageLoading_();
         _fetchViewPlanData_(params)
 					.then(( res ) => {
             // console.log(res);
@@ -357,6 +385,7 @@
               this.global_viewPlanData = res.data.data;
               console.log(this.global_viewPlanData);
             }
+            _hidePageLoading_();
 					});
       },
       _getEmployeeList_() {
@@ -420,6 +449,106 @@
           this._getEmployeeList_();
         }
       },
+      _updatePlan_(){
+        let request = null;
+        if(this.global_isEditPlanModalShow){
+          let params  = {
+            customer_id: Number(this.customer_id),
+            customer_active_plan_id: this.global_editPlan.customer_active_plan_id,
+            active_plan_invoice_id: this.global_editPlan.customer_active_plan_id,
+            employees: Number(this.global_editPlan.employees),
+            plan_start: this.global_editPlan.plan_start ? moment( this.global_editPlan.plan_start ).format('YYYY-MM-DD') : null,
+            invoice_due_date: this.global_editPlan.invoice_due_date ? moment( this.global_editPlan.invoice_due_date ).format('YYYY-MM-DD') : null,
+            invoice_date: this.global_editPlan.invoice_date ? moment( this.global_editPlan.invoice_date ).format('YYYY-MM-DD') : null,
+            individual_price: this.global_editPlan.individual_price,
+            account_type: this.global_editPlan.account_type,
+            isPaid: this.global_editPlan.paid,
+            override_total_amount_status: this.global_editPlan.override_total_amount_status,
+            override_total_amount: this.global_editPlan.override_total_amount,
+            spending_default_invoice_day: this.global_editPlan.spending_default_invoice_day,
+          }
+          if(_formChecker_(params) == false){
+            return false;
+          }
+          request = _updateEmployeePlan_(params);
+          console.log(params);
+        }
+        if(this.global_isEditPlanDependetModalShow){
+          let params  = {
+            customer_id: Number(this.customer_id),
+            dependent_plan_id: this.global_editPlan.dependent_plan_id,
+            dependent_invoice_id: this.global_editPlan.dependent_invoice_id,
+            total_dependents: Number(this.global_editPlan.total_dependents),
+            plan_start: this.global_editPlan.plan_start ? moment( this.global_editPlan.plan_start ).format('YYYY-MM-DD') : null,
+            individual_price: this.global_editPlan.individual_price,
+            duration: this.global_editPlan.duration,
+            account_type: this.global_editPlan.account_type,
+            isPaid: this.global_editPlan.paid
+          }
+          if(_formChecker_(params) == false){
+            return false;
+          }
+          request = _updateDependentPlan_(params);
+          console.log(params);
+        }
+        
+        _showPageLoading_();
+        request.then((res)  =>  {
+          console.log(res);
+          if(res.status == 200 || res.status == 201){
+            this._showCorporatePlanModal_('view-plan',this.global_customerActivePlanData);
+            this.$swal('Success!', res.data.message, 'success');
+          }else{
+            _hidePageLoading_();
+            this.$swal('Error!', res.data.message, 'error');
+          }
+        });
+      },
+      _updateRecordPayments_(){
+        let request = null;
+       
+        if(this.global_isEmployeeRecordPayment){  // if Dependent Record Payment
+          let params  = {
+            customer_id: Number(this.customer_id),
+            active_plan_invoice_id: this.global_editPlan.active_plan_invoice_id,
+            paid_amount: Number(this.global_recordPayment.paid_amount),
+            transaction_date: this.global_recordPayment.transaction_date ? moment(this.global_recordPayment.transaction_date).format('YYYY-MM-DD') : null,
+            remarks: this.global_recordPayment.remarks,
+          }
+          if(_formChecker_(params) == false){
+            return false;
+          }
+          request = _updateEmployeeRecordPayment_(params);
+        }
+        if(this.global_isDependentRecordPayment){  // if Dependent Record Payment
+          let params  = {
+            dependent_plan_id: this.global_editPlan.dependent_plan_id,
+            dependent_invoice_id: this.global_editPlan.dependent_invoice_id,
+            paid_amount: Number(this.global_recordPayment.paid_amount),
+            transaction_date: this.global_recordPayment.transaction_date ? moment(this.global_recordPayment.transaction_date).format('YYYY-MM-DD') : null,
+            remarks: this.global_recordPayment.remarks
+          }
+          if(_formChecker_(params) == false){
+            return false;
+          }
+          request = _updateDependentRecordPayment_(params);
+        }
+
+        if(request){
+          _showPageLoading_();
+          request.then((res)  =>  {
+            console.log(res);
+            if(res.status == 200 || res.status == 201){
+              this._getViewPlanData_();
+              this.toggleRecordPayment();
+              this.$swal('Success!', res.data.message, 'success');
+            }else{
+              _hidePageLoading_();
+              this.$swal('Error!', res.data.message, 'error');
+            }
+          });
+        }
+      }
     }
   }
   
