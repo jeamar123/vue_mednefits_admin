@@ -57,7 +57,7 @@ export default {
   background-color: rgba(0, 0, 0, .5);
   display: table;
   transition: opacity .3s ease;
-  z-index: 99999;
+  z-index: 99;
 
   .modal-wrapper {
     display: flex;
