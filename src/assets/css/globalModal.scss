@@ -1175,9 +1175,9 @@
     }
     .modal-body {
       padding: 0 0px 20px 0px;
-      max-height: 70vh;
-      overflow-y: auto;
-      overflow-x: hidden;
+      // max-height: 70vh;
+      // overflow-y: auto;
+      // overflow-x: hidden;
       &::-webkit-scrollbar {
         width: 10px;
       }
@@ -1191,6 +1191,9 @@
         background-color: #ddd;
       }
       .account-list-container{
+        max-height: 70vh;
+        overflow-y: auto;
+        overflow-x: hidden;
         .account-list-box{
           margin-bottom: 50px;
           .header-title{
@@ -1211,7 +1214,8 @@
               margin-bottom: 8px;
               label{
                 display: inline-block;
-                width: 160px;
+                // width: 160px;
+                width: 155px;
               }
               >span{
                 color: #777;

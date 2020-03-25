@@ -220,6 +220,9 @@ const _formChecker_	=	(formData)	=>	{
 	if (formData.hasOwnProperty('phone_no') && !formData.phone_no) {
 		error_checkForm.push("Mobile Number.");
 	}
+	if (formData.hasOwnProperty('phone') && !formData.phone) {
+		error_checkForm.push("Phone Number.");
+	}
 	if (formData.hasOwnProperty('job_title') && !formData.job_title) {
 		error_checkForm.push("Job Title.");
 	}
@@ -268,6 +271,63 @@ const _formChecker_	=	(formData)	=>	{
 		error_checkForm.push('Wellness Credits.');
 	}
 
+	if (formData.hasOwnProperty('company_name') && !formData.company_name)	{
+		error_checkForm.push('Company Name.');
+	}
+	if (formData.hasOwnProperty('company_address') && !formData.company_address)	{
+		error_checkForm.push('Company Address.');
+	}
+	if (formData.hasOwnProperty('first_name') && !formData.first_name)	{
+		error_checkForm.push('First Name.');
+	}
+	if (formData.hasOwnProperty('last_name') && !formData.last_name)	{
+		error_checkForm.push('Last Name.');
+	}
+	if (formData.hasOwnProperty('billing_first_name') && !formData.billing_first_name)	{
+		error_checkForm.push('Billing First Name.');
+	}
+	if (formData.hasOwnProperty('billing_last_name') && !formData.billing_last_name)	{
+		error_checkForm.push('Billing Last Name.');
+	}
+	if (formData.hasOwnProperty('billing_email') && !formData.billing_email)	{
+		error_checkForm.push('Billing Email.');
+	}
+	if (formData.hasOwnProperty('billing_phone') && !formData.billing_phone)	{
+		error_checkForm.push('Billing Phone Number.');
+	}
+	if (formData.hasOwnProperty('companyContacts'))	{
+		formData.companyContacts.map((value, key)	=>	{
+			if (value.hasOwnProperty('first_name') && !value.first_name)	{
+				error_checkForm.push('Contact First Name.');
+			}
+			if (value.hasOwnProperty('last_name') && !value.last_name)	{
+				error_checkForm.push('Contact Last Name.');
+			}
+			if (value.hasOwnProperty('email') && !value.email)	{
+				error_checkForm.push('Contact Email.');
+			}
+			if (value.hasOwnProperty('phone') && !value.phone)	{
+				error_checkForm.push('Contact Phone Number.');
+			}
+		});
+	}
+
+	if (formData.hasOwnProperty('paid_amount') && !formData.paid_amount)	{
+		error_checkForm.push('Paid Amount.');
+	}
+	if (formData.hasOwnProperty('transaction_date') && !formData.transaction_date)	{
+		error_checkForm.push('Date Received.');
+	}
+	if (formData.hasOwnProperty('invoice_due_date') && !formData.invoice_due_date)	{
+		error_checkForm.push('Invoice Due Date.');
+	}
+	if (formData.hasOwnProperty('invoice_date') && !formData.invoice_date)	{
+		error_checkForm.push('Invoice Date.');
+	}
+	if (formData.hasOwnProperty('individual_price') && !formData.individual_price)	{
+		error_checkForm.push('Individual Price.');
+	}
+	
 	
 	if (!error_checkForm.length) {
 		return true;
@@ -496,12 +556,142 @@ const _deleteEclaimType_	= (params)	=> {
 		header:	defaultHeaders,
 	}
 }
+
+const _getActivePlans_ = (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.GET_ACTIVE_PLANS + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _createDependentAccount_ = (params)	=> {
+	let	req	=	{
+		method:	'POST',
+		url:	Config.CREATE_DEPENDENT_ACCOUNT,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _getSpendingSetttingsData_ = (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.GET_SPENDING_SETTINGS_DATA + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _uploadCreditAllocation_	= (params)	=> {
+	let	req	=	{
+		method:	'POST',
+		url:	Config.UPLOAD_CREDIT_ALLOCATION,
+		data: params,
+		header:	uploadHeaders,
+    };
+	return _axiosCall_(req);
+};
+
+const _fetchViewPlanData_ = (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.FETCH_VIEW_PLAN_DATA + '?customer_active_plan_id=' + params.customer_active_plan_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
 	
+const _fetchCompanyBusinessDetails_ = (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.COMPANY_BUSINESS_DETAILS + '?company_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
 
-const _onLoad_	=	() =>{
+const _updateCompanyStatus_ = (params)	=> {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.COMPANY_STATUS,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
 
-}	
-_onLoad_();
+const _updateCompanyBusinessDetails_ = (params)	=> {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.COMPANY_BUSINESS_DETAILS,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _deleteCompanyContact_ = (params)	=> {
+	let	req	=	{
+		method:	'DELETE',
+		url:	Config.COMPANY_CONTACT + '?company_id=' + params.company_id + '&company_contact_id=' + params.company_contact_id ,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _addBenefitsSpecialist_ = (params)	=> {
+	let	req	=	{
+		method:	'POST',
+		url:	Config.COMPANY_BENEFITS_SPECIALIST,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _updateDependentPlan_ = (params)	=> {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_PLAN_DEPENDENT,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _updateDependentRecordPayment_ = (params)	=> {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.DEPENDENT_RECORD_PAYMENT,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _updateEmployeeRecordPayment_ = (params)	=> {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.EMPLOYEE_RECORD_PAYMENT,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _updateEmployeePlan_ = (params)	=> {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_PLAN_EMPLOYEE,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
 
 export	{
 	_login_,
@@ -539,4 +729,18 @@ export	{
 	_createEclaimType_,
 	_updateEclaimType_,
 	_deleteEclaimType_,
+	_getActivePlans_,
+	_createDependentAccount_,
+	_getSpendingSetttingsData_,
+	_fetchCompanyBusinessDetails_,
+	_updateCompanyStatus_,
+	_updateCompanyBusinessDetails_,
+	_deleteCompanyContact_,
+	_addBenefitsSpecialist_,
+	_uploadCreditAllocation_,
+	_fetchViewPlanData_,
+	_updateDependentPlan_,
+	_updateDependentRecordPayment_,
+	_updateEmployeePlan_,
+	_updateEmployeeRecordPayment_,
 }

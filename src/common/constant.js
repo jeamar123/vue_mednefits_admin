@@ -34,6 +34,19 @@ const ECLAIM_TYPE_LIST = `${SERVERURL}/company/get_e_claim_type_services`;
 const CREATE_ECLAIM_TYPE = `${SERVERURL}/company/create_claim_type_service`;
 const UPDATE_ECLAIM_TYPE = `${SERVERURL}/company/update_claim_type_service`;
 const DELETE_ECLAIM_TYPE = `${SERVERURL}/company/remove_claim_type_service`;
+const GET_ACTIVE_PLANS = `${SERVERURL}/company/getPlanLists`;
+const CREATE_DEPENDENT_ACCOUNT = `${SERVERURL}/company/createDependentAccount`;
+const GET_SPENDING_SETTINGS_DATA = `${SERVERURL}/company/getSpendingAccountSettings`;
+const COMPANY_BUSINESS_DETAILS = `${SERVERURL}/company/companyBusinessDetails`;
+const COMPANY_STATUS = `${SERVERURL}/company/companyStatus`;
+const COMPANY_CONTACT = `${SERVERURL}/company/companyContact`;
+const COMPANY_BENEFITS_SPECIALIST = `${SERVERURL}/company/companyBenefitsSpecialist`;
+const UPLOAD_CREDIT_ALLOCATION = `${SERVERURL}/company/companyAllocateCredits`;
+const FETCH_VIEW_PLAN_DATA = `${SERVERURL}/company/getCustomerActivePlanDetails`;
+const UPDATE_PLAN_DEPENDENT = `${SERVERURL}/company/updateDependentPlanEdit`;
+const DEPENDENT_RECORD_PAYMENT = `${SERVERURL}/company/updateDependentPlanRecordPayment`;
+const UPDATE_PLAN_EMPLOYEE = `${SERVERURL}/company/updateEmployeePlanEdit`;
+const EMPLOYEE_RECORD_PAYMENT = `${SERVERURL}/company/updatePlanRecordPayment`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -62,5 +75,18 @@ module.exports = {
 	ECLAIM_TYPE_LIST,
 	CREATE_ECLAIM_TYPE,
 	UPDATE_ECLAIM_TYPE,
-	DELETE_ECLAIM_TYPE
+	DELETE_ECLAIM_TYPE,
+	GET_ACTIVE_PLANS,
+	CREATE_DEPENDENT_ACCOUNT,
+	GET_SPENDING_SETTINGS_DATA,
+	COMPANY_BUSINESS_DETAILS,
+	COMPANY_STATUS,
+	COMPANY_CONTACT,
+	COMPANY_BENEFITS_SPECIALIST,
+	UPLOAD_CREDIT_ALLOCATION,
+	FETCH_VIEW_PLAN_DATA,
+	UPDATE_PLAN_DEPENDENT,
+	DEPENDENT_RECORD_PAYMENT,
+	UPDATE_PLAN_EMPLOYEE,
+	EMPLOYEE_RECORD_PAYMENT,
 }

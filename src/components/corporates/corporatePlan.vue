@@ -1,6 +1,21 @@
 <script>
   import Modal from "../../views/modal/Modal.vue";
-  import axios from 'axios'
+  import axios from 'axios';
+  import moment, { locale } from "moment";
+  import { 
+    _getActivePlans_,
+    _createDependentAccount_,
+    _getSpendingSetttingsData_,
+    _uploadCreditAllocation_,
+    _fetchViewPlanData_,
+    _updateDependentPlan_,
+    _showPageLoading_,
+    _hidePageLoading_,
+    _updateDependentRecordPayment_,
+    _formChecker_,
+    _updateEmployeePlan_,
+    _updateEmployeeRecordPayment_,
+  } from '../../common/functions/common_functions';
    
   let corporatePlan = {
     components: {
@@ -28,22 +43,62 @@
         global_isSpendingAccountModalShow: false,
         global_isCreditAllocationModalShow: false,
         global_creditAllocationDeposit: 0,
-        global_getSpendingSettings: {
-          medical_enable: false,
-          wellness_enable: false,
-        },
         global_isPendingEnrollmentModalShow: false,
         global_isRecordFundModalShow: false,
         global_isEditDepositModalShow: false,
         global_isEditPlanModalShow: false,
+        global_isEditPlanDependetModalShow: false,
         global_editPlan: {
           payment_status: false,
           
-        }
+        },
+        global_getPlans: {
+          current_plan: {
+            plan_start: undefined,
+          },
+          old_plans: {}
+        },
+        global_oldPlanStartDate: undefined,
+        global_addDependentData: {
+          start_date: undefined,
+          total_dependents: 0,
+          account_type: undefined,
+          secondary_account_type: undefined,
+          is_paid: 0,
+          individual_price: 0,
+        },
+        global_getSpendingData: {
+          spending_account: false,
+          medical_spending_start_date: new Date(),
+          medical_spending_end_date: new Date(),
+          wellness_spending_start_date: new Date(),
+          wellness_spending_end_date: new Date(),
+        },
+        global_customerPlanData: {},
+        global_creditAllocationData: {
+          credit_amount: 0,
+        },
+        global_creditSpendingType: 'medical',
+        global_creditAllocationType: 'add',
+        global_spendingDeposit: {
+          medical_deposit: 0,
+          wellness_deposit: 0,
+        },
+        global_customerActivePlansOld: {},
+        global_viewPlanData: {
+          employee_plan: {},
+          dependent_plans: [],
+          spending_deposits: [],
+          employee_refunds: [],
+          dependent_refunds: [],
+        },
+        global_isEmployeeRecordPayment: false,
+        global_isDependentRecordPayment: false,
       };
     },
     created(){
       // this.corporateViewStatus = this.$route.name;
+      this._fecthPlanList_();
     },
     methods: {
       showPlanActive(value,text) {
@@ -60,9 +115,21 @@
         this.global_isCreditAllocationModalShow = false;
         this.global_isPendingEnrollmentModalShow = false;
         this.global_isEditDepositModalShow = false;
+
+        // this.global_addDependentData = {};
       },
-      toggleRecordPayment()  {
+      toggleRecordPayment(type, data)  {
+        this.global_recordPayment = {};
         this.global_isRecordPaymentShow = this.global_isRecordPaymentShow == false ? true : false;
+        this.global_editPlan = data;
+        this.global_isEmployeeRecordPayment = false;
+        this.global_isDependentRecordPayment = false;
+        if(type == 'dependent'){
+          this.global_isDependentRecordPayment = true;
+        }
+        if(type == 'employee'){
+          this.global_isEmployeeRecordPayment = true;
+        }
       },
       _downloadInvoice_(data,type) {
         if( type == 'receipt' ){
@@ -71,39 +138,55 @@
           window.open( window.location.origin + '/#/dashboard/download-pdf/' + this.customer_id );
         }
       },
-      _showCorporatePlanModal_( opt ) {
+      _showCorporatePlanModal_( opt,list ) {
         console.log(opt);
         if ( opt == 'create-dependent-account' ) {
           this.global_isCreateDependentModalShow = this.global_isCreateDependentModalShow == false ? true : false;
         }
         if ( opt == 'spending-account-settings' ) {
           this.global_isSpendingAccountModalShow = this.global_isSpendingAccountModalShow == false ? true : false;
+          this._fetchSpendingData_();
         }
         if ( opt == 'credit-allocation' ) {
           this.global_isCreditAllocationModalShow = this.global_isCreditAllocationModalShow == false ? true : false;
+          this.global_creditAllocationData = {};
+          this.global_creditAllocationData.amount = 0;
+          this.global_creditAllocationData.deposit = 0;
+          // console.log(list);
+          this.global_customerPlanData = list;
         }
-        if ( opt == 'view-plan' ) {
+        if ( opt == 'view-plan' || opt == 'edit-close' ) { 
           this.global_isViewPlanModalShow = this.global_isViewPlanModalShow == false ? true : false;
           this.global_isRecordFundModalShow = false;
           this.global_isEditDepositModalShow = false;
           this.global_isEditPlanModalShow = false;
+          this.global_isEditPlanDependetModalShow = false;
+          this.global_isDependentRecordPayment = false;
+          this.global_customerActiveId = list.customer_active_plan_id;
+          // console.log(this.global_customerActiveId);
+
+          //declaring a global_customerActivePlanData variable for back button in edit plan
+          this.global_customerActivePlanData = list;
+          if(opt == 'view-plan'){
+            this._getViewPlanData_();
+          }
         }
       },
       ___medicalSelector( opt ) {
         if ( opt == true ) {
-          this.global_getSpendingSettings.medical_enable = true;
+          this.global_getSpendingData.medical_enable = true;
         } else {
-          this.global_getSpendingSettings.medical_enable = false;
+          this.global_getSpendingData.medical_enable = false;
         }
       },
       ___wellnessSelector( opt ) {
         if ( opt == true ) {
-          this.global_getSpendingSettings.wellness_enable = true;
+          this.global_getSpendingData.wellness_enable = true;
         } else {
-          this.global_getSpendingSettings.wellness_enable = false;
+          this.global_getSpendingData.wellness_enable = false;
         }
       },
-      _showViewPlanModal_( type ) {
+      _showViewPlanModal_( type, data ) {
         this.global_isViewPlanModalShow = false;
 
         if ( type == 'pending-enrollment' ) {
@@ -115,8 +198,23 @@
         if ( type == 'edit-deposit' ) {
           this.global_isEditDepositModalShow = true;
         }
-        if ( type == 'edit-plan' ) {
+        if ( type == 'edit-plan-employee' ) {
           this.global_isEditPlanModalShow = true;
+          this.global_editPlan = data;
+          this.global_editPlan.plan_start = new Date(this.global_editPlan.plan_start);
+          this.global_editPlan.invoice_date = new Date(this.global_editPlan.invoice_date);
+          this.global_editPlan.invoice_due_date = new Date(this.global_editPlan.invoice_due_date);
+          console.log('employee');
+        }
+        if ( type == 'edit-plan-dependent' ) {
+          this.global_isEditPlanDependetModalShow = true;
+          this.global_editPlan = data;
+          this.global_editPlan.plan_start = new Date(this.global_editPlan.plan_start);
+          console.log('dependent');
+        }
+        if ( type == 'edit-plan-extension' ) {
+          this.global_isEditPlanModalShow = true;
+          console.log('extension');
         }
       },
       _setAccountType_(account_type)  {
@@ -151,6 +249,235 @@
       _setSecondaryAccountType_(account_type)  {
         this.$forceUpdate();
       },
+      _fecthPlanList_(index) {
+        let params = {
+          customer_id :	Number(this.customer_id),
+        };
+        this.$parent.showLoading();
+        _getActivePlans_(params)
+					.then(( res ) => {
+            console.log(res);
+            this.$parent.hideLoading();
+            this.global_getPlans = res.data.data;
+            this.global_customerActivePlansOld = this.global_getPlans.old_plans;
+            this.global_getPlans.current_plan.plan_start = moment(this.global_getPlans.current_plan.plan_start).format("DD MMMM, YYYY");
+
+            // for (let i = 0;i < this.global_customerActivePlansOld.length; i++) {
+            //   this.global_oldPlanCustomerAtivePlan = this.global_customerActivePlansOld[i].customer_active_plans;
+            //   console.log(this.global_oldPlanCustomerAtivePlan);
+            //   console.log(this.global_customerActivePlansOld[i].customer_active_plans[i].dependents[i]);
+            // }
+
+					});
+      },
+      _dependentActiveButton_( opt ) {
+        this.global_addDependentData.is_paid = opt;
+      },
+      _submitDependentAccount_() {
+        let params = {
+          customer_id :	Number(this.customer_id),
+          total_dependents: this.global_addDependentData.total_dependents,
+          plan_start: moment(this.global_addDependentData.start_date).format('YYYY-MM-DD'),
+          account_type: this.global_addDependentData.account_type,
+          secondary_account_type: this.global_addDependentData.secondary_account_type,
+          isPaid: this.global_addDependentData.is_paid,
+          individual_price: this.global_addDependentData.individual_price,
+        };
+        _createDependentAccount_(params)
+					.then(( res ) => {
+            console.log(res);
+            if( res.status == 200 || res.status == 201 ){ 
+              this.$swal("Success!", res.data.message, "success");
+              this._resetAddDependents_();
+              this.global_isCreateDependentModalShow = false;
+            }
+					});
+      },
+      _resetAddDependents_() {
+        this.global_addDependentData = {
+          is_paid: 0,
+          total_dependents: 0,
+          individual_price: 0,
+          account_type: '',
+          secondary_account_type: '',
+        }
+      },
+      _spendingAccountWallet_( opt ) {
+        console.log(opt);
+
+        if ( opt === 'false' ) {
+          this.global_getSpendingData.spending_account = (this.global_getSpendingData.spending_account === false);
+          console.log(this.global_getSpendingData.spending_account);
+          this.global_getSpendingData.medical_enable = false;
+          this.global_getSpendingData.wellness_enable = false;
+        }
+      },
+      _fetchSpendingData_() {
+        let params = {
+          customer_id :	Number(this.customer_id),
+        };
+        this.$parent.showLoading();
+        _getSpendingSetttingsData_(params)
+					.then(( res ) => {
+            // console.log(res);
+            if( res.status == 200 || res.status == 201 ){
+              this.$parent.hideLoading(); 
+              this.global_getSpendingData = res.data.data;
+              console.log(this.global_getSpendingData);
+
+              this.global_getSpendingData.medical_spending_start_date = new Date(moment(this.global_getSpendingData.medical_spending_start_date));
+              this.global_getSpendingData.medical_spending_end_date = new Date(moment(this.global_getSpendingData.medical_spending_end_date));
+              this.global_getSpendingData.wellness_spending_start_date = new Date(moment(this.global_getSpendingData.wellness_spending_start_date));
+              this.global_getSpendingData.wellness_spending_end_date = new Date(moment(this.global_getSpendingData.wellness_spending_end_date));
+              
+            }
+					});
+      },
+      _selectCreditAllocationSpending_( opt ) {
+        this.global_creditSpendingType = opt;
+      },
+      _selectCreditAllocationType_( opt ) {
+        this.global_creditAllocationType = opt;
+      },
+      _updateCreditAllocation_() {
+        let params = {
+          customer_id: this.customer_id,
+          spending_type: this.global_creditSpendingType,
+          allocation_type: this.global_creditAllocationType,
+          credits: this.global_creditAllocationData.credit_amount,
+          customer_active_plan_id: this.global_customerPlanData.customer_plan_id,
+          medical_deposit: this.global_spendingDeposit.medical_deposit,
+          wellness_deposit: this.global_spendingDeposit.wellness_deposit,
+        }
+        _uploadCreditAllocation_(params)
+					.then(( res ) => {
+            // console.log(res);
+            if( res.status == 200 || res.status == 201 ){
+              this.$swal("Success!", res.data.message, "success");
+              this._fecthPlanList_();
+              this.global_isCreditAllocationModalShow = false;
+              this.global_spendingDeposit = {
+                medical_deposit: 0,
+                wellness_deposit: 0,
+              }
+            }
+					});
+      },
+      _getViewPlanData_() {
+        let params = {
+          customer_active_plan_id: this.global_customerActiveId,
+        }
+        _showPageLoading_();
+        _fetchViewPlanData_(params)
+					.then(( res ) => {
+            // console.log(res);
+            if( res.status == 200 || res.status == 201 ){
+              this.global_viewPlanData = res.data.data;
+              console.log(this.global_viewPlanData);
+            }
+            _hidePageLoading_();
+					});
+      },
+      _updatePlan_(){
+        let request = null;
+        if(this.global_isEditPlanModalShow){
+          let params  = {
+            customer_id: Number(this.customer_id),
+            customer_active_plan_id: this.global_editPlan.customer_active_plan_id,
+            active_plan_invoice_id: this.global_editPlan.customer_active_plan_id,
+            employees: Number(this.global_editPlan.employees),
+            plan_start: this.global_editPlan.plan_start ? moment( this.global_editPlan.plan_start ).format('YYYY-MM-DD') : null,
+            invoice_due_date: this.global_editPlan.invoice_due_date ? moment( this.global_editPlan.invoice_due_date ).format('YYYY-MM-DD') : null,
+            invoice_date: this.global_editPlan.invoice_date ? moment( this.global_editPlan.invoice_date ).format('YYYY-MM-DD') : null,
+            individual_price: this.global_editPlan.individual_price,
+            account_type: this.global_editPlan.account_type,
+            isPaid: this.global_editPlan.paid,
+            override_total_amount_status: this.global_editPlan.override_total_amount_status,
+            override_total_amount: this.global_editPlan.override_total_amount,
+            spending_default_invoice_day: this.global_editPlan.spending_default_invoice_day,
+          }
+          if(_formChecker_(params) == false){
+            return false;
+          }
+          request = _updateEmployeePlan_(params);
+          console.log(params);
+        }
+        if(this.global_isEditPlanDependetModalShow){
+          let params  = {
+            customer_id: Number(this.customer_id),
+            dependent_plan_id: this.global_editPlan.dependent_plan_id,
+            dependent_invoice_id: this.global_editPlan.dependent_invoice_id,
+            total_dependents: Number(this.global_editPlan.total_dependents),
+            plan_start: this.global_editPlan.plan_start ? moment( this.global_editPlan.plan_start ).format('YYYY-MM-DD') : null,
+            individual_price: this.global_editPlan.individual_price,
+            duration: this.global_editPlan.duration,
+            account_type: this.global_editPlan.account_type,
+            isPaid: this.global_editPlan.paid
+          }
+          if(_formChecker_(params) == false){
+            return false;
+          }
+          request = _updateDependentPlan_(params);
+          console.log(params);
+        }
+        
+        _showPageLoading_();
+        request.then((res)  =>  {
+          console.log(res);
+          if(res.status == 200 || res.status == 201){
+            this._showCorporatePlanModal_('view-plan',this.global_customerActivePlanData);
+            this.$swal('Success!', res.data.message, 'success');
+          }else{
+            _hidePageLoading_();
+            this.$swal('Error!', res.data.message, 'error');
+          }
+        });
+      },
+      _updateRecordPayments_(){
+        let request = null;
+       
+        if(this.global_isEmployeeRecordPayment){  // if Dependent Record Payment
+          let params  = {
+            customer_id: Number(this.customer_id),
+            active_plan_invoice_id: this.global_editPlan.active_plan_invoice_id,
+            paid_amount: Number(this.global_recordPayment.paid_amount),
+            transaction_date: this.global_recordPayment.transaction_date ? moment(this.global_recordPayment.transaction_date).format('YYYY-MM-DD') : null,
+            remarks: this.global_recordPayment.remarks,
+          }
+          if(_formChecker_(params) == false){
+            return false;
+          }
+          request = _updateEmployeeRecordPayment_(params);
+        }
+        if(this.global_isDependentRecordPayment){  // if Dependent Record Payment
+          let params  = {
+            dependent_plan_id: this.global_editPlan.dependent_plan_id,
+            dependent_invoice_id: this.global_editPlan.dependent_invoice_id,
+            paid_amount: Number(this.global_recordPayment.paid_amount),
+            transaction_date: this.global_recordPayment.transaction_date ? moment(this.global_recordPayment.transaction_date).format('YYYY-MM-DD') : null,
+            remarks: this.global_recordPayment.remarks
+          }
+          if(_formChecker_(params) == false){
+            return false;
+          }
+          request = _updateDependentRecordPayment_(params);
+        }
+
+        if(request){
+          _showPageLoading_();
+          request.then((res)  =>  {
+            console.log(res);
+            if(res.status == 200 || res.status == 201){
+              this._getViewPlanData_();
+              this.toggleRecordPayment();
+              this.$swal('Success!', res.data.message, 'success');
+            }else{
+              _hidePageLoading_();
+              this.$swal('Error!', res.data.message, 'error');
+            }
+          });
+        }
+      }
     }
   }
   

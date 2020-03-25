@@ -200,7 +200,7 @@
   }
 
   .dependent-list-info-wrapper {
-    height: 220px;
+    height: 160px;
     overflow-y: auto;
 
     .dependent-list-info {
@@ -217,6 +217,9 @@
 
   .account-container {
     margin: 0 0 20px;
+    >div:first-child {
+      margin: 0 0 20px;
+    }
   }
 
   .active-plans-info {
@@ -224,6 +227,7 @@
     margin: 0 10px 20px 0;
     box-shadow: 1px 1px 10px #8c8989;
     display: inline-block;
+    vertical-align: top;
   }
 
   .account-title {
