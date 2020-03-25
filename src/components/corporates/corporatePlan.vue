@@ -102,6 +102,7 @@
         searchActive: false,
         global_isEmployeeRecordPayment: false,
         global_isDependentRecordPayment: false,
+        global_isEmployeeRefundRecordPayment: false,
       };
     },
     created(){
@@ -138,6 +139,9 @@
         }
         if(type == 'employee'){
           this.global_isEmployeeRecordPayment = true;
+        }
+        if(type == 'employee'){
+          this.global_isEmployeeRefundRecordPayment = true;
         }
       },
       _downloadInvoice_(data,type) {
@@ -532,6 +536,10 @@
             return false;
           }
           request = _updateDependentRecordPayment_(params);
+        }
+
+        if(this.global_isEmployeeRefundRecordPayment){  // if Employee Refund Record Payment
+
         }
 
         if(request){

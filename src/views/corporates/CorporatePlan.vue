@@ -514,7 +514,7 @@
 								</div>
 								<div class="column">
 									<button class="btn-gray">Download</button>
-									<button v-on:click="toggleRecordPayment()" class="btn-primary">Record Refund</button>
+									<button v-on:click="toggleRecordPayment(list)" class="btn-primary">Record Refund</button>
 								</div>
 							</div>
 						</div>
