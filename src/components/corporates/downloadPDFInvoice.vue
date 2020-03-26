@@ -2,27 +2,118 @@
   import axios from 'axios';
   import jsPDF from 'jspdf'
   import 'jspdf-autotable'
-  // import htmlToImage from 'html-to-image';
+
+  import { 
+    _fetchViewPlanData_,
+    _showPageLoading_,
+    _hidePageLoading_,
+  } from '../../common/functions/common_functions';
 
   let downloadPDFInvoice = {
     props: {
       customer_id: [String, Number],
+      customer_active_plan_id: [String, Number],
+      type: [String, Number],
+      index: [String, Number],
     },
     data() {
       return {
-        logo : this._getBase64Image_( window.location.origin + '/assets/img/latest logo/mobile-logo-blue-latest.png' ),
+        global_planData : {},
       };
     },
     created(){
-
+      console.log(this.type);
+      console.log(this.index);
+      this._getPlanData_();
     },
     methods: {
+      _getPlanData_() {
+        let params = {
+          customer_active_plan_id: this.customer_active_plan_id,
+        }
+        _showPageLoading_();
+        _fetchViewPlanData_(params)
+					.then(( res ) => {
+            // console.log(res);
+            if( res.status == 200 || res.status == 201 ){
+              /*----- Invoice Plan/Account type -------*/
+              /*----- 1 = Employee Account ------------*/
+              /*----- 2 = Dependent Account -----------*/   
+              /*----- 3 = Spending Deposit Account ----*/   
+              /*----- 4 = Employee Refund -------------*/   
+              /*----- 5 = Dependent Refund ------------*/   
+              /*----- 6 = Plan Extension --------------*/
+              /*---------------------------------------*/
+
+              if(this.type == 1){
+                this.global_planData = res.data.data.employee_plan;
+              }
+              if(this.type == 2){
+                this.global_planData = res.data.data.dependent_plans[this.index];
+              }
+              if(this.type == 3){
+                this.global_planData = res.data.data.spending_deposits[this.index];
+              }
+              if(this.type == 4){
+                this.global_planData = res.data.data.employee_refunds[this.index];
+              }
+              if(this.type == 5){
+                this.global_planData = res.data.data.dependent_refunds[this.index];
+              }
+              if(this.type == 6){
+                this.global_planData = res.data.data.plan_extension;
+              }
+              console.log(this.global_planData);
+            }
+            _hidePageLoading_();
+					});
+      },
       async _downloadAsPdf_(){
-        const doc = new jsPDF('p','mm');
-        doc.setDrawColor(238, 238, 238);
-        doc.rect(5,5,doc.internal.pageSize.width - 10, doc.internal.pageSize.height - 10, 'S');
-        doc.autoTable({ html: '#my-table' });
-        let content = [
+        const pdfDoc = new jsPDF('p','mm');
+        pdfDoc.setDrawColor(238, 238, 238);
+        pdfDoc.autoTable({ html: '#my-table' });
+        let pdfHeader = await this._renderHeader_(pdfDoc);
+        let pdfSubHeader = await this._renderSubHeader_(pdfDoc);
+        let pdfTable = await this._renderTable_(pdfDoc);
+        let pdfTotal = await this._renderTotal_(pdfDoc);
+        let pdfFooter = await this._renderFooter_(pdfDoc);
+        
+
+        console.log('pdfHeader', pdfHeader);
+        console.log('pdfSubHeader', pdfSubHeader);
+        console.log('pdfTable', pdfTable);
+        console.log('pdfTotal', pdfTotal);
+        console.log('pdfFooter', pdfFooter);
+        // doc.save('table.pdf')
+        window.open(pdfDoc.output('bloburl'), '_blank');
+      },
+      _getBase64Image_(url){
+        let img = new Image();
+        let canvas = document.createElement('canvas');
+        let dataURL;
+        img.src = url;
+        let promise = new Promise((resolve, reject)	=>	{
+          img.onload = function(){
+            canvas.width = img.width;
+            canvas.height = img.height;
+            let context = canvas.getContext('2d');
+            context.drawImage(img, 0, 0);
+            dataURL = canvas.toDataURL('image/png');
+            resolve(dataURL);
+            return dataURL;
+          };
+        });
+        return promise;
+      },
+      async _renderHeader_(pdfDoc){
+        pdfDoc.setTextColor(228,228,228);
+        pdfDoc.setFontSize(120);
+        pdfDoc.text('PAID', 70, 105, null, 30 );
+
+        let logo = await this._getBase64Image_(window.location.origin + '/assets/img/latest logo/mobile-logo-blue-latest.png');
+        pdfDoc.addImage(logo, "PNG", 15, 25, 80, 15);
+
+        let header = [
           [
             { 
               content: '', 
@@ -75,7 +166,7 @@
             'mednefits.com'
           ],
         ];
-        doc.autoTable({
+        pdfDoc.autoTable({
           theme: 'plain',
           margin: { top: 0, bottom: 0, left: 15, right: 15 },
           startY: 10,
@@ -93,14 +184,14 @@
               textColor: '#444'
             }
           },
-          body: content,
-          didDrawCell: (data) => {
-            // console.log( data );
-          },
+          body: header,
         })
+        pdfDoc.rect(5,5,pdfDoc.internal.pageSize.width - 10, pdfDoc.internal.pageSize.height - 10, 'S');
 
-        doc.line(5, 70, doc.internal.pageSize.width - 5, 70);
-        let content2 = [
+        return true;
+      },
+      async _renderSubHeader_(pdfDoc){
+        let subHeader = [
           [
             { 
               content: 'BILL TO', 
@@ -195,7 +286,7 @@
           ],
           [],
         ];
-        doc.autoTable({
+        pdfDoc.autoTable({
           theme: 'plain',
           margin: { top: 0, bottom: 0, left: 15, right: 15 },
           startY: 75,
@@ -222,10 +313,14 @@
               textColor: '#666'
             },
           },
-          body: content2,
+          body: subHeader,
         })
+        pdfDoc.line(5, 70, pdfDoc.internal.pageSize.width - 5, 70);
 
-        let content3 = [
+        return true;
+      },
+      async _renderTable_(pdfDoc){
+        let tableHeader = [
           [
             {
               content : '',
@@ -271,7 +366,7 @@
             },
           ],
         ];
-        doc.autoTable({
+        pdfDoc.autoTable({
           theme: 'plain',
           margin: { top: 0, bottom: 0, left: 5, right: 5 },
           startY: 120,
@@ -300,11 +395,9 @@
               cellWidth: 8
             },
           },
-          body: content3,
+          body: tableHeader,
         })
-
-        doc.line(5, 205, doc.internal.pageSize.width - 5, 205);
-        let content4 = [
+        let tableBody = [
           [
             {
               content: '',
@@ -386,7 +479,7 @@
             'Plan Duration: 12 months'
           ],
         ];
-        doc.autoTable({
+        pdfDoc.autoTable({
           theme: 'plain',
           margin: { top: 0, bottom: 0, left: 5, right: 5 },
           startY: 135,
@@ -419,11 +512,14 @@
               cellWidth: 8
             },
           },
-          body: content4,
+          body: tableBody,
         })
+        pdfDoc.line(5, 205, pdfDoc.internal.pageSize.width - 5, 205);
 
-        doc.line(130, 217.5, 195, 217.5);
-        let content5 = [
+        return true;
+      },
+      async _renderTotal_(pdfDoc){
+        let total = [
           [
             '',
             {
@@ -451,7 +547,7 @@
             ''
           ],
         ];
-        doc.autoTable({
+        pdfDoc.autoTable({
           theme: 'plain',
           margin: { top: 0, bottom: 0, left: 5, right: 5 },
           startY: 210,
@@ -477,9 +573,16 @@
               cellWidth: 8
             },
           },
-          body: content5,
+          body: total,
         })
+        pdfDoc.line(130, 217.5, 195, 217.5);
 
+        return true;
+      },
+      async _renderFooter_(pdfDoc){
+        let stamp = await this._getBase64Image_(window.location.origin + '/assets/img/invoice bottom stamp.png');
+        pdfDoc.addImage(stamp, "PNG", pdfDoc.internal.pageSize.getWidth() - 50, pdfDoc.internal.pageSize.getHeight() - 60, 35, 35);
+        
         let paymentInfo = [
           [
             {
@@ -562,7 +665,7 @@
             },
           ],
         ];
-        doc.autoTable({
+        pdfDoc.autoTable({
           theme: 'plain',
           margin: { top: 0, bottom: 0, left: 14, right: 14 },
           startY: 215,
@@ -575,7 +678,6 @@
           },
           body: paymentInfo,
         })
-
         let copyright = [
           [
             {
@@ -583,7 +685,7 @@
             }
           ],
         ];
-        doc.autoTable({
+        pdfDoc.autoTable({
           theme: 'plain',
           margin: { top: 0, bottom: 0, left: 14, right: 14 },
           startY: 285,
@@ -598,26 +700,8 @@
           },
           body: copyright,
         })
-        
-        // doc.save('table.pdf')
-        console.log(this.logo);
-        doc.addImage(this.logo, "JPEG", 60,50); 
-        window.open(doc.output('bloburl'), '_blank');
-      },
-       _getBase64Image_(url){
-        let img = new Image();
-        let dataURL;
-        img.src = url;
-        img.onload = () => {
-          let canvas = document.createElement('canvas');
-          canvas.width = img.width;
-          canvas.height = img.height;
-          let context = canvas.getContext('2d');
-          context.drawImage(img, 0, 0);
-          dataURL = canvas.toDataURL('image/jpeg');
-          console.log(dataURL);
-          return dataURL;
-        }
+
+        return true;
       },
     }
   }
