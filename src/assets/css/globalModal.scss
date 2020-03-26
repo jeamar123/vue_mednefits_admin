@@ -1136,11 +1136,15 @@
         position: absolute;
         right: 20px;
         top: 22px;
+        cursor: pointer;
       }
     }
 
     .modal-body {
       padding: 20px 32px;
+    }
+    .checkbox-child {
+      padding: 0 0 0 35px;
     }
 
     .modal-footer {
@@ -2251,3 +2255,86 @@
   }
 }
 // ---------------------------------------------  //
+
+
+// ------ CREATE PLAN EXTENSTION IN VIEW PLAN ------ //
+.create-plan-extension-modal {
+  .modal-header {
+    i {
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+  .create-plan-body >div {
+    width: 50%;
+  }
+  .plan-extension-col-2 >div {
+    margin: 0 0 20px;
+  }
+  .modal-body {
+    .custom-checkbox-selector label {
+      font-size: 14px;
+      color: #333;
+    }
+    .checkbox-child {
+      padding: 0 0 0 35px;
+    }
+    input {
+      width: auto;
+    }
+  }
+  .payment-status-container {
+    .payment-title {
+      margin: 0 0 10px;
+    }
+    .custom-checkbox-selector {
+      margin: 0 20px 0 0;
+    }
+  }
+  .invoice-date-container {
+    width: 100%;
+  }
+  .plan-extension-input-wrapper {
+    position: relative;
+    select {
+      -webkit-appearance: none;
+    }
+    input {
+      width: 100%;
+    }
+
+    .fa-caret-down {
+      top: 10px;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .create-plan-extension-modal {
+    .modal-wrapper {
+      height: 100%;
+    }
+    .modal-container {
+      width: 100%;
+      margin: 0 20px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .create-plan-extension-modal {
+    .modal-container {
+      margin: 50px 20px 0;
+    }
+    .create-plan-body > div {
+      width: 100%;
+    }
+  }
+  .create-plan-body {
+    display: block;
+  }
+  .payment-status-container .dp-flex {
+    display: block;
+  }
+}
+// -----------------------------------------------  //

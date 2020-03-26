@@ -704,6 +704,18 @@ const _updateEmployeePlan_ = (params)	=> {
 	return _axiosCall_(req);
 }
 
+const _updateAccountPlanType_ = (params) => {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_ACCOUNT_PLAN_TYPE,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+
+
 export	{
 	_login_,
 	_goBack_,
@@ -754,4 +766,5 @@ export	{
 	_updateDependentRecordPayment_,
 	_updateEmployeePlan_,
 	_updateEmployeeRecordPayment_,
+	_updateAccountPlanType_,
 }

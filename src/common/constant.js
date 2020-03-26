@@ -47,6 +47,7 @@ const UPDATE_PLAN_DEPENDENT = `${SERVERURL}/company/updateDependentPlanEdit`;
 const DEPENDENT_RECORD_PAYMENT = `${SERVERURL}/company/updateDependentPlanRecordPayment`;
 const UPDATE_PLAN_EMPLOYEE = `${SERVERURL}/company/updateEmployeePlanEdit`;
 const EMPLOYEE_RECORD_PAYMENT = `${SERVERURL}/company/updatePlanRecordPayment`;
+const UPDATE_ACCOUNT_PLAN_TYPE = `${SERVERURL}/company/updateAccountPlanType`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -89,4 +90,5 @@ module.exports = {
 	DEPENDENT_RECORD_PAYMENT,
 	UPDATE_PLAN_EMPLOYEE,
 	EMPLOYEE_RECORD_PAYMENT,
+	UPDATE_ACCOUNT_PLAN_TYPE,
 }
