@@ -140,11 +140,21 @@
           this.global_isEmployeeRecordPayment = true;
         }
       },
-      _downloadInvoice_(data,type) {
+      _downloadInvoice_(data, type, account_type, index) {
+        console.log(data);
+        /*----- Invoice Plan/Account type -------*/
+        /*----- 1 = Employee Account ------------*/
+        /*----- 2 = Dependent Account -----------*/   
+        /*----- 3 = Spending Deposit Account ----*/   
+        /*----- 4 = Employee Refund -------------*/   
+        /*----- 5 = Dependent Refund ------------*/   
+        /*----- 6 = Plan Extension --------------*/
+        /*---------------------------------------*/
+        
         if( type == 'receipt' ){
-          window.open( window.location.origin + '/#/dashboard/download-receipt/' + this.customer_id );
+          window.open( window.location.origin + '/#/dashboard/download-receipt/' + this.customer_id  );
         }else{
-          window.open( window.location.origin + '/#/dashboard/download-pdf/' + this.customer_id );
+          window.open( window.location.origin + '/#/dashboard/download-pdf/' + this.customer_id + '/' + this.global_customerActiveId + '/' + account_type + '/' + index );
         }
       },
       _showCorporatePlanModal_( opt,list ) {
