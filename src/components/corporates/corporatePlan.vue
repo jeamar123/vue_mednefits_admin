@@ -17,6 +17,7 @@
     _formChecker_,
     _updateEmployeePlan_,
     _updateEmployeeRecordPayment_,
+    _updateAccountPlanType_,
   } from '../../common/functions/common_functions';
    
   let corporatePlan = {
@@ -102,6 +103,9 @@
         searchActive: false,
         global_isEmployeeRecordPayment: false,
         global_isDependentRecordPayment: false,
+        global_isEmployeeRefundRecordPayment: false,
+        global_selectPlanType: { },
+        global_isCreatePlanExtensionShow: false,
       };
     },
     created(){
@@ -113,8 +117,9 @@
         this.planSelectorActive.value = value;
         this.planSelectorActive.text = text;
       },
-      showAccountPlanType() {
+      showAccountPlanType(list) {
         this.accountPlanTypeModal = this.accountPlanTypeModal == false ? true : false;
+        this.global_currentCustomerPlanId = list.customer_active_plan_id;
       },
       toggleClosePlanModal()  {
         this.global_isViewPlanModalShow = false;
@@ -123,6 +128,7 @@
         this.global_isCreditAllocationModalShow = false;
         this.global_isPendingEnrollmentModalShow = false;
         this.global_isEditDepositModalShow = false;
+        this.global_isCreatePlanExtensionShow = false;
         this.global_pageActive = 1;
 
         // this.global_addDependentData = {};
@@ -138,6 +144,9 @@
         }
         if(type == 'employee'){
           this.global_isEmployeeRecordPayment = true;
+        }
+        if(type == 'employee'){
+          this.global_isEmployeeRefundRecordPayment = true;
         }
       },
       _downloadInvoice_(data, type, account_type, index) {
@@ -189,6 +198,9 @@
           if(opt == 'view-plan'){
             this._getViewPlanData_();
           }
+        }
+        if ( opt == 'create-plan-extension' ) {
+          this.global_isCreatePlanExtensionShow = this.global_isCreatePlanExtensionShow == false ? true : false;;
         }
       },
       ___medicalSelector( opt ) {
@@ -544,6 +556,10 @@
           request = _updateDependentRecordPayment_(params);
         }
 
+        if(this.global_isEmployeeRefundRecordPayment){  // if Employee Refund Record Payment
+
+        }
+
         if(request){
           _showPageLoading_();
           request.then((res)  =>  {
@@ -558,7 +574,37 @@
             }
           });
         }
-      }
+      },
+      _setAccountType_(account_type)  { 
+         if (account_type == "trial_plan") {
+          // this.global_selectPlanType.payment_status = true;
+          this.global_selectPlanType.secondary_account_type = "pro_trial_plan_bundle";
+        } 
+        if (account_type == "insurance_bundle") {
+          this.global_selectPlanType.secondary_account_type = 'pro_plan_bundle';
+          // this.global_selectPlanType.payment_status = true;
+        }
+      },
+      _setSecondaryAccountType_(account_type)  {
+        this.$forceUpdate();
+      },
+      _selectPlanType_() {
+        let params = {
+          customer_id: this.customer_id,
+          customer_active_plan_id: this.global_currentCustomerPlanId,
+          account_type: this.global_selectPlanType.account_type,
+          secondary_account_type: this.global_selectPlanType.secondary_account_type,
+        }
+        _updateAccountPlanType_(params) 
+        .then(( res ) => {
+          console.log(res);
+          if( res.status == 200 || res.status == 201 ){
+            this.$swal("Success!", res.data.message, "success");
+            this.accountPlanTypeModal = false;
+            this._fecthPlanList_();
+          }
+        });
+      },
     }
   }
   

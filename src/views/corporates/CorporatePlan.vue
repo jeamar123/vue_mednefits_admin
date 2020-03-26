@@ -17,7 +17,7 @@
 								<span>Active Plan ID #{{ list.customer_active_plan_id }}</span>
 							</div>
 							<div v-if="list.new_head_count == 0" class="cog-container">
-								<i @click="showAccountPlanType()" class="fa fa-cog"></i>
+								<i @click="showAccountPlanType(list)" class="fa fa-cog"></i>
 							</div>
 						</div>
 						<div class="account-container employee-account-container">
@@ -165,6 +165,8 @@
 							<button @click="_showCorporatePlanModal_('spending-account-settings')" class="btn-primary">SPENDING ACCOUNT SETTINGS</button>
 							<button @click="_showCorporatePlanModal_('credit-allocation',list)" class="btn-primary">CREDIT ALLOCATION</button>
 							<button @click="_showCorporatePlanModal_('view-plan',list)" class="btn-primary">VIEW PLAN</button>
+							<button class="btn-primary">ACTIVATE PLAN EXTENSION</button>
+							<button @click="_showCorporatePlanModal_('create-plan-extension')" class="btn-primary">CREATE PLAN EXTENSION</button>
 						</div>
 					</div>
 					<div class="old-plan-active-wrapper">
@@ -351,39 +353,63 @@
 			<Modal v-if="accountPlanTypeModal" class="employee-details-options select-account-plan-type">
 				<div slot="header">
 					<h1>Select Account/Plan Type</h1>
-					<i @click="showAccountPlanType()" class="fa fa-times"></i>
+					<i @click="showAccountPlanType(global_currentCustomerPlanId)" class="fa fa-times"></i>
 				</div>
 				<div slot="body">
 					<div class="custom-checkbox-selector">
 						<label class="selector-container">
 							<span>Trial Plan</span>
-							<input value="trial_plan" type="radio"/>
+							<input v-model="global_selectPlanType.account_type" v-on:change="_setAccountType_(global_selectPlanType.account_type)" value="trial_plan" type="radio"/>
 							<span class="custom-checkbox-checkmark"></span>
 						</label>
+						<div v-show="global_selectPlanType.account_type == 'trial_plan'" class="checkbox-child">
+							<label class="selector-container">
+								<span>Trial - Pro Plan</span>
+								<input value="pro_trial_plan_bundle" type="radio" v-model="global_selectPlanType.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_selectPlanType.secondary_account_type)"/>
+								<span class="custom-checkbox-checkmark"></span>
+							</label>
+							<label class="selector-container">
+								<span>Trial - Lite Plan</span>
+								<input value="trial_plan_lite" type="radio" v-model="global_selectPlanType.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_selectPlanType.secondary_account_type)"/>
+								<span class="custom-checkbox-checkmark"></span>
+							</label>
+						</div>
 						<label class="selector-container">
 							<span>Insurance Bundle</span>
-							<input value="trial_plan" type="radio"/>
+							<input v-model="global_selectPlanType.account_type" v-on:change="_setAccountType_(global_selectPlanType.account_type)" value="insurance_bundle" type="radio"/>
 							<span class="custom-checkbox-checkmark"></span>
 						</label>
+						<div v-show="global_selectPlanType.account_type == 'insurance_bundle'" class="checkbox-child">
+							<label class="selector-container">
+								<span>Pro Plan Bundle</span>
+								<input value="pro_plan_bundle" type="radio" v-model="global_selectPlanType.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_selectPlanType.secondary_account_type)"/>
+								<span class="custom-checkbox-checkmark"></span>
+							</label>
+							<label class="selector-container">
+								<span>Insurance Bundle Lite</span>
+								<input value="insurance_bundle_lite" type="radio" v-model="global_selectPlanType.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_selectPlanType.secondary_account_type)"/>
+								<span class="custom-checkbox-checkmark"></span>
+							</label>
+						</div>
 						<label class="selector-container">
 							<span>Pro Plan</span>
-							<input value="trial_plan" type="radio"/>
+							<input v-model="global_selectPlanType.account_type" v-on:change="_setAccountType_(global_selectPlanType.account_type)" value="stand_alone_plan" type="radio"/>
 							<span class="custom-checkbox-checkmark"></span>
 						</label>
 						<label class="selector-container">
 							<span>Lite Plan</span>
-							<input value="trial_plan" type="radio"/>
+							<input v-model="global_selectPlanType.account_type" v-on:change="_setAccountType_(global_selectPlanType.account_type)" value="lite_plan" type="radio"/>
 							<span class="custom-checkbox-checkmark"></span>
 						</label>
 						<label class="selector-container">
 							<span>Enterprise Plan</span>
-							<input value="trial_plan" type="radio"/>
+							<input v-model="global_selectPlanType.account_type" v-on:change="_setAccountType_(global_selectPlanType.account_type)" value="enterprise_plan" type="radio"/>
 							<span class="custom-checkbox-checkmark"></span>
 						</label>
 					</div>
 				</div>
 				<div slot="footer">
-					<button class="btn-primary">UPDATE ACCOUNT/PLAN TYPE</button>
+					<button @click="_selectPlanType_()" class="btn-primary">UPDATE ACCOUNT/PLAN TYPE</button>
 				</div>
 			</Modal>
 
@@ -1095,7 +1121,7 @@
 					</div>
 				</div>
 				<div slot="footer">
-					<button @click="_showCorporatePlanModal_('edit-close')" class="btn-close">BACK</button>
+					<button @click="_showCorporatePlanModal_('edit-close',global_customerActivePlanData)" class="btn-close">BACK</button>
 					<button class="btn-primary">UPDATE</button>
 				</div>
 			</Modal>
@@ -1302,6 +1328,118 @@
 				<div slot="footer">
 					<button @click="_showCorporatePlanModal_('edit-close',global_customerActivePlanData)" class="btn-close">BACK</button>
 					<button class="btn-primary" v-on:click="_updatePlan_()">UPDATE</button>
+				</div>
+			</Modal>
+			
+			<Modal v-if="global_isCreatePlanExtensionShow" class="create-plan-extension-modal corporate-details-modal">
+				<div slot="header" class="dp-flex-ai">
+					<h1 class="flex-1">Create Plan Extension</h1>
+					<i @click="toggleClosePlanModal()" class="fa fa-times"></i>
+				</div>
+				<div slot="body">
+					<div class="dp-flex create-plan-body">
+						<div class="plan-extension-col-1">
+							<div class="custom-checkbox-selector">
+								<label class="selector-container">
+									<span>Trial Plan</span>
+									<input v-model="global_selectPlanType.account_type" v-on:change="_setAccountType_(global_selectPlanType.account_type)" value="trial_plan" type="radio"/>
+									<span class="custom-checkbox-checkmark"></span>
+								</label>
+								<div v-show="global_selectPlanType.account_type == 'trial_plan'" class="checkbox-child">
+									<label class="selector-container">
+										<span>Trial - Pro Plan</span>
+										<input value="pro_trial_plan_bundle" type="radio" v-model="global_selectPlanType.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_selectPlanType.secondary_account_type)"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+									<label class="selector-container">
+										<span>Trial - Lite Plan</span>
+										<input value="trial_plan_lite" type="radio" v-model="global_selectPlanType.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_selectPlanType.secondary_account_type)"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+								</div>
+								<label class="selector-container">
+									<span>Insurance Bundle</span>
+									<input v-model="global_selectPlanType.account_type" v-on:change="_setAccountType_(global_selectPlanType.account_type)" value="insurance_bundle" type="radio"/>
+									<span class="custom-checkbox-checkmark"></span>
+								</label>
+								<div v-show="global_selectPlanType.account_type == 'insurance_bundle'" class="checkbox-child">
+									<label class="selector-container">
+										<span>Pro Plan Bundle</span>
+										<input value="pro_plan_bundle" type="radio" v-model="global_selectPlanType.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_selectPlanType.secondary_account_type)"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+									<label class="selector-container">
+										<span>Insurance Bundle Lite</span>
+										<input value="insurance_bundle_lite" type="radio" v-model="global_selectPlanType.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_selectPlanType.secondary_account_type)"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+								</div>
+								<label class="selector-container">
+									<span>Pro Plan</span>
+									<input v-model="global_selectPlanType.account_type" v-on:change="_setAccountType_(global_selectPlanType.account_type)" value="stand_alone_plan" type="radio"/>
+									<span class="custom-checkbox-checkmark"></span>
+								</label>
+								<label class="selector-container">
+									<span>Lite Plan</span>
+									<input v-model="global_selectPlanType.account_type" v-on:change="_setAccountType_(global_selectPlanType.account_type)" value="lite_plan" type="radio"/>
+									<span class="custom-checkbox-checkmark"></span>
+								</label>
+								<label class="selector-container">
+									<span>Enterprise Plan</span>
+									<input v-model="global_selectPlanType.account_type" v-on:change="_setAccountType_(global_selectPlanType.account_type)" value="enterprise_plan" type="radio"/>
+									<span class="custom-checkbox-checkmark"></span>
+								</label>
+							</div>
+						</div>
+						<div class="plan-extension-col-2">
+							<div>
+								<label>Start Date</label>
+								<div>02/29/2020</div>
+							</div>
+							<div>
+								<label>Duration</label>
+								<div class="plan-extension-input-wrapper">
+									<select>
+										<option>1 month</option>
+										<option>2 month</option>
+									</select>
+									<i class="fa fa-caret-down"></i>
+								</div>
+							</div>
+							<div class="payment-status-container">
+								<div class="payment-title">Payment Status</div>
+								<div class="dp-flex">
+									<div class="custom-checkbox-selector">
+										<label class="selector-container">
+											<span>Pending</span>
+											<input type="radio"/>
+											<span class="custom-checkbox-checkmark"></span>
+										</label>
+										<label class="selector-container">
+											<span>Paid</span>
+											<input type="radio"/>
+											<span class="custom-checkbox-checkmark"></span>
+										</label>
+									</div>
+									<div class="invoice-date-container">
+										<label>Invoice Date</label>
+										<div class="date-container vDatepicker plan-extension-input-wrapper">
+											<v-date-picker 
+												popoverDirection="bottom" 
+												v-model="global_recordPayment.date_received"
+												:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+												popover-visibility="focus" 
+												:formats='formats'></v-date-picker>
+											<i class="fa fa-caret-down"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div slot="footer">
+					<button class="btn-primary">SUBMIT</button>
 				</div>
 			</Modal>
 		</div>
