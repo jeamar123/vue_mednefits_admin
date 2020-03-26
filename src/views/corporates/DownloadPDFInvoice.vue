@@ -1,14 +1,17 @@
 <template>
 	<div class="download-pdf-container">
+		<table id="my-table"></table>
     <div class="download-btn-container">
-			<button class="btn-gray">Download <img :src="'../assets/img/download_emp.png'"/></button>
+			<button class="btn-gray" v-on:click="_downloadAsPdf_()">Download <img :src="'../assets/img/download_emp.png'"/></button>
 		</div>
 
-		<div class="download-pdf-content">
+		
+
+		<div id="print-content" class="download-pdf-content">
 			<p class="paid-text">PAID</p>
 			<div class="header-box">
 				<div class="div-col">
-					<img :src="'../assets/img/latest logo/Mednefits Logo V1.svg'"/>
+					<img id="medne_logo" :src="'../assets/img/latest logo/Mednefits Logo V1.svg'"/>
 				</div>
 				<div class="div-col">
 					<p v-if="true" class="pdf-title">Invoice</p>
@@ -48,7 +51,8 @@
 					<p v-if="false"><label>Statement Date:</label> <span>04 January, 2018</span></p>
 
 					<p><label>Payment Due:</label> <span>27 December, 2017</span></p>
-					<p class="with-bg-gray"><label>Amount Due (SGD):</label> <span>410</span></p>
+					<p><label>Payment Date:</label> <span>27 December, 2017</span></p>
+					<p class="with-bg-gray"><label>Amount Due:</label> <span>SGD 410</span></p>
 				</div>
 			</div>
 

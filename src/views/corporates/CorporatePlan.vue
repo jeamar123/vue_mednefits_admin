@@ -449,7 +449,7 @@
 								</div>
 								<div class="column">
 									<button @click="_showViewPlanModal_('edit-plan-employee', global_viewPlanData.employee_plan)" class="btn-blue">Edit Plan</button>
-									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
+									<button class="btn-gray" v-on:click="_downloadInvoice_(global_viewPlanData.employee_plan, 'invoice', 1, 1)">Download Invoice</button>
 									<button @click="_showViewPlanModal_('pending-enrollment')" :disabled="global_viewPlanData.employee_plan.vacant_seats == 0" class="btn-blue">{{ global_viewPlanData.employee_plan.vacant_seats }} Pending Enrollment</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment('employee', global_viewPlanData.employee_plan)">Record Payment</button>
 								</div>
@@ -460,7 +460,7 @@
 							<div class="header-title">
 								Dependent Account
 							</div>
-							<div v-for="list in global_viewPlanData.dependent_plans" class="columns transaction-box align-items-center">
+							<div v-for="(list, index) in global_viewPlanData.dependent_plans" class="columns transaction-box align-items-center">
 								<div class="column">
 									<p class="col-title">
 										<label>Plan Account Type:</label> 
@@ -487,7 +487,7 @@
 								</div>
 								<div class="column">
 									<button @click="_showViewPlanModal_('edit-plan-dependent', list)" class="btn-blue">Edit Plan</button>
-									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
+									<button class="btn-gray" v-on:click="_downloadInvoice_(list, 'invoice', 2, index)">Download Invoice</button>
 									<button @click="_showViewPlanModal_('pending-enrollment')" :disabled="list.vacant_seats == 0" class="btn-blue">{{ list.vacant_seats }} Pending Enrollment</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment('dependent', list)">Record Payment</button>
 								</div>
@@ -498,7 +498,7 @@
 							<div class="header-title">
 								Spending Deposit Account
 							</div>
-							<div v-for="list in global_viewPlanData.spending_deposits" class="columns transaction-box align-items-center">
+							<div v-for="(list, index) in global_viewPlanData.spending_deposits" class="columns transaction-box align-items-center">
 								<div class="column">
 									<p><label>Invoice:</label> <span>{{ list.invoice_number }}</span></p>
 									<p><label>Total Credits:</label> <span><span class="currency-type">{{ list.currency_type }}</span> {{ list.total_credits | number('0.00') }}</span></p>
@@ -511,8 +511,8 @@
 									</p>
 								</div>
 								<div class="column">
-									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
-									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
+									<button class="btn-gray" v-on:click="_downloadInvoice_(list, 'invoice', 3, index)">Download Invoice</button>
+									<button class="btn-primary" v-on:click="toggleRecordPayment('spending_deposit', list)">Record Payment</button>
 									<button class="btn-primary" @click="_showViewPlanModal_('edit-deposit')">Edit Deposit</button>
 									<button class="btn-primary">Mark as unpaid</button>
 								</div>
@@ -523,7 +523,7 @@
 							<div class="header-title">
 								Employee Refund
 							</div>
-							<div v-for="list in global_viewPlanData.employee_refunds" class="columns transaction-box align-items-center">
+							<div v-for="(list, index) in global_viewPlanData.employee_refunds" class="columns transaction-box align-items-center">
 								<div class="column">
 									<p><label>Cancellation No.:</label> <span>{{ list.invoice_number }}</span></p>
 									<p><label>Employees:</label> <span>{{ list.employees }}</span></p>
@@ -539,8 +539,8 @@
 									<p><label>Payment Remarks:</label> <span>{{ list.payment_remarks }}</span></p>
 								</div>
 								<div class="column">
-									<button class="btn-gray">Download</button>
-									<button v-on:click="toggleRecordPayment(list)" class="btn-primary">Record Refund</button>
+									<button class="btn-gray" v-on:click="_downloadInvoice_(list, 'invoice', 4, index)">Download</button>
+									<button class="btn-primary" v-on:click="toggleRecordPayment('employee_refund', list)">Record Refund</button>
 								</div>
 							</div>
 						</div>
@@ -549,7 +549,7 @@
 							<div class="header-title">
 								Dependent Refund
 							</div>
-							<div v-for="list in global_viewPlanData.dependent_refunds" class="columns transaction-box align-items-center">
+							<div v-for="(list, index) in global_viewPlanData.dependent_refunds" class="columns transaction-box align-items-center">
 								<div class="column">
 									<p><label>Cancellation No.:</label> <span>{{ list.invoice_number }}</span></p>
 									<p><label>Employees:</label> <span>{{ list.employees }}</span></p>
@@ -565,8 +565,8 @@
 									<p><label>Payment Remarks:</label> <span>{{ list.payment_remarks }}</span></p>
 								</div>
 								<div class="column">
-									<button class="btn-gray">Download</button>
-									<button v-on:click="toggleRecordPayment()" class="btn-primary">Record Refund</button>
+									<button class="btn-gray" v-on:click="_downloadInvoice_(list, 'invoice', 5, index)">Download</button>
+									<button class="btn-primary" v-on:click="toggleRecordPayment('dependent_refund', list)">Record Refund</button>
 								</div>
 							</div>
 						</div>
@@ -597,9 +597,9 @@
 								</div>
 								<div class="column">
 									<button class="btn-blue" @click="_showViewPlanModal_('edit-plan-extension')">Edit Plan</button>
-									<button class="btn-gray" v-on:click="_downloadInvoice_()">Download Invoice</button>
-									<button class="btn-primary" v-on:click="toggleRecordPayment()">Record Payment</button>
-									<button class="btn-gray" v-on:click="_downloadInvoice_(null,'receipt')">Download Receipt</button>
+									<button class="btn-gray" v-on:click="_downloadInvoice_(list, 'invoice', 6, 1)">Download Invoice</button>
+									<button class="btn-primary" v-on:click="toggleRecordPayment('plan_extension', list)">Record Payment</button>
+									<button class="btn-gray" v-on:click="_downloadInvoice_(list,'receipt')">Download Receipt</button>
 									
 								</div>
 							</div>

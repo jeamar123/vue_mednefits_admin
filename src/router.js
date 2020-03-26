@@ -178,8 +178,8 @@ export default new Router({
         },
         { name: 'AddCorporate', path: '/dashboard/corporates/add', component: AddCorporate },
         { name: 'HealthPartnerAccess', path: '/dashboard/health-partner-access/:type-:id', component: HealthPartnerAccess , props: true},
-        { name: 'DownloadPDFInvoice', path: '/dashboard/download-pdf/:customer_id', component: DownloadPDFInvoice, props: true },
-        { name: 'DownloadPDFReceipt', path: '/dashboard/download-receipt/:customer_id', component: DownloadPDFReceipt, props: true },
+        { name: 'DownloadPDFInvoice', path: '/dashboard/download-pdf/:customer_id/:customer_active_plan_id/:type/:index', component: DownloadPDFInvoice, props: true },
+        { name: 'DownloadPDFReceipt', path: '/dashboard/download-receipt/:customer_id/:customer_active_plan_id', component: DownloadPDFReceipt, props: true },
         { name: 'DownloadTransactions', path: '/dashboard/download-transactions/:customer_id', component: DownloadTransactions, props: true },
         { name: 'Analytics', path: '/dashboard/analytics', component: Analytics },
       ]
