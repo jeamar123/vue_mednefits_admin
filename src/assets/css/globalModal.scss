@@ -1241,6 +1241,9 @@
               color: #fff;
               background-color: #2196F3;
             }
+            .btn-blue[disabled] {
+              opacity: .5;
+            }
             .btn-gray{
               color: rgb(33,33,33);
               background-color: rgb(250,250,250);
@@ -1866,7 +1869,8 @@
 // -----------------------------------------------------  //
 
 // ------ PENDING ENROLLMENT MODAl IN VIEW PLAN ------ //
-.pending-enrollment-modal {
+.modal-mask.pending-enrollment-modal {
+  z-index: 0;
   .modal-container {
     width: 1000px;
   }
