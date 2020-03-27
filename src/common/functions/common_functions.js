@@ -338,6 +338,12 @@ const _formChecker_	=	(formData)	=>	{
 	if (formData.hasOwnProperty('individual_price') && !formData.individual_price)	{
 		error_checkForm.push('Individual Price.');
 	}
+	if (formData.hasOwnProperty('duration') && !formData.duration)	{
+		error_checkForm.push('Duration.');
+	}
+	if (formData.hasOwnProperty('payment_status') && formData.payment_status == undefined)	{
+		error_checkForm.push('Payment Status.');
+	}
 	
 	
 	if (!error_checkForm.length) {
@@ -714,6 +720,36 @@ const _updateAccountPlanType_ = (params) => {
 	return _axiosCall_(req);
 }
 
+const _updateDependentRecordRefund_ = (params) => {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.DEPENDENT_RECORD_REFUND,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _createPlanExtension_ = (params) => {
+	let	req	=	{
+		method:	'POST',
+		url:	Config.CREATE_PLAN_EXTENSION,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _activatePlanExtension_ = (params) => {
+	let	req	=	{
+		method:	'POST',
+		url:	Config.ACTIVATE_PLAN_EXTENSION,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
 
 
 export	{
@@ -767,4 +803,7 @@ export	{
 	_updateEmployeePlan_,
 	_updateEmployeeRecordPayment_,
 	_updateAccountPlanType_,
+	_updateDependentRecordRefund_,
+	_createPlanExtension_,
+	_activatePlanExtension_,
 }

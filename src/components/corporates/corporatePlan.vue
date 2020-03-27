@@ -1,7 +1,7 @@
 <script>
   import Modal from "../../views/modal/Modal.vue";
   import axios from 'axios';
-  import moment, { locale } from "moment";
+  import moment ,{ locale } from "moment";
   import { 
     _getActivePlans_,
     _createDependentAccount_,
@@ -18,6 +18,9 @@
     _updateEmployeePlan_,
     _updateEmployeeRecordPayment_,
     _updateAccountPlanType_,
+    _updateDependentRecordRefund_,
+    _createPlanExtension_,
+    _activatePlanExtension_,
   } from '../../common/functions/common_functions';
    
   let corporatePlan = {
@@ -106,6 +109,8 @@
         global_isEmployeeRefundRecordPayment: false,
         global_selectPlanType: { },
         global_isCreatePlanExtensionShow: false,
+        global_isDependentRefundRecordPayment: false,
+        global_createPlanExtensionDate: {},
       };
     },
     created(){
@@ -139,14 +144,19 @@
         this.global_editPlan = data;
         this.global_isEmployeeRecordPayment = false;
         this.global_isDependentRecordPayment = false;
+        this.global_isEmployeeRefundRecordPayment = false;
+        this.global_isDependentRefundRecordPayment = false;
         if(type == 'dependent'){
           this.global_isDependentRecordPayment = true;
         }
         if(type == 'employee'){
           this.global_isEmployeeRecordPayment = true;
         }
-        if(type == 'employee'){
+        if(type == 'employee_refund'){
           this.global_isEmployeeRefundRecordPayment = true;
+        }
+        if(type == 'dependent_refund'){
+          this.global_isDependentRefundRecordPayment = true;
         }
       },
       _downloadInvoice_(data, type, account_type, index) {
@@ -200,6 +210,9 @@
           }
         }
         if ( opt == 'create-plan-extension' ) {
+          this.global_customerPlanData = list;
+          console.log(list);
+          this.global_createPlanExtensionDate.invoice_date = new Date(this.global_customerPlanData.plan_start);
           this.global_isCreatePlanExtensionShow = this.global_isCreatePlanExtensionShow == false ? true : false;;
         }
       },
@@ -253,28 +266,41 @@
         if (account_type == "trial_plan") {
           this.global_editPlan.payment_status = true;
           this.global_editPlan.secondary_account_type = "pro_trial_plan_bundle";
+          this.global_createPlanExtensionDate.payment_status = true;
+          this.global_createPlanExtensionDate.secondary_account_type = "pro_trial_plan_bundle";
         } else {
           this.global_editPlan.payment_status = false;
         }
         if (account_type == "insurance_bundle") {
           this.global_editPlan.secondary_account_type = 'pro_plan_bundle';
           this.global_editPlan.payment_status = true;
+          this.global_createPlanExtensionDate.secondary_account_type = 'pro_plan_bundle';
+          this.global_createPlanExtensionDate.payment_status = true;
         } else {
           this.global_editPlan.payment_status = false;
+          this.global_createPlanExtensionDate.payment_status = false;
         }
         if (account_type == "stand_alone_plan") {
           this.global_editPlan.secondary_account_type = "default_price";
           this.global_editPlan.price_per_employee = 99;
+          this.global_createPlanExtensionDate.secondary_account_type = "default_price";
+          this.global_createPlanExtensionDate.price_per_employee = 99;
         } 
         if (account_type == "lite_plan") {
           this.global_editPlan.secondary_account_type = "fixed_price";
           this.global_editPlan.price_per_employee = 5;
           this.global_editPlan.payment_status = false;
+          this.global_createPlanExtensionDate.secondary_account_type = "fixed_price";
+          this.global_createPlanExtensionDate.price_per_employee = 5;
+          this.global_createPlanExtensionDate.payment_status = false;
         }
         if (account_type == "enterprise_plan") {
           this.global_editPlan.payment_status = false;
           this.global_editPlan.secondary_account_type = "fixed_price";
           this.global_editPlan.price_per_employee = 100;
+          this.global_createPlanExtensionDate.payment_status = false;
+          this.global_createPlanExtensionDate.secondary_account_type = "fixed_price";
+          this.global_createPlanExtensionDate.price_per_employee = 100;
         }
         this.$forceUpdate();
       },
@@ -559,6 +585,20 @@
         if(this.global_isEmployeeRefundRecordPayment){  // if Employee Refund Record Payment
 
         }
+        
+        if(this.global_isDependentRefundRecordPayment){  // if Employee Refund Record Payment
+          let params  = {
+            dependent_plan_id: this.global_editPlan.dependent_plan_id,
+            dependent_payment_refund_id: this.global_editPlan.dependent_payment_refund_id,
+            paid_amount: Number(this.global_recordPayment.paid_amount),
+            transaction_date: this.global_recordPayment.transaction_date ? moment(this.global_recordPayment.transaction_date).format('YYYY-MM-DD') : null,
+            remarks: this.global_recordPayment.remarks
+          }
+          if(_formChecker_(params) == false){
+            return false;
+          }
+          request = _updateDependentRecordRefund_(params);
+        }
 
         if(request){
           _showPageLoading_();
@@ -574,19 +614,6 @@
             }
           });
         }
-      },
-      _setAccountType_(account_type)  { 
-         if (account_type == "trial_plan") {
-          // this.global_selectPlanType.payment_status = true;
-          this.global_selectPlanType.secondary_account_type = "pro_trial_plan_bundle";
-        } 
-        if (account_type == "insurance_bundle") {
-          this.global_selectPlanType.secondary_account_type = 'pro_plan_bundle';
-          // this.global_selectPlanType.payment_status = true;
-        }
-      },
-      _setSecondaryAccountType_(account_type)  {
-        this.$forceUpdate();
       },
       _selectPlanType_() {
         let params = {
@@ -604,6 +631,64 @@
             this._fecthPlanList_();
           }
         });
+      },
+      _addPlanExtension_(){
+        console.log(this.global_createPlanExtensionDate);
+        let params  = {
+          customer_id: Number( this.customer_id ),
+          customer_active_plan_id: this.global_customerPlanData.customer_active_plan_id,
+          account_type: this.global_createPlanExtensionDate.account_type,
+          secondary_account_type: this.global_createPlanExtensionDate.secondary_account_type,
+          plan_start: moment( this.global_createPlanExtensionDate.plan_start ).format('YYYY-MM-DD'),
+          invoice_date: moment( this.global_createPlanExtensionDate.invoice_date ).format('YYYY-MM-DD'),
+          duration: this.global_createPlanExtensionDate.duration,
+          payment_status: this.global_createPlanExtensionDate.payment_status
+        }
+        if(_formChecker_(params) == false){
+          return false;
+        }
+        _showPageLoading_();
+        _createPlanExtension_(params)
+        .then((res)  =>  {
+          console.log(res);
+          _hidePageLoading_();
+          if(res.status == 200 || res.status == 201){
+            this._fecthPlanList_();
+            this.global_isCreatePlanExtensionShow = false;
+            this.$swal('Success!', res.data.message, 'success');
+          }else{
+            this.$swal('Error!', res.data.message, 'error');
+          }
+        });
+      },
+      _formatDate_(date, from, to){
+        return moment(date, from).format(to);
+      },
+      _activateExtension_(active_plan_extensions_id){
+        this.$swal({
+          title: 'Confirm',
+          text: "Are you sure you want to activate Plan Extension?",
+          type: 'warning',
+          confirmButtonColor: 'rgb(37, 48, 108)',
+          cancelButtonColor: '#C1C1C1',
+          showCancelButton: true,
+        }).then((result) => {
+          if(result.value){
+            let params  = {
+              active_plan_extensions_id : active_plan_extensions_id
+            }
+            _activatePlanExtension_(params)
+              .then((res)  =>  {
+                if(res.status == 200 || res.status == 201){
+                  this._fecthPlanList_();
+                  this.$swal('Success!', res.data.message, 'success');
+                }else{
+                  _hidePageLoading_();
+                  this.$swal('Error!', res.data.message, 'error');
+                }
+              });
+          }
+        })
       },
     }
   }

@@ -48,6 +48,9 @@ const DEPENDENT_RECORD_PAYMENT = `${SERVERURL}/company/updateDependentPlanRecord
 const UPDATE_PLAN_EMPLOYEE = `${SERVERURL}/company/updateEmployeePlanEdit`;
 const EMPLOYEE_RECORD_PAYMENT = `${SERVERURL}/company/updatePlanRecordPayment`;
 const UPDATE_ACCOUNT_PLAN_TYPE = `${SERVERURL}/company/updateAccountPlanType`;
+const DEPENDENT_RECORD_REFUND = `${SERVERURL}/company/planDependentRefund`;
+const CREATE_PLAN_EXTENSION = `${SERVERURL}/company/createPlanExtension`;
+const ACTIVATE_PLAN_EXTENSION = `${SERVERURL}/company/activatePlanExtension`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -91,4 +94,7 @@ module.exports = {
 	UPDATE_PLAN_EMPLOYEE,
 	EMPLOYEE_RECORD_PAYMENT,
 	UPDATE_ACCOUNT_PLAN_TYPE,
+	DEPENDENT_RECORD_REFUND,
+	CREATE_PLAN_EXTENSION,
+	ACTIVATE_PLAN_EXTENSION,
 }
