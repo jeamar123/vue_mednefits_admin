@@ -8,7 +8,7 @@
 					<h4>Current Active Plans</h4>
 				</div>
 				<div class="active-cards-wrapper">
-					<div v-for="(list,index) in global_getPlans.current_plan.customer_active_plans" class="active-plans-info">
+					<div v-for="(list,index) in global_getPlans.current_plan.customer_active_plans" :key="list.index" class="active-plans-info">
 						<div class="plan-header-container">
 							<div>
 								<span>Active Plan #{{ index + 1 }}</span>
@@ -63,7 +63,7 @@
 						<div v-if="list.dependents.length > 0" class="account-container dependent-account-container">
 							<div class="account-title">Dependent Accounts</div>
 							<div class="dependent-list-info-wrapper">
-								<div v-for="list in list.dependents" class="dependent-list-info">
+								<div v-for="list in list.dependents" :key="list.index" class="dependent-list-info">
 									<div>
 										<span>Plan Type: </span>
 										<span v-if="list.account_type == 'stand_alone_plan'">Pro Plan</span>
@@ -165,19 +165,19 @@
 							<button @click="_showCorporatePlanModal_('spending-account-settings')" class="btn-primary">SPENDING ACCOUNT SETTINGS</button>
 							<button @click="_showCorporatePlanModal_('credit-allocation',list)" class="btn-primary">CREDIT ALLOCATION</button>
 							<button @click="_showCorporatePlanModal_('view-plan',list)" class="btn-primary">VIEW PLAN</button>
-							<button class="btn-primary">ACTIVATE PLAN EXTENSION</button>
-							<button @click="_showCorporatePlanModal_('create-plan-extension')" class="btn-primary">CREATE PLAN EXTENSION</button>
+							<button v-if="list.plan_extension && list.plan_extension_enable == 0 && list.new_head_count == 0" class="btn-primary" v-on:click="_activateExtension_(list.plan_extension.active_plan_extensions_id)">ACTIVATE PLAN EXTENSION</button>
+							<button v-if="!list.plan_extension && list.plan_extension_enable == 0 && list.new_head_count == 0" @click="_showCorporatePlanModal_('create-plan-extension',list)" class="btn-primary">CREATE PLAN EXTENSION</button>
 						</div>
 					</div>
 					<div class="old-plan-active-wrapper">
 						<div v-if="global_getPlans.old_plans.length > 0" class="current-plan-text">
 							<h4>Old Active Plans</h4>
 						</div>
-						<div v-for="list in global_getPlans.old_plans" class="old-plan-active">
+						<div v-for="list in global_getPlans.old_plans" :key="list.index" class="old-plan-active">
 							<div class="current-plan-text">
 								<h4>Plan Date: <span>{{ list.plan_start }}</span></h4>
 							</div>
-							<div v-for="(list,index) in list.customer_active_plans" class="active-plans-info">
+							<div v-for="(list,index) in list.customer_active_plans" :key="list.index" class="active-plans-info">
 							<!-- <div v-for="(list,index) in global_oldPlanCustomerAtivePlan" class="active-plans-info"> -->
 								<div class="plan-header-container">
 									<div>
@@ -230,7 +230,7 @@
 								<div v-if="list.dependents.length > 0" class="account-container dependent-account-container">
 									<div class="account-title">Dependent Accounts</div>
 									<div class="dependent-list-info-wrapper">
-										<div v-for="(list,index) in list.dependents" class="dependent-list-info">
+										<div v-for="(list) in list.dependents" :key="list.index" class="dependent-list-info">
 											<div>
 												<span>Plan Type: </span>
 												<span v-if="list.account_type == 'stand_alone_plan'">Pro Plan</span>
@@ -416,7 +416,8 @@
 			<Modal v-if="global_isViewPlanModalShow" class="view-plans-modal">
 				<div slot="header">
 					<h1 v-if="!global_isRecordPaymentShow">View Plan</h1>
-					<h1 v-if="global_isRecordPaymentShow">Record Payment</h1>
+					<h1 v-if="global_isEmployeeRecordPayment || global_isDependentRecordPayment">Record Payment</h1>
+					<h1 v-if="global_isEmployeeRefundRecordPayment || global_isDependentRefundRecordPayment">Record Refund</h1>
 				</div>
 				<div slot="body">
 					<div v-if="!global_isRecordPaymentShow" class="account-list-container">
@@ -460,7 +461,7 @@
 							<div class="header-title">
 								Dependent Account
 							</div>
-							<div v-for="(list, index) in global_viewPlanData.dependent_plans" class="columns transaction-box align-items-center">
+							<div v-for="(list, index) in global_viewPlanData.dependent_plans" :key="list.index" class="columns transaction-box align-items-center">
 								<div class="column">
 									<p class="col-title">
 										<label>Plan Account Type:</label> 
@@ -498,7 +499,7 @@
 							<div class="header-title">
 								Spending Deposit Account
 							</div>
-							<div v-for="(list, index) in global_viewPlanData.spending_deposits" class="columns transaction-box align-items-center">
+							<div v-for="(list, index) in global_viewPlanData.spending_deposits" :key="list.index" class="columns transaction-box align-items-center">
 								<div class="column">
 									<p><label>Invoice:</label> <span>{{ list.invoice_number }}</span></p>
 									<p><label>Total Credits:</label> <span><span class="currency-type">{{ list.currency_type }}</span> {{ list.total_credits | number('0.00') }}</span></p>
@@ -523,7 +524,7 @@
 							<div class="header-title">
 								Employee Refund
 							</div>
-							<div v-for="(list, index) in global_viewPlanData.employee_refunds" class="columns transaction-box align-items-center">
+							<div v-for="(list, index) in global_viewPlanData.employee_refunds" :key="list.index" class="columns transaction-box align-items-center">
 								<div class="column">
 									<p><label>Cancellation No.:</label> <span>{{ list.invoice_number }}</span></p>
 									<p><label>Employees:</label> <span>{{ list.employees }}</span></p>
@@ -549,7 +550,7 @@
 							<div class="header-title">
 								Dependent Refund
 							</div>
-							<div v-for="(list, index) in global_viewPlanData.dependent_refunds" class="columns transaction-box align-items-center">
+							<div v-for="(list, index) in global_viewPlanData.dependent_refunds" :key="list.index" class="columns transaction-box align-items-center">
 								<div class="column">
 									<p><label>Cancellation No.:</label> <span>{{ list.invoice_number }}</span></p>
 									<p><label>Employees:</label> <span>{{ list.employees }}</span></p>
@@ -963,7 +964,7 @@
 						@keypress.enter="_searchMemberList_(global_searchEmp)" @input="_searchEmpty_(global_searchEmp)">
 					</div>
 					<div class="enrolled-emp-wrapper">
-						<div v-for="list in global_activePlanEnrolled" class="enrolled-emp-container-box">
+						<div v-for="list in global_activePlanEnrolled" :key="list.index" class="enrolled-emp-container-box">
 							<div class="emp-header-container">
 								<h4>{{ list.fullname }}</h4>
 							</div>
@@ -1342,51 +1343,67 @@
 							<div class="custom-checkbox-selector">
 								<label class="selector-container">
 									<span>Trial Plan</span>
-									<input v-model="global_selectPlanType.account_type" v-on:change="_setAccountType_(global_selectPlanType.account_type)" value="trial_plan" type="radio"/>
+									<input v-model="global_createPlanExtensionDate.account_type" v-on:change="_setAccountType_(global_createPlanExtensionDate.account_type)" value="trial_plan" type="radio"/>
 									<span class="custom-checkbox-checkmark"></span>
 								</label>
-								<div v-show="global_selectPlanType.account_type == 'trial_plan'" class="checkbox-child">
+								<div v-show="global_createPlanExtensionDate.account_type == 'trial_plan'" class="checkbox-child">
 									<label class="selector-container">
 										<span>Trial - Pro Plan</span>
-										<input value="pro_trial_plan_bundle" type="radio" v-model="global_selectPlanType.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_selectPlanType.secondary_account_type)"/>
+										<input value="pro_trial_plan_bundle" type="radio" v-model="global_createPlanExtensionDate.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_createPlanExtensionDate.secondary_account_type)"/>
 										<span class="custom-checkbox-checkmark"></span>
 									</label>
 									<label class="selector-container">
 										<span>Trial - Lite Plan</span>
-										<input value="trial_plan_lite" type="radio" v-model="global_selectPlanType.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_selectPlanType.secondary_account_type)"/>
+										<input value="trial_plan_lite" type="radio" v-model="global_createPlanExtensionDate.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_createPlanExtensionDate.secondary_account_type)"/>
 										<span class="custom-checkbox-checkmark"></span>
 									</label>
 								</div>
 								<label class="selector-container">
 									<span>Insurance Bundle</span>
-									<input v-model="global_selectPlanType.account_type" v-on:change="_setAccountType_(global_selectPlanType.account_type)" value="insurance_bundle" type="radio"/>
+									<input v-model="global_createPlanExtensionDate.account_type" v-on:change="_setAccountType_(global_createPlanExtensionDate.account_type)" value="insurance_bundle" type="radio"/>
 									<span class="custom-checkbox-checkmark"></span>
 								</label>
-								<div v-show="global_selectPlanType.account_type == 'insurance_bundle'" class="checkbox-child">
+								<div v-show="global_createPlanExtensionDate.account_type == 'insurance_bundle'" class="checkbox-child">
 									<label class="selector-container">
 										<span>Pro Plan Bundle</span>
-										<input value="pro_plan_bundle" type="radio" v-model="global_selectPlanType.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_selectPlanType.secondary_account_type)"/>
+										<input value="pro_plan_bundle" type="radio" v-model="global_createPlanExtensionDate.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_createPlanExtensionDate.secondary_account_type)"/>
 										<span class="custom-checkbox-checkmark"></span>
 									</label>
 									<label class="selector-container">
 										<span>Insurance Bundle Lite</span>
-										<input value="insurance_bundle_lite" type="radio" v-model="global_selectPlanType.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_selectPlanType.secondary_account_type)"/>
+										<input value="insurance_bundle_lite" type="radio" v-model="global_createPlanExtensionDate.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_createPlanExtensionDate.secondary_account_type)"/>
 										<span class="custom-checkbox-checkmark"></span>
 									</label>
 								</div>
 								<label class="selector-container">
 									<span>Pro Plan</span>
-									<input v-model="global_selectPlanType.account_type" v-on:change="_setAccountType_(global_selectPlanType.account_type)" value="stand_alone_plan" type="radio"/>
+									<input v-model="global_createPlanExtensionDate.account_type" v-on:change="_setAccountType_(global_createPlanExtensionDate.account_type)" value="stand_alone_plan" type="radio"/>
 									<span class="custom-checkbox-checkmark"></span>
 								</label>
+								<div v-show="global_createPlanExtensionDate.account_type == 'stand_alone_plan'" class="checkbox-child">
+									<label class="selector-container">
+										<span>Default (SGD 99.00)</span>
+										<input value="default_price" type="radio" v-model="global_createPlanExtensionDate.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_createPlanExtensionDate.secondary_account_type)"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+									<label class="selector-container">
+										<span>Individual Price</span>
+										<input value="fixed_price" type="radio" v-model="global_createPlanExtensionDate.secondary_account_type" v-on:change="_setSecondaryAccountType_(global_createPlanExtensionDate.secondary_account_type)"/>
+										<span class="custom-checkbox-checkmark"></span>
+									</label>
+									<div v-show="global_createPlanExtensionDate.secondary_account_type == 'fixed_price'" class="input-individual-price-container">
+										<label>Input Individual Price*</label>
+										<input type="number" v-model="global_createPlanExtensionDate.price_per_employee"> 
+									</div>
+								</div>
 								<label class="selector-container">
 									<span>Lite Plan</span>
-									<input v-model="global_selectPlanType.account_type" v-on:change="_setAccountType_(global_selectPlanType.account_type)" value="lite_plan" type="radio"/>
+									<input v-model="global_createPlanExtensionDate.account_type" v-on:change="_setAccountType_(global_createPlanExtensionDate.account_type)" value="lite_plan" type="radio"/>
 									<span class="custom-checkbox-checkmark"></span>
 								</label>
 								<label class="selector-container">
 									<span>Enterprise Plan</span>
-									<input v-model="global_selectPlanType.account_type" v-on:change="_setAccountType_(global_selectPlanType.account_type)" value="enterprise_plan" type="radio"/>
+									<input v-model="global_createPlanExtensionDate.account_type" v-on:change="_setAccountType_(global_createPlanExtensionDate.account_type)" value="enterprise_plan" type="radio"/>
 									<span class="custom-checkbox-checkmark"></span>
 								</label>
 							</div>
@@ -1394,14 +1411,15 @@
 						<div class="plan-extension-col-2">
 							<div>
 								<label>Start Date</label>
-								<div>02/29/2020</div>
+								<div>{{ _formatDate_(global_customerPlanData.plan_start, 'YYYY-MM-DD', 'DD/MM/YYYY') }}</div>
+								<!-- <div>02/29/2020</div> -->
 							</div>
 							<div>
 								<label>Duration</label>
 								<div class="plan-extension-input-wrapper">
-									<select>
-										<option>1 month</option>
-										<option>2 month</option>
+									<select v-model="global_createPlanExtensionDate.duration">
+										<option value=""></option>
+										<option v-for="(list) in 12" :key="list.index">{{list}} month</option>
 									</select>
 									<i class="fa fa-caret-down"></i>
 								</div>
@@ -1412,12 +1430,12 @@
 									<div class="custom-checkbox-selector">
 										<label class="selector-container">
 											<span>Pending</span>
-											<input type="radio"/>
+											<input type="radio" :value="false" v-model="global_createPlanExtensionDate.payment_status"/>
 											<span class="custom-checkbox-checkmark"></span>
 										</label>
 										<label class="selector-container">
 											<span>Paid</span>
-											<input type="radio"/>
+											<input type="radio" :value="true" v-model="global_createPlanExtensionDate.payment_status"/>
 											<span class="custom-checkbox-checkmark"></span>
 										</label>
 									</div>
@@ -1426,7 +1444,7 @@
 										<div class="date-container vDatepicker plan-extension-input-wrapper">
 											<v-date-picker 
 												popoverDirection="bottom" 
-												v-model="global_recordPayment.date_received"
+												v-model="global_createPlanExtensionDate.invoice_date"
 												:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 												popover-visibility="focus" 
 												:formats='formats'></v-date-picker>
@@ -1439,7 +1457,7 @@
 					</div>
 				</div>
 				<div slot="footer">
-					<button class="btn-primary">SUBMIT</button>
+					<button class="btn-primary" v-on:click="_addPlanExtension_()">SUBMIT</button>
 				</div>
 			</Modal>
 		</div>
