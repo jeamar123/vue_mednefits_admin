@@ -1,7 +1,8 @@
 <script>
   import axios from 'axios';
   import jsPDF from 'jspdf'
-  import 'jspdf-autotable'
+  import 'jspdf-autotable';
+  import moment ,{ locale } from "moment";
 
   import { 
     _fetchViewPlanData_,
@@ -19,6 +20,7 @@
     data() {
       return {
         global_planData : {},
+        global_bodyData : [],
       };
     },
     created(){
@@ -33,7 +35,7 @@
         }
         _showPageLoading_();
         _fetchViewPlanData_(params)
-					.then(( res ) => {
+					.then(async ( res ) => {
             // console.log(res);
             if( res.status == 200 || res.status == 201 ){
               /*----- Invoice Plan/Account type -------*/
@@ -47,23 +49,31 @@
 
               if(this.type == 1){
                 this.global_planData = res.data.data.employee_plan;
+                this.global_planData.dependents = res.data.data.dependent_plans;
+                this.global_bodyData = await this._formatEmployeeInvoiceBody_();
               }
               if(this.type == 2){
                 this.global_planData = res.data.data.dependent_plans[this.index];
+                this.global_bodyData = this._employeeInvoiceBody_();
               }
               if(this.type == 3){
                 this.global_planData = res.data.data.spending_deposits[this.index];
+                this.global_bodyData = this._employeeInvoiceBody_();
               }
               if(this.type == 4){
                 this.global_planData = res.data.data.employee_refunds[this.index];
+                this.global_bodyData = this._employeeInvoiceBody_();
               }
               if(this.type == 5){
                 this.global_planData = res.data.data.dependent_refunds[this.index];
+                this.global_bodyData = this._employeeInvoiceBody_();
               }
               if(this.type == 6){
                 this.global_planData = res.data.data.plan_extension;
+                this.global_bodyData = this._employeeInvoiceBody_();
               }
               console.log(this.global_planData);
+              console.log(this.global_bodyData);
             }
             _hidePageLoading_();
 					});
@@ -71,14 +81,11 @@
       async _downloadAsPdf_(){
         const pdfDoc = new jsPDF('p','mm');
         pdfDoc.setDrawColor(238, 238, 238);
-        pdfDoc.autoTable({ html: '#my-table' });
         let pdfHeader = await this._renderHeader_(pdfDoc);
         let pdfSubHeader = await this._renderSubHeader_(pdfDoc);
         let pdfTable = await this._renderTable_(pdfDoc);
         let pdfTotal = await this._renderTotal_(pdfDoc);
         let pdfFooter = await this._renderFooter_(pdfDoc);
-        
-
         console.log('pdfHeader', pdfHeader);
         console.log('pdfSubHeader', pdfSubHeader);
         console.log('pdfTable', pdfTable);
@@ -106,9 +113,11 @@
         return promise;
       },
       async _renderHeader_(pdfDoc){
-        pdfDoc.setTextColor(228,228,228);
-        pdfDoc.setFontSize(120);
-        pdfDoc.text('PAID', 70, 105, null, 30 );
+        if(this.global_planData.paid){
+          pdfDoc.setTextColor(228,228,228);
+          pdfDoc.setFontSize(120);
+          pdfDoc.text('PAID', 70, 105, null, 30 );
+        }
 
         let logo = await this._getBase64Image_(window.location.origin + '/assets/img/latest logo/mobile-logo-blue-latest.png');
         pdfDoc.addImage(logo, "PNG", 15, 25, 80, 15);
@@ -397,88 +406,7 @@
           },
           body: tableHeader,
         })
-        let tableBody = [
-          [
-            {
-              content: '',
-              rowSpan: 14,
-            },
-            {
-              content: 'Standalone Mednefits Care (Corporate)',
-              styles: {
-                fontSize: 11,
-                fontStyle: 'bold'
-              }
-            },
-            {
-              content: '116',
-              rowSpan: 8,
-            },
-            {
-              content: 'SGD 90.00',
-              rowSpan: 8,
-            },
-            {
-              content: 'SGD 10,440.00',
-              rowSpan: 8,
-            },
-            {
-              content: '',
-              rowSpan: 14,
-            },
-          ],
-          [
-            'Active Type: Pro Plan'
-          ],
-          [
-            'Active Plan ID: #180'
-          ],
-          [
-            'No. of employees: 116'
-          ],
-          [
-            'Billing Frequency: Annual'
-          ],
-          [
-            'Start Date: April 07, 2019'
-          ],
-          [
-            'End Date: April 06, 2020'
-          ],
-          [
-            'Plan Duration: 12 months'
-          ],
-          [],
-          [
-            {
-              content: 'Active Plan Type: Pro Plan'
-            },
-            {
-              content: '24',
-              rowSpan: 5,
-            },
-            {
-              content: 'SGD 5.00',
-              rowSpan: 5,
-            },
-            {
-              content: 'SGD 120.00',
-              rowSpan: 5,
-            },
-          ],
-          [
-            'No. of dependents: 24'
-          ],
-          [
-            'Start Date: March 18, 2020'
-          ],
-          [
-            'End Date: March 17, 2021'
-          ],
-          [
-            'Plan Duration: 12 months'
-          ],
-        ];
+        let tableBody = this.global_bodyData;
         pdfDoc.autoTable({
           theme: 'plain',
           margin: { top: 0, bottom: 0, left: 5, right: 5 },
@@ -702,6 +630,174 @@
         })
 
         return true;
+      },
+      async _generateTblBody_(params){
+        let promise = new Promise((resolve, reject) => {
+          let result = [];
+          let rows = params.rows;
+          let cols = params.cols;
+          params.data.map((row, rowKey) =>  {
+            let tempRow = [];
+            row.map((col, colKey)  =>  {
+              if(colKey == 0){
+                tempRow.push({
+                  content: '',
+                });
+              }
+              tempRow.push({
+                content: col.content,
+                styles: col.style ? col.style : {},
+                rowSpan: col.options ? col.options.rowSpan : 1,
+              });
+              if(colKey == row.length - 1){
+                tempRow.push({
+                  content: '',
+                });
+                result.push(tempRow);
+                if(rowKey == rows - 1){
+                  resolve(result);
+                  return result;
+                }
+              }
+            });
+          });
+        });
+        return promise;
+      },
+      _getAccountType_(type){
+        if(type == 'stand_alone_plan'){
+          return 'Pro Plan';
+        }
+        if(type == 'insurance_bundle'){
+          return 'Insurance Bundle';
+        }
+        if(type == 'trial_plan'){
+          return 'Trial Plan';
+        }
+        if(type == 'lite_plan'){
+          return 'Lite Plan';
+        }
+      },
+      async _formatEmployeeInvoiceBody_(){
+        let params  = {
+          rows: 9,
+          cols: 4,
+          data : [
+            [
+              {
+                content: this.global_planData.plan_type.plan_name,
+                style: {
+                  fontSize: 11,
+                  fontStyle: 'bold'
+                },
+              },
+              {
+                content: this.global_planData.employees,
+                options:  {
+                  rowSpan: 8,
+                }
+              },
+              {
+                content: this.global_planData.currency_type.toUpperCase() + ' ' + (parseFloat( this.global_planData.individual_price ).toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+                options:  {
+                  rowSpan: 8,
+                }
+              },
+              {
+                content: this.global_planData.currency_type.toUpperCase() + ' ' + (parseFloat( this.global_planData.amount ).toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+                options:  {
+                  rowSpan: 8,
+                }
+              },
+            ],
+            [
+              {
+                content: 'Active Type: ' + this._getAccountType_(this.global_planData.account_type),
+              },
+            ],
+            [
+              {
+                content: 'Active Plan ID: #' + this.global_planData.customer_active_plan_id,
+              },
+            ],
+            [
+              {
+                content: 'No. of employees: ' + this.global_planData.employees,
+              },
+            ],
+            [
+              {
+                content: 'Billing Frequency: Annual',
+              },
+            ],
+            [
+              {
+                content: 'Start Date: ' + moment(this.global_planData.plan_start, 'YYYY-MM-DD').format('DD MMMM, YYYY'),
+              },
+            ],
+            [
+              {
+                content: 'End Date: ' + moment(this.global_planData.plan_end, 'YYYY-MM-DD').format('DD MMMM, YYYY'),
+              },
+            ],
+            [
+              {
+                content: 'Plan Duration: ' + this.global_planData.duration,
+              },
+            ],
+            [
+              {
+                content: '',
+              },
+            ],
+          ]
+        }
+        this.global_planData.dependents.map((value, key)  =>  {
+          params.data.push([
+            {
+              content: 'Active Plan Type: ' + this._getAccountType_(value.account_type),
+            },
+            {
+              content: value.total_dependents,
+              options: {
+                rowSpan: 5,
+              }
+            },
+            {
+              content: value.currency_type.toUpperCase() + ' ' + (parseFloat( value.individual_price ).toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+              options: {
+                rowSpan: 5,
+              }
+            },
+            {
+              content: value.currency_type.toUpperCase() + ' ' + (parseFloat( value.amount ).toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+              options: {
+                rowSpan: 5,
+              }
+            },
+          ]);
+          params.data.push([
+            {
+              content: 'No. of dependents: ' + value.total_dependents,
+            }
+          ]);
+          params.data.push([
+            {
+              content: 'Start Date: ' + moment(value.plan_start, 'YYYY-MM-DD').format('DD MMMM, YYYY'),
+            }
+          ]);
+          params.data.push([
+            {
+              content: 'End Date: ' + moment(value.plan_end, 'YYYY-MM-DD').format('DD MMMM, YYYY'),
+            }
+          ]);
+          params.data.push([
+            {
+              content: 'Plan Duration: ' + value.plan_end,
+            }
+          ]);
+        });
+        return await this._generateTblBody_(params);
       },
     }
   }

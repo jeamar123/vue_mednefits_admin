@@ -21,6 +21,7 @@
     _updateDependentRecordRefund_,
     _createPlanExtension_,
     _activatePlanExtension_,
+    _downloadPDFInvoice_
   } from '../../common/functions/common_functions';
    
   let corporatePlan = {
@@ -170,11 +171,13 @@
         /*----- 6 = Plan Extension --------------*/
         /*---------------------------------------*/
         
-        if( type == 'receipt' ){
-          window.open( window.location.origin + '/#/dashboard/download-receipt/' + this.customer_id  );
-        }else{
-          window.open( window.location.origin + '/#/dashboard/download-pdf/' + this.customer_id + '/' + this.global_customerActiveId + '/' + account_type + '/' + index );
-        }
+        // if( type == 'receipt' ){
+        //   window.open( window.location.origin + '/#/dashboard/download-receipt/' + this.customer_id  );
+        // }else{
+        //   window.open( window.location.origin + '/#/dashboard/download-pdf/' + this.customer_id + '/' + this.global_customerActiveId + '/' + account_type + '/' + index );
+        // }
+
+        _downloadPDFInvoice_(data, account_type);
       },
       _showCorporatePlanModal_( opt,list ) {
         console.log(opt);
