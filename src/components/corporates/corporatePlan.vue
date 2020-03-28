@@ -21,7 +21,8 @@
     _updateDependentRecordRefund_,
     _createPlanExtension_,
     _activatePlanExtension_,
-    _downloadPDFInvoice_
+    _downloadPDFInvoice_,
+    _updateEmpRefundRecordPayment_,
   } from '../../common/functions/common_functions';
    
   let corporatePlan = {
@@ -155,6 +156,7 @@
         }
         if(type == 'employee_refund'){
           this.global_isEmployeeRefundRecordPayment = true;
+          console.log(data);
         }
         if(type == 'dependent_refund'){
           this.global_isDependentRefundRecordPayment = true;
@@ -435,6 +437,15 @@
             if( res.status == 200 || res.status == 201 ){
               this.global_viewPlanData = res.data.data;
               console.log(this.global_viewPlanData);
+              console.log(this.global_viewPlanData.employee_refunds);
+
+              this.global_viewPlanData.employee_refunds.map((value, index) => {
+                console.log(value);
+                value.date_refund = moment(value.date_refund).format(
+                  "YYYY-MM-DD"
+                );
+              }); 
+              
             }
             _hidePageLoading_();
 					});
@@ -586,7 +597,17 @@
         }
 
         if(this.global_isEmployeeRefundRecordPayment){  // if Employee Refund Record Payment
-
+          let params = {
+            customer_employee_plan_payment_refund_id: this.global_editPlan.customer_employee_plan_payment_refund_id,
+            customer_active_plan_id: this.global_editPlan.customer_active_plan_id,
+            refund_amount: Number(this.global_recordPayment.paid_amount),
+            refund_date: this.global_recordPayment.transaction_date ? moment(this.global_recordPayment.transaction_date).format('YYYY-MM-DD') : null,
+            remarks: this.global_recordPayment.remarks
+          }
+          if(_formChecker_(params) == false){
+            return false;
+          }
+          request = _updateEmpRefundRecordPayment_(params);
         }
         
         if(this.global_isDependentRefundRecordPayment){  // if Employee Refund Record Payment

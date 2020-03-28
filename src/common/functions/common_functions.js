@@ -726,6 +726,16 @@ const _updateDependentRecordRefund_ = (params) => {
 	let	req	=	{
 		method:	'PUT',
 		url:	Config.DEPENDENT_RECORD_REFUND,
+    data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _updateEmpRefundRecordPayment_ = (params) => {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_EMPLOYEE_REFUND_PAYMENT,
 		data: params,
 		header:	defaultHeaders,
 	};
@@ -1574,4 +1584,5 @@ export	{
 	_activatePlanExtension_,
 	_downloadPDFInvoice_,
 	_getAccountType_,
+	_updateEmpRefundRecordPayment_,
 }
