@@ -820,8 +820,8 @@ const _generatePDF_	=	async (params)	=>	{
 	let pdfHeader = await _renderHeader_(pdfDoc, params);
 	let pdfSubHeader = await _renderSubHeader_(pdfDoc);
 	let pdfTable = await _renderTable_(pdfDoc, params);
-	let pdfTotal = await _renderTotal_(pdfDoc, params);
-	let pdfFooter = await _renderFooter_(pdfDoc, params);
+	let pdfTotal = await _renderTotal_(pdfDoc, params, pdfTable.lastPosition);
+	let pdfFooter = await _renderFooter_(pdfDoc, pdfTotal.lastPosition);
 	console.log('pdfHeader', pdfHeader);
 	console.log('pdfSubHeader', pdfSubHeader);
 	console.log('pdfTable', pdfTable);
@@ -1163,12 +1163,11 @@ const _renderTable_	=	async	(pdfDoc, params)	=>	{
 		},
 		body: tableBody,
 	})
-	pdfDoc.line(5, 205, pdfDoc.internal.pageSize.width - 5, 205);
-
-	return true;
+	pdfDoc.line(5, pdfDoc.previousAutoTable.finalY + 10, pdfDoc.internal.pageSize.width - 5, pdfDoc.previousAutoTable.finalY + 10);
+	return { lastPosition: pdfDoc.previousAutoTable.finalY + 10 };
 }
 
-const _renderTotal_	=	async	(pdfDoc, params)	=>	{
+const _renderTotal_	=	async	(pdfDoc, params, lastPosition)	=>	{
 	let total = [
 		[
 			'',
@@ -1200,7 +1199,8 @@ const _renderTotal_	=	async	(pdfDoc, params)	=>	{
 	pdfDoc.autoTable({
 		theme: 'plain',
 		margin: { top: 0, bottom: 0, left: 5, right: 5 },
-		startY: 210,
+		startY: lastPosition + 5,
+		// startY: 210,
 		columns: ['', '', '', '', ''],
 		styles: {
 			font: 'helvetica',
@@ -1225,14 +1225,14 @@ const _renderTotal_	=	async	(pdfDoc, params)	=>	{
 		},
 		body: total,
 	})
-	pdfDoc.line(130, 217.5, 195, 217.5);
 
-	return true;
+	pdfDoc.line(130, lastPosition + 12, 195, lastPosition + 12);
+	return { lastPosition: pdfDoc.previousAutoTable.finalY + 10 };
 }
 
-const _renderFooter_	=	async	(pdfDoc)	=>	{
+const _renderFooter_	=	async	(pdfDoc, lastPosition)	=>	{
 	let stamp = await _getBase64Image_(window.location.origin + '/assets/img/invoice bottom stamp.png');
-	pdfDoc.addImage(stamp, "PNG", pdfDoc.internal.pageSize.getWidth() - 50, pdfDoc.internal.pageSize.getHeight() - 60, 35, 35);
+	pdfDoc.addImage(stamp, "PNG", pdfDoc.internal.pageSize.getWidth() - 50, lastPosition + 20, 35, 35);
 	
 	let paymentInfo = [
 		[
@@ -1319,7 +1319,8 @@ const _renderFooter_	=	async	(pdfDoc)	=>	{
 	pdfDoc.autoTable({
 		theme: 'plain',
 		margin: { top: 0, bottom: 0, left: 14, right: 14 },
-		startY: 215,
+		startY: lastPosition - 10,
+		// startY: 215,
 		columns: ['', '', '', '', ''],
 		styles: {
 			font: 'helvetica',
@@ -1328,6 +1329,7 @@ const _renderFooter_	=	async	(pdfDoc)	=>	{
 			textColor: '#666'
 		},
 		body: paymentInfo,
+		pageBreak: 'auto'
 	})
 	let copyright = [
 		[
@@ -1339,7 +1341,7 @@ const _renderFooter_	=	async	(pdfDoc)	=>	{
 	pdfDoc.autoTable({
 		theme: 'plain',
 		margin: { top: 0, bottom: 0, left: 14, right: 14 },
-		startY: 285,
+		startY: pdfDoc.previousAutoTable.finalY + 10,
 		columns: [''],
 		styles: {
 			font: 'helvetica',
