@@ -606,7 +606,7 @@
             active_plan_extensions_id: this.global_editPlan.active_plan_extensions_id,
             employees: Number(this.global_editPlan.employees),
             plan_start: this.global_editPlan.plan_start ? moment( this.global_editPlan.plan_start ).format('YYYY-MM-DD') : null,
-            invoice_due: this.global_editPlan.invoice_due ? moment( this.global_editPlan.invoice_due ).format('YYYY-MM-DD') : null,
+            invoice_due: this.global_editPlan.invoice_due_date ? moment( this.global_editPlan.invoice_due_date ).format('YYYY-MM-DD') : null,
             invoice_date: this.global_editPlan.invoice_date ? moment( this.global_editPlan.invoice_date ).format('YYYY-MM-DD') : null,
             individual_price: this.global_editPlan.individual_price,
             account_type: this.global_editPlan.account_type,
