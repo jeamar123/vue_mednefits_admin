@@ -19,6 +19,10 @@
     _updateEmployeeRecordPayment_,
     _updateAccountPlanType_,
     _updateEmpRefundRecordPayment_,
+    _updateSpendingDeposit_,
+    _planExtensionRecordPayment_,
+    _spendingDepositRecordPayment_,
+    _updateEditPlanExtension_,
   } from '../../common/functions/common_functions';
    
   let corporatePlan = {
@@ -107,6 +111,13 @@
         global_isEmployeeRefundRecordPayment: false,
         global_selectPlanType: { },
         global_isCreatePlanExtensionShow: false,
+        global_editDepositData: {
+          invoice_date: new Date(),
+          invoice_due: new Date(),
+        },
+        global_isPlanExtensionRecordPayment: false,
+        global_isSpendingDepositRecordPayment: false,
+        global_isEditPlanExtensionModalShow: false,
       };
     },
     created(){
@@ -140,6 +151,9 @@
         this.global_editPlan = data;
         this.global_isEmployeeRecordPayment = false;
         this.global_isDependentRecordPayment = false;
+        this.global_isEmployeeRefundRecordPayment = false;
+        this.global_isPlanExtensionRecordPayment = false;
+        this.global_isSpendingDepositRecordPayment = false;
         if(type == 'dependent'){
           this.global_isDependentRecordPayment = true;
         }
@@ -148,7 +162,17 @@
         }
         if(type == 'employee_refund'){
           this.global_isEmployeeRefundRecordPayment = true;
-          console.log(data);
+          // console.log(data);
+        }
+        if (type == 'spending_deposit') {
+          this.global_isSpendingDepositRecordPayment = true;
+          // console.log(data);
+          this.global_spendingAccountData = data;
+          console.log(this.global_spendingAccountData);
+        }
+        if (type == 'plan_extension') {
+          this.global_isPlanExtensionRecordPayment = true;
+          this.global_planExtensionData = data.plan_extension;
         }
       },
       _downloadInvoice_(data, type, account_type, index) {
@@ -191,6 +215,7 @@
           this.global_isEditDepositModalShow = false;
           this.global_isEditPlanModalShow = false;
           this.global_isEditPlanDependetModalShow = false;
+          this.global_isEditPlanExtensionModalShow = false;
           this.global_isDependentRecordPayment = false;
           this.global_customerActiveId = list.customer_active_plan_id;
           // console.log(this.global_customerActiveId);
@@ -231,6 +256,12 @@
         // }
         if ( type == 'edit-deposit' ) {
           this.global_isEditDepositModalShow = true;
+          // console.log(data);
+          this.global_editDepositData = data;
+          console.log(this.global_editDepositData);
+          this.global_editDepositData.invoice_date = new Date(this.global_editDepositData.invoice_date);
+          this.global_editDepositData.invoice_due = new Date(this.global_editDepositData.invoice_due);
+          console.log(this.global_editDepositData);
         }
         if ( type == 'edit-plan-employee' ) {
           this.global_isEditPlanModalShow = true;
@@ -247,7 +278,13 @@
           console.log('dependent');
         }
         if ( type == 'edit-plan-extension' ) {
-          this.global_isEditPlanModalShow = true;
+          this.global_isEditPlanExtensionModalShow = true;
+          this.global_editPlan = data.plan_extension;
+          console.log(this.global_editPlan);
+          this.global_editPlan.plan_start = new Date(this.global_editPlan.plan_start);
+          this.global_editPlan.invoice_date = new Date(this.global_editPlan.invoice_date);
+          this.global_editPlan.invoice_due_date = new Date(this.global_editPlan.invoice_due_date);
+          console.log(this.global_editPlan.duration);
           console.log('extension');
         }
       },
@@ -296,11 +333,11 @@
             this.global_customerActivePlansOld = this.global_getPlans.old_plans;
             this.global_getPlans.current_plan.plan_start = moment(this.global_getPlans.current_plan.plan_start).format("DD MMMM, YYYY");
 
-            // for (let i = 0;i < this.global_customerActivePlansOld.length; i++) {
-            //   this.global_oldPlanCustomerAtivePlan = this.global_customerActivePlansOld[i].customer_active_plans;
-            //   console.log(this.global_oldPlanCustomerAtivePlan);
-            //   console.log(this.global_customerActivePlansOld[i].customer_active_plans[i].dependents[i]);
-            // }
+            this.global_currentCustomerActive = this.global_getPlans.current_plan.customer_active_plans;
+            for (let i = 0;i < this.global_currentCustomerActive.length; i++) {
+              console.log(this.global_currentCustomerActive[i]);
+              this.global_currentCustomerActive[i].plan_extension.plan_start = moment(this.global_currentCustomerActive[i].plan_extension.plan_start).format('YYYY-MM-DD');
+            }
 
 					});
       },
@@ -408,10 +445,10 @@
             if( res.status == 200 || res.status == 201 ){
               this.global_viewPlanData = res.data.data;
               console.log(this.global_viewPlanData);
-              console.log(this.global_viewPlanData.employee_refunds);
+              // console.log(this.global_viewPlanData.employee_refunds);
 
               this.global_viewPlanData.employee_refunds.map((value, index) => {
-                console.log(value);
+                // console.log(value);
                 value.date_refund = moment(value.date_refund).format(
                   "YYYY-MM-DD"
                 );
@@ -524,6 +561,29 @@
           request = _updateDependentPlan_(params);
           console.log(params);
         }
+
+        if(this.global_isEditPlanExtensionModalShow) {
+          let params  = {
+            customer_id: Number(this.customer_id),
+            customer_active_plan_id: this.global_editPlan.customer_active_plan_id,
+            active_plan_extensions_id: this.global_editPlan.active_plan_extensions_id,
+            employees: Number(this.global_editPlan.employees),
+            plan_start: this.global_editPlan.plan_start ? moment( this.global_editPlan.plan_start ).format('YYYY-MM-DD') : null,
+            invoice_due: this.global_editPlan.invoice_due ? moment( this.global_editPlan.invoice_due ).format('YYYY-MM-DD') : null,
+            invoice_date: this.global_editPlan.invoice_date ? moment( this.global_editPlan.invoice_date ).format('YYYY-MM-DD') : null,
+            individual_price: this.global_editPlan.individual_price,
+            account_type: this.global_editPlan.account_type,
+            isPaid: this.global_editPlan.paid,
+            // override_total_amount_status: this.global_editPlan.override_total_amount_status,
+            // override_total_amount: this.global_editPlan.override_total_amount,
+            spending_default_invoice_day: this.global_editPlan.spending_default_invoice_day,
+          }
+          if(_formChecker_(params) == false){
+            return false;
+          }
+          request = _updateEditPlanExtension_(params);
+          console.log(params);
+        }
         
         _showPageLoading_();
         request.then((res)  =>  {
@@ -559,7 +619,7 @@
             dependent_invoice_id: this.global_editPlan.dependent_invoice_id,
             paid_amount: Number(this.global_recordPayment.paid_amount),
             transaction_date: this.global_recordPayment.transaction_date ? moment(this.global_recordPayment.transaction_date).format('YYYY-MM-DD') : null,
-            remarks: this.global_recordPayment.remarks
+            remarks: this.global_recordPayment.remarks,
           }
           if(_formChecker_(params) == false){
             return false;
@@ -579,6 +639,33 @@
             return false;
           }
           request = _updateEmpRefundRecordPayment_(params);
+        }
+
+        if (this.global_isSpendingDepositRecordPayment) { // if Spending Deposit Record Payment
+          let params = {
+            customer_spending_invoice_id: this.global_spendingAccountData.customer_spending_deposit_credit_id,
+            customer_id: this.customer_id,
+            paid_amount: Number(this.global_recordPayment.paid_amount),
+            paid_date: this.global_recordPayment.transaction_date ? moment(this.global_recordPayment.transaction_date).format('YYYY-MM-DD') : null,
+            payment_remarks: this.global_recordPayment.remarks
+          }
+          if(_formChecker_(params) == false){
+            return false;
+          }
+          request = _spendingDepositRecordPayment_(params);
+        }
+
+        if (this.global_isPlanExtensionRecordPayment) { // if Plan Extension Record Payment
+          let params = {
+            paid_amount: Number(this.global_recordPayment.paid_amount),
+            transaction_date: this.global_recordPayment.transaction_date ? moment(this.global_recordPayment.transaction_date).format('YYYY-MM-DD') : null,
+            customer_id: Number(this.customer_id),
+            active_plan_extensions_id: this.global_planExtensionData.active_plan_extensions_id,
+          }
+          if(_formChecker_(params) == false){
+            return false;
+          }
+          request = _planExtensionRecordPayment_(params);
         }
 
         if(request){
@@ -626,6 +713,26 @@
           }
         });
       },
+      _submitSpendingDeposit_() {
+        let params = {
+          customer_active_plan_id: this.global_editDepositData.customer_active_plan_id,
+          company_id: this.customer_id,
+          medical_credits: this.global_editDepositData.medical_credits,
+          wellness_credits: this.global_editDepositData.wellness_credits,
+          medical_percent: this.global_editDepositData.medical_percent,
+          wellness_percent: this.global_editDepositData.wellness_percent,
+          invoice_date: moment(this.global_editDepositData.invoice_date).format('YYYY-MM-DD'),
+          invoice_due: moment(this.global_editDepositData.invoice_due).format('YYYY-MM-DD'),
+        };
+        _updateSpendingDeposit_(params)
+					.then(( res ) => {
+            console.log(res);
+            if( res.status == 200 || res.status == 201 ){ 
+              this.$swal("Success!", res.data.message, "success");
+              this.global_isEditDepositModalShow = false;
+            }
+					});
+      }
     }
   }
   

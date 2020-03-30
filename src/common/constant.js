@@ -49,6 +49,10 @@ const UPDATE_PLAN_EMPLOYEE = `${SERVERURL}/company/updateEmployeePlanEdit`;
 const EMPLOYEE_RECORD_PAYMENT = `${SERVERURL}/company/updatePlanRecordPayment`;
 const UPDATE_ACCOUNT_PLAN_TYPE = `${SERVERURL}/company/updateAccountPlanType`;
 const UPDATE_EMPLOYEE_REFUND_PAYMENT = `${SERVERURL}/company/updateRecordRefundEmployee`;
+const UPDATE_SPENDING_DEPOSIT = `${SERVERURL}/company/planSpendingDeposit`;
+const PLAN_EXTENSION_RECORD_PAYMENT = `${SERVERURL}/company/employeePlanPayment`;
+const SPENDING_DEPOSIT_RECORD_PAYMENT = `${SERVERURL}/company/spendingPayment`;
+const UPDATE_EDIT_PLAN_EXTENSION = `${SERVERURL}/company/employeePlanExntension`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -93,4 +97,8 @@ module.exports = {
 	EMPLOYEE_RECORD_PAYMENT,
 	UPDATE_ACCOUNT_PLAN_TYPE,
 	UPDATE_EMPLOYEE_REFUND_PAYMENT,
+	UPDATE_SPENDING_DEPOSIT,
+	PLAN_EXTENSION_RECORD_PAYMENT,
+	SPENDING_DEPOSIT_RECORD_PAYMENT,
+	UPDATE_EDIT_PLAN_EXTENSION,
 }
