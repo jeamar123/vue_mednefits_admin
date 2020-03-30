@@ -742,11 +742,30 @@ const _updateEmpRefundRecordPayment_ = (params) => {
 	return _axiosCall_(req);
 }
 
+const _updateSpendingDeposit_ = (params) => {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_SPENDING_DEPOSIT,
+    data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
 const _createPlanExtension_ = (params) => {
 	let	req	=	{
 		method:	'POST',
 		url:	Config.CREATE_PLAN_EXTENSION,
 		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _planExtensionRecordPayment_ = (params) => {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.PLAN_EXTENSION_RECORD_PAYMENT,
+    data: params,
 		header:	defaultHeaders,
 	};
 	return _axiosCall_(req);
@@ -762,6 +781,26 @@ const _activatePlanExtension_ = (params) => {
 	return _axiosCall_(req);
 }
 
+const _spendingDepositRecordPayment_ = (params) => {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.SPENDING_DEPOSIT_RECORD_PAYMENT,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _updateEditPlanExtension_ = (params) => {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_EDIT_PLAN_EXTENSION,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+=======
 const _getBase64Image_	=	(url)	=>{
 	let img = new Image();
 	let canvas = document.createElement('canvas');
@@ -1587,4 +1626,8 @@ export	{
 	_downloadPDFInvoice_,
 	_getAccountType_,
 	_updateEmpRefundRecordPayment_,
+	_updateSpendingDeposit_,
+	_planExtensionRecordPayment_,
+	_spendingDepositRecordPayment_,
+	_updateEditPlanExtension_,
 }
