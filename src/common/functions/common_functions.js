@@ -4,6 +4,8 @@ import router from '../../router';
 import * as Config from '../constant.js';
 import axios from 'axios';
 import moment from "moment";
+import jsPDF from 'jspdf'
+import 'jspdf-autotable';
 
 const	defaultHeaders	=		{
 	// 'Accept':	'application/json',
@@ -337,6 +339,12 @@ const _formChecker_	=	(formData)	=>	{
 	}
 	if (formData.hasOwnProperty('individual_price') && !formData.individual_price)	{
 		error_checkForm.push('Individual Price.');
+	}
+	if (formData.hasOwnProperty('duration') && !formData.duration)	{
+		error_checkForm.push('Duration.');
+	}
+	if (formData.hasOwnProperty('payment_status') && formData.payment_status == undefined)	{
+		error_checkForm.push('Payment Status.');
 	}
 	
 	
@@ -714,6 +722,16 @@ const _updateAccountPlanType_ = (params) => {
 	return _axiosCall_(req);
 }
 
+const _updateDependentRecordRefund_ = (params) => {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.DEPENDENT_RECORD_REFUND,
+    data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
 const _updateEmpRefundRecordPayment_ = (params) => {
 	let	req	=	{
 		method:	'PUT',
@@ -728,6 +746,15 @@ const _updateSpendingDeposit_ = (params) => {
 	let	req	=	{
 		method:	'PUT',
 		url:	Config.UPDATE_SPENDING_DEPOSIT,
+    data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+const _createPlanExtension_ = (params) => {
+	let	req	=	{
+		method:	'POST',
+		url:	Config.CREATE_PLAN_EXTENSION,
 		data: params,
 		header:	defaultHeaders,
 	};
@@ -738,6 +765,16 @@ const _planExtensionRecordPayment_ = (params) => {
 	let	req	=	{
 		method:	'PUT',
 		url:	Config.PLAN_EXTENSION_RECORD_PAYMENT,
+    data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _activatePlanExtension_ = (params) => {
+	let	req	=	{
+		method:	'POST',
+		url:	Config.ACTIVATE_PLAN_EXTENSION,
 		data: params,
 		header:	defaultHeaders,
 	};
@@ -763,6 +800,773 @@ const _updateEditPlanExtension_ = (params) => {
 	};
 	return _axiosCall_(req);
 }
+=======
+const _getBase64Image_	=	(url)	=>{
+	let img = new Image();
+	let canvas = document.createElement('canvas');
+	let dataURL;
+	img.src = url;
+	let promise = new Promise((resolve, reject)	=>	{
+		img.onload = function(){
+			canvas.width = img.width;
+			canvas.height = img.height;
+			let context = canvas.getContext('2d');
+			context.drawImage(img, 0, 0);
+			dataURL = canvas.toDataURL('image/png');
+			resolve(dataURL);
+			return dataURL;
+		};
+	});
+	return promise;
+}
+
+const _downloadPDFInvoice_ = async (params, type)	=>	{
+	/*----- Invoice Plan/Account type -------*/
+	/*----- 1 = Employee Account ------------*/
+	/*----- 2 = Dependent Account -----------*/   
+	/*----- 3 = Spending Deposit Account ----*/   
+	/*----- 4 = Employee Refund -------------*/   
+	/*----- 5 = Dependent Refund ------------*/   
+	/*----- 6 = Plan Extension --------------*/
+	/*---------------------------------------*/
+	let tblData = null;
+	if(type == 1){
+		params.dependents = [];
+		tblData = await _formatEmployeeInvoiceBody_(params);
+	}
+	if(type == 2){
+
+	}
+	if(type == 3){
+
+	}
+	if(type == 4){
+
+	}
+	if(type == 5){
+
+	}
+	if(type == 6){
+
+	}
+	console.log(tblData);
+	_generatePDF_(tblData);
+};
+
+const _generatePDF_	=	async (params)	=>	{
+	const pdfDoc = new jsPDF('p','mm');
+	pdfDoc.setDrawColor(238, 238, 238);
+	let pdfHeader = await _renderHeader_(pdfDoc, params);
+	let pdfSubHeader = await _renderSubHeader_(pdfDoc);
+	let pdfTable = await _renderTable_(pdfDoc, params);
+	let pdfTotal = await _renderTotal_(pdfDoc, params, pdfTable.lastPosition);
+	let pdfFooter = await _renderFooter_(pdfDoc, pdfTotal.lastPosition);
+	console.log('pdfHeader', pdfHeader);
+	console.log('pdfSubHeader', pdfSubHeader);
+	console.log('pdfTable', pdfTable);
+	console.log('pdfTotal', pdfTotal);
+	console.log('pdfFooter', pdfFooter);
+	// doc.save('table.pdf')
+	window.open(pdfDoc.output('bloburl'), '_blank');
+}
+
+const _renderHeader_ = async (pdfDoc, params) =>	{
+	if(params.paid){
+		pdfDoc.setTextColor(228,228,228);
+		pdfDoc.setFontSize(120);
+		pdfDoc.text('PAID', 70, 105, null, 30 );
+	}
+
+	let logo = await _getBase64Image_(window.location.origin + '/assets/img/latest logo/mobile-logo-blue-latest.png');
+	pdfDoc.addImage(logo, "PNG", 15, 25, 80, 15);
+
+	let header = [
+		[
+			{ 
+				content: '', 
+				rowSpan: 10,
+				styles: { 
+					fontStyle: 'bold',
+					font: 'helvetica',
+					fontSize: 20,
+					textColor: '#333',
+				}  
+			},
+			{ 
+				content: 'INVOICE', 
+				rowSpan: 1,
+				styles: { 
+					fontStyle: 'bold',
+					font: 'helvetica',
+					fontSize: 25,
+					textColor: '#333',
+				} 
+			}
+		],
+		[],
+		[
+			{ 
+				content: 'Medicloud Pte Ltd', 
+				styles: { 
+					fontStyle: 'bold',
+					textColor: '#333'
+				} 
+			},
+		],
+		[
+			'7 Temasek Boulevard'
+		],
+		[
+			'#18-02 Suntec Tower One'
+		],
+		[
+			'038987'
+		],
+		[],
+		[
+			'Singapore'
+		],
+		[
+			'+65 6254 7889'
+		],
+		[
+			'mednefits.com'
+		],
+	];
+	pdfDoc.autoTable({
+		theme: 'plain',
+		margin: { top: 0, bottom: 0, left: 15, right: 15 },
+		startY: 10,
+		columns: ['', ''],
+		styles: {
+			font: 'helvetica',
+			valign: 'middle',
+			cellPadding: 0.3,
+			fontSize: 11,
+		},
+		columnStyles: {
+			1:  {
+				halign: 'right',
+				cellWidth: 50,
+				textColor: '#444'
+			}
+		},
+		body: header,
+	})
+	pdfDoc.rect(5,5,pdfDoc.internal.pageSize.width - 10, pdfDoc.internal.pageSize.height - 10, 'S');
+
+	return true;
+};
+
+const _renderSubHeader_	=	async	(pdfDoc)	=>	{
+	let subHeader = [
+		[
+			{ 
+				content: 'BILL TO', 
+				rowSpan: 2,
+				styles: { 
+					fontStyle: 'bold',
+					textColor: '#666',
+				}  
+			},
+			{ 
+				content: 'Invoice Number: ', 
+				rowSpan: 2,
+			},
+			'',
+			{ 
+				content: 'OMC000012', 
+				rowSpan: 2,
+			}
+		],
+		[],
+		[
+			'StackGeckos',
+			{ 
+				content: 'Invoice Date: ', 
+				rowSpan: 2,
+			},
+			'',
+			{ 
+				content: '04 January, 2018', 
+				rowSpan: 2,
+			}
+		],
+		[
+			'Allans Alzulas'
+		],
+		[
+			'test, 1222',
+			{
+				content: 'Payment Due: ',
+				rowSpan: 2,
+			},
+			'',
+			{
+				content: '27 December, 2017',
+				rowSpan: 2,
+			}
+		],
+		[
+			'',
+		],
+		[
+			'+639064317892',
+			{
+				content: 'Payment Date: ',
+				rowSpan: 1,
+			},
+			'',
+			{
+				content: '27 December, 2017',
+				rowSpan: 1,
+			}
+		],
+		[
+			'allan.alzula@gmail.com',
+		],
+		[
+			'',
+			{
+				content: 'Amount Due: ',
+				rowSpan: 2,
+				styles:  {
+					valign: 'middle',
+					fillColor: [240, 240, 240]
+				}
+			},
+			{
+				content: '',
+				rowSpan: 2,
+				styles:  {
+					valign: 'middle',
+					fillColor: [240, 240, 240]
+				}
+			},
+			{
+				content: 'SGD 410',
+				rowSpan: 2,
+				styles:  {
+					valign: 'middle',
+					fillColor: [240, 240, 240]
+				}
+			}
+		],
+		[],
+	];
+	pdfDoc.autoTable({
+		theme: 'plain',
+		margin: { top: 0, bottom: 0, left: 15, right: 15 },
+		startY: 75,
+		columns: ['','','',''],
+		styles: {
+			font: 'helvetica',
+			cellPadding: 0,
+		},
+		columnStyles: {
+			0: {
+				textColor: '#333'
+			},
+			1:  {
+				halign: 'right',
+				cellWidth: 40,
+				textColor: '#333'
+			},
+			2:  {
+				cellWidth: 3,
+			},
+			3:  {
+				halign: 'left',
+				cellWidth: 40,
+				textColor: '#666'
+			},
+		},
+		body: subHeader,
+	})
+	pdfDoc.line(5, 70, pdfDoc.internal.pageSize.width - 5, 70);
+
+	return true;
+}
+
+const _renderTable_	=	async	(pdfDoc, params)	=>	{
+	let tableHeader = [
+		[
+			{
+				content : '',
+				styles: {
+					fillColor: [3, 146, 207],
+				}
+			},
+			{
+				content : 'Items',
+				styles: {
+					fillColor: [3, 146, 207],
+					textColor: [255, 255, 255],
+					halign: 'left',
+					cellWidth: 80,
+				}
+			},
+			{
+				content : 'Quantity',
+				styles: {
+					fillColor: [3, 146, 207],
+					textColor: [255, 255, 255],
+				}
+			},
+			{
+				content : 'Price',
+				styles: {
+					fillColor: [3, 146, 207],
+					textColor: [255, 255, 255],
+				}
+			},
+			{
+				content : 'Amount',
+				styles: {
+					fillColor: [3, 146, 207],
+					textColor: [255, 255, 255],
+				}
+			},
+			{
+				content : '',
+				styles: {
+					fillColor: [3, 146, 207],
+				}
+			},
+		],
+	];
+	pdfDoc.autoTable({
+		theme: 'plain',
+		margin: { top: 0, bottom: 0, left: 5, right: 5 },
+		startY: 120,
+		columns: ['', '', '', '', '', ''],
+		styles: {
+			font: 'helvetica',
+			halign: 'center',
+			cellPadding: 0.3,
+			valign: 'middle',
+			minCellHeight: 10,
+		},
+		columnStyles: {
+			0: {
+				cellWidth: 8
+			},
+			2:  {
+				cellWidth: 32,
+			},
+			3:  {
+				cellWidth: 35,
+			},
+			4:  {
+				cellWidth: 35,
+			},
+			5:  {
+				cellWidth: 8
+			},
+		},
+		body: tableHeader,
+	})
+	let tableBody = params;
+	pdfDoc.autoTable({
+		theme: 'plain',
+		margin: { top: 0, bottom: 0, left: 5, right: 5 },
+		startY: 135,
+		columns: ['', '', '', '', '', ''],
+		styles: {
+			font: 'helvetica',
+			halign: 'center',
+			valign: 'middle',
+			cellPadding: 0.3,
+			fontStyle: 'bold',
+		},
+		columnStyles: {
+			0:  {
+				cellWidth: 8,
+			},
+			1:  {
+				halign: 'left',
+				fontStyle: 'normal',
+			},
+			2:  {
+				cellWidth: 32,
+			},
+			3:  {
+				cellWidth: 35,
+			},
+			4:  {
+				cellWidth: 35,
+			},
+			5:  {
+				cellWidth: 8
+			},
+		},
+		body: tableBody,
+	})
+	pdfDoc.line(5, pdfDoc.previousAutoTable.finalY + 10, pdfDoc.internal.pageSize.width - 5, pdfDoc.previousAutoTable.finalY + 10);
+	return { lastPosition: pdfDoc.previousAutoTable.finalY + 10 };
+}
+
+const _renderTotal_	=	async	(pdfDoc, params, lastPosition)	=>	{
+	let total = [
+		[
+			'',
+			{
+				content : 'Total: ',
+			},
+			'',
+			{
+				content : 'SGD 10,560',
+			},
+			''
+		],
+		[
+			'',
+			{
+				content : 'Amount Due: ',
+			},
+			'',
+			{
+				content : 'SGD 120',
+				styles: {
+					fontStyle: 'bold',
+					textColor: '#333'
+				}
+			},
+			''
+		],
+	];
+	pdfDoc.autoTable({
+		theme: 'plain',
+		margin: { top: 0, bottom: 0, left: 5, right: 5 },
+		startY: lastPosition + 5,
+		// startY: 210,
+		columns: ['', '', '', '', ''],
+		styles: {
+			font: 'helvetica',
+			halign: 'right',
+			valign: 'middle'
+		},
+		columnStyles: {
+			0:  {
+				cellWidth: 120,
+			},
+			1:  {
+			},
+			2:  {
+				cellWidth: 3,
+			},
+			3:  {
+				
+			},
+			4:  {
+				cellWidth: 8
+			},
+		},
+		body: total,
+	})
+
+	pdfDoc.line(130, lastPosition + 12, 195, lastPosition + 12);
+	return { lastPosition: pdfDoc.previousAutoTable.finalY + 10 };
+}
+
+const _renderFooter_	=	async	(pdfDoc, lastPosition)	=>	{
+	let stamp = await _getBase64Image_(window.location.origin + '/assets/img/invoice bottom stamp.png');
+	pdfDoc.addImage(stamp, "PNG", pdfDoc.internal.pageSize.getWidth() - 50, lastPosition + 20, 35, 35);
+	
+	let paymentInfo = [
+		[
+			{
+				content : 'Payment Information',
+				styles: {
+					textColor: '#009ec8',
+					fontSize: 12,
+				},
+			},
+		],
+		[],
+		[
+			{
+				content : 'Corporate PayNow',
+				styles: {
+					fontSize: 11,
+					textColor: '#333',
+					fontStyle: 'bold'
+				}
+			},
+		],
+		[
+			'UEN: 201415681W'
+		],
+		[],
+		[
+			{
+				content : 'Bank Transfer:',
+				styles: {
+					fontSize: 11,
+					textColor: '#333',
+					fontStyle: 'bold'
+				}
+			},
+		],
+		[
+			'Account Name: Medicloud Pte Ltd'
+		],
+		[
+			'Bank Name: UNITED OVERSEAS BANK LIMITED'
+		],
+		[
+			'Bank A/C: 374-3069-399'
+		],
+		[
+			'Swift Code: UOVBSGSG - UNITED OVERSEAS BANK LIMITED'
+		],
+		[
+			'Bank Address: 3 Temasek Boulevard #02-735/736 Suntec City Mall Singapore 038987'
+		],
+		[],
+		[
+			{
+				content : 'Please contact us for any questions related to your invoice/contract at',
+				styles: {
+					textColor: '#222',
+				}
+			},
+		],
+		[
+			{
+				content : 'happiness@mednefits.com',
+				styles: {
+					textColor: '#222',
+				}
+			},
+		],
+		[
+			''
+		],
+		[
+			'Notes:Note for this invoice'
+		],
+		[
+			{
+				content : 'Please send all payment advice to finance@mednefits.com',
+				styles: {
+					textColor: '#222',
+				}
+			},
+		],
+	];
+	pdfDoc.autoTable({
+		theme: 'plain',
+		margin: { top: 0, bottom: 0, left: 14, right: 14 },
+		startY: lastPosition - 10,
+		// startY: 215,
+		columns: ['', '', '', '', ''],
+		styles: {
+			font: 'helvetica',
+			cellPadding: 0,
+			fontSize: 9,
+			textColor: '#666'
+		},
+		body: paymentInfo,
+		pageBreak: 'auto'
+	})
+	let copyright = [
+		[
+			{
+				content: '© 2020 Mednefits. All rights reserved',
+			}
+		],
+	];
+	pdfDoc.autoTable({
+		theme: 'plain',
+		margin: { top: 0, bottom: 0, left: 14, right: 14 },
+		startY: pdfDoc.previousAutoTable.finalY + 10,
+		columns: [''],
+		styles: {
+			font: 'helvetica',
+			cellPadding: 0,
+			fontSize: 9,
+			textColor: '#666',
+			valign: 'middle',
+			halign: 'center',
+		},
+		body: copyright,
+	})
+
+	return true;
+}
+
+const _getAccountType_	=	(type)	=>	{
+	if(type == 'stand_alone_plan'){
+		return 'Pro Plan';
+	}
+	if(type == 'insurance_bundle'){
+		return 'Insurance Bundle';
+	}
+	if(type == 'trial_plan'){
+		return 'Trial Plan';
+	}
+	if(type == 'lite_plan'){
+		return 'Lite Plan';
+	}
+}
+
+const	_generateTblBody_	=	(params)	=>	{
+	let promise = new Promise((resolve, reject) => {
+		let result = [];
+		let rows = params.rows;
+		let cols = params.cols;
+		params.data.map((row, rowKey) =>  {
+			let tempRow = [];
+			row.map((col, colKey)  =>  {
+				if(colKey == 0){
+					tempRow.push({
+						content: '',
+					});
+				}
+				tempRow.push({
+					content: col.content,
+					styles: col.style ? col.style : {},
+					rowSpan: col.options ? col.options.rowSpan : 1,
+				});
+				if(colKey == row.length - 1){
+					tempRow.push({
+						content: '',
+					});
+					result.push(tempRow);
+					if(rowKey == rows - 1){
+						resolve(result);
+						return result;
+					}
+				}
+			});
+		});
+	});
+	return promise;
+}
+
+const _formatEmployeeInvoiceBody_	=	async	(params)	=>{
+	let tblData  = {
+		rows: 9,
+		cols: 4,
+		data : [
+			[
+				{
+					content: params.plan_type.plan_name,
+					style: {
+						fontSize: 11,
+						fontStyle: 'bold'
+					},
+				},
+				{
+					content: params.employees,
+					options:  {
+						rowSpan: 8,
+					}
+				},
+				{
+					content: params.currency_type.toUpperCase() + ' ' + (parseFloat( params.individual_price ).toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+					options:  {
+						rowSpan: 8,
+					}
+				},
+				{
+					content: params.currency_type.toUpperCase() + ' ' + (parseFloat( params.amount ).toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+					options:  {
+						rowSpan: 8,
+					}
+				},
+			],
+			[
+				{
+					content: 'Active Type: ' + _getAccountType_(params.account_type),
+				},
+			],
+			[
+				{
+					content: 'Active Plan ID: #' + params.customer_active_plan_id,
+				},
+			],
+			[
+				{
+					content: 'No. of employees: ' + params.employees,
+				},
+			],
+			[
+				{
+					content: 'Billing Frequency: Annual',
+				},
+			],
+			[
+				{
+					content: 'Start Date: ' + moment(params.plan_start, 'YYYY-MM-DD').format('DD MMMM, YYYY'),
+				},
+			],
+			[
+				{
+					content: 'End Date: ' + moment(params.plan_end, 'YYYY-MM-DD').format('DD MMMM, YYYY'),
+				},
+			],
+			[
+				{
+					content: 'Plan Duration: ' + params.duration,
+				},
+			],
+			[
+				{
+					content: '',
+				},
+			],
+		]
+	}
+	params.dependents.map((value, key)  =>  {
+		tblData.data.push([
+			{
+				content: 'Active Plan Type: ' + _getAccountType_(value.account_type),
+			},
+			{
+				content: value.total_dependents,
+				options: {
+					rowSpan: 5,
+				}
+			},
+			{
+				content: value.currency_type.toUpperCase() + ' ' + (parseFloat( value.individual_price ).toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+				options: {
+					rowSpan: 5,
+				}
+			},
+			{
+				content: value.currency_type.toUpperCase() + ' ' + (parseFloat( value.amount ).toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+				options: {
+					rowSpan: 5,
+				}
+			},
+		]);
+		tblData.data.push([
+			{
+				content: 'No. of dependents: ' + value.total_dependents,
+			}
+		]);
+		tblData.data.push([
+			{
+				content: 'Start Date: ' + moment(value.plan_start, 'YYYY-MM-DD').format('DD MMMM, YYYY'),
+			}
+		]);
+		tblData.data.push([
+			{
+				content: 'End Date: ' + moment(value.plan_end, 'YYYY-MM-DD').format('DD MMMM, YYYY'),
+			}
+		]);
+		tblData.data.push([
+			{
+				content: 'Plan Duration: ' + value.plan_end,
+			}
+		]);
+	});
+	console.log(tblData);
+	return await _generateTblBody_(tblData);
+};
 
 
 export	{
@@ -816,6 +1620,11 @@ export	{
 	_updateEmployeePlan_,
 	_updateEmployeeRecordPayment_,
 	_updateAccountPlanType_,
+	_updateDependentRecordRefund_,
+	_createPlanExtension_,
+	_activatePlanExtension_,
+	_downloadPDFInvoice_,
+	_getAccountType_,
 	_updateEmpRefundRecordPayment_,
 	_updateSpendingDeposit_,
 	_planExtensionRecordPayment_,
