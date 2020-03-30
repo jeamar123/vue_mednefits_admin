@@ -514,7 +514,7 @@
 								<div class="column">
 									<button class="btn-gray" v-on:click="_downloadInvoice_(list, 'invoice', 3, index)">Download Invoice</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment('spending_deposit', list)">Record Payment</button>
-									<button class="btn-primary" @click="_showViewPlanModal_('edit-deposit')">Edit Deposit</button>
+									<button class="btn-primary" @click="_showViewPlanModal_('edit-deposit',list)">Edit Deposit</button>
 									<button class="btn-primary">Mark as unpaid</button>
 								</div>
 							</div>
@@ -597,9 +597,9 @@
 
 								</div>
 								<div class="column">
-									<button class="btn-blue" @click="_showViewPlanModal_('edit-plan-extension')">Edit Plan</button>
+									<button class="btn-blue" @click="_showViewPlanModal_('edit-plan-extension',global_viewPlanData)">Edit Plan</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_(list, 'invoice', 6, 1)">Download Invoice</button>
-									<button class="btn-primary" v-on:click="toggleRecordPayment('plan_extension', list)">Record Payment</button>
+									<button class="btn-primary" v-on:click="toggleRecordPayment('plan_extension', global_viewPlanData)">Record Payment</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_(list,'receipt')">Download Receipt</button>
 									
 								</div>
@@ -1071,11 +1071,11 @@
 						<div class="dp-flex">
 							<div>
 								<label>Allocate Credits*</label>
-								<input type="number"> 
+								<input v-model="global_editDepositData.medical_credits" type="number"> 
 							</div>
 							<div class="deposit-slider">
-								<label>Deposit : <span>{{ global_creditAllocationDeposit }} </span>% </label>
-								<vue-slider v-model="global_creditAllocationDeposit" :min="0" :max="10" :interval=".5"/>
+								<label>Deposit : <span>{{ global_editDepositData.medical_percent }} </span>% </label>
+								<vue-slider v-model="global_editDepositData.medical_percent" :min="0" :max="10" :interval=".5"/>
 							</div>
 						</div>
 					</div>
@@ -1084,11 +1084,11 @@
 						<div class="dp-flex">
 							<div>
 								<label>Allocate Credits*</label>
-								<input type="number"> 
+								<input v-model="global_editDepositData.wellness_credits" type="number"> 
 							</div>
 							<div class="deposit-slider">
-								<label>Deposit : <span>{{ global_creditAllocationDeposit }} </span>% </label>
-								<vue-slider v-model="global_creditAllocationDeposit" :min="0" :max="10" :interval=".5"/>
+								<label>Deposit : <span>{{ global_editDepositData.wellness_percent }} </span>% </label>
+								<vue-slider v-model="global_editDepositData.wellness_percent" :min="0" :max="10" :interval=".5"/>
 							</div>
 						</div>
 					</div>
@@ -1099,7 +1099,7 @@
 								<i class="fa fa-calendar-o"></i>
 								<v-date-picker 
 									popoverDirection="bottom" 
-									v-model="global_recordPayment.date_received"
+									v-model="global_editDepositData.invoice_date"
 									:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 									popover-visibility="focus" 
 									:formats='formats'></v-date-picker>
@@ -1107,12 +1107,12 @@
 							</div>
 						</div>
 						<div>
-							<label>Invoice Date</label>
+							<label>Invoice Due</label>
 							<div class="date-container vDatepicker dp-flex">
 								<i class="fa fa-calendar-o"></i>
 								<v-date-picker 
 									popoverDirection="bottom" 
-									v-model="global_recordPayment.date_received"
+									v-model="global_editDepositData.invoice_due"
 									:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 									popover-visibility="focus" 
 									:formats='formats'></v-date-picker>
@@ -1123,11 +1123,11 @@
 				</div>
 				<div slot="footer">
 					<button @click="_showCorporatePlanModal_('edit-close',global_customerActivePlanData)" class="btn-close">BACK</button>
-					<button class="btn-primary">UPDATE</button>
+					<button @click="_submitSpendingDeposit_()" class="btn-primary">UPDATE</button>
 				</div>
 			</Modal>
 
-			<Modal v-if="global_isEditPlanModalShow || global_isEditPlanDependetModalShow" class="edit-plan-modal corporate-details-modal">
+			<Modal v-if="global_isEditPlanModalShow || global_isEditPlanDependetModalShow || global_isEditPlanExtensionModalShow" class="edit-plan-modal corporate-details-modal">
 				<div slot="header">
 					<h1>Edit Plan</h1>
 				</div>
@@ -1153,7 +1153,7 @@
 									<i class="fa fa-caret-down"></i>
 								</div>
 							</div>
-							<div v-if="global_isEditPlanModalShow">
+							<div v-if="global_isEditPlanModalShow || global_isEditPlanExtensionModalShow">
 								<label>Invoice Start Date</label>
 								<div class="date-container vDatepicker dp-flex">
 									<i class="fa fa-calendar-o"></i>
@@ -1166,7 +1166,7 @@
 									<i class="fa fa-caret-down"></i>
 								</div>
 							</div>
-							<div v-if="global_isEditPlanModalShow">
+							<div v-if="global_isEditPlanModalShow || global_isEditPlanExtensionModalShow">
 								<label>Invoice Due Date</label>
 								<div class="date-container vDatepicker dp-flex">
 									<i class="fa fa-calendar-o"></i>
@@ -1184,14 +1184,14 @@
 								<input type="number" v-model="global_editPlan.individual_price">
 							</div>
 							<div>
-								<div v-if="global_isEditPlanModalShow" class="custom-checkbox-container">
+								<div v-if="global_isEditPlanModalShow || global_isEditPlanExtensionModalShow" class="custom-checkbox-container">
 									<label class="checkbox-input">
 										<span>Override Price Per Employee Amount</span>
 										<input :value="true" type="checkbox" v-model="global_editPlan.override_total_amount_status">
 										<span class="checkbox-mark"></span>
 									</label>
 								</div>
-								<div v-if="global_editPlan.override_total_amount_status"> 
+								<div v-if="global_editPlan.override_total_amount_status" class="price-per-emp-container"> 
 									<label>Price Per Employee Amount</label>
 									<input type="number" v-model="global_editPlan.override_total_amount">
 								</div>
@@ -1307,7 +1307,7 @@
 									<i class="fa fa-caret-down"></i>
 								</div>
 							</div>
-							<div v-if="global_isEditPlanModalShow" class="spending-invoice-date-container">
+							<div v-if="global_isEditPlanModalShow || global_isEditPlanExtensionModalShow" class="spending-invoice-date-container">
 								<h4>Spending Account Invoice Date</h4>
 								<div class="dp-flex-ai">
 									<div>
