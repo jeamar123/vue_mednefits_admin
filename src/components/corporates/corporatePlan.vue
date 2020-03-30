@@ -23,6 +23,7 @@
     _activatePlanExtension_,
     _downloadPDFInvoice_,
     _updateEmpRefundRecordPayment_,
+    _downloadEmployeePlanDetails_,
   } from '../../common/functions/common_functions';
    
   let corporatePlan = {
@@ -179,7 +180,15 @@
         //   window.open( window.location.origin + '/#/dashboard/download-pdf/' + this.customer_id + '/' + this.global_customerActiveId + '/' + account_type + '/' + index );
         // }
 
-        _downloadPDFInvoice_(data, account_type);
+        // _downloadPDFInvoice_(data, account_type);
+        let params  = {
+          customer_id:  Number(this.customer_id),
+          customer_active_plan_id: data.customer_active_plan_id,
+        }
+        _downloadEmployeePlanDetails_(params, true)
+          // .then((res)  =>  {
+          //   console.log(res);
+          // });
       },
       _showCorporatePlanModal_( opt,list ) {
         console.log(opt);

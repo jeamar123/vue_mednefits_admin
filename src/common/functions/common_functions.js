@@ -762,6 +762,7 @@ const _activatePlanExtension_ = (params) => {
 	return _axiosCall_(req);
 }
 
+//------------ PDF DOWNLOAD FUNCTION -------------//
 const _getBase64Image_	=	(url)	=>{
 	let img = new Image();
 	let canvas = document.createElement('canvas');
@@ -1528,6 +1529,22 @@ const _formatEmployeeInvoiceBody_	=	async	(params)	=>{
 	console.log(tblData);
 	return await _generateTblBody_(tblData);
 };
+// ----------------------------------------------- //
+
+const _downloadEmployeePlanDetails_ = (params, isDownload)	=> {
+	let	url	=	Config.DOWNLOAD_EMPLOYEE_PLAN + '?customer_id=' + params.customer_id + '&customer_active_plan_id=' + params.customer_active_plan_id + '&token=' + localStorage.vue_admin_session;
+	if(isDownload){
+		return window.open(url);
+	}else{
+		let	req	=	{
+			method:	'GET',
+			url:	url,
+			header:	defaultHeaders,
+		};
+		return _axiosCall_(req);
+	}
+}
+
 
 
 export	{
@@ -1587,4 +1604,5 @@ export	{
 	_downloadPDFInvoice_,
 	_getAccountType_,
 	_updateEmpRefundRecordPayment_,
+	_downloadEmployeePlanDetails_,
 }

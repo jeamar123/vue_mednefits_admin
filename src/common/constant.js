@@ -52,6 +52,7 @@ const DEPENDENT_RECORD_REFUND = `${SERVERURL}/company/planDependentRefund`;
 const CREATE_PLAN_EXTENSION = `${SERVERURL}/company/createPlanExtension`;
 const ACTIVATE_PLAN_EXTENSION = `${SERVERURL}/company/activatePlanExtension`;
 const UPDATE_EMPLOYEE_REFUND_PAYMENT = `${SERVERURL}/company/updateRecordRefundEmployee`;
+const DOWNLOAD_EMPLOYEE_PLAN = `${SERVERURL}/company/viewPlanEmployee`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -99,4 +100,5 @@ module.exports = {
 	CREATE_PLAN_EXTENSION,
 	ACTIVATE_PLAN_EXTENSION,
 	UPDATE_EMPLOYEE_REFUND_PAYMENT,
+	DOWNLOAD_EMPLOYEE_PLAN
 }
