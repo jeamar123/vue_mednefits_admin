@@ -598,9 +598,9 @@
 								</div>
 								<div class="column">
 									<button class="btn-blue" @click="_showViewPlanModal_('edit-plan-extension',global_viewPlanData)">Edit Plan</button>
-									<button class="btn-gray" v-on:click="_downloadInvoice_(list, 'invoice', 6, 1)">Download Invoice</button>
+									<button class="btn-gray" v-on:click="_downloadInvoice_(global_viewPlanData.plan_extension, 'invoice', 6, 1)">Download Invoice</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment('plan_extension', global_viewPlanData)">Record Payment</button>
-									<button class="btn-gray" v-on:click="_downloadInvoice_(list,'receipt')">Download Receipt</button>
+									<button class="btn-gray" v-on:click="_downloadInvoice_(global_viewPlanData.plan_extension,'receipt')">Download Receipt</button>
 									
 								</div>
 							</div>
