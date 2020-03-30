@@ -800,7 +800,7 @@ const _updateEditPlanExtension_ = (params) => {
 	};
 	return _axiosCall_(req);
 }
-=======
+
 const _getBase64Image_	=	(url)	=>{
 	let img = new Image();
 	let canvas = document.createElement('canvas');
