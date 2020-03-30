@@ -1584,6 +1584,48 @@ const _downloadEmployeePlanDetails_ = (params, isDownload)	=> {
 	}
 }
 
+const _downloadSpendingDepositInvoice_ = (params, isDownload)	=> {
+	let	url	=	Config.DOWNLOAD_SPENDING_DEPOSIT + '?customer_spending_deposit_credit_id=' + params.customer_spending_deposit_credit_id + '&token=' + localStorage.vue_admin_session;
+	if(isDownload){
+		return window.open(url);
+	}else{
+		let	req	=	{
+			method:	'GET',
+			url:	url,
+			header:	defaultHeaders,
+		};
+		return _axiosCall_(req);
+	}
+}
+
+const _downloadEmployeeRefundInvoice_ = (params, isDownload)	=> {
+	let	url	=	Config.DOWNLOAD_EMPLOYEE_REFUND + '?customer_id=' + params.customer_id + '&customer_employee_plan_payment_refund_id=' + params.customer_employee_plan_payment_refund_id + '&token=' + localStorage.vue_admin_session;
+	if(isDownload){
+		return window.open(url);
+	}else{
+		let	req	=	{
+			method:	'GET',
+			url:	url,
+			header:	defaultHeaders,
+		};
+		return _axiosCall_(req);
+	}
+}
+
+const _downloadPlanExtensionInvoice_ = (params, isDownload)	=> {
+	let	url	=	Config.DOWNLOAD_PLAN_EXTENSION + '?customer_id=' + params.customer_id + '&customer_active_plan_id=' + params.customer_active_plan_id + '&token=' + localStorage.vue_admin_session;
+	if(isDownload){
+		return window.open(url);
+	}else{
+		let	req	=	{
+			method:	'GET',
+			url:	url,
+			header:	defaultHeaders,
+		};
+		return _axiosCall_(req);
+	}
+}
+
 
 
 export	{
@@ -1648,4 +1690,7 @@ export	{
 	_planExtensionRecordPayment_,
 	_spendingDepositRecordPayment_,
 	_updateEditPlanExtension_,
+	_downloadSpendingDepositInvoice_,
+	_downloadEmployeeRefundInvoice_,
+	_downloadPlanExtensionInvoice_,
 }

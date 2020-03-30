@@ -28,6 +28,9 @@
     _planExtensionRecordPayment_,
     _spendingDepositRecordPayment_,
     _updateEditPlanExtension_,
+    _downloadSpendingDepositInvoice_,
+    _downloadEmployeeRefundInvoice_,
+    _downloadPlanExtensionInvoice_,
   } from '../../common/functions/common_functions';
    
   let corporatePlan = {
@@ -204,14 +207,41 @@
         // }
 
         // _downloadPDFInvoice_(data, account_type);
-        let params  = {
-          customer_id:  Number(this.customer_id),
-          customer_active_plan_id: data.customer_active_plan_id,
+        if( account_type == 1 ){
+          let params  = {
+            customer_id:  Number(this.customer_id),
+            customer_active_plan_id: data.customer_active_plan_id,
+          }
+          _downloadEmployeePlanDetails_(params, true);
         }
-        _downloadEmployeePlanDetails_(params, true)
-          // .then((res)  =>  {
-          //   console.log(res);
-          // });
+        if( account_type == 2 ){
+        
+        }
+        if( account_type == 3 ){
+          let params  = {
+            customer_id:  Number(this.customer_id),
+            customer_spending_deposit_credit_id: data.customer_spending_deposit_credit_id,
+          }
+          _downloadSpendingDepositInvoice_(params, true);
+        }
+        if( account_type == 4 ){
+          let params  = {
+            customer_id:  Number(this.customer_id),
+            customer_employee_plan_payment_refund_id: data.customer_employee_plan_payment_refund_id,
+          }
+          _downloadEmployeeRefundInvoice_(params, true);
+        }
+        if( account_type == 5 ){
+        
+        }
+        if( account_type == 6 ){
+          let params  = {
+            customer_id:  Number(this.customer_id),
+            customer_active_plan_id: data.customer_active_plan_id,
+          }
+          _downloadPlanExtensionInvoice_(params, true);
+        }
+        
       },
       _showCorporatePlanModal_( opt,list ) {
         console.log(opt);
