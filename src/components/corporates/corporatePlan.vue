@@ -28,9 +28,11 @@
     _planExtensionRecordPayment_,
     _spendingDepositRecordPayment_,
     _updateEditPlanExtension_,
+    _updateSpendingAccoutSettings_,
     _downloadSpendingDepositInvoice_,
     _downloadEmployeeRefundInvoice_,
     _downloadPlanExtensionInvoice_,
+
   } from '../../common/functions/common_functions';
    
   let corporatePlan = {
@@ -285,6 +287,7 @@
         }
       },
       ___medicalSelector( opt ) {
+        console.log(opt);
         if ( opt == true ) {
           this.global_getSpendingData.medical_enable = true;
         } else {
@@ -292,6 +295,7 @@
         }
       },
       ___wellnessSelector( opt ) {
+        console.log(opt);
         if ( opt == true ) {
           this.global_getSpendingData.wellness_enable = true;
         } else {
@@ -441,9 +445,9 @@
         }
       },
       _spendingAccountWallet_( opt ) {
+        opt = (opt == 'true');
         console.log(opt);
-
-        if ( opt === 'false' ) {
+        if ( opt === false ) {
           this.global_getSpendingData.spending_account = (this.global_getSpendingData.spending_account === false);
           console.log(this.global_getSpendingData.spending_account);
           this.global_getSpendingData.medical_enable = false;
@@ -467,6 +471,8 @@
               this.global_getSpendingData.medical_spending_end_date = new Date(moment(this.global_getSpendingData.medical_spending_end_date));
               this.global_getSpendingData.wellness_spending_start_date = new Date(moment(this.global_getSpendingData.wellness_spending_start_date));
               this.global_getSpendingData.wellness_spending_end_date = new Date(moment(this.global_getSpendingData.wellness_spending_end_date));
+              // this.global_getSpendingData.medical_roll_over = (this.global_getSpendingData.medical_roll_over == 'true');
+              // this.global_getSpendingData.wellness_roll_over = (this.global_getSpendingData.wellness_roll_over == 'true');
               
             }
 					});
@@ -859,6 +865,31 @@
           }
         })
       },
+      _submitSpendingAccountData_() {
+        let params = {
+          customer_id: this.customer_id,
+          medical_spending_start_date: moment(this.global_getSpendingData.medical_spending_start_date).format('YYYY-MM-DD'),
+          medical_spending_end_date: moment(this.global_getSpendingData.medical_spending_end_date).format('YYYY-MM-DD'),
+          medical_roll_over: (this.global_getSpendingData.medical_roll_over == 'true'),
+          wellness_spending_start_date: moment(this.global_getSpendingData.wellness_spending_start_date).format('YYYY-MM-DD'),
+          wellness_spending_end_date: moment(this.global_getSpendingData.wellness_spending_end_date).format('YYYY-MM-DD'),
+          wellness_roll_over: (this.global_getSpendingData.wellness_roll_over == 'true'),
+          spending_account_setting_id: this.global_getSpendingData.spending_account_setting_id,
+          medical_enable: this.global_getSpendingData.medical_enable,
+          wellness_enable: this.global_getSpendingData.wellness_enable,
+          spending_account: (this.global_getSpendingData.spending_account == 'true'),
+        }
+        _updateSpendingAccoutSettings_(params)
+        .then((res)  =>  {
+          console.log(res);
+          if(res.status == 200 || res.status == 201){
+            this.global_isSpendingAccountModalShow = false;
+            this.$swal('Success!', res.data.message, 'success');
+
+            this._fetchSpendingData_();
+          }
+        });
+      }
     }
   }
   

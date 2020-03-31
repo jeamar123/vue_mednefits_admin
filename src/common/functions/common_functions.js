@@ -1584,6 +1584,15 @@ const _downloadEmployeePlanDetails_ = (params, isDownload)	=> {
 	}
 }
 
+const _updateSpendingAccoutSettings_ = (params) => {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_SPENDING_ACCOUNT_SETTINGS,
+    data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
 const _downloadSpendingDepositInvoice_ = (params, isDownload)	=> {
 	let	url	=	Config.DOWNLOAD_SPENDING_DEPOSIT + '?customer_spending_deposit_credit_id=' + params.customer_spending_deposit_credit_id + '&token=' + localStorage.vue_admin_session;
 	if(isDownload){
@@ -1690,6 +1699,7 @@ export	{
 	_planExtensionRecordPayment_,
 	_spendingDepositRecordPayment_,
 	_updateEditPlanExtension_,
+	_updateSpendingAccoutSettings_,
 	_downloadSpendingDepositInvoice_,
 	_downloadEmployeeRefundInvoice_,
 	_downloadPlanExtensionInvoice_,
