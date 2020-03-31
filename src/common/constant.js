@@ -2,8 +2,8 @@
 const STAGING = 'http://api-admin.medicloud.sg';
 const LOCAL = 'http://localhost:3000';
 
-// const SERVERURL = LOCAL;
-const SERVERURL = STAGING;
+const SERVERURL = LOCAL;
+// const SERVERURL = STAGING;
 
 const AUTH_LOGIN = `${SERVERURL}/login/signin`;
 // company
@@ -62,7 +62,8 @@ const DOWNLOAD_SPENDING_DEPOSIT = `${SERVERURL}/company/planSpendingDeposit`;
 const DOWNLOAD_EMPLOYEE_REFUND = `${SERVERURL}/company/employeeRefund`;
 const DOWNLOAD_PLAN_EXTENSION = `${SERVERURL}/company/planExtensionInvoice`;
 const DOWNLOAD_DEPENDENT_REFUND = `${SERVERURL}/company/planDependentRefundPDF`;
-const UPDATE_UNPAID = `${SERVERURL}/company/markUnpaid`
+const UPDATE_UNPAID = `${SERVERURL}/company/markUnpaid`;
+const FETCH_CREDENTIALS_DATA = `${SERVERURL}/company/credential`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -120,5 +121,6 @@ module.exports = {
 	DOWNLOAD_EMPLOYEE_REFUND,
 	DOWNLOAD_PLAN_EXTENSION,
 	DOWNLOAD_DEPENDENT_REFUND,
-	UPDATE_UNPAID
+	UPDATE_UNPAID,
+	FETCH_CREDENTIALS_DATA,
 }

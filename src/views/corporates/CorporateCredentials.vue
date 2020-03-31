@@ -4,15 +4,15 @@
       <h3>HR/Benefits Credentials</h3>
       <div class="credentials-input-wrapper">
         <label>Email Address*</label>
-        <input type="text">
+        <input v-model="global_credentialsData.hr_email" type="text">
       </div>
       <div class="generate-password-container">
-        <button class="btn-gray">GENERATE PASSWORD</button>
+        <button @click="_generatePassword_()" class="btn-gray">GENERATE PASSWORD</button>
         <div class="credentials-input-wrapper">
           <label>Retype Password*</label>
           <div class="dp-flex-ai">
-            <input type="password">
-            <i class="fa fa-eye"></i>
+            <input v-model="re_password" :type="type">
+            <i @click="_showPassword_()" class="fa fa-eye"></i>
           </div>
         </div>
       </div>
@@ -27,37 +27,41 @@
         <div class="custom-checkbox-container">
           <label class="checkbox-input">
             <span>Company Welcome Email</span>
-            <input value="true" type="checkbox">
+            <input v-model="global_credentialsData.resend_welcome_email_send_status" value="true" type="checkbox">
             <span class="checkbox-mark"></span>
           </label>
         </div>
-        <div class="custom-checkbox-container">
+        <div v-if="global_credentialsData.resend_welcome_email_send_status == true" class="custom-checkbox-container">
           <label class="checkbox-input">
             <span>Add BCC to email</span>
-            <input value="true" type="checkbox">
+            <input v-model="global_credentialsData.add_cc" v-on:change="_addCCEmail_( global_credentialsData.add_cc )" value="true" type="checkbox">
             <span class="checkbox-mark"></span>
           </label>
         </div>
-        <div class="bcc-email-container">
-          <div class="dp-flex">
-            <div class="credentials-input-wrapper">
-              <label>BCC email</label>
-              <input type="type">
-            </div>
-            <div>
-              <button class="btn-primary">ADD</button>
-            </div>
-          </div>
+        <div v-if="global_credentialsData.add_cc == true" class="bcc-email-container">
           <div>
-            <div class="cc-emails">
-              <span>jan@gmail.com</span>
-              <i class="fa fa-times"></i>
+            <div class="dp-flex">
+              <div class="credentials-input-wrapper">
+                <label>BCC email</label>
+                <input v-model="global_addBccEmail" type="type">
               </div>
+              <div>
+                <button @click="_addCreateCompanyCCEmail_( global_addBccEmail )" class="btn-primary">ADD</button>
+              </div>
+            </div>
+            <p v-if="cc_email_err" class="text-error">Invalid Email.</p>
+          	<p v-if="cc_email_repeat" class="text-error">Email already added.</p>
+          </div>  
+          <div class="cc-emails-container">
+            <div v-for="list of cc_emails" class="cc-emails">
+              <span>{{ list }}</span>
+              <i @click="_removeCreateCompanyCCEmail_( global_addBccEmail )" class="fa fa-times"></i>
+            </div>
           </div>
         </div>
         <button class="btn-gray">UPDATE</button>
       </div>
-      <div class="create-benefits-credentials">
+      <div v-if="false" class="create-benefits-credentials">
         <h3>Create HR/Benefits Credentials</h3>
         <div class="credentials-input-wrapper">
           <label>Email Address*</label>

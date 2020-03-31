@@ -1659,6 +1659,15 @@ const _updateMarkUsUnpaid_ = (params) => {
 	return _axiosCall_(req);
 }
 
+const _fetchCredentialsData_ = (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.FETCH_CREDENTIALS_DATA + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
 export	{
 	_login_,
 	_goBack_,
@@ -1727,4 +1736,5 @@ export	{
 	_downloadPlanExtensionInvoice_,
 	_downloadDependentRefundInvoice_,
 	_updateMarkUsUnpaid_,
+	_fetchCredentialsData_,
 }
