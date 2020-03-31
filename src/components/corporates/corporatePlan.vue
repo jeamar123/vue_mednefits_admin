@@ -32,7 +32,8 @@
     _downloadSpendingDepositInvoice_,
     _downloadEmployeeRefundInvoice_,
     _downloadPlanExtensionInvoice_,
-
+    _downloadDependentRefundInvoice_,
+    _updateMarkUsUnpaid_,
   } from '../../common/functions/common_functions';
    
   let corporatePlan = {
@@ -234,7 +235,11 @@
           _downloadEmployeeRefundInvoice_(params, true);
         }
         if( account_type == 5 ){
-        
+          let params  = {
+            customer_id:  Number(this.customer_id),
+            dependent_payment_refund_id: data.dependent_payment_refund_id,
+          }
+          _downloadDependentRefundInvoice_(params, true);
         }
         if( account_type == 6 ){
           let params  = {
@@ -889,7 +894,66 @@
             this._fetchSpendingData_();
           }
         });
-      }
+      },
+      _markUsUnpaid_( data,value ) {
+        // console.log(data);
+        let request = null;
+
+        if ( value == 0 ) {
+          let params  = {
+            moduleIdentification: value,
+            customer_id: this.customer_id,
+            active_plan_invoice_id: data.active_plan_invoice_id,
+          }
+          // console.log(params);
+          request = _updateMarkUsUnpaid_(params,true);
+        }
+
+        if ( value == 1 ) {
+          let params  = {
+            moduleIdentification: value,
+            customer_id: this.customer_id,
+            customer_spending_deposit_credit_id: data.customer_spending_deposit_credit_id,
+          }
+          // console.log(params);
+          request = _updateMarkUsUnpaid_(params,true);
+        }
+
+        if ( value == 2 ) {
+          let params  = {
+            moduleIdentification: value,
+            customer_id: this.customer_id,
+            customer_employee_plan_payment_refund_id: data.customer_employee_plan_payment_refund_id,
+          }
+          // console.log(params);
+          request = _updateMarkUsUnpaid_(params,true);
+        }
+
+        if ( value == 3 ) {
+          let params  = {
+            moduleIdentification: value,
+            customer_id: this.customer_id,
+            active_plan_extensions_id: data.active_plan_extensions_id,
+          }
+          // console.log(params);
+          request = _updateMarkUsUnpaid_(params,true);
+        }
+
+        if(request){
+          _showPageLoading_();
+          request.then((res)  =>  {
+            console.log(res);
+            if(res.status == 200 || res.status == 201){
+              this.$swal('Success!', res.data.message, 'success');
+
+              this._getViewPlanData_();
+            }else{
+              _hidePageLoading_();
+              this.$swal('Error!', res.data.message, 'error');
+            }
+          });
+        }
+      },
     }
   }
   

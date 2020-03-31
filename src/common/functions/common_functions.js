@@ -1635,7 +1635,29 @@ const _downloadPlanExtensionInvoice_ = (params, isDownload)	=> {
 	}
 }
 
+const _downloadDependentRefundInvoice_ = (params, isDownload)	=> {
+	let	url	=	Config.DOWNLOAD_DEPENDENT_REFUND + '?customer_id=' + params.customer_id + '&dependent_payment_refund_id=' + params.dependent_payment_refund_id + '&token=' + localStorage.vue_admin_session;
+	if(isDownload){
+		return window.open(url);
+	}else{
+		let	req	=	{
+			method:	'GET',
+			url:	url,
+			header:	defaultHeaders,
+		};
+		return _axiosCall_(req);
+	}
+}
 
+const _updateMarkUsUnpaid_ = (params) => {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_UNPAID,
+    data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
 
 export	{
 	_login_,
@@ -1703,4 +1725,6 @@ export	{
 	_downloadSpendingDepositInvoice_,
 	_downloadEmployeeRefundInvoice_,
 	_downloadPlanExtensionInvoice_,
+	_downloadDependentRefundInvoice_,
+	_updateMarkUsUnpaid_,
 }
