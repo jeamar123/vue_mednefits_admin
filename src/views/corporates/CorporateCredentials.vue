@@ -108,10 +108,10 @@
         <h3>E-Claim Submission</h3>
         <div class="toggle-form">
           <div class="custom-toggle-container">
-            <div class="toggle toggle-on active">
+            <div @click="_eclaimSubSelector_(1)" v-bind:class="{'active' : global_credentialsData.access_e_claim == 1}" class="toggle toggle-on">
               <i class="fa fa-check"></i>
             </div>
-            <div class="toggle toggle-off">
+            <div @click="_eclaimSubSelector_(0)" v-bind:class="{'active' : global_credentialsData.access_e_claim == 0}" class="toggle toggle-off">
               <i class="fa fa-times"></i>
             </div>
           </div>

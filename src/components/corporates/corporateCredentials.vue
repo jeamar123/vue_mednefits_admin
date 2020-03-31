@@ -13,6 +13,7 @@
       return {
         global_credentialsData: {
           resend_welcome_email_send_status: undefined,
+          access_e_claim: 1,
         },
         type: 'password',
         re_password: undefined,
@@ -94,6 +95,9 @@
       _removeCreateCompanyCCEmail_( email ) {
         var check = this.cc_emails.indexOf( email );
         this.cc_emails.splice( check, 1 );
+      },
+      _eclaimSubSelector_( opt ) {
+        this.global_credentialsData.access_e_claim = opt;
       },
     }
   }
