@@ -453,6 +453,7 @@
 									<button class="btn-gray" v-on:click="_downloadInvoice_(global_viewPlanData.employee_plan, 'invoice', 1, 1)">Download Invoice</button>
 									<button @click="_showViewPlanModal_('pending-enrollment')" :disabled="global_viewPlanData.employee_plan.vacant_seats == 0" class="btn-blue">{{ global_viewPlanData.employee_plan.vacant_seats }} Pending Enrollment</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment('employee', global_viewPlanData.employee_plan)">Record Payment</button>
+									<button v-if="global_viewPlanData.paid" class="btn-primary">Mark us unpaid</button>
 								</div>
 							</div>
 						</div>
@@ -515,7 +516,7 @@
 									<button class="btn-gray" v-on:click="_downloadInvoice_(list, 'invoice', 3, index)">Download Invoice</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment('spending_deposit', list)">Record Payment</button>
 									<button class="btn-primary" @click="_showViewPlanModal_('edit-deposit',list)">Edit Deposit</button>
-									<button class="btn-primary">Mark as unpaid</button>
+									<button v-if="list.payment_status" class="btn-primary">Mark as unpaid</button>
 								</div>
 							</div>
 						</div>
@@ -542,6 +543,7 @@
 								<div class="column">
 									<button class="btn-gray" v-on:click="_downloadInvoice_(list, 'invoice', 4, index)">Download</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment('employee_refund', list)">Record Refund</button>
+									<button v-if="list.payment_status" class="btn-primary">Mark as unpaid</button>
 								</div>
 							</div>
 						</div>
@@ -601,6 +603,7 @@
 									<button class="btn-gray" v-on:click="_downloadInvoice_(list, 'invoice', 6, 1)">Download Invoice</button>
 									<button class="btn-primary" v-on:click="toggleRecordPayment('plan_extension', global_viewPlanData)">Record Payment</button>
 									<button class="btn-gray" v-on:click="_downloadInvoice_(list,'receipt')">Download Receipt</button>
+									<button v-if="global_viewPlanData.plan_extension.paid" class="btn-primary">Mark us unpaid</button>
 									
 								</div>
 							</div>
@@ -903,7 +906,7 @@
 				</div>
 				<div slot="footer">
 					<button @click="toggleClosePlanModal()" class="btn-primary">Cancel</button>
-					<button class="btn-primary">Update</button>
+					<button @click="_submitSpendingAccountData_()" class="btn-primary">Update</button>
 				</div>
 			</Modal>
 

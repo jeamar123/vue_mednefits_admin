@@ -1584,6 +1584,16 @@ const _downloadEmployeePlanDetails_ = (params, isDownload)	=> {
 	}
 }
 
+const _updateSpendingAccoutSettings_ = (params) => {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_SPENDING_ACCOUNT_SETTINGS,
+    data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
 
 
 export	{
@@ -1648,4 +1658,5 @@ export	{
 	_planExtensionRecordPayment_,
 	_spendingDepositRecordPayment_,
 	_updateEditPlanExtension_,
+	_updateSpendingAccoutSettings_,
 }
