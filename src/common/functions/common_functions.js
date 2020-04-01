@@ -1635,7 +1635,62 @@ const _downloadPlanExtensionInvoice_ = (params, isDownload)	=> {
 	}
 }
 
+const _downloadDependentRefundInvoice_ = (params, isDownload)	=> {
+	let	url	=	Config.DOWNLOAD_DEPENDENT_REFUND + '?customer_id=' + params.customer_id + '&dependent_payment_refund_id=' + params.dependent_payment_refund_id + '&token=' + localStorage.vue_admin_session;
+	if(isDownload){
+		return window.open(url);
+	}else{
+		let	req	=	{
+			method:	'GET',
+			url:	url,
+			header:	defaultHeaders,
+		};
+		return _axiosCall_(req);
+	}
+}
 
+const _updateMarkUsUnpaid_ = (params) => {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_UNPAID,
+    data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _fetchCredentialsData_ = (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.FETCH_CREDENTIALS_DATA + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _downloadDependentAccountInvoice_ = (params, isDownload)	=> {
+	let	url	=	Config.DOWNLOAD_DEPENDENT_ACCOUNT + '?customer_id=' + params.customer_id + '&dependent_invoice_id=' + params.dependent_invoice_id + '&token=' + localStorage.vue_admin_session;
+	if(isDownload){
+		return window.open(url);
+	}else{
+		let	req	=	{
+			method:	'GET',
+			url:	url,
+			header:	defaultHeaders,
+		};
+		return _axiosCall_(req);
+	}
+}
+
+const _updateCredential_ = (params)	=> {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_CREDENTIAL,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
 
 export	{
 	_login_,
@@ -1703,4 +1758,9 @@ export	{
 	_downloadSpendingDepositInvoice_,
 	_downloadEmployeeRefundInvoice_,
 	_downloadPlanExtensionInvoice_,
+	_downloadDependentRefundInvoice_,
+	_updateMarkUsUnpaid_,
+	_fetchCredentialsData_,
+	_downloadDependentAccountInvoice_,
+	_updateCredential_,
 }

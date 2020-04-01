@@ -97,7 +97,7 @@
     }
   }
   .credentials-input-wrapper {
-    margin: 0 0 20px;
+    margin: 0 10px 20px 0;
     label{
       display: block;
       font-size: 12px;
@@ -110,6 +110,9 @@
       font-size: 18px;
       cursor: pointer;
     }
+  }
+  .bcc-email-container .credentials-input-wrapper {
+    margin: 0 10px 0px 0;
   }
   .btn-gray {
     padding: 0 15px;
@@ -126,18 +129,16 @@
     >div {
       margin: 0 0 20px;
     }
-    >div >div:first-child {
-      margin: 0 10px 0 0;
-    }
   }
   .cc-emails {
     background: #d4d4d4;
     box-shadow: 1px 1px 1px #999;
     padding: 8px 8px;
     border-radius: 4px;
-    margin: 0 0 10px;
+    margin: 0 10px 10px 0;
     width: max-content;
     color: #555;
+    display: inline-block;
 
     i {
       margin: 0 0 0 10px;
