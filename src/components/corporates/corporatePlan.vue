@@ -34,6 +34,7 @@
     _downloadPlanExtensionInvoice_,
     _downloadDependentRefundInvoice_,
     _updateMarkUsUnpaid_,
+    _downloadDependentAccountInvoice_,
   } from '../../common/functions/common_functions';
    
   let corporatePlan = {
@@ -218,7 +219,11 @@
           _downloadEmployeePlanDetails_(params, true);
         }
         if( account_type == 2 ){
-        
+          let params = {
+            customer_id: Number(this.customer_id),
+            dependent_invoice_id: data.dependent_plan_id,
+          }
+          _downloadDependentAccountInvoice_(params, true);
         }
         if( account_type == 3 ){
           let params  = {

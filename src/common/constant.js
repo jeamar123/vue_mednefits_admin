@@ -64,6 +64,8 @@ const DOWNLOAD_PLAN_EXTENSION = `${SERVERURL}/company/planExtensionInvoice`;
 const DOWNLOAD_DEPENDENT_REFUND = `${SERVERURL}/company/planDependentRefundPDF`;
 const UPDATE_UNPAID = `${SERVERURL}/company/markUnpaid`;
 const FETCH_CREDENTIALS_DATA = `${SERVERURL}/company/credential`;
+const DOWNLOAD_DEPENDENT_ACCOUNT = `${SERVERURL}/company/planDependentInvoicePDF`;
+const UPDATE_CREDENTIAL = `${SERVERURL}/company/credential`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -123,4 +125,6 @@ module.exports = {
 	DOWNLOAD_DEPENDENT_REFUND,
 	UPDATE_UNPAID,
 	FETCH_CREDENTIALS_DATA,
+	DOWNLOAD_DEPENDENT_ACCOUNT,
+	UPDATE_CREDENTIAL,
 }

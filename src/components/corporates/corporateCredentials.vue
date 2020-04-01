@@ -3,6 +3,7 @@
     _fetchCredentialsData_,
     _showPageLoading_,
     _hidePageLoading_,
+    _updateCredential_,
   } from '../../common/functions/common_functions';
 
   let corporateCredentials = {
@@ -71,10 +72,10 @@
         this.cc_email_err = false;
 
         if ( email != "" || email != null ) {
-          var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+          let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
           if ( regex.test(email) == true ) {
             this.cc_email_err = false;  
-            var check = this.cc_emails.indexOf( email );
+            let check = this.cc_emails.indexOf( email );
             if ( check < 0 ) {
               // console.log('less than 0');
               this.cc_emails.push( email );
@@ -93,12 +94,37 @@
         }
       },
       _removeCreateCompanyCCEmail_( email ) {
-        var check = this.cc_emails.indexOf( email );
+        let check = this.cc_emails.indexOf( email );
         this.cc_emails.splice( check, 1 );
       },
       _eclaimSubSelector_( opt ) {
         this.global_credentialsData.access_e_claim = opt;
       },
+      _submitCredentialData_() {
+        let params = {
+          customer_id: Number(this.customer_id),
+          hr_account_id: this.global_credentialsData.hr_account_id,
+          send_using_company_account_email: Number(this.global_credentialsData.send_using_company_account_email),
+          password:	this.re_password,
+          hr_email: this.global_credentialsData.hr_email,
+          accessibilityQrWallet: Number(this.global_credentialsData.accessibilityQrWallet),
+          access_e_claim: Number(this.global_credentialsData.access_e_claim),
+          bcc_email:	this.cc_emails,
+        }
+        _showPageLoading_();
+
+        _updateCredential_(params)
+        .then((res)  =>  {
+          // console.log(res);
+          if(res.status == 200 || res.status == 201){
+            this.$swal('Success!', res.data.message, 'success');
+            this._getCredentialData_();
+          }else{
+            _hidePageLoading_();
+            this.$swal('Error!', res.data.message, 'error');
+          }
+        });
+      }
     }
   }
   

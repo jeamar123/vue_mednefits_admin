@@ -20,7 +20,7 @@
         <div class="custom-checkbox-container">
           <label class="checkbox-input">
             <span>Mednefits Company Account Email</span>
-            <input value="true" type="checkbox">
+            <input v-model="global_credentialsData.send_using_company_account_email" true-value="1" false-value="0" type="checkbox">
             <span class="checkbox-mark"></span>
           </label>
         </div>
@@ -59,7 +59,7 @@
             </div>
           </div>
         </div>
-        <button class="btn-gray">UPDATE</button>
+        <button @click="_submitCredentialData_()" class="btn-gray">UPDATE</button>
       </div>
       <div v-if="false" class="create-benefits-credentials">
         <h3>Create HR/Benefits Credentials</h3>
@@ -126,7 +126,7 @@
               <div>- Member App (With QR Payment, Wallet)</div>
               <div>- HR benefits dashboard (With E-Claim, Statement)</div>
             </span>
-            <input type="radio"/>
+            <input v-model="global_credentialsData.accessibilityQrWallet" value="0" type="radio"/>
             <span class="custom-checkbox-checkmark"></span>
           </label>
         </div>
@@ -136,12 +136,12 @@
               <div>- Member App (No QR payment, No Wallet)</div>
               <div>- HR benefits dashboard (Only on Home, Employee(adding,editing,replace,delete), Activity)</div>
             </span>
-            <input type="radio"/>
+            <input v-model="global_credentialsData.accessibilityQrWallet" value="1" type="radio"/>
             <span class="custom-checkbox-checkmark"></span>
           </label>
         </div> 
         <div class="update-account-btn-container">
-          <button class="btn-gray">UPDATE ACCOUNT ACCESSIBILITY</button>
+          <button @click="_submitCredentialData_()" class="btn-gray">UPDATE ACCOUNT ACCESSIBILITY</button>
         </div> 
       </div>
     </div>
