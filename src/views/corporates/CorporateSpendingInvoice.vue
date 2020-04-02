@@ -28,18 +28,12 @@
               <td><span class="currency-type">{{ list.currency_value }}</span> {{ list.total_amount }}</td>
               <td><span class="currency-type">{{ list.currency_value }}</span>  {{ list.amount_due }}</td>
               <td>{{ formatDate( list.invoice_due_date, 'YYYY-MM-DD','DD MMM,YYYY' ) }}</td>
-              <td><span class="currency-type">{{ list.currency_value }}</span>0</td>
+              <td><span class="currency-type">{{ list.currency_value }} </span> {{ list.trail_transaction.paid_amount }}</td>
               <td>
-                <span >Not Paid</span>
-                <span v-if="false"></span>
+                <span v-if="list.trail_transaction.transaction_date == null">Not Paid</span>
+                <span v-if="list.trail_transaction.transaction_date != null">{{ list.trail_transaction.transaction_date }}</span>
               </td>
-              <td></td>
-              <!-- <td><span class="currency-type">{{ list.currency_value }}</span> {{ global_trailTrans.paid_amount }}</td>
-              <td>
-                <span v-if="global_trailTrans.transaction_date == null">Not Paid</span>
-                <span v-if="global_trailTrans.transaction_date != null">{{ global_trailTrans.transaction_date }}</span>
-              </td>
-              <td>{{ global_trailTrans.remarks }}</td> -->
+              <td>{{ list.trail_transaction.remarks }}</td>
               <td>
                 <i @click="___showActionsSelector(list)" class="fa fa-caret-down"></i>
                 <div v-click-outside="___hideAllDrop" v-if="list.global_isActionsSelectorShow" class="actions-selector">
