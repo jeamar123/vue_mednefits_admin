@@ -132,6 +132,7 @@
           console.log(res)
           if( res.status == 200 || res.status == 201 ){
             this.$swal('Success!', res.data.message, 'success');
+            this.global_isEditInvoiceModalShow = false;
             this._getSpendingData_();
           }
         });
