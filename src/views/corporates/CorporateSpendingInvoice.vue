@@ -17,36 +17,51 @@
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody v-for="(list,index) of global_spendingInvoiceData">
             <tr>
               <td>
-                <div class="status-card paid">PAID</div>
+                <div v-if="list.status === 1" class="status-card paid">PAID</div>
+                <div v-if="list.status === 0" class="status-card unpaid">PENDING</div>
               </td>
-              <td>1 Mar 2018</td>
-              <td>MC00000012</td>
-              <td>SGD 89.00</td>
-              <td>SGD 89.00</td>
-              <td>16 Mar 2018</td>
-              <td>SGD 0.00</td>
-              <td>Not Paid</td>
-              <td></td>
+              <td>{{ formatDate( list.invoice_date, 'YYYY-MM-DD' ,'DD MMM,YYYY' )  }}</td>
+              <td>{{ list.invoice_number }}</td>
+              <td><span class="currency-type">{{ list.currency_value }}</span> {{ list.total_amount }}</td>
+              <td><span class="currency-type">{{ list.currency_value }}</span>  {{ list.amount_due }}</td>
+              <td>{{ formatDate( list.invoice_due_date, 'YYYY-MM-DD','DD MMM,YYYY' ) }}</td>
+              <td><span class="currency-type">{{ list.currency_value }}</span>0</td>
               <td>
-                <i @click="___showActionsSelector()" class="fa fa-caret-down"></i>
-                <div v-click-outside="___hideAllDrop" v-if="global_isActionsSelectorShow" class="actions-selector">
-                  <div @click="___selectActionsSelector('download-invoice')">View as PDF</div>
+                <span >Not Paid</span>
+                <span v-if="false"></span>
+              </td>
+              <td></td>
+              <!-- <td><span class="currency-type">{{ list.currency_value }}</span> {{ global_trailTrans.paid_amount }}</td>
+              <td>
+                <span v-if="global_trailTrans.transaction_date == null">Not Paid</span>
+                <span v-if="global_trailTrans.transaction_date != null">{{ global_trailTrans.transaction_date }}</span>
+              </td>
+              <td>{{ global_trailTrans.remarks }}</td> -->
+              <td>
+                <i @click="___showActionsSelector(list)" class="fa fa-caret-down"></i>
+                <div v-click-outside="___hideAllDrop" v-if="list.global_isActionsSelectorShow" class="actions-selector">
+                  <div @click="___selectActionsSelector('download-invoice',list)">View as PDF</div>
                   <div>Download Statement</div>
-                  <div @click="___selectActionsSelector('payment-method')">Payment Method</div>
-                  <div @click="___selectActionsSelector('view-transactions')">View Transactions</div>
+                  <div @click="___selectActionsSelector('payment-method',list)">Payment Method</div>
+                  <div @click="___selectActionsSelector('view-transactions',list)">View Transactions</div>
                   <div>Download Transactions</div>
-                  <div @click="___selectActionsSelector('edit-invoice-dates')">Edit Invoice Dates</div>
+                  <div @click="___selectActionsSelector('edit-invoice-dates',list)">Edit Invoice Dates</div>
+                  <div @click="___selectActionsSelector('mark-us-unpaid')">Mark Us Unpaid</div>
                 </div>
               </td>
             </tr>
-            <tr v-if="global_isPaymentDetailsShow" class="company-drop-wrapper">
+            <tr v-if="list.global_isPaymentDetailsShow" class="company-drop-wrapper">
               <td colspan="10">
                 <div class="company-drop-details dp-flex">
                   <div class="list-status-wrapper">
-                    <div class="list-status"><div>PENDING</div></div>
+                    <div class="list-status">
+                      <div v-if="global_paymentTrailTrans.transaction_date == null">PENDING</div>
+                      <div v-if="global_paymentTrailTrans.transaction_date != null">PAID</div>
+                      <div v-if="global_paymentTrailTrans.transaction_date != null" class="paid-date">Paid Date: {{ global_paymentTrailTrans.transaction_date }}</div>
+                    </div>
                   </div>
                   <div>
                     <div class="dp-flex">
@@ -55,7 +70,7 @@
                         <div class="date-container">
                           <v-date-picker
                             popoverDirection="bottom"
-                            v-model="global_spendingInvoiceData.payment_date"
+                            v-model="global_paymentTrailTrans.transaction_date"
                             :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
                             :formats='formats'
                             popover-visibility="focus"
@@ -65,16 +80,16 @@
                       </div>
                       <div class="spending-input-wrapper">
                         <label>Payment Amount</label>
-                        <input type="number">
+                        <input v-model="global_paymentTrailTrans.paid_amount" type="number">
                       </div>
                       <div class="spending-input-wrapper">
                         <label>Payment Remarks</label>
-                        <input type="text">
+                        <input v-model="global_paymentTrailTrans.remarks" type="text">
                       </div>
                     </div>
                     <div class="btn-spending-container">
-                      <button @click="___selectActionsSelector('payment-method')" class="btn-cancel">CANCEL</button>
-                      <button class="btn-submit">SUBMIT</button>
+                      <button @click="___selectActionsSelector('payment-method',list)" class="btn-cancel">CANCEL</button>
+                      <button @click="_submitPayment_()" class="btn-submit">SUBMIT</button>
                     </div>
                   </div>
                 </div>
@@ -99,7 +114,7 @@
             <div class="date-container">
               <v-date-picker
                 popoverDirection="bottom"
-                v-model="global_spendingInvoiceData.invoice_date"
+                v-model="global_editStatementData.invoice_date"
                 :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
                 :formats='formats'
                 popover-visibility="focus"
@@ -117,7 +132,7 @@
             <div class="date-container">
               <v-date-picker
                 popoverDirection="bottom"
-                v-model="global_spendingInvoiceData.due"
+                v-model="global_editStatementData.invoice_due_date"
                 :input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
                 :formats='formats'
                 popover-visibility="focus"
@@ -128,8 +143,8 @@
         </div>
       </div>
       <div slot="footer">
-        <button @click="___selectActionsSelector('edit-invoice-dates')" class="btn-close">CANCEL</button>
-        <button class="btn-primary">UPDATE</button>
+        <button @click="___selectActionsSelector('edit-invoice-dates',global_editStatementData)" class="btn-close">CANCEL</button>
+        <button @click="_submitInvoiceDates_()" class="btn-primary">UPDATE</button>
       </div>
     </Modal>
   </div>

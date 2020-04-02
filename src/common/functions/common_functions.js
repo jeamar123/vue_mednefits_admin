@@ -1692,6 +1692,35 @@ const _updateCredential_ = (params)	=> {
 	return _axiosCall_(req);
 }
 
+const _fetchSpendingInvoiceData_ = (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.FETCH_SPENDING_DATA + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _updateSpendingPayment_ = (params)	=> {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_SPENDING_PAYMENT,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _updateInvoiceDates_ = (params)	=> {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_INVOICE_DATES,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
 export	{
 	_login_,
 	_goBack_,
@@ -1763,4 +1792,7 @@ export	{
 	_fetchCredentialsData_,
 	_downloadDependentAccountInvoice_,
 	_updateCredential_,
+	_fetchSpendingInvoiceData_,
+	_updateSpendingPayment_,
+	_updateInvoiceDates_,
 }
