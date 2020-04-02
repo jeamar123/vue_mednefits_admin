@@ -23,11 +23,11 @@
                 <div v-if="list.status === 1" class="status-card paid">PAID</div>
                 <div v-if="list.status === 0" class="status-card unpaid">PENDING</div>
               </td>
-              <td>{{ formatDate( list.invoice_date, 'YYYY-MM-DD' ,'DD MMM,YYYY' )  }}</td>
+              <td>{{ formatDate( list.invoice_date, 'YYYY-MM-DD', null ,'DD MMM,YYYY' )  }}</td>
               <td>{{ list.invoice_number }}</td>
               <td><span class="currency-type">{{ list.currency_value }}</span> {{ list.total_amount }}</td>
               <td><span class="currency-type">{{ list.currency_value }}</span>  {{ list.amount_due }}</td>
-              <td>{{ formatDate( list.invoice_due_date, 'YYYY-MM-DD','DD MMM,YYYY' ) }}</td>
+              <td>{{ formatDate( list.invoice_due_date, 'YYYY-MM-DD', null ,'DD MMM,YYYY' ) }}</td>
               <td><span class="currency-type">{{ list.currency_value }} </span> {{ list.trail_transaction.paid_amount }}</td>
               <td>
                 <span v-if="list.trail_transaction.transaction_date == null">Not Paid</span>

@@ -34,11 +34,11 @@
         // global_paymentTrailTrans: {
         //   transaction_date: new Date(),
         // },
-        // global_trailTrans: {
-        //   paid_amount: undefined,
-        //   transaction_date: undefined,
-        //   remarks: undefined,
-        // },
+        global_paymentTrailTrans: {
+          paid_amount: undefined,
+          transaction_date: undefined,
+          remarks: undefined,
+        },
         global_editStatementData: {
           invoice_date: new Date(),
           invoice_due_date: new Date(),
@@ -76,7 +76,7 @@
           this.$forceUpdate();
 
           this.global_paymentStatusData = data;
-          this.global_paymentTrailTrans = data.trail_transaction[0]
+          this.global_paymentTrailTrans = data.trail_transaction;
         }
         if ( type == 'edit-invoice-dates' ) {
           this.global_isEditInvoiceModalShow = this.global_isEditInvoiceModalShow == false ? true : false;
@@ -100,8 +100,9 @@
             console.log(this.global_spendingInvoiceData);
               
             Object.keys(this.global_spendingInvoiceData).map(( value, key ) => {
-              this.global_spendingInvoiceData[key].invoice_date = new Date();
-              this.global_spendingInvoiceData[key].invoice_due_date = new Date();
+              this.global_spendingInvoiceData[key].invoice_date = new Date(this.global_spendingInvoiceData[key].invoice_date);
+              this.global_spendingInvoiceData[key].invoice_due_date = new Date(this.global_spendingInvoiceData[key].invoice_due_date);
+              // this.global_spendingInvoiceData[key].trail_transaction.transaction_date = new Date();
             });
           }
         });
