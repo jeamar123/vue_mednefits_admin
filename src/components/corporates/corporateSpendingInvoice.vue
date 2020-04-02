@@ -23,26 +23,20 @@
           input: ["DD/MM/YYYY"],
           data: ["DD/MM/YYYY"]
         },
-        global_spendingInvoiceData: {
-          payment_date: new Date(),
-          invoice_date: new Date(),
-          payment_due: new Date(),
-          trail_transaction: [], 
-        },
+        // global_spendingInvoiceData: {
+        //   payment_date: new Date(),
+        //   invoice_date: new Date(),
+        //   payment_due: new Date(),
+        // },
+        global_spendingInvoiceData: {},
         global_isPaymentDetailsShow: false,
         global_isEditInvoiceModalShow: false,
-        // global_paymentTrailTrans: {
-        //   transaction_date: new Date(),
-        // },
+        paid_amount: 0,
         global_paymentTrailTrans: {
           paid_amount: undefined,
           transaction_date: undefined,
           remarks: undefined,
         },
-        global_editStatementData: {
-          invoice_date: new Date(),
-          invoice_due_date: new Date(),
-        }
       };
     },
     created(){
@@ -77,10 +71,12 @@
 
           this.global_paymentStatusData = data;
           this.global_paymentTrailTrans = data.trail_transaction;
+          this.global_paymentTrailTrans.transaction_date = new Date(this.global_paymentTrailTrans.transaction_date);
         }
         if ( type == 'edit-invoice-dates' ) {
           this.global_isEditInvoiceModalShow = this.global_isEditInvoiceModalShow == false ? true : false;
           this.global_editStatementData = data;
+          
         }
         if ( type == 'view-transactions' ) {
           window.open( window.location.origin + '/#/dashboard/download-transactions/' + this.customer_id );
@@ -140,10 +136,7 @@
           }
         });
       },
-      formatDate( date, from, to ){
-        console.log(date);
-        console.log(from);
-        console.log(to);
+      _formatDate_( date, from, to ){
         return moment( date, from ).format( to );
       },
     }

@@ -23,15 +23,15 @@
                 <div v-if="list.status === 1" class="status-card paid">PAID</div>
                 <div v-if="list.status === 0" class="status-card unpaid">PENDING</div>
               </td>
-              <td>{{ formatDate( list.invoice_date, 'YYYY-MM-DD', null ,'DD MMM,YYYY' )  }}</td>
+              <td>{{ _formatDate_( list.invoice_date, null,'DD MMM,YYYY'  )  }}</td>
               <td>{{ list.invoice_number }}</td>
               <td><span class="currency-type">{{ list.currency_value }}</span> {{ list.total_amount }}</td>
               <td><span class="currency-type">{{ list.currency_value }}</span>  {{ list.amount_due }}</td>
-              <td>{{ formatDate( list.invoice_due_date, 'YYYY-MM-DD', null ,'DD MMM,YYYY' ) }}</td>
+              <td>{{ _formatDate_( list.invoice_due_date, null,'DD MMM,YYYY' ) }}</td>
               <td><span class="currency-type">{{ list.currency_value }} </span> {{ list.trail_transaction.paid_amount }}</td>
               <td>
                 <span v-if="list.trail_transaction.transaction_date == null">Not Paid</span>
-                <span v-if="list.trail_transaction.transaction_date != null">{{ list.trail_transaction.transaction_date }}</span>
+                <span v-if="list.trail_transaction.transaction_date != null">{{ _formatDate_( list.trail_transaction.transaction_date,null,'DD MMM,YYYY' ) }}</span>
               </td>
               <td>{{ list.trail_transaction.remarks }}</td>
               <td>
@@ -52,9 +52,9 @@
                 <div class="company-drop-details dp-flex">
                   <div class="list-status-wrapper">
                     <div class="list-status">
-                      <div v-if="global_paymentTrailTrans.transaction_date == null">PENDING</div>
-                      <div v-if="global_paymentTrailTrans.transaction_date != null">PAID</div>
-                      <div v-if="global_paymentTrailTrans.transaction_date != null" class="paid-date">Paid Date: {{ global_paymentTrailTrans.transaction_date }}</div>
+                      <div v-if="list.trail_transaction.transaction_date == null">PENDING</div>
+                      <div v-if="list.trail_transaction.transaction_date != null">PAID</div>
+                      <div v-if="list.trail_transaction.transaction_date != null" class="paid-date">Paid Date: {{ _formatDate_(list.trail_transaction.transaction_date,null,'DD MMM,YYYY') }}</div>
                     </div>
                   </div>
                   <div>
