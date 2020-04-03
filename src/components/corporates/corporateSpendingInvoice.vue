@@ -47,15 +47,29 @@
     },
     methods: {
       ___showActionsSelector( data ) {
-        console.log(data);
+
+        Object.keys(data).map(( value, key ) => {
+          data.global_isActionsSelectorShow = false;
+          console.log(data.global_isActionsSelectorShow);
+        });
+
+        // console.log(data);
         data.global_isActionsSelectorShow = data.global_isActionsSelectorShow == true ? false : true;
         console.log(data.global_isActionsSelectorShow);
+        this.$forceUpdate();
+      },
+      _resetActionSelector() {
+        Object.keys(this.global_spendingInvoiceData).map(( value, key ) => {
+          this.global_spendingInvoiceData[key].global_isActionsSelectorShow = false;
+          console.log(this.global_isActionsSelectorShow);
+        });
         this.$forceUpdate();
       },
       ___hideAllDrop( e ) {
         if ($(e.target).parents(".actions-selector").length === 0) {
           this.global_isActionsSelectorShow  = false;
           console.log('click sa gawas');
+          this._resetActionSelector();
           this.$forceUpdate();
         }
         this.$forceUpdate();
