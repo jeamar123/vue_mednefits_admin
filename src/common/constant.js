@@ -69,6 +69,8 @@ const UPDATE_CREDENTIAL = `${SERVERURL}/company/credential`;
 const FETCH_SPENDING_DATA = `${SERVERURL}/company/getSpendingInvoiceLists`;
 const UPDATE_SPENDING_PAYMENT = `${SERVERURL}/company/spendingPayment`;
 const UPDATE_INVOICE_DATES = `${SERVERURL}/company/spendingAccount`;
+const DOWNLOAD_SPENDING_STATEMENT = `${SERVERURL}/company/spendingAccount`;
+const DOWNLOAD_SPENDING_TRANSACTIONS = `${SERVERURL}/company/spendingAccount`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -133,4 +135,6 @@ module.exports = {
 	FETCH_SPENDING_DATA,
 	UPDATE_SPENDING_PAYMENT,
 	UPDATE_INVOICE_DATES,
+	DOWNLOAD_SPENDING_STATEMENT,
+	DOWNLOAD_SPENDING_TRANSACTIONS,
 }

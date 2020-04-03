@@ -1721,6 +1721,21 @@ const _updateInvoiceDates_ = (params)	=> {
 	return _axiosCall_(req);
 }
 
+const _downloadSpendingStatement_ = (params, isDownload)	=> {
+	let	url	=	Config.DOWNLOAD_SPENDING_STATEMENT + '?customer_id=' + params.customer_id + '&customer_spending_invoice_id=' + params.customer_spending_invoice_id + '&_downloadSpendingInvoice=' + params._downloadSpendingInvoice + '&token=' + localStorage.vue_admin_session;
+	if (isDownload) {
+		return window.open(url);
+	}
+}
+
+const _downloadSpendingTransactions_ = (params, isDownload)	=> {
+	let	url	=	Config.DOWNLOAD_SPENDING_TRANSACTIONS + '?customer_id=' + params.customer_id + '&customer_spending_invoice_id=' + params.customer_spending_invoice_id + '&token=' + localStorage.vue_admin_session;
+	if (isDownload) {
+		return window.open(url);
+	}
+}
+
+
 export	{
 	_login_,
 	_goBack_,
@@ -1795,4 +1810,6 @@ export	{
 	_fetchSpendingInvoiceData_,
 	_updateSpendingPayment_,
 	_updateInvoiceDates_,
+	_downloadSpendingStatement_,
+	_downloadSpendingTransactions_,
 }

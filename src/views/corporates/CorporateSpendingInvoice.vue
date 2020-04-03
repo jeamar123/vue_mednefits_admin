@@ -20,8 +20,8 @@
           <tbody v-for="(list,index) of global_spendingInvoiceData">
             <tr>
               <td>
-                <div v-if="list.status === 1" class="status-card paid">PAID</div>
-                <div v-if="list.status === 0" class="status-card unpaid">PENDING</div>
+                <div v-if="list.payment_status === 1" class="status-card paid">PAID</div>
+                <div v-if="list.payment_status === 0" class="status-card unpaid">PENDING</div>
               </td>
               <td>{{ _formatDate_( list.invoice_date, null,'DD MMM,YYYY'  )  }}</td>
               <td>{{ list.invoice_number }}</td>
@@ -37,13 +37,13 @@
               <td>
                 <i @click="___showActionsSelector(list)" class="fa fa-caret-down"></i>
                 <div v-click-outside="___hideAllDrop" v-if="list.global_isActionsSelectorShow" class="actions-selector">
-                  <div @click="___selectActionsSelector('download-invoice',list)">View as PDF</div>
-                  <div>Download Statement</div>
+                  <!-- <div @click="___selectActionsSelector('download-invoice',list)">View as PDF</div> -->
+                  <div @click="___selectActionsSelector('download-statement',list)">Download Statement</div>
                   <div @click="___selectActionsSelector('payment-method',list)">Payment Method</div>
-                  <div @click="___selectActionsSelector('view-transactions',list)">View Transactions</div>
-                  <div>Download Transactions</div>
+                  <!-- <div @click="___selectActionsSelector('view-transactions',list)">View Transactions</div> -->
+                  <div @click="___selectActionsSelector('download-transactions',list)">Download Transactions</div>
                   <div @click="___selectActionsSelector('edit-invoice-dates',list)">Edit Invoice Dates</div>
-                  <div @click="___selectActionsSelector('mark-us-unpaid')">Mark Us Unpaid</div>
+                  <div v-if="list.payment_status == 1" @click="___selectActionsSelector('mark-us-unpaid',list,4)">Mark Us Unpaid</div>
                 </div>
               </td>
             </tr>

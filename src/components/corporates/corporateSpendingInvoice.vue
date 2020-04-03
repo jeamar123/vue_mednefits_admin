@@ -7,6 +7,9 @@
     _hidePageLoading_,
     _updateSpendingPayment_,
     _updateInvoiceDates_,
+    _downloadSpendingStatement_,
+    _downloadSpendingTransactions_,
+    _updateMarkUsUnpaid_,
   } from '../../common/functions/common_functions';
 
   let corporateSpendingInvoice = {
@@ -57,30 +60,94 @@
         }
         this.$forceUpdate();
       },
-      ___selectActionsSelector( type,data ) {
+      ___selectActionsSelector( type,data,moduleIdentification ) {
         console.log(data);
         data.global_isActionsSelectorShow = false;
         this.$forceUpdate();
 
-        if ( type == 'download-invoice' ) {
-          window.open( window.location.origin + '/#/dashboard/download-pdf/' + this.customer_id );
-        }
+      
         if ( type == 'payment-method' ) {
           data.global_isPaymentDetailsShow = data.global_isPaymentDetailsShow == true ? false : true;
           this.$forceUpdate();
 
           this.global_paymentStatusData = data;
           this.global_paymentTrailTrans = data.trail_transaction;
-          this.global_paymentTrailTrans.transaction_date = new Date(this.global_paymentTrailTrans.transaction_date);
+          
+          // if (data.global_isPaymentDetailsShow == false) {
+          //   console.log(data.trail_transaction.transaction_date);
+          //   console.log(this.global_spendingInvoiceData);
+          // }
         }
         if ( type == 'edit-invoice-dates' ) {
           this.global_isEditInvoiceModalShow = this.global_isEditInvoiceModalShow == false ? true : false;
           this.global_editStatementData = data;
           
         }
+
         if ( type == 'view-transactions' ) {
           window.open( window.location.origin + '/#/dashboard/download-transactions/' + this.customer_id );
         }
+
+        if ( type == 'download-statement' ) {
+          let params = {
+            customer_id: this.customer_id,
+            customer_spending_invoice_id: data.customer_spending_invoice_id,
+          }
+          _downloadSpendingStatement_(params,true);
+        }
+
+        if ( type == 'download-transactions' ) {
+          let params = {
+            customer_id: this.customer_id,
+            customer_spending_invoice_id: data.customer_spending_invoice_id,
+          }
+          _downloadSpendingTransactions_(params,true);
+        }
+
+        if ( type =='mark-us-unpaid' ) {
+          let params = {
+            customer_id: this.customer_id,
+            customer_spending_invoice_id: data.customer_spending_invoice_id,
+            moduleIdentification: moduleIdentification,
+          }
+          console.log(params);
+          this.$swal({
+            title: "Are you sure?",
+            text: "This will be marked as Unpaid.",
+            type: "warning",
+            confirmButtonColor: "rgb(221, 107, 85)",
+            cancelButtonColor: "#C1C1C1",
+            showCancelButton: true,
+            showCloseButton: false,
+            confirmButtonText: "Yes!",
+            reverseButtons: true,
+          })
+          .then(result => {
+            if (result) {
+              if (result.value == true) { 
+                _updateMarkUsUnpaid_(params)
+                .then(( res ) => {
+                  // console.log(res);
+                  if( res.status == 200 || res.status == 201 ){
+                    // _hidePageLoading_();
+                    this._getSpendingData_();
+                    this.$swal('Success!', res.data.message, 'success');
+                  }
+                });  
+              }
+            } 
+          });
+
+          // _updateMarkUsUnpaid_(params)
+          // .then(( res ) => {
+          //   // console.log(res);
+          //   if( res.status == 200 || res.status == 201 ){
+          //     // _hidePageLoading_();
+          //     this.$swal('Success!', res.data.message, 'success');
+          //   }
+          // });
+        }
+
       },
       _getSpendingData_() {
         let params = {
@@ -98,7 +165,10 @@
             Object.keys(this.global_spendingInvoiceData).map(( value, key ) => {
               this.global_spendingInvoiceData[key].invoice_date = new Date(this.global_spendingInvoiceData[key].invoice_date);
               this.global_spendingInvoiceData[key].invoice_due_date = new Date(this.global_spendingInvoiceData[key].invoice_due_date);
-              // this.global_spendingInvoiceData[key].trail_transaction.transaction_date = new Date();
+
+              if (this.global_spendingInvoiceData[key].trail_transaction.transaction_date != null) {
+                console.log(this.global_spendingInvoiceData[key].trail_transaction.transaction_date = new Date(this.global_spendingInvoiceData[key].trail_transaction.transaction_date));
+              }
             });
           }
         });
