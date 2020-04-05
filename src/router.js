@@ -75,6 +75,11 @@ import CorporateCredentials from './views/corporates/CorporateCredentials.vue'
   import DownloadTransactions from './views/corporates/DownloadTransactions.vue'
 // End Corporates
 
+//Transaction
+import Transaction from './views/transaction/Transaction.vue'
+import TransactionHistory from './views/transaction/transaction-history/TransactionHistory.vue'
+import InvoicePayments from './views/transaction/invoice-payments/InvoicePayments.vue'
+
 import Analytics from './views/Analytics.vue'
 
 
@@ -181,6 +186,16 @@ export default new Router({
         { name: 'DownloadPDFInvoice', path: '/dashboard/download-pdf/:customer_id/:customer_active_plan_id/:type/:index', component: DownloadPDFInvoice, props: true },
         { name: 'DownloadPDFReceipt', path: '/dashboard/download-receipt/:customer_id/:customer_active_plan_id', component: DownloadPDFReceipt, props: true },
         { name: 'DownloadTransactions', path: '/dashboard/download-transactions/:customer_id', component: DownloadTransactions, props: true },
+        { 
+          name: 'Transaction', 
+          path: '/dashboard/transaction',
+          component: Transaction ,
+          props: { child: true}, 
+          children: [ 
+            { name: 'TransactionHistory', path: '/dashboard/transaction/transaction-history/', component: TransactionHistory , props: true  },
+            { name: 'InvoicePayments', path: '/dashboard/transaction/invoice-payments/', component: InvoicePayments , props: true  },
+          ]
+        },
         { name: 'Analytics', path: '/dashboard/analytics', component: Analytics },
       ]
     },
