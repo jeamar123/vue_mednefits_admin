@@ -1692,6 +1692,50 @@ const _updateCredential_ = (params)	=> {
 	return _axiosCall_(req);
 }
 
+const _fetchSpendingInvoiceData_ = (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.FETCH_SPENDING_DATA + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _updateSpendingPayment_ = (params)	=> {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_SPENDING_PAYMENT,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _updateInvoiceDates_ = (params)	=> {
+	let	req	=	{
+		method:	'PUT',
+		url:	Config.UPDATE_INVOICE_DATES,
+		data: params,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _downloadSpendingStatement_ = (params, isDownload)	=> {
+	let	url	=	Config.DOWNLOAD_SPENDING_STATEMENT + '?customer_id=' + params.customer_id + '&customer_spending_invoice_id=' + params.customer_spending_invoice_id + '&_downloadSpendingInvoice=' + params._downloadSpendingInvoice + '&token=' + localStorage.vue_admin_session;
+	if (isDownload) {
+		return window.open(url);
+	}
+}
+
+const _downloadSpendingTransactions_ = (params, isDownload)	=> {
+	let	url	=	Config.DOWNLOAD_SPENDING_TRANSACTIONS + '?customer_id=' + params.customer_id + '&customer_spending_invoice_id=' + params.customer_spending_invoice_id + '&token=' + localStorage.vue_admin_session;
+	if (isDownload) {
+		return window.open(url);
+	}
+}
+
+
 export	{
 	_login_,
 	_goBack_,
@@ -1763,4 +1807,9 @@ export	{
 	_fetchCredentialsData_,
 	_downloadDependentAccountInvoice_,
 	_updateCredential_,
+	_fetchSpendingInvoiceData_,
+	_updateSpendingPayment_,
+	_updateInvoiceDates_,
+	_downloadSpendingStatement_,
+	_downloadSpendingTransactions_,
 }
