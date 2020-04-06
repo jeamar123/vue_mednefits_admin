@@ -6,17 +6,18 @@
           value: 0,
           text: ""
         },
-        // corporateViewStatus : 'CorporateDetails',
+       activeTab: this.$route.name,
       };
     },
     created(){
       // this.corporateViewStatus = this.$route.name;
     },
     methods: {
-      // selectCorporateView( opt ){
-      //   this.corporateViewStatus = opt;
-      //   this.$router.push( { name : opt } );
-      // }
+      _goToTab_( page ) {
+        console.log(page);
+        this.activeTab = page;
+        this.$router.push({ name: page });
+      },
     }
   }
   
@@ -24,5 +25,5 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "./src/assets/css/corporates.scss";
+	@import "./src/assets/css/planRenewal.scss";
 </style>

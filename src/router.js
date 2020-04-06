@@ -138,7 +138,11 @@ export default new Router({
             // { name: 'HealthPartnerAccess', path: '/dashboard/corporates/menu/health-partner-access', components: { child : HealthPartnerAccess} },
             { name: 'EclaimTypeService', path: '/dashboard/corporates/:company_name-:customer_id/eclaim-type-service', components: { child : EclaimTypeService} , props: { child: true} },
             { name: 'GpcapPerVisit', path: '/dashboard/corporates/:company_name-:customer_id/gp-cap-per-visit', components: { child : GpcapPerVisit}, props: { child: true} },
-            { name: 'PlanRenewal', path: '/dashboard/corporates/:company_name-:customer_id/plan-renewal', components: { child : PlanRenewal}, props: { child: true},
+            { name: 'PlanRenewal', 
+              path: '/dashboard/corporates/:company_name-:customer_id/plan-renewal', 
+              components: { child : PlanRenewal}, 
+              props: { child: true},
+              redirect: '/dashboard/corporates/:company_name-:customer_id/plan-renewal/details',
               children : [
                 { name: 'PlanRenewalDetails', path: '/dashboard/corporates/:company_name-:customer_id/plan-renewal/details', components: { child : PlanDetails} },
                 { name: 'PlanRenewalMemberDetails', path: '/dashboard/corporates/:company_name-:customer_id/plan-renewal/member', components: { child : MemberDetails} },
