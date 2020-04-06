@@ -1,6 +1,172 @@
 <template>
-	<div class="spending-invoice-wrapper">
-		<h1>Plan planDetails</h1>
+	<div class="plan-details-wrapper">
+		<div class="plan-list-container">
+			<div class="item-col">
+				<div class="subscription-box">
+					<p class="subscription-title">Your Next Subscription Term - For Employee</p>
+					<div class="sub-title">
+						<div><span>3 months</span> subscription term</div>
+						<div><span>01/01/2019</span> - <span>30/11/2019</span></div>
+					</div>
+					<div class="plan-price-box dp-flex-ai">
+						<div class="price-values flex-2">
+							<div>
+								<span>Lite Plan</span> - 
+								<span>96 Seats</span>
+							</div>
+							<div>
+								<span>SGD </span><span>50.00</span> / seat / year
+							</div>	
+						</div>
+						<div class="btn-container">
+							<button @click="_changePlan_('employee')" class="btn-primary btn-change-plan">Change Plan</button>
+						</div>
+					</div>
+					<div class="total-box dp-flex">
+						<div class="flex-1">Yearly plan total</div>
+						<div class="flex-1"><span>SGD </span><span>4,800.00</span></div>
+					</div>
+				</div>
+				<div class="subscription-box">
+					<p class="subscription-title">Your Next Subscription Term - For Employee</p>
+					<div class="sub-title">
+						<div><span>3 months</span> subscription term</div>
+						<div><span>01/01/2019</span> - <span>30/11/2019</span></div>
+					</div>
+					<div class="plan-price-box dp-flex-ai">
+						<div class="price-values flex-2">
+							<div>
+								<span>Lite Plan</span> - 
+								<span>96 Seats</span>
+							</div>
+							<div>
+								<span>SGD </span><span>50.00</span> / seat / year
+							</div>	
+						</div>
+						<div class="btn-container">
+							<button @click="_changePlan_('dependent')" class="btn-primary btn-change-plan">Change Plan</button>
+						</div>
+					</div>
+					<div class="total-box dp-flex">
+						<div class="flex-1">Yearly plan total</div>
+						<div class="flex-1"><span>SGD </span><span>4,800.00</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="item-col">
+				<div class="subscription-box">
+					<p class="subscription-title">Total Due</p>
+					<div class="total-due-box dp-flex">
+						<div class="flex-1">Next subscription term</div>
+						<div class="flex-1">
+							<span>SGD </span>
+							<span>5760.00</span>
+						</div>
+					</div>
+					<button class="btn-primary btn-confirm-renewal">Confirm plan renewal</button>
+				</div>
+			</div>
+		</div>
+
+		<Modal v-if="global_isChangePlanShow" class="change-plan-modal">
+			<div slot="header">
+				<div class="dp-flex-ai">
+					<h2 class="flex-1">Change Plan Details</h2>
+					<img @click="_changePlan_()" :src="'../assets/img/cancel.png'">
+				</div>
+			</div>
+			<div slot="body">
+				<div class="sub-title">Mednefits Tech Test is using 0 seats in a total of 96 seats</div>
+				<div class="row-item dp-flex">
+					<div class="col-item-box">
+						<div class="item-div">
+							<div class="input-div">
+								<label>Mednefits Plan</label>
+								<div class="select-div">
+									<select>
+										<option value=""></option>
+										<option value="trial_plan">Trial Plan</option>
+										<option value="insurance_bundle">Insurance Bundle</option>
+										<option value="stand_alone_plan">Pro Plan</option>
+										<option value="lite_plan">Lite Plan</option>
+										<option value="enterprise_plan">Enterprise Plan</option>
+									</select>
+									<i class="fa fa-angle-down"></i>
+								</div>
+							</div>
+							<div class="item-div">
+								<div class="input-div">
+									<label>Secondary Plan</label>
+									<div class="select-div">
+										<select>
+											<option value=""></option>
+											<option ng-if="update_plan_details.account_type == 'trial_plan'" value="pro_trial_plan_bundle" class="ng-scope">Trial - Pro Plan</option>
+											<option ng-if="update_plan_details.account_type == 'trial_plan'" value="trial_plan_lite" class="ng-scope">Trial - Lite Plan</option>
+										</select>
+										<i class="fa fa-angle-down"></i>
+									</div>
+		          	</div>
+							</div>
+							<div class="item-div date-duration-container">
+								<div class="input-div">
+									<label>Start Date</label>
+									<div class="datepicker-div">
+										<img :src="'../assets/img/calendar-gray.png'">
+										<v-date-picker 
+										popoverDirection="bottom" 
+										v-model="global_planStart"
+										:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
+										popover-visibility="focus" 
+										:formats='formats'></v-date-picker>
+									</div>
+								</div>
+								<div class="input-div">
+									<label>Duration</label>
+									<div class="select-div">
+										<select>
+											<option>3 months</option>
+											<option>4 months</option>
+										</select>
+										<i class="fa fa-angle-down"></i>
+									</div>
+								</div>
+							</div>
+							<div class="item-div seat-container">
+								<div class="input-div">
+									<label>Seats</label>
+									<input type="number">
+								</div>
+								<div class="input-div">
+									<label>Price Per Seat</label>
+									<div class="per-seat-div dp-flex-ai">
+										<div class="currency-type">sgd</div>
+										<input type="number">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-item-box">
+						<div class="change-total-cost-wrapper">
+							<div class="change-total-cost">
+								<label>Change in Total Cost</label>
+								<div class="total-cost-amount">
+									<span>SGD </span> <span>0.00</span> /year
+								</div>
+							</div>
+							<div class="seat-change-container">
+								<label>Seat Change</label>
+								<div class="total-cost-amount">0</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div slot="footer">
+				<button @click="_changePlan_()" class="btn-primary">Cancel</button>
+				<button class="btn-primary">Update Plan</button>
+			</div>
+		</Modal>
 	</div>
 </template>
 

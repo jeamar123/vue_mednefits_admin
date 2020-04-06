@@ -1,22 +1,31 @@
 <script>
+import Modal from "../../../views/modal/Modal.vue";
+
   let planDetails = {
+    components: {
+      Modal
+    },
     data() {
       return {
         empSelectorActive: {
           value: 0,
           text: ""
         },
-        // corporateViewStatus : 'CorporateDetails',
+        formats: {
+          input: ["DD/MM/YYYY"],
+          data: ["DD/MM/YYYY"]
+        },
+        global_planStart: new Date(),
+        global_isChangePlanShow: false,
       };
     },
     created(){
       // this.corporateViewStatus = this.$route.name;
     },
     methods: {
-      // selectCorporateView( opt ){
-      //   this.corporateViewStatus = opt;
-      //   this.$router.push( { name : opt } );
-      // }
+      _changePlan_( type ) {
+        this.global_isChangePlanShow = this.global_isChangePlanShow == false ? true : false;
+      }
     }
   }
   
@@ -24,5 +33,5 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "./src/assets/css/corporates.scss";
+	@import "./src/assets/css/planRenewal.scss";
 </style>

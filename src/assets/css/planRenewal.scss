@@ -1,0 +1,148 @@
+.plan-renewal-wrapper {
+  .renewal-header {
+    font-family: 'Helvetica Medium';
+  }
+  .plan-renewal-title {
+    font-size: 18px;
+    margin: 10px 0;
+    font-weight: 700;
+  }
+
+  .renewal-selector {
+    color: #888B8C;
+    border-bottom: 1px solid #ececec;
+    li {
+      border-bottom: 3px solid transparent;
+      padding: 12px 0;
+      margin: 0 25px 0 0;
+      font-weight: 300;
+      cursor: pointer;
+    }
+    li.active {
+      color: #2E67A7;
+      border-bottom: 3px solid #2E67A7;
+    }
+  }
+
+  .emp-tab-box {
+    display: none;
+
+    >div {
+      width: 200px;
+      padding: 10px 0;
+      border-bottom: 1px solid #ececec;
+    }
+  }
+}
+
+.plan-list-container {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  grid-column-gap: 40px;
+  width: 80%;
+  margin: 40px 0 0;
+  
+  .subscription-box {
+    border: 2px solid #E0E0E0;
+    border-radius: 5px;
+    margin: 0 0 40px;
+    padding: 15px;
+    font-size: 13px;
+
+    .subscription-title {
+      font-size: 16px;
+      font-family: 'Helvetica Medium';
+      margin: 0 0 18px;
+    }
+  }
+
+  .sub-title >div {
+    display: inline-block;
+
+    &:first-child {
+      border-right: 2px solid #dedede;
+      padding: 0 10px 0 0;
+      margin: 0 5px 0 0;
+    }
+  }
+
+  .plan-price-box {
+    padding: 20px 0;
+    margin: 0 0 20px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .price-values >div {
+    line-height: 1.8;
+
+    &:last-child {
+      color: #777879;
+    }
+  }
+
+  .total-box >div:last-child,
+  .total-due-box >div:last-child {
+    text-align: end;
+  }
+
+  .btn-change-plan {
+    width: 149px;
+  }
+
+  .btn-confirm-renewal {
+    width: 100%;
+    margin: 26px 0 6px;
+    height: 47px;
+  }
+}
+
+@media (max-width: 1350px) {
+  .plan-list-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1023px) {
+  .plan-renewal-wrapper {
+    margin: 50px 0 0;
+  }
+}
+
+@media (max-width: 766px) {
+  .plan-list-container {
+    display: block;
+  }
+}
+
+@media (max-width: 600px) {
+  .plan-renewal-wrapper {
+    .renewal-selector {
+      display: none;
+    }
+
+    .emp-tab-box {
+      display: block;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .plan-list-container {
+    .sub-title >div {
+      display: block;
+    }
+    .sub-title >div:first-child {
+      border-right: 0;
+      margin: 0 0 5px;
+    }
+
+    .plan-price-box {
+      display: block;
+    }
+
+    .btn-change-plan {
+      width: 100%;
+      margin: 20px 0 0;
+    }
+  }
+}
