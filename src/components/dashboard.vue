@@ -8,6 +8,7 @@
 				showLoader : false,
 				user_id : null,
 				isMenuShow: false,
+				global_isTransactionDropdownShow: false,
 			}
 		},
 		created() {
@@ -28,6 +29,19 @@
 			},
 			toggleMenu(){
 				this.isMenuShow = this.isMenuShow == true ? false : true;
+			},
+			_showTransactionDropdown_() {
+				this.global_isTransactionDropdownShow = this.global_isTransactionDropdownShow == false ? true : false;
+			},
+			_hideAllDrop_( e ) {
+        if ($(e.target).parents(".nav-ul").length === 0) {
+          this.global_isTransactionDropdownShow  = false;
+          // console.log('click sa gawas');
+				}
+      },
+			_transactionSelector_() {
+				console.log('ma close');
+				this.global_isTransactionDropdownShow = false;
 			}
     }
 	}

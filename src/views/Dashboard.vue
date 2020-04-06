@@ -15,21 +15,21 @@
 	  			<li><router-link tag="a" :to="{ name : 'Corporates' }">Corporate</router-link></li>
 	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Booking</router-link></li>
 	  			<li>
-		  			<router-link tag="a" :to="{ name : 'Analytics' }">
+		  			<a @click="_showTransactionDropdown_()">
 		  				Transaction
-		  				<div class="drop-wrapper transaction-drop">
-		  					<ul class="nav-ul">
-		  						<router-link tag="a" to="/dashboard/clinic">Transaction History</router-link>
-		  						<router-link tag="a" to="/dashboard/clinic">Download E-Claim List</router-link>
-		  					</ul>
-		  				</div>
-		  			</router-link>
+		  			</a>
+						<div v-click-outside="_hideAllDrop_" v-if="global_isTransactionDropdownShow" class="drop-wrapper transaction-drop">
+							<ul class="nav-ul">
+								<router-link tag="a" :to="{ name : 'TransactionHistory' }">Transaction History</router-link>
+								<router-link tag="a" :to="{ name : 'InvoicePayments' }">Invoice Payments</router-link>
+							</ul>
+						</div>
 		  		</li>
 	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Analytics</router-link></li>
 	  			<li>
 	  				<a href="#">Settings</span></a>
 
-	  				<div class="drop-wrapper settings-drop">
+	  				<div v-if="false" class="drop-wrapper settings-drop">
 	  					<ul class="nav-ul">
 	  						<router-link tag="li" to="/dashboard/clinic"><a href="#">Mednefits Agents</a></router-link>
 	  						<router-link tag="li" to="/dashboard/clinic"><a href="#">Download E-Claim List</a></router-link>
