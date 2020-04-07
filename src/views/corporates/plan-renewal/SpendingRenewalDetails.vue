@@ -19,8 +19,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="spending-tbl-wrapper">
-			<div class="spending-tbl-container">
+		<div class="spending-renewal-tbl-wrapper">
+			<div class="spending-renewal-tbl-container">
 				<table class="spending-tbl">
 					<thead>
 						<tr>
