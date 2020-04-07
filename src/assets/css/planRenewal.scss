@@ -23,6 +23,10 @@
       border-bottom: 3px solid #2E67A7;
     }
   }
+  .custom-pagination {
+    justify-content: end;
+    padding: 0;
+  }
 
   .emp-tab-box {
     display: none;
@@ -32,6 +36,24 @@
       padding: 10px 0;
       border-bottom: 1px solid #ececec;
     }
+  }
+}
+
+.plan-renewal-footer {
+  margin: 40px 0 0;
+
+  .total-number-container {
+    margin: 0 0 20px;
+  }
+  .total-number-container span {
+    width: 220px;
+  }
+  .total-number-container .total-number-box {
+    width: 50px;
+    height: 28px;
+    border: 0.5px solid #979797;
+    border-radius: 3px;
+    padding: 0 0 0 5px;
   }
 }
 
@@ -150,16 +172,6 @@
 
 // Member details
 .member-details-wrapper {
-  .member-details-header {
-    justify-content: flex-end;
-    margin: 10px 0;
-    img {
-      height: 16px;
-      width: 16px;
-      margin: 0 20px 0 0;
-      cursor: pointer;
-    }
-  }
   .member-details-selector {
     margin: 0 0 20px;
 
@@ -177,56 +189,207 @@
       color: #fff;
     }
   }
+}
 
-  table {
-    border: 1px solid #d0d0d0;
-    font-size: 14px;
-    img {
-      width: 4px;
-      height: 17px;
-      cursor: pointer;
-      margin: 0 auto;
-    }
-    .option-selector {
-      width: 27px;
-    }
-    thead tr {
-      background-color: #2E67A7;
-    }
-    thead th {
-      color: #fff;
-      font-family: 'Helvetica Light';
-      
-      &:nth-child(1) {
-        width: 5%;
-      }
-      &:nth-child(2) {
-        width: 12%;
-      }
-      &:nth-child(3) {
-        width: 27%;
-      }
-      &:nth-child(4),
-      &:nth-child(5) {
-        width: 13%;
-      }
-      &:nth-child(6) {
-        width: 14%;
-      }
-      &:nth-child(7) {
-        width: 16%;
-      }
-    }
-    thead th,
-    tbody td {
-      border: 1px solid #d0d0d0;
-      padding: 10px;
-    }
-    input::placeholder {
-      font-size: 12px;
-      font-style: italic;
-      color: rgba(0,0,0,0.5);
-      font-weight: 700;
-    }
+.add-seat-wrapper {
+  position: relative;
+  .add-seat-container {
+    right: 0;
+    left: inherit;
+  }
+  .add-seat-container li {
+    padding: 10px 15px;
   }
 }
+.sub-details-header {
+  justify-content: flex-end;
+  margin: 10px 0;
+  img {
+    height: 16px;
+    width: 16px;
+    margin: 0 20px 0 0;
+    cursor: pointer;
+  }
+}
+
+.remove-emp-selector-container, 
+.add-seat-container {
+  position: absolute;
+  left: 25px;
+  bottom: -30px;
+  background-color: #fff;
+  width: 165px;
+  padding: 5px 0;
+  border: 0.5px solid #979797;
+  border-radius: 2px;
+  z-index: 1;
+  box-shadow: 2px 2px 5px #949393;
+
+  li {
+    list-style-type: none;
+    text-align: left;
+    padding: 5px 15px;
+    cursor: pointer;  
+  }
+  li:hover {
+    background-color: rgba(46, 103, 167, 0.5);
+  }
+  li a,
+  li a span {
+    display: block;
+  }
+}
+
+table {
+  width: 100%;
+  border: 1px solid #d0d0d0;
+  font-size: 14px;
+  img {
+    width: 4px;
+    height: 17px;
+    cursor: pointer;
+    margin: 0 auto;
+  }
+  .tbl-custom-dropdown {
+    max-height: 140px;
+    overflow-y: auto;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+    background-color: #ECF0F1;
+    position: absolute;
+    top: -30px;
+    width: 100%;
+    z-index: 9;
+    .select {
+      padding: 0 12px;
+      height: 35px;
+      line-height: 35px;
+    }
+    .select:hover {
+      background: rgb(202, 202, 202);
+    }
+  }
+  .employee-id-container {
+    border: 1px solid #d0d0d0;
+  }
+  .fa-angle-down {
+    font-size: 24px;
+    position: absolute;
+    top: 7px;
+    right: 10px;
+  }
+  thead tr {
+    background-color: #2E67A7;
+  }
+  thead th {
+    color: #fff;
+    font-family: 'Helvetica Light';
+  }
+  thead th,
+  thead tr th:last-child, 
+  tbody tr td:last-child,
+  tbody tr:first-child td,
+  tbody td {
+    border: 1px solid #d0d0d0;
+    padding: 10px;
+    position: relative;
+    white-space: normal;
+  }
+
+  input::placeholder {
+    font-size: 12px;
+    font-style: italic;
+    color: rgba(0,0,0,0.5);
+    font-weight: 700;
+  }
+}
+
+.empl-tbl thead th {
+  &:nth-child(1) {
+    width: 5%;
+  }
+  &:nth-child(2) {
+    width: 12%;
+  }
+  &:nth-child(3) {
+    width: 27%;
+  }
+  &:nth-child(4),
+  &:nth-child(5) {
+    width: 13%;
+  }
+  &:nth-child(6) {
+    width: 14%;
+  }
+  &:nth-child(7) {
+    width: 16%;
+  }
+}
+
+.dependent-tbl thead th {
+  &:nth-child(1) {
+    width: 5%;
+  }
+  &:nth-child(2),
+  &:nth-child(3) {
+    width: 23%;
+  }
+  &:nth-child(4) {
+    // width: 13%;
+    width: 17%;
+  }
+  &:nth-child(5),
+  &:nth-child(6),
+  &:nth-child(7) {
+    // width: 12%;
+    width: 8%;
+  }
+}
+
+// Spending Account Renewal Details
+.spending-renewal-wrapper {
+  .rollover-selector-container {
+    margin: 0 0 0 15px;
+    position: relative;
+    select {
+      background-color: transparent;
+      -webkit-appearance: none;
+      width: 90px;
+      height: 34px;
+      border-radius: 3px;
+      border: 1px solid #E0E0E0;
+      padding: 0 0 0 10px;
+    }
+    img {
+      width: 8px;
+      position: absolute;
+      right: 10px;
+      top: 5px;
+    }
+  }
+  .sub-details-header {
+    width: auto;
+  }
+  .spending-tbl {
+    margin: 20px 0 0;
+    thead tr {
+      background-color: #EFF2F4;
+    }
+    thead th {
+      color: #333;
+    }
+  }
+  .total-number-container span {
+    width: 250px;
+  }
+  .total-number-container .total-number-box {
+    width: 80px;
+    background-color: #DCF0FB;
+  }
+  .subtext-rollover {
+    color: #979797;
+    font-size: 14px;
+    margin: 20px 0 0;
+    width: 435px;
+  }
+}
+

@@ -199,6 +199,85 @@
       padding: 15px 20px;
     }
   }
+  .file-upload-modal {
+
+    .modal-header h4 {
+      flex: 1;
+    }
+    .modal-header img {
+      width: 14px;
+      cursor: pointer;
+    }
+  
+    .drop-box {
+      border: 2px dashed #408FCA;
+      width: initial;
+      height: 152px;
+      justify-content: center;
+      background-color: #fff;
+      position: relative;
+      cursor: initial;
+      >div {
+        width: 100%;
+        padding: 30px 20px;
+      }
+      input {
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+    }
+    .drop-file-upload {
+      justify-content: center;
+      img {
+        width: 23px;
+        height: 23px;
+      }
+      >span {
+        margin: 0 10px;
+      }
+    }
+    .progress-wrapper {
+      position: relative;
+      width: 100%;
+      height: 25px;
+      background-color: rgba(205, 205, 205, 0.3);
+      overflow: hidden;
+      margin: 15px 0 0;
+  
+      .fa-file-o {
+        margin: 0 10px 0 0;
+      }
+      >span {
+        position: absolute;
+        left: 10px;
+        top: 3px;
+        z-index: 1;
+      }
+    }
+    .progress-bar {
+      height: 25px;
+      color: #2E4057;
+      margin: 0;
+      // width: 0%;
+      transition: all 1s ease-in-out;
+      position: absolute;
+  
+      &.success {
+        width: 100%;
+        background-color: #78E997;
+      }
+  
+      &.error {
+        background-color: #d46448;
+        width: 10%;
+      }
+    }
+    .cap-file-err {
+      font-size: 11px;
+      text-align: center;
+    }
+  }
   @media (max-width: 768px) {
     .export-modal-wrapper{
       .modal-container {
@@ -221,6 +300,12 @@
         }
       } 
     }   
+  }
+  @media (max-width: 600px) {
+    .modal-mask.file-upload-modal .modal-container {
+      width: 100%;
+      margin: 0 15px;
+    }
   }
   @media (max-width: 550px) {
     .export-modal-wrapper{
@@ -246,6 +331,37 @@
       }
       
     }   
+  }
+  @media (max-width: 520px) {
+    .file-upload-modal {
+      .modal-header,
+      .modal-body,
+      .modal-footer {
+        padding: 15px 10px;
+      }
+      .drop-box {
+        height: auto;
+        >div {
+          padding: 30px 10px;
+        }
+        .drop-file-upload > span {
+          margin: 10px 0;
+          text-align: center;
+          display: block;
+        }
+        .drop-file-upload {
+          display: block;
+        }
+        .drop-file-upload img {
+          margin: 0 auto;
+          display: block;
+        }
+        .drop-file-upload button {
+          margin: 0 auto;
+          display: block;
+        }
+      }
+    }
   }
   @media (max-width: 480px) {
     .export-modal-wrapper{
@@ -283,9 +399,7 @@
           font-size: 14px;
         }
       } 
-    }
-    
-    
+    } 
   }
 // --------------------------------------- //
 
