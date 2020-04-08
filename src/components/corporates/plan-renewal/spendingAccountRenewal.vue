@@ -1,22 +1,35 @@
 <script>
+  import Modal from "../../../views/modal/Modal.vue";
+
   let spendingAccountRenewal = {
+    components: {
+      Modal
+    },
     data() {
       return {
         empSelectorActive: {
           value: 0,
           text: ""
         },
-        // corporateViewStatus : 'CorporateDetails',
+        formats: {
+          input: ["DD/MM/YYYY"],
+          data: ["DD/MM/YYYY"]
+        },
+        global_showFileUpload: false,
+        global_planStart: new Date(),
+        global_isShowEditSpendingModal: false,
       };
     },
     created(){
       // this.corporateViewStatus = this.$route.name;
     },
     methods: {
-      // selectCorporateView( opt ){
-      //   this.corporateViewStatus = opt;
-      //   this.$router.push( { name : opt } );
-      // }
+      _fileUploadModal_() {
+        this.global_showFileUpload = this.global_showFileUpload == false ? true : false;
+      },
+      _editSpendingAccountModal_() {
+        this.global_isShowEditSpendingModal = this.global_isShowEditSpendingModal == false ? true: false;
+      },
     }
   }
   

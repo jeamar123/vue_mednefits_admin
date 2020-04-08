@@ -36,6 +36,9 @@
       padding: 10px 0;
       border-bottom: 1px solid #ececec;
     }
+    select {
+      background-color: transparent;
+    }
   }
 }
 
@@ -146,6 +149,9 @@
     .emp-tab-box {
       display: block;
     }
+    .sub-details-header, {
+      margin: 40px 0 20px;
+    }
   }
 }
 
@@ -171,74 +177,84 @@
 }
 
 // Member details
-.member-details-wrapper {
-  .member-details-selector {
-    margin: 0 0 20px;
+  .member-details-wrapper {
+    .member-details-selector {
+      margin: 0 0 20px;
 
-    button {
-      width: 150px;
-      height: 32px;
-      background-color: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 3px;
-      margin: 0 10px 0 0;
-      font-weight: 700;
-    }
-    button.active {
-      background-color: #2E67A7;
-      color: #fff;
+      button {
+        width: 150px;
+        height: 32px;
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 3px;
+        margin: 0 10px 0 0;
+        font-weight: 700;
+      }
+      button.active {
+        background-color: #2E67A7;
+        color: #fff;
+      }
     }
   }
-}
 
-.add-seat-wrapper {
-  position: relative;
+  .add-seat-wrapper {
+    position: relative;
+    .add-seat-container {
+      right: 0;
+      left: inherit;
+    }
+    .add-seat-container li {
+      padding: 10px 15px;
+    }
+  }
+  .sub-details-header {
+    justify-content: flex-end;
+    margin: 10px 0;
+    img {
+      height: 16px;
+      width: 16px;
+      margin: 0 20px 0 0;
+      cursor: pointer;
+    }
+  }
+
+  .remove-emp-selector-container, 
   .add-seat-container {
-    right: 0;
-    left: inherit;
-  }
-  .add-seat-container li {
-    padding: 10px 15px;
-  }
-}
-.sub-details-header {
-  justify-content: flex-end;
-  margin: 10px 0;
-  img {
-    height: 16px;
-    width: 16px;
-    margin: 0 20px 0 0;
-    cursor: pointer;
-  }
-}
+    position: absolute;
+    left: 25px;
+    bottom: -30px;
+    background-color: #fff;
+    width: 165px;
+    padding: 5px 0;
+    border: 0.5px solid #979797;
+    border-radius: 2px;
+    z-index: 1;
+    box-shadow: 2px 2px 5px #949393;
 
-.remove-emp-selector-container, 
-.add-seat-container {
-  position: absolute;
-  left: 25px;
-  bottom: -30px;
-  background-color: #fff;
-  width: 165px;
-  padding: 5px 0;
-  border: 0.5px solid #979797;
-  border-radius: 2px;
-  z-index: 1;
-  box-shadow: 2px 2px 5px #949393;
+    li {
+      list-style-type: none;
+      text-align: left;
+      padding: 5px 15px;
+      cursor: pointer;  
+    }
+    li:hover {
+      background-color: rgba(46, 103, 167, 0.5);
+    }
+    li a,
+    li a span {
+      display: block;
+    }
+  }
 
-  li {
-    list-style-type: none;
-    text-align: left;
-    padding: 5px 15px;
-    cursor: pointer;  
+  @media (max-width: 400px) {
+    .member-details-wrapper .member-details-selector button {
+      width: 100%;
+
+      &:first-child {
+        margin: 0 0 10px;
+      }
+    }
   }
-  li:hover {
-    background-color: rgba(46, 103, 167, 0.5);
-  }
-  li a,
-  li a span {
-    display: block;
-  }
-}
 
 table {
   width: 100%;
@@ -349,97 +365,201 @@ table {
   }
 }
 
+.spending-tbl thead th {
+  &:nth-child(1) {
+    width: 5%;
+  }
+}
+
 // Spending Account Renewal Details
-.spending-renewal-wrapper {
-  .rollover-selector-container {
-    margin: 0 0 0 15px;
-    position: relative;
-    select {
-      background-color: transparent;
-      -webkit-appearance: none;
-      width: 90px;
-      height: 34px;
-      border-radius: 3px;
+  .spending-renewal-wrapper {
+    .rollover-selector-container {
+      margin: 0 0 0 15px;
+      position: relative;
+      select {
+        background-color: transparent;
+        -webkit-appearance: none;
+        width: 90px;
+        height: 34px;
+        border-radius: 3px;
+        border: 1px solid #E0E0E0;
+        padding: 0 0 0 10px;
+      }
+      img {
+        width: 8px;
+        position: absolute;
+        right: 10px;
+        top: 5px;
+      }
+    }
+    .sub-details-header {
+      width: auto;
+    }
+    .spending-tbl {
+      margin: 20px 0 0;
+      thead tr {
+        background-color: #EFF2F4;
+      }
+      thead th {
+        color: #333;
+      }
+    }
+    .total-number-container span {
+      width: 250px;
+    }
+    .total-number-container .total-number-box {
+      width: 80px;
+      background-color: #DCF0FB;
+    }
+    .subtext-rollover {
+      color: #979797;
+      font-size: 14px;
+      margin: 20px 0 0;
+      width: 435px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .spending-renewal-wrapper {
+      .custom-pagination-container {
+        display: grid;
+      }
+      .custom-pagination-container .subtext-rollover {
+        grid-row: 1;
+        margin: 0;
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    .spending-renewal-wrapper {
+      >div:first-child {
+        display: grid;
+      }
+      >div:first-child .rollover-wrapper {
+        grid-row: 2;
+      }
+    }
+    .spending-account-renewal .confirm-renewal-btn {
+      padding: 10px;
+    }
+  }
+
+// Spending Account Renewal
+  .spending-account-renewal {
+    .custom-pagination .page-scroll-container {
+      margin: 0 70px 0 0;
+    }
+    .confirm-renewal-btn {
+      margin: 0 0 0 10px;
+    }
+  }
+  .spending-account-subtext {
+    font-family: 'Helvetica Light';
+    font-weight: 700;
+    .start-end-date:before {
+      content: "";
+      display: inline-block;
       border: 1px solid #E0E0E0;
-      padding: 0 0 0 10px;
+      height: 12px;
+      position: relative;
+      top: 2px;
+      margin: 0 5px;
     }
-    img {
-      width: 8px;
-      position: absolute;
-      right: 10px;
-      top: 5px;
-    }
-  }
-  .sub-details-header {
-    width: auto;
-  }
-  .spending-tbl {
-    margin: 20px 0 0;
-    thead tr {
-      background-color: #EFF2F4;
-    }
-    thead th {
-      color: #333;
+
+    .btn-edit {
+      color: #0392CF;
+      margin: 0 0 0 20px;
+      display: inline-block;
     }
   }
-  .total-number-container span {
-    width: 250px;
-  }
-  .total-number-container .total-number-box {
-    width: 80px;
-    background-color: #DCF0FB;
-  }
-  .subtext-rollover {
-    color: #979797;
-    font-size: 14px;
-    margin: 20px 0 0;
-    width: 435px;
-  }
-}
-
-@media (max-width: 1355px) and (min-width: 1024px) {
-  .employee-tbl-container,
-  .dependent-tbl-container {
-    display: grid;
-    grid-template-columns: 650px;
-    overflow: auto;
-
-    &::-webkit-scrollbar {
-      height: 3px;
+  @media (max-width: 400px ) {
+    .spending-account-subtext {
+      font-size: 12px;
+      .btn-edit {
+        margin: 0 0 0 10px;
+      }
     }
   }
-}
 
-@media (max-width: 1100px) and (min-width: 1024px) {
-  .spending-renewal-tbl-container {
-    display: grid;
-    grid-template-columns: 650px;
-    overflow: auto;
 
-    &::-webkit-scrollbar {
-      height: 3px;
-    }
-  }
-  .spending-renewal-wrapper .subtext-rollover {
-    width: 300px;
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 1023px) {
-  .employee-tbl-wrapper,
-  .dependent-tbl-wrapper,
-  .spending-renewal-tbl-wrapper{ 
-    overflow: auto;
-
+// GLOBAL REPONSIVE FOR PLAN RENEWAL
+  @media (max-width: 1355px) and (min-width: 1024px) {
     .employee-tbl-container,
-    .dependent-tbl-container,
-    .spending-renewal-tbl-container {
-      width: 1200px;
-    }
+    .dependent-tbl-container {
+      display: grid;
+      grid-template-columns: 650px;
+      overflow: auto;
 
-    &::-webkit-scrollbar {
-      height: 3px;
+      &::-webkit-scrollbar {
+        height: 3px;
+      }
     }
   }
-}
+
+  @media (max-width: 1100px) and (min-width: 1024px) {
+    .spending-renewal-tbl-container {
+      display: grid;
+      grid-template-columns: 650px;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        height: 3px;
+      }
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .employee-tbl-wrapper,
+    .dependent-tbl-wrapper,
+    .spending-renewal-tbl-wrapper{ 
+      overflow: auto;
+
+      .employee-tbl-container,
+      .dependent-tbl-container,
+      .spending-renewal-tbl-container {
+        width: 1200px;
+      }
+
+      &::-webkit-scrollbar {
+        height: 3px;
+      }
+    }
+    .spending-renewal-wrapper .subtext-rollover {
+      width: 300px;
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .plan-renewal-footer {
+      display: grid;
+      .custom-pagination-container {
+        grid-row: 2;
+      }
+      .custom-pagination {
+        margin: 40px 0 0;
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    .plan-renewal-footer .total-number-container span,
+    .spending-renewal-wrapper .total-number-container span {
+      width: 100%;
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .plan-renewal-footer {
+      .custom-pagination {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .custom-pagination .page-scroll-container { 
+        margin: 0 70px 0;
+      }
+    }
+  }
