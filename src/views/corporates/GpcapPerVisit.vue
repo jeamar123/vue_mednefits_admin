@@ -56,6 +56,9 @@
 							</span>
 							<div>
 								<span v-for="(list,index) of ___limitPagination" class="gp-page-num" v-bind:class="{'active' : list + 1 == page_active}" v-on:click="goToPage( list + 1 )">{{ list + 1 }}</span>
+								<span
+								v-show="global_capListPagination.last_page > 5 && page_active < ( global_capListPagination.last_page - 3 )"
+								class="-mr-2">...</span>
 							</div>
 							<span @click="___nextPage()">
 								<span class="prev-page">Next</span>

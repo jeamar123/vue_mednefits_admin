@@ -251,5 +251,47 @@
 </script>
 
 <style lang="scss" scoped>
-	// @import "./src/assets/css/corporateSettings.scss";
+  // @import "./src/assets/css/corporateSettings.scss";
+
+  @media (min-width: 1450px) { 
+    .settings-wrapper{
+      .settings-menu-box{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+    }
+  }
+  @media (min-width: 1710px) { 
+    .settings-wrapper{
+      .settings-menu-box{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      }
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .settings-wrapper {
+      margin: 50px 0 0;
+    }
+  }
+
+  @media (max-width: 768px) { 
+  .settings-wrapper{
+    .settings-menu-box{
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+  
+  @media (max-width: 520px) { 
+  .settings-wrapper{
+    .settings-menu-box{
+      grid-template-columns: 1fr;
+
+      .menu-item{
+        margin: 0 20px;
+      }
+    }
+  }
+}
+
 </style>

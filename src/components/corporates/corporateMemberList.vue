@@ -292,6 +292,7 @@ let corporateMemberList = {
 					if (res.status == 200) {
 						this.corporate_members = res.data.data;
 						this.corporate_pagination = res.data;
+						console.log(this.corporate_pagination);
 
 						this.corporate_members.map((value, index) => {
 							value.enrollment_date = moment(value.enrollment_date).format(

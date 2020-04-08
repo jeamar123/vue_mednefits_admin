@@ -42,6 +42,9 @@
 			_transactionSelector_() {
 				console.log('ma close');
 				this.global_isTransactionDropdownShow = false;
+			},
+			_hideSelector_() {
+				this.isMenuShow = false;
 			}
     }
 	}
