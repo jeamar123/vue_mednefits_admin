@@ -88,6 +88,7 @@
       },
       _hideAllDrop_( e ) {
         if ($(e.target).parents(".remove-emp-selector-container").length === 0) {
+          this.removeEmpSelector = true;
           this._resetActionSelector();
           this.$forceUpdate();
         }
@@ -98,15 +99,26 @@
           this.global_isPerPageShow = false;
         }
         if ($(e.target).parents(".country-code-wrapper").length === 0) {
-          this._resetActionSelector();
+          // this._resetActionSelector();
           this.$forceUpdate();
         }
       },
       _resetActionSelector() {
-        this.employee_details_arr.forEach((value,key)  => {
-          value.isOptionsShow = false;
-          value.activeInput = [];
-        })
+        if ( this.removeEmpSelector ) {
+          console.log(this.removeEmpSelector);
+          this.employee_details_arr.forEach((value,key)  => {
+            value.isOptionsShow = false;
+          })
+        }
+        // this.employee_details_arr.forEach((value,key)  => {
+        //   // if (this.employee_details_arr[ key ].activeInput[3] == value.activeInput[3]) {
+        //   //   // value.activeInput[3] = false;
+        //   //   value.activeInput[3] = false  ;
+        //   //   console.log('testing sa 3');
+        //   // } else {
+        //   //   value.activeInput[3] = true;
+        //   // }
+        // })
       },
       _toggleAddSeatOptions_() {
         this.global_isAddSeatDropShow = this.isAddSeatDropShow == true ? false : true;

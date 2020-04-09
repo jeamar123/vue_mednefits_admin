@@ -91,7 +91,7 @@
 										<input type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
-									<div v-click-outside="_hideAllDrop_" v-if="list.activeInput[3]" class="tbl-custom-dropdown">
+									<div v-if="list.activeInput[3]" class="tbl-custom-dropdown">
 										<div class="select-num"> +60 </div>
 									</div>
 								</td>
