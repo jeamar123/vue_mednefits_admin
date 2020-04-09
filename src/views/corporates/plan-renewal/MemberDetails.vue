@@ -42,7 +42,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+							<tr v-for="(list,index) in employee_details_arr">
 								<td>
 									<div class="option-selector">
 										<img :src="'../assets/img/dots.png'">
@@ -63,31 +63,31 @@
 									</div>
 								</td>
 								<td>
-									<div>297</div>
+									<div>{{ list.id }}</div>
 								</td>
 								<td>
-									<div>Llay Jk</div>
-									<div v-if="false">
+									<div @click="_toggleTableInput_( index, 0 )"  v-if="!list.activeInput[0]">{{ list.fullname }}</div>
+									<div v-if="list.activeInput[0]">
 										<input type="text">
 									</div>
 								</td>
 								<td>
-									<div>01/01/1970</div>
-									<div v-if="false">
-										<input type="text">
-										<i class="fa fa-angle-down"></i>
-									</div>
-								</td>
-								<td>
-									<div>01/12/2019</div>
-									<div v-if="false">
+									<div @click="_toggleTableInput_( index, 1 )" v-if="!list.activeInput[1]">{{ _formatDate_( list.dob, null,'DD MMM,YYYY' ) }}</div>
+									<div v-if="list.activeInput[1]">
 										<input type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
 								</td>
 								<td>
-									<div>+65</div>
-									<div v-if="false">
+									<div @click="_toggleTableInput_( index, 2 )" v-if="!list.activeInput[2]">{{ _formatDate_( list.start_date, null,'DD MMM,YYYY' ) }}</div>
+									<div v-if="list.activeInput[2]">
+										<input type="text">
+										<i class="fa fa-angle-down"></i>
+									</div>
+								</td>
+								<td>
+									<div @click="_toggleTableInput_( index, 3 )" v-if="!list.activeInput[3]">{{ list.country_code }}</div>
+									<div v-if="list.activeInput[3]">
 										<input type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
@@ -96,8 +96,8 @@
 									</div>
 								</td>
 								<td>
-									<div>Llay Jk</div>
-									<div v-if="false">
+									<div @click="_toggleTableInput_( index, 4 )" v-if="!list.activeInput[4]">{{ list.mobile_number }}</div>
+									<div v-if="list.activeInput[4]">
 										<input type="text">
 									</div>
 								</td>
