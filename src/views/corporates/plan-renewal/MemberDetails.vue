@@ -3,9 +3,9 @@
 		<div class="sub-details-header dp-flex-ai">
 			<div><img :src="'../assets/img/download_emp.png'"></div>
 			<div @click="_fileUploadModal_()"><img :src="'../assets/img/Import icon.svg'"></div>
-			<div class="add-seat-wrapper">
+			<div @click="_toggleAddSeatOptions_()" class="add-seat-wrapper">
 				<img :src="'../assets/img/plus_add.png'">
-				<div v-if="false" class="add-seat-container">
+				<div v-click-outside="_hideAllDrop_" v-if="global_isAddSeatDropShow" class="add-seat-container">
 					<li>
 						<a>
 							<span>Add Seat</span>
@@ -44,9 +44,9 @@
 						<tbody>
 							<tr v-for="(list,index) in employee_details_arr">
 								<td>
-									<div class="option-selector">
+									<div @click="_toggleOptions_(list)" class="option-selector">
 										<img :src="'../assets/img/dots.png'">
-										<div v-if="false" class="remove-emp-selector-container">
+										<div v-click-outside="_hideAllDrop_" v-if="list.isOptionsShow" class="remove-emp-selector-container">
 											<li>
 												<a>
 													<span>Remove Employee</span>
@@ -85,14 +85,14 @@
 										<i class="fa fa-angle-down"></i>
 									</div>
 								</td>
-								<td>
+								<td class="country-code-wrapper">
 									<div @click="_toggleTableInput_( index, 3 )" v-if="!list.activeInput[3]">{{ list.country_code }}</div>
 									<div v-if="list.activeInput[3]">
 										<input type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
-									<div v-if="false" class="tbl-custom-dropdown">
-										<div class="select"> +60 </div>
+									<div v-click-outside="_hideAllDrop_" v-if="list.activeInput[3]" class="tbl-custom-dropdown">
+										<div class="select-num"> +60 </div>
 									</div>
 								</td>
 								<td>
@@ -300,12 +300,12 @@
 							</span>
 						</div>
 					</div>
-					<div class="custom-list-per-page">
+					<div @click="_togglePerPage_()" class="custom-list-per-page">
 						<span><span>10</span> per page</span>
 						<span>  
 							<i class="fa fa-caret-down"></i>
 						</span>
-						<div class="opened-per-page-scroll" v-if="false">
+						<div class="opened-per-page-scroll" v-click-outside="_hideAllDrop_" v-if="global_isPerPageShow">
 							<span v-on:click="setPageLimit( 10 )">10 per page</span>
 							<span v-on:click="setPageLimit( 25)">25 per page</span>
 							<span v-on:click="setPageLimit( 50 )">50 per page</span>

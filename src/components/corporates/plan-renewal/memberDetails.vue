@@ -36,6 +36,8 @@
             mobile_number: 888888
           }
         ],
+        global_isAddSeatDropShow: false,
+        global_isPerPageShow: false,
       };
     },
     created(){
@@ -72,6 +74,45 @@
           value.activeInput = [];
           console.log(value.activeInput);
         })
+      },
+      _toggleOptions_( data ) {
+        // console.log(data);
+        this.employee_details_arr.forEach((value,key)  => {
+          if ( data.id == value.id ) {
+            value.isOptionsShow = value.isOptionsShow == true ? false : true;
+          } else {
+            value.isOptionsShow = false;
+          }
+        })
+        this.$forceUpdate();
+      },
+      _hideAllDrop_( e ) {
+        if ($(e.target).parents(".remove-emp-selector-container").length === 0) {
+          this._resetActionSelector();
+          this.$forceUpdate();
+        }
+        if ($(e.target).parents(".add-seat-wrapper").length === 0) {
+          this.global_isAddSeatDropShow = false;
+        }
+        if ($(e.target).parents(".custom-list-per-page").length === 0) {
+          this.global_isPerPageShow = false;
+        }
+        if ($(e.target).parents(".country-code-wrapper").length === 0) {
+          this._resetActionSelector();
+          this.$forceUpdate();
+        }
+      },
+      _resetActionSelector() {
+        this.employee_details_arr.forEach((value,key)  => {
+          value.isOptionsShow = false;
+          value.activeInput = [];
+        })
+      },
+      _toggleAddSeatOptions_() {
+        this.global_isAddSeatDropShow = this.isAddSeatDropShow == true ? false : true;
+      },
+      _togglePerPage_() {
+        this.global_isPerPageShow = this.global_isPerPageShow == false ? true : false;
       }
     }
   }
