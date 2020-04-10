@@ -38,6 +38,7 @@
         ],
         global_isAddSeatDropShow: false,
         global_isPerPageShow: false,
+        global_removeSelector: 'remove',
       };
     },
     created(){
@@ -88,8 +89,7 @@
       },
       _hideAllDrop_( e ) {
         if ($(e.target).parents(".remove-emp-selector-container").length === 0) {
-          this.removeEmpSelector = true;
-          this._resetActionSelector();
+          this._resetActionSelector_();
           this.$forceUpdate();
         }
         if ($(e.target).parents(".add-seat-wrapper").length === 0) {
@@ -99,27 +99,30 @@
           this.global_isPerPageShow = false;
         }
         if ($(e.target).parents(".country-code-wrapper").length === 0) {
-          // this._resetActionSelector();
-          this.$forceUpdate();
+          this._resetActionSelector_();
+          // this.$forceUpdate();
         }
       },
-      _resetActionSelector() {
-        if ( this.removeEmpSelector ) {
-          console.log(this.removeEmpSelector);
-          this.employee_details_arr.forEach((value,key)  => {
-            value.isOptionsShow = false;
-          })
-        }
-        // this.employee_details_arr.forEach((value,key)  => {
-        //   // if (this.employee_details_arr[ key ].activeInput[3] == value.activeInput[3]) {
-        //   //   // value.activeInput[3] = false;
-        //   //   value.activeInput[3] = false  ;
-        //   //   console.log('testing sa 3');
-        //   // } else {
-        //   //   value.activeInput[3] = true;
-        //   // }
-        // })
+      _resetActionSelector_() {
+        this.employee_details_arr.forEach((value,key)  => {
+          value.isOptionsShow = false;
+          
+          // if (this.employee_details_arr[ key ].activeInput[3] == value.activeInput[3]) {
+          //   value.activeInput[3] = false;
+          // }
+        })
       },
+      // _resetCountryActionSelector_() {
+      //   this.employee_details_arr.forEach((value,key)  => {
+      //     if (this.employee_details_arr[ key ].activeInput[3] == value.activeInput[3]) {
+      //       // value.activeInput[3] = false;
+      //       value.activeInput[3] = false  ;
+      //       console.log('testing sa 3');
+      //     } else {
+      //       value.activeInput[3] = true;
+      //     }
+      //   })
+      // },
       _toggleAddSeatOptions_() {
         this.global_isAddSeatDropShow = this.isAddSeatDropShow == true ? false : true;
       },
