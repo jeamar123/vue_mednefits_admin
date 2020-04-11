@@ -56,6 +56,7 @@
         this.global_tblViewOpt = opt;
       },
       _toggleTableInput_( index,inputIndex ) {
+        this._resetActionSelector_('input');
         console.log(index,inputIndex);
         this.employee_details_arr[ index ].activeInput[inputIndex] = true;
         console.log( this.employee_details_arr[ index ].activeInput[inputIndex] );
@@ -78,6 +79,7 @@
       },
       _toggleOptions_( data ) {
         // console.log(data);
+        this._resetActionSelector_('options');
         this.employee_details_arr.forEach((value,key)  => {
           if ( data.id == value.id ) {
             value.isOptionsShow = value.isOptionsShow == true ? false : true;
@@ -88,8 +90,9 @@
         this.$forceUpdate();
       },
       _hideAllDrop_( e ) {
-        if ($(e.target).parents(".remove-emp-selector-container").length === 0) {
-          this._resetActionSelector_();
+        console.log(e);
+        if ( $(e.target).parents(".option-selector").length === 0 ) {
+          this._resetActionSelector_('options');
           this.$forceUpdate();
         }
         if ($(e.target).parents(".add-seat-wrapper").length === 0) {
@@ -99,13 +102,21 @@
           this.global_isPerPageShow = false;
         }
         if ($(e.target).parents(".country-code-wrapper").length === 0) {
-          this._resetActionSelector_();
-          // this.$forceUpdate();
+          this._resetActionSelector_('input');
+          this.$forceUpdate();
         }
       },
-      _resetActionSelector_() {
+      _resetActionSelector_(opt) {
         this.employee_details_arr.forEach((value,key)  => {
-          value.isOptionsShow = false;
+          if(opt == 'options'){
+            value.isOptionsShow = false;
+          }
+          if(opt == 'input'){
+            value.activeInput[3] = false;
+          }
+          // value.isOptionsShow = value.isOptionsShow == false ? true : false;
+          console.log('para sa country code',value.activeInput);
+          console.log('para sa 3 ka dot',value.isOptionsShow);
           
           // if (this.employee_details_arr[ key ].activeInput[3] == value.activeInput[3]) {
           //   value.activeInput[3] = false;
