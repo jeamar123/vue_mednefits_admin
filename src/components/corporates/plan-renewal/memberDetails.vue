@@ -39,6 +39,32 @@
         global_isAddSeatDropShow: false,
         global_isPerPageShow: false,
         global_removeSelector: 'remove',
+        dependent_details_arr: [
+          {
+            id: 15,
+            dependent_fullname: 'JanJan Jan',
+            dob: new Date(),
+            start_date: new Date(),
+            relationship: 'Child',
+            employee_fullname: 'Keno Duterts',
+          },
+          {
+            id: 12,
+            dependent_fullname: 'Allem Nagac',
+            dob: new Date(),
+            start_date: new Date(),
+            relationship: 'Child',
+            employee_fullname: 'Keno Duterts',
+          },
+          {
+            id: 13,
+            dependent_fullname: 'Nicole Nagac',
+            dob: new Date(),
+            start_date: new Date(),
+            relationship: 'Child',
+            employee_fullname: 'Noemi Duterts',
+          },
+        ],
       };
     },
     created(){
@@ -76,11 +102,25 @@
           value.activeInput = [];
           console.log(value.activeInput);
         })
+        this.dependent_details_arr.forEach((value,key) => {
+          console.log(value,key);
+          value.index = key;
+          value.isVacantSeatShow = [];
+          value.activeInput = [];
+          console.log(value.activeInput);
+        })
       },
       _toggleOptions_( data ) {
         // console.log(data);
         this._resetActionSelector_('options');
         this.employee_details_arr.forEach((value,key)  => {
+          if ( data.id == value.id ) {
+            value.isOptionsShow = value.isOptionsShow == true ? false : true;
+          } else {
+            value.isOptionsShow = false;
+          }
+        })
+        this.dependent_details_arr.forEach((value,key)  => {
           if ( data.id == value.id ) {
             value.isOptionsShow = value.isOptionsShow == true ? false : true;
           } else {
@@ -105,6 +145,10 @@
           this._resetActionSelector_('input');
           this.$forceUpdate();
         }
+        if ($(e.target).parents(".relationship-wrapper").length === 0) {
+          this._resetActionSelector_('input-dependent');
+          this.$forceUpdate();
+        }
       },
       _resetActionSelector_(opt) {
         this.employee_details_arr.forEach((value,key)  => {
@@ -122,24 +166,31 @@
           //   value.activeInput[3] = false;
           // }
         })
+        this.dependent_details_arr.forEach((value,key)  => {
+          if(opt == 'options'){
+            value.isOptionsShow = false;
+          }
+          if(opt == 'input-dependent'){
+            value.activeInput[2] = false;
+          }
+          // console.log('para sa country code',value.activeInput);
+          // console.log('para sa 3 ka dot',value.isOptionsShow);
+        })
       },
-      // _resetCountryActionSelector_() {
-      //   this.employee_details_arr.forEach((value,key)  => {
-      //     if (this.employee_details_arr[ key ].activeInput[3] == value.activeInput[3]) {
-      //       // value.activeInput[3] = false;
-      //       value.activeInput[3] = false  ;
-      //       console.log('testing sa 3');
-      //     } else {
-      //       value.activeInput[3] = true;
-      //     }
-      //   })
-      // },
       _toggleAddSeatOptions_() {
         this.global_isAddSeatDropShow = this.isAddSeatDropShow == true ? false : true;
       },
       _togglePerPage_() {
         this.global_isPerPageShow = this.global_isPerPageShow == false ? true : false;
-      }
+      },
+      _toggleDependentsTableInput_( index,inputIndex ) {
+        this._resetActionSelector_('input-dependent');
+        this.dependent_details_arr[ index ].activeInput[inputIndex] = true;
+        setTimeout(function() {
+          $(".empl-tbl tbody tr:nth-child(" + (index+1) + ") td:nth-child(" + (inputIndex+3) + ") input").focus();
+        }, 200);
+        this.$forceUpdate();
+      },
     }
   }
   

@@ -485,9 +485,20 @@ table {
 
 
 // GLOBAL REPONSIVE FOR PLAN RENEWAL
-  @media (max-width: 1355px) and (min-width: 1024px) {
-    .employee-tbl-container,
+  @media (max-width: 1410px) and (min-width: 1024px) {
     .dependent-tbl-container {
+      display: grid;
+      grid-template-columns: 650px;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        height: 3px;
+      }
+    }
+  }
+
+  @media (max-width: 1390px) and (min-width: 1024px) {
+    .employee-tbl-container {
       display: grid;
       grid-template-columns: 650px;
       overflow: auto;

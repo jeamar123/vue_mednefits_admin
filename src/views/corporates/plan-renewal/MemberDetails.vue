@@ -166,11 +166,11 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+							<tr v-for="(list,index) in dependent_details_arr">
 								<td>
-									<div class="option-selector">
+									<div v-click-outside="_hideAllDrop_" @click="_toggleOptions_(list)" class="option-selector">
 										<img :src="'../assets/img/dots.png'">
-										<div v-if="false" class="remove-emp-selector-container">
+										<div v-if="list.isOptionsShow" class="remove-emp-selector-container">
 											<li>
 												<a>
 													<span>Remove Employee</span>
@@ -187,41 +187,41 @@
 									</div>
 								</td>
 								<td>
-									<div>Llay Jk</div>
-									<div v-if="false">
+									<div @click="_toggleDependentsTableInput_( index, 0 )"  v-if="!list.activeInput[0]">{{ list.dependent_fullname }}</div>
+									<div v-if="list.activeInput[0]">
 										<input type="text">
 									</div>
 								</td>
 								<td>
-									<div>Llay Jk</div>
-									<div v-if="false">
+									<div @click="_toggleDependentsTableInput_( index, 1 )"  v-if="!list.activeInput[1]">{{ list.employee_fullname }}</div>
+									<div v-if="list.activeInput[1]">
 										<input type="text">
 									</div>
 								</td>
 								<td class="employee-id-container">
-									<div>297</div>
+									<div>{{ list.id }}</div>
 								</td>
-								<td>
-									<div>Child</div>
-									<div v-if="false">
+								<td v-click-outside="_hideAllDrop_" class="relationship-wrapper">
+									<div @click="_toggleDependentsTableInput_( index, 2 )"  v-if="!list.activeInput[2]">{{ list.relationship }}</div>
+									<div v-if="list.activeInput[2]">
 										<input type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
-									<div v-if="false" class="tbl-custom-dropdown">
-										<div class="select"> Parent</div>
-										<div class="select"> Family</div>
+									<div v-if="list.activeInput[2]" class="tbl-custom-dropdown">
+										<div class="select-num"> Parent</div>
+										<div class="select-num"> Family</div>
 									</div>
 								</td>
 								<td>
-									<div>01/12/2019</div>
-									<div v-if="false">
+									<div @click="_toggleDependentsTableInput_( index, 3 )"  v-if="!list.activeInput[3]">{{ _formatDate_( list.dob, null,'DD MMM,YYYY' ) }}</div>
+									<div v-if="list.activeInput[3]">
 										<input type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
 								</td>
 								<td>
-									<div>01/12/2019</div>
-									<div v-if="false">
+									<div @click="_toggleDependentsTableInput_( index, 4 )"  v-if="!list.activeInput[4]">{{ _formatDate_( list.start_date, null,'DD MMM,YYYY' ) }}</div>
+									<div v-if="list.activeInput[4]">
 										<input type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
