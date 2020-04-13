@@ -16,6 +16,7 @@
           data: ["DD/MM/YYYY"]
         },
         global_showFileUpload: false,
+        global_isRollover: 'no', 
       };
     },
     created(){

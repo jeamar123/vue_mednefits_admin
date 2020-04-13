@@ -18,6 +18,7 @@
         global_showFileUpload: false,
         global_planStart: new Date(),
         global_isShowEditSpendingModal: false,
+        global_isRollover: 'no', 
       };
     },
     created(){

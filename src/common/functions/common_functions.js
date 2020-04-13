@@ -1735,6 +1735,12 @@ const _downloadSpendingTransactions_ = (params, isDownload)	=> {
 	}
 }
 
+const _downloadReceiptExtension_ = (params, isDownload)	=> {
+	let	url	=	Config.DOWNLOAD_RECEIPT_EXTENSION + '?customer_id=' + params.customer_id + '&customer_active_plan_id=' + params.customer_active_plan_id + '&token=' + localStorage.vue_admin_session;
+	if (isDownload) {
+		return window.open(url);
+	}
+}
 
 export	{
 	_login_,
@@ -1812,4 +1818,5 @@ export	{
 	_updateInvoiceDates_,
 	_downloadSpendingStatement_,
 	_downloadSpendingTransactions_,
+	_downloadReceiptExtension_,
 }

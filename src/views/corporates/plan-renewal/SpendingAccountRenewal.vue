@@ -15,9 +15,9 @@
 				<div class="rollover-wrapper flex-1">
 					<span>Rollover</span>
 					<span class="rollover-selector-container">
-						<select>
-							<option>No</option>
-							<option>Yes</option>
+						<select v-on:change="_rolloverChange_(global_isRollover)" v-model="global_isRollover">
+							<option value="no">No</option>
+							<option value="yes">Yes</option>
 						</select>
 						<img :src="'../assets/img/down-arrow.svg'">
 					</span>
@@ -36,7 +36,27 @@
 			<div class="spending-renewal-tbl-wrapper">
 				<div class="spending-renewal-tbl-container">
 					<table class="spending-tbl">
-						<thead>
+						<thead v-if="global_isRollover == 'yes'">
+							<tr class="spending-row-1">
+								<th rowspan="2"></th>
+								<th rowspan="2">Member ID</th>
+								<th rowspan="2">
+									<span>Full Name</span>
+								</th>
+								<th rowspan="2">Start Date</th>
+								<th colspan="3" class="medical-text">MEDICAL</th>
+								<th colspan="3" class="wellness-text">WELLNESS</th>
+							</tr>
+							<tr v-if="global_isRollover == 'yes'" class="spending-row-2">
+								<th>Entitlement</th>
+								<th class="rollover-col">Rollover</th>
+								<th>Allocated Credits</th>
+								<th>Entitlement</th>
+								<th class="rollover-col">Rollover</th>
+								<th>Allocated Credits</th>
+							</tr>
+						</thead>
+						<thead v-if="global_isRollover == 'no'">
 							<tr>
 								<th></th>
 								<th>Member ID</th>
@@ -76,18 +96,24 @@
 								<td>
 									<div>01/12/2019</div>
 								</td>
-								<td>
-									<div>0.00</div>
-									<div v-if="false">
-										<input type="number">
-									</div>
+								<td v-if="global_isRollover == 'no'">
+									<div>100</div>
 								</td>
-								<td>
-									<div>0.00</div>
-									<div v-if="false">
-										<input type="number">
-									</div>
+								<td v-if="global_isRollover == 'no'">
+									<div>200</div>
 								</td>
+								<td v-if="global_isRollover == 'yes'">
+									<div>400</div>
+									<input v-if="false" type="text">
+								</td>
+								<td v-if="global_isRollover == 'yes'" class="rollover-col">100</td>
+								<td v-if="global_isRollover == 'yes'">600</td>
+								<td v-if="global_isRollover == 'yes'">
+									<div>300</div>
+									<input v-if="false" type="text">
+								</td>
+								<td v-if="global_isRollover == 'yes'" class="rollover-col">100</td>
+								<td v-if="global_isRollover == 'yes'">400</td>
 							</tr>
 						</tbody>
 					</table>
