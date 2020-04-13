@@ -68,7 +68,7 @@
 			</div>
 		</div>
 
-		<Modal v-if="global_isChangePlanShow" class="change-plan-modal">
+		<Modal v-if="global_isChangePlanShow" class="change-plan-modal renewal-modal">
 			<div slot="header">
 				<div class="dp-flex-ai">
 					<h2 class="flex-1">Change Plan Details</h2>

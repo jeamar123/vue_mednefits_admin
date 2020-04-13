@@ -1,411 +1,411 @@
-.settings-wrapper{
-  .header-title{
-    font-size: 18px;
-    margin-bottom: 40px;
-  }
+// .settings-wrapper{
+//   .header-title{
+//     font-size: 18px;
+//     margin-bottom: 40px;
+//   }
 
-  .settings-menu-box{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 25px;
-    grid-row-gap: 15px;
+//   .settings-menu-box{
+//     display: grid;
+//     grid-template-columns: 1fr 1fr 1fr;
+//     grid-column-gap: 25px;
+//     grid-row-gap: 15px;
 
-    .menu-item{
-      display: flex;
+//     .menu-item{
+//       display: flex;
       
-      border: solid 2px #999;
-      border-radius: 6px;
-      padding: 35px;
-      align-items: center;
-      height: 100px;
-      vertical-align: middle;
-      cursor: pointer;
+//       border: solid 2px #999;
+//       border-radius: 6px;
+//       padding: 35px;
+//       align-items: center;
+//       height: 100px;
+//       vertical-align: middle;
+//       cursor: pointer;
 
-      .img-wrapper{
-        height: 40px;
-        margin-right: 16px;
+//       .img-wrapper{
+//         height: 40px;
+//         margin-right: 16px;
 
-        img{
-          height: 100%;
-          display: inline-block;
-        }
-      }
-      .item-desc{
-        flex: 1;
-        font-size: 14px;
-      }
-    }
-  }
+//         img{
+//           height: 100%;
+//           display: inline-block;
+//         }
+//       }
+//       .item-desc{
+//         flex: 1;
+//         font-size: 14px;
+//       }
+//     }
+//   }
 
-}
+// }
 
-.credit-employee-wrapper {
-  width: 290px;
-  height: 550px;
-  padding: 0 10px 0 0;
-  .employee-header {
-    background-color: rgb(63,81,181);
-    color: #fff;
-    padding: 12px 20px;
+// .credit-employee-wrapper {
+//   width: 290px;
+//   height: 550px;
+//   padding: 0 10px 0 0;
+//   .employee-header {
+//     background-color: rgb(63,81,181);
+//     color: #fff;
+//     padding: 12px 20px;
 
-    h3 {
-      font-size: 20px;
-      font-weight: 500;
-    }
-  }
-  .employee-body {
-    padding: 10px 20px;
-    border: 1px solid #ccc;
+//     h3 {
+//       font-size: 20px;
+//       font-weight: 500;
+//     }
+//   }
+//   .employee-body {
+//     padding: 10px 20px;
+//     border: 1px solid #ccc;
 
-    .emp-info-row {
-      margin: 0 0 15px;
-    }
-    .emp-title {
-      color: #000;
-    }
-  }
+//     .emp-info-row {
+//       margin: 0 0 15px;
+//     }
+//     .emp-title {
+//       color: #000;
+//     }
+//   }
 
-  .credit-toggle-btn button {
-    border: 2px solid #bbb3b3;
-    color: #a5a0a0;
-    width: 88px;
-    height: 40px;
-    font-size: 12px;
-    font-weight: 700;
+//   .credit-toggle-btn button {
+//     border: 2px solid #bbb3b3;
+//     color: #a5a0a0;
+//     width: 88px;
+//     height: 40px;
+//     font-size: 12px;
+//     font-weight: 700;
 
-    &:nth-child(1) {
-      border-radius: 4px 0 0 4px;
-      border-width: 2px 1px 2px 2px;
-    }
-    &:nth-child(2) {
-      border-radius: 0 4px 4px 0;
-      border-width: 2px 2px 2px 1px;
-    }
+//     &:nth-child(1) {
+//       border-radius: 4px 0 0 4px;
+//       border-width: 2px 1px 2px 2px;
+//     }
+//     &:nth-child(2) {
+//       border-radius: 0 4px 4px 0;
+//       border-width: 2px 2px 2px 1px;
+//     }
 
-    &.active {
-      border: 2px solid #44a4cc;
-    }
-  }
+//     &.active {
+//       border: 2px solid #44a4cc;
+//     }
+//   }
 
-  .credit-toggle-btn.add-deduct-btn button {
-    width: 65px;
-    height: 32px;
-  }
+//   .credit-toggle-btn.add-deduct-btn button {
+//     width: 65px;
+//     height: 32px;
+//   }
 
-  .allocation-usage-container {
-    display: flex;
-    margin: 20px 0 0;
+//   .allocation-usage-container {
+//     display: flex;
+//     margin: 20px 0 0;
 
-    >div:nth-child(1) {
-      width: 45%;
-    }
+//     >div:nth-child(1) {
+//       width: 45%;
+//     }
     
-    >div:nth-child(2) {
-      width: 55%;
-    }
+//     >div:nth-child(2) {
+//       width: 55%;
+//     }
 
-    span {
-      font-weight: 500;
-    }
+//     span {
+//       font-weight: 500;
+//     }
 
-    .allocation-usage >div {
-      line-height: 1.3;
-      margin: 0 0 10px;
-    }
-  }
+//     .allocation-usage >div {
+//       line-height: 1.3;
+//       margin: 0 0 10px;
+//     }
+//   }
 
-  .add-deduct-input-wrapper {
-    margin: 0 0 40px;
-    label {
-      display: block;
-      font-size: 12px;
-      font-weight: 500;
-    }
-    input {
-      border-bottom: 1px solid rgba(0,0,0,0.12);
-    }
-  }
+//   .add-deduct-input-wrapper {
+//     margin: 0 0 40px;
+//     label {
+//       display: block;
+//       font-size: 12px;
+//       font-weight: 500;
+//     }
+//     input {
+//       border-bottom: 1px solid rgba(0,0,0,0.12);
+//     }
+//   }
 
-  .btn-account-removed[disabled] {
-    opacity: .5;
-    height: 36px;
-    background-color: rgba(0,0,0,0.12);
-    padding: 0 20px;
-  }
-}
+//   .btn-account-removed[disabled] {
+//     opacity: .5;
+//     height: 36px;
+//     background-color: rgba(0,0,0,0.12);
+//     padding: 0 20px;
+//   }
+// }
 
-// reset company and add dependent table
-table.review-excel-tbl,
-table.add-dependent-tbl {
-  border: 1px solid #ccc;
+// // reset company and add dependent table
+// table.review-excel-tbl,
+// table.add-dependent-tbl {
+//   border: 1px solid #ccc;
 
-  thead {
-    background-color: #F5F8FA;
-    font-size: 14px;
-  }
+//   thead {
+//     background-color: #F5F8FA;
+//     font-size: 14px;
+//   }
 
-  thead tr th {
-    font-family: 'Helvetica Light';
-  }
+//   thead tr th {
+//     font-family: 'Helvetica Light';
+//   }
 
-  thead tr th:first-child,
-  thead tr th:last-child,
-  tbody tr td:first-child,
-  tbody tr td:last-child {
-    padding: 20px;
-  }
+//   thead tr th:first-child,
+//   thead tr th:last-child,
+//   tbody tr td:first-child,
+//   tbody tr td:last-child {
+//     padding: 20px;
+//   }
 
-  tbody tr td {
-    padding: 20px;
-  }
+//   tbody tr td {
+//     padding: 20px;
+//   }
 
-  .fa-trash {
-    font-size: 20px;
-    color: rgb(255,0,0);
-    cursor: pointer;
-  }
-  img {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-  }
-}
+//   .fa-trash {
+//     font-size: 20px;
+//     color: rgb(255,0,0);
+//     cursor: pointer;
+//   }
+//   img {
+//     width: 16px;
+//     height: 16px;
+//     cursor: pointer;
+//   }
+// }
 
-.add-dependent-tbl-wrapper {
-  margin: 50px 0 0;
-}
+// .add-dependent-tbl-wrapper {
+//   margin: 50px 0 0;
+// }
 
-// drop box for reset company credits and add employee dependent
-.drop-box-wrapper {
-  .drop-box {
-    background: #F8F8F8;
-    border: 3px dashed #DDD;
-    width: auto;
-    height: 200px;
-    text-align: center;
-    padding: 30px 0 20px;
-    margin: 20px 0 10px;
-    position: relative;
+// // drop box for reset company credits and add employee dependent
+// .drop-box-wrapper {
+//   .drop-box {
+//     background: #F8F8F8;
+//     border: 3px dashed #DDD;
+//     width: auto;
+//     height: 200px;
+//     text-align: center;
+//     padding: 30px 0 20px;
+//     margin: 20px 0 10px;
+//     position: relative;
     
-    >input {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-    }
-    img {
-      width: 80px;
-      margin: 0 auto;
-    }
+//     >input {
+//       position: absolute;
+//       top: 0;
+//       left: 0;
+//       width: 100%;
+//       height: 100%;
+//       opacity: 0;
+//     }
+//     img {
+//       width: 80px;
+//       margin: 0 auto;
+//     }
 
-    .selected-file {
-      color: rgb(0, 128, 0);
-      height: 10px;
-    }
+//     .selected-file {
+//       color: rgb(0, 128, 0);
+//       height: 10px;
+//     }
 
-    >div {
-      margin: 10px 0;
-    }
-  }
-}
+//     >div {
+//       margin: 10px 0;
+//     }
+//   }
+// }
 
-.btn-gray-with-shadow {
-  background-color: rgb(250,250,250);
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
-  border-radius: 2px;
-  font-weight: 700;
-  margin: 0 0 0 20px;
-}
+// .btn-gray-with-shadow {
+//   background-color: rgb(250,250,250);
+//   box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+//   border-radius: 2px;
+//   font-weight: 700;
+//   margin: 0 0 0 20px;
+// }
 
-.download-emp-list-btn {
-  display: flex;
-  padding: 6px 20px;
-  img {
-    height: 18px;
-    width: 18px;
-    margin: 0 5px 0 0;
-  }
-}
+// .download-emp-list-btn {
+//   display: flex;
+//   padding: 6px 20px;
+//   img {
+//     height: 18px;
+//     width: 18px;
+//     margin: 0 5px 0 0;
+//   }
+// }
 
-.reset-company-footer,
-.add-dependent-footer {
-  margin: 50px 0 0;
-  button {
-    padding: 8px 34px;
-    &:disabled{
-      opacity: .5;
-      cursor: not-allowed;
-    }
-  }
-}
+// .reset-company-footer,
+// .add-dependent-footer {
+//   margin: 50px 0 0;
+//   button {
+//     padding: 8px 34px;
+//     &:disabled{
+//       opacity: .5;
+//       cursor: not-allowed;
+//     }
+//   }
+// }
 
-.add-dependent-footer {
-  text-align: right;
-}
+// .add-dependent-footer {
+//   text-align: right;
+// }
 
-.settings-input-wrapper {
-  label {
-    display: block;
-    font-size: 12px;
-    color: rgba(0,0,0,0.54);
-  }
-  input {
-    border-bottom: 1px solid rgba(0,0,0,0.12);
-  }
-}
+// .settings-input-wrapper {
+//   label {
+//     display: block;
+//     font-size: 12px;
+//     color: rgba(0,0,0,0.54);
+//   }
+//   input {
+//     border-bottom: 1px solid rgba(0,0,0,0.12);
+//   }
+// }
 
-// Add head count and plan
-.add-head-count-wrapper {
+// // Add head count and plan
+// .add-head-count-wrapper {
 
-  .checkbox-child {
-    padding: 0 0 0 35px;
-  }
-  .num-employees-wrapper {
-    label {
-      display: block;
-    }
+//   .checkbox-child {
+//     padding: 0 0 0 35px;
+//   }
+//   .num-employees-wrapper {
+//     label {
+//       display: block;
+//     }
 
-    input {
-      background-color: transparent;
-      border-bottom: 1px solid rgba(0,0,0,0.12);
-      padding: 2px;
-      width: 50%;
-    }
-  }
-  .emp-plan-start-container {
-    margin: 20px 0;
-    .fa-calendar-o {
-      font-size: 18px;
-      align-self: flex-end;
-      margin: 0 20px 0 0;
-    }
-  }
-  .add-head-count-box {
-    background-color: #eee;
-    padding: 15px 30px;
-  }
+//     input {
+//       background-color: transparent;
+//       border-bottom: 1px solid rgba(0,0,0,0.12);
+//       padding: 2px;
+//       width: 50%;
+//     }
+//   }
+//   .emp-plan-start-container {
+//     margin: 20px 0;
+//     .fa-calendar-o {
+//       font-size: 18px;
+//       align-self: flex-end;
+//       margin: 0 20px 0 0;
+//     }
+//   }
+//   .add-head-count-box {
+//     background-color: #eee;
+//     padding: 15px 30px;
+//   }
   
-  .num-employees-wrapper {
-    margin: 20px 0 0;
-  }
+//   .num-employees-wrapper {
+//     margin: 20px 0 0;
+//   }
 
-  h3 {
-    padding: 20px 30px;
-  }
+//   h3 {
+//     padding: 20px 30px;
+//   }
 
-  .spending-account,
-  .emp-plan-start-container,
-  .input-individual-price-container {
-    h4 {
-      margin: 0 0 20px;
-    }
-    label {
-      display: block;
-      color: rgba(0,0,0,0.54);
-      font-size: 12px;
-    }
-    input {
-      background-color: transparent;
-      border-bottom: 1px solid rgba(0,0,0,0.12);
-      padding: 2px;
-      width: 100%;
-    }
+//   .spending-account,
+//   .emp-plan-start-container,
+//   .input-individual-price-container {
+//     h4 {
+//       margin: 0 0 20px;
+//     }
+//     label {
+//       display: block;
+//       color: rgba(0,0,0,0.54);
+//       font-size: 12px;
+//     }
+//     input {
+//       background-color: transparent;
+//       border-bottom: 1px solid rgba(0,0,0,0.12);
+//       padding: 2px;
+//       width: 100%;
+//     }
 
-    .date-container {
-      position: relative;
-    }
-    .fa-caret-down {
-      position: absolute;
-      top: 10px;
-      right: 0;
-    }
-  }
+//     .date-container {
+//       position: relative;
+//     }
+//     .fa-caret-down {
+//       position: absolute;
+//       top: 10px;
+//       right: 0;
+//     }
+//   }
 
-  .spending-account {
-    margin: 0 0 40px;
-    >div >div {
-      width: 50%;
+//   .spending-account {
+//     margin: 0 0 40px;
+//     >div >div {
+//       width: 50%;
 
-      &:nth-child(1) {
-        margin: 0 20px 0 0;
-      }
-    }
-    .deposit-slider label {
-      margin: 0 0 15px;
-    }
-  }
+//       &:nth-child(1) {
+//         margin: 0 20px 0 0;
+//       }
+//     }
+//     .deposit-slider label {
+//       margin: 0 0 15px;
+//     }
+//   }
 
-  .input-individual-price-container input {
-    width: 30%;
-  }
-}
+//   .input-individual-price-container input {
+//     width: 30%;
+//   }
+// }
  
-// Claim type services
-.claim-type-services-wrapper {
+// // Claim type services
+// .claim-type-services-wrapper {
 
-  .claim-type-header {
-    margin: 20px 0 0;
-    h1 {
-      font-weight: 500;
-    }
-    img {
-      height: 18px;
-      width: 18px;
-      cursor: pointer;
-    }
-  }
-  .claim-type-tbl-wrapper {
-    margin: 20px 0 0;
-  }
-  table {
-    thead tr th {
-      color: rgba(0,0,0,.54);
-      font-family: 'Helvetica Light';
-      border: 0;
-    }
-    button {
-      width: 88px;
-    }
-    button:first-child {
-      margin: 0 10px 0 0;
-    }
-    thead tr th:first-child,
-    thead tr th:last-child,
-    tbody tr td:first-child,
-    tbody tr td:last-child {
-      padding: 10px 0px;
-    }
-    thead tr th,
-    tbody tr td {
-      padding: 10px 20px;
-    }
-    tbody tr {
-      border-top: 1px rgba(0,0,0,.12) solid;
-    }
-  }
+//   .claim-type-header {
+//     margin: 20px 0 0;
+//     h1 {
+//       font-weight: 500;
+//     }
+//     img {
+//       height: 18px;
+//       width: 18px;
+//       cursor: pointer;
+//     }
+//   }
+//   .claim-type-tbl-wrapper {
+//     margin: 20px 0 0;
+//   }
+//   table {
+//     thead tr th {
+//       color: rgba(0,0,0,.54);
+//       font-family: 'Helvetica Light';
+//       border: 0;
+//     }
+//     button {
+//       width: 88px;
+//     }
+//     button:first-child {
+//       margin: 0 10px 0 0;
+//     }
+//     thead tr th:first-child,
+//     thead tr th:last-child,
+//     tbody tr td:first-child,
+//     tbody tr td:last-child {
+//       padding: 10px 0px;
+//     }
+//     thead tr th,
+//     tbody tr td {
+//       padding: 10px 20px;
+//     }
+//     tbody tr {
+//       border-top: 1px rgba(0,0,0,.12) solid;
+//     }
+//   }
   
-  .claim-type-modal {
-    .modal-body >div >div {
-      >div:nth-child(1) {
-        margin: 0 30px 0 0;
-      }
-    }
-    .settings-input-wrapper {
-      margin: 0 0 20px;
-    }
-    .btn-close {
-      margin: 0 10px 0 0;
-    }
-    .btn-primary {
-      width: 83px;
-    }
-  }
-  .custom-checkbox-selector {
-    margin: 20px 0 0;
-  }
-}
+//   .claim-type-modal {
+//     .modal-body >div >div {
+//       >div:nth-child(1) {
+//         margin: 0 30px 0 0;
+//       }
+//     }
+//     .settings-input-wrapper {
+//       margin: 0 0 20px;
+//     }
+//     .btn-close {
+//       margin: 0 10px 0 0;
+//     }
+//     .btn-primary {
+//       width: 83px;
+//     }
+//   }
+//   .custom-checkbox-selector {
+//     margin: 20px 0 0;
+//   }
+// }
 
 @media (min-width: 1024px) and (max-width: 1120px) {
   table.review-excel-tbl,

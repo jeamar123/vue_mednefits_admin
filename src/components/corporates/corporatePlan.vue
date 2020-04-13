@@ -35,6 +35,7 @@
     _downloadDependentRefundInvoice_,
     _updateMarkUsUnpaid_,
     _downloadDependentAccountInvoice_,
+    _downloadReceiptExtension_,
   } from '../../common/functions/common_functions';
    
   let corporatePlan = {
@@ -252,6 +253,13 @@
             customer_active_plan_id: data.customer_active_plan_id,
           }
           _downloadPlanExtensionInvoice_(params, true);
+        }
+        if( type == 'receipt' ) {
+          let params = {
+            customer_id:  Number(this.customer_id),
+            customer_active_plan_id: data.customer_active_plan_id,
+          }
+          _downloadReceiptExtension_(params, true);
         }
         
       },

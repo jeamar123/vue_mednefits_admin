@@ -27,7 +27,7 @@
         global_selectedIndex: 0,
         global_showFileUpload:  false,
         global_showCapDp: false,
-        pagesToDisplay: 7,
+        pagesToDisplay: 5,
         page_active: 1,
         page_limit: 10,
         global_capListPagination: {

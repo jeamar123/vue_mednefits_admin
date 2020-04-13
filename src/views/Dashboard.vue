@@ -52,17 +52,18 @@
 			</div>
 	  </div>
 
-		<div v-show="isMenuShow" class="xs-menu-container">
+		<div v-show="isMenuShow" v-click-outside="_hideAllDrop_" class="xs-menu-container">
 			<ul class="nav-ul">
 				<li><router-link tag="a" :to="{ name : 'Clinic' }">Clinic</router-link></li>
 				<li><router-link tag="a" :to="{ name : 'Analytics' }">Doctor</router-link></li>
 				<li><router-link tag="a" :to="{ name : 'Analytics' }">Accounts</router-link></li>
 				<li><router-link tag="a" :to="{ name : 'Analytics' }">Public</router-link></li>
 				<li><router-link tag="a" :to="{ name : 'Analytics' }">Individual</router-link></li>
-				<li><router-link tag="a" :to="{ name : 'Corporates' }">Corporate</router-link></li>
+				<li @click="_hideSelector_()"><router-link tag="a" :to="{ name : 'Corporates' }">Corporate</router-link></li>
 				<li><router-link tag="a" :to="{ name : 'Analytics' }">Booking</router-link></li>
 				<li><router-link tag="a" to="/dashboard/clinic">Transaction History</router-link></li>
-				<li><router-link tag="a" to="/dashboard/clinic">Download E-Claim List</router-link></li>
+				<li><router-link tag="a" to="/dashboard/clinic">Invoice Payments</router-link></li>
+				<!-- <li><router-link tag="a" to="/dashboard/clinic">Download E-Claim List</router-link></li> -->
 				<li><router-link tag="a" :to="{ name : 'Analytics' }">Analytics</router-link></li>
 				<li><router-link tag="a" to="/dashboard/clinic">Mednefits Agents</router-link></li>
 				<li><router-link tag="a" to="/dashboard/clinic">Download E-Claim List</router-link></li>
