@@ -130,7 +130,6 @@
         this.$forceUpdate();
       },
       _hideAllDrop_( e ) {
-        console.log(e);
         if ( $(e.target).parents(".option-selector").length === 0 ) {
           this._resetActionSelector_('options');
           this.$forceUpdate();
@@ -159,8 +158,8 @@
             value.activeInput[3] = false;
           }
           // value.isOptionsShow = value.isOptionsShow == false ? true : false;
-          console.log('para sa country code',value.activeInput);
-          console.log('para sa 3 ka dot',value.isOptionsShow);
+          // console.log('para sa country code',value.activeInput);
+          // console.log('para sa 3 ka dot',value.isOptionsShow);
           
           // if (this.employee_details_arr[ key ].activeInput[3] == value.activeInput[3]) {
           //   value.activeInput[3] = false;
@@ -191,6 +190,25 @@
         }, 200);
         this.$forceUpdate();
       },
+      _addSeatHeadCount_() {
+        this.global_isAddSeatDropShow = false;
+
+        let params = {
+          customer_plan_renewal_id: 1,
+          seats: 1,
+          type: this.global_tblViewOpt == 1 ? 'employee' : 'dependent',
+        }
+        console.log(params);
+      },
+      _fillVacantSeat_() {
+        if ( this.global_tblViewOpt == 1 ) {
+          console.log('table 1');
+        } else {
+          console.log('table 2');
+        }
+        this.global_isAddSeatDropShow = false;
+        // this._fetchMemberData_(); call the data
+      }
     }
   }
   

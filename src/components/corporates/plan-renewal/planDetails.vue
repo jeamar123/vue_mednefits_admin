@@ -1,5 +1,6 @@
 <script>
 import Modal from "../../../views/modal/Modal.vue";
+import moment, { locale } from "moment";
 
   let planDetails = {
     components: {
@@ -15,9 +16,10 @@ import Modal from "../../../views/modal/Modal.vue";
           input: ["DD/MM/YYYY"],
           data: ["DD/MM/YYYY"]
         },
-        global_planStart: new Date(),
         global_isChangePlanShow: false,
-        global_planDetailsData: {},
+        global_updatePlanDetails: {
+          plan_start: new Date(),
+        },
       };
     },
     created(){
@@ -25,9 +27,27 @@ import Modal from "../../../views/modal/Modal.vue";
     },
     methods: {
       _changePlan_( type ) {
+        this.global_selectedType = type;
+        let params = {
+          type: this.global_selectedType,
+        }
+        console.log(params);
         this.global_isChangePlanShow = this.global_isChangePlanShow == false ? true : false;
       },
       _setAccountType_( account_type ) {},
+      _updatePlanDetails_( data ) {
+        let params = {
+          customer_plan_renewal_id: 1,
+          account_type: data.account_type,
+          secondary_account_type: data.secondary_account_type,
+          seats: data.seats,
+          plan_start: moment( data.plan_start ).format('YYYY-MM-DD'),
+          plan_duration: data.plan_duration,
+          type: this.global_selectedType,
+          price_per_employee: data.price_per_employee,
+        }
+        console.log(params);
+      },
       _confirmPlan_() {
         this.$swal({
           title: "Confirm?",
@@ -44,7 +64,10 @@ import Modal from "../../../views/modal/Modal.vue";
             console.log(result);
             // console.log(result.dismiss);
             if (result.value == true) {
-              // this.create_company.company_contacts.splice(index,1);
+              let params = {
+                customer_plan_renewal_id: 1,
+              }
+              console.log( params );
             }
           } 
         });
