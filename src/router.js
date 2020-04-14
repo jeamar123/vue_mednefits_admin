@@ -23,6 +23,18 @@ import ClinicPayment from './views/clinic/ClinicPayment.vue'
 import ClinicSettings from './views/clinic/ClinicSettings.vue'
 // End Clinic
 
+//Doctor 
+import Doctor from './views/doctor/Doctor.vue'
+
+//Accounts
+import Accounts from './views/accounts/Accounts.vue'
+
+//Public
+import Public from './views/public/Public.vue'
+
+//Individual
+import Individual from './views/individual/Individual.vue'
+
 // Corporates
 import Corporates from './views/Corporates.vue'
 import AddCorporate from './views/corporates/AddCorporate.vue'
@@ -75,12 +87,33 @@ import CorporateCredentials from './views/corporates/CorporateCredentials.vue'
   import DownloadTransactions from './views/corporates/DownloadTransactions.vue'
 // End Corporates
 
+//Booking
+import Booking from './views/booking/Booking.vue'
+
 //Transaction
 import Transaction from './views/transaction/Transaction.vue'
 import TransactionHistory from './views/transaction/transaction-history/TransactionHistory.vue'
 import InvoicePayments from './views/transaction/invoice-payments/InvoicePayments.vue'
 
 import Analytics from './views/Analytics.vue'
+
+//Settings
+import Settings from './views/settings/Settings.vue'
+import MednefitsAgents from './views/settings/mednefits_agents/MednefitsAgents.vue'
+import ClinicTypes from './views/settings/clinic_types/ClinicTypes.vue'
+import ClinicQrCode from './views/settings/clinic_qr_code/ClinicQrCode.vue'
+import SettingSms from './views/settings/sms/SettingSms.vue'
+import CarePlanList from './views/settings/care_plan_list/CarePlanList.vue'
+import CarePlanPackage from './views/settings/care_plan_package/CarePlanPackage.vue'
+import ClaimTypeService from './views/settings/claim_type_service/ClaimTypeService.vue'
+import SearchUsers from './views/settings/search_users/SearchUsers.vue'
+import LocalNetworkClinic from './views/settings/local_network_clinic/LocalNetworkClinic.vue'
+import CurrencyInformation from './views/settings/currency_information/CurrencyInformation.vue'
+
+//Admin
+import Admin from './views/admin/Admin.vue'
+import AdminLogs from './views/admin/logs/AdminLogs.vue'
+import AdminAccounts from './views/admin/accounts/AdminAccounts.vue'
 
 
 Vue.use(Router)
@@ -118,6 +151,10 @@ export default new Router({
           ]
         },
         { name: 'AddClinic', path: '/dashboard/clinic/add', component: AddClinic },
+        { name: 'Doctor', path: '/dashboard/doctor', component: Doctor },
+        { name: 'Accounts', path: '/dashboard/accounts', component: Accounts },
+        { name: 'Public', path: '/dashboard/public', component: Public },
+        { name: 'Individual', path: '/dashboard/individual', component: Individual },
         //corporates
         { name: 'Corporates', path: '/dashboard/corporates', component: Corporates},
         { 
@@ -190,6 +227,7 @@ export default new Router({
         { name: 'DownloadPDFInvoice', path: '/dashboard/download-pdf/:customer_id/:customer_active_plan_id/:type/:index', component: DownloadPDFInvoice, props: true },
         { name: 'DownloadPDFReceipt', path: '/dashboard/download-receipt/:customer_id/:customer_active_plan_id', component: DownloadPDFReceipt, props: true },
         { name: 'DownloadTransactions', path: '/dashboard/download-transactions/:customer_id', component: DownloadTransactions, props: true },
+        { name: 'Booking', path: '/dashboard/booking', component: Booking },
         { 
           name: 'Transaction', 
           path: '/dashboard/transaction',
@@ -201,6 +239,34 @@ export default new Router({
           ]
         },
         { name: 'Analytics', path: '/dashboard/analytics', component: Analytics },
+        { 
+          name: 'Settings', 
+          path: '/dashboard/settings',
+          component: Settings ,
+          props: { child: true}, 
+          children: [ 
+            { name: 'MednefitsAgents', path: '/dashboard/settings/mednefits_agents/', component: MednefitsAgents , props: true  },
+            { name: 'ClinicTypes', path: '/dashboard/settings/clinic_types/', component: ClinicTypes , props: true  },
+            { name: 'ClinicQrCode', path: '/dashboard/settings/clinic_qr_code/', component: ClinicQrCode , props: true  },
+            { name: 'SettingSms', path: '/dashboard/settings/sms/', component: SettingSms , props: true  },
+            { name: 'CarePlanList', path: '/dashboard/settings/care_plan_list/', component: CarePlanList , props: true  },
+            { name: 'CarePlanPackage', path: '/dashboard/settings/care_plan_package/', component: CarePlanPackage , props: true  },
+            { name: 'ClaimTypeService', path: '/dashboard/settings/claim_type_service/', component: ClaimTypeService , props: true  },
+            { name: 'SearchUsers', path: '/dashboard/settings/search_users/', component: SearchUsers , props: true  },
+            { name: 'LocalNetworkClinic', path: '/dashboard/settings/local_network_clinic/', component: LocalNetworkClinic , props: true  },
+            { name: 'CurrencyInformation', path: '/dashboard/settings/currency_information/', component: CurrencyInformation , props: true  },
+          ]
+        },
+        { 
+          name: 'Admin', 
+          path: '/dashboard/admin',
+          component: Admin ,
+          props: { child: true}, 
+          children: [ 
+            { name: 'AdminLogs', path: '/dashboard/admin/logs/', component: AdminLogs , props: true  },
+            { name: 'AdminAccounts', path: '/dashboard/admin/accounts/', component: AdminAccounts , props: true  },
+          ]
+        },
       ]
     },
     

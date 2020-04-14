@@ -1,5 +1,5 @@
 <template>
 	<div>
-		<h1>Analytics page</h1>
+		<h1>Clinic Qr Code Page</h1>
 	</div>
 </template>
