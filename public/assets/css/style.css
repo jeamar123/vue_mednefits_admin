@@ -166,9 +166,11 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
     top: 25px;
     right: 0;
   }
-  .navbar .transaction-drop{
+  .navbar .admin-custom-drop{
     top: 0;
     left: 0;
+    position: absolute;
+    z-index: 1;
   }
 
   .xs-nav-btn{
@@ -1656,16 +1658,31 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
   border-radius: 2px;
 }
 
-.transaction-drop ul {
+.admin-custom-drop ul {
   padding: 10px 0;
+  background: #FFF;
+  min-width: 200px;
+  max-height: 200px;
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
+  border-radius: 2px;
+  overflow: auto;
+  max-height: 304px;
 }
 
-.transaction-drop ul a {
+.admin-custom-drop ul li a {
   display: block;
   font-weight: 400;
   padding: 10px;
 }
 
-.transaction-drop ul a:hover {
+.admin-custom-drop ul li a:hover {
   background-color: rgba(158,158,158,0.2);
+}
+
+@media (max-width: 1150px) and (min-width: 1024px) {
+  .admin-custom-drop.admin-dropdown,
+  .admin-custom-drop.settings-dropdown {
+    left: initial;
+    right: 0;
+  }
 }
