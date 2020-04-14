@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<div class="subscription-box">
-					<p class="subscription-title">Your Next Subscription Term - For Employee</p>
+					<p class="subscription-title">Your Next Subscription Term - For Dependent</p>
 					<div class="sub-title">
 						<div><span>3 months</span> subscription term</div>
 						<div><span>01/01/2019</span> - <span>30/11/2019</span></div>
@@ -83,7 +83,7 @@
 							<div class="input-div">
 								<label>Mednefits Plan</label>
 								<div class="select-div">
-									<select v-model="global_planDetailsData.account_type" v-on:change="_setAccountType_(global_planDetailsData.account_type)">
+									<select v-model="global_updatePlanDetails.account_type" v-on:change="_setAccountType_(global_updatePlanDetails.account_type)">
 										<option value=""></option>
 										<option value="trial_plan">Trial Plan</option>
 										<option value="insurance_bundle">Insurance Bundle</option>
@@ -94,17 +94,17 @@
 									<i class="fa fa-angle-down"></i>
 								</div>
 							</div>
-							<div v-if="global_planDetailsData.account_type == 'trial_plan' || global_planDetailsData.account_type == 'insurance_bundle'" class="item-div">
+							<div v-if="global_updatePlanDetails.account_type == 'trial_plan' || global_updatePlanDetails.account_type == 'insurance_bundle'" class="item-div">
 								<div class="input-div">
 									<label>Secondary Plan</label>
 									<div class="select-div">
-										<select v-model="global_planDetailsData.secondary_account_type" v-on:change="_setAccountType_(global_planDetailsData.secondary_account_type)">
+										<select v-model="global_updatePlanDetails.secondary_account_type" v-on:change="_setAccountType_(global_updatePlanDetails.secondary_account_type)">
 											<option value=""></option>
-											<option v-if="global_planDetailsData.account_type == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
-											<option v-if="global_planDetailsData.account_type == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
+											<option v-if="global_updatePlanDetails.account_type == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
+											<option v-if="global_updatePlanDetails.account_type == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
 
-											<option v-if="global_planDetailsData.account_type == 'insurance_bundle'" value="pro_plan_bundle">Pro Plan Bundle</option>
-											<option v-if="global_planDetailsData.account_type == 'insurance_bundle'" value="insurance_bundle_lite">Insurance Bundle Lite</option>
+											<option v-if="global_updatePlanDetails.account_type == 'insurance_bundle'" value="pro_plan_bundle">Pro Plan Bundle</option>
+											<option v-if="global_updatePlanDetails.account_type == 'insurance_bundle'" value="insurance_bundle_lite">Insurance Bundle Lite</option>
 										</select>
 										<i class="fa fa-angle-down"></i>
 									</div>
@@ -117,7 +117,7 @@
 										<img :src="'../assets/img/calendar-gray.png'">
 										<v-date-picker 
 										popoverDirection="bottom" 
-										v-model="global_planStart"
+										v-model="global_updatePlanDetails.plan_start"
 										:input-props='{class: "vDatepicker", placeholder: "DD/MM/YYYY", readonly: true, }'
 										popover-visibility="focus" 
 										:formats='formats'></v-date-picker>
@@ -126,9 +126,9 @@
 								<div class="input-div">
 									<label>Duration</label>
 									<div class="select-div">
-										<select>
-											<option>3 months</option>
-											<option>4 months</option>
+										<select v-model="global_updatePlanDetails.plan_duration">
+											<option value="3 months">3 months</option>
+											<option value="4 monnths">4 months</option>
 										</select>
 										<i class="fa fa-angle-down"></i>
 									</div>
@@ -137,13 +137,13 @@
 							<div class="item-div seat-container">
 								<div class="input-div">
 									<label>Seats</label>
-									<input type="number">
+									<input v-model="global_updatePlanDetails.seats" type="number">
 								</div>
 								<div class="input-div">
 									<label>Price Per Seat</label>
 									<div class="per-seat-div dp-flex-ai">
 										<div class="currency-type">sgd</div>
-										<input type="number">
+										<input v-model="global_updatePlanDetails.price_per_employee" type="number">
 									</div>
 								</div>
 							</div>
@@ -167,7 +167,7 @@
 			</div>
 			<div slot="footer">
 				<button @click="_changePlan_()" class="btn-primary">Cancel</button>
-				<button class="btn-primary">Update Plan</button>
+				<button @click="_updatePlanDetails_( global_updatePlanDetails )" class="btn-primary">Update Plan</button>
 			</div>
 		</Modal>
 	</div>

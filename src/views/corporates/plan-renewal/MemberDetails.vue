@@ -6,12 +6,12 @@
 			<div v-click-outside="_hideAllDrop_"  @click="_toggleAddSeatOptions_()" class="add-seat-wrapper">
 				<img :src="'../assets/img/plus_add.png'">
 				<div v-if="global_isAddSeatDropShow" class="add-seat-container">
-					<li>
+					<li @click="_addSeatHeadCount_()"> 
 						<a>
 							<span>Add Seat</span>
 						</a>
 					</li>
-					<li>
+					<li @click="_fillVacantSeat_()">
 						<a>
 							<span>Fill in Vacant Seat</span>
 						</a>
