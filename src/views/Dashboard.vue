@@ -7,29 +7,33 @@
 	  	</div>
 	  	<div class="nav-items">
 	  		<ul class="nav-ul">
-	  			<li><router-link tag="a" :to="{ name : 'Clinic' }">Clinic</router-link></li>
-	  			<li><router-link tag="a" :to="{ name : 'Doctor' }">Doctor</router-link></li>
-	  			<li><router-link tag="a" :to="{ name : 'Accounts' }">Accounts</router-link></li>
-	  			<li><router-link tag="a" :to="{ name : 'Public' }">Public</router-link></li>
-	  			<li><router-link tag="a" :to="{ name : 'Individual' }">Individual</router-link></li>
-	  			<li><router-link tag="a" :to="{ name : 'Corporates' }">Corporate</router-link></li>
-	  			<li><router-link tag="a" :to="{ name : 'Booking' }">Booking</router-link></li>
+	  			<li @click="_hideDpSelector_()"><router-link tag="a" :to="{ name : 'Clinic' }">Clinic</router-link></li>
+	  			<li @click="_hideDpSelector_()"><router-link tag="a" :to="{ name : 'Doctor' }">Doctor</router-link></li>
+	  			<li @click="_hideDpSelector_()"><router-link tag="a" :to="{ name : 'Accounts' }">Accounts</router-link></li>
+	  			<li @click="_hideDpSelector_()"><router-link tag="a" :to="{ name : 'Public' }">Public</router-link></li>
+	  			<li @click="_hideDpSelector_()"><router-link tag="a" :to="{ name : 'Individual' }">Individual</router-link></li>
+	  			<li @click="_hideDpSelector_()"><router-link tag="a" :to="{ name : 'Corporates' }">Corporate</router-link></li>
+	  			<li @click="_hideDpSelector_()"><router-link tag="a" :to="{ name : 'Booking' }">Booking</router-link></li>
 	  			<li>
 		  			<a @click="_showAdminDropdown_('transaction')">
 		  				Transaction
 		  			</a>
-						<div v-click-outside="_hideAllDrop_" v-if="global_isTransactionDropdownShow" class="drop-wrapper transaction-drop">
+						<div v-click-outside="_hideAllDrop_" v-if="global_isTransactionDropdownShow" class="admin-custom-drop">
 							<ul class="nav-ul">
-								<router-link tag="a" :to="{ name : 'TransactionHistory' }">Transaction History</router-link>
-								<router-link tag="a" :to="{ name : 'InvoicePayments' }">Invoice Payments</router-link>
+								<li>
+									<router-link tag="a" :to="{ name : 'TransactionHistory' }">Transaction History</router-link>
+								</li>
+								<li>
+									<router-link tag="a" :to="{ name : 'InvoicePayments' }">Invoice Payments</router-link>
+								</li>
 							</ul>
 						</div>
 		  		</li>
-	  			<li><router-link tag="a" :to="{ name : 'Analytics' }">Analytics</router-link></li>
+	  			<li @click="_hideDpSelector_()"><router-link tag="a" :to="{ name : 'Analytics' }">Analytics</router-link></li>
 	  			<li>
 	  				<a @click="_showAdminDropdown_('settings')">Settings</span></a>
 
-	  				<div v-click-outside="_hideAllDrop_" v-if="global_isSettingsDropdownShow" class="drop-wrapper settings-drop">
+	  				<div v-click-outside="_hideAllDrop_" v-if="global_isSettingsDropdownShow" class="admin-custom-drop settings-dropdown">
 	  					<ul class="nav-ul">
 	  						<router-link tag="li" :to="{ name : 'MednefitsAgents' }"><a href="#">Mednefits Agents</a></router-link>
 	  						<router-link tag="li" :to="{ name : 'ClinicTypes' }"><a href="#">Download E-Claim List</a></router-link>
@@ -50,10 +54,14 @@
 	  				<a @click="_showAdminDropdown_('admin')">
 		  				Admin
 		  			</a>
-		  			<div v-click-outside="_hideAllDrop_" v-if="global_isAdminDropdownShow" class="drop-wrapper transaction-drop">
+		  			<div v-click-outside="_hideAllDrop_" v-if="global_isAdminDropdownShow" class="admin-custom-drop admin-dropdown">
 							<ul class="nav-ul">
-								<router-link tag="a" :to="{ name : 'AdminLogs' }">Logs</router-link>
-								<router-link tag="a" :to="{ name : 'AdminAccounts' }">Accounts</router-link>
+								<li>
+									<router-link tag="a" :to="{ name : 'AdminLogs' }">Logs</router-link>
+								</li>
+								<li>
+									<router-link tag="a" :to="{ name : 'AdminAccounts' }">Accounts</router-link>
+								</li>
 							</ul>
 						</div>
 	  			</li>

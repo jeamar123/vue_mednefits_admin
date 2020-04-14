@@ -47,7 +47,16 @@
 			_hideSelector_() {
 				this.isMenuShow = false;
 			},
+			_hideDpSelector_() {
+				this.global_isTransactionDropdownShow  = false;
+				this.global_isAdminDropdownShow = false;
+				this.global_isSettingsDropdownShow = false;
+			},
 			_showAdminDropdown_( type ) {
+				this.global_isTransactionDropdownShow  = false;
+				this.global_isAdminDropdownShow = false;
+				this.global_isSettingsDropdownShow = false;
+				
 				if ( type == 'transaction' ) {
 					this.global_isTransactionDropdownShow = this.global_isTransactionDropdownShow == false ? true : false;
 				}

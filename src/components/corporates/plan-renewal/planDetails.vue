@@ -17,6 +17,7 @@ import Modal from "../../../views/modal/Modal.vue";
         },
         global_planStart: new Date(),
         global_isChangePlanShow: false,
+        global_planDetailsData: {},
       };
     },
     created(){
@@ -25,7 +26,29 @@ import Modal from "../../../views/modal/Modal.vue";
     methods: {
       _changePlan_( type ) {
         this.global_isChangePlanShow = this.global_isChangePlanShow == false ? true : false;
-      }
+      },
+      _setAccountType_( account_type ) {},
+      _confirmPlan_() {
+        this.$swal({
+          title: "Confirm?",
+          text: "Activating plan renewal. Cannot revert any changes.",
+          type: "warning",
+          confirmButtonColor: "rgb(221, 107, 85)",
+          cancelButtonColor: "#C1C1C1",
+          showCancelButton: true,
+          showCloseButton: false,
+          confirmButtonText: "Yes!",
+          reverseButtons: true,
+        }).then(result => {
+          if (result) {
+            console.log(result);
+            // console.log(result.dismiss);
+            if (result.value == true) {
+              // this.create_company.company_contacts.splice(index,1);
+            }
+          } 
+        });
+      },
     }
   }
   

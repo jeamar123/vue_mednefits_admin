@@ -63,7 +63,7 @@
 							<span>5760.00</span>
 						</div>
 					</div>
-					<button class="btn-primary btn-confirm-renewal">Confirm plan renewal</button>
+					<button @click="_confirmPlan_()" class="btn-primary btn-confirm-renewal">Confirm plan renewal</button>
 				</div>
 			</div>
 		</div>
@@ -83,7 +83,7 @@
 							<div class="input-div">
 								<label>Mednefits Plan</label>
 								<div class="select-div">
-									<select>
+									<select v-model="global_planDetailsData.account_type" v-on:change="_setAccountType_(global_planDetailsData.account_type)">
 										<option value=""></option>
 										<option value="trial_plan">Trial Plan</option>
 										<option value="insurance_bundle">Insurance Bundle</option>
@@ -94,14 +94,17 @@
 									<i class="fa fa-angle-down"></i>
 								</div>
 							</div>
-							<div class="item-div">
+							<div v-if="global_planDetailsData.account_type == 'trial_plan' || global_planDetailsData.account_type == 'insurance_bundle'" class="item-div">
 								<div class="input-div">
 									<label>Secondary Plan</label>
 									<div class="select-div">
-										<select>
+										<select v-model="global_planDetailsData.secondary_account_type" v-on:change="_setAccountType_(global_planDetailsData.secondary_account_type)">
 											<option value=""></option>
-											<option ng-if="update_plan_details.account_type == 'trial_plan'" value="pro_trial_plan_bundle" class="ng-scope">Trial - Pro Plan</option>
-											<option ng-if="update_plan_details.account_type == 'trial_plan'" value="trial_plan_lite" class="ng-scope">Trial - Lite Plan</option>
+											<option v-if="global_planDetailsData.account_type == 'trial_plan'" value="pro_trial_plan_bundle">Trial - Pro Plan</option>
+											<option v-if="global_planDetailsData.account_type == 'trial_plan'" value="trial_plan_lite">Trial - Lite Plan</option>
+
+											<option v-if="global_planDetailsData.account_type == 'insurance_bundle'" value="pro_plan_bundle">Pro Plan Bundle</option>
+											<option v-if="global_planDetailsData.account_type == 'insurance_bundle'" value="insurance_bundle_lite">Insurance Bundle Lite</option>
 										</select>
 										<i class="fa fa-angle-down"></i>
 									</div>
