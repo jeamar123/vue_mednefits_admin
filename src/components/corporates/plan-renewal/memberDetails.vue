@@ -95,32 +95,29 @@
       _selectViewOpt_( opt ) {
         this.global_tblViewOpt = opt;
       },
-      _toggleTableInput_( index ) {
+      _toggleTableInput_( index,inputIndex ) {
         // this._resetActionSelector_('input');
-        // console.log(index,inputIndex);
-        // this.global_employeePlanData[ index ].activeInput[inputIndex] = true;
+        console.log(index,inputIndex);
+        this.global_employeePlanData[ index ].activeInput[inputIndex] = true;
         // console.log( this.global_employeePlanData[ index ].activeInput[inputIndex] );
         // setTimeout(function() {
         //   $(".empl-tbl tbody tr:nth-child(" + (index+1) + ") td:nth-child(" + (inputIndex+3) + ") input").focus();
         // }, 200);
-        // this.$forceUpdate();
+        this.$forceUpdate();
 
 
         // eut
         // awts
-        alert(index)
-        console.log('index', index)
-
-
-
+        // alert(index)
+        // console.log('index', index)
       },
       _formatDate_( date, from, to ){
         return moment( date, from ).format( to );
       },
       _fetchMemberData_() {
         // console.log(localStorage.customerRenewalId);
-        this._getEmployeePlanRenewalData_();
-        // this._getDependentPlanRenewalData_();
+        // this._getEmployeePlanRenewalData_();
+        this._getDependentPlanRenewalData_();
 
         // this.dependent_details_arr.forEach((value,key) => {
         //   // console.log(value,key);
@@ -241,13 +238,13 @@
             this.global_employeePlanData = res.data.data.EmployeeDetails;
 
             // awts
-            // this.global_employeePlanData.forEach((value,key) => {
-            //   console.log(value,key);
-            //   value.index = key;
-            //   value.isVacantSeatShow = [];
-            //   value.activeInput = [];
-            //   // console.log(value.activeInput);
-            // })
+            this.global_employeePlanData.forEach((value,key) => {
+              console.log(value,key);
+              value.index = key;
+              value.isVacantSeatShow = [];
+              value.activeInput = [];
+              // console.log(value.activeInput);
+            })
 
             _hidePageLoading_();
           }
@@ -283,6 +280,15 @@
         .then(( res ) => {
           console.log(res);
           if( res.status == 200 || res.status == 201 ){
+            this.global_employeePlanData = res.data.data.DependentDetails;
+
+            this.global_employeePlanData.forEach((value,key) => {
+              console.log(value,key);
+              value.index = key;
+              value.isVacantSeatShow = [];
+              value.activeInput = [];
+              // console.log(value.activeInput);
+            })
             _hidePageLoading_();
           }
         });
