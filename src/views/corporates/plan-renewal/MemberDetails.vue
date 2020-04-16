@@ -26,6 +26,7 @@
 			<button @click="_selectViewOpt_( 1 )" v-bind:class="{ 'active' : global_tblViewOpt == 1 }">Employee Details</button>
 			<button @click="_selectViewOpt_( 2 )" v-bind:class="{ 'active' : global_tblViewOpt == 2 }">Dependent Details</button>
 		</div>
+		
 		<div v-if="global_tblViewOpt == 1">
 			<div class="employee-tbl-wrapper">
 				<div class="employee-tbl-container">
@@ -42,7 +43,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr v-for="(list,index) in employee_details_arr">
+							<tr v-for="(list,index) in global_employeePlanData">
 								<td>
 									<div v-click-outside="_hideAllDrop_" @click="_toggleOptions_(list)" class="option-selector">
 										<img :src="'../assets/img/dots.png'">
@@ -66,38 +67,63 @@
 									<div>{{ list.id }}</div>
 								</td>
 								<td>
-									<div @click="_toggleTableInput_( index, 0 )"  v-if="!list.activeInput[0]">{{ list.fullname }}</div>
-									<div v-if="list.activeInput[0]">
-										<input type="text">
+									<!-- <div @click="_toggleTableInput_( index, 0 )"  v-if="!list.activeInput[0]">{{ list.fullname }}</div> -->
+									<!-- <div v-if="list.activeInput[0]"> -->
+									<!-- <div @click="_toggleTableInput_( index, 0 )"  v-if="true">{{ list.fullname }}</div>
+									<div v-if="false">	 -->
+										<!-- <input type="text" style="border: 1px solid red">
+									</div> -->
+
+
+
+									<!-- <div @click="_toggleTableInput_( index )" > -->
+									<div>
+										<a href="#" @click.prevent="_toggleTableInput_( index )">
+											{{ list.fullname }}
+										</a>
 									</div>
+									<!-- <div>
+										<input type="text" style="border: 1px solid red">
+									</div> -->
+
+
 								</td>
 								<td>
-									<div @click="_toggleTableInput_( index, 1 )" v-if="!list.activeInput[1]">{{ _formatDate_( list.dob, null,'DD MMM,YYYY' ) }}</div>
-									<div v-if="list.activeInput[1]">
+									<!-- <div @click="_toggleTableInput_( index, 1 )" v-if="!list.activeInput[1]">{{ _formatDate_( list.dob, null,'DD MMM,YYYY' ) }}</div>
+									<div v-if="list.activeInput[1]"> -->
+									<div @click="_toggleTableInput_( index, 1 )" v-if="true">{{ _formatDate_( list.dob, null,'DD/MM/YYYY' ) }}</div>
+									<div v-if="false">
 										<input type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
 								</td>
 								<td>
-									<div @click="_toggleTableInput_( index, 2 )" v-if="!list.activeInput[2]">{{ _formatDate_( list.start_date, null,'DD MMM,YYYY' ) }}</div>
-									<div v-if="list.activeInput[2]">
+									<!-- <div @click="_toggleTableInput_( index, 2 )" v-if="!list.activeInput[2]">{{ _formatDate_( list.start_date, null,'DD MMM,YYYY' ) }}</div>
+									<div v-if="list.activeInput[2]"> -->
+									<div @click="_toggleTableInput_( index, 2 )" v-if="true">{{ _formatDate_( list.start_date, null,'DD/MM/YYYY' ) }}</div>
+									<div v-if="false">
 										<input type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
 								</td>
 								<td v-click-outside="_hideAllDrop_"  class="country-code-wrapper">
-									<div @click="_toggleTableInput_( index, 3 )" v-if="!list.activeInput[3]">{{ list.country_code }}</div>
-									<div v-if="list.activeInput[3]">
+									<!-- <div @click="_toggleTableInput_( index, 3 )" v-if="!list.activeInput[3]">{{ list.country_code }}</div>
+									<div v-if="list.activeInput[3]"> -->
+									<div @click="_toggleTableInput_( index, 3 )" v-if="true">{{ list.country_code }}</div>
+									<div v-if="false">
 										<input type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
-									<div v-if="list.activeInput[3]" class="tbl-custom-dropdown">
+									<!-- <div v-if="list.activeInput[3]" class="tbl-custom-dropdown"> -->
+									<div v-if="false" class="tbl-custom-dropdown">
 										<div class="select-num"> +60 </div>
 									</div>
 								</td>
 								<td>
-									<div @click="_toggleTableInput_( index, 4 )" v-if="!list.activeInput[4]">{{ list.mobile_number }}</div>
-									<div v-if="list.activeInput[4]">
+									<!-- <div @click="_toggleTableInput_( index, 4 )" v-if="!list.activeInput[4]">{{ list.mobile_number }}</div>
+									<div v-if="list.activeInput[4]"> -->
+									<div @click="_toggleTableInput_( index, 4 )" v-if="true">{{ list.mobile_number }}</div>
+									<div v-if="false">
 										<input type="text">
 									</div>
 								</td>

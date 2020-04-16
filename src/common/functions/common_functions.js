@@ -1742,6 +1742,24 @@ const _downloadReceiptExtension_ = (params, isDownload)	=> {
 	}
 }
 
+const _fetchEmployeePlanRenewalData_ = (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.FETCH_EMPLOYEE_PLAN_RENEWAL + '?customer_plan_renewal_id=' + params.customer_plan_renewal_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
+const _fetchDependentPlanRenewalData_ = (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.FETCH_DEPENDENT_PLAN_RENEWAL + '?customer_plan_renewal_id=' + params.customer_plan_renewal_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
 export	{
 	_login_,
 	_goBack_,
@@ -1819,4 +1837,6 @@ export	{
 	_downloadSpendingStatement_,
 	_downloadSpendingTransactions_,
 	_downloadReceiptExtension_,
+	_fetchEmployeePlanRenewalData_,
+	_fetchDependentPlanRenewalData_,
 }

@@ -1,6 +1,15 @@
 <script>
   import Modal from "../../../views/modal/Modal.vue";
   import moment, { locale } from "moment";
+  import { 
+    _fetchEmployeePlanRenewalData_,
+    _fetchDependentPlanRenewalData_,
+    _showPageLoading_,
+    _hidePageLoading_,
+  } from '../../../common/functions/common_functions';
+
+
+  import axios from 'axios'
 
   let memberDetails = {
     components: {
@@ -65,10 +74,15 @@
             employee_fullname: 'Noemi Duterts',
           },
         ],
+        global_employeePlanData: [],
       };
     },
     created(){
+      console.log('created')
       this._fetchMemberData_();
+    },
+    mounted() {
+      console.log('mounted')
     },
     methods: {
       // selectCorporateView( opt ){
@@ -81,34 +95,40 @@
       _selectViewOpt_( opt ) {
         this.global_tblViewOpt = opt;
       },
-      _toggleTableInput_( index,inputIndex ) {
-        this._resetActionSelector_('input');
-        console.log(index,inputIndex);
-        this.employee_details_arr[ index ].activeInput[inputIndex] = true;
-        console.log( this.employee_details_arr[ index ].activeInput[inputIndex] );
-        setTimeout(function() {
-          $(".empl-tbl tbody tr:nth-child(" + (index+1) + ") td:nth-child(" + (inputIndex+3) + ") input").focus();
-        }, 200);
-        this.$forceUpdate();
+      _toggleTableInput_( index ) {
+        // this._resetActionSelector_('input');
+        // console.log(index,inputIndex);
+        // this.global_employeePlanData[ index ].activeInput[inputIndex] = true;
+        // console.log( this.global_employeePlanData[ index ].activeInput[inputIndex] );
+        // setTimeout(function() {
+        //   $(".empl-tbl tbody tr:nth-child(" + (index+1) + ") td:nth-child(" + (inputIndex+3) + ") input").focus();
+        // }, 200);
+        // this.$forceUpdate();
+
+
+        // eut
+        // awts
+        alert(index)
+        console.log('index', index)
+
+
+
       },
       _formatDate_( date, from, to ){
         return moment( date, from ).format( to );
       },
       _fetchMemberData_() {
-        this.employee_details_arr.forEach((value,key) => {
-          console.log(value,key);
-          value.index = key;
-          value.isVacantSeatShow = [];
-          value.activeInput = [];
-          console.log(value.activeInput);
-        })
-        this.dependent_details_arr.forEach((value,key) => {
-          console.log(value,key);
-          value.index = key;
-          value.isVacantSeatShow = [];
-          value.activeInput = [];
-          console.log(value.activeInput);
-        })
+        // console.log(localStorage.customerRenewalId);
+        this._getEmployeePlanRenewalData_();
+        // this._getDependentPlanRenewalData_();
+
+        // this.dependent_details_arr.forEach((value,key) => {
+        //   // console.log(value,key);
+        //   value.index = key;
+        //   value.isVacantSeatShow = [];
+        //   value.activeInput = [];
+        //   // console.log(value.activeInput);
+        // })
       },
       _toggleOptions_( data ) {
         // console.log(data);
@@ -154,9 +174,9 @@
           if(opt == 'options'){
             value.isOptionsShow = false;
           }
-          if(opt == 'input'){
-            value.activeInput[3] = false;
-          }
+          // if(opt == 'input'){
+          //   value.activeInput[3] = false;
+          // }
           // value.isOptionsShow = value.isOptionsShow == false ? true : false;
           // console.log('para sa country code',value.activeInput);
           // console.log('para sa 3 ka dot',value.isOptionsShow);
@@ -165,16 +185,16 @@
           //   value.activeInput[3] = false;
           // }
         })
-        this.dependent_details_arr.forEach((value,key)  => {
-          if(opt == 'options'){
-            value.isOptionsShow = false;
-          }
-          if(opt == 'input-dependent'){
-            value.activeInput[2] = false;
-          }
-          // console.log('para sa country code',value.activeInput);
-          // console.log('para sa 3 ka dot',value.isOptionsShow);
-        })
+        // this.dependent_details_arr.forEach((value,key)  => {
+        //   if(opt == 'options'){
+        //     value.isOptionsShow = false;
+        //   }
+        //   if(opt == 'input-dependent'){
+        //     value.activeInput[2] = false;
+        //   }
+        //   // console.log('para sa country code',value.activeInput);
+        //   // console.log('para sa 3 ka dot',value.isOptionsShow);
+        // })
       },
       _toggleAddSeatOptions_() {
         this.global_isAddSeatDropShow = this.isAddSeatDropShow == true ? false : true;
@@ -208,7 +228,65 @@
         }
         this.global_isAddSeatDropShow = false;
         // this._fetchMemberData_(); call the data
-      }
+      },
+      async _getEmployeePlanRenewalData_() {
+        let params = {
+          customer_plan_renewal_id: localStorage.customerRenewalId,
+        }
+        _showPageLoading_();
+        _fetchEmployeePlanRenewalData_(params)
+        .then(( res ) => {
+          console.log(res);
+          if( res.status == 200 || res.status == 201 ){
+            this.global_employeePlanData = res.data.data.EmployeeDetails;
+
+            // awts
+            // this.global_employeePlanData.forEach((value,key) => {
+            //   console.log(value,key);
+            //   value.index = key;
+            //   value.isVacantSeatShow = [];
+            //   value.activeInput = [];
+            //   // console.log(value.activeInput);
+            // })
+
+            _hidePageLoading_();
+          }
+        });
+
+        // awts
+        // let eut = await axios.get('http://api-admin.medicloud.sg/company/getPlanRenewalEmployeeDetails',
+        // let eut = await axios.get('http://api-admin.medicloud.sg/company/getPlanRenewalDependentDetails',
+        //   { params: {
+        //     customer_plan_renewal_id: localStorage.customerRenewalId
+        //   }})
+
+        // // console.log('eut', eut.data.data)
+        // this.global_employeePlanData = eut.data.data.DependentDetails;
+      
+
+
+
+        
+          // .then(res => {
+          //   console.log(res.data.data.EmployeeDetails)
+          //   this.global_employeePlanData = res.data.data.EmployeeDetails
+          // })
+
+
+      },
+      _getDependentPlanRenewalData_() {
+        let params = {
+          customer_plan_renewal_id: localStorage.customerRenewalId,
+        }
+        _showPageLoading_();
+        _fetchDependentPlanRenewalData_(params)
+        .then(( res ) => {
+          console.log(res);
+          if( res.status == 200 || res.status == 201 ){
+            _hidePageLoading_();
+          }
+        });
+      },
     }
   }
   

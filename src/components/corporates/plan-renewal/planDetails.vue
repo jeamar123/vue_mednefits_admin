@@ -1,6 +1,9 @@
 <script>
 import Modal from "../../../views/modal/Modal.vue";
 import moment, { locale } from "moment";
+import { 
+  
+} from '../../../common/functions/common_functions';
 
   let planDetails = {
     components: {
@@ -24,15 +27,23 @@ import moment, { locale } from "moment";
     },
     created(){
       // this.corporateViewStatus = this.$route.name;
+      localStorage.customerRenewalId = 1;
     },
     methods: {
       _changePlan_( type ) {
+        this.global_isChangePlanShow = this.global_isChangePlanShow == false ? true : false;
         this.global_selectedType = type;
         let params = {
           type: this.global_selectedType,
         }
-        console.log(params);
-        this.global_isChangePlanShow = this.global_isChangePlanShow == false ? true : false;
+        
+        if ( type == 'employee') {
+          this._getEmployeePlanRenewalData_();
+        }
+        if ( type == 'dependent' ) {
+          this._getDependentPlanRenewalData_();
+        }
+        
       },
       _setAccountType_( account_type ) {},
       _updatePlanDetails_( data ) {
@@ -71,6 +82,30 @@ import moment, { locale } from "moment";
             }
           } 
         });
+      },
+      _getEmployeePlanRenewalData_() {
+        let params = {
+          customer_plan_renewal_id: 1,
+        }
+        // _fetchEmployeePlanRenewalData_(params)
+        // .then(( res ) => {
+        //   console.log(res);
+        //   if( res.status == 200 || res.status == 201 ){
+        //     // _hidePageLoading_();
+        //   }
+        // });
+      },
+      _getDependentPlanRenewalData_() {
+        let params = {
+          customer_plan_renewal_id: 1,
+        }
+        // _fetchDependentPlanRenewalData_(params)
+        // .then(( res ) => {
+        //   console.log(res);
+        //   if( res.status == 200 || res.status == 201 ){
+        //     // _hidePageLoading_();
+        //   }
+        // });
       },
     }
   }
