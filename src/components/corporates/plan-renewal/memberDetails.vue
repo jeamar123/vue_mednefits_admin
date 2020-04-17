@@ -1,6 +1,15 @@
 <script>
   import Modal from "../../../views/modal/Modal.vue";
   import moment, { locale } from "moment";
+  import { 
+    _fetchEmployeePlanRenewalData_,
+    _fetchDependentPlanRenewalData_,
+    _showPageLoading_,
+    _hidePageLoading_,
+  } from '../../../common/functions/common_functions';
+
+
+  import axios from 'axios'
 
   let memberDetails = {
     components: {
@@ -65,10 +74,16 @@
             employee_fullname: 'Noemi Duterts',
           },
         ],
+        global_employeePlanData: [],
+        global_dependentPlanData: []
       };
     },
     created(){
+      console.log('created')
       this._fetchMemberData_();
+    },
+    mounted() {
+      console.log('mounted')
     },
     methods: {
       // selectCorporateView( opt ){
@@ -80,48 +95,51 @@
       },
       _selectViewOpt_( opt ) {
         this.global_tblViewOpt = opt;
+        if ( opt == 2 ) {
+          console.log('dependent');
+          this._getDependentPlanRenewalData_();
+        }
       },
       _toggleTableInput_( index,inputIndex ) {
         this._resetActionSelector_('input');
         console.log(index,inputIndex);
-        this.employee_details_arr[ index ].activeInput[inputIndex] = true;
-        console.log( this.employee_details_arr[ index ].activeInput[inputIndex] );
-        setTimeout(function() {
-          $(".empl-tbl tbody tr:nth-child(" + (index+1) + ") td:nth-child(" + (inputIndex+3) + ") input").focus();
-        }, 200);
+        this.global_employeePlanData[ index ].activeInput[inputIndex] = true;
+        // setTimeout(function() {
+        //   $(".empl-tbl tbody tr:nth-child(" + (index+1) + ") td:nth-child(" + (inputIndex+3) + ") input").focus();
+        // }, 200);
+        this.$forceUpdate();
+
+      },
+      _toggleDependentsTableInput_( index,inputIndex ) {
+        this._resetActionSelector_('input-dependent');
+        this._resetActionSelector_('input-emp-name');
+        this.global_dependentPlanData[ index ].activeInput[inputIndex] = true;
+        // setTimeout(function() {
+        //   $(".empl-tbl tbody tr:nth-child(" + (index+1) + ") td:nth-child(" + (inputIndex+3) + ") input").focus();
+        // }, 200);
         this.$forceUpdate();
       },
       _formatDate_( date, from, to ){
         return moment( date, from ).format( to );
       },
       _fetchMemberData_() {
-        this.employee_details_arr.forEach((value,key) => {
-          console.log(value,key);
-          value.index = key;
-          value.isVacantSeatShow = [];
-          value.activeInput = [];
-          console.log(value.activeInput);
-        })
-        this.dependent_details_arr.forEach((value,key) => {
-          console.log(value,key);
-          value.index = key;
-          value.isVacantSeatShow = [];
-          value.activeInput = [];
-          console.log(value.activeInput);
-        })
+        this._getEmployeePlanRenewalData_();
+        // this._getDependentPlanRenewalData_();
+
       },
       _toggleOptions_( data ) {
-        // console.log(data);
-        this._resetActionSelector_('options');
-        this.employee_details_arr.forEach((value,key)  => {
-          if ( data.id == value.id ) {
+        // this._resetActionSelector_('options')
+        console.log(data);
+        this.global_employeePlanData.map((value,key)  => {
+          if ( data.member_id == value.member_id ) {
             value.isOptionsShow = value.isOptionsShow == true ? false : true;
           } else {
             value.isOptionsShow = false;
           }
         })
-        this.dependent_details_arr.forEach((value,key)  => {
-          if ( data.id == value.id ) {
+
+        this.global_dependentPlanData.map((value,key)  => {
+          if ( data.member_id == value.member_id ) {
             value.isOptionsShow = value.isOptionsShow == true ? false : true;
           } else {
             value.isOptionsShow = false;
@@ -144,36 +162,34 @@
           this._resetActionSelector_('input');
           this.$forceUpdate();
         }
+        if ($(e.target).parents(".employee-fullname-wrapper").length === 0) {
+          this._resetActionSelector_('input-emp-name');
+          this.$forceUpdate();
+        }
         if ($(e.target).parents(".relationship-wrapper").length === 0) {
           this._resetActionSelector_('input-dependent');
           this.$forceUpdate();
         }
       },
       _resetActionSelector_(opt) {
-        this.employee_details_arr.forEach((value,key)  => {
+        this.global_employeePlanData.map((value,key)  => {
           if(opt == 'options'){
             value.isOptionsShow = false;
           }
           if(opt == 'input'){
             value.activeInput[3] = false;
           }
-          // value.isOptionsShow = value.isOptionsShow == false ? true : false;
-          // console.log('para sa country code',value.activeInput);
-          // console.log('para sa 3 ka dot',value.isOptionsShow);
-          
-          // if (this.employee_details_arr[ key ].activeInput[3] == value.activeInput[3]) {
-          //   value.activeInput[3] = false;
-          // }
         })
-        this.dependent_details_arr.forEach((value,key)  => {
+        this.global_dependentPlanData.forEach((value,key)  => {
           if(opt == 'options'){
             value.isOptionsShow = false;
+          }
+          if(opt == 'input-emp-name'){
+            value.activeInput[1] = false;
           }
           if(opt == 'input-dependent'){
             value.activeInput[2] = false;
           }
-          // console.log('para sa country code',value.activeInput);
-          // console.log('para sa 3 ka dot',value.isOptionsShow);
         })
       },
       _toggleAddSeatOptions_() {
@@ -181,14 +197,6 @@
       },
       _togglePerPage_() {
         this.global_isPerPageShow = this.global_isPerPageShow == false ? true : false;
-      },
-      _toggleDependentsTableInput_( index,inputIndex ) {
-        this._resetActionSelector_('input-dependent');
-        this.dependent_details_arr[ index ].activeInput[inputIndex] = true;
-        setTimeout(function() {
-          $(".empl-tbl tbody tr:nth-child(" + (index+1) + ") td:nth-child(" + (inputIndex+3) + ") input").focus();
-        }, 200);
-        this.$forceUpdate();
       },
       _addSeatHeadCount_() {
         this.global_isAddSeatDropShow = false;
@@ -208,6 +216,69 @@
         }
         this.global_isAddSeatDropShow = false;
         // this._fetchMemberData_(); call the data
+      },
+      async _getEmployeePlanRenewalData_() {
+        let params = {
+          customer_plan_renewal_id: localStorage.customerRenewalId,
+        }
+        _showPageLoading_();
+        _fetchEmployeePlanRenewalData_(params)
+        .then(( res ) => {
+          console.log(res);
+          if( res.status == 200 || res.status == 201 ){
+            this.global_employeePlanData = res.data.data.EmployeeDetails;
+
+            this.global_employeePlanData.map((value, key) => {
+              console.log(value,key);
+              value.index = key;
+              value.isVacantSeatShow = [];
+              value.activeInput = [false, false, false];
+            });
+
+            _hidePageLoading_();
+          }
+        });
+      },
+      _getDependentPlanRenewalData_() {
+        let params = {
+          customer_plan_renewal_id: localStorage.customerRenewalId,
+        }
+        _showPageLoading_();
+        _fetchDependentPlanRenewalData_(params)
+        .then(( res ) => {
+          console.log(res);
+          if( res.status == 200 || res.status == 201 ){
+            this.global_dependentPlanData = res.data.data.DependentDetails;
+
+            this.global_dependentPlanData.map((value, key) => {
+              console.log(value,key);
+              value.index = key;
+              value.isVacantSeatShow = [];
+              value.activeInput = [];
+            });
+            _hidePageLoading_();
+          }
+        });
+      },
+      _setCountryCode_( index,value ) {
+        if ( value == 'singapore' ) {
+          this.global_employeePlanData[index].country_code = '+65';
+        }
+        if ( value == 'malaysia' ) {
+          this.global_employeePlanData[index].country_code = '+60';
+        }
+        this.global_employeePlanData[index].activeInput[3] = false;
+      },
+      _setEmployeeForDependent_( index, value ) {
+        this.global_dependentPlanData[index].fullname = value.fullname;
+        this.global_dependentPlanData[index].employee_id = value.employee_id;
+        this.global_dependentPlanData[index].customer_employee_plan_renewal_id = value.customer_employee_plan_renewal_id;
+        this.global_dependentPlanData[index].activeInput[1] = false
+        this.$forceUpdate();
+      },
+      _setRelationship_( index, value ) {
+        this.global_dependentPlanData[index].relationship = value;
+        this.global_dependentPlanData[index].activeInput[2] = false
       }
     }
   }

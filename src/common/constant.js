@@ -72,6 +72,8 @@ const UPDATE_INVOICE_DATES = `${SERVERURL}/company/spendingAccount`;
 const DOWNLOAD_SPENDING_STATEMENT = `${SERVERURL}/company/spendingAccount`;
 const DOWNLOAD_SPENDING_TRANSACTIONS = `${SERVERURL}/company/spendingAccount`;
 const DOWNLOAD_RECEIPT_EXTENSION = `${SERVERURL}/company/planExtensionInvoiceReceipt`;
+const FETCH_EMPLOYEE_PLAN_RENEWAL = `${SERVERURL}/company/getPlanRenewalEmployeeDetails`;
+const FETCH_DEPENDENT_PLAN_RENEWAL = `${SERVERURL}/company/getPlanRenewalDependentDetails`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -139,4 +141,6 @@ module.exports = {
 	DOWNLOAD_SPENDING_STATEMENT,
 	DOWNLOAD_SPENDING_TRANSACTIONS,
 	DOWNLOAD_RECEIPT_EXTENSION,
+	FETCH_EMPLOYEE_PLAN_RENEWAL,
+	FETCH_DEPENDENT_PLAN_RENEWAL,
 }
