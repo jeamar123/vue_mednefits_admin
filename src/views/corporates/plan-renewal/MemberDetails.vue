@@ -45,9 +45,10 @@
 						<tbody>
 							<tr v-for="(list,index) in global_employeePlanData">
 								<td>
-									<div v-click-outside="_hideAllDrop_" @click="_toggleOptions_(list)" class="option-selector">
+									<!-- <div v-click-outside="_hideAllDrop_" @click="_toggleOptions_(list)" class="option-selector"> -->
+									<div @click="_toggleOptions_(list)" class="option-selector">
 										<img :src="'../assets/img/dots.png'">
-										<div v-if="list.isOptionsShow" class="remove-emp-selector-container">
+										<div v-show="list.isOptionsShow" class="remove-emp-selector-container">
 											<li>
 												<a>
 													<span>Remove Employee</span>
@@ -69,56 +70,38 @@
 								<td>
 									<div @click="_toggleTableInput_( index, 0 )"  v-show="!list.activeInput[0]">{{ list.fullname }}</div>
 									<div v-show="list.activeInput[0]">
-									<!-- <div @click="_toggleTableInput_( index, 0 )"  v-if="true">{{ list.fullname }}</div> -->
-									<!-- <div v-if="false">	 -->
-										<input type="text" style="border: 1px solid red">
+										<input type="text">
 									</div>
-									<!-- <div @click="_toggleTableInput_( index )" > -->
-									<!-- <div>
-										<a href="#" @click.prevent="_toggleTableInput_( index )">
-											{{ list.fullname }}
-										</a>
-									</div> -->
-									<!-- <div>
-										<input type="text" style="border: 1px solid red">
-									</div> -->
 								</td>
 								<td>
-									<!-- <div @click="_toggleTableInput_( index, 1 )" v-if="!list.activeInput[1]">{{ _formatDate_( list.dob, null,'DD MMM,YYYY' ) }}</div>
-									<div v-if="list.activeInput[1]"> -->
-									<div @click="_toggleTableInput_( index, 1 )" v-show="true">{{ _formatDate_( list.dob, null,'DD/MM/YYYY' ) }}</div>
-									<div v-show="false">
+									<div @click="_toggleTableInput_( index, 1 )" v-if="!list.activeInput[1]">{{ _formatDate_( list.dob, null,'DD/MM/YYYY' ) }}</div>
+									<div v-if="list.activeInput[1]">
 										<input type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
 								</td>
 								<td>
-									<!-- <div @click="_toggleTableInput_( index, 2 )" v-if="!list.activeInput[2]">{{ _formatDate_( list.start_date, null,'DD MMM,YYYY' ) }}</div>
-									<div v-if="list.activeInput[2]"> -->
-									<div @click="_toggleTableInput_( index, 2 )" v-show="true">{{ _formatDate_( list.start_date, null,'DD/MM/YYYY' ) }}</div>
-									<div v-show="false">
+									<div @click="_toggleTableInput_( index, 2 )" v-if="!list.activeInput[2]">{{ _formatDate_( list.start_date, null,'DD/MM/YYYY' ) }}</div>
+									<div v-if="list.activeInput[2]">
 										<input type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
 								</td>
-								<td v-click-outside="_hideAllDrop_"  class="country-code-wrapper">
-									<!-- <div @click="_toggleTableInput_( index, 3 )" v-if="!list.activeInput[3]">{{ list.country_code }}</div>
-									<div v-if="list.activeInput[3]"> -->
-									<div @click="_toggleTableInput_( index, 3 )" v-show="true">{{ list.country_code }}</div>
-									<div v-show="false">
+								<!-- <td v-click-outside="_hideAllDrop_"  class="country-code-wrapper"> -->
+								<td class="country-code-wrapper">
+									<div @click="_toggleTableInput_( index, 3 )" v-if="!list.activeInput[3]">{{ list.country_code }}</div>
+									<div v-if="list.activeInput[3]">
 										<input type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
-									<!-- <div v-if="list.activeInput[3]" class="tbl-custom-dropdown"> -->
-									<div v-if="false" class="tbl-custom-dropdown">
-										<div class="select-num"> +60 </div>
+									<div v-if="list.activeInput[3]" class="tbl-custom-dropdown">
+										<div @click="_setCountryCode_( index,'singapore' )" class="select-num"> +65 </div>
+										<div @click="_setCountryCode_( index,'malaysia' )" class="select-num"> +60 </div>
 									</div>
 								</td>
 								<td>
-									<!-- <div @click="_toggleTableInput_( index, 4 )" v-if="!list.activeInput[4]">{{ list.mobile_number }}</div>
-									<div v-if="list.activeInput[4]"> -->
-									<div @click="_toggleTableInput_( index, 4 )" v-show="true">{{ list.mobile_number }}</div>
-									<div v-show="false">
+									<div @click="_toggleTableInput_( index, 4 )" v-if="!list.activeInput[4]">{{ list.mobile_number }}</div>
+									<div v-if="list.activeInput[4]">
 										<input type="text">
 									</div>
 								</td>
@@ -187,9 +170,9 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr v-for="(list,index) in dependent_details_arr">
+							<tr v-for="(list,index) in global_dependentPlanData">
 								<td>
-									<div v-click-outside="_hideAllDrop_" @click="_toggleOptions_(list)" class="option-selector">
+									<div @click="_toggleOptions_(list)" class="option-selector">
 										<img :src="'../assets/img/dots.png'">
 										<div v-if="list.isOptionsShow" class="remove-emp-selector-container">
 											<li>
@@ -208,40 +191,46 @@
 									</div>
 								</td>
 								<td>
-									<div @click="_toggleDependentsTableInput_( index, 0 )"  v-if="!list.activeInput[0]">{{ list.dependent_fullname }}</div>
+									<div @click="_toggleDependentsTableInput_( index, 0 )"  v-if="!list.activeInput[0]">{{ list.fullname }}</div>
 									<div v-if="list.activeInput[0]">
 										<input type="text">
 									</div>
 								</td>
-								<td>
-									<div @click="_toggleDependentsTableInput_( index, 1 )"  v-if="!list.activeInput[1]">{{ list.employee_fullname }}</div>
+								<td class="employee-fullname-wrapper">
+									<div @click="_toggleDependentsTableInput_( index, 1 )"  v-if="!list.activeInput[1]">{{ list.fullname }}</div>
 									<div v-if="list.activeInput[1]">
 										<input type="text">
 									</div>
+									<div v-if="list.activeInput[1]" class="tbl-custom-dropdown employee-name">
+										<div @click="_setEmployeeForDependent_( index,list )" v-for="( list,index ) in global_employeePlanData" class="select-num"> {{ list.fullname }}</div>
+									</div>
 								</td>
 								<td class="employee-id-container">
-									<div>{{ list.id }}</div>
+									<div>{{ list.employee_id }}</div>
 								</td>
-								<td v-click-outside="_hideAllDrop_" class="relationship-wrapper">
+								<td class="relationship-wrapper">
 									<div @click="_toggleDependentsTableInput_( index, 2 )"  v-if="!list.activeInput[2]">{{ list.relationship }}</div>
 									<div v-if="list.activeInput[2]">
 										<input type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
 									<div v-if="list.activeInput[2]" class="tbl-custom-dropdown">
-										<div class="select-num"> Parent</div>
-										<div class="select-num"> Family</div>
+										<div class="select-num" @click="_setRelationship_( index, 'parent' )">Parent</div>
+	              		<div class="select-num" @click="_setRelationship_( index, 'family' )">Family</div>
+										<div class="select-num" @click="_setRelationship_( index, 'spouse' )">Spouse</div>
+										<div class="select-num" @click="_setRelationship_( index, 'child' )">Child</div>
+	              		<div class="select-num" @click="_setRelationship_( index, 'sibling' )">Sibling</div>
 									</div>
 								</td>
 								<td>
-									<div @click="_toggleDependentsTableInput_( index, 3 )"  v-if="!list.activeInput[3]">{{ _formatDate_( list.dob, null,'DD MMM,YYYY' ) }}</div>
+									<div @click="_toggleDependentsTableInput_( index, 3 )"  v-if="!list.activeInput[3]">{{ _formatDate_( list.dob, null,'DD/MM/YYYY' ) }}</div>
 									<div v-if="list.activeInput[3]">
 										<input type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
 								</td>
 								<td>
-									<div @click="_toggleDependentsTableInput_( index, 4 )"  v-if="!list.activeInput[4]">{{ _formatDate_( list.start_date, null,'DD MMM,YYYY' ) }}</div>
+									<div @click="_toggleDependentsTableInput_( index, 4 )"  v-if="!list.activeInput[4]">{{ _formatDate_( list.start_date, null,'DD/MM/YYYY' ) }}</div>
 									<div v-if="list.activeInput[4]">
 										<input type="text">
 										<i class="fa fa-angle-down"></i>

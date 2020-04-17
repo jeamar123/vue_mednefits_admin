@@ -279,6 +279,13 @@ table {
     top: -30px;
     width: 100%;
     z-index: 9;
+
+    &.employee-name {
+      width: 250px;
+    }
+    &::-webkit-scrollbar {
+      height: 3px;
+    }
     .select-num {
       padding: 0 12px;
       height: 35px;
@@ -290,6 +297,7 @@ table {
   }
   .employee-id-container {
     border: 1px solid #d0d0d0;
+    background-color: #EFEFF4;
   }
   .fa-angle-down {
     font-size: 24px;
