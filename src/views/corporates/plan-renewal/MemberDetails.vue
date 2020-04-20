@@ -70,20 +70,20 @@
 								<td>
 									<div @click="_toggleTableInput_( index, 0 )"  v-show="!list.activeInput[0]">{{ list.fullname }}</div>
 									<div v-show="list.activeInput[0]">
-										<input type="text">
+										<input class="renewal-input" type="text">
 									</div>
 								</td>
 								<td>
 									<div @click="_toggleTableInput_( index, 1 )" v-if="!list.activeInput[1]">{{ _formatDate_( list.dob, null,'DD/MM/YYYY' ) }}</div>
 									<div v-if="list.activeInput[1]">
-										<input type="text">
+										<input class="renewal-input" type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
 								</td>
 								<td>
 									<div @click="_toggleTableInput_( index, 2 )" v-if="!list.activeInput[2]">{{ _formatDate_( list.start_date, null,'DD/MM/YYYY' ) }}</div>
 									<div v-if="list.activeInput[2]">
-										<input type="text">
+										<input class="renewal-input" type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
 								</td>
@@ -91,7 +91,7 @@
 								<td class="country-code-wrapper">
 									<div @click="_toggleTableInput_( index, 3 )" v-if="!list.activeInput[3]">{{ list.country_code }}</div>
 									<div v-if="list.activeInput[3]">
-										<input type="text">
+										<input class="renewal-input" type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
 									<div v-if="list.activeInput[3]" class="tbl-custom-dropdown">
@@ -102,7 +102,7 @@
 								<td>
 									<div @click="_toggleTableInput_( index, 4 )" v-if="!list.activeInput[4]">{{ list.mobile_number }}</div>
 									<div v-if="list.activeInput[4]">
-										<input type="text">
+										<input class="renewal-input" type="text">
 									</div>
 								</td>
 							</tr>
@@ -193,13 +193,13 @@
 								<td>
 									<div @click="_toggleDependentsTableInput_( index, 0 )"  v-if="!list.activeInput[0]">{{ list.fullname }}</div>
 									<div v-if="list.activeInput[0]">
-										<input type="text">
+										<input class="renewal-input" type="text">
 									</div>
 								</td>
 								<td class="employee-fullname-wrapper">
 									<div @click="_toggleDependentsTableInput_( index, 1 )"  v-if="!list.activeInput[1]">{{ list.fullname }}</div>
 									<div v-if="list.activeInput[1]">
-										<input type="text">
+										<input class="renewal-input" type="text">
 									</div>
 									<div v-if="list.activeInput[1]" class="tbl-custom-dropdown employee-name">
 										<div @click="_setEmployeeForDependent_( index,list )" v-for="( list,index ) in global_employeePlanData" class="select-num"> {{ list.fullname }}</div>
@@ -211,7 +211,7 @@
 								<td class="relationship-wrapper">
 									<div @click="_toggleDependentsTableInput_( index, 2 )"  v-if="!list.activeInput[2]">{{ list.relationship }}</div>
 									<div v-if="list.activeInput[2]">
-										<input type="text">
+										<input class="renewal-input" type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
 									<div v-if="list.activeInput[2]" class="tbl-custom-dropdown">
@@ -225,14 +225,14 @@
 								<td>
 									<div @click="_toggleDependentsTableInput_( index, 3 )"  v-if="!list.activeInput[3]">{{ _formatDate_( list.dob, null,'DD/MM/YYYY' ) }}</div>
 									<div v-if="list.activeInput[3]">
-										<input type="text">
+										<input class="renewal-input" type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
 								</td>
 								<td>
 									<div @click="_toggleDependentsTableInput_( index, 4 )"  v-if="!list.activeInput[4]">{{ _formatDate_( list.start_date, null,'DD/MM/YYYY' ) }}</div>
 									<div v-if="list.activeInput[4]">
-										<input type="text">
+										<input class="renewal-input" type="text">
 										<i class="fa fa-angle-down"></i>
 									</div>
 								</td>
