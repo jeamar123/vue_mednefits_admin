@@ -53,7 +53,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<tr v-for="( list,index ) in get_spending_data">
 							<td>
 								<div class="option-selector">
 									<img :src="'../assets/img/dots.png'">
@@ -74,32 +74,34 @@
 								</div>
 							</td>
 							<td>
-								<div>297</div>
+								<div>{{ list.id }}</div>
 							</td>
 							<td>
-								<div>Llay jk</div>
+								<div>{{ list.name }}</div>
 							</td>
 							<td>
-								<div>01/12/2019</div>
+								<div>{{ list.start_date }}</div>
+							</td>
+							<!-- <td v-if="global_isRollover == 'no'">
+								<div @click="toggleTableInput()">{{ list.medical_entitlement }}</div>
+								<input v-if="false" type="number">
 							</td>
 							<td v-if="global_isRollover == 'no'">
-								<div>100</div>
+								<div>{{ list.wellness_entitlement }}</div>
+								<input v-if="false" type="number">
+							</td> -->
+							<td v-if="global_isRollover == 'yes' || global_isRollover == 'no' ">
+								<div @click="_toggleTableInput_( index, 0, 4 )" v-if="!list.activeInput[0]">{{ list.medical_entitlement }}</div>
+								<input v-if="list.activeInput[0]" class="renewal-input" type="text">
 							</td>
-							<td v-if="global_isRollover == 'no'">
-								<div>200</div>
+							<td v-if="global_isRollover == 'yes'" class="rollover-col">{{ list.medical_rollover_amount }}</td>
+							<td v-if="global_isRollover == 'yes'">{{ list.medical_allocated_credits }}</td>
+							<td v-if="global_isRollover == 'yes' || global_isRollover == 'no' ">
+								<div @click="_toggleTableInput_( index, 1, 6 )" v-if="!list.activeInput[1]">{{ list.medical_entitlement }}</div>
+								<input v-if="list.activeInput[1]" class="renewal-input" type="text">
 							</td>
-							<td v-if="global_isRollover == 'yes'">
-								<div>400</div>
-								<input v-if="false" type="text">
-							</td>
-							<td v-if="global_isRollover == 'yes'" class="rollover-col">100</td>
-							<td v-if="global_isRollover == 'yes'">600</td>
-							<td v-if="global_isRollover == 'yes'">
-								<div>300</div>
-								<input v-if="false" type="text">
-							</td>
-							<td v-if="global_isRollover == 'yes'" class="rollover-col">100</td>
-							<td v-if="global_isRollover == 'yes'">400</td>
+							<td v-if="global_isRollover == 'yes'" class="rollover-col">{{ list.wellness_rollover_amount }}</td>
+							<td v-if="global_isRollover == 'yes'">{{ list.wellness_allocated_credits }}</td>
 						</tr>
 					</tbody>
 				</table>
