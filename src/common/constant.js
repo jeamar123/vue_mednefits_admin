@@ -74,6 +74,7 @@ const DOWNLOAD_SPENDING_TRANSACTIONS = `${SERVERURL}/company/spendingAccount`;
 const DOWNLOAD_RECEIPT_EXTENSION = `${SERVERURL}/company/planExtensionInvoiceReceipt`;
 const FETCH_EMPLOYEE_PLAN_RENEWAL = `${SERVERURL}/company/getPlanRenewalEmployeeDetails`;
 const FETCH_DEPENDENT_PLAN_RENEWAL = `${SERVERURL}/company/getPlanRenewalDependentDetails`;
+const FETCH_PLAN_RENEWAL = `${SERVERURL}/company/getPlanRenewalDetails`;
 
 module.exports = {
 	AUTH_LOGIN,
@@ -143,4 +144,5 @@ module.exports = {
 	DOWNLOAD_RECEIPT_EXTENSION,
 	FETCH_EMPLOYEE_PLAN_RENEWAL,
 	FETCH_DEPENDENT_PLAN_RENEWAL,
+	FETCH_PLAN_RENEWAL,
 }
