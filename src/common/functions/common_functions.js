@@ -1760,6 +1760,15 @@ const _fetchDependentPlanRenewalData_ = (params)	=> {
 	return _axiosCall_(req);
 }
 
+const _fetchPlanRenewalData_ = (params)	=> {
+	let	req	=	{
+		method:	'GET',
+		url:	Config.FETCH_PLAN_RENEWAL + '?customer_id=' + params.customer_id,
+		header:	defaultHeaders,
+	};
+	return _axiosCall_(req);
+}
+
 export	{
 	_login_,
 	_goBack_,
@@ -1839,4 +1848,5 @@ export	{
 	_downloadReceiptExtension_,
 	_fetchEmployeePlanRenewalData_,
 	_fetchDependentPlanRenewalData_,
+	_fetchPlanRenewalData_,
 }

@@ -1,13 +1,18 @@
 <script>
 import Modal from "../../../views/modal/Modal.vue";
 import moment, { locale } from "moment";
-import { 
-  
+import {
+  _showPageLoading_,
+  _hidePageLoading_, 
+  _fetchPlanRenewalData_,
 } from '../../../common/functions/common_functions';
 
   let planDetails = {
     components: {
       Modal
+    },
+    props: {
+      customer_id: [String, Number],
     },
     data() {
       return {
@@ -23,26 +28,28 @@ import {
         global_updatePlanDetails: {
           plan_start: new Date(),
         },
+        global_planDetails: {
+          employee_renewal_details: {
+            plan_end: new Date(),
+          },
+          dependent_renewal_details: {
+            plan_end: new Date(),
+          }
+        },
       };
     },
     created(){
       // this.corporateViewStatus = this.$route.name;
-      localStorage.customerRenewalId = 1;
+      this._getPlanRenewalData_();
     },
     methods: {
-      _changePlan_( type ) {
+      _changePlan_( type, data ) {
         this.global_isChangePlanShow = this.global_isChangePlanShow == false ? true : false;
         this.global_selectedType = type;
-        let params = {
-          type: this.global_selectedType,
-        }
+        this.global_changePlan = data;
+        console.log(this.global_changePlan);
         
-        if ( type == 'employee') {
-          this._getEmployeePlanRenewalData_();
-        }
-        if ( type == 'dependent' ) {
-          this._getDependentPlanRenewalData_();
-        }
+        this.global_changePlan.plan_start = new Date(this.global_changePlan.plan_start);
         
       },
       _setAccountType_( account_type ) {},
@@ -83,29 +90,27 @@ import {
           } 
         });
       },
-      _getEmployeePlanRenewalData_() {
+      _getPlanRenewalData_() {
         let params = {
-          customer_plan_renewal_id: 1,
+          customer_id: this.customer_id,
         }
-        // _fetchEmployeePlanRenewalData_(params)
-        // .then(( res ) => {
-        //   console.log(res);
-        //   if( res.status == 200 || res.status == 201 ){
-        //     // _hidePageLoading_();
-        //   }
-        // });
-      },
-      _getDependentPlanRenewalData_() {
-        let params = {
-          customer_plan_renewal_id: 1,
-        }
-        // _fetchDependentPlanRenewalData_(params)
-        // .then(( res ) => {
-        //   console.log(res);
-        //   if( res.status == 200 || res.status == 201 ){
-        //     // _hidePageLoading_();
-        //   }
-        // });
+        _showPageLoading_();
+        _fetchPlanRenewalData_(params)
+        .then(( res ) => {
+          // console.log(res);
+          if( res.status == 200 || res.status == 201 ){
+            this.global_planDetails = res.data.data;
+            localStorage.customerRenewalId = this.global_planDetails.customer_plan_renewal_id;
+
+            this.global_planDetails.employee_plan_start = moment(this.global_planDetails.employee_plan_start).format('DD/MM/YYYY');
+            this.global_planDetails.employee_renewal_details.plan_end = moment(this.global_planDetails.employee_renewal_details.plan_end).format('DD/MM/YYYY');
+            this.global_planDetails.dependent_plan_start = moment(this.global_planDetails.dependent_plan_start).format('DD/MM/YYYY');
+            this.global_planDetails.dependent_renewal_details.plan_end = moment(this.global_planDetails.dependent_renewal_details.plan_end).format('DD/MM/YYYY');
+
+            console.log(this.global_planDetails);
+            _hidePageLoading_();
+          }
+        });
       },
     }
   }

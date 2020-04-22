@@ -181,9 +181,9 @@ export default new Router({
               props: { child: true},
               redirect: '/dashboard/corporates/:company_name-:customer_id/plan-renewal/details',
               children : [
-                { name: 'PlanRenewalDetails', path: '/dashboard/corporates/:company_name-:customer_id/plan-renewal/details', components: { child : PlanDetails} },
-                { name: 'PlanRenewalMemberDetails', path: '/dashboard/corporates/:company_name-:customer_id/plan-renewal/member', components: { child : MemberDetails} },
-                { name: 'PlanRenewalSpendingAccount', path: '/dashboard/corporates/:company_name-:customer_id/plan-renewal/spending-account', components: { child : SpendingRenewalDetails}, props:true },
+                { name: 'PlanRenewalDetails', path: '/dashboard/corporates/:company_name-:customer_id/plan-renewal/details', components: { child : PlanDetails}, props: { child: true} },
+                { name: 'PlanRenewalMemberDetails', path: '/dashboard/corporates/:company_name-:customer_id/plan-renewal/member', components: { child : MemberDetails}, props: { child: true} },
+                { name: 'PlanRenewalSpendingAccount', path: '/dashboard/corporates/:company_name-:customer_id/plan-renewal/spending-account', components: { child : SpendingRenewalDetails}, props: { child: true} },
               ]
             },
             { name: 'PlanRenewalSpendingRenewal', path: '/dashboard/corporates/:company_name-:customer_id/pending-renewal', components: { child : SpendingAccountRenewal}, props:true },
