@@ -191,7 +191,7 @@
 				</div>
 			</div>
 			<div slot="footer">
-				<button @click="_changePlan_()" class="btn-primary">Cancel</button>
+				<button @click="_changePlan_('close',global_changePlan)" class="btn-primary">Cancel</button>
 				<button @click="_updatePlanDetails_( global_updatePlanDetails )" class="btn-primary">Update Plan</button>
 			</div>
 		</Modal>
